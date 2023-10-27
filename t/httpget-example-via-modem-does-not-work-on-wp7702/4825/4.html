@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>HttpGet example via modem does not work on WP7702 - #4 by jyijyi - mangOH Red - mangOH forum</title>
+    <meta name="description" content="I tried to run the httpGet sample module inside Legato AF on WP7702  with NBIOT. The httpGet will fail with the error message as below. I had connect the NBIOT network and set the DNS into /etc/resolv.conf. But it still &amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;HttpGet example via modem does not work on WP7702&#39;" href="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825/4" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825/4" />
+<meta property="og:title" content="HttpGet example via modem does not work on WP7702" />
+<meta name="twitter:title" content="HttpGet example via modem does not work on WP7702" />
+<meta property="og:description" content="Seems you need to modify the adef file,  please see below:" />
+<meta name="twitter:description" content="Seems you need to modify the adef file,  please see below:" />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta property="article:published_time" content="2020-07-12T15:11:49+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"HttpGet example via modem does not work on WP7702","mainEntity":{"@type":"Question","name":"HttpGet example via modem does not work on WP7702","text":"I tried to run the httpGet sample module inside Legato AF on WP7702  with NBIOT. The httpGet will fail with the error message as below. I had connect the NBIOT network and set the DNS into /etc/resolv.conf. But it still can not run correctly.\n\nroot@swi-mdm9x28-wp:~/sdcard# app start httpGet &amp;&amp; logre&hellip;","upvoteCount":0,"answerCount":1,"dateCreated":"2020-07-11T08:48:27.440Z","author":{"@type":"Person","name":"HY Chang"},"acceptedAnswer":{"@type":"Answer","text":"Hi, <a class=\"mention\" href=\"/u/jyijyi\">@jyijyi<\/a>. After a month ago. I found this error since we reach the telecom usage. Thanks for your reply.","upvoteCount":0,"dateCreated":"2020-09-04T12:08:32.814Z","url":"https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825/10","author":{"@type":"Person","name":"hychang"}}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/httpget-example-via-modem-does-not-work-on-wp7702/4825">HttpGet example via modem does not work on WP7702</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='HttpGet example via modem does not work on WP7702'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hychang'><span itemprop='name'>hychang</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-11T08:48:27Z' class='post-time'>
+                    July 11, 2020,  8:48am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-11T08:48:27Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>I tried to run the httpGet sample module inside Legato AF on WP7702  with NBIOT. The httpGet will fail with the error message as below. I had connect the NBIOT network and set the DNS into /etc/resolv.conf. But it still can not run correctly.</p>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~/sdcard# app start httpGet &amp;&amp; logread -f 
+Jul 11 08:39:06 swi-mdm9x28-wp user.warn Legato: -WRN- | _UNKNOWN_[4720]/framework T=main | fdMonitor.c le_fdMonitor_Create() 451 | FD Monitor object name 'httpGet.httpGetComponent.le_data' truncated to 'httpGet.httpGetComponent.le_dat'.
+Jul 11 16:39:06 swi-mdm9x28-wp user.info Legato:  INFO | httpGet[4720] | HTTP Get!
+Jul 11 08:39:06 swi-mdm9x28-wp user.info Legato:  INFO | httpGet[4720]/httpGetComponent T=main | httpGet.c _httpGetComponent_COMPONENT_INIT() 133 | Requesting connection...
+Jul 11 16:39:06 swi-mdm9x28-wp user.warn Legato: -WRN- | dcsDaemon[1011]/dcsDaemon T=main | dcsTechRank.c RetrieveWifiCfgSsid() 147 | No value set for 'SSID'!
+Jul 11 16:39:06 swi-mdm9x28-wp user.err Legato: =ERR= | dcsDaemon[1011]/dcsDaemon T=main | dcsTechRank.c dcsTechRank_SelectDataChannel() 234 | Failed to retrieve wifi config SSID
+Jul 11 16:39:06 swi-mdm9x28-wp user.err Legato: =ERR= | dcsDaemon[1011]/dcsDaemon T=main | dcsServer.c TryStartTechSession() 1097 | Failed to pick technology 0 to start a data connection
+Jul 11 16:39:06 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsDaemon T=main | dcsServer.c UpdateTechnologyStatus() 1065 | Technology retry timer is already running; wait for next retry
+Jul 11 16:39:06 swi-mdm9x28-wp user.notice kernel: [ 1127.194117] audit: type=1400 audit(1594456746.588:29): lsm=SMACK fn=smack_inode_getattr action=denied subject="app.httpGet" object="admin" requested=r pid=4720 comm="httpGet" path="pipe:[16062]" dev="pipefs" ino=16062
+Jul 11 16:39:20 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsDaemon T=main | dcsTechRank.c dcsTechRank_SelectDataChannel() 228 | Selected channel name 1
+Jul 11 16:39:20 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcs T=main | dcs.c dcs_AddEventHandler() 696 | Adding channel handler for channel 1 of technology cellular
+Jul 11 16:39:20 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcs T=main | dcs.c dcs_AddEventHandler() 736 | Event handler with reference 0xb8d and event ID 0x1459 added
+Jul 11 16:39:20 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcs T=main | dcs.c dcs_Start() 459 | Starting channel 1 of technology cellular by app session with reference (nil)
+Jul 11 16:39:20 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcs T=main | dcs.c dcs_Start() 516 | Initiating technology to start channel 1 for app session (nil), request reference 0x329
+Jul 11 16:39:20 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsDaemon T=main | dcsServer.c TryStartTechSession() 1145 | Successfully initiated data channel 1 of technology 1
+Jul 11 16:39:20 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcs T=main | dcsTech.c dcsTech_Start() 338 | Request to start channel 1 of technology cellular
+Jul 11 16:39:20 swi-mdm9x28-wp user.err Legato: =ERR= | modemDaemon[1047]/le_pa T=main | pa_mdc_qmi.c pa_mdc_StartSessionIPV4() 2501 | Data session is already connected
+Jul 11 16:39:20 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsCellular T=main | dcsCellular.c le_dcsCellular_Start() 1084 | Succeeded starting cellular connection 1
+Jul 11 16:39:20 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsDaemon T=main | dcsServer.c ChannelEventHandler() 820 | Received for channel reference 0x28d event Up
+Jul 11 16:39:20 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsDaemon T=main | dcsServer.c SetDefaultGWConfiguration() 456 | Setting default GW address on device
+Jul 11 16:39:20 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsNet T=main | dcsNet.c net_SetDefaultGW() 821 | Succeeded to set default GW addr on interface rmnet_data0 for channel 1 of technology cellular
+Jul 11 16:39:20 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsDaemon T=main | dcsServer.c SetDnsConfiguration() 620 | Setting DNS server addresses on device
+Jul 11 16:39:20 swi-mdm9x28-wp user.err Legato: =ERR= | dcsDaemon[1011]/dcsCellular T=main | dcsCellular.c le_dcsCellular_GetDNSAddrs() 966 | Failed to retrieve DNS addresses for connection 1
+Jul 11 16:39:20 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsNet T=main | dcsNet.c net_SetDNS() 1220 | Given channel 1 of technology cellular got no DNS server address assigned
+Jul 11 16:39:20 swi-mdm9x28-wp user.err Legato: =ERR= | dcsDaemon[1011]/dcsDaemon T=main | dcsServer.c SetDnsConfiguration() 646 | Failed to set DNS server addresses; error -6
+Jul 11 16:39:20 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsDaemon T=main | dcsServer.c SetDefaultRouteAndDns() 707 | Failed to set DNS configuration
+Jul 11 16:39:20 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsDaemon T=main | dcsServer.c SetDefaultRouteAndDns() 721 | Wait for next retry to set DNS configuration
+Jul 11 16:39:30 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsDaemon T=main | dcsServer.c SetDnsConfiguration() 620 | Setting DNS server addresses on device
+Jul 11 16:39:30 swi-mdm9x28-wp user.err Legato: =ERR= | dcsDaemon[1011]/dcsCellular T=main | dcsCellular.c le_dcsCellular_GetDNSAddrs() 966 | Failed to retrieve DNS addresses for connection 1
+Jul 11 16:39:30 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsNet T=main | dcsNet.c net_SetDNS() 1220 | Given channel 1 of technology cellular got no DNS server address assigned
+Jul 11 16:39:30 swi-mdm9x28-wp user.err Legato: =ERR= | dcsDaemon[1011]/dcsDaemon T=main | dcsServer.c SetDnsConfiguration() 646 | Failed to set DNS server addresses; error -6
+Jul 11 16:39:30 swi-mdm9x28-wp user.err Legato: =ERR= | dcsDaemon[1011]/dcsDaemon T=main | dcsServer.c SetDNSConfigTimerHandler() 766 | Releasing data channel upon failure to retry setting DNS configuration; error -6
+Jul 11 16:39:30 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsNet T=main | dcsNet.c net_RestoreDefaultGW() 653 | Default IPv4 GW address 10.25.20.70 on interface rmnet_data0 restored
+Jul 11 16:39:30 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcs T=main | dcs.c dcs_Stop() 588 | Stopping channel 1 of technology cellular
+Jul 11 16:39:30 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcs T=main | dcs.c dcs_Stop() 613 | Channel 1 requested to be stopped
+Jul 11 16:39:30 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsDaemon T=main | dcsServer.c TryStopTechSession() 1197 | Successfully initiated stopping active data connection 1 of technology 1
+Jul 11 16:39:30 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsDaemon T=main | dcsServer.c UpdateTechnologyStatus() 1080 | Technology retry to connect will happen after 128 sec
+Jul 11 16:39:30 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcs T=main | dcsTech.c dcsTech_Stop() 399 | Request to stop channel 1 of technology cellular
+Jul 11 16:39:30 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsCellular T=main | dcsCellular.c le_dcsCellular_Stop() 1184 | Succeeded stopping cellular connection 1
+Jul 11 16:39:30 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsCellular T=main | dcsCellular.c DcsCellularConnEventStateHandler() 256 | State of connection 1 transitioned from up to down
+Jul 11 16:39:30 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsDaemon T=main | dcsServer.c ChannelEventHandler() 820 | Received for channel reference 0x28d event Down
+Jul 11 16:39:30 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsDaemon T=main | dcsServer.c UpdateTechnologyStatus() 1065 | Technology retry timer is already running; wait for next retry
+Jul 11 08:39:30 swi-mdm9x28-wp user.info Legato:  INFO | httpGet[4720]/httpGetComponent T=main | httpGet.c ConnectionStateHandler() 116 | Interface  disconnected.
+Jul 11 08:39:36 swi-mdm9x28-wp user.err Legato: =ERR= | httpGet[4720]/httpGetComponent T=main | httpGet.c TimeoutHandler() 55 | Couldn't establish connection after 30 seconds
+Jul 11 16:39:36 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1011]/dcsDaemon T=main | dcsServer.c CloseSessionEventHandler() 1371 | Client 0x7f5ac108 killed, remove allocated resources
+Jul 11 16:39:36 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[886]/supervisor T=main | proc.c proc_SigChildHandler() 2079 | Process 'httpGet' (PID: 4720) has exited with exit code 1.
+Jul 11 16:39:36 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[886]/supervisor T=main | app.c app_SigChildHandler() 4067 | Process 'httpGet' in app 'httpGet' faulted: Ignored.
+Jul 11 16:39:36 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[886]/supervisor T=main | app.c app_StopComplete() 4764 | app 'httpGet' has stopped.
+Jul 11 16:39:36 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[886]/supervisor T=main | apps.c DeactivateAppContainer() 374 | Application 'httpGet' has stopped.
+</code></pre>
+<p>I used the 20.04 of Legato AF.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-11T11:12:17Z' class='post-time'>
+                    July 11, 2020, 11:12am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-11T11:41:18Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I remember it works on R9, you can give a try on that.</p>
+<p>Besides,  some user can run the httpget sample in legato 20.04.</p>
+<aside class="quote quote-modified" data-post="1" data-topic="4673">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/m/bbce88/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/mangohred-problem-app-httpget/4673">MangohRed problem App httpGet</a> <a class="badge-wrapper  bullet" href="/c/mangoh-red/12"><span class="badge-category-bg" style="background-color: #DF1E2E;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-red">mangOH Red</span></a>
+  </div>
+  <blockquote>
+    A modification was made to the httpGet example using a timer that runs the le_data_Request () function every 5 seconds. This application is compiled and runs on a 
+wp7607 modem connected in a mangohred and using the command logread -f to check the report of the application 
+trouble: 
+After 85 minutes that the application is working correctly, the program reports the following line: 
+Jun 13 05:24:33 swi-mdm9x28-wp user.warn Legato: -WRN- | posDaemon [1035] / le_pa_gnss T = unknown | pa_gnss_qmi.c…
+  </blockquote>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hychang'><span itemprop='name'>hychang</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-12T13:08:38Z' class='post-time'>
+                    July 12, 2020,  1:08pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-12T13:08:38Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I had test the R9 release. But it still not work.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-12T15:11:49Z' class='post-time'>
+                    July 12, 2020,  3:11pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-12T15:11:49Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Seems you need to modify the adef file,  please see below:</p>
+<aside class="onebox whitelistedgeneric">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/252837692301bb53b7d4b8041901ad6486ced526.png" class="site-icon" width="32" height="32">
+      <a href="https://forum.legato.io/t/httpget-sample-missing-libgmp-so-10-wont-start/3493" target="_blank" rel="nofollow noopener" title="10:19PM - 30 July 2018">Legato Forum – 30 Jul 18</a>
+  </header>
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/httpget-sample-missing-libgmp-so-10-wont-start/3493" target="_blank" rel="nofollow noopener">httpGet Sample missing libgmp.so.10 - won't start</a></h3>
+
+<p>Hello,  I have a 7702 module running Legato for WP77 R9 - while I got a simple “hello world” component / app to run and debug just fine, the httpGet sample that comes as part of this package does not run - looking at device log, I see this message: ...</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/http-get-request-not-working-properly/9638/2">Http get request not working properly</a>
+                        <meta itemprop='position' content='2'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-13T02:15:29Z' class='post-time'>
+                    July 13, 2020,  2:15am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-13T02:15:56Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I just tried on WP77 R12, no problem is found, maybe you can use my httpget sample attached.</p>
+<p><a class="attachment" href="/uploads/short-url/vH12hNGLAn2lmYTI9OXPxkAMHdP.rar">http_get_WP77.rar</a> (414.5 KB)</p>
+<p>Please attach data connection by “cm data connect &amp;” before running the app.</p>
+<hr>
+<p>root@swi-mdm9x28-wp:~# cm info<br>
+Device:                        WP7702<br>
+IMEI:                          352653090002775<br>
+IMEISV:                        4<br>
+FSN:                           VU735370350701<br>
+Firmware Version:              SWI9X06Y_02.32.02.00 c2e98c jenkins 2019/08/30 07:28:21<br>
+Bootloader Version:            SWI9X06Y_02.32.02.00 c2e98c jenkins 2019/08/30 07:28:21<br>
+MCU Version:                   002.013<br>
+PRI Part Number (PN):          9907365<br>
+PRI Revision:                  001.001<br>
+Carrier PRI Name:              GENERIC<br>
+Carrier PRI Revision:          001.055_000<br>
+SKU:                           1103530<br>
+Last Reset Cause:              Reset, User Requested<br>
+Resets Count:                  Expected: 66     Unexpected: 0<br>
+root@swi-mdm9x28-wp:~# legato version<br>
+19.07.0_6ebfa306dc802a91d515da9361145709_modified<br>
+root@swi-mdm9x28-wp:~# cm data<br>
+Index:                         1<br>
+APN:                           hkcsl<br>
+PDP Type:                      IPV4<br>
+Connected:                     yes<br>
+Interface:                     rmnet_data0<br>
+Family[IPv4]:                  inet<br>
+IP[IPv4]:                      10.178.215.57<br>
+Gateway[IPv4]:                 10.178.215.58<br>
+Dns1[IPv4]:                    10.144.148.1<br>
+Dns2[IPv4]:                    10.145.148.5<br>
+root@swi-mdm9x28-wp:~# cm radio<br>
+Power:                         ON<br>
+Current Network Operator:      CSL<br>
+Current RAT:                   GSM network (LE_MRC_RAT_GSM)<br>
+Status:                        Registered, home network (LE_MRC_REG_HOME)<br>
+Signal:                        Good signal strength (3)<br>
+PS:                            Packet Switched Registered, home network (LE_MRC_REG_HOME)</p>
+<p>Jul 13 10:09:20 | httpGet[5811] |  | HTTP Get!<br>
+Jul 13 10:09:20 | avcDaemon[1161]/avcDaemon T=main | avcAppUpdate.c avcApp_SetSwUpdateState() 3013 | No update is going on. CurrentObj9 = null<br>
+Jul 13 10:09:20 | avcDaemon[1161]/avcDaemon T=main | avcAppUpdate.c avcApp_SetSwUpdateResult() 2948 | No update is going on. CurrentObj9 = null<br>
+Jul 13 10:09:20 | avcDaemon[1161]/avcDaemon T=main | avcAppUpdate.c NotifyObj9List() 697 | Found 1 object 9 instances<br>
+Jul 13 10:09:20 | avcDaemon[1161]/avcDaemon T=main | avcAppUpdate.c NotifyObj9List() 698 | obj9ListLen; 12 obj9List: &lt;/lwm2m/9/0&gt;<br>
+Jul 13 10:09:21 | avcDaemon[1161]/avcDaemon T=main | assetData.c RegUpdateTimerHandler() 3271 | RegUpdate timer expired; reporting REG_UPDATE<br>
+Jul 13 10:09:21 | avcDaemon[1161]/avcDaemon T=main | assetData.c assetData_RegistrationUpdate() 1951 | unsupported function called.<br>
+Jul 13 10:09:23 | httpGet[5811] |  | Succesfully received data:<br>
+Jul 13 10:09:23 | httpGet[5811] |  | {   “args”: {},    “headers”: {     “Accept”: “<em>/</em>”,      “Host”: “<a href="http://httpbin.org" rel="nofollow noopener">httpbin.org</a>”,      “X-Amzn-Trace-Id”: “Root=1-5f0bc254-604d1aa7a0a77e3a37cf329b”   },    “origin”: “14.0.154.223”,    “url”: "<a href="https://ht" rel="nofollow noopener">https://ht</a></p>
+<hr>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hychang'><span itemprop='name'>hychang</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-13T08:22:38Z' class='post-time'>
+                    July 13, 2020,  8:22am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-13T08:22:38Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi, <a class="mention" href="/u/jyijyi">@jyijyi</a> thanks for your reply<br>
+I tried on WP77 R12. Here is my system info and the log info</p>
+<hr>
+<p>root@swi-mdm9x28-wp:~# cm data connect &amp;<br>
+root@swi-mdm9x28-wp:~# Failed to get DNS addresses: LE_FAULT<br>
+Failed to get DNS addresses: LE_FAULT<br>
+Checking if device ‘rmnet_data0’ is up … ok<br>
+Routing inet … ok<br>
+Testing connection …<br>
+root@swi-mdm9x28-wp:~# cm info<br>
+Device:                        WP7702<br>
+IMEI:                          *************************<br>
+IMEISV:                        4<br>
+FSN:                           **************<br>
+Firmware Version:              SWI9X06Y_02.32.02.00 c2e98c jenkins 2019/08/30 07:28:21<br>
+Bootloader Version:            SWI9X06Y_02.32.02.00 c2e98c jenkins 2019/08/30 07:28:21<br>
+MCU Version:                   002.013<br>
+PRI Part Number (PN):          9907365<br>
+PRI Revision:                  001.006<br>
+Carrier PRI Name:              GENERIC<br>
+Carrier PRI Revision:          001.055_000<br>
+SKU:                           1103530<br>
+Last Reset Cause:              Reset, User Requested<br>
+Resets Count:                  Expected: 299	Unexpected: 1<br>
+root@swi-mdm9x28-wp:~# cm data<br>
+Index:                         1<br>
+APN:                           nbiot<br>
+PDP Type:                      IPV4<br>
+Connected:                     yes<br>
+Failed to get DNS addresses: LE_FAULT<br>
+Interface:                     rmnet_data0<br>
+Family[IPv4]:                  inet<br>
+IP[IPv4]:                      10.25.30.87<br>
+Gateway[IPv4]:                 10.25.30.88<br>
+Dns1[IPv4]:                    N/A<br>
+Dns2[IPv4]:                    N/A<br>
+root@swi-mdm9x28-wp:~# cm radio<br>
+Power:                         ON<br>
+Current Network Operator:      Far EasTone<br>
+Current RAT:                   LTE network (LE_MRC_RAT_LTE)<br>
+Status:                        Registered, home network (LE_MRC_REG_HOME)<br>
+Signal:                        Strong signal strength (4)<br>
+PS:                            Packet Switched Registered, home network (LE_MRC_REG_HOME)<br>
+root@swi-mdm9x28-wp:~# legato version<br>
+19.07.0_6ebfa306dc802a91d515da9361145709_modified</p>
+<hr>
+<p>root@swi-mdm9x28-wp:~# app status<br>
+[running] atAirVantage<br>
+[running] atQmiLinker<br>
+[running] atService<br>
+[running] audioService<br>
+[running] avcService<br>
+[running] cellNetService<br>
+[running] dataConnectionService<br>
+[running] fwupdateService<br>
+[running] gpioService<br>
+[running] modemService<br>
+[running] portService<br>
+[running] positioningService<br>
+[running] powerMgr<br>
+[running] qmiAirVantage<br>
+[running] secStore<br>
+[stopped] smsInboxService<br>
+[stopped] spiService<br>
+[running] tools<br>
+[stopped] voiceCallService<br>
+[stopped] wifi<br>
+[stopped] wifiApTest<br>
+[stopped] wifiClientTest<br>
+[running] wifiService<br>
+[stopped] wifiWebAp<br>
+[stopped] httpGet<br>
+[stopped] http_get_WP77<br>
+root@swi-mdm9x28-wp:~# app start http_get_WP77 &amp;&amp; logread -f<br>
+Jul 13 08:19:06 swi-mdm9x28-wp user.warn Legato: -WRN- | <em>UNKNOWN</em>[3117]/framework T=main | fdMonitor.c le_fdMonitor_Create() 422 | FD Monitor object name ‘httpGet.httpGetComponent.le_data’ truncated to ‘httpGet.httpGetComponent.le_dat’.<br>
+Jul 13 16:19:06 swi-mdm9x28-wp user.info Legato:  INFO | httpGet[3117] | HTTP Get!<br>
+Jul 13 16:19:06 swi-mdm9x28-wp user.notice kernel: [18949.036556] audit: type=1400 audit(1594628346.861:41): lsm=SMACK fn=smack_inode_getattr action=denied subject=“app.http_get_WP77” object=“admin” requested=r pid=3117 comm=“httpGet” path=“pipe:[106976]” dev=“pipefs” ino=10697<br>
+Jul 13 08:19:06 swi-mdm9x28-wp user.err Legato: =ERR= | httpGet[3117]/httpGetComponent T=main | httpGet.c GetUrl() 56 | curl_easy_perform() failed: Couldn’t resolve host name<br>
+Jul 13 16:19:06 swi-mdm9x28-wp user.notice kernel: [18949.049656] audit: type=1400 audit(1594628346.881:42): lsm=SMACK fn=smack_inode_getattr action=denied subject=“app.http_get_WP77” object=“admin” requested=r pid=3117 comm=“httpGet” path="/etc/resolv.conf" dev=“tmpfs” ino=929<br>
+Jul 13 16:19:06 swi-mdm9x28-wp user.notice kernel: [18949.049754] audit: type=1400 audit(1594628346.881:43): lsm=SMACK fn=smack_inode_permission action=denied subject=“app.http_get_WP77” object=“admin” requested=r pid=3117 comm=“httpGet” name=“resolv.conf” dev=“tmpfs” ino=92949<br>
+Jul 13 16:19:06 swi-mdm9x28-wp user.notice kernel: [18949.052228] audit: type=1400 audit(1594628346.881:44): lsm=SMACK fn=smack_socket_sock_rcv_skb action=denied subject=“app.http_get_WP77” object="<em>" requested=w pid=3117 comm=“httpGet” saddr=127.0.0.1 src=43461 daddr=127.0.0.1<br>
+Jul 13 16:19:06 swi-mdm9x28-wp user.notice kernel: [18949.052746] audit: type=1400 audit(1594628346.881:45): lsm=SMACK fn=smack_socket_sock_rcv_skb action=denied subject=“app.http_get_WP77” object="</em>" requested=w pid=3117 comm=“httpGet” saddr=127.0.0.1 src=43461 daddr=127.0.0.1<br>
+Jul 13 16:19:06 swi-mdm9x28-wp user.notice kernel: [18949.053145] audit: type=1400 audit(1594628346.881:46): lsm=SMACK fn=smack_socket_sock_rcv_skb action=denied subject=“app.http_get_WP77” object="<em>" requested=w pid=3117 comm=“httpGet” saddr=127.0.0.1 src=44419 daddr=127.0.0.1<br>
+Jul 13 16:19:06 swi-mdm9x28-wp user.notice kernel: [18949.053363] audit: type=1400 audit(1594628346.881:47): lsm=SMACK fn=smack_socket_sock_rcv_skb action=denied subject=“app.http_get_WP77” object="</em>" requested=w pid=3117 comm=“httpGet” saddr=127.0.0.1 src=44419 daddr=127.0.0.1</p>
+<hr>
+<p>Here is my app package: <a class="attachment" href="/uploads/short-url/9Om6Du2lppUvE64LOnqAsXmEqiD.tgz">http_get_WP77.tgz</a> (188.3 KB)<br>
+Can you try on the NB-IOT network?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-13T08:34:06Z' class='post-time'>
+                    July 13, 2020,  8:34am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-13T08:56:33Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>can you try my app in GSM network which already proven to be working ?</p>
+<p>BTW, do you connect the network?<br>
+Jul 13 08:19:06 swi-mdm9x28-wp user.err Legato: =ERR= | httpGet[3117]/httpGetComponent T=main | httpGet.c GetUrl() 56 | curl_easy_perform() failed: Couldn’t resolve host name</p>
+<p>If problem still exists on your side, you might give a try on legato 20.04 which is working fine other user.</p><aside class="quote quote-modified" data-post="1" data-topic="4673">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/m/bbce88/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/mangohred-problem-app-httpget/4673">MangohRed problem App httpGet</a> <a class="badge-wrapper  bullet" href="/c/mangoh-red/12"><span class="badge-category-bg" style="background-color: #DF1E2E;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-red">mangOH Red</span></a>
+  </div>
+  <blockquote>
+    A modification was made to the httpGet example using a timer that runs the le_data_Request () function every 5 seconds. This application is compiled and runs on a 
+wp7607 modem connected in a mangohred and using the command logread -f to check the report of the application 
+trouble: 
+After 85 minutes that the application is working correctly, the program reports the following line: 
+Jun 13 05:24:33 swi-mdm9x28-wp user.warn Legato: -WRN- | posDaemon [1035] / le_pa_gnss T = unknown | pa_gnss_qmi.c…
+  </blockquote>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hychang'><span itemprop='name'>hychang</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-13T09:46:13Z' class='post-time'>
+                    July 13, 2020,  9:46am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-13T09:46:13Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>The network can work</p>
+<hr>
+<p>I will try to get another sim card which support GSM network to test</p>
+<pre><code class="lang-auto">PING 8.8.8.8 (8.8.8.8): 56 data bytes
+64 bytes from 8.8.8.8: seq=0 ttl=113 time=916.550 ms
+64 bytes from 8.8.8.8: seq=1 ttl=113 time=929.380 ms
+64 bytes from 8.8.8.8: seq=2 ttl=113 time=753.678 ms
+64 bytes from 8.8.8.8: seq=3 ttl=113 time=711.956 ms
+
+--- 8.8.8.8 ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 711.956/827.891/929.380 ms
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-13T13:46:24Z' class='post-time'>
+                    July 13, 2020,  1:46pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-13T13:46:24Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>If problem still exists on your side, you might give a try on legato 20.04</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hychang'><span itemprop='name'>hychang</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-04T12:08:32Z' class='post-time'>
+                    September 4, 2020, 12:08pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-04T12:08:32Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi, <a class="mention" href="/u/jyijyi">@jyijyi</a>. After a month ago. I found this error since we reach the telecom usage. Thanks for your reply.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-04T12:42:58Z' class='post-time'>
+                    September 4, 2020, 12:42pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-04T12:42:58Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>So you upgrade to legato 20.04?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hychang'><span itemprop='name'>hychang</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-04T14:04:54Z' class='post-time'>
+                    September 4, 2020,  2:04pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-04T14:04:54Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>No. I tried on wp77 R12 release.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-04T14:18:18Z' class='post-time'>
+                    September 4, 2020,  2:18pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-04T14:18:18Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>If it does not work,  you can upgrade to legato20.04</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

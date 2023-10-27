@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Enabling wlan0 and rmnet on Android - mangOH Red - mangOH forum</title>
+    <meta name="description" content="Hi, 
+Regret for the long post. 
+On the MangoH red board, have connected sim and able to make a call and use data connection. Also to the same board, connected talon Wifi module and able to get the wlan0 up. 
+This whole s&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Enabling wlan0 and rmnet on Android&#39;" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733" />
+<meta property="og:title" content="Enabling wlan0 and rmnet on Android" />
+<meta name="twitter:title" content="Enabling wlan0 and rmnet on Android" />
+<meta property="og:description" content="Hi,  Regret for the long post.  On the MangoH red board, have connected sim and able to make a call and use data connection. Also to the same board, connected talon Wifi module and able to get the wlan0 up.  This whole setup is connected to Android based hardware which will be accessing sim  and well as wifi. The Android is the master which will initiate all the commands for enabling and disabling cellular nw as well as wifi.  For the Cellular network, Android Ril Integration Guide 4117325 was f..." />
+<meta name="twitter:description" content="Hi,  Regret for the long post.  On the MangoH red board, have connected sim and able to make a call and use data connection. Also to the same board, connected talon Wifi module and able to get the wlan0 up.  This whole setup is connected to Android based hardware which will be accessing sim  and well as wifi. The Android is the master which will initiate all the commands for enabling and disabling cellular nw as well as wifi.  For the Cellular network, Android Ril Integration Guide 4117325 was f..." />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta property="article:published_time" content="2020-11-27T09:37:12+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="next" href="/t/enabling-wlan0-and-rmnet-on-android/5733?page=2">
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Enabling wlan0 and rmnet on Android","mainEntity":{"@type":"Question","name":"Enabling wlan0 and rmnet on Android","text":"Hi,\n\nRegret for the long post.\n\nOn the MangoH red board, have connected sim and able to make a call and use data connection. Also to the same board, connected talon Wifi module and able to get the wlan0 up.\n\nThis whole setup is connected to Android based hardware which will be accessing sim  and wel&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2020-11-27T09:37:12.346Z","author":{"@type":"Person","name":"tejaswi sj"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/enabling-wlan0-and-rmnet-on-android/5733">Enabling wlan0 and rmnet on Android</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Enabling wlan0 and rmnet on Android'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-27T09:37:12Z' class='post-time'>
+                    November 27, 2020,  9:37am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-27T09:37:12Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hi,</p>
+<p>Regret for the long post.</p>
+<p>On the MangoH red board, have connected sim and able to make a call and use data connection. Also to the same board, connected talon Wifi module and able to get the wlan0 up.<br>
+This whole setup is connected to Android based hardware which will be accessing sim  and well as wifi. The Android is the master which will initiate all the commands for enabling and disabling cellular nw as well as wifi.</p>
+<p>For the Cellular network, Android Ril Integration Guide 4117325 was followed. And able to successfully get cellular connectivity. So all the mangoh usb ports enumerate as USB modem ports.</p>
+<p>For the Wifi, wrote a atServer app at the MangoH board side which will receive at cmds from Android and perform Wifi operations. For this used raw port, enabled using USBcomp=9014D.  Able to get this port up on PC and run custom at commands.<br>
+Used GobiSerial.c on Android platform and able to get this port working</p>
+<p>Below are the issues currently facing.</p>
+<ol>
+<li>
+<p>When GobiSerial.c file is used for the raw Port, the USB modem ports for cellular communication is broken. For cellular communication sierra.c file is used. How to enable both serial and usb modem ports on Android like it happens on PC(Ubuntu PC).</p>
+</li>
+<li>
+<p>Both rmnet and wlan0 are accessed using usb0 interface from Android. Will there be any dhcpc issues ? How to resolve this? If dhcpcd_usb0 is up and running then, the cellular network data is not comming up.</p>
+</li>
+</ol>
+<p>Any inputs will really help.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-27T09:53:37Z' class='post-time'>
+                    November 27, 2020,  9:53am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-27T09:53:37Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <ol>
+<li>the RIL is hardcoded to use particular /dev/ttyUSB port, if you enable raw port, of course the RIL will not work. You need to shut down NMEA port in this case.</li>
+<li>"Both rmnet and wlan0 are accessed using usb0 interface from Android. "   -&gt; don’t quite understand this one.<br>
+If you use RIL driver, only one interface will be used to be data connection. From \AndroidFS\system\vendor\bin\init.dhcpcd, I believe this interface should be wwan0.<br>
+Is the usb0 here meaning ECM interface?</li>
+</ol>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-27T11:16:18Z' class='post-time'>
+                    November 27, 2020, 11:16am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-27T11:16:18Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>For</p>
+<ol>
+<li>
+<p>If i disable NMEA port, enable raw Port, without any driver changes, RIL and raw port will work ? Will check, bcoz if i disabled NMEA the ril libs had issues. Will recheck once.</p>
+</li>
+<li>
+<p>With RIL driver which interface is used for data connection ? in the init.dhcpcd the interface is wwan0.<br>
+usb0 on Android is the ecm interface of MangoH red board.</p>
+</li>
+</ol>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-27T11:24:36Z' class='post-time'>
+                    November 27, 2020, 11:24am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-27T11:24:36Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>1.Ril lib should not know about nmea<br>
+2.then what is the problem?  Wwan0 and usb0 are two different interface</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-27T13:07:56Z' class='post-time'>
+                    November 27, 2020,  1:07pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-27T13:08:57Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <ol>
+<li>
+<p>Currently, usbcomp=9014D. What is the value for disabling NMEA. I gave 90149. It gve error</p>
+</li>
+<li>
+<p>when the usb0 has dhcpcd running on the android, the wwan0 inteface is facing issues and not enabling data connection.</p>
+</li>
+</ol>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-27T14:06:25Z' class='post-time'>
+                    November 27, 2020,  2:06pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-27T14:06:25Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <ol>
+<li>
+<p>You can check by<br>
+at!entercnd=“A710”<br>
+At!usbcomp=?</p>
+</li>
+<li>
+<p>Maybe you use static ip for usb0</p>
+</li>
+</ol>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-27T14:47:22Z' class='post-time'>
+                    November 27, 2020,  2:47pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-27T15:01:54Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>is the value 90109 correct ?<br>
+Disabling the NMEA, the Android board is not able to get the radio signals.<br>
+I get only interface <span class="hashtag">#0</span> and <span class="hashtag">#3</span>. Can you let me know what these interfaces are ?</p>
+<p>Logs :<br>
+4&gt;[   25.925945] usb 1-1.3: config 1 has no interface number 7<br>
+&lt;6&gt;[   25.938591] usb 1-1.3: New USB device found, idVendor=1199, idProduct=68c0<br>
+&lt;6&gt;[   25.938602] usb 1-1.3: New USB device strings: Mfr=1, Product=2, SerialNumber=3<br>
+&lt;6&gt;[   25.938609] usb 1-1.3: Product: Sierra Wireless WP7608<br>
+&lt;6&gt;[   25.938615] usb 1-1.3: Manufacturer: Sierra Wireless, Incorporated<br>
+&lt;6&gt;[   25.938622] usb 1-1.3: SerialNumber: XG81428546071017<br>
+&lt;7&gt;[   25.953582] usb 1-1.3: sierra_probe<br>
+&lt;7&gt;[   25.953592] usb 1-1.3: Ignoring blacklisted interface <span class="hashtag">#16</span><br>
+&lt;7&gt;[   25.983012] usb 1-1.3: sierra_probe<br>
+&lt;7&gt;[   25.983024] usb 1-1.3: sierra_calc_num_ports<br>
+&lt;6&gt;[   25.983032] sierra 1-1.3:1.0: Sierra USB modem converter detected<br>
+&lt;7&gt;[   25.983047] usb 1-1.3: sierra_startup<br>
+&lt;7&gt;[   25.983056] usb 1-1.3: Memory usage (urbs) interface <span class="hashtag">#0</span>, in=4, out=4<br>
+&lt;6&gt;[   25.983063] usb 1-1.3: APM supported, enabling autosuspend.<br>
+&lt;6&gt;[   25.984037] usb 1-1.3: Sierra USB modem converter now attached to ttyUSB0<br>
+&lt;7&gt;[   25.984618] usb 1-1.3: sierra_probe<br>
+&lt;7&gt;[   25.984627] usb 1-1.3: sierra_calc_num_ports<br>
+&lt;6&gt;[   25.984634] sierra 1-1.3:1.3: Sierra USB modem converter detected<br>
+&lt;7&gt;[   25.984650] usb 1-1.3: sierra_startup<br>
+&lt;7&gt;[   25.984659] usb 1-1.3: Memory usage (urbs) interface <span class="hashtag">#3</span>, in=8, out=64<br>
+&lt;6&gt;[   25.984685] usb 1-1.3: APM supported, enabling autosuspend.<br>
+&lt;6&gt;[   25.985618] usb 1-1.3: Sierra USB modem converter now attached to ttyUSB1<br>
+&lt;6&gt;[   25.998543] GobiNet 1-1.3:1.8 wwan0: register ‘GobiNet’ at usb-msm_hsusb_host-1.3, GobiNet Ethernet Device, a6:95:cb:09:10:1b<br>
+&lt;6&gt;[   25.998860] USB Speed : USB 2.0<br>
+&lt;6&gt;[   26.006245] cdc_ether 1-1.3:1.19 usb0: register</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-27T15:06:48Z' class='post-time'>
+                    November 27, 2020,  3:06pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-27T15:06:48Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>How about at!usbcomp=1,1,90149</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-27T15:16:25Z' class='post-time'>
+                    November 27, 2020,  3:16pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-27T15:16:25Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Interface 16 and 5 are ignored. 16 is audio while 5 is raw port. Which are blacklisted in the driver.</p>
+<p>the Android board is not able to get the radio signals still.</p>
+<p>Logs :<br>
+&lt;6&gt;[   32.247959] usb 1-1.4: New USB device found, idVendor=1199, idProduct=68c0<br>
+&lt;6&gt;[   32.247971] usb 1-1.4: New USB device strings: Mfr=1, Product=2, SerialNumber=3<br>
+&lt;6&gt;[   32.247978] usb 1-1.4: Product: Sierra Wireless WP7608<br>
+&lt;6&gt;[   32.247985] usb 1-1.4: Manufacturer: Sierra Wireless, Incorporated<br>
+&lt;6&gt;[   32.247992] usb 1-1.4: SerialNumber: XG81428546071017<br>
+&lt;7&gt;[   32.261608] usb 1-1.4: sierra_probe<br>
+&lt;7&gt;[   32.261619] usb 1-1.4: Ignoring blacklisted interface <span class="hashtag">#16</span><br>
+&lt;7&gt;[   32.286864] usb 1-1.4: sierra_probe<br>
+&lt;7&gt;[   32.286877] usb 1-1.4: sierra_calc_num_ports<br>
+&lt;6&gt;[   32.286885] sierra 1-1.4:1.0: Sierra USB modem converter detected<br>
+&lt;7&gt;[   32.286904] usb 1-1.4: sierra_startup<br>
+&lt;7&gt;[   32.286914] usb 1-1.4: Memory usage (urbs) interface <span class="hashtag">#0</span>, in=4, out=4<br>
+&lt;6&gt;[   32.286921] usb 1-1.4: APM supported, enabling autosuspend.<br>
+&lt;6&gt;[   32.287318] usb 1-1.4: Sierra USB modem converter now attached to ttyUSB0<br>
+&lt;7&gt;[   32.287704] usb 1-1.4: sierra_probe<br>
+&lt;7&gt;[   32.287712] usb 1-1.4: sierra_calc_num_ports<br>
+&lt;6&gt;[   32.287719] sierra 1-1.4:1.3: Sierra USB modem converter detected<br>
+&lt;7&gt;[   32.287734] usb 1-1.4: sierra_startup<br>
+&lt;7&gt;[   32.287744] usb 1-1.4: Memory usage (urbs) interface <span class="hashtag">#3</span>, in=8, out=64<br>
+&lt;6&gt;[   32.287751] usb 1-1.4: APM supported, enabling autosuspend.<br>
+&lt;6&gt;[   32.288093] usb 1-1.4: Sierra USB modem converter now attached to ttyUSB1<br>
+&lt;7&gt;[   32.288484] usb 1-1.4: sierra_probe<br>
+&lt;7&gt;[   32.288492] usb 1-1.4: Ignoring blacklisted interface <span class="hashtag">#5</span><br>
+&lt;6&gt;[   32.292616] GobiNet 1-1.4:1.8 wwan0: register ‘GobiNet’ at usb-msm_hsusb_host-1.4, GobiNet Ethernet Device, 2a:9c:00:7c:3a:2a<br>
+&lt;6&gt;[   32.296366] USB Speed : USB 2.0<br>
+&lt;6&gt;[   32.308404] cdc_ether 1-1.4:1.19 usb0: register ‘cdc_ether’ at usb-msm_hsusb_host-1.4, CDC Ethernet Device, 52:2b:f7:f5:1c:91<br>
+&lt;6&gt;[   33.906180] u8Type:0x02, TID:0x00 ,MSGID:0x27</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-27T15:27:55Z' class='post-time'>
+                    November 27, 2020,  3:27pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-27T15:27:55Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Why raw port is ignored?<br>
+If you cannot make raw port replace nmea port,  then ril will not work</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-27T15:34:18Z' class='post-time'>
+                    November 27, 2020,  3:34pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-27T15:34:18Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>If i m not wrong, the driver code, has interface numbers which are blacklisted.<br>
+I am not sure what are the interface numbers. Raw port is ignored.</p>
+<p>Can you let me know what interface number is what ? Are the below correct ?<br>
+16 - audio,<br>
+5 - raw port.<br>
+0 - Diag<br>
+3 - Modem<br>
+2 - NMEA</p>
+<p>Attaching the driver file. Please see line 445.<br>
+<a class="attachment" href="/uploads/short-url/s4lG1ZvfNAg911HLIynpQFw2IcT.c">sierra.c</a> (53.2 KB)<br>
+static const signed char qmi_9x15_non_serial_ifaces<span class="chcklst-box fa fa-square-o fa-fw"></span>  = {1,4,5,8,10,11,16,19,20};<br>
+static const struct sierra_iface_info qmi_9x15_interface_blacklist = {<br>
+.infolen = ARRAY_SIZE( qmi_9x15_non_serial_ifaces ),<br>
+.ifaceinfo = qmi_9x15_non_serial_ifaces,<br>
+};</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-27T16:19:50Z' class='post-time'>
+                    November 27, 2020,  4:19pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-28T01:24:10Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Never tried this before,  you can enable those two interfaces and give a try</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-30T02:10:01Z' class='post-time'>
+                    November 30, 2020,  2:10am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-30T02:10:01Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>FYI, I remember I tried on Android 8 with<br>
+at!usbcomp=1,1,80149</p>
+<p>I can start the RIL driver.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-12-01T01:24:26Z' class='post-time'>
+                    December 1, 2020,  1:24am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-12-01T01:24:26Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>But the RawIP port is up in the Android device ? the sierra.c file has blacklisted it.</p>
+<p>If i remove the <span class="hashtag">#5</span> from the list, then the ril driver is not up.</p>
+<p>Can you pls confirm so that i can know where i am going wrong</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-12-01T01:48:11Z' class='post-time'>
+                    December 1, 2020,  1:48am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-12-01T01:48:11Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>can you try this setting first?<br>
+at!usbcomp=1,1,80149</p>
+<p>At that time I don’t enable the audio port.</p>
+<p>what /dev/ttyUSB port can you see?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-12-01T02:35:25Z' class='post-time'>
+                    December 1, 2020,  2:35am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-12-01T02:52:59Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>There are 3 ports,  /dev/ttyUSB0, 1 and 2. NMEA is disabled.</p>
+<p>Alternatively, i also tried to disable rawIP port and use sockets for communicating with atServer app on the MangoH red board side.<br>
+Was able to successfuly communicate with sockets from the Android side with usb0(whcih is ecm0 on MangoH Red board) enabled on boot up.</p>
+<p>in the init.qcom.rc file,<br>
+service dhcpcd_usb0 /system/bin/dhcpcd -ABKLG<br>
+class late_start<br>
+disabled<br>
+oneshot</p>
+<p>enables the usb0 at bootup. So the sockets work.</p>
+<p>This disables the wwan0 enabling.</p>
+<p>Is there some settings on Android for using the wwan0 first and then when enable usb0 when required ?</p>
+<p>In the init.dhcpcd the interface is wwan0. Should i do something there ?</p>
+<p>Basically, the question, “Is there some setting similar to ril integration on Android with MangoH Red +Wifi”</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_17' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-12-01T02:59:53Z' class='post-time'>
+                    December 1, 2020,  2:59am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-12-01T02:59:53Z'>
+              <span itemprop='position'>17</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>as said before, you can use static IP for usb0:<br>
+ifconfig usb0 192.168.2.3</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_18' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-12-01T03:10:15Z' class='post-time'>
+                    December 1, 2020,  3:10am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-12-01T03:10:15Z'>
+              <span itemprop='position'>18</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Yes, as per suggestion, did assign usb0, but the dhcpc is still on the wwan0 and hence, when i try sockets from my Anroid application(apk), the default routing is through wwan0 and not the usb0.</p>
+<p>Tried setting the ip tables defualt to usb0, but that also did not work.</p>
+<p>So wanted to know if there are settings for usb0 routing ? (I know its a general Android stuff, but that did not work, so wanted to check if this was done)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_19' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-12-01T03:23:32Z' class='post-time'>
+                    December 1, 2020,  3:23am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-12-01T03:23:32Z'>
+              <span itemprop='position'>19</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>seems need to use some “ndc” command.<br>
+In the past, I have tried not using the RIL but using AT!SCACT command to establish data connection.<br>
+I need to type the following in the Android console in order to make the browser in android to connect to network, you might give a try to change the wwan0 to usb0 and see what happens:</p>
+<pre><code>ifconfig
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope: Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:16 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:16 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1
+          RX bytes:1184 TX bytes:1184
+
+wwan0     Link encap:Ethernet  HWaddr ce:6a:d4:fb:9b:08  Driver GobiNet
+          inet addr:10.105.171.186  Bcast:10.105.171.187  Mask:255.255.255.252
+          inet6 addr: fe80::cc6a:d4ff:fefb:9b08/64 Scope: Link
+          UP BROADCAST RUNNING NOARP MULTICAST  MTU:1500  Metric:1
+          RX packets:41 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:66 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:10511 TX bytes:7216
+
+
+ndc network create 10
+ndc network interface add 10 wwan0
+ndc network route add 10 wwan0 0.0.0.0/0 10.105.171.186
+ndc network default set 10</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_20' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/enabling-wlan0-and-rmnet-on-android/5733">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-12-01T13:28:27Z' class='post-time'>
+                    December 1, 2020,  1:28pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-12-01T13:28:27Z'>
+              <span itemprop='position'>20</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks jyijyi.</p>
+<p>I did that setting, while i was able to communicate with the atServer Socket app on the WP from Android, i was not able to ping or browse.</p>
+<p>Android :<br>
+shell@<img src="https://emoji.discourse-cdn.com/twitter/confused.png?v=9" title=":confused:" class="emoji" alt=":confused:"> # ndc network create 10<br>
+200 0 success<br>
+shell@<img src="https://emoji.discourse-cdn.com/twitter/confused.png?v=9" title=":confused:" class="emoji" alt=":confused:"> # ndc network interface add 10 usb0<br>
+200 0 success<br>
+shell@<img src="https://emoji.discourse-cdn.com/twitter/confused.png?v=9" title=":confused:" class="emoji" alt=":confused:"> # ndc network route add 10 usb0 0.0.0.0/0 192.168.2.3<br>
+200 0 success<br>
+shell@<img src="https://emoji.discourse-cdn.com/twitter/confused.png?v=9" title=":confused:" class="emoji" alt=":confused:"> # ndc network default set 10<br>
+200 0 success<br>
+shell@<img src="https://emoji.discourse-cdn.com/twitter/confused.png?v=9" title=":confused:" class="emoji" alt=":confused:"> # ifconfig usb0<br>
+usb0: ip 192.168.2.3 mask 255.255.255.0 flags [up broadcast running multicast]<br>
+shell@<img src="https://emoji.discourse-cdn.com/twitter/confused.png?v=9" title=":confused:" class="emoji" alt=":confused:"> # ifconfig wwan0<br>
+wwan0: Cannot assign requested address<br>
+255|shell@<img src="https://emoji.discourse-cdn.com/twitter/confused.png?v=9" title=":confused:" class="emoji" alt=":confused:"> # ping <a href="http://www.google.com" rel="noopener nofollow ugc">www.google.com</a><br>
+ping: unknown host <a href="http://www.google.com" rel="noopener nofollow ugc">www.google.com</a></p>
+<p>WP:</p>
+<p>wlan0     Link encap:Ethernet  HWaddr F4:E1:1E:37:81:2E<br>
+inet addr:192.168.43.217  Bcast:192.168.43.255  Mask:255.255.255.0<br>
+UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1<br>
+RX packets:4 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:7 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:986 (986.0 B)  TX bytes:1330 (1.2 KiB)</p>
+<p>root@swi-mdm9x28-wp:~# ping <a href="http://www.google.com" rel="noopener nofollow ugc">www.google.com</a><br>
+PING <a href="http://www.google.com" rel="noopener nofollow ugc">www.google.com</a> (142.250.76.36): 56 data bytes<br>
+64 bytes from 142.250.76.36: seq=0 ttl=115 time=91.126 ms<br>
+64 bytes from 142.250.76.36: seq=1 ttl=115 time=18.203 ms<br>
+^C<br>
+— <a href="http://www.google.com" rel="noopener nofollow ugc">www.google.com</a> ping statistics —<br>
+2 packets transmitted, 2 packets received, 0% packet loss<br>
+round-trip min/avg/max = 18.203/54.664/91.126 ms<br>
+root@swi-mdm9x28-wp:~#</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/enabling-wlan0-and-rmnet-on-android/5733?page=2">next page →</a></b></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

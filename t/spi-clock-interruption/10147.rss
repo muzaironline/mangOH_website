@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Spi clock interruption</title>
+    <link>https://forum.mangoh.io/t/spi-clock-interruption/10147</link>
+    <description>Hi,
+
+I&#39;m using a custom WP7702 board and have strange behavior on the SPI bus. When sending 16 bytes in one write command, I see short bursts of 8-bits and then the clock pauses for 25us before sending the next 8 bits. I am expecting a continuous clock while sending all 16 bytes.
+
+Firmware 14.1, legato 19.11.5
+
+The code i used: 
+
+```
+COMPONENT_INIT
+{
+    LE_INFO(&quot;===========&gt; SPI application has started&quot;);
+
+    le_result_t res;
+
+    le_spi_DeviceHandleRef_t spiHandle;
+    res = le_spi_Open(&quot;spidev1.0&quot;, &amp;spiHandle);
+    LE_FATAL_IF(res != LE_OK, &quot;spi_Open failed with result=%d&quot;, res);
+
+    LE_INFO(&quot;Configuring SPI&quot;);
+    le_spi_Configure(spiHandle, 0, 8, 960000, 0);
+
+    LE_INFO(&quot;Performing a SPI write of 16 bytes&quot;);
+    {
+        const uint8_t writeData[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+        LE_ASSERT_OK(le_spi_WriteHD(spiHandle, writeData, NUM_ARRAY_MEMBERS(writeData)));
+    }
+    LE_INFO(&quot;SPI write completed successfully&quot;);
+
+    le_spi_Close(spiHandle);
+}
+```
+
+
+This is the result from the scope:
+
+![SPI_probleem|690x444](upload://7wp4kFuSyVFUUc0zhyCD6tTrnzP.png)
+
+C3 (orange) is the SPI clock signal
+C4 (purple) is the SPI data signal
+
+Does anyone know what causes this? The speed is cut by a factor 4 and I have a slave that does not like the interruption.
+
+Best regards,
+Frans.</description>
+    
+    <lastBuildDate>Wed, 19 Oct 2022 06:33:50 +0000</lastBuildDate>
+    <category>Build your own</category>
+    <atom:link href="https://forum.mangoh.io/t/spi-clock-interruption/10147.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Spi clock interruption</title>
+        <dc:creator><![CDATA[FransKanters]]></dc:creator>
+        <description><![CDATA[
+            <p>Thank you for your reply! I’m not very familiar with compiling kernel drivers but I will try to change the code and see if this helps.</p>
+<p>Best regards,<br>
+Frans.</p>
+          <p><a href="https://forum.mangoh.io/t/spi-clock-interruption/10147/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/spi-clock-interruption/10147/3</link>
+        <pubDate>Wed, 19 Oct 2022 06:33:50 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10147-3</guid>
+        <source url="https://forum.mangoh.io/t/spi-clock-interruption/10147.rss">Spi clock interruption</source>
+      </item>
+      <item>
+        <title>Spi clock interruption</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>you can check on yocto source:<br>
+./kernel/drivers/spi/spi.c</p>
+<p>I saw it has added some delay, not sure if this is related, you can try to modify it.</p>
+<pre><code class="lang-auto">static int spi_transfer_one_message(struct spi_master *master,
+				    struct spi_message *msg)
+{
+	struct spi_transfer *xfer;
+	bool keep_cs = false;
+	int ret = 0;
+	int ms = 1;
+
+	spi_set_cs(msg-&gt;spi, true);
+
+	list_for_each_entry(xfer, &amp;msg-&gt;transfers, transfer_list) {
+		trace_spi_transfer_start(msg, xfer);
+
+		if (xfer-&gt;tx_buf || xfer-&gt;rx_buf) {
+			reinit_completion(&amp;master-&gt;xfer_completion);
+
+			ret = master-&gt;transfer_one(master, msg-&gt;spi, xfer);
+			if (ret &lt; 0) {
+				dev_err(&amp;msg-&gt;spi-&gt;dev,
+					"SPI transfer failed: %d\n", ret);
+				goto out;
+			}
+
+			if (ret &gt; 0) {
+				ret = 0;
+				ms = xfer-&gt;len * 8 * 1000 / xfer-&gt;speed_hz;
+				ms += ms + 100; /* some tolerance */
+
+				ms = wait_for_completion_timeout(&amp;master-&gt;xfer_completion,
+								 msecs_to_jiffies(ms));
+			}
+
+			if (ms == 0) {
+				dev_err(&amp;msg-&gt;spi-&gt;dev,
+					"SPI transfer timed out\n");
+				msg-&gt;status = -ETIMEDOUT;
+			}
+		} else {
+			if (xfer-&gt;len)
+				dev_err(&amp;msg-&gt;spi-&gt;dev,
+					"Bufferless transfer has length %u\n",
+					xfer-&gt;len);
+		}
+
+		trace_spi_transfer_stop(msg, xfer);
+
+		if (msg-&gt;status != -EINPROGRESS)
+			goto out;
+
+		if (xfer-&gt;delay_usecs)
+			udelay(xfer-&gt;delay_usecs);
+
+		if (xfer-&gt;cs_change) {
+			if (list_is_last(&amp;xfer-&gt;transfer_list,
+					 &amp;msg-&gt;transfers)) {
+				keep_cs = true;
+			} else {
+				spi_set_cs(msg-&gt;spi, false);
+				udelay(10);
+				spi_set_cs(msg-&gt;spi, true);
+			}
+		}
+
+		msg-&gt;actual_length += xfer-&gt;len;
+	}
+
+out:
+	if (ret != 0 || !keep_cs)
+		spi_set_cs(msg-&gt;spi, false);
+
+	if (msg-&gt;status == -EINPROGRESS)
+		msg-&gt;status = ret;
+
+	spi_finalize_current_message(master);
+
+	return ret;
+}
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/spi-clock-interruption/10147/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/spi-clock-interruption/10147/2</link>
+        <pubDate>Tue, 18 Oct 2022 12:37:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10147-2</guid>
+        <source url="https://forum.mangoh.io/t/spi-clock-interruption/10147.rss">Spi clock interruption</source>
+      </item>
+      <item>
+        <title>Spi clock interruption</title>
+        <dc:creator><![CDATA[FransKanters]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi,</p>
+<p>I’m using a custom WP7702 board and have strange behavior on the SPI bus. When sending 16 bytes in one write command, I see short bursts of 8-bits and then the clock pauses for 25us before sending the next 8 bits. I am expecting a continuous clock while sending all 16 bytes.</p>
+<p>Firmware 14.1, legato 19.11.5</p>
+<p>The code i used:</p>
+<pre><code class="lang-auto">COMPONENT_INIT
+{
+    LE_INFO("===========&gt; SPI application has started");
+
+    le_result_t res;
+
+    le_spi_DeviceHandleRef_t spiHandle;
+    res = le_spi_Open("spidev1.0", &amp;spiHandle);
+    LE_FATAL_IF(res != LE_OK, "spi_Open failed with result=%d", res);
+
+    LE_INFO("Configuring SPI");
+    le_spi_Configure(spiHandle, 0, 8, 960000, 0);
+
+    LE_INFO("Performing a SPI write of 16 bytes");
+    {
+        const uint8_t writeData[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+        LE_ASSERT_OK(le_spi_WriteHD(spiHandle, writeData, NUM_ARRAY_MEMBERS(writeData)));
+    }
+    LE_INFO("SPI write completed successfully");
+
+    le_spi_Close(spiHandle);
+}
+</code></pre>
+<p>This is the result from the scope:</p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/34b8f1c08924265cae3a6f42e74a0e0c817a8a01.png" data-download-href="/uploads/short-url/7wp4kFuSyVFUUc0zhyCD6tTrnzP.png?dl=1" title="SPI_probleem" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/34b8f1c08924265cae3a6f42e74a0e0c817a8a01.png" alt="SPI_probleem" data-base62-sha1="7wp4kFuSyVFUUc0zhyCD6tTrnzP" width="690" height="444" data-dominant-color="11100F"></a></div><p></p>
+<p>C3 (orange) is the SPI clock signal<br>
+C4 (purple) is the SPI data signal</p>
+<p>Does anyone know what causes this? The speed is cut by a factor 4 and I have a slave that does not like the interruption.</p>
+<p>Best regards,<br>
+Frans.</p>
+          <p><a href="https://forum.mangoh.io/t/spi-clock-interruption/10147/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/spi-clock-interruption/10147/1</link>
+        <pubDate>Mon, 17 Oct 2022 19:00:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10147-1</guid>
+        <source url="https://forum.mangoh.io/t/spi-clock-interruption/10147.rss">Spi clock interruption</source>
+      </item>
+  </channel>
+</rss>

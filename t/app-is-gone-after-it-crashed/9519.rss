@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>App is gone after it crashed</title>
+    <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519</link>
+    <description>I was testing my Legato app on Mangoh red wp7702, but all of a sudden, the app crashed, and I &quot;app status&quot;, found out the custom app I was testing is gone/auto-deleted somehow. why could this happen? How can I prevent from happening again?</description>
+    
+    <lastBuildDate>Sun, 08 Aug 2021 05:21:42 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>App is gone after it crashed</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I think so , it should be sandboxed</p>
+          <p><a href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/16">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/16</link>
+        <pubDate>Sun, 08 Aug 2021 05:21:42 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9519-16</guid>
+        <source url="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss">App is gone after it crashed</source>
+      </item>
+      <item>
+        <title>App is gone after it crashed</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <p>is the app sandboxed by default once it is installed? I didnt set sandboxed to false though.<br>
+this is my .adef and .cdef<br>
+.adef:</p>
+<blockquote>
+<p>executables:</p>
+<p>{</p>
+<pre><code>sms = (Component)
+</code></pre>
+<p>}</p>
+<p>//start: manual</p>
+<p>processes:</p>
+<p>{</p>
+<pre><code>run:
+
+{
+
+    (sms)
+
+}
+</code></pre>
+<p>}</p>
+<p>bindings:</p>
+<p>{</p>
+<pre><code>    sms.Component.le_sms -&gt; modemService.le_sms
+
+    sms.Component.le_info -&gt; modemService.le_info
+</code></pre>
+<p>}</p>
+</blockquote>
+<p>.cdef</p>
+<pre><code class="lang-auto">requires:
+
+{
+
+    api:
+
+    {
+
+        modemServices/le_sms.api
+
+        modemServices/le_info.api
+
+        positioning/le_posCtrl.api
+
+        positioning/le_pos.api
+
+        positioning/le_gnss.api
+
+    }
+
+    lib:
+
+    {
+
+        ssl
+
+        crypto
+
+    }
+
+    file:
+
+    {
+
+        // Make the library available inside the app sandbox (in the app's /lib directory).
+
+        /usr/lib/libssl.so.1.0.2    /lib/
+
+        /usr/lib/libcrypto.so.1.0.2 /lib/
+
+    }
+
+}
+
+sources:
+
+{
+
+    main.c
+
+    smsSender.c
+
+    smsReceiver.c
+
+    gps.c
+
+    database.c
+
+    util.c
+
+    crypto.c
+
+}
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/15">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/15</link>
+        <pubDate>Sun, 08 Aug 2021 03:04:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9519-15</guid>
+        <source url="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss">App is gone after it crashed</source>
+      </item>
+      <item>
+        <title>App is gone after it crashed</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>If system crashes,  there will be some debug message in uart</p>
+<p>Btw,  do you use sandbox feature?</p>
+          <p><a href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/14">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/14</link>
+        <pubDate>Sun, 08 Aug 2021 02:16:13 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9519-14</guid>
+        <source url="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss">App is gone after it crashed</source>
+      </item>
+      <item>
+        <title>App is gone after it crashed</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <p>I was attempting to look at the logread, but the thing here is not the app crashed, it is actually the system crashed, and once the system crashed, the uart connection dropped.</p>
+          <p><a href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/13">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/13</link>
+        <pubDate>Sun, 08 Aug 2021 02:14:46 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9519-13</guid>
+        <source url="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss">App is gone after it crashed</source>
+      </item>
+      <item>
+        <title>App is gone after it crashed</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>You can capture the logread in uart port and see if there is any clue</p>
+<p>Btw,  you should use sandboxed feature</p>
+          <p><a href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/12</link>
+        <pubDate>Sun, 08 Aug 2021 02:10:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9519-12</guid>
+        <source url="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss">App is gone after it crashed</source>
+      </item>
+      <item>
+        <title>App is gone after it crashed</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <p>I’m not sure which line caused it, I tested the app a few times last week, everything was good. Then it crashed again today somehow. Could you guide me how I can debug this?</p>
+          <p><a href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/11</link>
+        <pubDate>Sun, 08 Aug 2021 01:56:26 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9519-11</guid>
+        <source url="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss">App is gone after it crashed</source>
+      </item>
+      <item>
+        <title>App is gone after it crashed</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Which line makes the crash?<br>
+You should debug that</p>
+          <p><a href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/10</link>
+        <pubDate>Sun, 08 Aug 2021 01:26:03 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9519-10</guid>
+        <source url="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss">App is gone after it crashed</source>
+      </item>
+      <item>
+        <title>App is gone after it crashed</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi I actually ran “update -g” command after I installed my own app last week, and I think the system crashed again just a minute ago, and my apps are gone still, looks like the system didn’t roll back to where I marked it…</p>
+          <p><a href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/9</link>
+        <pubDate>Sat, 07 Aug 2021 23:25:26 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9519-9</guid>
+        <source url="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss">App is gone after it crashed</source>
+      </item>
+      <item>
+        <title>App is gone after it crashed</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>yes,             i think so…</p>
+          <p><a href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/8</link>
+        <pubDate>Fri, 30 Jul 2021 03:17:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9519-8</guid>
+        <source url="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss">App is gone after it crashed</source>
+      </item>
+      <item>
+        <title>App is gone after it crashed</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <p>Do you mean if I mark the system “good” after I install the new app(saying “HelloWorld”), then when it rollback, it rolls back to the system which has the app “HelloWorld”?</p>
+          <p><a href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/7</link>
+        <pubDate>Fri, 30 Jul 2021 03:12:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9519-7</guid>
+        <source url="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss">App is gone after it crashed</source>
+      </item>
+      <item>
+        <title>App is gone after it crashed</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>If too many reset after power on,  it will think the new app is not stable,  so it will rollback</p>
+          <p><a href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/6</link>
+        <pubDate>Thu, 29 Jul 2021 23:07:53 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9519-6</guid>
+        <source url="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss">App is gone after it crashed</source>
+      </item>
+      <item>
+        <title>App is gone after it crashed</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <p>so the system will rollback to last “good system” when it crashed?<br>
+I don’t understand what probation period is.</p>
+          <p><a href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/5</link>
+        <pubDate>Thu, 29 Jul 2021 20:06:26 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9519-5</guid>
+        <source url="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss">App is gone after it crashed</source>
+      </item>
+      <item>
+        <title>App is gone after it crashed</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>You can see here<br>
+<a href="https://docs.legato.io/latest/c_updateCtrl.html" class="onebox" target="_blank" rel="noopener nofollow ugc">https://docs.legato.io/latest/c_updateCtrl.html</a></p>
+          <p><a href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/4</link>
+        <pubDate>Wed, 28 Jul 2021 01:02:58 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9519-4</guid>
+        <source url="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss">App is gone after it crashed</source>
+      </item>
+      <item>
+        <title>App is gone after it crashed</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <p>No, I didn’t. what this command does under the hood?</p>
+          <p><a href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/3</link>
+        <pubDate>Tue, 27 Jul 2021 21:30:43 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9519-3</guid>
+        <source url="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss">App is gone after it crashed</source>
+      </item>
+      <item>
+        <title>App is gone after it crashed</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Did you mark the system to be good (update -g)  after installing the app?</p>
+          <p><a href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/2</link>
+        <pubDate>Tue, 27 Jul 2021 01:00:38 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9519-2</guid>
+        <source url="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss">App is gone after it crashed</source>
+      </item>
+      <item>
+        <title>App is gone after it crashed</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <p>I was testing my Legato app on Mangoh red wp7702, but all of a sudden, the app crashed, and I “app status”, found out the custom app I was testing is gone/auto-deleted somehow. why could this happen? How can I prevent from happening again?</p>
+          <p><a href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519/1</link>
+        <pubDate>Tue, 27 Jul 2021 00:48:44 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9519-1</guid>
+        <source url="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss">App is gone after it crashed</source>
+      </item>
+  </channel>
+</rss>

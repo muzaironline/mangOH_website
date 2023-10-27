@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Build Linux for wp76 - mangOH forum</title>
+    <meta name="description" content="Is anybody have build the Linux distro for the wp76? 
+I try it but Wp76 use Linux Qualcomm (quic) and command line is a little bit different. I can’t set the default kernel config. The next step seems ok. 
+I would like t&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/build-linux-for-wp76/1084?page=2" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Build Linux for wp76&#39;" href="https://forum.mangoh.io/t/build-linux-for-wp76/1084.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/build-linux-for-wp76/1084?page=2" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/build-linux-for-wp76/1084?page=2" />
+<meta property="og:title" content="Build Linux for wp76" />
+<meta name="twitter:title" content="Build Linux for wp76" />
+<meta property="og:description" content="Do you start with clean Linux VM  ??  Remove the yocto folder and retry.  Start by  cd yocto  make image  I was able to build yocto 2 weeks ago with same procedure…" />
+<meta name="twitter:description" content="Do you start with clean Linux VM  ??  Remove the yocto folder and retry.  Start by  cd yocto  make image  I was able to build yocto 2 weeks ago with same procedure…" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="7 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="2 ❤" />
+<meta property="article:published_time" content="2018-02-08T16:52:05+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="prev" href="/t/build-linux-for-wp76/1084">
+
+    
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/build-linux-for-wp76/1084">Build Linux for wp76</a>
+    </h1>
+
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Build Linux for wp76'>
+        <meta itemprop='articleSection' content='Uncategorized'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_21' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/build-linux-for-wp76/1084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-02-08T16:52:05Z' class='post-time'>
+                    February 8, 2018,  4:52pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-02-08T16:52:05Z'>
+              <span itemprop='position'>21</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Do you start with clean Linux VM  ??<br>
+Remove the yocto folder and retry.</p>
+<p>Start by</p>
+<p>cd yocto<br>
+make image</p>
+<p>I was able to build yocto 2 weeks ago with same procedure…</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_22' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/yogesh.tyagi'><span itemprop='name'>yogesh.tyagi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/build-linux-for-wp76/1084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-02-13T06:55:47Z' class='post-time'>
+                    February 13, 2018,  6:55am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-02-13T06:55:47Z'>
+              <span itemprop='position'>22</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/francis.duhaut">@Francis.duhaut</a>,</p>
+<p>I am able to built yocto linux distribution but can’t figure out which image should I flash to the board?<br>
+Following are the image in ~/yocto/build_bin/tmp/deploy/images/swi-mdm9x28 directory:</p>
+<p>appsboot_ar758x.cwe<br>
+appsboot.mbn<br>
+appsboot.mbn.unsigned<br>
+appsboot_wp76xx.cwe<br>
+appsboot_wp77xx.cwe<br>
+boot_hash.2k<br>
+boot_hash.4k<br>
+boot_mbnhdr<br>
+boot-yocto-mdm9x28-20180213061253.2k.img<br>
+boot-yocto-mdm9x28-20180213061253.4k.img<br>
+boot-yocto-mdm9x28.2k.img<br>
+boot-yocto-mdm9x28.2k.unsigned.img<br>
+boot-yocto-mdm9x28.4k.img<br>
+boot-yocto-mdm9x28.4k.unsigned.img<br>
+boot-yocto-mdm9x28.img<br>
+build_package.version<br>
+kernel.version<br>
+lk.version<br>
+masterDTB.2k<br>
+masterDTB.4k<br>
+mdm9x28-image-initramfs-swi-mdm9x28-20180213061253.rootfs.cpio.gz<br>
+mdm9x28-image-initramfs-swi-mdm9x28-20180213061253.rootfs.manifest<br>
+mdm9x28-image-initramfs-swi-mdm9x28-20180213061253.rootfs.tar.bz2<br>
+mdm9x28-image-initramfs-swi-mdm9x28.cpio.gz<br>
+mdm9x28-image-initramfs-swi-mdm9x28.manifest<br>
+mdm9x28-image-initramfs-swi-mdm9x28.tar.bz2<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180209131641.rootfs.2k.ubifs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180209131641.rootfs.4k.ubifs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180209131641.rootfs.manifest<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180209131641.rootfs.squashfs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180209131641.rootfs.tar.bz2<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212063538.rootfs.2k.ubifs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212063538.rootfs.4k.ubifs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212063538.rootfs.manifest<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212063538.rootfs.squashfs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212063538.rootfs.tar.bz2<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212081928.rootfs.2k.ubifs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212081928.rootfs.4k.ubifs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212081928.rootfs.manifest<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212081928.rootfs.squashfs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212081928.rootfs.tar.bz2<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212094324.rootfs.2k.ubifs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212094324.rootfs.4k.ubifs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212094324.rootfs.manifest<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212094324.rootfs.squashfs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212094324.rootfs.tar.bz2<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212095059.rootfs.2k.ubifs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212095059.rootfs.4k.ubifs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212095059.rootfs.manifest<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212095059.rootfs.squashfs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212095059.rootfs.tar.bz2<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212144526.rootfs.2k.ubifs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212144526.rootfs.4k.ubifs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212144526.rootfs.manifest<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212144526.rootfs.squashfs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180212144526.rootfs.tar.bz2<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.2k.ubifs.ubinize.cfg<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.4k.ubifs.ubinize.cfg<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.build_package.version<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.2k.ubifs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.2k.yaffs2<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.4k.ubifs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.4k.yaffs2<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.manifest<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.squashfs<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.squashfs.hash<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.squashfs.hash.txt<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.tar.bz2<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.version<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.squashfs.2k.ubi<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.squashfs.4k.ubi<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.squashfs.ubinize.cfg<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.ubifs.2k.ubi<br>
+mdm9x28-image-minimal-swi-mdm9x28-20180213061253.ubifs.4k.ubi<br>
+mdm9x28-image-minimal-swi-mdm9x28.2k.ubi<br>
+mdm9x28-image-minimal-swi-mdm9x28.2k.ubifs<br>
+mdm9x28-image-minimal-swi-mdm9x28.2k.yaffs2<br>
+mdm9x28-image-minimal-swi-mdm9x28.4k.default<br>
+mdm9x28-image-minimal-swi-mdm9x28.4k.ubi<br>
+mdm9x28-image-minimal-swi-mdm9x28.4k.ubifs<br>
+mdm9x28-image-minimal-swi-mdm9x28.4k.yaffs2<br>
+mdm9x28-image-minimal-swi-mdm9x28.build_package.version<br>
+mdm9x28-image-minimal-swi-mdm9x28.default<br>
+mdm9x28-image-minimal-swi-mdm9x28.manifest<br>
+mdm9x28-image-minimal-swi-mdm9x28.rootfs.version<br>
+mdm9x28-image-minimal-swi-mdm9x28.squashfs<br>
+mdm9x28-image-minimal-swi-mdm9x28.squashfs.2k.ubi<br>
+mdm9x28-image-minimal-swi-mdm9x28.squashfs.4k.ubi<br>
+mdm9x28-image-minimal-swi-mdm9x28.tar.bz2<br>
+mdm9x28-image-minimal-swi-mdm9x28.ubi<br>
+mdm9x28-image-minimal-swi-mdm9x28.ubifs.2k.ubi<br>
+mdm9x28-image-minimal-swi-mdm9x28.ubifs.4k.ubi<br>
+modules–3.18.20+git2a043e38a886e83a891d5e5a8a113d6ac6d0ab9a-r1-swi-mdm9x28-20180213061253.tgz<br>
+modules-swi-mdm9x28.tgz<br>
+README_-_DO_NOT_DELETE_FILES_IN_THIS_DIRECTORY.txt<br>
+rootfs<br>
+rootfs.rhash<br>
+rootfs.version<br>
+vmlinux<br>
+yocto_ar758x.4k.cwe<br>
+yocto_wp76xx.2k.cwe<br>
+yocto_wp76xx.4k.cwe<br>
+yocto_wp77xx.2k.cwe<br>
+yocto_wp77xx.4k.cwe<br>
+zImage<br>
+zImage–3.18.20+git2a043e38a886e83a891d5e5a8a113d6ac6d0ab9a-r1-swi-mdm9x28-20180213061253.bin<br>
+zImage-initramfs-3.18.20+git2a043e38a886e83a891d5e5a8a113d6ac6d0ab9a-r1-swi-mdm9x28-20180213061253.bin<br>
+zImage-initramfs-swi-mdm9x28.bin<br>
+zImage-swi-mdm9x28.bin<br>
+warlord@ubuntu:~/legato_source/yocto/build_bin/tmp/deploy/images/swi-mdm9x28$ pwd<br>
+/home/warlord/legato_source/yocto/build_bin/tmp/deploy/images/swi-mdm9x28</p>
+<p>Any help would be highly appreciated.</p>
+<p>Thanks,<br>
+Yogesh</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_23' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/yogesh.tyagi'><span itemprop='name'>yogesh.tyagi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/build-linux-for-wp76/1084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-02-13T10:56:22Z' class='post-time'>
+                    February 13, 2018, 10:56am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-02-13T11:05:56Z'>
+              <span itemprop='position'>23</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I can see there are multiple files created in ~/build_bin/tmp/deploy/images/swi-mdm9x28 directory. I used yocto_wp76xx.4k.cwe to create firmware file using swicwe  utility.</p>
+<p>I copied the combined image to target board and ran fwupdate command from there.<br>
+This command never returns with following logs on the console:</p>
+<p>"fwupdate install combined-firmware.spk 192.168.2.2<br>
+Connecting to service …<br>
+Install the firmware, the system will reboot …</p>
+<p>So I tried installing firmware with swiflash command. Below is the command output:</p>
+<h1>swiflash -m “WP76XX” -i combined-firmware.spk</h1>
+<p>Detecting USB of the target<br>
+DONE<br>
+Communicating with the target<br>
+DONE<br>
+Switching to firmware download mode<br>
+…DONE<br>
+Downloading the firmware<br>
+…DONE<br>
+Rebooting the module<br>
+…DONE<br>
+Firmware Download SUCCESS</p>
+<p>After this process, I am not able to ping the board though board is showing ecm0 interface:</p>
+<p>bridge0   Link encap:Ethernet  HWaddr 52:D9:D5:12:CB:CC<br>
+inet addr:192.168.225.1  Bcast:192.168.225.255  Mask:255.255.255.0<br>
+inet6 addr: fe80::50d9:d5ff:fe0f:c8c9/64 Scope:Link<br>
+UP BROADCAST MULTICAST  MTU:1500  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:1 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:0<br>
+RX bytes:0 (0.0 B)  TX bytes:76 (76.0 B)</p>
+<p>ecm0      Link encap:Ethernet  HWaddr 7E:BF:C3:1B:07:93<br>
+inet addr:<strong>192.168.2.2</strong>  Bcast:192.168.2.255  Mask:255.255.255.0<br>
+inet6 addr: fe80::7cbf:c3ff:fe1b:793/64 Scope:Link<br>
+UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1<br>
+RX packets:911 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:72 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:91037 (88.9 KiB)  TX bytes:14832 (14.4 KiB)</p>
+<p>After firmware update I can’t locate ftdi_sio.ko inside the target which means either the image I have flashed, doesn’t contain ftdi_sio module or I am somewhere missing some steps in flashing the firmware.</p>
+<p>How can I make sure that the "combined-firmware.spk " image I created with yocto_wp76xx.4k.cwe file using swicwe utility with below command,</p>
+<h1>swicwe -o combined-firmware.spk -c yocto_wp76xx.4k.cwe</h1>
+<p>contains “ftdi_sio.ko” module?</p>
+<p>ftdi_sio text only matches with following images:</p>
+<h1>grep -ir ftdi_sio *</h1>
+<p>Binary file mdm9x28-image-minimal-swi-mdm9x28-20180212144526.rootfs.2k.ubifs matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180212144526.rootfs.4k.ubifs matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.2k.ubifs matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.2k.yaffs2 matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.4k.ubifs matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.4k.yaffs2 matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213061253.ubifs.2k.ubi matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213061253.ubifs.4k.ubi matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28.2k.ubifs matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28.2k.yaffs2 matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28.4k.ubifs matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28.4k.yaffs2 matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28.ubifs.2k.ubi matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28.ubifs.4k.ubi matches</p>
+<p>Thanks in advance.</p>
+<p>Thanks,<br>
+Yogesh</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_24' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/yogesh.tyagi'><span itemprop='name'>yogesh.tyagi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/build-linux-for-wp76/1084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-02-13T12:57:13Z' class='post-time'>
+                    February 13, 2018, 12:57pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-02-13T12:57:13Z'>
+              <span itemprop='position'>24</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/dfrey">@dfrey</a>,</p>
+<p>Do I need to create spk(combined) file from yocto_wp76xx.4k.cwe or I can directly flash yocto_wp76xx.4k.cwe using swiflash?</p>
+<p>Thanks,<br>
+Yogesh</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_25' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/build-linux-for-wp76/1084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-02-13T19:03:59Z' class='post-time'>
+                    February 13, 2018,  7:03pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-02-13T19:03:59Z'>
+              <span itemprop='position'>25</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello</p>
+<p>Just flash the Yocto 4K file (Linux with file system).</p>
+<p>cfglegato</p>
+<p>fwupdate download yocto4kfile 192.168.2.2</p>
+<p>Sorry I travel this week.<br>
+Regards<br>
+Francis</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_26' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/yogesh.tyagi'><span itemprop='name'>yogesh.tyagi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/build-linux-for-wp76/1084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-02-14T06:24:48Z' class='post-time'>
+                    February 14, 2018,  6:24am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-02-15T08:01:35Z'>
+              <span itemprop='position'>26</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/dfrey">@dfrey</a></p>
+<p>I followed all the steps you mentioned above to enable ftdi_sio/Serial driver in linux kernel but still this driver hasn’t build into the yocto image (yocto_wp76xx.4k.cwe) .</p>
+<p>I grepped ftdi_sio in the image directory after build and it shows only following matches:</p>
+<p>grep ftdi_sio *<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180212144526.rootfs.2k.ubifs matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180212144526.rootfs.4k.ubifs matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.2k.ubifs matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.2k.yaffs2 matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.4k.ubifs matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213061253.rootfs.4k.yaffs2 matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213061253.ubifs.2k.ubi matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213061253.ubifs.4k.ubi matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213134948.rootfs.2k.ubifs matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213134948.rootfs.2k.yaffs2 matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213134948.rootfs.4k.ubifs matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213134948.rootfs.4k.yaffs2 matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213134948.ubifs.2k.ubi matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28-20180213134948.ubifs.4k.ubi matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28.2k.ubifs matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28.2k.yaffs2 matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28.4k.ubifs matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28.4k.yaffs2 matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28.ubifs.2k.ubi matches<br>
+Binary file mdm9x28-image-minimal-swi-mdm9x28.ubifs.4k.ubi matches</p>
+<p>I also flashed yocto_wp76xx.4k.cwe image to the target but it’s not creating  /dev/ttyUSBx device on connecting usb to serial converter cable.</p>
+<p>Am I missing something? Any help would be highly appreciated. Thanks in advance.</p>
+<p>Thanks,<br>
+Yogesh</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_27' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Blake'><span itemprop='name'>Blake</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/build-linux-for-wp76/1084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-01-06T07:40:45Z' class='post-time'>
+                    January 6, 2019,  7:40am
+                  </time>
+                  <meta itemprop='dateModified' content='2019-01-06T07:40:45Z'>
+              <span itemprop='position'>27</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I am hitting the following errors while doing “make image”.<br>
+Is there anyone having this problem?</p>
+<hr>
+<h2>ERROR: glibc-2.24-r0 do_package: debugedit failed with exit code 1 (cmd was ‘/home/mangoh/Downloads/Legato-Dist-Source-mdm9x28-SWI9X07Y_02.18.06.00/yocto/build_bin/tmp/sysroots/x86_64-linux/usr/lib/rpm/bin/debugedit’ -i -l ‘/home/mangoh/Downloads/Legato-Dist-Source-mdm9x28-SWI9X07Y_02.18.06.00/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/glibc/2.24-r0/debugsources.list’ ‘/home/mangoh/Downloads/Legato-Dist-Source-mdm9x28-SWI9X07Y_02.18.06.00/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/glibc/2.24-r0/package/sbin/sln’):<br>
+/home/mangoh/Downloads/Legato-Dist-Source-mdm9x28-SWI9X07Y_02.18.06.00/yocto/build_bin/tmp/sysroots/x86_64-linux/usr/lib/rpm/bin/debugedit: /home/mangoh/Downloads/Legato-Dist-Source-mdm9x28-SWI9X07Y_02.18.06.00/yocto/build_bin/tmp/sysroots-uninative/x86_64-linux/lib/libc.so.6: version `GLIBC_2.27’ not found (required by /home/mangoh/Downloads/Legato-Dist-Source-mdm9x28-SWI9X07Y_02.18.06.00/yocto/build_bin/tmp/sysroots/x86_64-linux/usr/lib/rpm/bin/…/…/libpopt.so.0)<br>
+ERROR: glibc-2.24-r0 do_package: Function failed: split_and_strip_files<br>
+ERROR: Logfile of failure stored in: /home/mangoh/Downloads/Legato-Dist-Source-mdm9x28-SWI9X07Y_02.18.06.00/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/glibc/2.24-r0/temp/log.do_package.20789<br>
+ERROR: Task (/home/mangoh/Downloads/Legato-Dist-Source-mdm9x28-SWI9X07Y_02.18.06.00/yocto/poky/meta/recipes-core/glibc/glibc_2.24.bb:do_package) failed with exit code ‘1’</h2>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/protocol-smtps-is-not-supported-or-disabled-in-libcurl/3112/52">Protocol &quot;smtps&quot; is not supported (or) Disabled in libcurl</a>
+                        <meta itemprop='position' content='1'>
+                      </div>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/10">Building Custom Yocto Image for Mangoh Red WP76</a>
+                        <meta itemprop='position' content='2'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_28' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Blake'><span itemprop='name'>Blake</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/build-linux-for-wp76/1084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-01-07T11:45:59Z' class='post-time'>
+                    January 7, 2019, 11:45am
+                  </time>
+                  <meta itemprop='dateModified' content='2019-01-07T11:45:59Z'>
+              <span itemprop='position'>28</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I didn’t solve the problem by using VM Ubuntu but finally made it on my Ubuntu (16.04) PC.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_29' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/likhi'><span itemprop='name'>likhi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/build-linux-for-wp76/1084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-01-16T05:56:26Z' class='post-time'>
+                    January 16, 2020,  5:56am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-01-16T05:56:26Z'>
+              <span itemprop='position'>29</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi,</p>
+<p>I am using the Virtual machine, but getting same error, which was mention in above, did u have any solution to solve this problem in VM?</p>
+<p>Regards,</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><a rel="prev" itemprop="url" href="/t/build-linux-for-wp76/1084">← previous page</a></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

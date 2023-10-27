@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Http get request not working properly</title>
+    <link>https://forum.mangoh.io/t/http-get-request-not-working-properly/9638</link>
+    <description>I use Developer Studio and trying to make a http get request at this [URL](http://worldtimeapi.org/api/ip) using this [code](https://github.com/legatoproject/legato-af/blob/master/apps/sample/httpGet/httpGetComponent/httpGet.c). Unfortunately the &quot;fwrite&quot; or any code written bellow it, doesn&#39;t get executed unless I stop the app.
+
+```
+Sep  4 13:20:16 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16400.
+Sep  4 13:20:17 | updateDaemon[840]/updateDaemon T=main | system.c system_Snapshot() 917 | Snapshot taken of system index 177.  Current system index is now 178.
+Sep  4 13:20:17 | updateDaemon[840]/updateDaemon T=main | system.c system_SymlinkApp() 611 | Creating symlink /legato/systems/current/apps/.new.httpGet -&gt; /legato/apps/f0fe395c1f5c91709c4153701ecce08e
+Sep  4 13:20:17 | updateDaemon[840]/updateDaemon T=main | supCtrl.c supCtrl_StopApp() 102 | Stopping app &#39;httpGet&#39;.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | apps.c appCtrl_Stop() 1694 | Application &#39;httpGet&#39; is not running and cannot be stopped.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16408.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16416.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16424.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16432.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16440.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16448.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16456.
+Sep  4 13:20:17 | updateDaemon[840]/updateDaemon T=main | system.c system_SymlinkApp() 611 | Creating symlink /legato/systems/current/apps/httpGet -&gt; /legato/apps/f0fe395c1f5c91709c4153701ecce08e
+Sep  4 13:20:17 | updateDaemon[840]/framework T=main | LE_FILENAME fs_TryLazyUmount() 97 | Could not lazy unmount &#39;/legato/systems/current/appsWriteable/.new.httpGet&#39;.  No such file or directory.
+Sep  4 13:20:17 | sdir[16461]/framework T=main | LE_FILENAME user_Init() 445 | /etc is writable
+Sep  4 13:20:18 | updateDaemon[840]/framework T=main | LE_FILENAME sysStatus_MarkTried() 261 | Current system has been marked &quot;tried 1&quot;.
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c AppInstallHandler() 851 | Application, &#39;httpGet,&#39; has been installed.
+Sep  4 13:20:18 | updateDaemon[840]/updateDaemon T=main | supCtrl.c supCtrl_StartApp() 61 | Starting app &#39;httpGet&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c app_Create() 3167 | Creating app &#39;httpGet&#39;
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | proc.c GetFaultAction() 323 | No fault action specified for process &#39;httpGet&#39;. Assuming &#39;ignore&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | proc.c GetWatchdogAction() 359 | httpGet watchdogAction &#39;&#39; in proc section
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | proc.c GetWatchdogAction() 359 | httpGet watchdogAction &#39;&#39; in proc section
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c app_Start() 3380 | Starting app &#39;httpGet&#39;
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c AppInstallHandler() 898 | Local install, create new object9 instance.
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c GetObject9InstanceForApp() 631 | Instance exists and has been reused.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/dev/log&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/dev/log&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/dev/null&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/dev/null&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/dev/zero&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/dev/zero&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/legato/systems/current/lib/liblegato.so&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/liblegato.so&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/lib/ld-linux.so.3&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/ld-linux.so.3&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/lib/libc.so.6&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libc.so.6&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/lib/libpthread.so.0&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libpthread.so.0&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/lib/librt.so.1&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/librt.so.1&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/lib/libdl.so.2&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libdl.so.2&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/lib/libgcc_s.so.1&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libgcc_s.so.1&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/lib/libm.so.6&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libm.so.6&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/usr/lib/libstdc++.so.6&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libstdc++.so.6&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/legato/systems/current/apps/httpGet/read-only/lib/libgmp.so.10&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libgmp.so.10&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/legato/systems/current/apps/httpGet/read-only/lib/libssl.so.1.0.2&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libssl.so.1.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/legato/systems/current/apps/httpGet/read-only/lib/libcrypto.so.1.0.2&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libcrypto
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/legato/systems/current/apps/httpGet/read-only/lib/libcurl.so.4&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libcurl.so.4&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/legato/systems/current/apps/httpGet/read-only/lib/libz.so.1&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libz.so.1&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/legato/systems/current/apps/httpGet/read-only/lib/libComponent_httpGetComponent.so&#39; to &#39;/legato/systems/current/appsWriteable/httpGet
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/legato/systems/current/apps/httpGet/read-only/bin/httpGet&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/bin/httpGet&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link &#39;/legato/systems/current/apps/httpGet/read-only/lib/libgmp.so.10&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libgmp.so.10&#39;:
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link &#39;/legato/systems/current/apps/httpGet/read-only/lib/libcurl.so.4&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libcurl.so.4&#39;:
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link &#39;/legato/systems/current/apps/httpGet/read-only/lib/libcrypto.so.1.0.2&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libcrypt
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link &#39;/legato/systems/current/apps/httpGet/read-only/lib/libssl.so.1.0.2&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libssl.so.1
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link &#39;/legato/systems/current/apps/httpGet/read-only/lib/libz.so.1&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libz.so.1&#39;: Alrea
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/bin/date&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/bin/date&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/bin/sh&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/bin/sh&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/etc/hosts&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/etc/hosts&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/etc/nsswitch.conf&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/etc/nsswitch.conf&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/etc/resolv.conf&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/etc/resolv.conf&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/etc/ssl/certs/ca-certificates.crt&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/etc/ssl/certs/ca-certificates.crt&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/lib/libnss_compat.so.2&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libnss_compat.so.2&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/lib/libnss_dns.so.2&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libnss_dns.so.2&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/lib/libnss_files.so.2&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libnss_files.so.2&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/lib/libresolv.so.2&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/lib/libresolv.so.2&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/usr/bin/curl&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/usr/bin/curl&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link &#39;/dev/null&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/dev/null&#39;: Already exists
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/dev/random&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/dev/random&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/dev/urandom&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/dev/urandom&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateTmpFs() 1698 | Mounted tmpfs at /legato/systems/current/appsWriteable/httpGet/tmp.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/tmp/legato/serviceDirectoryServer&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/tmp/legato/serviceDirectoryServer&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link &#39;/tmp/legato/serviceDirectoryClient&#39; to &#39;/legato/systems/current/appsWriteable/httpGet/tmp/legato/serviceDirectoryClient&#39;.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 102400.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 102400.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | proc.c proc_Start() 1389 | Starting process &#39;httpGet&#39; with pid 16473
+Sep  4 13:20:18 | updateDaemon[840]/updateDaemon T=main | app.c app_InstallIndividual() 794 | App httpGet &lt;f0fe395c1f5c91709c4153701ecce08e&gt; installed
+Sep  4 13:20:18 | updateDaemon[840]/updateDaemon T=main | updateDaemon.c ApplyAppUpdate() 961 | App &#39;httpGet&lt;f0fe395c1f5c91709c4153701ecce08e&gt;&#39; installed properly.
+Sep  4 13:20:18 | updateDaemon[840]/updateDaemon T=main | updateDaemon.c StartProbation() 219 | System on probation (timer started).
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16469.
+Sep  4 13:20:18 | supervisor[16473]/supervisor T=main | proc.c proc_Start() 1354 | Execing &#39;httpGet&#39;
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c avcApp_SetSwUpdateState() 3027 | No update is going on. CurrentObj9 = null
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c avcApp_SetSwUpdateResult() 2962 | No update is going on. CurrentObj9 = null
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c NotifyObj9List() 691 | Found 3 object 9 instances
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c NotifyObj9List() 692 | obj9ListLen; 38 obj9List: &lt;/lwm2m/9/0&gt;,&lt;/lwm2m/9/1&gt;,&lt;/lwm2m/9/2&gt;
+Sep  4 17:20:18 | _UNKNOWN_[16473]/framework T=main | LE_FILENAME le_fdMonitor_Create() 672 | FD Monitor object name &#39;httpGet.httpGetComponent.le_data&#39; truncated to &#39;httpGet.httpGetComponent.le_dat&#39;.
+Sep  4 13:20:18 | httpGet[16473] |  | HTTP Get!
+Sep  4 17:20:18 | httpGet[16473]/httpGetComponent T=main | httpGet.c _httpGetComponent_COMPONENT_INIT() 134 | Requesting connection...
+Sep  4 13:20:18 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c LoadSelectedTechProfile() 1019 | No value set for &#39;SSID&#39;!
+Sep  4 13:20:18 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c TryStartWifiSession() 1499 | Impossible to use Wifi profile, result -1 (LE_NOT_FOUND)
+Sep  4 13:20:19 | wifiService[993]/daemon T=main | le_wifiClient.c le_wifiClient_Disconnect() 1370 | Disconnect
+Sep  4 13:20:19 | wifiService[993] |  | WIFICLIENT_DISCONNECT
+Sep  4 13:20:19 | wifiService[993] |  | Failed to connect to non-global ctrl_ifname: wlan0  error: No such file or directory
+Sep  4 13:20:19 | wifiService[993]/daemon T=main | pa_wifi_client_ti.c pa_wifiClient_Disconnect() 1122 | WiFi Client Command Failed: (24832)wlan0 WIFICLIENT_DISCONNECT
+Sep  4 13:20:19 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c TryStopWifiSession() 1769 | Impossible to disconnect wifi client
+Sep  4 13:20:19 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c TryStartTechSession() 1608 | Device is attached, ready to start a data session
+Sep  4 13:20:19 | modemDaemon[938]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 795 | Sending QMI_WDS_START_NETWORK_INTERFACE_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=14.[0x0e]
+Sep  4 13:20:19 | modemDaemon[938]/le_pa T=main | pa_mdc_qmi.c StartSession() 1954 | Data connection failure Call End provided 45, Code 1
+Sep  4 13:20:19 | modemDaemon[938]/le_pa T=main | pa_mdc_qmi.c StartSession() 1965 | Data connection failure Verbose Call End provided Type 2, Verbose 210
+Sep  4 13:20:22 | dcsDaemon[911]/le_pa_dcs T=main | pa_dcs_linux.c AddNameserversToResolvConf() 237 | Set DNS &#39;8.8.8.8&#39; &#39;8.8.4.4&#39;
+Sep  4 13:20:22 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c SetDefaultRouteAndDns() 1353 | DNS configuration is set successfully
+Sep  4 13:20:27 | dcsDaemon[911]/dcsCellular T=main | dcsCellular.c DcsCellularConnEventStateHandler() 258 | State of connection 1 transitioned from down to up
+Sep  4 17:20:27 | httpGet[16473]/httpGetComponent T=main | httpGet.c ConnectionStateHandler() 111 | Interface rmnet_data0 connected.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | updateDaemon.c updateDaemon_MarkGood() 232 | System passed probation. Marking &#39;good&#39;.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum fddace15fcd7eae43fb6b81182b4013d is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum c3115248c80fb17d33b7266fb32c1222 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum f8c4892220f1c09083e0b325e8a3c0d3 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 184ddc91862cb0da1c22221828c13c2f is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum a67621da1bd5da2195cae43276ee8673 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 817706913a543f0faae3efb21b6eb5e0 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 07d6038e0bc5d30f84253c0c8a4b0b7c is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum c74616fc87106738419e848ce70a956b is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum e517a83ae13cb27bb2c4d1cf69ae8bcc is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 24dcb5ef994c92d34d5719bef6370da4 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 1fbc134f517a869ff44b21cb08802d3d is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 290c1db653b416f37ef6746eb2462c30 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 895090cf054200b44a3a6a61484fa8ae is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum b6245200b14d3c6f7920802f436153c7 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum f0fe395c1f5c91709c4153701ecce08e is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 1e84d480c8ff3f87cfea68321adfeb1e is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 21a0b2404307e8fbf3022e3404191983 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum e56a3b079f11879524feb8215fd59eb1 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 818e975eb43092dd7fc1bb13a35a012b is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 5474ea4d3fe4dace6940fc9eeb271942 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum ee6b2a27e840139a342e41a52d3f5a26 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum ee113867ac3ef7db399784483f74ff1b is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum a1e1e8714ed336b477977f88628edb59 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1072 | Removing unused app with MD5 sum 44fa17fb3b7ade431f97fd65cb0efabd.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum c7ab641a63159d6958149236b1c8bfd7 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum dab1b66d64b96b9663717e9830e3fc66 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum f12e3302d0f6af3df5e65998ec879419 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum d8171cac090280b6453eb78ea0c48609 is still needed.
+Sep  4 13:20:33 | httpGet[16473] |  | Succesfully received data:
+Sep  4 13:20:33 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c TryStopDataSession() 1698 | Tearing down data session
+Sep  4 13:20:33 | dcsDaemon[911]/le_pa_dcs T=main | pa_dcs_linux.c pa_dcs_SetDefaultGateway() 511 | Default gateway or interface is empty
+Sep  4 13:20:33 | dcsDaemon[911]/dcsCellular T=main | dcsCellular.c DcsCellularConnEventStateHandler() 258 | State of connection 1 transitioned from up to down
+Sep  4 17:20:33 | httpGet[16473]/httpGetComponent T=main | httpGet.c ConnectionStateHandler() 117 | Interface  disconnected.
+Sep  4 13:21:49 | supervisor[826]/supervisor T=main | app.c app_Stop() 3505 | Stopping app &#39;httpGet&#39;
+Sep  4 13:21:49 | httpGet[16473] |  | {&quot;abbreviation&quot;:&quot;CDT&quot;,&quot;client_ip&quot;:&quot;12.153.231.174&quot;,&quot;datetime&quot;:&quot;2021-09-04T12:20:34.208991-05:00&quot;,&quot;day_of_week&quot;:6,&quot;day_of_year&quot;:247,&quot;dst&quot;:true,&quot;dst_from&quot;:&quot;2021-03-14T08:00:00+00:00&quot;,&quot;dst_offset&quot;:3600,&quot;ds
+Sep  4 13:21:49 | httpGet[16473] |  | 00,&quot;timezone&quot;:&quot;America/Chicago&quot;,&quot;unixtime&quot;:1630776034,&quot;utc_datetime&quot;:&quot;2021-09-04T17:20:34.208991+00:00&quot;,&quot;utc_offset&quot;:&quot;-05:00&quot;,&quot;week_number&quot;:35}Printed
+Sep  4 13:21:49 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c CloseSessionEventHandler() 2136 | Client 0x7f595c44 killed, remove allocated resources
+Sep  4 13:21:49 | supervisor[826]/supervisor T=main | app.c app_StopComplete() 4646 | app &#39;httpGet&#39; has stopped.
+Sep  4 13:21:49 | supervisor[826]/supervisor T=main | apps.c DeactivateAppContainer() 374 | Application &#39;httpGet&#39; has stopped.
+
+```</description>
+    
+    <lastBuildDate>Mon, 20 Sep 2021 10:50:06 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/http-get-request-not-working-properly/9638.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Http get request not working properly</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>It should be working fine,  you can see here</p>
+<aside class="quote" data-post="4" data-topic="4825">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/httpget-example-via-modem-does-not-work-on-wp7702/4825/4">HttpGet example via modem does not work on WP7702</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-red/12"><span class="badge-category-bg" style="background-color: #DF1E2E;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-red">mangOH Red</span></a>
+  </div>
+  <blockquote>
+    Seems you need to modify the adef file,  please see below:
+  </blockquote>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/http-get-request-not-working-properly/9638/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/http-get-request-not-working-properly/9638/2</link>
+        <pubDate>Mon, 20 Sep 2021 10:50:06 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9638-2</guid>
+        <source url="https://forum.mangoh.io/t/http-get-request-not-working-properly/9638.rss">Http get request not working properly</source>
+      </item>
+      <item>
+        <title>Http get request not working properly</title>
+        <dc:creator><![CDATA[shahriarhemel]]></dc:creator>
+        <description><![CDATA[
+            <p>I use Developer Studio and trying to make a http get request at this <a href="http://worldtimeapi.org/api/ip" rel="noopener nofollow ugc">URL</a> using this <a href="https://github.com/legatoproject/legato-af/blob/master/apps/sample/httpGet/httpGetComponent/httpGet.c" rel="noopener nofollow ugc">code</a>. Unfortunately the “fwrite” or any code written bellow it, doesn’t get executed unless I stop the app.</p>
+<pre><code class="lang-auto">Sep  4 13:20:16 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16400.
+Sep  4 13:20:17 | updateDaemon[840]/updateDaemon T=main | system.c system_Snapshot() 917 | Snapshot taken of system index 177.  Current system index is now 178.
+Sep  4 13:20:17 | updateDaemon[840]/updateDaemon T=main | system.c system_SymlinkApp() 611 | Creating symlink /legato/systems/current/apps/.new.httpGet -&gt; /legato/apps/f0fe395c1f5c91709c4153701ecce08e
+Sep  4 13:20:17 | updateDaemon[840]/updateDaemon T=main | supCtrl.c supCtrl_StopApp() 102 | Stopping app 'httpGet'.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | apps.c appCtrl_Stop() 1694 | Application 'httpGet' is not running and cannot be stopped.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16408.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16416.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16424.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16432.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16440.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16448.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16456.
+Sep  4 13:20:17 | updateDaemon[840]/updateDaemon T=main | system.c system_SymlinkApp() 611 | Creating symlink /legato/systems/current/apps/httpGet -&gt; /legato/apps/f0fe395c1f5c91709c4153701ecce08e
+Sep  4 13:20:17 | updateDaemon[840]/framework T=main | LE_FILENAME fs_TryLazyUmount() 97 | Could not lazy unmount '/legato/systems/current/appsWriteable/.new.httpGet'.  No such file or directory.
+Sep  4 13:20:17 | sdir[16461]/framework T=main | LE_FILENAME user_Init() 445 | /etc is writable
+Sep  4 13:20:18 | updateDaemon[840]/framework T=main | LE_FILENAME sysStatus_MarkTried() 261 | Current system has been marked "tried 1".
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c AppInstallHandler() 851 | Application, 'httpGet,' has been installed.
+Sep  4 13:20:18 | updateDaemon[840]/updateDaemon T=main | supCtrl.c supCtrl_StartApp() 61 | Starting app 'httpGet'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c app_Create() 3167 | Creating app 'httpGet'
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | proc.c GetFaultAction() 323 | No fault action specified for process 'httpGet'. Assuming 'ignore'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | proc.c GetWatchdogAction() 359 | httpGet watchdogAction '' in proc section
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | proc.c GetWatchdogAction() 359 | httpGet watchdogAction '' in proc section
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c app_Start() 3380 | Starting app 'httpGet'
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c AppInstallHandler() 898 | Local install, create new object9 instance.
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c GetObject9InstanceForApp() 631 | Instance exists and has been reused.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/dev/log' to '/legato/systems/current/appsWriteable/httpGet/dev/log'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/dev/null' to '/legato/systems/current/appsWriteable/httpGet/dev/null'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/dev/zero' to '/legato/systems/current/appsWriteable/httpGet/dev/zero'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/legato/systems/current/lib/liblegato.so' to '/legato/systems/current/appsWriteable/httpGet/lib/liblegato.so'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/ld-linux.so.3' to '/legato/systems/current/appsWriteable/httpGet/lib/ld-linux.so.3'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libc.so.6' to '/legato/systems/current/appsWriteable/httpGet/lib/libc.so.6'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libpthread.so.0' to '/legato/systems/current/appsWriteable/httpGet/lib/libpthread.so.0'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/librt.so.1' to '/legato/systems/current/appsWriteable/httpGet/lib/librt.so.1'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libdl.so.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libdl.so.2'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libgcc_s.so.1' to '/legato/systems/current/appsWriteable/httpGet/lib/libgcc_s.so.1'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libm.so.6' to '/legato/systems/current/appsWriteable/httpGet/lib/libm.so.6'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/usr/lib/libstdc++.so.6' to '/legato/systems/current/appsWriteable/httpGet/lib/libstdc++.so.6'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/legato/systems/current/apps/httpGet/read-only/lib/libgmp.so.10' to '/legato/systems/current/appsWriteable/httpGet/lib/libgmp.so.10'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/legato/systems/current/apps/httpGet/read-only/lib/libssl.so.1.0.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libssl.so.1.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/legato/systems/current/apps/httpGet/read-only/lib/libcrypto.so.1.0.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libcrypto
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/legato/systems/current/apps/httpGet/read-only/lib/libcurl.so.4' to '/legato/systems/current/appsWriteable/httpGet/lib/libcurl.so.4'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/legato/systems/current/apps/httpGet/read-only/lib/libz.so.1' to '/legato/systems/current/appsWriteable/httpGet/lib/libz.so.1'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/legato/systems/current/apps/httpGet/read-only/lib/libComponent_httpGetComponent.so' to '/legato/systems/current/appsWriteable/httpGet
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/legato/systems/current/apps/httpGet/read-only/bin/httpGet' to '/legato/systems/current/appsWriteable/httpGet/bin/httpGet'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link '/legato/systems/current/apps/httpGet/read-only/lib/libgmp.so.10' to '/legato/systems/current/appsWriteable/httpGet/lib/libgmp.so.10':
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link '/legato/systems/current/apps/httpGet/read-only/lib/libcurl.so.4' to '/legato/systems/current/appsWriteable/httpGet/lib/libcurl.so.4':
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link '/legato/systems/current/apps/httpGet/read-only/lib/libcrypto.so.1.0.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libcrypt
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link '/legato/systems/current/apps/httpGet/read-only/lib/libssl.so.1.0.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libssl.so.1
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link '/legato/systems/current/apps/httpGet/read-only/lib/libz.so.1' to '/legato/systems/current/appsWriteable/httpGet/lib/libz.so.1': Alrea
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/bin/date' to '/legato/systems/current/appsWriteable/httpGet/bin/date'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/bin/sh' to '/legato/systems/current/appsWriteable/httpGet/bin/sh'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/etc/hosts' to '/legato/systems/current/appsWriteable/httpGet/etc/hosts'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/etc/nsswitch.conf' to '/legato/systems/current/appsWriteable/httpGet/etc/nsswitch.conf'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/etc/resolv.conf' to '/legato/systems/current/appsWriteable/httpGet/etc/resolv.conf'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/etc/ssl/certs/ca-certificates.crt' to '/legato/systems/current/appsWriteable/httpGet/etc/ssl/certs/ca-certificates.crt'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libnss_compat.so.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libnss_compat.so.2'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libnss_dns.so.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libnss_dns.so.2'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libnss_files.so.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libnss_files.so.2'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libresolv.so.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libresolv.so.2'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/usr/bin/curl' to '/legato/systems/current/appsWriteable/httpGet/usr/bin/curl'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link '/dev/null' to '/legato/systems/current/appsWriteable/httpGet/dev/null': Already exists
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/dev/random' to '/legato/systems/current/appsWriteable/httpGet/dev/random'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/dev/urandom' to '/legato/systems/current/appsWriteable/httpGet/dev/urandom'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateTmpFs() 1698 | Mounted tmpfs at /legato/systems/current/appsWriteable/httpGet/tmp.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/tmp/legato/serviceDirectoryServer' to '/legato/systems/current/appsWriteable/httpGet/tmp/legato/serviceDirectoryServer'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/tmp/legato/serviceDirectoryClient' to '/legato/systems/current/appsWriteable/httpGet/tmp/legato/serviceDirectoryClient'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 102400.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 102400.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | proc.c proc_Start() 1389 | Starting process 'httpGet' with pid 16473
+Sep  4 13:20:18 | updateDaemon[840]/updateDaemon T=main | app.c app_InstallIndividual() 794 | App httpGet &lt;f0fe395c1f5c91709c4153701ecce08e&gt; installed
+Sep  4 13:20:18 | updateDaemon[840]/updateDaemon T=main | updateDaemon.c ApplyAppUpdate() 961 | App 'httpGet&lt;f0fe395c1f5c91709c4153701ecce08e&gt;' installed properly.
+Sep  4 13:20:18 | updateDaemon[840]/updateDaemon T=main | updateDaemon.c StartProbation() 219 | System on probation (timer started).
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16469.
+Sep  4 13:20:18 | supervisor[16473]/supervisor T=main | proc.c proc_Start() 1354 | Execing 'httpGet'
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c avcApp_SetSwUpdateState() 3027 | No update is going on. CurrentObj9 = null
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c avcApp_SetSwUpdateResult() 2962 | No update is going on. CurrentObj9 = null
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c NotifyObj9List() 691 | Found 3 object 9 instances
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c NotifyObj9List() 692 | obj9ListLen; 38 obj9List: &lt;/lwm2m/9/0&gt;,&lt;/lwm2m/9/1&gt;,&lt;/lwm2m/9/2&gt;
+Sep  4 17:20:18 | _UNKNOWN_[16473]/framework T=main | LE_FILENAME le_fdMonitor_Create() 672 | FD Monitor object name 'httpGet.httpGetComponent.le_data' truncated to 'httpGet.httpGetComponent.le_dat'.
+Sep  4 13:20:18 | httpGet[16473] |  | HTTP Get!
+Sep  4 17:20:18 | httpGet[16473]/httpGetComponent T=main | httpGet.c _httpGetComponent_COMPONENT_INIT() 134 | Requesting connection...
+Sep  4 13:20:18 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c LoadSelectedTechProfile() 1019 | No value set for 'SSID'!
+Sep  4 13:20:18 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c TryStartWifiSession() 1499 | Impossible to use Wifi profile, result -1 (LE_NOT_FOUND)
+Sep  4 13:20:19 | wifiService[993]/daemon T=main | le_wifiClient.c le_wifiClient_Disconnect() 1370 | Disconnect
+Sep  4 13:20:19 | wifiService[993] |  | WIFICLIENT_DISCONNECT
+Sep  4 13:20:19 | wifiService[993] |  | Failed to connect to non-global ctrl_ifname: wlan0  error: No such file or directory
+Sep  4 13:20:19 | wifiService[993]/daemon T=main | pa_wifi_client_ti.c pa_wifiClient_Disconnect() 1122 | WiFi Client Command Failed: (24832)wlan0 WIFICLIENT_DISCONNECT
+Sep  4 13:20:19 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c TryStopWifiSession() 1769 | Impossible to disconnect wifi client
+Sep  4 13:20:19 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c TryStartTechSession() 1608 | Device is attached, ready to start a data session
+Sep  4 13:20:19 | modemDaemon[938]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 795 | Sending QMI_WDS_START_NETWORK_INTERFACE_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=14.[0x0e]
+Sep  4 13:20:19 | modemDaemon[938]/le_pa T=main | pa_mdc_qmi.c StartSession() 1954 | Data connection failure Call End provided 45, Code 1
+Sep  4 13:20:19 | modemDaemon[938]/le_pa T=main | pa_mdc_qmi.c StartSession() 1965 | Data connection failure Verbose Call End provided Type 2, Verbose 210
+Sep  4 13:20:22 | dcsDaemon[911]/le_pa_dcs T=main | pa_dcs_linux.c AddNameserversToResolvConf() 237 | Set DNS '8.8.8.8' '8.8.4.4'
+Sep  4 13:20:22 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c SetDefaultRouteAndDns() 1353 | DNS configuration is set successfully
+Sep  4 13:20:27 | dcsDaemon[911]/dcsCellular T=main | dcsCellular.c DcsCellularConnEventStateHandler() 258 | State of connection 1 transitioned from down to up
+Sep  4 17:20:27 | httpGet[16473]/httpGetComponent T=main | httpGet.c ConnectionStateHandler() 111 | Interface rmnet_data0 connected.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | updateDaemon.c updateDaemon_MarkGood() 232 | System passed probation. Marking 'good'.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum fddace15fcd7eae43fb6b81182b4013d is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum c3115248c80fb17d33b7266fb32c1222 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum f8c4892220f1c09083e0b325e8a3c0d3 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 184ddc91862cb0da1c22221828c13c2f is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum a67621da1bd5da2195cae43276ee8673 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 817706913a543f0faae3efb21b6eb5e0 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 07d6038e0bc5d30f84253c0c8a4b0b7c is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum c74616fc87106738419e848ce70a956b is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum e517a83ae13cb27bb2c4d1cf69ae8bcc is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 24dcb5ef994c92d34d5719bef6370da4 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 1fbc134f517a869ff44b21cb08802d3d is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 290c1db653b416f37ef6746eb2462c30 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 895090cf054200b44a3a6a61484fa8ae is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum b6245200b14d3c6f7920802f436153c7 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum f0fe395c1f5c91709c4153701ecce08e is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 1e84d480c8ff3f87cfea68321adfeb1e is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 21a0b2404307e8fbf3022e3404191983 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum e56a3b079f11879524feb8215fd59eb1 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 818e975eb43092dd7fc1bb13a35a012b is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 5474ea4d3fe4dace6940fc9eeb271942 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum ee6b2a27e840139a342e41a52d3f5a26 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum ee113867ac3ef7db399784483f74ff1b is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum a1e1e8714ed336b477977f88628edb59 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1072 | Removing unused app with MD5 sum 44fa17fb3b7ade431f97fd65cb0efabd.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum c7ab641a63159d6958149236b1c8bfd7 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum dab1b66d64b96b9663717e9830e3fc66 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum f12e3302d0f6af3df5e65998ec879419 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum d8171cac090280b6453eb78ea0c48609 is still needed.
+Sep  4 13:20:33 | httpGet[16473] |  | Succesfully received data:
+Sep  4 13:20:33 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c TryStopDataSession() 1698 | Tearing down data session
+Sep  4 13:20:33 | dcsDaemon[911]/le_pa_dcs T=main | pa_dcs_linux.c pa_dcs_SetDefaultGateway() 511 | Default gateway or interface is empty
+Sep  4 13:20:33 | dcsDaemon[911]/dcsCellular T=main | dcsCellular.c DcsCellularConnEventStateHandler() 258 | State of connection 1 transitioned from up to down
+Sep  4 17:20:33 | httpGet[16473]/httpGetComponent T=main | httpGet.c ConnectionStateHandler() 117 | Interface  disconnected.
+Sep  4 13:21:49 | supervisor[826]/supervisor T=main | app.c app_Stop() 3505 | Stopping app 'httpGet'
+Sep  4 13:21:49 | httpGet[16473] |  | {"abbreviation":"CDT","client_ip":"12.153.231.174","datetime":"2021-09-04T12:20:34.208991-05:00","day_of_week":6,"day_of_year":247,"dst":true,"dst_from":"2021-03-14T08:00:00+00:00","dst_offset":3600,"ds
+Sep  4 13:21:49 | httpGet[16473] |  | 00,"timezone":"America/Chicago","unixtime":1630776034,"utc_datetime":"2021-09-04T17:20:34.208991+00:00","utc_offset":"-05:00","week_number":35}Printed
+Sep  4 13:21:49 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c CloseSessionEventHandler() 2136 | Client 0x7f595c44 killed, remove allocated resources
+Sep  4 13:21:49 | supervisor[826]/supervisor T=main | app.c app_StopComplete() 4646 | app 'httpGet' has stopped.
+Sep  4 13:21:49 | supervisor[826]/supervisor T=main | apps.c DeactivateAppContainer() 374 | Application 'httpGet' has stopped.
+
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/http-get-request-not-working-properly/9638/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/http-get-request-not-working-properly/9638/1</link>
+        <pubDate>Mon, 06 Sep 2021 12:51:59 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9638-1</guid>
+        <source url="https://forum.mangoh.io/t/http-get-request-not-working-properly/9638.rss">Http get request not working properly</source>
+      </item>
+  </channel>
+</rss>

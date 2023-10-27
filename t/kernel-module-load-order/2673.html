@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Kernel Module Load Order - Build your own - mangOH forum</title>
+    <meta name="description" content="I’m cleaning up our kernel modules by adding the required kernel modules to my MDEF files the same as Mangoh https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610 
+I changed the order my &amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/kernel-module-load-order/2673" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Kernel Module Load Order&#39;" href="https://forum.mangoh.io/t/kernel-module-load-order/2673.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/kernel-module-load-order/2673" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/kernel-module-load-order/2673" />
+<meta property="og:title" content="Kernel Module Load Order" />
+<meta name="twitter:title" content="Kernel Module Load Order" />
+<meta property="og:description" content="I’m cleaning up our kernel modules by adding the required kernel modules to my MDEF files the same as Mangoh The mangOH repository now uses a Legato 18.05.1 feature  I changed the order my kernel modules load (specifically the BMI160 and IIO) to match the Mango Red .mdef file and then they won’t load.  I change the order back and then it works.  Old way that works in SDEF  // BMI160 accelerometer, NOTE: Order id important here  $PROJ_ROOT/drivers/bmi160/bmi160  $PROJ_ROOT/drivers/bmi160/bmi160-i..." />
+<meta name="twitter:description" content="I’m cleaning up our kernel modules by adding the required kernel modules to my MDEF files the same as Mangoh The mangOH repository now uses a Legato 18.05.1 feature  I changed the order my kernel modules load (specifically the BMI160 and IIO) to match the Mango Red .mdef file and then they won’t load.  I change the order back and then it works.  Old way that works in SDEF  // BMI160 accelerometer, NOTE: Order id important here  $PROJ_ROOT/drivers/bmi160/bmi160  $PROJ_ROOT/drivers/bmi160/bmi160-i..." />
+<meta property="og:article:section" content="Build your own" />
+<meta property="og:article:section:color" content="25AAE2" />
+<meta property="article:published_time" content="2019-05-30T17:15:20+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Kernel Module Load Order","mainEntity":{"@type":"Question","name":"Kernel Module Load Order","text":"I’m cleaning up our kernel modules by adding the required kernel modules to my MDEF files the same as Mangoh <a href=\"https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610\" class=\"inline-onebox\">The mangOH repository now uses a Legato 18.05.1 feature<\/a>\n\nI changed the order my kernel modules load (specifically the BMI160 and IIO) to match the Mango Red .mdef file and then they won’t loa&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2019-05-30T17:15:20.268Z","author":{"@type":"Person","name":"Darren Beckwith"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/kernel-module-load-order/2673">Kernel Module Load Order</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/build-your-own/7" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #25AAE2'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>Build your own</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Kernel Module Load Order'>
+        <meta itemprop='articleSection' content='Build your own'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dbeckwith'><span itemprop='name'>dbeckwith</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/kernel-module-load-order/2673">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-05-30T17:15:20Z' class='post-time'>
+                    May 30, 2019,  5:15pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-05-30T17:15:20Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>I’m cleaning up our kernel modules by adding the required kernel modules to my MDEF files the same as Mangoh <a href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610" class="inline-onebox">The mangOH repository now uses a Legato 18.05.1 feature</a></p>
+<p>I changed the order my kernel modules load (specifically the BMI160 and IIO) to match the Mango Red .mdef file and then they won’t load.  I change the order back and then it works.</p>
+<p><strong>Old way that works in SDEF</strong><br>
+// BMI160 accelerometer, NOTE: Order id important here<br>
+$PROJ_ROOT/drivers/bmi160/bmi160<br>
+$PROJ_ROOT/drivers/bmi160/bmi160-i2c</p>
+<p>// battery charger<br>
+$PROJ_ROOT/drivers/bq24296/bq24296</p>
+<p>// Required for BMI160 NOTE: Order is important here<br>
+$PROJ_ROOT/drivers/iio/iio<br>
+$PROJ_ROOT/drivers/iio/iio-kfifo-buf<br>
+$PROJ_ROOT/drivers/iio/iio-triggered-buffer</p>
+<p><strong>Mangoh Red way that doesn’t work in SDEF</strong><br>
+// BMI160 accelerometer, NOTE: Order id important here<br>
+$PROJ_ROOT/drivers/bmi160/bmi160-i2c<br>
+$PROJ_ROOT/drivers/bmi160/bmi160</p>
+<p>// battery charger<br>
+$BRNKL_ROOT/drivers/bq24296/bq24296</p>
+<p>// Required for BMI160 NOTE: Order is important here<br>
+$BRNKL_ROOT/drivers/iio/iio-triggered-buffer<br>
+$BRNKL_ROOT/drivers/iio/iio-kfifo-buf<br>
+$BRNKL_ROOT/drivers/iio/iio</p>
+<p>Thoughts?  Is there something I’m missing with the new method.  I’m running Legato 18.09.0 on a WP85.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/kernel-module-load-order/2673">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-05-30T18:16:21Z' class='post-time'>
+                    May 30, 2019,  6:16pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-05-30T18:16:21Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Take a look at <code>dmesg</code> and <code>logread</code> output and see if there are any clues in there about why the modules are failing to load.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dbeckwith'><span itemprop='name'>dbeckwith</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/kernel-module-load-order/2673">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-05-30T20:15:22Z' class='post-time'>
+                    May 30, 2019,  8:15pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-05-30T20:15:22Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/dfrey">@dfrey</a> I’m not seeing a lot of my print states in dmesg or the log.  How do I enabled the DEBUG level messages in the kernel modules?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/kernel-module-load-order/2673">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-05-30T20:31:30Z' class='post-time'>
+                    May 30, 2019,  8:31pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-05-30T20:31:30Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a href="https://elinux.org/Debugging_by_printing#Log_Levels" class="onebox" target="_blank" rel="nofollow noopener">https://elinux.org/Debugging_by_printing#Log_Levels</a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dbeckwith'><span itemprop='name'>dbeckwith</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/kernel-module-load-order/2673">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-05-30T21:44:09Z' class='post-time'>
+                    May 30, 2019,  9:44pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-05-30T21:44:09Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/dfrey">@dfrey</a> Thanks I looked at that resource and it wasn’t much help.  I have several of these <code>dev_dbg</code> statements but I don’t seem them in the <code>dmesg</code> or <code>logread</code></p>
+<p>I am basically recreating what you did here <a href="https://github.com/mangOH/mangOH/commit/fd1399c48c7924930bace8334071c589ec3c26ec" rel="nofollow noopener">https://github.com/mangOH/mangOH/commit/fd1399c48c7924930bace8334071c589ec3c26ec</a> moving from the number files to the requires statements but it’s not working.</p>
+<p>Any additional help would be greatly appreciated, thanks.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/kernel-module-load-order/2673">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-05-30T21:46:54Z' class='post-time'>
+                    May 30, 2019,  9:46pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-05-30T21:46:54Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>The quick and dirty method is to raise the log level of the messages so that they do appear.  I too have had issues with “debug” level messages and never really got to the bottom of it.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dbeckwith'><span itemprop='name'>dbeckwith</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/kernel-module-load-order/2673">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-05-30T21:52:51Z' class='post-time'>
+                    May 30, 2019,  9:52pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-05-30T21:52:51Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>So what’s the difference between dev_info and printk?  Any thoughts on my comments about moving away from the number based kernel module loading to the requires statements?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Zahid'><span itemprop='name'>Zahid</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/kernel-module-load-order/2673">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-06-03T15:21:31Z' class='post-time'>
+                    June 3, 2019,  3:21pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-06-03T15:21:31Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi, dev macros call into printk with the different levels as <a class="mention" href="/u/dfrey">@dfrey</a> mentioned.<br>
+They are the recommended way of printing log messages in device drivers<br>
+these days, just like pr_ are in many kernel subsystems. I think you may not be<br>
+seeing messages as if you look at your Kernel config it probably has this set:<br>
+CONFIG_DYNAMIC_DEBUG=y<br>
+This means you have to turn on you device debug messages on the target at<br>
+run-time on the fly as explained here:<br>
+<a href="https://www.kernel.org/doc/html/v5.1/admin-guide/dynamic-debug-howto.html" rel="nofollow noopener">https://www.kernel.org/doc/html/v5.1/admin-guide/dynamic-debug-howto.html</a><br>
+There are also other reasons dev_dbg doesn’t print. Please see the <a href="http://kernel.org" rel="nofollow noopener">kernel.org</a><br>
+docs for more details.</p>
+<p>I’m unsure about the Legato module loading ordering issues, I’ll let <a class="mention" href="/u/dfrey">@dfrey</a><br>
+pipe in on those once you get the log messages.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>WP7700 AT command Interface over UART using MangOH Red</title>
+    <link>https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574</link>
+    <description>Currently, I am developing some embedded software for a host controller to handle setting up a data call on the WP7700 and have had some weird results. When I ssh into the WP7700 and use the Legato terminal, I am able to setup a connection every time (5 of 5). When I use microcom over the Legato terminal to send AT commands, I am able to setup a data connection every time (5 of 5). When I try to dial out with the AT command interface over UART lines from our host controller, I cannot setup the data connection (0 of 5). I can successfully set up everything and then when I try to dial out (ATD*99***1#) I get an ERROR. The interesting part comes into play when I open microcom to the AT interface via the Legato terminal and then try to dial out over the UART lines, I can do so successfully. Is there something that is blocking me from dialing out over the AT command interface over the UART without being connected to the Legato terminal? Thanks for any help in advance.</description>
+    
+    <lastBuildDate>Fri, 18 Sep 2020 23:25:29 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>WP7700 AT command Interface over UART using MangOH Red</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Please read the AT command guide,  it says “1—AT command service (Note: Not available for UART2)”</p>
+          <p><a href="https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574/8</link>
+        <pubDate>Fri, 18 Sep 2020 23:25:29 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1574-8</guid>
+        <source url="https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574.rss">WP7700 AT command Interface over UART using MangOH Red</source>
+      </item>
+      <item>
+        <title>WP7700 AT command Interface over UART using MangOH Red</title>
+        <dc:creator><![CDATA[jameswollaeger]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks! I’m successful when executing AT commands but from what I see. For my application, I’m trying to setup the console USB connector as an AT command port. But when I execute the command to do that (AT!MAPUART=1,2) I get an error.</p>
+<p>root@swi-mdm9x28-wp:~# microcom /dev/ttyAT<br>
+at<br>
+OK<br>
+AT!MAPUART=1,2<br>
+ERROR<br>
+AT!MAPUART=1,2<br>
+ERROR<br>
+AT!MAPUART=16,2<br>
+OK</p>
+<p>Is there some restriction that UART2 cannot be setup as an AT Command interface?</p>
+          <p><a href="https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574/7</link>
+        <pubDate>Fri, 18 Sep 2020 21:03:14 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1574-7</guid>
+        <source url="https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574.rss">WP7700 AT command Interface over UART using MangOH Red</source>
+      </item>
+      <item>
+        <title>WP7700 AT command Interface over UART using MangOH Red</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>You can try “microcom /dev/ttyAT”</p>
+          <p><a href="https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574/6</link>
+        <pubDate>Thu, 17 Sep 2020 23:03:46 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1574-6</guid>
+        <source url="https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574.rss">WP7700 AT command Interface over UART using MangOH Red</source>
+      </item>
+      <item>
+        <title>WP7700 AT command Interface over UART using MangOH Red</title>
+        <dc:creator><![CDATA[jameswollaeger]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi, I’m very interested in how you were able to communicate with AT commands over the main console using the microcom. Everytime I open the serial connection to my MangOH red, i’m getting logs and anytime I send something over the serial port, I’m getting basically a login prompt to open a new console session. Which interface does one use with microcom in the /dev folder to run the initiation set of AT commands to change the interface as per guided here ?</p>
+<p><a href="https://source.sierrawireless.com/resources/legato/howtos/customizeuart/#sthash.DjOpklXc.dpbs" class="onebox" target="_blank" rel="noopener nofollow ugc">https://source.sierrawireless.com/resources/legato/howtos/customizeuart/#sthash.DjOpklXc.dpbs</a></p>
+<p>thanks!</p>
+          <p><a href="https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574/5</link>
+        <pubDate>Thu, 17 Sep 2020 22:32:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1574-5</guid>
+        <source url="https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574.rss">WP7700 AT command Interface over UART using MangOH Red</source>
+      </item>
+      <item>
+        <title>WP7700 AT command Interface over UART using MangOH Red</title>
+        <dc:creator><![CDATA[Alex]]></dc:creator>
+        <description><![CDATA[
+            <p>The commands may not work via the UART using an external microcontroller.  I tried to setup a TCP connection with an external microcontroller with a WP chip, but it is not enabled in the firmware.  They are meant to be used  as an application processor.  This could be what you are running into, but need to have someone confirm?</p>
+          <p><a href="https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574/4</link>
+        <pubDate>Wed, 20 Jun 2018 03:49:46 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1574-4</guid>
+        <source url="https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574.rss">WP7700 AT command Interface over UART using MangOH Red</source>
+      </item>
+      <item>
+        <title>WP7700 AT command Interface over UART using MangOH Red</title>
+        <dc:creator><![CDATA[MWilz]]></dc:creator>
+        <description><![CDATA[
+            <p>I have done this and successfully sent other commands over the UART (turn on radio, check out SIM, setup PDP context, start and check GPS), but get and error response when I try to dial out to a data connection over the PDP context (ATD<em>99</em>**1#), but when I do the same commands over microcom when I am ssh’ed into the WP7700 I can connect without an issue.</p>
+          <p><a href="https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574/3</link>
+        <pubDate>Tue, 19 Jun 2018 17:25:43 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1574-3</guid>
+        <source url="https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574.rss">WP7700 AT command Interface over UART using MangOH Red</source>
+      </item>
+      <item>
+        <title>WP7700 AT command Interface over UART using MangOH Red</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>you need to transfer the UART to AT port<br>
+<a href="https://source.sierrawireless.com/resources/legato/howtos/customizeuart/" class="onebox" target="_blank">https://source.sierrawireless.com/resources/legato/howtos/customizeuart/</a></p>
+          <p><a href="https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574/2</link>
+        <pubDate>Tue, 19 Jun 2018 17:11:35 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1574-2</guid>
+        <source url="https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574.rss">WP7700 AT command Interface over UART using MangOH Red</source>
+      </item>
+      <item>
+        <title>WP7700 AT command Interface over UART using MangOH Red</title>
+        <dc:creator><![CDATA[MWilz]]></dc:creator>
+        <description><![CDATA[
+            <p>Currently, I am developing some embedded software for a host controller to handle setting up a data call on the WP7700 and have had some weird results. When I ssh into the WP7700 and use the Legato terminal, I am able to setup a connection every time (5 of 5). When I use microcom over the Legato terminal to send AT commands, I am able to setup a data connection every time (5 of 5). When I try to dial out with the AT command interface over UART lines from our host controller, I cannot setup the data connection (0 of 5). I can successfully set up everything and then when I try to dial out (ATD<em>99</em>**1#) I get an ERROR. The interesting part comes into play when I open microcom to the AT interface via the Legato terminal and then try to dial out over the UART lines, I can do so successfully. Is there something that is blocking me from dialing out over the AT command interface over the UART without being connected to the Legato terminal? Thanks for any help in advance.</p>
+          <p><a href="https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574/1</link>
+        <pubDate>Tue, 19 Jun 2018 15:25:14 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1574-1</guid>
+        <source url="https://forum.mangoh.io/t/wp7700-at-command-interface-over-uart-using-mangoh-red/1574.rss">WP7700 AT command Interface over UART using MangOH Red</source>
+      </item>
+  </channel>
+</rss>

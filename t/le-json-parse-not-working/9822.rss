@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Le_json_parse() not working?</title>
+    <link>https://forum.mangoh.io/t/le-json-parse-not-working/9822</link>
+    <description>Does this API work? Currently testing with it, and it is marked experimental, but I can&#39;t get a callback to my handler functions, and the le_json_GetBytesRead function indicates zero bytes were read from the input (I&#39;ve tried both a string input and a file descriptor input). The API page indicates it should start reading bytes as soon as the function is called. Anyone know what&#39;s happening here? I&#39;m running 19.11.5
+
+```
+#include &quot;legato.h&quot;
+#include &quot;interfaces.h&quot;
+
+#define LE_FULL_API
+#define LE_API_JSON
+#define LE_API_FILESYSTEM
+
+le_result_t result;
+
+static void jsonHandler(le_json_Event_t event){
+	LE_INFO(&quot;jsonHandler function call, type: %d&quot;, (int)event);
+}
+
+static void jsonError(le_json_Error_t error, const char msg[]){
+	LE_INFO(&quot;jsonError function call, type: %d&quot;, (int)error);
+	LE_INFO(msg);
+}
+
+
+COMPONENT_INIT{
+
+	const char str[] = &quot;{\&quot;result\&quot;:\&quot;failure\&quot;}&quot;;
+
+	LE_INFO(&quot;init&#39;d at least&quot;);
+
+	int fd = open(&quot;/home/root/result.json&quot;, O_RDONLY | O_EXCL);
+	LE_INFO(&quot;opened file&quot;);
+
+	LE_INFO(&quot;file descriptor %d&quot;,fd);
+
+	// le_json_ParsingSessionRef_t JsonParsingSessionRef = le_json_Parse(fd,jsonHandler,jsonError, NULL);
+	le_json_ParsingSessionRef_t JsonParsingSessionRef = le_json_ParseString(str,jsonHandler,jsonError, NULL);
+	
+	LE_INFO(str);
+	LE_INFO(&quot;parse&quot;);
+	sleep(1);
+	size_t bytesRead = le_json_GetBytesRead(JsonParsingSessionRef);
+	LE_INFO(&quot;Bytes read: %d&quot;,bytesRead);
+	le_json_Cleanup(JsonParsingSessionRef);
+	close(fd);
+
+	LE_INFO(&quot;**** Done&quot;);
+	sleep(1);
+	exit(0);
+
+}
+```</description>
+    
+    <lastBuildDate>Mon, 10 Jan 2022 05:25:52 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/le-json-parse-not-working/9822.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Le_json_parse() not working?</title>
+        <dc:creator><![CDATA[CT1]]></dc:creator>
+        <description><![CDATA[
+            <p>Thank you jyijyi, from your code I figured out what’s going on here.</p>
+<p>The COMPONENT_INIT loop is a blocking loop. It doesn’t allow the handler functions to be called until it is done.</p>
+<p>Consequently the parser does not run instantly (contrary to the documentation). It is only run after the entire COMPONENT_INIT loop has been run through. My code had already closed the file descriptor, cleaned up the parser resources, and exited by that time.</p>
+          <p><a href="https://forum.mangoh.io/t/le-json-parse-not-working/9822/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/le-json-parse-not-working/9822/3</link>
+        <pubDate>Mon, 10 Jan 2022 05:25:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9822-3</guid>
+        <source url="https://forum.mangoh.io/t/le-json-parse-not-working/9822.rss">Le_json_parse() not working?</source>
+      </item>
+      <item>
+        <title>Le_json_parse() not working?</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I tried with attached Desktop.rar project in legato 20.08 in WP76, I can see it calls the callback function.</p>
+<p><a class="attachment" href="https://forum.mangoh.io/uploads/short-url/86ceieesN8IHbMJITqYa60LPnWg.rar">Desktop.rar</a> (4.6 KB)</p>
+<pre><code class="lang-auto">Jan  1 08:15:29 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c _hello1Component_COMPONENT_INIT() 33 | init'd at least
+Jan  1 08:15:29 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c _hello1Component_COMPONENT_INIT() 36 | opened file
+Jan  1 08:15:29 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c _hello1Component_COMPONENT_INIT() 38 | file descriptor 8
+Jan  1 08:15:29 swi-mdm9x28-wp user.debug Legato:  DBUG | hello1[3503]/framework T=main | fdMonitor.c fa_fdMon_Create() 369 | fd 8 doesn't support epoll(), assuming always readable and writeable.
+Jan  1 08:15:29 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c _hello1Component_COMPONENT_INIT() 43 | {"result":"failure"}
+Jan  1 08:15:29 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c _hello1Component_COMPONENT_INIT() 44 | parse
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c _hello1Component_COMPONENT_INIT() 47 | Bytes read: 0
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c _hello1Component_COMPONENT_INIT() 51 | **** Done
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 0
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 1
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 0
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 1
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 5
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 1
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 0
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 1
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 5
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 1
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 0
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 1
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 0
+Jan  1 08:15:30 swi-mdm9x28-wp user.debug Legato:  DBUG | hello1[3503]/framework T=main | mem.c le_mem_ForceAlloc() 1172 | Memory pool 'framework.JSONContext' overflowed. Expanded to 11 blocks.
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 1
+Jan  1 08:15:30 swi-mdm9x28-wp user.debug Legato:  DBUG | hello1[3503]/framework T=main | mem.c le_mem_ForceAlloc() 1172 | Memory pool 'framework.JSONContext' overflowed. Expanded to 12 blocks.
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 5
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 1
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 5
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 1
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 5
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 1
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 5
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 1
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 5
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 1
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 0
+Jan  1 08:15:30 swi-mdm9x28-wp user.debug Legato:  DBUG | hello1[3503]/framework T=main | mem.c le_mem_ForceAlloc() 1172 | Memory pool 'framework.JSONContext' overflowed. Expanded to 13 blocks.
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 1
+Jan  1 08:15:30 swi-mdm9x28-wp user.debug Legato:  DBUG | hello1[3503]/framework T=main | mem.c le_mem_ForceAlloc() 1172 | Memory pool 'framework.JSONContext' overflowed. Expanded to 14 blocks.
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 5
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 1
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 3
+Jan  1 08:15:30 swi-mdm9x28-wp user.debug Legato:  DBUG | hello1[3503]/framework T=main | mem.c le_mem_ForceAlloc() 1172 | Memory pool 'framework.JSONContext' overflowed. Expanded to 15 blocks.
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 5
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 5
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 4
+Jan  1 08:15:30 swi-mdm9x28-wp user.info Legato:  INFO | hello1[3503]/hello1Component T=main | hello1Component.c jsonHandler() 20 | jsonHandler function call, type: 2
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/le-json-parse-not-working/9822/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/le-json-parse-not-working/9822/2</link>
+        <pubDate>Mon, 10 Jan 2022 04:19:33 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9822-2</guid>
+        <source url="https://forum.mangoh.io/t/le-json-parse-not-working/9822.rss">Le_json_parse() not working?</source>
+      </item>
+      <item>
+        <title>Le_json_parse() not working?</title>
+        <dc:creator><![CDATA[CT1]]></dc:creator>
+        <description><![CDATA[
+            <p>Does this API work? Currently testing with it, and it is marked experimental, but I can’t get a callback to my handler functions, and the le_json_GetBytesRead function indicates zero bytes were read from the input (I’ve tried both a string input and a file descriptor input). The API page indicates it should start reading bytes as soon as the function is called. Anyone know what’s happening here? I’m running 19.11.5</p>
+<pre><code class="lang-auto">#include "legato.h"
+#include "interfaces.h"
+
+#define LE_FULL_API
+#define LE_API_JSON
+#define LE_API_FILESYSTEM
+
+le_result_t result;
+
+static void jsonHandler(le_json_Event_t event){
+	LE_INFO("jsonHandler function call, type: %d", (int)event);
+}
+
+static void jsonError(le_json_Error_t error, const char msg[]){
+	LE_INFO("jsonError function call, type: %d", (int)error);
+	LE_INFO(msg);
+}
+
+
+COMPONENT_INIT{
+
+	const char str[] = "{\"result\":\"failure\"}";
+
+	LE_INFO("init'd at least");
+
+	int fd = open("/home/root/result.json", O_RDONLY | O_EXCL);
+	LE_INFO("opened file");
+
+	LE_INFO("file descriptor %d",fd);
+
+	// le_json_ParsingSessionRef_t JsonParsingSessionRef = le_json_Parse(fd,jsonHandler,jsonError, NULL);
+	le_json_ParsingSessionRef_t JsonParsingSessionRef = le_json_ParseString(str,jsonHandler,jsonError, NULL);
+	
+	LE_INFO(str);
+	LE_INFO("parse");
+	sleep(1);
+	size_t bytesRead = le_json_GetBytesRead(JsonParsingSessionRef);
+	LE_INFO("Bytes read: %d",bytesRead);
+	le_json_Cleanup(JsonParsingSessionRef);
+	close(fd);
+
+	LE_INFO("**** Done");
+	sleep(1);
+	exit(0);
+
+}
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/le-json-parse-not-working/9822/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/le-json-parse-not-working/9822/1</link>
+        <pubDate>Sun, 09 Jan 2022 06:32:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9822-1</guid>
+        <source url="https://forum.mangoh.io/t/le-json-parse-not-working/9822.rss">Le_json_parse() not working?</source>
+      </item>
+  </channel>
+</rss>

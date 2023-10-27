@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>What I should check if kernel outputs nothing to console</title>
+    <link>https://forum.mangoh.io/t/what-i-should-check-if-kernel-outputs-nothing-to-console/10065</link>
+    <description>I found a Linux kernel I had rebuilt does not output anything.
+What should I check?
+
+What I did:
+1. I rebuilt a Linux kernel with GCOV enabled.
+2. I checked if the flash area is sufficient to store the kernel, by executing `cat /proc/mtd` on a mangOH Yellow and `swicwe` on a laptop.
+3. I wrote the kernel module to WP7605 flash on the mangOH Yellow by `swiflash`, which rebooted the mangOH Yellow after I finished writing the module.
+
+What I observed:
+* The output from CON(a serial console) when executing the rebuilt module was the same as that when extending the original one.
+* The LED on the mangOH Yellow was not yellow but green, which means the kernel boot procedures did not finish properly.
+* An Ethernet over USB connection between the mangOH Yellow and my Ubuntu computer was not established.
+
+Details:
+*GCOV enabled* means the following configuration variables are set to `y`:
+* `CONFIG_GCOV_KERNEL`
+* `CONFIG_GCOV_PROFILE_ALL`
+
+**Flash area versus kernel size**
+`cat /proc/mtd`
+```
+dev:    size   erasesize  name
+mtd0: 00280000 00040000 &quot;sbl&quot;
+mtd1: 00280000 00040000 &quot;mibib&quot;
+mtd2: 00680000 00040000 &quot;backup&quot;
+mtd3: 00100000 00040000 &quot;security&quot;
+mtd4: 00200000 00040000 &quot;persist&quot;
+mtd5: 01180000 00040000 &quot;efs2&quot;
+mtd6: 04f40000 00040000 &quot;swifota&quot;
+mtd7: 00180000 00040000 &quot;tz&quot;
+mtd8: 000c0000 00040000 &quot;devcfg&quot;
+mtd9: 000c0000 00040000 &quot;rpm&quot;
+mtd10: 02000000 00040000 &quot;modem&quot;
+mtd11: 00100000 00040000 &quot;aboot&quot;
+mtd12: 00f00000 00040000 &quot;boot&quot;
+mtd13: 01e00000 00040000 &quot;system&quot;
+mtd14: 008c0000 00040000 &quot;lefwkro&quot;
+mtd15: 01900000 00040000 &quot;swirw&quot;
+mtd16: 08300000 00040000 &quot;userapp&quot;
+mtd17: 03680000 00040000 &quot;reserved&quot;
+mtd18: 02180000 00040000 &quot;slot_2&quot;
+mtd19: 02180000 00040000 &quot;slot_1&quot;
+mtd20: 02180000 00040000 &quot;slot_0&quot;
+```
+
+`swicwe -P yocto_wp76xx_with_coverage.4k.cwe` 
+```
+ Type Size(Exclude Header) Product Compress Version
+*APPL    39843984                Y921            0               Mon Mar 14 07:04:56 UTC 2022
+ SYST    25427968                9X28            0               Mon Mar 14 07:04:56 UTC 2022
+ APPS    14415216                9X28            0               3.18.131 20220314070454
+```
+
+**Size comparison**
+* The size of mtd13 (0x01e00000 = 31,457,280) is bigger than that of SYST (25,427,968).
+* The size of mtd12 (0x00f00000 = 15,728,640) is bigger than that of APPS (14,415,216).
+
+Therefore the flash area is sufficient to store the kernel.</description>
+    
+    <lastBuildDate>Wed, 27 Jul 2022 23:41:28 +0000</lastBuildDate>
+    <category>mangOH Yellow</category>
+    <atom:link href="https://forum.mangoh.io/t/what-i-should-check-if-kernel-outputs-nothing-to-console/10065.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>What I should check if kernel outputs nothing to console</title>
+        <dc:creator><![CDATA[uchida.s]]></dc:creator>
+        <description><![CDATA[
+            <p>I found a Linux kernel I had rebuilt does not output anything.<br>
+What should I check?</p>
+<p>What I did:</p>
+<ol>
+<li>I rebuilt a Linux kernel with GCOV enabled.</li>
+<li>I checked if the flash area is sufficient to store the kernel, by executing <code>cat /proc/mtd</code> on a mangOH Yellow and <code>swicwe</code> on a laptop.</li>
+<li>I wrote the kernel module to WP7605 flash on the mangOH Yellow by <code>swiflash</code>, which rebooted the mangOH Yellow after I finished writing the module.</li>
+</ol>
+<p>What I observed:</p>
+<ul>
+<li>The output from CON(a serial console) when executing the rebuilt module was the same as that when extending the original one.</li>
+<li>The LED on the mangOH Yellow was not yellow but green, which means the kernel boot procedures did not finish properly.</li>
+<li>An Ethernet over USB connection between the mangOH Yellow and my Ubuntu computer was not established.</li>
+</ul>
+<p>Details:<br>
+<em>GCOV enabled</em> means the following configuration variables are set to <code>y</code>:</p>
+<ul>
+<li><code>CONFIG_GCOV_KERNEL</code></li>
+<li><code>CONFIG_GCOV_PROFILE_ALL</code></li>
+</ul>
+<p><strong>Flash area versus kernel size</strong><br>
+<code>cat /proc/mtd</code></p>
+<pre><code class="lang-auto">dev:    size   erasesize  name
+mtd0: 00280000 00040000 "sbl"
+mtd1: 00280000 00040000 "mibib"
+mtd2: 00680000 00040000 "backup"
+mtd3: 00100000 00040000 "security"
+mtd4: 00200000 00040000 "persist"
+mtd5: 01180000 00040000 "efs2"
+mtd6: 04f40000 00040000 "swifota"
+mtd7: 00180000 00040000 "tz"
+mtd8: 000c0000 00040000 "devcfg"
+mtd9: 000c0000 00040000 "rpm"
+mtd10: 02000000 00040000 "modem"
+mtd11: 00100000 00040000 "aboot"
+mtd12: 00f00000 00040000 "boot"
+mtd13: 01e00000 00040000 "system"
+mtd14: 008c0000 00040000 "lefwkro"
+mtd15: 01900000 00040000 "swirw"
+mtd16: 08300000 00040000 "userapp"
+mtd17: 03680000 00040000 "reserved"
+mtd18: 02180000 00040000 "slot_2"
+mtd19: 02180000 00040000 "slot_1"
+mtd20: 02180000 00040000 "slot_0"
+</code></pre>
+<p><code>swicwe -P yocto_wp76xx_with_coverage.4k.cwe</code></p>
+<pre><code class="lang-auto"> Type Size(Exclude Header) Product Compress Version
+*APPL    39843984                Y921            0               Mon Mar 14 07:04:56 UTC 2022
+ SYST    25427968                9X28            0               Mon Mar 14 07:04:56 UTC 2022
+ APPS    14415216                9X28            0               3.18.131 20220314070454
+</code></pre>
+<p><strong>Size comparison</strong></p>
+<ul>
+<li>The size of mtd13 (0x01e00000 = 31,457,280) is bigger than that of SYST (25,427,968).</li>
+<li>The size of mtd12 (0x00f00000 = 15,728,640) is bigger than that of APPS (14,415,216).</li>
+</ul>
+<p>Therefore the flash area is sufficient to store the kernel.</p>
+          <p><a href="https://forum.mangoh.io/t/what-i-should-check-if-kernel-outputs-nothing-to-console/10065/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/what-i-should-check-if-kernel-outputs-nothing-to-console/10065/1</link>
+        <pubDate>Wed, 27 Jul 2022 23:41:28 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10065-1</guid>
+        <source url="https://forum.mangoh.io/t/what-i-should-check-if-kernel-outputs-nothing-to-console/10065.rss">What I should check if kernel outputs nothing to console</source>
+      </item>
+  </channel>
+</rss>

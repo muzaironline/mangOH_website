@@ -1,0 +1,746 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>All wifi commands failing with Mirage board</title>
+    <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059</link>
+    <description>Hello,
+
+Recently I posted here: http://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033/5 about my usb driver not working on the new mangoh reds we purchased. It was suggested to me that we purchase the special WiFi module here: https://www.digikey.com/product-detail/en/talon-communications-inc/MIRAGE-PIFA/1788-1008-ND/7243279. This wifi module does not seem to have support on the mangoh Red though. It does work on the green.
+
+I am experiencing this problem, and another user here: http://forum.mangoh.io/t/wifi-client-error-on-mangooh-red/1052/2  is experiencing a similar problem. The wifi commands are not working as they are on the Mangoh Green, and returning:
+
+&gt; ERROR:le_wifiAp_Start returns -6.
+
+Here is the error log for the mangoh red when running &quot;wifi ap start&quot;:
+
+&gt; Jan  4 23:23:21 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[524]/framework T=main | LE_FILENAME ExtractFileDescriptor() 33 | Received fd (10).
+&gt; Jan  4 23:23:21 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[524]/framework T=main | LE_FILENAME ExtractFileDescriptor() 33 | Received fd (11).
+&gt; Jan  4 23:23:21 swi-mdm9x15 user.info Legato:  INFO | wifiService[524]/daemon T=main | pa_wifi_ap_ti.c pa_wifiAp_Start() 449 | AP starts
+&gt; Jan  4 23:23:21 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[524]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool &#39;framework.DestructorObjs&#39; overflowed. Expanded to 6 blocks.
+&gt; Jan  4 23:23:21 swi-mdm9x15 user.info Legato:  INFO | wifiService[524]/daemon T=main | pa_wifi_ap_ti.c pa_wifiAp_Start() 463 | SSID = ryan
+&gt; Jan  4 23:23:21 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[524]/framework T=WifiApPaThread | LE_FILENAME PThreadStartRoutine() 362 | Set nice level to 0.
+&gt; Jan  4 23:23:21 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[524]/framework T=WifiApPaThread | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool &#39;framework.DestructorObjs&#39; overflowed. Expanded to 7 blocks.
+&gt; Jan  4 23:23:21 swi-mdm9x15 user.info Legato:  INFO | wifiService[524]/daemon T=WifiApPaThread | pa_wifi_ap_ti.c WifiApPaThreadMain() 230 | Started!
+&gt; Jan  4 23:23:21 swi-mdm9x15 user.info Legato:  INFO | wifiService[524]/daemon T=WifiApPaThread | pa_wifi_ap_ti.c WifiApPaThreadMain() 247 | PARSING:WIFI_SET_EVENT : len:15
+&gt; Jan  4 23:23:21 swi-mdm9x15 user.info Legato:  INFO | wifiService[524] | WIFI_START
+&gt; ****Jan  4 23:23:22 swi-mdm9x15 user.err Legato: =ERR= | wifiService[524] | ERR* failed to write i2c data*****
+*****&gt; Jan  4 23:23:22 swi-mdm9x15 user.err Legato: =ERR= | wifiService[524] | FTL* Failed to enable PCA9548A I2C switch*****
+**&gt; Jan  4 23:23:22 swi-mdm9x15 user.err Legato: =ERR= | wifiService[524]/daemon T=main | pa_wifi_ap_ti.c pa_wifiAp_Start() 484 | WiFi Access Point Command Failed: (23296)wlan0 WIFI_START**
+**&gt; Jan  4 23:23:22 swi-mdm9x15 user.err Legato: =ERR= | wifiService[524]/daemon T=main | pa_wifi_ap_ti.c pa_wifiAp_Start() 614 | WiFi Client Command Failed: As a result, configuration file (/tmp/hostapd.conf) is removed.**
+&gt; Jan  4 23:23:22 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[524]/framework T=main | le_wifiAp_server.c Handle_le_wifiAp_Start() 557 | Sending response to client session 0x27cac : 4 bytes sent
+&gt; Jan  4 23:23:22 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[524]/daemon T=main | le_wifiClient.c CloseSessionEventHandler() 414 | sessionRef 0x27d3c GetFirstSessionRef (nil)
+&gt; Jan  4 23:23:22 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[524]/framework T=main | le_wifiClient_server.c CleanupClientData() 195 | Client 0x27d3c is closed !!!
+&gt; Jan  4 23:23:22 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[524]/framework T=main | le_wifiAp_server.c CleanupClientData() 195 | Client 0x27cac is closed !!!
+
+
+I made the error codes bold for visibility. Apparently the driver cannot write i2c data? There is a similar question here: http://forum.mangoh.io/t/request-for-advice-on-board-bring-up-of-a-custom-board-with-wp8548-ti-wifi-chipset-board-bring-up/310 which has not been answered.
+
+This error is occurring on all of our boards fresh out of the box
+
+Is this a known bug, or do you know of a solution to this issue? If anyone has gotten the wifi module working on their red, please let me know! 
+
+
+Thank you for your help in advance!</description>
+    
+    <lastBuildDate>Mon, 12 Jul 2021 12:12:14 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>No problem is found for my testing</p>
+<aside class="quote quote-modified" data-post="74" data-topic="4803">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/at-cmds-for-mirage-talon-from-mangoh-red-board-at-port/4803/74">AT cmds for Mirage Talon from MangoH Red board AT port</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-red/12"><span class="badge-category-bg" style="background-color: #DF1E2E;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-red">mangOH Red</span></a>
+  </div>
+  <blockquote>
+    I don’t see problem, please see the log below: 
+
+root@swi-mdm9x28-wp:~# wifi client start 
+successfully called start. 
+root@swi-mdm9x28-wp:~# 
+root@swi-mdm9x28-wp:~# cm info 
+Device:                        WP7605 
+IMEI:                          353532100020465 
+IMEISV:                        6 
+FSN:                           2A917285070404 
+Firmware Version:              SWI9X07Y_02.28.03.05 000000 jenkins 2019/07/08 11:04:16 
+Bootloader Version:            SWI9X07Y_02.28.03.05 000000 jenkins 20…
+  </blockquote>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/36">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/36</link>
+        <pubDate>Mon, 12 Jul 2021 12:12:14 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-36</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[kalaivani]]></dc:creator>
+        <description><![CDATA[
+            <p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d2e35d6b25c57976e98b2b24af4205fbdb0b191a.png" data-download-href="/uploads/short-url/u5BoxLriaBrRL09KEaGanr5IP46.png?dl=1" title="Wifi1" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d2e35d6b25c57976e98b2b24af4205fbdb0b191a_2_690x388.png" alt="Wifi1" data-base62-sha1="u5BoxLriaBrRL09KEaGanr5IP46" width="690" height="388" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d2e35d6b25c57976e98b2b24af4205fbdb0b191a_2_690x388.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d2e35d6b25c57976e98b2b24af4205fbdb0b191a_2_1035x582.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d2e35d6b25c57976e98b2b24af4205fbdb0b191a.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d2e35d6b25c57976e98b2b24af4205fbdb0b191a_2_10x10.png"></a></div><br>
+the complete log for WIFI issue ia attached for your reference<p></p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/35">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/35</link>
+        <pubDate>Mon, 12 Jul 2021 11:56:26 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-35</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Which fw are you using?<br>
+Please post the full command log.</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/34">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/34</link>
+        <pubDate>Mon, 12 Jul 2021 11:52:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-34</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[kalaivani]]></dc:creator>
+        <description><![CDATA[
+            <p>hi,<br>
+Am also getting the same error while connecting to wifi client, can any one help to resolve the issue<br>
+ERROR:le_wifiAp_Start returns -6.</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/33">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/33</link>
+        <pubDate>Mon, 12 Jul 2021 11:41:38 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-33</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/rauger1">@rauger1</a>: Using the wifi IoT card on the mangOH Red with a wp75 should be possible.  I think if you follow along in the hangout you will be able to get it working.</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/31">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/31</link>
+        <pubDate>Mon, 19 Feb 2018 16:12:05 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-31</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[rauger1]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/asyal">@asyal</a>,</p>
+<p>Is the wifi solution possible on the WP7502? We are bringing our board out of the country so we can’t use our WP76</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/30">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/30</link>
+        <pubDate>Mon, 19 Feb 2018 14:35:59 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-30</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>FYI, we’ll be using a WP76 module for this hangout.</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/29">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/29</link>
+        <pubDate>Fri, 16 Feb 2018 23:58:03 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-29</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[rauger1]]></dc:creator>
+        <description><![CDATA[
+            <p>So 1pm EST. Thank you very much, can’t wait to sort this out!</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/28">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/28</link>
+        <pubDate>Fri, 16 Feb 2018 16:03:10 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-28</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-username="rauger1" data-post="26" data-topic="1059">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/r/ac91a4/40.png" class="avatar"> rauger1:</div>
+<blockquote>
+<p>do it tomorrow, Monday or Tuesday. We hope to be able to demo some functionality on Wednesday. If any of those dates work please let me know. I’m sure we will be able to figure out the issue!</p>
+<p>Thanks again for working this through with us.</p>
+</blockquote>
+</aside>
+<p>alright, lets do o this on Monday at 10:00am PST. We will walk you through a WP76 using Ti Wi IoT card and also walk you through setting Mediatek WiFi on mangOH Red.</p>
+<p>Everyone is welcome to join.</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/27">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/27</link>
+        <pubDate>Thu, 15 Feb 2018 21:58:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-27</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[rauger1]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/asyal">@asyal</a>,</p>
+<p>I can do it tomorrow, Monday or Tuesday. We hope to be able to demo some functionality on Wednesday. If any of those dates work please let me know. I’m sure we will be able to figure out the issue!</p>
+<p>Thanks again for working this through with us.</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/26">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/26</link>
+        <pubDate>Thu, 15 Feb 2018 18:39:02 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-26</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Well, we should do a 30 minutes google hangout next week to walk you through what we did.</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/25">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/25</link>
+        <pubDate>Thu, 15 Feb 2018 18:35:34 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-25</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[rauger1]]></dc:creator>
+        <description><![CDATA[
+            <p>This is all on Mangoh Reds by the way. It all works on the mangoh Green.</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/24">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/24</link>
+        <pubDate>Thu, 15 Feb 2018 17:00:27 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-24</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[rauger1]]></dc:creator>
+        <description><![CDATA[
+            <p>I also tried /sbin/ifup wlan0:</p>
+<p>root@swi-mdm9x15:~# /sbin/ifup wlan0<br>
+Failed to start TI wifi<br>
+root@swi-mdm9x15:~# dmesg -c<br>
+root@swi-mdm9x15:~#</p>
+<p>I copied the tiwifi that you sent me back from the board in /etc/init.d/tiwifi to the vm back to my mac just to be 100% sure that it was correct:<br>
+<a class="attachment" href="https://forum.mangoh.io/uploads/short-url/lPlq9jpuEFkY3le42NNtV33ZqR9">tiwifi</a> (8.0 KB)</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/23">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/23</link>
+        <pubDate>Thu, 15 Feb 2018 16:45:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-23</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[rauger1]]></dc:creator>
+        <description><![CDATA[
+            <p>I re-tried the tiwifi script you sent me on a wp85 and wp 75 on the mangoh red with the same result.<br>
+I tried the commands you suggest:</p>
+<blockquote>
+<p>root@swi-mdm9x15:~# wifi ap setssid "RAUGER1"<br>
+SSID set successfully.<br>
+root@swi-mdm9x15:~# wifi ap start<br>
+ERROR:le_wifiAp_Start returns -6.</p>
+</blockquote>
+<p>logread WP85:</p>
+<blockquote>
+<p>Feb 15 16:25:53 swi-mdm9x15 user.info Legato:  INFO | wifiService[567]/daemon T=main | pa_wifi_ap_ti.c pa_wifiAp_SetSsid() 750 | SSID length 7 | SSID: "RAUGER1"<br>
+Feb 15 16:25:53 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[567]/framework T=main | le_wifiAp_server.c Handle_le_wifiAp_SetSsid() 645 | Sending response to client session 0x27cac : 4 bytes sent<br>
+Feb 15 16:25:53 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[567]/daemon T=main | le_wifiClient.c CloseSessionEventHandler() 414 | sessionRef 0x27d3c GetFirstSessionRef (nil)<br>
+Feb 15 16:25:53 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[567]/framework T=main | le_wifiClient_server.c CleanupClientData() 195 | Client 0x27d3c is closed !!!<br>
+Feb 15 16:25:53 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[567]/framework T=main | le_wifiAp_server.c CleanupClientData() 195 | Client 0x27cac is closed !!!<br>
+Feb 15 16:25:56 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[567]/framework T=main | LE_FILENAME ExtractFileDescriptor() 33 | Received fd (10).<br>
+Feb 15 16:25:56 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[567]/framework T=main | LE_FILENAME ExtractFileDescriptor() 33 | Received fd (11).<br>
+Feb 15 16:25:56 swi-mdm9x15 user.info Legato:  INFO | wifiService[567]/daemon T=main | pa_wifi_ap_ti.c pa_wifiAp_Start() 449 | AP starts<br>
+Feb 15 16:25:56 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[567]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.DestructorObjs’ overflowed. Expanded to 2 blocks.<br>
+Feb 15 16:25:56 swi-mdm9x15 user.info Legato:  INFO | wifiService[567]/daemon T=main | pa_wifi_ap_ti.c pa_wifiAp_Start() 463 | SSID = RAUGER1<br>
+Feb 15 16:25:56 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[567]/framework T=WifiApPaThread | LE_FILENAME PThreadStartRoutine() 362 | Set nice level to 0.<br>
+Feb 15 16:25:56 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[567]/framework T=WifiApPaThread | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.DestructorObjs’ overflowed. Expanded to 3 blocks.<br>
+Feb 15 16:25:56 swi-mdm9x15 user.info Legato:  INFO | wifiService[567]/daemon T=WifiApPaThread | pa_wifi_ap_ti.c WifiApPaThreadMain() 230 | Started!<br>
+Feb 15 16:25:56 swi-mdm9x15 user.info Legato:  INFO | wifiService[567] | WIFI_START<br>
+Feb 15 16:25:56 swi-mdm9x15 user.info Legato:  INFO | wifiService[567]/daemon T=WifiApPaThread | pa_wifi_ap_ti.c WifiApPaThreadMain() 247 | PARSING:WIFI_SET_EVENT : len:15<br>
+Feb 15 16:25:56 swi-mdm9x15 user.info kernel: [  283.776010] Loading modules backported from Linux version R8.5<br>
+Feb 15 16:25:56 swi-mdm9x15 user.info kernel: [  283.801861] Backport generated by backports.git R8.5<br>
+Feb 15 16:25:56 swi-mdm9x15 user.err kernel: [  283.949549] qup_i2c qup_i2c.0: QUP: I2C status flags :0x1343c8, irq:187<br>
+Feb 15 16:25:56 swi-mdm9x15 user.err kernel: [  283.955196] qup_i2c qup_i2c.0: I2C slave addr:0x71 not connected<br>
+Feb 15 16:25:56 swi-mdm9x15 user.err Legato: =ERR= | wifiService[567] | Error: Write failed<br>
+Feb 15 16:25:57 swi-mdm9x15 user.err kernel: [  283.998901] qup_i2c qup_i2c.0: QUP: I2C status flags :0x1343c8, irq:187<br>
+Feb 15 16:25:57 swi-mdm9x15 user.err kernel: [  284.004578] qup_i2c qup_i2c.0: I2C slave addr:0x3e not connected<br>
+Feb 15 16:25:57 swi-mdm9x15 user.err Legato: =ERR= | wifiService[567] | Error: Write failed<br>
+Feb 15 16:25:57 swi-mdm9x15 user.err kernel: [  284.039066] qup_i2c qup_i2c.0: QUP: I2C status flags :0x1343c8, irq:187<br>
+Feb 15 16:25:57 swi-mdm9x15 user.err kernel: [  284.044742] qup_i2c qup_i2c.0: I2C slave addr:0x3e not connected<br>
+Feb 15 16:25:57 swi-mdm9x15 user.err Legato: =ERR= | wifiService[567] | Error: Write failed<br>
+Feb 15 16:25:57 swi-mdm9x15 user.err kernel: [  284.078956] qup_i2c qup_i2c.0: QUP: I2C status flags :0x1343c8, irq:187<br>
+Feb 15 16:25:57 swi-mdm9x15 user.err kernel: [  284.084602] qup_i2c qup_i2c.0: I2C slave addr:0x3e not connected<br>
+Feb 15 16:25:57 swi-mdm9x15 user.err Legato: =ERR= | wifiService[567] | Error: Failed to read old value<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.097176] cfg80211: Calling CRDA to update world regulatory domain<br>
+Feb 15 16:25:57 swi-mdm9x15 user.err kernel: [  284.132244] qup_i2c qup_i2c.0: QUP: I2C status flags :0x1343c8, irq:187<br>
+Feb 15 16:25:57 swi-mdm9x15 user.err Legato: =ERR= | wifiService[567] | Error: Failed to read old value<br>
+Feb 15 16:25:57 swi-mdm9x15 user.err kernel: [  284.138654] qup_i2c qup_i2c.0: I2C slave addr:0x3e not connected<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.186937] gpio_sync_ri: RI owner is Modem<br>
+Feb 15 16:25:57 swi-mdm9x15 user.debug kernel: [  284.190141] -&gt;gpio16 = 0<br>
+Feb 15 16:25:57 swi-mdm9x15 user.debug kernel: [  284.190141] -&gt;gpio17 = 0<br>
+Feb 15 16:25:57 swi-mdm9x15 user.debug kernel: [  284.190172] -&gt;gpio18 = 0<br>
+Feb 15 16:25:57 swi-mdm9x15 user.debug kernel: [  284.190172] -&gt;gpio19 = 0<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.269372] mmc0: mci-version: 18<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.292720] mmc0: bam physical base=0x12182000<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.296169] mmc0: bam virtual base=0xd0664000<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.336853] sps:BAM 0x12182000 is registered.<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.340027] mmc0: BAM device registered. bam_handle=0xce63d400&lt;6&gt;[  284.352235] sps:REVISION of BAM 0xd0664000 is 0x5.<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.367068] mmc0: Qualcomm MSM SDCC-BAM at 0x0000000012182000 irq 130<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.372531] mmc0: Qualcomm MSM SDCC-DML at 0x0000000012180800<br>
+Feb 15 16:25:57 swi-mdm9x15 user.err kernel: [  284.383732] mmc0: No card detect facilities available<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.399267] mmc0: Qualcomm MSM SDCC-core at 0x0000000012180000 irq 136,0 dma -1 dmacrcri -1<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.425698] mmc0: 8 bit data mode disabled<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.431771] mmc0: 4 bit data mode enabled<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.454753] mmc0: polling status mode disabled<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.474500] mmc0: MMC clock 400000 -&gt; 48000000 Hz, PCLK 0 Hz<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.495223] mmc0: Slot eject status = 0<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.514481] mmc0: Power save feature enable = 1<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.521928] mmc0: SPS-BAM data transfer mode available<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.770791] cfg80211: World regulatory domain updated:<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.774942] cfg80211:  DFS Master region: unset<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.785167] cfg80211:   (start_freq - end_freq @ bandwidth), (max_antenna_gain, max_eirp), (dfs_cac_time)<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.816389] cfg80211:   (2402000 KHz - 2472000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.823378] cfg80211:   (2457000 KHz - 2482000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.844468] cfg80211:   (2474000 KHz - 2494000 KHz @ 20000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.852098] cfg80211:   (5170000 KHz - 5250000 KHz @ 80000 KHz, 160000 KHz AUTO), (N/A, 2000 mBm), (N/A)<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.861223] cfg80211:   (5250000 KHz - 5330000 KHz @ 80000 KHz, 160000 KHz AUTO), (N/A, 2000 mBm), (0 s)<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.870746] cfg80211:   (5490000 KHz - 5730000 KHz @ 160000 KHz), (N/A, 2000 mBm), (0 s)<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.878681] cfg80211:   (5735000 KHz - 5835000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info Legato:  INFO | wifiService[567]/daemon T=WifiApPaThread | pa_wifi_ap_ti.c WifiApPaThreadMain() 247 | PARSING:phy <span class="hashtag">#0:</span> regulatory domain change: set to world roaming by the wireless core upon initialization request : len:104<br>
+Feb 15 16:25:57 swi-mdm9x15 user.info kernel: [  284.886677] cfg80211:   (57240000 KHz - 63720000 KHz @ 2160000 KHz), (N/A, 0 mBm), (N/A)<br>
+Feb 15 16:26:03 swi-mdm9x15 user.info Legato:  INFO | wifiService[567] | Failed to start TI wifi<br>
+Feb 15 16:26:03 swi-mdm9x15 user.err Legato: =ERR= | wifiService[567]/daemon T=main | pa_wifi_ap_ti.c pa_wifiAp_Start() 484 | WiFi Access Point Command Failed: (23296)wlan0 WIFI_START<br>
+Feb 15 16:26:03 swi-mdm9x15 user.err Legato: =ERR= | wifiService[567]/daemon T=main | pa_wifi_ap_ti.c pa_wifiAp_Start() 614 | WiFi Client Command Failed: As a result, configuration file (/tmp/hostapd.conf) is removed.<br>
+Feb 15 16:26:03 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[567]/framework T=main | le_wifiAp_server.c Handle_le_wifiAp_Start() 557 | Sending response to client session 0x27d3c : 4 bytes sent<br>
+Feb 15 16:26:03 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[567]/daemon T=main | le_wifiClient.c CloseSessionEventHandler() 414 | sessionRef 0x27cac GetFirstSessionRef (nil)<br>
+Feb 15 16:26:03 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[567]/framework T=main | le_wifiClient_server.c CleanupClientData() 195 | Client 0x27cac is closed !!!<br>
+Feb 15 16:26:03 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[567]/framework T=main | le_wifiAp_server.c CleanupClientData() 195 | Client 0x27d3c is closed !!!</p>
+</blockquote>
+<p>Now, here is something weird. When attempting wifiWebAp, we get a similar error and then a ton of messages "Reaping unconfigured child process xxxx"<br>
+logread:</p>
+<p>app start wifiWebAp</p>
+<blockquote>
+<p>Feb 15 16:35:34 swi-mdm9x15 user.info Legato:  INFO | supervisor[468]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 102400.<br>
+Feb 15 16:35:34 swi-mdm9x15 user.info Legato:  INFO | supervisor[468]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 102400.<br>
+Feb 15 16:35:34 swi-mdm9x15 user.info Legato:  INFO | supervisor[468]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.<br>
+Feb 15 16:35:34 swi-mdm9x15 user.info Legato:  INFO | supervisor[468]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.<br>
+Feb 15 16:35:34 swi-mdm9x15 user.info Legato:  INFO | supervisor[468]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.<br>
+Feb 15 16:35:34 swi-mdm9x15 user.info Legato:  INFO | supervisor[468]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.<br>
+Feb 15 16:35:34 swi-mdm9x15 user.info Legato:  INFO | supervisor[468]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.<br>
+Feb 15 16:35:34 swi-mdm9x15 user.info Legato:  INFO | supervisor[468]/supervisor T=main | proc.c proc_Start() 1190 | Starting process ‘wifiWebAp’ with pid 1740<br>
+Feb 15 16:35:34 swi-mdm9x15 user.info Legato:  INFO | supervisor[1740]/supervisor T=main | proc.c proc_Start() 1155 | Execing 'wifiWebAp’<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1740]/framework T=unknown | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_refPathIteratorMap’ is truncated to 'framework.hashMap_refPathIterat’<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1740]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_refEventHandlers’ is truncated to 'framework.hashMap_refEventHandl’<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1740]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_refDefault Timer SafeRe’ is truncated to 'framework.hashMap_refDefault Ti’<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1740]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.MessagingClientInterfaces’ is truncated to 'framework.MessagingClientInterf’<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1740]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_refHandlersRef’ is truncated to 'framework.hashMap_refHandlersRe’<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1740]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_MessagingServices’ is truncated to 'framework.hashMap_MessagingServ’<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1740]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_MessagingClients’ is truncated to 'framework.hashMap_MessagingClie’<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1740]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.PipelineSIGCHLD-reports’ is truncated to 'framework.PipelineSIGCHLD-repor’<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1740]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.DestructorObjs’ overflowed. Expanded to 1 blocks.<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1740]/ T=main | _componentMain.c <em>wifiWebApComponent_Init() 29 | Initializing wifiWebApComponent component library.<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1740]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_refle_wifiAp_ClientHand’ is truncated to 'framework.hashMap_refle_wifiAp</em>’<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1740]/framework T=main | LE_FILENAME msgMessage_CreatePool() 112 | Pool name truncated to ‘msgs-fe7eae3148cce5e653b977d35e’ for protocol ‘fe7eae3148cce5e653b977d35eda3dd9’.<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1740]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.msgs-fe7eae3148cce5e653b977d35e’ is truncated to 'framework.msgs-fe7eae3148cce5e6’<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[544]/framework T=main | LE_FILENAME ExtractFileDescriptor() 33 | Received fd (10).<br>
+Feb 15 16:35:34 swi-mdm9x15 user.warn Legato: -WRN- | <em>UNKNOWN</em>[1740]/framework T=main | LE_FILENAME le_fdMonitor_Create() 672 | FD Monitor object name ‘wifiWebAp.wifiWebApComponent.le_wifiAp’ truncated to ‘wifiWebAp.wifiWebApComponent.le’.<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1740]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_wifiAp_ClientThreadData’ overflowed. Expanded to 1 blocks.<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1740]/framework T=main | le_wifiAp_client.c DoConnectService() 391 | ======= Starting client for ‘wifiWebAp.wifiWebApComponent.le_wifiAp’ service ========<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | wifiWebAp[1740]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.msgs-LogControlProtocol’ is truncated to 'framework.msgs-LogControlProtoc’<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | wifiWebAp[1740]/wifiWebAp_exe T=main | _main.c main() 56 | == Starting Event Processing Loop ==<br>
+Feb 15 16:35:34 swi-mdm9x15 user.info Legato:  INFO | wifiWebAp[1740]/wifiWebApComponent T=main | wifiWebAp.c _wifiWebApComponent_COMPONENT_INIT() 313 | ======== WiFi Web Ap ======== on port 8080<br>
+Feb 15 16:35:34 swi-mdm9x15 user.info Legato:  INFO | wifiWebAp[1740]/wifiWebApComponent T=main | wifiWebAp.c SubscribeApEvents() 171 | SubscribeApEvents<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | wifiWebAp[1740]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_wifiAp_ClientData’ overflowed. Expanded to 1 blocks.<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | wifiWebAp[1740]/framework T=main | le_wifiAp_client.c le_wifiAp_AddNewEventHandler() 612 | Sending message to server and waiting for response : 4 bytes sent<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[544]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_wifiAp_ServerData’ overflowed. Expanded to 1 blocks.<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[544]/daemon T=main | le_wifiAp.c le_wifiAp_AddNewEventHandler() 89 | Add new event handler<br>
+Feb 15 16:35:34 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[544]/framework T=main | le_wifiAp_server.c Handle_le_wifiAp_AddNewEventHandler() 461 | Sending response to client session 0x27d3c : 4 bytes sent<br>
+Feb 15 16:35:34 swi-mdm9x15 user.info Legato:  INFO | wifiWebAp[1740]/wifiWebApComponent T=main | wifiWebAp.c StartWebServer() 194 | popen : /usr/sbin/httpd -v -p 8080 -u root -h /legato/systems/current/apps/wifiWebAp/read-only/var/www/ 2&gt;&amp;1<br>
+Feb 15 16:35:34 swi-mdm9x15 user.info Legato:  INFO | wifiWebAp[1740]/wifiWebApComponent T=main | wifiWebAp.c StartWebServer() 196 | AFTER (command did not hang) 0x2e470<br>
+Feb 15 16:35:34 swi-mdm9x15 user.info Legato:  INFO | wifiWebAp[1740]/wifiWebApComponent T=main | wifiWebAp.c StartWebServer() 227 | STARTING WIFI HTTP INTERFACE<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=unknown | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_refPathIteratorMap’ is truncated to 'framework.hashMap_refPathIterat’<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_refEventHandlers’ is truncated to 'framework.hashMap_refEventHandl’<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_refDefault Timer SafeRe’ is truncated to 'framework.hashMap_refDefault Ti’<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.MessagingClientInterfaces’ is truncated to 'framework.MessagingClientInterf’<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_refHandlersRef’ is truncated to 'framework.hashMap_refHandlersRe’<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_MessagingServices’ is truncated to 'framework.hashMap_MessagingServ’<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_MessagingClients’ is truncated to 'framework.hashMap_MessagingClie’<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.PipelineSIGCHLD-reports’ is truncated to 'framework.PipelineSIGCHLD-repor’<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.DestructorObjs’ overflowed. Expanded to 1 blocks.<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/ T=main | _componentMain.c _cm_Init() 62 | Initializing cm component library.<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_refle_cfg_ClientHandler’ is truncated to 'framework.hashMap_refle_cfg_Cli’<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME msgMessage_CreatePool() 112 | Pool name truncated to ‘msgs-8a26e6c5c2c76df02e412df515’ for protocol ‘8a26e6c5c2c76df02e412df515bd9f71’.<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.msgs-8a26e6c5c2c76df02e412df515’ is truncated to 'framework.msgs-8a26e6c5c2c76df0’<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_cfg_ClientThreadData’ overflowed. Expanded to 1 blocks.<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | le_cfg_client.c DoConnectService() 391 | ======= Starting client for ‘cm.cm.le_cfg’ service ========<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_refle_mrc_ClientHandler’ is truncated to 'framework.hashMap_refle_mrc_Cli’<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME msgMessage_CreatePool() 112 | Pool name truncated to ‘msgs-74bd62afd4fc83a23e68a6e723’ for protocol ‘74bd62afd4fc83a23e68a6e7230749f7’.<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.msgs-74bd62afd4fc83a23e68a6e723’ is truncated to 'framework.msgs-74bd62afd4fc83a2’<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_mrc_ClientThreadData’ overflowed. Expanded to 1 blocks.<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | le_mrc_client.c DoConnectService() 391 | ======= Starting client for ‘cm.cm.le_mrc’ service ========<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.SafeRef-Map’ overflowed. Expanded to 11 blocks.<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_refle_mdc_ClientHandler’ is truncated to 'framework.hashMap_refle_mdc_Cli’<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME msgMessage_CreatePool() 112 | Pool name truncated to ‘msgs-f51d46d0916e8217f8268ebd7f’ for protocol ‘f51d46d0916e8217f8268ebd7f42baa0’.<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.msgs-f51d46d0916e8217f8268ebd7f’ is truncated to 'framework.msgs-f51d46d0916e8217’<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_mdc_ClientThreadData’ overflowed. Expanded to 1 blocks.<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | le_mdc_client.c DoConnectService() 391 | ======= Starting client for ‘cm.cm.le_mdc’ service ========<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.SafeRef-Map’ overflowed. Expanded to 12 blocks.<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_refle_sim_ClientHandler’ is truncated to 'framework.hashMap_refle_sim_Cli’<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME msgMessage_CreatePool() 112 | Pool name truncated to ‘msgs-5003e8cf806c2137854dd150a6’ for protocol ‘5003e8cf806c2137854dd150a6a8b2ff’.<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.msgs-5003e8cf806c2137854dd150a6’ is truncated to 'framework.msgs-5003e8cf806c2137’<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_sim_ClientThreadData’ overflowed. Expanded to 1 blocks.<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | le_sim_client.c DoConnectService() 391 | ======= Starting client for ‘cm.cm.le_sim’ service ========<br>
+Feb 15 16:35:42 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1765]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.SafeRef-Map’ overflowed. Expanded to 13 blocks.<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1953]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.FdMonitor’ overflowed. Expanded to 11 blocks.<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1953]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.hashMap_refFdMonitors’ overflowed. Expanded to 12 blocks.<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1953]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_cellnet_ClientThreadData’ overflowed. Expanded to 1 blocks.<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | <em>UNKNOWN</em>[1953]/framework T=main | le_cellnet_client.c DoConnectService() 391 | ======= Starting client for ‘cm.cm.le_cellnet’ service ========<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.Protocol’ overflowed. Expanded to 12 blocks.<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.msgs-LogControlProtocol’ is truncated to 'framework.msgs-LogControlProtoc’<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.Session’ overflowed. Expanded to 12 blocks.<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.FdMonitor’ overflowed. Expanded to 12 blocks.<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/cm_exe T=main | _main.c main() 67 | == Starting Event Processing Loop ==<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.SafeRef-Map’ overflowed. Expanded to 20 blocks.<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.hashMap_refle_data_ClientHandle’ is truncated to 'framework.hashMap_refle_data_Cl’<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.Protocol’ overflowed. Expanded to 13 blocks.<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/framework T=main | LE_FILENAME msgMessage_CreatePool() 112 | Pool name truncated to ‘msgs-8d7a449d97fb39a21739605a94’ for protocol ‘8d7a449d97fb39a21739605a943cac04’.<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/framework T=main | LE_FILENAME InitPool() 303 | Memory pool name ‘framework.msgs-8d7a449d97fb39a21739605a94’ is truncated to 'framework.msgs-8d7a449d97fb39a2’<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.Session’ overflowed. Expanded to 13 blocks.<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.FdMonitor’ overflowed. Expanded to 13 blocks.<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.hashMap_refFdMonitors’ overflowed. Expanded to 14 blocks.<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_data_ClientThreadData’ overflowed. Expanded to 1 blocks.<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/framework T=main | le_data_client.c DoConnectService() 391 | ======= Starting client for ‘cm.cm.le_data’ service ========<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_data_ClientData’ overflowed. Expanded to 1 blocks.<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/framework T=main | le_data_client.c le_data_AddConnectionStateHandler() 615 | Sending message to server and waiting for response : 4 bytes sent<br>
+Feb 15 16:35:56 swi-mdm9x15 user.debug Legato:  DBUG | cm[1953]/framework T=main | le_data_client.c le_data_Request() 745 | Sending message to server and waiting for response : 0 bytes sent<br>
+Feb 15 16:35:57 swi-mdm9x15 daemon.info dnsmasq[800]: exiting on receipt of SIGTERM<br>
+Feb 15 16:35:57 swi-mdm9x15 daemon.info dnsmasq[1992]: started, version 2.71 cachesize 150<br>
+Feb 15 16:35:57 swi-mdm9x15 daemon.info dnsmasq[1992]: compile time options: IPv6 GNU-getopt no-DBus no-i18n no-IDN DHCP DHCPv6 no-Lua TFTP no-conntrack ipset auth no-DNSSEC<br>
+Feb 15 16:35:57 swi-mdm9x15 daemon.info dnsmasq-dhcp[1992]: DHCP, IP range 192.168.10.10 – 192.168.10.199, lease time 1d<br>
+Feb 15 16:35:57 swi-mdm9x15 daemon.info dnsmasq-dhcp[1992]: DHCP, IP range 192.168.20.10 – 192.168.20.100, lease time 1d<br>
+Feb 15 16:35:57 swi-mdm9x15 daemon.info dnsmasq-dhcp[1992]: DHCP, IP range 192.168.2.3 – 192.168.2.3, lease time 12h<br>
+Feb 15 16:35:57 swi-mdm9x15 user.info Legato:  INFO | supervisor[468]/supervisor T=main | supervisor.c SigChildHandler() 677 | Reaping unconfigured child process 1991.<br>
+Feb 15 16:35:57 swi-mdm9x15 daemon.info dnsmasq[1992]: using nameserver 8.8.8.8#53<br>
+Feb 15 16:35:57 swi-mdm9x15 daemon.info dnsmasq[1992]: reading /etc/resolv.conf<br>
+Feb 15 16:35:57 swi-mdm9x15 daemon.info dnsmasq[1992]: using nameserver 8.8.8.8#53<br>
+Feb 15 16:35:57 swi-mdm9x15 daemon.info dnsmasq[1992]: using nameserver 172.26.38.1#53<br>
+Feb 15 16:35:57 swi-mdm9x15 daemon.info dnsmasq[1992]: using nameserver 8.8.8.8#53<br>
+Feb 15 16:35:57 swi-mdm9x15 daemon.info dnsmasq[1992]: using nameserver 8.8.4.4#53<br>
+Feb 15 16:35:57 swi-mdm9x15 daemon.info dnsmasq[1992]: read /etc/hosts - 1 addresses<br>
+Feb 15 16:35:58 swi-mdm9x15 user.info Legato:  INFO | supervisor[468]/supervisor T=main | supervisor.c SigChildHandler() 677 | Reaping unconfigured child process 1996.<br>
+Feb 15 16:36:00 swi-mdm9x15 user.info Legato:  INFO | supervisor[468]/supervisor T=main | supervisor.c SigChildHandler() 677 | Reaping unconfigured child process 2007.<br>
+Feb 15 16:36:02 swi-mdm9x15 user.info Legato:  INFO | supervisor[468]/supervisor T=main | supervisor.c SigChildHandler() 677 | Reaping unconfigured child process 2009.</p>
+</blockquote>
+<p>These last messages :</p>
+<blockquote>
+<p>Feb 15 16:36:10 swi-mdm9x15 user.info Legato:  INFO | supervisor[468]/supervisor T=main | supervisor.c SigChildHandler() 677 | Reaping unconfigured child process 2027.</p>
+</blockquote>
+<p>Are posting twice a second with ever-increasing child pids. It started at 1996 on my first attempt to use wifi ap, and it has been continuing for the last 10 minutes up to the 9000s range. This is on the WP85 and WP75. What could be going so wrong with wifi ap start and wifiWebAp?</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/22">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/22</link>
+        <pubDate>Thu, 15 Feb 2018 16:40:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-22</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[dclark75]]></dc:creator>
+        <description><![CDATA[
+            <p><span class="mention">@rauger</span> in addition tried the wifi ap commands shown below - although FYI when i set up an AP i usually use the web application.  This involves starting the wifiWebAp legato application and then I use a web browser with the url 192.168.2.2:8080.</p>
+<p>root@swi-mdm9x15:~# wifi ap setssid "RAUGER1"<br>
+SSID set successfully.<br>
+root@swi-mdm9x15:~# wifi ap start<br>
+starting…<br>
+root@swi-mdm9x15:~# wifi ap setssid "RAUGER1"<br>
+SSID set successfully.<br>
+root@swi-mdm9x15:~# wifi ap setchannel 1<br>
+Channel set to 1.<br>
+root@swi-mdm9x15:~# wifi ap setsecurityproto 1<br>
+Security protocol set to 1.<br>
+root@swi-mdm9x15:~# wifi ap setpassphrase "SIERRA_WIFI"<br>
+Passphrase set.<br>
+root@swi-mdm9x15:~# wifi ap setdiscoverable 1<br>
+Discoverable set to 1.<br>
+root@swi-mdm9x15:~# wifi ap setmaxclients 5<br>
+Max number of clients set to 5.<br>
+root@swi-mdm9x15:~# wifi ap start<br>
+starting…<br>
+root@swi-mdm9x15:~# ifconfig wlan0<br>
+wlan0     Link encap:Ethernet  HWaddr 80:30:DC:05:4A:10<br>
+inet6 addr: fe80::8230:dcff:fe05:4a10/64 Scope:Link<br>
+UP BROADCAST MULTICAST  MTU:1500  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:8 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:0 (0.0 B)  TX bytes:792 (792.0 B)</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/21">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/21</link>
+        <pubDate>Fri, 09 Feb 2018 18:29:11 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-21</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[dclark75]]></dc:creator>
+        <description><![CDATA[
+            <p><span class="mention">@rauger</span> tried again and here is my outputs:</p>
+<p>root@swi-mdm9x15:~# /sbin/ifup wlan0<br>
+root@swi-mdm9x15:~# dmesg -c<br>
+[   65.227804] gpio_sync_ri: RI owner is Modem<br>
+[   65.231008] -&gt;gpio16 = 0<br>
+[   65.231008] -&gt;gpio17 = 0<br>
+[   65.231039] -&gt;gpio18 = 0<br>
+[   65.231039] -&gt;gpio19 = 0<br>
+[   65.233236] gpio_sync_ri: RI owner is Modem<br>
+[   65.236441] -&gt;gpio16 = 0<br>
+[   65.236471] -&gt;gpio17 = 0<br>
+[   65.236502] -&gt;gpio18 = 0<br>
+[   65.236502] -&gt;gpio19 = 0<br>
+[   65.248557] gpio_sync_ri: RI owner is Modem<br>
+[   65.251762] -&gt;gpio16 = 0<br>
+[   65.251762] -&gt;gpio17 = 0<br>
+[   65.251793] -&gt;gpio18 = 0<br>
+[   65.251793] -&gt;gpio19 = 0<br>
+[   65.318480] mmc0: mci-version: 18<br>
+[   65.337189] mmc0: bam physical base=0x12182000<br>
+[   65.340637] mmc0: bam virtual base=0xd05bc000<br>
+[   65.345002] sps:BAM 0x12182000 is registered.<br>
+[   65.366732] mmc0: BAM device registered. bam_handle=0xceb33600&lt;6&gt;[   65.371921] sps:REVISION of BAM 0xd05bc000 is 0x5.<br>
+[   65.383488] mmc0: Qualcomm MSM SDCC-BAM at 0x0000000012182000 irq 130<br>
+[   65.389470] mmc0: Qualcomm MSM SDCC-DML at 0x0000000012180800<br>
+[   65.394719] mmc0: No card detect facilities available<br>
+[   65.404455] mmc0: Qualcomm MSM SDCC-core at 0x0000000012180000 irq 136,0 dma -1 dmacrcri -1<br>
+[   65.426186] mmc0: 8 bit data mode disabled<br>
+[   65.429848] mmc0: 4 bit data mode enabled<br>
+[   65.433267] mmc0: polling status mode disabled<br>
+[   65.443674] mmc0: MMC clock 400000 -&gt; 48000000 Hz, PCLK 0 Hz<br>
+[   65.465588] mmc0: Slot eject status = 0<br>
+[   65.468670] mmc0: card claims to support voltages below the defined range. These will be ignored.<br>
+[   65.486769] mmc0: Power save feature enable = 1<br>
+[   65.490279] mmc0: SPS-BAM data transfer mode available<br>
+[   65.589317] Loading modules backported from Linux version R8.5<br>
+[   65.594140] Backport generated by backports.git R8.5<br>
+[   65.642118] mmc0: queuing unknown CIS tuple 0x91 (3 bytes)<br>
+[   65.720585] mmc0: new high speed SDIO card at address 0001<br>
+[   65.877552] cfg80211: Calling CRDA to update world regulatory domain<br>
+[   66.444712] cfg80211: World regulatory domain updated:<br>
+[   66.470105] cfg80211:  DFS Master region: unset<br>
+[   66.473462] cfg80211:   (start_freq - end_freq @ bandwidth), (max_antenna_gain, max_eirp), (dfs_cac_time)<br>
+[   66.510636] cfg80211:   (2402000 KHz - 2472000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   66.535479] cfg80211:   (2457000 KHz - 2482000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   66.543171] cfg80211:   (2474000 KHz - 2494000 KHz @ 20000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   66.550801] cfg80211:   (5170000 KHz - 5250000 KHz @ 80000 KHz, 160000 KHz AUTO), (N/A, 2000 mBm), (N/A)<br>
+[   66.560323] cfg80211:   (5250000 KHz - 5330000 KHz @ 80000 KHz, 160000 KHz AUTO), (N/A, 2000 mBm), (0 s)<br>
+[   66.569662] cfg80211:   (5490000 KHz - 5730000 KHz @ 160000 KHz), (N/A, 2000 mBm), (0 s)<br>
+[   66.577689] cfg80211:   (5735000 KHz - 5835000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   66.585441] cfg80211:   (57240000 KHz - 63720000 KHz @ 2160000 KHz), (N/A, 0 mBm), (N/A)<br>
+[   66.740637] wlcore: wl18xx HW: 183x or 180x, PG 2.2 (ROM 0x11)<br>
+[   66.830672] wlcore: loaded<br>
+[   66.832443] wlcore: driver version: ol_r8.a9.14<br>
+[   66.886708] wlcore: compilation time: Thu Apr 27 02:16:58 2017<br>
+[   72.367190] wlcore: PHY firmware version: Rev 8.2.0.0.224<br>
+[   72.669006] wlcore: firmware booted (Rev 8.9.0.0.31)<br>
+[   72.951442] IPv6: ADDRCONF(NETDEV_UP): wlan0: link is not ready<br>
+root@swi-mdm9x15:~#<br>
+root@swi-mdm9x15:~# legato version<br>
+16.10.3_7776bb75a488e0db67b0d24975b46dd0</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/20">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/20</link>
+        <pubDate>Fri, 09 Feb 2018 18:26:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-20</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[dclark75]]></dc:creator>
+        <description><![CDATA[
+            <p><span class="mention">@rauger</span> did you use the tiwifi script i sent to you? looks like your tiwifi script is still failing - i will try to send to you in a message again</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/19">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/19</link>
+        <pubDate>Fri, 09 Feb 2018 18:12:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-19</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Seems like the driver did load for you.<br>
+Does the client mode work for you? We’ll try the AP mode tomorrow to test.</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/18">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/18</link>
+        <pubDate>Thu, 08 Feb 2018 01:37:02 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-18</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[rauger1]]></dc:creator>
+        <description><![CDATA[
+            <p>Here is the setup in case you’re wondering. When i set the required fields for wifi_ap, I still receive the -6 error and logread outputs the same. But dmesg -c doesnt show anything…:</p>
+<blockquote>
+<p>root@swi-mdm9x15:~# /sbin/ifup wlan0<br>
+Failed to start TI wifi<br>
+root@swi-mdm9x15:~# dmesg -c<br>
+root@swi-mdm9x15:~#</p>
+</blockquote>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/71cef92f0fef79eb95a9605d2a55683ce0f491cc.JPG" data-download-href="/uploads/short-url/geNol2taDRjxkSsqCS8nzOndtKI.JPG?dl=1" title="IMG_9096.JPG" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/71cef92f0fef79eb95a9605d2a55683ce0f491cc_2_375x500.JPG" alt="IMG_9096" data-base62-sha1="geNol2taDRjxkSsqCS8nzOndtKI" width="375" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/71cef92f0fef79eb95a9605d2a55683ce0f491cc_2_375x500.JPG, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/71cef92f0fef79eb95a9605d2a55683ce0f491cc_2_562x750.JPG 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/71cef92f0fef79eb95a9605d2a55683ce0f491cc_2_750x1000.JPG 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/71cef92f0fef79eb95a9605d2a55683ce0f491cc_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/17">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/17</link>
+        <pubDate>Wed, 07 Feb 2018 19:53:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-17</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[rauger1]]></dc:creator>
+        <description><![CDATA[
+            <p>Ok adjusted the mangoh to receive power from a wall socket usb and I’m sshing using the other port, and I receive the same error</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/16">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/16</link>
+        <pubDate>Wed, 07 Feb 2018 19:50:02 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-16</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Could you change that? I am wondering if the power from your computer is not enough to support cellular + WiFi simultaneously</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/15">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/15</link>
+        <pubDate>Wed, 07 Feb 2018 19:33:22 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-15</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[rauger1]]></dc:creator>
+        <description><![CDATA[
+            <p>I am powering the Mangoh Red with a computer USB cable</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/14">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/14</link>
+        <pubDate>Wed, 07 Feb 2018 19:32:31 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-14</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>how are you powering the board?  Through a computer or through a USB to wall adapter?</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/13">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/13</link>
+        <pubDate>Wed, 07 Feb 2018 19:24:05 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-13</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[rauger1]]></dc:creator>
+        <description><![CDATA[
+            <blockquote>
+<p>root@swi-mdm9x15:~# /sbin/ifup wlan0<br>
+Error: Write failed<br>
+Error: Write failed<br>
+Error: Write failed<br>
+Error: Failed to read old value<br>
+Error: Failed to read old value<br>
+Failed to start TI wifi<br>
+root@swi-mdm9x15:~# vi /etc/init.d/tiwifi<br>
+root@swi-mdm9x15:~# dmesg -c<br>
+[   67.369693] qup_i2c qup_i2c.0: QUP: I2C status flags :0x1343c8, irq:187<br>
+[   67.375339] qup_i2c qup_i2c.0: I2C slave addr:0x71 not connected<br>
+[   67.403509] qup_i2c qup_i2c.0: QUP: I2C status flags :0x1300c8, irq:187<br>
+[   67.409949] qup_i2c qup_i2c.0: I2C slave addr:0x3e not connected<br>
+[   67.422493] qup_i2c qup_i2c.0: QUP: I2C status flags :0x1300c8, irq:187<br>
+[   67.428841] qup_i2c qup_i2c.0: I2C slave addr:0x3e not connected<br>
+[   67.441446] qup_i2c qup_i2c.0: QUP: I2C status flags :0x1300c8, irq:187<br>
+[   67.447642] qup_i2c qup_i2c.0: I2C slave addr:0x3e not connected<br>
+[   67.460552] qup_i2c qup_i2c.0: QUP: I2C status flags :0x1300c8, irq:187<br>
+[   67.466198] qup_i2c qup_i2c.0: I2C slave addr:0x3e not connected<br>
+[   67.475446] gpio_sync_ri: RI owner is Modem<br>
+[   67.479566] -&gt;gpio16 = 0<br>
+[   67.479597] -&gt;gpio17 = 0<br>
+[   67.479597] -&gt;gpio18 = 0<br>
+[   67.479627] -&gt;gpio19 = 0<br>
+[   67.518937] mmc0: mci-version: 18<br>
+[   67.527697] mmc0: bam physical base=0x12182000<br>
+[   67.531115] mmc0: bam virtual base=0xd05d0000<br>
+[   67.535449] sps:BAM 0x12182000 is registered.<br>
+[   67.557179] mmc0: BAM device registered. bam_handle=0xcb948600&lt;6&gt;[   67.562398] sps:REVISION of BAM 0xd05d0000 is 0x5.<br>
+[   67.573538] mmc0: Qualcomm MSM SDCC-BAM at 0x0000000012182000 irq 130<br>
+[   67.579673] mmc0: Qualcomm MSM SDCC-DML at 0x0000000012180800<br>
+[   67.584770] mmc0: No card detect facilities available<br>
+[   67.594567] mmc0: Qualcomm MSM SDCC-core at 0x0000000012180000 irq 136,0 dma -1 dmacrcri -1<br>
+[   67.616175] mmc0: 8 bit data mode disabled<br>
+[   67.619838] mmc0: 4 bit data mode enabled<br>
+[   67.623256] mmc0: polling status mode disabled<br>
+[   67.633541] mmc0: MMC clock 400000 -&gt; 48000000 Hz, PCLK 0 Hz<br>
+[   67.655669] mmc0: Slot eject status = 0<br>
+[   67.669342] mmc0: Power save feature enable = 1<br>
+[   67.688844] mmc0: SPS-BAM data transfer mode available<br>
+[   67.775766] Loading modules backported from Linux version R8.5<br>
+[   67.787791] Backport generated by backports.git R8.5<br>
+[   67.927971] cfg80211: Calling CRDA to update world regulatory domain<br>
+[   68.482710] cfg80211: World regulatory domain updated:<br>
+[   68.486860] cfg80211:  DFS Master region: unset<br>
+[   68.517289] cfg80211:   (start_freq - end_freq @ bandwidth), (max_antenna_gain, max_eirp), (dfs_cac_time)<br>
+[   68.526018] cfg80211:   (2402000 KHz - 2472000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   68.540485] cfg80211:   (2457000 KHz - 2482000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   68.547993] cfg80211:   (2474000 KHz - 2494000 KHz @ 20000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   68.555470] cfg80211:   (5170000 KHz - 5250000 KHz @ 80000 KHz, 160000 KHz AUTO), (N/A, 2000 mBm), (N/A)<br>
+[   68.565359] cfg80211:   (5250000 KHz - 5330000 KHz @ 80000 KHz, 160000 KHz AUTO), (N/A, 2000 mBm), (0 s)<br>
+[   68.574759] cfg80211:   (5490000 KHz - 5730000 KHz @ 160000 KHz), (N/A, 2000 mBm), (0 s)<br>
+[   68.582725] cfg80211:   (5735000 KHz - 5835000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   68.590752] cfg80211:   (57240000 KHz - 63720000 KHz @ 2160000 KHz), (N/A, 0 mBm), (N/A)</p>
+</blockquote>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/12</link>
+        <pubDate>Wed, 07 Feb 2018 19:01:51 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-12</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+      <item>
+        <title>All wifi commands failing with Mirage board</title>
+        <dc:creator><![CDATA[dclark75]]></dc:creator>
+        <description><![CDATA[
+            <p><span class="mention">@rauger</span> can you try this - reboot board and do a dmesg -c to clear kernel logs - then try /sbin/ifup wlan0 - and see if this command succeeds - double check by seeing if the wlan0 interface shows up using ifconfig.  If you see it fails can u do another dmesg -c and paste output here.</p>
+          <p><a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059/11</link>
+        <pubDate>Wed, 07 Feb 2018 18:46:32 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1059-11</guid>
+        <source url="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059.rss">All wifi commands failing with Mirage board</source>
+      </item>
+  </channel>
+</rss>

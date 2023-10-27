@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>mangOH board: Legato GNSS and Position - mangOH Green - mangOH forum</title>
+    <meta name="description" content="Hi- 
+
+I am following demo app textLoc to explore GPS locationing. I realized that if I added  le_gnss_Start() to start GNSS service at beginning for  le_gnss_GetLocation(), then  le_posCtrl_Request() in the original demo&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/mangoh-board-legato-gnss-and-position/227" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;mangOH board: Legato GNSS and Position&#39;" href="https://forum.mangoh.io/t/mangoh-board-legato-gnss-and-position/227.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/mangoh-board-legato-gnss-and-position/227" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/mangoh-board-legato-gnss-and-position/227" />
+<meta property="og:title" content="mangOH board: Legato GNSS and Position" />
+<meta name="twitter:title" content="mangOH board: Legato GNSS and Position" />
+<meta property="og:description" content="Hi-  I am following demo app textLoc to explore GPS locationing. I realized that if I added  le_gnss_Start() to start GNSS service at beginning for  le_gnss_GetLocation(), then  le_posCtrl_Request() in the original demo code will return failure.  What could be the reason?  Thanks!  Hui" />
+<meta name="twitter:description" content="Hi-  I am following demo app textLoc to explore GPS locationing. I realized that if I added  le_gnss_Start() to start GNSS service at beginning for  le_gnss_GetLocation(), then  le_posCtrl_Request() in the original demo code will return failure.  What could be the reason?  Thanks!  Hui" />
+<meta property="og:article:section" content="mangOH Green" />
+<meta property="og:article:section:color" content="9EB83B" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="2 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="1 ❤" />
+<meta property="article:published_time" content="2016-09-19T22:42:03+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"mangOH board: Legato GNSS and Position","mainEntity":{"@type":"Question","name":"mangOH board: Legato GNSS and Position","text":"Hi-\n\nI am following demo app textLoc to explore GPS locationing. I realized that if I added  le_gnss_Start() to start GNSS service at beginning for  le_gnss_GetLocation(), then  le_posCtrl_Request() in the original demo code will return failure.\n\nWhat could be the reason?\n\nThanks!\n\nHui","upvoteCount":0,"answerCount":0,"dateCreated":"2016-09-19T22:42:03.491Z","author":{"@type":"Person","name":""}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/mangoh-board-legato-gnss-and-position/227">mangOH board: Legato GNSS and Position</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-green/6" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #9EB83B'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Green</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='mangOH board: Legato GNSS and Position'>
+        <meta itemprop='articleSection' content='mangOH Green'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hui_s'><span itemprop='name'>hui_s</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-board-legato-gnss-and-position/227">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-09-19T22:42:03Z' class='post-time'>
+                    September 19, 2016, 10:42pm
+                  </time>
+                  <meta itemprop='dateModified' content='2016-09-19T22:42:03Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hi-</p>
+<p>I am following demo app textLoc to explore GPS locationing. I realized that if I added  le_gnss_Start() to start GNSS service at beginning for  le_gnss_GetLocation(), then  le_posCtrl_Request() in the original demo code will return failure.</p>
+<p>What could be the reason?</p>
+<p>Thanks!</p>
+<p>Hui</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jchitty'><span itemprop='name'>jchitty</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-board-legato-gnss-and-position/227">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-03-01T23:38:13Z' class='post-time'>
+                    March 1, 2017, 11:38pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-03-01T23:38:13Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I suspect the problem here is that the Positioning Control service (le_posCtrl) implementation uses the GNSS service API, and the GNSS service API isn’t designed to have multiple clients.  So, if you use le_gnss and le_posCtrl at the same time, you have two clients (your direct usage of le_gnss and your indirect usage through le_posCtrl).</p>
+<p>You should really avoid using le_gnss directly.</p>
+<p>Cheers,</p>
+<p>–Jen</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/niladridm'><span itemprop='name'>niladridm</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-board-legato-gnss-and-position/227">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-04-07T04:18:00Z' class='post-time'>
+                    April 7, 2017,  4:18am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-04-07T04:18:00Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi<br>
+We are using positioning service api in our app and using the similar api used in textloc sample code but very often we are getting below exception. Please let me know the reason whats wrong here</p>
+<p>Legato version 16.10.1</p>
+<p>Apr  6 23:02:26 swi-mdm9x15 user.warn kernel: [40042.133308] Exception stack(0xcba23fb0 to 0xcba23ff8)<br>
+Apr  6 23:02:26 swi-mdm9x15 user.warn kernel: [40042.137336] 3fa0:                                     00000001 00000002 00000000 00000001<br>
+Apr  6 23:02:26 swi-mdm9x15 user.warn kernel: [40042.159464] 3fc0: b5661e28 0003b3f8 b5661deb b4d00468 00002014 b5662694 00000000 b5661f9c<br>
+Apr  6 23:02:26 swi-mdm9x15 user.warn kernel: [40042.175273] 3fe0: b56624e4 b5661de0 b6eecfec b6eed040 20000010 ffffffff<br>
+Apr  6 23:02:26 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> kernel: [40042.180889] Task in /positioningService killed as a result of limit of /positioningService<br>
+Apr  6 23:02:26 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> kernel: [40042.199079] memory: usage 39944kB, limit 40000kB, failcnt 1252843<br>
+Apr  6 23:02:26 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> kernel: [40042.215896] memory+swap: usage 0kB, limit 18014398509481983kB, failcnt 0<br>
+Apr  6 23:02:26 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> kernel: [40042.221573] kmem: usage 0kB, limit 18014398509481983kB, failcnt 0<br>
+Apr  6 23:02:26 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> kernel: [40042.241503] Memory cgroup stats for /positioningService: cache:36KB rss:39908KB rss_huge:0KB mapped_file:0KB writeback:0KB inactive_anon:0KB active_anon:39908KB inactive_file:4KB active_file:32KB unevictable:0KB<br>
+Apr  6 23:02:26 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> kernel: [40042.270436] [ pid ]   uid  tgid total_vm      rss nr_ptes swapents oom_score_adj name<br>
+Apr  6 23:02:26 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> kernel: [40042.294028] [  546]     0   546    19690    10255      31        0             0 posDaemon<br>
+Apr  6 23:02:26 swi-mdm9x15 user.err kernel: [40042.301353] Memory cgroup out of memory: Kill process 546 (posDaemon) score 998 or sacrifice child<br>
+Apr  6 23:02:26 swi-mdm9x15 user.err kernel: [40042.328791] Killed process 546 (posDaemon) total-vm:78760kB, anon-rss:39908kB, file-rss:1112kB<br>
+Apr  6 23:02:27 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | supervisor[481]/supervisor T=main | proc.c proc_SigChildHandler() 1956 | Process ‘posDaemon’ (PID: 546) has exited due to signal 9 (Killed).</p>
+<p>Thanks</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jchitty'><span itemprop='name'>jchitty</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-board-legato-gnss-and-position/227">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-04-12T21:50:46Z' class='post-time'>
+                    April 12, 2017,  9:50pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-05-16T21:10:25Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>It looks like the kernel is killing the posDaemon process in the positioningService app because it’s using more RAM than it’s allowed to.  You can increase the amount of RAM it’s allowed to use via the <a href="http://legato.io/legato-docs/latest/defFilesAdef.html#defFilesAdef_maxMemoryBytes" rel="nofollow noopener">maxMemoryBytes setting in the positioningService.adef</a> file or you can override the .adef’s maxMemoryBytes limit <a href="http://legato.io/legato-docs/latest/defFilesSdef.html#defFilesSdef_apps" rel="nofollow noopener">in the .sdef file</a>.</p>
+<p>But, if the problem is caused by a memory leak, the best thing to do, of course, is find the leak and fix it.  The ‘inspect pools’ command (on the target device’s command line) can help with this.  Try running it on the posDaemon process after it has been running for a while and again later (before it runs out of memory and gets killed).  ‘pstree -p’ or ‘app info positioningService’ can be useful for finding out the PID of the posDaemon process.  When you have the PID, run ‘inspect pools PID’ to see the state of the memory pools inside the posDaemon process.  If you see a number in the USED_BYTES column that’s continually growing, that’s the pool whose memory is being leaked.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/mzboiu'><span itemprop='name'>mzboiu</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-board-legato-gnss-and-position/227">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-05-20T08:03:25Z' class='post-time'>
+                    May 20, 2017,  8:03am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-05-20T08:03:25Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi,</p>
+<p>I’m not sure if it is the same problem, but there <em>is</em> a memory leak when using the nmea flow</p>
+<p>just starting<br>
+gnss start<br>
+cat /dev/nmea<br>
+I can see the constantly increased memory usage for posDaemon  process ( MEMORY POOL: le_pa_gnss.PositionEventDataPoo… )</p>
+<p>inspect pools $(pidof posDaemon)</p>
+<hr>
+<p>TOTAL BLKS |  USED BLKS |   MAX USED |  OVERFLOWS |               ALLOCS |  BLK BYTES | USED BYTES | MEMORY POOL                     |   SUB-POOL |<br>
+8 |          0 |          0 |          0 |                    0 |        164 |          0 | framework.SubPools              |            |<br>
+10 |          5 |          5 |          0 |                    5 |        148 |        740 | framework.TraceKeys             |            |<br>
+10 |          6 |          6 |          0 |                    6 |         92 |        552 | framework.LogSession            |            |<br>
+0 |          0 |          0 |          0 |                    0 |         88 |          0 | framework.SigMonitor            |            |<br>
+0 |          0 |          0 |          0 |                    0 |         92 |          0 | framework.SigHandler            |            |<br>
+15 |         15 |         15 |          5 |                   15 |        116 |       1740 | framework.SafeRef-Map           |            |<br>
+0 |          0 |          0 |          0 |                    0 |        712 |          0 | framework.PathIteratorPool      |            |<br>
+8 |          0 |          0 |          0 |                    0 |         96 |          0 | framework.hashMap_refPathIterat |            |<br>
+4 |          0 |          0 |          0 |                    0 |        180 |          0 | framework.mutex                 |            |<br>
+23 |         22 |         23 |         19 |                   23 |        160 |       3520 | framework.semaphore             |            |<br>
+4 |          1 |          1 |          0 |                    1 |        244 |        244 | framework.Thread Pool           |            |<br>
+4 |          1 |          1 |          0 |                    1 |         96 |         96 | framework.hashMap_refThreadRef  |            |<br>
+1 |          1 |          1 |          1 |                    1 |         96 |         96 | framework.DestructorObjs        |            |<br>
+10 |          0 |          7 |          0 |                   14 |         96 |          0 | framework.QueuedFunction        |            |<br>
+10 |          1 |          1 |          0 |                    1 |        148 |        148 | framework.EventHandler          |            |<br>
+5 |          3 |          3 |          0 |                    3 |        148 |        444 | framework.Events                |            |<br>
+4 |          3 |          3 |          0 |                    3 |         96 |        288 | framework.hashMap_refEvents     |            |<br>
+8 |          1 |          1 |          0 |                    1 |         96 |         96 | framework.hashMap_refEventHandl |            |<br>
+10 |          5 |          8 |          0 |                    8 |        144 |        720 | framework.FdMonitor             |            |<br>
+8 |          5 |          8 |          0 |                    8 |         96 |        480 | framework.hashMap_refFdMonitors |            |<br>
+1 |          0 |          0 |          0 |                    0 |        156 |          0 | framework.Default Timer Pool    |            |<br>
+16 |          0 |          0 |          0 |                    0 |         96 |          0 | framework.hashMap_refDefault Ti |            |<br>
+5 |          5 |          5 |          0 |                    5 |        216 |       1080 | framework.Protocol              |            |<br>
+32 |          3 |          3 |          0 |                    3 |        252 |        756 | framework.MessagingServices     |            |<br>
+32 |          2 |          2 |          0 |                    2 |        216 |        432 | framework.MessagingClientInterf |            |<br>
+192 |          4 |          4 |          0 |                    4 |        100 |        400 | framework.HandlerEventPool      |            |<br>
+256 |          4 |          4 |          0 |                    4 |         96 |        384 | framework.hashMap_refHandlersRe |            |<br>
+32 |          3 |          3 |          0 |                    3 |         96 |        288 | framework.hashMap_MessagingServ |            |<br>
+32 |          2 |          2 |          0 |                    2 |         96 |        192 | framework.hashMap_MessagingClie |            |<br>
+10 |          2 |          5 |          0 |                    5 |        144 |        288 | framework.Session               |            |<br>
+32 |          0 |          1 |          0 |                   10 |         96 |          0 | framework.hashMap_refMsgTxnIDs  |            |<br>
+0 |          0 |          0 |          0 |                    0 |         84 |          0 | framework.KillProcs             |            |<br>
+32 |          0 |          0 |          0 |                    0 |         96 |          0 | framework.hashMap_KillProcs     |            |<br>
+0 |          0 |          0 |          0 |                    0 |       1112 |          0 | framework.PropertiesIterPool    |            |<br>
+0 |          0 |          0 |          0 |                    0 |       1148 |          0 | framework.JSON Parser           |            |<br>
+0 |          0 |          0 |          0 |                    0 |         88 |          0 | framework.JSON Context          |            |<br>
+1 |          0 |          0 |          0 |                    0 |         88 |          0 | framework.PipelineSIGCHLD-repor |            |<br>
+0 |          0 |          0 |          0 |                    0 |        116 |          0 | framework.Pipeline              |            |<br>
+0 |          0 |          0 |          0 |                    0 |         92 |          0 | framework.PipelineProcess       |            |<br>
+0 |          0 |          0 |          0 |                    0 |       4192 |          0 | framework.AtomicFileAccessPool  |            |<br>
+0 |          0 |          0 |          0 |                    0 |         92 |          0 | .le_gnss_ServerData             |            |<br>
+4 |          0 |          0 |          0 |                    0 |         96 |          0 | framework.hashMap_refle_gnss_Se |            |<br>
+10 |          0 |          2 |          0 |                    3 |       1208 |          0 | framework.msgs-ff84ab34602f8817 |            |<br>
+0 |          0 |          0 |          0 |                    0 |         92 |          0 | .le_pos_ServerData              |            |<br>
+4 |          0 |          0 |          0 |                    0 |         96 |          0 | framework.hashMap_refle_pos_Ser |            |<br>
+10 |          0 |          1 |          0 |                    1 |       1208 |          0 | framework.msgs-f3b96d79b8c5cb34 |            |<br>
+0 |          0 |          0 |          0 |                    0 |         92 |          0 | .le_posCtrl_ServerData          |            |<br>
+4 |          0 |          0 |          0 |                    0 |         96 |          0 | framework.hashMap_refle_posCtrl |            |<br>
+10 |          0 |          1 |          0 |                    1 |       1208 |          0 | framework.msgs-6cde5670dcdeaaf8 |            |<br>
+1 |          1 |          1 |          1 |                    1 |         92 |         92 | .le_cfg_ClientData              |            |<br>
+1 |          1 |          1 |          1 |                    1 |         84 |         84 | .le_cfg_ClientThreadData        |            |<br>
+4 |          1 |          1 |          0 |                    1 |         96 |         96 | framework.hashMap_refle_cfg_Cli |            |<br>
+10 |          0 |          2 |          0 |                    8 |       1708 |          0 | framework.msgs-8a26e6c5c2c76df0 |            |<br>
+10 |          0 |          2 |          0 |                   12 |        404 |          0 | framework.msgs-LogControlProtoc |            |<br>
+1 |          0 |          0 |          0 |                    0 |        212 |          0 | posDaemon.PosSamplePoolRef      |            |<br>
+0 |          0 |          0 |          0 |                    0 |        116 |          0 | posDaemon.PosSampleHandlerPoolR |            |<br>
+4 |          0 |          0 |          0 |                    0 |         96 |          0 | framework.hashMap_refPosSampleM |            |<br>
+16 |          0 |          0 |          0 |                    0 |         96 |          0 | framework.hashMap_refPositionin |            |<br>
+13 |          0 |          0 |          0 |                    0 |         92 |          0 | posDaemon.PosCtrlHandlerPoolRef |            |<br>
+1 |          0 |          1 |          0 |                 2458 |         92 |          0 | framework.PositionEvent-reports |            |<br>
+2458 |       2458 |       2458 |       2458 |                 2458 |       2180 |    5358440 | le_pa_gnss.PositionEventDataPoo |            |<br>
+1 |          0 |          0 |          0 |                    0 |         92 |          0 | framework.NmeaEvent-reports     |            |<br>
+0 |          0 |          0 |          0 |                    0 |        280 |          0 | le_pa_gnss.NmeaEventDataPool    |            |<br>
+0 |          0 |          0 |          0 |                    0 |         92 |          0 | posDaemon.PositionHandlerPoolRe |            |<br>
+1 |          0 |          0 |          0 |                    0 |       2180 |          0 | posDaemon.PositionSamplePoolRef |            |<br>
+4 |          0 |          0 |          0 |                    0 |         96 |          0 | framework.hashMap_refPositionSa |            |</p>
+<p>tried to use use Legato 16.10.1 and 16.10.3 – same issue<br>
+module: WP7502, firmware: SWI9X15Y_07.11.22.00 r33729</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/mzboiu'><span itemprop='name'>mzboiu</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-board-legato-gnss-and-position/227">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-05-26T08:33:56Z' class='post-time'>
+                    May 26, 2017,  8:33am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-05-26T08:33:56Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a href="https://github.com/legatoproject/legato-af/issues/15" class="onebox" target="_blank" rel="nofollow noopener">https://github.com/legatoproject/legato-af/issues/15</a></p>
+<blockquote>
+<p>That is a known issue that is going to be fixed in 17.05.<br>
+The commit is <a href="https://github.com/legatoproject/legato-af/commit/b663b4b4af1d3916d3091f9e1d3b6d50438eef98" rel="nofollow noopener">b663b4b</a></p>
+</blockquote>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/kalaivani'><span itemprop='name'>kalaivani</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-board-legato-gnss-and-position/227">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-30T07:39:48Z' class='post-time'>
+                    March 30, 2021,  7:39am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-30T07:39:48Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>what is the difference between GNSS and Position , if bothe gives same response why we have Two type.</p>
+<p>how to provide different constellation type in GNSS .<br>
+Any example avaible to provide different constellation type.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-board-legato-gnss-and-position/227">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-30T07:47:04Z' class='post-time'>
+                    March 30, 2021,  7:47am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-30T07:47:04Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>GNSS should provide more information than Position .<br>
+You can see here:<br>
+<a href="https://docs.legato.io/latest/c_gnss.html" class="onebox" target="_blank" rel="noopener nofollow ugc">https://docs.legato.io/latest/c_gnss.html</a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/kalaivani'><span itemprop='name'>kalaivani</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-board-legato-gnss-and-position/227">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-30T07:48:34Z' class='post-time'>
+                    March 30, 2021,  7:48am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-30T07:48:34Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>thanks for reply, any Simple example source available for GNSS with Constellation type</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-board-legato-gnss-and-position/227">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-30T07:53:34Z' class='post-time'>
+                    March 30, 2021,  7:53am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-30T07:53:34Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>how about this ?<br>
+<a href="https://docs.legato.io/latest/c_gnssSampleCodeConstellation.html" class="onebox" target="_blank" rel="noopener nofollow ugc">https://docs.legato.io/latest/c_gnssSampleCodeConstellation.html</a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

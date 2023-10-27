@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>SFTP using libcurl</title>
+    <link>https://forum.mangoh.io/t/sftp-using-libcurl/631</link>
+    <description>Hi
+I want to update the curl version to the latest 7.54.1. Firmware Packages - Release 14 have curl version 7.37.1 which do not support SFTP. If anyone done already please share the steps here.
+
+below is the curl version details for Release14
+root@swi-mdm9x15:~# curl -V
+curl 7.37.1 (arm-poky-linux-gnueabi) libcurl/7.37.1 GnuTLS/3.3.5 zlib/1.2.8
+Protocols: dict file ftp ftps gopher http https imap imaps pop3 pop3s rtsp smtp smtps telnet tftp 
+Features: IPv6 NTLM NTLM_WB SSL libz TLS-SRP 
+
+Thanks</description>
+    
+    <lastBuildDate>Fri, 21 Jul 2017 04:24:21 +0000</lastBuildDate>
+    <category>Services</category>
+    <atom:link href="https://forum.mangoh.io/t/sftp-using-libcurl/631.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>SFTP using libcurl</title>
+        <dc:creator><![CDATA[CoRfr]]></dc:creator>
+        <description><![CDATA[
+            <p>To add <code>sftp</code> it seems that you will need <code>gnutls</code> support.<br>
+To add <code>https</code> it would be <code>ssl</code> I think.</p>
+<p>Could you try to add <code>ssl gnutls</code> in <code>DISTRO_FEATURES_DEFAULT</code> in the file <code>meta-swi-extras/common/conf/distro/poky-swi-ext.conf</code>.<br>
+Cf <a href="http://www.yoctoproject.org/docs/1.7.3/ref-manual/ref-manual.html#ref-features-distro" rel="nofollow noopener">http://www.yoctoproject.org/docs/1.7.3/ref-manual/ref-manual.html#ref-features-distro</a> for some more info on this topic.</p>
+          <p><a href="https://forum.mangoh.io/t/sftp-using-libcurl/631/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/sftp-using-libcurl/631/5</link>
+        <pubDate>Fri, 21 Jul 2017 04:24:21 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-631-5</guid>
+        <source url="https://forum.mangoh.io/t/sftp-using-libcurl/631.rss">SFTP using libcurl</source>
+      </item>
+      <item>
+        <title>SFTP using libcurl</title>
+        <dc:creator><![CDATA[niladridm]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi  Roussel Thank you.<br>
+i am able to build yocto with updated curl recipe but this do not come with all the protocol. Dont know how to include the protocol package.</p>
+<p>i have removed PACKAGECONFIG ??= “${<span class="mention">@bb.utils.filter</span>(‘DISTRO_FEATURES’, ‘ipv6’, d)} gnutls proxy zlib” from .bb file as i was getting ERROR during build (may be this is the reason)</p>
+<p>See below what i am getting now</p>
+<p>root@swi-mdm9x15:~# legato version<br>
+16.10.3_14a3a0c356102949b3a755b68e8ae60d_modified<br>
+root@swi-mdm9x15:~# curl -V<br>
+curl 7.54.1 (arm-poky-linux-gnueabi) libcurl/7.54.1<br>
+Release-Date: 2017-06-14<br>
+<strong>Protocols: file ftp http</strong><br>
+Features: UnixSockets<br>
+root@swi-mdm9x15:~#</p>
+<p>Thnaks</p>
+          <p><a href="https://forum.mangoh.io/t/sftp-using-libcurl/631/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/sftp-using-libcurl/631/4</link>
+        <pubDate>Fri, 21 Jul 2017 04:17:33 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-631-4</guid>
+        <source url="https://forum.mangoh.io/t/sftp-using-libcurl/631.rss">SFTP using libcurl</source>
+      </item>
+      <item>
+        <title>SFTP using libcurl</title>
+        <dc:creator><![CDATA[CoRfr]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi,</p>
+<p>One method would be to rebuild the rootfs with an updated curl recipe.<br>
+If you add the content of <a href="http://git.yoctoproject.org/cgit.cgi/poky/tree/meta/recipes-support/curl" rel="nofollow noopener">http://git.yoctoproject.org/cgit.cgi/poky/tree/meta/recipes-support/curl</a> into <code>meta-swi/common/recipes-support</code> (or your own layer, up to you), you should be able to get an up-to-date curl.</p>
+          <p><a href="https://forum.mangoh.io/t/sftp-using-libcurl/631/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/sftp-using-libcurl/631/2</link>
+        <pubDate>Wed, 19 Jul 2017 15:41:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-631-2</guid>
+        <source url="https://forum.mangoh.io/t/sftp-using-libcurl/631.rss">SFTP using libcurl</source>
+      </item>
+      <item>
+        <title>SFTP using libcurl</title>
+        <dc:creator><![CDATA[niladridm]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi<br>
+I want to update the curl version to the latest 7.54.1. Firmware Packages - Release 14 have curl version 7.37.1 which do not support SFTP. If anyone done already please share the steps here.</p>
+<p>below is the curl version details for Release14<br>
+root@swi-mdm9x15:~# curl -V<br>
+curl 7.37.1 (arm-poky-linux-gnueabi) libcurl/7.37.1 GnuTLS/3.3.5 zlib/1.2.8<br>
+Protocols: dict file ftp ftps gopher http https imap imaps pop3 pop3s rtsp smtp smtps telnet tftp<br>
+Features: IPv6 NTLM NTLM_WB SSL libz TLS-SRP</p>
+<p>Thanks</p>
+          <p><a href="https://forum.mangoh.io/t/sftp-using-libcurl/631/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/sftp-using-libcurl/631/1</link>
+        <pubDate>Wed, 19 Jul 2017 04:00:07 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-631-1</guid>
+        <source url="https://forum.mangoh.io/t/sftp-using-libcurl/631.rss">SFTP using libcurl</source>
+      </item>
+  </channel>
+</rss>

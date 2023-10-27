@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Spi clock interruption - Build your own - mangOH forum</title>
+    <meta name="description" content="Hi, 
+I’m using a custom WP7702 board and have strange behavior on the SPI bus. When sending 16 bytes in one write command, I see short bursts of 8-bits and then the clock pauses for 25us before sending the next 8 bits. I&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/spi-clock-interruption/10147" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Spi clock interruption&#39;" href="https://forum.mangoh.io/t/spi-clock-interruption/10147.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/34b8f1c08924265cae3a6f42e74a0e0c817a8a01_2_1024x659.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/34b8f1c08924265cae3a6f42e74a0e0c817a8a01_2_1024x659.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/spi-clock-interruption/10147" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/spi-clock-interruption/10147" />
+<meta property="og:title" content="Spi clock interruption" />
+<meta name="twitter:title" content="Spi clock interruption" />
+<meta property="og:description" content="Hi,  I’m using a custom WP7702 board and have strange behavior on the SPI bus. When sending 16 bytes in one write command, I see short bursts of 8-bits and then the clock pauses for 25us before sending the next 8 bits. I am expecting a continuous clock while sending all 16 bytes.  Firmware 14.1, legato 19.11.5  The code i used:  COMPONENT_INIT {     LE_INFO(&quot;===========&gt; SPI application has started&quot;);      le_result_t res;      le_spi_DeviceHandleRef_t spiHandle;     res = le_spi_Open(&quot;spidev1.0..." />
+<meta name="twitter:description" content="Hi,  I’m using a custom WP7702 board and have strange behavior on the SPI bus. When sending 16 bytes in one write command, I see short bursts of 8-bits and then the clock pauses for 25us before sending the next 8 bits. I am expecting a continuous clock while sending all 16 bytes.  Firmware 14.1, legato 19.11.5  The code i used:  COMPONENT_INIT {     LE_INFO(&quot;===========&gt; SPI application has started&quot;);      le_result_t res;      le_spi_DeviceHandleRef_t spiHandle;     res = le_spi_Open(&quot;spidev1.0..." />
+<meta property="og:article:section" content="Build your own" />
+<meta property="og:article:section:color" content="25AAE2" />
+<meta property="article:published_time" content="2022-10-17T19:00:24+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Spi clock interruption","mainEntity":{"@type":"Question","name":"Spi clock interruption","text":"Hi,\n\nI’m using a custom WP7702 board and have strange behavior on the SPI bus. When sending 16 bytes in one write command, I see short bursts of 8-bits and then the clock pauses for 25us before sending the next 8 bits. I am expecting a continuous clock while sending all 16 bytes.\n\nFirmware 14.1, leg&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2022-10-17T19:00:24.077Z","author":{"@type":"Person","name":"Frans Kanters"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/spi-clock-interruption/10147">Spi clock interruption</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/build-your-own/7" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #25AAE2'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>Build your own</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Spi clock interruption'>
+        <meta itemprop='articleSection' content='Build your own'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/FransKanters'><span itemprop='name'>FransKanters</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/spi-clock-interruption/10147">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/34b8f1c08924265cae3a6f42e74a0e0c817a8a01.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-10-17T19:00:24Z' class='post-time'>
+                    October 17, 2022,  7:00pm
+                  </time>
+                  <meta itemprop='dateModified' content='2022-10-17T19:02:40Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hi,</p>
+<p>I’m using a custom WP7702 board and have strange behavior on the SPI bus. When sending 16 bytes in one write command, I see short bursts of 8-bits and then the clock pauses for 25us before sending the next 8 bits. I am expecting a continuous clock while sending all 16 bytes.</p>
+<p>Firmware 14.1, legato 19.11.5</p>
+<p>The code i used:</p>
+<pre><code class="lang-auto">COMPONENT_INIT
+{
+    LE_INFO("===========&gt; SPI application has started");
+
+    le_result_t res;
+
+    le_spi_DeviceHandleRef_t spiHandle;
+    res = le_spi_Open("spidev1.0", &amp;spiHandle);
+    LE_FATAL_IF(res != LE_OK, "spi_Open failed with result=%d", res);
+
+    LE_INFO("Configuring SPI");
+    le_spi_Configure(spiHandle, 0, 8, 960000, 0);
+
+    LE_INFO("Performing a SPI write of 16 bytes");
+    {
+        const uint8_t writeData[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+        LE_ASSERT_OK(le_spi_WriteHD(spiHandle, writeData, NUM_ARRAY_MEMBERS(writeData)));
+    }
+    LE_INFO("SPI write completed successfully");
+
+    le_spi_Close(spiHandle);
+}
+</code></pre>
+<p>This is the result from the scope:</p>
+<p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/34b8f1c08924265cae3a6f42e74a0e0c817a8a01.png" data-download-href="/uploads/short-url/7wp4kFuSyVFUUc0zhyCD6tTrnzP.png?dl=1" title="SPI_probleem" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/34b8f1c08924265cae3a6f42e74a0e0c817a8a01.png" alt="SPI_probleem" data-base62-sha1="7wp4kFuSyVFUUc0zhyCD6tTrnzP" width="690" height="444" data-dominant-color="11100F"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use href="#far-image"></use></svg><span class="filename">SPI_probleem</span><span class="informations">1280×824 17 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>C3 (orange) is the SPI clock signal<br>
+C4 (purple) is the SPI data signal</p>
+<p>Does anyone know what causes this? The speed is cut by a factor 4 and I have a slave that does not like the interruption.</p>
+<p>Best regards,<br>
+Frans.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/spi-clock-interruption/10147">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-10-18T12:37:49Z' class='post-time'>
+                    October 18, 2022, 12:37pm
+                  </time>
+                  <meta itemprop='dateModified' content='2022-10-18T12:49:36Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>you can check on yocto source:<br>
+./kernel/drivers/spi/spi.c</p>
+<p>I saw it has added some delay, not sure if this is related, you can try to modify it.</p>
+<pre><code class="lang-auto">static int spi_transfer_one_message(struct spi_master *master,
+				    struct spi_message *msg)
+{
+	struct spi_transfer *xfer;
+	bool keep_cs = false;
+	int ret = 0;
+	int ms = 1;
+
+	spi_set_cs(msg-&gt;spi, true);
+
+	list_for_each_entry(xfer, &amp;msg-&gt;transfers, transfer_list) {
+		trace_spi_transfer_start(msg, xfer);
+
+		if (xfer-&gt;tx_buf || xfer-&gt;rx_buf) {
+			reinit_completion(&amp;master-&gt;xfer_completion);
+
+			ret = master-&gt;transfer_one(master, msg-&gt;spi, xfer);
+			if (ret &lt; 0) {
+				dev_err(&amp;msg-&gt;spi-&gt;dev,
+					"SPI transfer failed: %d\n", ret);
+				goto out;
+			}
+
+			if (ret &gt; 0) {
+				ret = 0;
+				ms = xfer-&gt;len * 8 * 1000 / xfer-&gt;speed_hz;
+				ms += ms + 100; /* some tolerance */
+
+				ms = wait_for_completion_timeout(&amp;master-&gt;xfer_completion,
+								 msecs_to_jiffies(ms));
+			}
+
+			if (ms == 0) {
+				dev_err(&amp;msg-&gt;spi-&gt;dev,
+					"SPI transfer timed out\n");
+				msg-&gt;status = -ETIMEDOUT;
+			}
+		} else {
+			if (xfer-&gt;len)
+				dev_err(&amp;msg-&gt;spi-&gt;dev,
+					"Bufferless transfer has length %u\n",
+					xfer-&gt;len);
+		}
+
+		trace_spi_transfer_stop(msg, xfer);
+
+		if (msg-&gt;status != -EINPROGRESS)
+			goto out;
+
+		if (xfer-&gt;delay_usecs)
+			udelay(xfer-&gt;delay_usecs);
+
+		if (xfer-&gt;cs_change) {
+			if (list_is_last(&amp;xfer-&gt;transfer_list,
+					 &amp;msg-&gt;transfers)) {
+				keep_cs = true;
+			} else {
+				spi_set_cs(msg-&gt;spi, false);
+				udelay(10);
+				spi_set_cs(msg-&gt;spi, true);
+			}
+		}
+
+		msg-&gt;actual_length += xfer-&gt;len;
+	}
+
+out:
+	if (ret != 0 || !keep_cs)
+		spi_set_cs(msg-&gt;spi, false);
+
+	if (msg-&gt;status == -EINPROGRESS)
+		msg-&gt;status = ret;
+
+	spi_finalize_current_message(master);
+
+	return ret;
+}
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/FransKanters'><span itemprop='name'>FransKanters</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/spi-clock-interruption/10147">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-10-19T06:33:50Z' class='post-time'>
+                    October 19, 2022,  6:33am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-10-19T06:33:50Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thank you for your reply! I’m not very familiar with compiling kernel drivers but I will try to change the code and see if this helps.</p>
+<p>Best regards,<br>
+Frans.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

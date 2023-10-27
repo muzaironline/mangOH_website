@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CAN IoT Card driver - #50 by Naej - mangOH Red - mangOH forum</title>
+    <meta name="description" content="Hello, 
+I got  this CAN module 
+http://www.taloncom.com/images/Talon%20mangOH%20CAN%20Bus%20Module%20Brief%202016.pdf 
+Is this the right tutorial for MangOH Red in order to get this CAN module to work?">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/can-iot-card-driver/997?page=3" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;CAN IoT Card driver&#39;" href="https://forum.mangoh.io/t/can-iot-card-driver/997.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/can-iot-card-driver/997/50" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/can-iot-card-driver/997/50" />
+<meta property="og:title" content="CAN IoT Card driver" />
+<meta name="twitter:title" content="CAN IoT Card driver" />
+<meta property="og:description" content="Hi,  Thanks for your help but it still did not work. I got thoses errors with the new start_can.sh:  Jan  6 01:01:36 swi-mdm9x28-wp user.warn Legato: -WRN- | UNKNOWN[1900]/framework T=main | LE_FILENAME le_ref_CreateMap() 149 | Map name ‘refle_kernelModule_ClientHandlers’ truncated to ‘refle_kernelModule_ClientHandle’.  Jan  6 01:01:36 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[855]/supervisor T=main | kernelModules.c le_kernelModule_Unload() 1515 | Requested to unload module ‘can_iot.k..." />
+<meta name="twitter:description" content="Hi,  Thanks for your help but it still did not work. I got thoses errors with the new start_can.sh:  Jan  6 01:01:36 swi-mdm9x28-wp user.warn Legato: -WRN- | UNKNOWN[1900]/framework T=main | LE_FILENAME le_ref_CreateMap() 149 | Map name ‘refle_kernelModule_ClientHandlers’ truncated to ‘refle_kernelModule_ClientHandle’.  Jan  6 01:01:36 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[855]/supervisor T=main | kernelModules.c le_kernelModule_Unload() 1515 | Requested to unload module ‘can_iot.k..." />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta property="article:published_time" content="2019-04-08T10:07:25+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="prev" href="/t/can-iot-card-driver/997?page=2">
+
+    
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/can-iot-card-driver/997">CAN IoT Card driver</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='CAN IoT Card driver'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_36' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-03-29T00:20:19Z' class='post-time'>
+                    March 29, 2018, 12:20am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-03-29T00:20:19Z'>
+              <span itemprop='position'>36</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/abrothman">@abrothman</a>  yes, it is.<br>
+We will look at providing a much more simpler way for this. Will work with our linux experts and find a more easier way on this .</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_37' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/sreesyratron'><span itemprop='name'>sreesyratron</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/8b5742fb050968a86879c4d9fc8e396faea5a753.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-05-18T04:55:32Z' class='post-time'>
+                    May 18, 2018,  4:55am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-05-18T04:55:32Z'>
+              <span itemprop='position'>37</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>HI Francis ,</p>
+<p>Thanks for your source code.<br>
+I was trying Talon CAN interface over MangoH red + WP7502 combo, it is giving me some error.<br>
+Running legato version 16.10.4 . Source compile over Developer studio.</p>
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>Description</th>
+<th>Resource</th>
+<th>Path</th>
+<th>Location</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Symbol ‘BMS_BATP_DATA’ could not be resolved</td>
+<td>sreetestcanComponent.c</td>
+<td>/sreetestcan/sreetestcanComponent</td>
+<td>line 101</td>
+<td>Semantic Error</td>
+</tr>
+<tr>
+<td>Symbol ‘BMS_BATTP_DATA’ could not be resolved</td>
+<td>sreetestcanComponent.c</td>
+<td>/sreetestcan/sreetestcanComponent</td>
+<td>line 99</td>
+<td>Semantic Error</td>
+</tr>
+<tr>
+<td>Symbol ‘BMS_BATU_DATA’ could not be resolved</td>
+<td>sreetestcanComponent.c</td>
+<td>/sreetestcan/sreetestcanComponent</td>
+<td>line 103</td>
+<td>Semantic Error</td>
+</tr>
+<tr>
+<td>Symbol ‘BMS_CHRGR_CTL’ could not be resolved</td>
+<td>sreetestcanComponent.c</td>
+<td>/sreetestcan/sreetestcanComponent</td>
+<td>line 95</td>
+<td>Semantic Error</td>
+</tr>
+<tr>
+<td>Symbol ‘BMS_SOC_DATA’ could not be resolved</td>
+<td>sreetestcanComponent.c</td>
+<td>/sreetestcan/sreetestcanComponent</td>
+<td>line 97</td>
+<td>Semantic Error</td>
+</tr>
+<tr>
+<td>Symbol ‘CHG_TX_ACT’ could not be resolved</td>
+<td>sreetestcanComponent.c</td>
+<td>/sreetestcan/sreetestcanComponent</td>
+<td>line 93</td>
+<td>Semantic Error</td>
+</tr>
+<tr>
+<td>Symbol ‘CHG_TX_STS’ could not be resolved</td>
+<td>sreetestcanComponent.c</td>
+<td>/sreetestcan/sreetestcanComponent</td>
+<td>line 91</td>
+<td>Semantic Error</td>
+</tr>
+</tbody>
+</table>
+</div><p>Also attaching the screenshot of my developer studio compiler error.</p>
+<p>Please let me know which header file contain CHG parameters ??<br>
+Can you share your whole project directory ( developer studio ) ?</p>
+<p>Thanks and Regards,<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/8b5742fb050968a86879c4d9fc8e396faea5a753.png" data-download-href="/uploads/short-url/jSFkbBxQi0hpNjsA6ySldhVaxF1.png?dl=1" title="CAN error.png" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/8b5742fb050968a86879c4d9fc8e396faea5a753_2_690x387.png" alt="CAN%20error" data-base62-sha1="jSFkbBxQi0hpNjsA6ySldhVaxF1" width="690" height="387" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/8b5742fb050968a86879c4d9fc8e396faea5a753_2_690x387.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/8b5742fb050968a86879c4d9fc8e396faea5a753_2_1035x580.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/8b5742fb050968a86879c4d9fc8e396faea5a753.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/8b5742fb050968a86879c4d9fc8e396faea5a753_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">CAN error.png</span><span class="informations">1366×768 165 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_38' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-05-21T09:43:43Z' class='post-time'>
+                    May 21, 2018,  9:43am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-05-21T09:43:43Z'>
+              <span itemprop='position'>38</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello</p>
+<p>Ah this is define for message ID. It’s just a example. You can replace this message by your own message ID.</p>
+<p>Regards,</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_39' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/07ed688be6d6288a669778f65f7eccdd96770925.ico">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-22T12:34:35Z' class='post-time'>
+                    June 22, 2018, 12:34pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-22T12:34:35Z'>
+              <span itemprop='position'>39</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>hi <a class="mention" href="/u/abrothman">@abrothman</a> , we have simplified the experience<br>
+<a href="https://github.com/mangOH/mangOH/wiki/Running-the-MCP2515-CAN-driver-for-mangOH-for-mangOH-Red" class="onebox" target="_blank" rel="nofollow noopener">https://github.com/mangOH/mangOH/wiki/Running-the-MCP2515-CAN-driver-for-mangOH-for-mangOH-Red</a></p>
+<p>We will also hold a Google hangout on July 18th to walk you through the process on how we built it ground up</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_40' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-22T13:02:44Z' class='post-time'>
+                    June 22, 2018,  1:02pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-22T13:02:44Z'>
+              <span itemprop='position'>40</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks <a class="mention" href="/u/asyal">@asyal</a>.</p>
+<p>I try it but I not have the mcp251x.ko into the build.</p>
+<p>I follow instruction to update the git into the VM</p>
+<p><span class="math"> cd ~/mangOH
+</span> git pull &amp;&amp; git submodule update --init<br>
+$ make red_wp76xx</p>
+<p>The build is complete but the driver is not in the image…</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_41' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-22T13:11:32Z' class='post-time'>
+                    June 22, 2018,  1:11pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-22T13:11:32Z'>
+              <span itemprop='position'>41</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I think we just need to update the sdef. We will check and post the updated sdef later today. Anyways this will work for us and we just need to update a couple of things which we will do by end of the day.  <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=5" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_42' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-22T13:13:26Z' class='post-time'>
+                    June 22, 2018,  1:13pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-22T13:13:26Z'>
+              <span itemprop='position'>42</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Ok good !</p>
+<p>can you send  me the driver (.ko) for wp76 to my email box ?</p>
+<p>I will test it</p>
+<p><a href="mailto:francis.duhaut@fr.enersys.com">francis.duhaut@fr.enersys.com</a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_43' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-26T09:39:15Z' class='post-time'>
+                    June 26, 2018,  9:39am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-26T09:39:15Z'>
+              <span itemprop='position'>43</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/asyal">@asyal</a> can you provide me the sdef file or modification to do ?</p>
+<p>Thanks</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_44' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Naej'><span itemprop='name'>Naej</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-03-28T12:35:16Z' class='post-time'>
+                    March 28, 2019, 12:35pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-03-28T12:35:16Z'>
+              <span itemprop='position'>44</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi,<br>
+I got a mangOH red board with the Talon CAN IoT board. Is there a simple (working ;-]) read example? I’ve tried the <a class="mention" href="/u/francis.duhaut">@Francis.duhaut</a> code and it won’t compile. I also tried the KillSwitch Example compile but did not works. So I made a simple read code:</p>
+<p><span class="hashtag">#include</span> “legato.h”<br>
+<span class="hashtag">#include</span> “interfaces.h”</p>
+<p><span class="hashtag">#include</span> &lt;stdio.h&gt;<br>
+<span class="hashtag">#include</span> &lt;string.h&gt;<br>
+<span class="hashtag">#include</span> &lt;fcntl.h&gt;<br>
+<span class="hashtag">#include</span> &lt;sys/ioctl.h&gt;<br>
+<span class="hashtag">#include</span> &lt;net/if.h&gt;<br>
+<span class="hashtag">#include</span> &lt;linux/can.h&gt;<br>
+<span class="hashtag">#include</span> &lt;linux/can/raw.h&gt;</p>
+<p>int soc;<br>
+int read_can_port;</p>
+<p>int open_port(const char *port)<br>
+{<br>
+struct ifreq ifr;<br>
+struct sockaddr_can addr;</p>
+<pre><code>/* open socket */
+soc = socket(PF_CAN, SOCK_RAW, CAN_RAW);
+if(soc &lt; 0)
+{
+    return (-1);
+}
+
+addr.can_family = AF_CAN;
+strcpy(ifr.ifr_name, port);
+
+if (ioctl(soc, SIOCGIFINDEX, &amp;ifr) &lt; 0)
+{
+
+    return (-1);
+}
+
+addr.can_ifindex = ifr.ifr_ifindex;
+
+fcntl(soc, F_SETFL, O_NONBLOCK);
+
+if (bind(soc, (struct sockaddr *)&amp;addr, sizeof(addr)) &lt; 0)
+{
+
+    return (-1);
+}
+LE_INFO("CAN Is Set");
+return 0;
+</code></pre>
+<p>}</p>
+<p>void read_port()<br>
+{<br>
+LE_INFO(“Enter Read Function”);<br>
+struct can_frame frame_rd;<br>
+int recvbytes = 0;</p>
+<pre><code>read_can_port = 1;
+while(read_can_port)
+{
+    printf("Read ... recv:%d\n", recvbytes);
+    struct timeval timeout = {1, 0};
+    
+    fd_set readSet;
+    FD_ZERO(&amp;readSet);
+    FD_SET(soc, &amp;readSet);
+
+    if (select((soc + 1), &amp;readSet, NULL, NULL, &amp;timeout) &gt;= 0)
+    {
+        if (!read_can_port)
+        {
+            LE_INFO("Nothing Received");
+            break;
+        }
+        if (FD_ISSET(soc, &amp;readSet))
+        {
+            LE_INFO("Something Received");
+            recvbytes = read(soc, &amp;frame_rd, sizeof(struct can_frame));
+            if(recvbytes)
+            {
+                LE_INFO("Can Received");
+                printf("dlc = %d, data = %s\n", frame_rd.can_dlc,frame_rd.data);
+
+            }
+        }
+    }
+
+}
+</code></pre>
+<p>}</p>
+<p>int close_port()<br>
+{<br>
+close(soc);<br>
+return 0;<br>
+}</p>
+<p>COMPONENT_INIT<br>
+{<br>
+LE_INFO(“Open Port”);<br>
+open_port(“can0”);<br>
+LE_INFO(“Close Port”);<br>
+close_port();<br>
+LE_INFO(“ReOpen Port”);<br>
+open_port(“can0”);<br>
+LE_INFO(“Read CAN”);<br>
+read_port();<br>
+LE_INFO(“Quit App”);<br>
+}</p>
+<p>It compile, I launch the shell script before running app but i got this error:</p>
+<p>swi-mdm9x28-wp user.notice kernel: [   96.220890] audit: type=1400 audit(315964898.251:4): lsm=SMACK fn=smack_inode_getattr action=denied subject=“app.testCan” object=“admin” requested=r pid=1952 comm=“testCan” path=“pipe:[9211]” dev=“pipefs” ino=9211</p>
+<p>Any Idea on what appends? Or better a simple working example? Does someone have reached add a can-utils layer in the yocto configuration? It also lacks a lot of documentation about it.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/2">Bootstrap CAN Bus application</a>
+                        <meta itemprop='position' content='1'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_45' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-03-28T14:00:34Z' class='post-time'>
+                    March 28, 2019,  2:00pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-03-28T14:13:24Z'>
+              <span itemprop='position'>45</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello Jean,</p>
+<p>Do you use the latest VM available on MangOH website to build the mangoHRed update ?</p>
+<p>in the mangOH.sdef you need to uncomment  this line:</p>
+<pre><code>// Uncomment to include support for the CAN IoT card
+#include "sinc/can_iot_card.sinc" 
+</code></pre>
+<p>After you can flash the update file to the mangOH red.</p>
+<p>I use this script to initiliaze the bus to 500kbps:</p>
+<pre><code>#!/bin/sh
+
+export PATH=$PATH:/sbin
+
+drv_file=`find /legato/systems/current/modules/ -name "*mcp251x.ko"`
+drv=`basename $drv_file`
+# remove the driver
+rmmod $drv
+
+# Take IoT card out of reset
+echo 2 &gt; /sys/class/gpio/export
+echo out  &gt; /sys/class/gpio/gpio2/direction
+echo 1  &gt; /sys/class/gpio/gpio2/value
+
+# Enable level shifter on the CAN IoT card
+echo 13 &gt; /sys/class/gpio/export
+echo out  &gt; /sys/class/gpio/gpio13/direction
+echo 1  &gt; /sys/class/gpio/gpio13/value
+
+# Bring driver back &amp; iproute2 add in CAN
+insmod $drv_file
+ip link set can0 type can bitrate 500000 triple-sampling on
+ifconfig can0 up  
+</code></pre>
+<p>See example of code to manage socketcan</p>
+<pre><code>COMPONENT_INIT
+{
+    can_connect("can0");
+    // ...
+}
+</code></pre>
+<p>File can.c</p>
+<pre><code>#include &lt;net/if.h&gt;
+#include &lt;sys/ioctl.h&gt;
+#include &lt;linux/can.h&gt;
+#include &lt;linux/can/raw.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;fcntl.h&gt;
+
+
+#define INTERFACE_NAME_SIZE 15
+#define	CHG_TX_STS			0x610
+#define	CHG_TX_ACT			0x611
+#define	BMS_CHRGR_CTL		0x618
+#define	BMS_SOC_DATA		0x302
+#define	BMS_BATTP_DATA	0x306
+#define	BMS_BATP_DATA		0x308
+#define	BMS_BATU_DATA		0x309
+
+int bitrate;
+int sdw;					// socket descriptor write
+int sdr;					// socket descriptor read
+int nbytesReceive;
+bool canwrite;
+char name[INTERFACE_NAME_SIZE];
+struct can_frame frameRead;
+struct can_frame frameWrite;
+
+   int can_connect(const char *interface);
+   int can_disconnect(void);
+   int can_send(void);
+   int can_receive(void);
+
+   void can_sendSensorData (void);
+
+int can_connect(const char *interface)
+{
+	struct sockaddr_can addr;
+	struct ifreq ifr;
+    int sock_buf_size;
+
+    sock_buf_size = 1000;
+
+
+	// if interface string is long we will cut it
+	if(strlen(interface)&gt;INTERFACE_NAME_SIZE)
+	{
+		memcpy(name,interface,INTERFACE_NAME_SIZE);
+		name[INTERFACE_NAME_SIZE-1]='\0';
+	}
+	else
+	{
+    	strcpy(name,interface);
+	}
+
+	// SOCKET FOR READING
+	if ((sdr = socket(PF_CAN, SOCK_RAW, CAN_RAW)) &lt; 0)
+	{
+		return SOCKET_ERROR;
+	}
+
+    addr.can_family = PF_CAN;
+
+	strcpy(ifr.ifr_name, name);
+	if (ioctl(sdr, SIOCGIFINDEX, &amp;ifr) &lt; 0)
+	{
+		return SOCK_IOCTL_ERROR;
+	}
+
+	addr.can_ifindex = ifr.ifr_ifindex;
+
+
+	if (bind(sdr, (struct sockaddr *)&amp;addr, sizeof(addr)) &lt; 0)
+	{
+		return SOCK_BINDING_ERROR;
+	}
+
+    // Filter
+    struct can_filter rfilter[7]; int i = 0;
+    rfilter[i].can_id  = CHG_TX_STS;
+    rfilter[i].can_mask = CAN_SFF_MASK | CAN_EFF_FLAG | CAN_RTR_FLAG; i++;
+    rfilter[i].can_id   = CHG_TX_ACT;
+    rfilter[i].can_mask = CAN_SFF_MASK | CAN_EFF_FLAG | CAN_RTR_FLAG; i++;
+    rfilter[i].can_id   = BMS_CHRGR_CTL;
+    rfilter[i].can_mask = CAN_SFF_MASK | CAN_EFF_FLAG | CAN_RTR_FLAG; i++;
+    rfilter[i].can_id   = BMS_SOC_DATA;
+    rfilter[i].can_mask = CAN_SFF_MASK | CAN_EFF_FLAG | CAN_RTR_FLAG; i++;
+    rfilter[i].can_id   = BMS_BATTP_DATA;
+    rfilter[i].can_mask = CAN_SFF_MASK | CAN_EFF_FLAG | CAN_RTR_FLAG; i++;
+    rfilter[i].can_id   = BMS_BATP_DATA;
+    rfilter[i].can_mask = CAN_SFF_MASK | CAN_EFF_FLAG | CAN_RTR_FLAG; i++;
+    rfilter[i].can_id   = BMS_BATU_DATA;
+    rfilter[i].can_mask = CAN_SFF_MASK | CAN_EFF_FLAG | CAN_RTR_FLAG; i++;
+    setsockopt(sdr, SOL_CAN_RAW, CAN_RAW_FILTER, &amp;rfilter, sizeof(rfilter));
+
+    // SET SOCKET BUFFER SIZE
+    setsockopt(sdr, SOL_CAN_RAW, SO_RCVBUF, (char *)&amp;sock_buf_size, sizeof(sock_buf_size));
+
+	// SOCKET FOR WRITING
+	if ((sdw = socket(PF_CAN, SOCK_RAW, CAN_RAW)) &lt; 0)
+	{
+		return SOCKET_ERROR;
+	}
+    addr.can_family = PF_CAN;
+
+	strcpy(ifr.ifr_name, name);
+	if (ioctl(sdw, SIOCGIFINDEX, &amp;ifr) &lt; 0)
+	{
+		return SOCK_IOCTL_ERROR;
+	}
+	addr.can_ifindex = ifr.ifr_ifindex;
+
+
+	if (bind(sdw, (struct sockaddr *)&amp;addr, sizeof(addr)) &lt; 0)
+	{
+		return SOCK_BINDING_ERROR;
+	}
+
+    // SET SOCKET BUFFER SIZE
+    setsockopt(sdw, SOL_CAN_RAW, SO_SNDBUF, (char *)&amp;sock_buf_size, sizeof(sock_buf_size));
+
+    //READ SOCKET NON-BLOCKING
+    int flags;
+    if (-1 == (flags = fcntl(sdr, F_GETFL, 0))) flags = 0;
+    fcntl(sdr, F_SETFL, flags | O_NONBLOCK);
+
+    return 0;
+}
+
+int can_disconnect(void)
+{
+	close(sdw);
+	close(sdr);
+	return 0;
+}
+
+
+int can_send(void)
+{
+    int nbytesWrite;
+
+    // USE SEND STANDARD FRAME
+    frameWrite.can_id = 0x600;
+    frameWrite.can_id &amp;= CAN_SFF_MASK;
+
+    frameWrite.can_dlc = 8;
+    strcpy((char *)frameWrite.data, "MGATE");
+
+    if ((nbytesWrite = write(sdw, &amp;frameWrite, sizeof(frameWrite))) != sizeof(frameWrite))
+	{
+        canwrite = false;
+        LE_INFO ("Writing error");
+		return SOCK_WRITING_ERROR;
+	}
+
+    can_sendSensorData();
+
+    canwrite = true;
+	return 0;
+}
+
+int can_receive(void)
+{
+	nbytesReceive = 1;
+	while (nbytesReceive != 0)
+	{
+		if ((nbytesReceive = read(sdr, &amp;frameRead, sizeof(frameRead))) != sizeof(frameRead))
+			{
+				return SOCK_READING_ERROR;
+			}
+		    else
+		    {
+		    	LE_INFO("Receive message %X %X %X %X %X %X %X %X %X", frameRead.can_id, frameRead.data[0], frameRead.data[1], frameRead.data[2], frameRead.data[3]
+				 , frameRead.data[4], frameRead.data[5], frameRead.data[6], frameRead.data[7]);
+		    }
+	}
+
+
+	return 0;
+}
+
+
+void can_sendSensorData (void)
+{
+	int i;
+	int nbytesWrite = 0;
+
+	for (i=0; i&lt; 10; i++)
+	{
+		
+		{
+			frameWrite.can_id = 0x600 + i + 1;
+			frameWrite.can_id &amp;= CAN_SFF_MASK;
+			frameWrite.can_dlc = 8;
+			memset(&amp;frameWrite.data[0], 0x00, 8);
+			frameWrite.data[0] = 0x01;
+			frameWrite.data[1] = 0x02;
+			frameWrite.data[2] = 0x03;
+			frameWrite.data[3] = 0x04;
+			frameWrite.data[4] = 0x05;
+			frameWrite.data[5] = 0x06;
+                    // ...
+
+			if ((nbytesWrite = write(sdw, &amp;frameWrite, sizeof(frameWrite))) != sizeof(frameWrite))
+			{
+			        canwrite = false;
+			        return;
+			}
+		}
+	}
+}</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_46' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Naej'><span itemprop='name'>Naej</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-03-28T17:10:11Z' class='post-time'>
+                    March 28, 2019,  5:10pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-03-28T17:20:01Z'>
+              <span itemprop='position'>46</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi,<br>
+Thanks for your fast Response. <img src="https://emoji.discourse-cdn.com/twitter/slightly_smiling_face.png?v=9" title=":slightly_smiling_face:" class="emoji" alt=":slightly_smiling_face:"><br>
+I did not use the VM. I’ve follow this:</p>
+<p><a href="http://mangoh.io/uploaded-documents/Reference/mangOH%20Red/Discover/Getting%20Started/mangOH%20Red%20GSG%20-%20Linux%20R5/#t=41112261_mangOH_Red_GSG_-_HTML5%2F41112261_PrepMangoh%2F41112261_PrepMangoh.htm%23TOC_5_1_Build_Install_mangOHbc-1&amp;rhtocid=_4_0" rel="nofollow noopener">Tutorial</a></p>
+<p>To set my dev environnement. The example you give me did not compile cause of:<br>
+cc1: all warnings being treated as errors</p>
+<p>Even with cflags:{ -Wno-error} in my cdef.</p>
+<p>Including those kind of errors:</p>
+<p>warning: implicit declaration of function ‘LE_INFO’ [-Wimplicit-function-declaration]<br>
+LE_INFO (“Writing error”);</p>
+<p>Edit: Sorry I did not add legato.h now I don’t have LE_* errors.</p>
+<p>I will give it a try Thanks a lot.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_47' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Naej'><span itemprop='name'>Naej</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-03-28T18:16:31Z' class='post-time'>
+                    March 28, 2019,  6:16pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-03-28T18:25:28Z'>
+              <span itemprop='position'>47</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I have uncommented the line sinc/can_iot_card.sinc in mangOH.sdef, I’ve used the shell script you provide.</p>
+<p>The two lines:</p>
+<p>echo 2 &gt; /sys/class/gpio/export<br>
+echo 13 &gt; /sys/class/gpio/export</p>
+<p>Tells me “sh:  write error: Device or resource busy”<br>
+can0 is shown in ifconfig i can set down/up, also the ip link command works.</p>
+<p>But I cannot receive or send CAN frame. No errors just no Frames (I use a PEAK can/usb with can-utils tools, candump, cansend, … to monitor the bus)</p>
+<p>nbytesReceive stay at -1 so I think the socket is not binded and the read() function always fail.</p>
+<p>Is a way to have more debug option (gdb?) than printf? Or not use Legato at all?</p>
+<p>Edit: the log when device busy append:</p>
+<p>6 04:30:52 swi-mdm9x28-wp user.debug kernel: [12623.612579] gpio_sync_ri: RI owner is Modem<br>
+Jan  6 04:30:52 swi-mdm9x28-wp user.debug kernel: [12623.612602] gpio_map_name_to_num: find GPIO 38<br>
+Jan  6 04:30:52 swi-mdm9x28-wp user.debug kernel: [12623.612612] export_store: Export GPIO: 38<br>
+Jan  6 04:30:52 swi-mdm9x28-wp user.debug kernel: [12623.612625] gpio-38 (sysfs): gpiod_request: status -16<br>
+Jan  6 04:30:52 swi-mdm9x28-wp user.debug kernel: [12623.612634] export_store: Status -16<br>
+Jan  6 04:30:52 swi-mdm9x28-wp user.debug kernel: [12623.613250] gpio_sync_ri: RI owner is Modem<br>
+Jan  6 04:30:52 swi-mdm9x28-wp user.debug kernel: [12623.613269] gpio_map_name_to_num: find GPIO 76<br>
+Jan  6 04:30:52 swi-mdm9x28-wp user.debug kernel: [12623.613279] export_store: Export GPIO: 76<br>
+Jan  6 04:30:52 swi-mdm9x28-wp user.debug kernel: [12623.613291] gpio-76 (sysfs): gpiod_request: status -16<br>
+Jan  6 04:30:52 swi-mdm9x28-wp user.debug kernel: [12623.613301] export_store: Status -16<br>
+Jan  6 04:30:52 swi-mdm9x28-wp user.warn kernel: [12623.645099] spi1.0 supply vdd not found, using dummy regulator<br>
+Jan  6 04:30:52 swi-mdm9x28-wp user.warn kernel: [12623.645190] spi1.0 supply xceiver not found, using dummy regulator</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_48' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-03-30T16:46:33Z' class='post-time'>
+                    March 30, 2019,  4:46pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-03-30T16:46:33Z'>
+              <span itemprop='position'>48</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Do you use the spibus spi1.0 on the mangoh?</p>
+<p>it seems to have conflict…<br>
+I will have a look next monday with a mangohRed + WP7607</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_49' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-03-30T16:59:07Z' class='post-time'>
+                    March 30, 2019,  4:59pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-03-30T16:59:07Z'>
+              <span itemprop='position'>49</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>The script to start the can have changed on latest mangoh build.<br>
+The driver name is now “can_iot.ko”</p>
+<p>You can find the script in mangOH/linux_kernel_modules/can_common/start_can.sh</p>
+<pre><code>#!/bin/sh
+
+
+
+# It seems that taking the IoT card out of reset fails in the core
+
+# mangOH driver - but placing things after user-space has fully started
+
+# and through the SWI gpiolib-sysfs code works - TODO fix and move into
+
+# the core driver so no shell script is needed.
+
+# Thus, we remove the inserted chip driver and bring it back.
+
+
+
+usage () {
+
+    echo "\"$0 board [slot]\" where board is \"green\" or \"red\" and slot is \"0\" or \"1\""
+
+}
+
+
+
+if [ "$#" -lt 1 ]; then
+
+    usage
+
+    exit 1
+
+fi
+
+
+
+if [ "$#" -gt 2 ]; then
+
+    usage
+
+    exit 1
+
+fi
+
+
+
+drv="can_iot.ko"
+
+# remove the driver
+
+kmod unload $drv
+
+
+
+board=$1
+
+if [ "$board" = "green" ]; then
+
+    slot=0
+
+    if [ "$#" -eq 2 ]; then
+
+	slot=$2
+
+    fi
+
+
+
+    if [ "$slot" -eq 0 ]; then
+
+	# Output 1 to IoT slot 0 GPIO2
+
+	echo 33 &gt; /sys/class/gpio/export
+
+	echo out &gt; /sys/class/gpio/gpio33/direction
+
+	echo 1 &gt; /sys/class/gpio/gpio33/value
+
+	# Route SPI to IoT slot 0
+
+	mux 4
+
+	# Reset IoT slot 0
+
+	mux 15
+
+    elif [ "$slot" -eq 1 ]; then
+
+	# Output 1 to IoT slot 0 GPIO2
+
+	echo 7 &gt; /sys/class/gpio/export
+
+	echo out &gt; /sys/class/gpio/gpio7/direction
+
+	echo 1 &gt; /sys/class/gpio/gpio7/value
+
+	# Route SPI to IoT slot 1
+
+	mux 5
+
+	# Reset IoT slot 1
+
+	mux 16
+
+    else
+
+	echo "Invalid or unsupported slot $slot"
+
+	exit 1
+
+    fi
+
+
+
+elif [ "$board" = "red" ]; then
+
+    # Enable level shifter on the CAN IoT card by driving IoT GPIO2 high
+
+    echo 13 &gt; /sys/class/gpio/export
+
+    echo out &gt; /sys/class/gpio/gpio13/direction
+
+    echo 1  &gt; /sys/class/gpio/gpio13/value
+
+
+
+    # Take IoT card out of reset
+
+    echo 2 &gt; /sys/class/gpio/export
+
+    echo out &gt; /sys/class/gpio/gpio2/direction
+
+    echo 1  &gt; /sys/class/gpio/gpio2/value
+
+
+
+    # Give a bit of time for the IoT card to come out of reset before loading drivers
+
+    sleep 1
+
+fi
+
+
+
+
+
+# Bring driver back &amp; iproute2 add in CAN
+
+kmod load $drv
+
+ip link set can0 type can bitrate 125000 triple-sampling on
+
+ifconfig can0 up</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_50' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Naej'><span itemprop='name'>Naej</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-04-08T10:07:25Z' class='post-time'>
+                    April 8, 2019, 10:07am
+                  </time>
+                  <meta itemprop='dateModified' content='2019-04-08T10:07:25Z'>
+              <span itemprop='position'>50</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi,<br>
+Thanks for your help but it still did not work. I got thoses errors with the new start_can.sh:</p>
+<p>Jan  6 01:01:36 swi-mdm9x28-wp user.warn Legato: -WRN- | <em>UNKNOWN</em>[1900]/framework T=main | LE_FILENAME le_ref_CreateMap() 149 | Map name ‘refle_kernelModule_ClientHandlers’ truncated to ‘refle_kernelModule_ClientHandle’.<br>
+Jan  6 01:01:36 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[855]/supervisor T=main | kernelModules.c le_kernelModule_Unload() 1515 | Requested to unload module ‘can_iot.ko’.<br>
+Jan  6 01:01:36 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[855]/supervisor T=main | kernelModules.c le_kernelModule_Unload() 1557 | Unloading module, ‘can_iot.ko’, was successful.<br>
+Jan  6 01:01:36 swi-mdm9x28-wp user.debug kernel: [   66.849204] gpio_sync_ri: RI owner is Modem<br>
+Jan  6 01:01:36 swi-mdm9x28-wp user.debug kernel: [   66.849235] gpio_map_name_to_num: find GPIO 76<br>
+Jan  6 01:01:36 swi-mdm9x28-wp user.debug kernel: [   66.849246] export_store: Export GPIO: 76<br>
+Jan  6 01:01:36 swi-mdm9x28-wp user.debug kernel: [   66.849276] gpio_sync_ri: RI owner is Modem<br>
+Jan  6 01:01:36 swi-mdm9x28-wp user.debug kernel: [   66.849290] gpiod_export: sierra–find GPIO,chipdev = -824016368,chipngpio = 80,chipbase = 0<br>
+Jan  6 01:01:36 swi-mdm9x28-wp user.debug kernel: [   66.851253] gpio_sync_ri: RI owner is Modem<br>
+Jan  6 01:01:36 swi-mdm9x28-wp user.debug kernel: [   66.851279] gpio_map_name_to_num: find GPIO 38<br>
+Jan  6 01:01:36 swi-mdm9x28-wp user.debug kernel: [   66.851291] export_store: Export GPIO: 38<br>
+Jan  6 01:01:36 swi-mdm9x28-wp user.debug kernel: [   66.851317] gpio_sync_ri: RI owner is Modem<br>
+Jan  6 01:01:36 swi-mdm9x28-wp user.debug kernel: [   66.851331] gpiod_export: sierra–find GPIO,chipdev = -824016368,chipngpio = 80,chipbase = 0<br>
+Jan  6 01:01:37 swi-mdm9x28-wp user.warn Legato: -WRN- | <em>UNKNOWN</em>[1904]/framework T=main | LE_FILENAME le_ref_CreateMap() 149 | Map name ‘refle_kernelModule_ClientHandlers’ truncated to ‘refle_kernelModule_ClientHandle’.<br>
+Jan  6 01:01:37 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[855]/supervisor T=main | kernelModules.c le_kernelModule_Load() 1451 | Requested to load module ‘can_iot.ko’.<br>
+Jan  6 01:01:37 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[855]/supervisor T=main | kernelModules.c ExecuteCommand() 211 | Execute ‘/sbin/insmod /legato/systems/current/modules/can_iot.ko’<br>
+Jan  6 01:01:37 swi-mdm9x28-wp user.debug kernel: [   67.926232] gpio_sync_ri: RI owner is Modem<br>
+Jan  6 01:01:37 swi-mdm9x28-wp user.debug kernel: [   67.926263] gpiod_export: sierra–find GPIO,chipdev = -824016368,chipngpio = 80,chipbase = 0<br>
+Jan  6 01:01:37 swi-mdm9x28-wp user.warn kernel: [   67.929046] spi1.0 supply vdd not found, using dummy regulator<br>
+Jan  6 01:01:37 swi-mdm9x28-wp user.warn kernel: [   67.929160] spi1.0 supply xceiver not found, using dummy regulator<br>
+Jan  6 01:01:37 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[855]/supervisor T=main | kernelModules.c InstallEachKernelModule() 952 | New kernel module ‘can_iot.ko’<br>
+Jan  6 01:01:37 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[855]/supervisor T=main | kernelModules.c le_kernelModule_Load() 1485 | Load module, ‘can_iot.ko’, was successful.<br>
+Jan  6 01:01:37 swi-mdm9x28-wp user.info kernel: [   67.943947] can_iot_init: mcp2515 (gpio:79  irq:131).</p>
+<p>I think this is the relevant part:</p>
+<p>Jan  6 01:01:37 swi-mdm9x28-wp user.warn kernel: [   67.929046] spi1.0 supply vdd not found, using dummy regulator<br>
+Jan  6 01:01:37 swi-mdm9x28-wp user.warn kernel: [   67.929160] spi1.0 supply xceiver not found, using dummy regulator</p>
+<p>Does anyone can provide a simple read/write exemple for the mangOH red wp7607 with CAN board? With all the conf files (*.sdef, *.adef, *.cdef) than I’m pretty sure I missunderstood. And also the start.sh script, and the version of the legato firmware it works on. Or something more reliable than pieces of code in a forum not able to handle code quotes?</p>
+<p>I must feel angry but your help is very appreciated and Im complaint about Legato/Sierra not forumers. <img src="https://emoji.discourse-cdn.com/twitter/wink.png?v=9" title=":wink:" class="emoji" alt=":wink:"></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/6">Bootstrap CAN Bus application</a>
+                        <meta itemprop='position' content='1'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_51' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Naej'><span itemprop='name'>Naej</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-04-10T14:13:58Z' class='post-time'>
+                    April 10, 2019,  2:13pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-04-10T14:13:58Z'>
+              <span itemprop='position'>51</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi,<br>
+Thanks all for your appreciate help.</p>
+<aside class="quote" data-post="8" data-topic="2487">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/n/bc8723/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/8">Bootstrap CAN Bus application</a> <a class="badge-wrapper  bullet" href="/c/open-car-challenge/17"><span class="badge-category-bg" style="background-color: #3AB54A;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="Welcome to the challengers of the Open Connected Car challenge using mangOH Red/WP7607. Please post all questions regarding your experience with the dev kit here.">Open Connected Car Challenge</span></a>
+  </div>
+  <blockquote>
+    Hi All, 
+I finally manage to have the CAN bus working. For me the blocking point was the mangOH.sdef file. I had to link kernel modules. Like: 
+kernelModules:
+{
+...
+$CURDIR/linux_kernel_modules/can_9x07/mcp251x
+$CURDIR/linux_kernel_modules/can_common/can_iot
+...
+}
+
+Rebuild the firmware for my board (“make red_wp76xx”). 
+Uncomment #include "sinc/can_iot_card.sinc" did not works (for me).
+  </blockquote>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_52' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/caioporto'><span itemprop='name'>caioporto</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-05-08T00:39:36Z' class='post-time'>
+                    May 8, 2019, 12:39am
+                  </time>
+                  <meta itemprop='dateModified' content='2019-05-08T00:39:36Z'>
+              <span itemprop='position'>52</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello,</p>
+<p>I have a Talon CAN bus IoT board working on an FX30 3G (WP85xx).<br>
+Now I’m trying to migrate the system to an FX30 LTE (WP7702), but I’m having issues bringing the interface up.<br>
+I compiled the system with the Kernel Modules specified for this chip and I got it loaded, but I cannot find the correct GPIO that brings the board up.</p>
+<blockquote>
+<p>root@swi-mdm9x28-wp:~# lsmod<br>
+Tainted: G<br>
+mcp251x 9636 0 - Live 0xbf004000 (O)<br>
+can_iot 1072 0 - Live 0xbf000000 (O)</p>
+</blockquote>
+<blockquote>
+<p>[ 14.658633] can_iot_init: mcp2515 (gpio:79 irq:131).<br>
+[ 14.731595] spi1.0 supply vdd not found, using dummy regulator<br>
+[ 14.731692] spi1.0 supply xceiver not found, using dummy regulator</p>
+</blockquote>
+<p>I tried to set the same GPIOs that I have before for the WP85xx (33 and 6), but the system shows me:</p>
+<blockquote>
+<p>root@swi-mdm9x28-wp:~# ip link set can0 type can bitrate 500000 triple-sampling on<br>
+Cannot find device “can0”</p>
+</blockquote>
+<p>Is there anyone that could help me with that?</p>
+<p>Thank you very much!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_53' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/caioporto'><span itemprop='name'>caioporto</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-05-10T07:39:23Z' class='post-time'>
+                    May 10, 2019,  7:39am
+                  </time>
+                  <meta itemprop='dateModified' content='2019-05-10T07:39:23Z'>
+              <span itemprop='position'>53</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi,</p>
+<p>Just an update. I could figure out the issue doing multiple testings.<br>
+Here is the script that I have to use with the WP7702 on FX30:</p>
+<blockquote>
+<p>#!/bin/sh</p>
+<p># It seems that taking the IoT card out of reset fails in the core<br>
+# mangOH driver - but placing things after user-space has fully started<br>
+# and through the SWI gpiolib-sysfs code works - TODO fix and move into<br>
+# the core driver so no shell script is needed.<br>
+# Thus, we remove the inserted chip driver and bring it back.</p>
+<p>drv=“can_iot.ko”<br>
+drv2=<code>find /legato/systems/current/modules/ -name "*mcp251x.ko"</code><br>
+# remove the driver<br>
+/mnt/legato/system/bin/kmod unload $drv<br>
+/sbin/rmmod mcp251x</p>
+<p># Take IoT card out of reset<br>
+echo 6 &gt; /sys/class/gpio/export<br>
+echo out  &gt; /sys/class/gpio/gpio6/direction<br>
+echo 1  &gt; /sys/class/gpio/gpio6/value</p>
+<p># Enable level shifter on the CAN IoT card<br>
+echo 33 &gt; /sys/class/gpio/export<br>
+echo out  &gt; /sys/class/gpio/gpio33/direction<br>
+echo 1  &gt; /sys/class/gpio/gpio33/value</p>
+<p># Give a bit of time for the IoT card to come out of reset before loading drivers<br>
+sleep 1</p>
+<p># Bring driver back &amp; iproute2 add in CAN<br>
+/mnt/legato/system/bin/kmod load $drv<br>
+/sbin/insmod $drv2<br>
+/sbin/ip link set can0 type can bitrate 500000 triple-sampling on<br>
+/sbin/ifconfig can0 up</p>
+</blockquote>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_54' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-05-11T12:47:13Z' class='post-time'>
+                    May 11, 2019, 12:47pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-05-11T12:47:13Z'>
+              <span itemprop='position'>54</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello</p>
+<p>I have restart project with wp7607 firmware R12 and legato 19.01.<br>
+I use it the same script and it work fine.</p>
+<p>I just uncomment in mangoh.sdef file the latest line.</p>
+<p>Francis.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_55' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/can-iot-card-driver/997">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/774e914a4eafd10ca0c1282f1377949137a7836a.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-05T16:41:05Z' class='post-time'>
+                    March 5, 2021,  4:41pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-05T16:41:05Z'>
+              <span itemprop='position'>55</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi, did you resolve this problem? I uncommented the last line of mangoh.sdef file, but this is the result:<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/774e914a4eafd10ca0c1282f1377949137a7836a.png" data-download-href="/uploads/short-url/h1r9fnq96uFiYldUxtqKylktCHM.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/774e914a4eafd10ca0c1282f1377949137a7836a.png" alt="image" data-base62-sha1="h1r9fnq96uFiYldUxtqKylktCHM" width="690" height="356" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/774e914a4eafd10ca0c1282f1377949137a7836a_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">733×379 60.1 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>I don’t understand which is the cause <img src="https://emoji.discourse-cdn.com/twitter/pensive.png?v=9" title=":pensive:" class="emoji" alt=":pensive:"></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><a rel="prev" itemprop="url" href="/t/can-iot-card-driver/997?page=2">← previous page</a></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

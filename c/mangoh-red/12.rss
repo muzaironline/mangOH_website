@@ -1,0 +1,1122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:discourse="http://www.discourse.org/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>mangOH Red - mangOH forum</title>
+    <link>https://forum.mangoh.io/c/mangoh-red/12</link>
+    <description>Topics in the &#39;mangOH Red&#39; category &lt;a href=&quot;https://mangoh.io/mangoh-red&quot; class=&quot;onebox&quot; target=&quot;_blank&quot;&gt;https://mangoh.io/mangoh-red&lt;/a&gt;</description>
+    
+      <lastBuildDate>Tue, 05 Sep 2023 13:28:22 +0000</lastBuildDate>
+      <atom:link href="https://forum.mangoh.io/c/mangoh-red/12.rss" rel="self" type="application/rss+xml" />
+        <item>
+          <title>Disable sleep clock WP7702</title>
+          <dc:creator><![CDATA[FransKanters]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>Hi all,</p>
+<p>I’m measuring a small noise signal radiating from the Mangoh red with a WP7702 module in the range of 64KHz. Since we are using this module in a project where we need a very sensitive 55KHz receiver, this signal is disturbing our signal. I suspect it may be a second harmonic of the 32.768KHz sleep clock.</p>
+<p>Is there a way to disable the 32KHz sleep clock? That would make it easy to solve or rule it out.</p>
+<p>Best regards,<br>
+Frans.</p>
+            <p><small>4 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/disable-sleep-clock-wp7702/10337">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/disable-sleep-clock-wp7702/10337</link>
+          <pubDate>Tue, 05 Sep 2023 13:28:22 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-10337</guid>
+          <source url="https://forum.mangoh.io/t/disable-sleep-clock-wp7702/10337.rss">Disable sleep clock WP7702</source>
+        </item>
+        <item>
+          <title>Using USB connection to Ethernet IOT card, eth0 not appared</title>
+          <dc:creator><![CDATA[lucastrias]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>Hello,<br>
+I am using a mangOH red card with wp7607 and I am trying to creat a gatway with the help of this post: <a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241" class="inline-onebox">Setting up MangOH Red as Router to Cellular Gateway</a> .<br>
+and after tryng the tutoriel i have an issu with eth0:<br>
+root@swi-mdm9x28-wp:~#cd /tmp<br>
+root@swi-mdm9x28-wp:/tmp# chmod +x cfg_gateway.sh<br>
+root@swi-mdm9x28-wp:/tmp# ./cfg_gateway.sh<br>
+mangOH gateway configuration<br>
+Enter WAN (cellular) interface (default: rmnet_data0):<br>
+WAN interface rmnet_data0<br>
+Enter LAN interface (default: eth0):<br>
+LAN interface eth0<br>
+Enter LAN IP (default: 192.168.20.1):<br>
+IP address (192.168.20.1)<br>
+Enter LAN Net Mask (default: 255.255.255.0):<br>
+net mask (255.255.255.0)<br>
+Bring up LAN interface eth0<br>
+ifconfig: SIOCGIFFLAGS: No such device<br>
+Bring up LAN interface eth0 failed</p>
+<p>So i tried to searche for a solution and i found this post: <a href="https://forum.mangoh.io/t/how-to-connect-ethernet-card-on-mangoh-red/9489" class="inline-onebox">How to connect Ethernet card on mangOH red</a><br>
+But not only the following commande doesn’t work:<br>
+root@swi-mdm9x28-wp:~# ifconfig eth0<br>
+ifconfig: eth0: error fetching interface information: Device not found<br>
+root@swi-mdm9x28-wp:~# echo 2 &gt; /sys/class/gpio/export<br>
+root@swi-mdm9x28-wp:~# echo out &gt; /sys/class/gpio/gpio2/direction<br>
+root@swi-mdm9x28-wp:~# echo 1 &gt; /sys/class/gpio/gpio2/value<br>
+root@swi-mdm9x28-wp:~# ifconfig eth0<br>
+ifconfig: eth0: error fetching interface information: Device not found<br>
+root@swi-mdm9x28-wp:~# ifconfig<br>
+bridge0   Link encap:Ethernet  HWaddr 92:F8:6A:01:22:D1<br>
+inet addr:192.168.225.1  Bcast:192.168.225.255  Mask:255.255.255.0<br>
+inet6 addr: fe80::90f8:6aff:fefe:1fce/64 Scope:Link<br>
+UP BROADCAST MULTICAST  MTU:1500  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:2 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:0<br>
+RX bytes:0 (0.0 B)  TX bytes:140 (140.0 B)</p>
+<p>ecm0      Link encap:Ethernet  HWaddr E2:A1:01:D5:FD:20<br>
+inet addr:192.168.2.2  Bcast:192.168.2.255  Mask:255.255.255.0<br>
+inet6 addr: fe80::e0a1:1ff:fed5:fd20/64 Scope:Link<br>
+UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1<br>
+RX packets:797 errors:0 dropped:12 overruns:0 frame:0<br>
+TX packets:354 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:80902 (79.0 KiB)  TX bytes:49832 (48.6 KiB)</p>
+<p>lo        Link encap:Local Loopback<br>
+inet addr:127.0.0.1  Mask:255.0.0.0<br>
+inet6 addr: ::1/128 Scope:Host<br>
+UP LOOPBACK RUNNING  MTU:65536  Metric:1<br>
+RX packets:1 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:1 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:0<br>
+RX bytes:76 (76.0 B)  TX bytes:76 (76.0 B)</p>
+<p>rmnet0    Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00<br>
+UP RUNNING  MTU:2000  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)<br>
+And i have enbable HSCIENABLE:<br>
+at<br>
+OK<br>
+ati3<br>
+Manufacturer: Sierra Wireless, Incorporated<br>
+Model: WP7607<br>
+Revision: SWI9X07Y_02.28.03.05 000000 jenkins 2019/07/08 11:04:16<br>
+IMEI: 359779080406453<br>
+IMEI SV:  6<br>
+FSN: V3026785990510<br>
++GCAP: +CGSM,+DS</p>
+<p>OK<br>
+atc!custom?<br>
+ERROR<br>
+at!custom<br>
+ERROR<br>
+at<br>
+OK<br>
+at!custom?<br>
+!CUSTOM:<br>
+GPSENABLE          0x01<br>
+GPSLPM             0x01<br>
+IPV6ENABLE         0x01<br>
+SIMHOTSWAPDIS      0x02<br>
+UIM2ENABLE         0x01<br>
+SIMLPM             0x01<br>
+USBSERIALENABLE    0x01<br>
+SINGLEAPNSWITCH    0x01<br>
+TXONINDICATION     0x01<br>
+HSICENABLE         0x01<br>
+SCRUBEN            0x01<br>
+EXTGPSLNAEN                0x01</p>
+<p>OK<br>
+And now I hav not other idea at to how i can resolve the issue.<br>
+Can you help me?<br>
+Thanks,<br>
+Lucas</p>
+            <p><small>9 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/using-usb-connection-to-ethernet-iot-card-eth0-not-appared/10243">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/using-usb-connection-to-ethernet-iot-card-eth0-not-appared/10243</link>
+          <pubDate>Mon, 27 Feb 2023 10:24:35 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-10243</guid>
+          <source url="https://forum.mangoh.io/t/using-usb-connection-to-ethernet-iot-card-eth0-not-appared/10243.rss">Using USB connection to Ethernet IOT card, eth0 not appared</source>
+        </item>
+        <item>
+          <title>Something is RESETting my eUICC during a profile download - HL7800</title>
+          <dc:creator><![CDATA[allynsnook]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>I’m running a mangOH Red with an HL7800 module. I’m attempting to download a new profile to an eUICC and something, possibly the the mangOH firmware, is resetting the SIM during the download.  I get this from simtrace2:</p>
+<pre><code class="lang-auto">TPDU (incomplete): 80 14 00 00 ff 81 03 01 42 00 82 02 82 81 83 01 00 b6 81 ed 42 72 5c ad 99 d3 79 3c 57 24 02 b8 b6 90 1e 4c a6 f8 e4 7c 92 6d 1b 39 24 f8 10 c0 84 ff 3f b7 08 db 6a 10 4d 65 08 43 a2 87 46 ed f5 47 86 c3 2d af ad 17 0c 83 81 b6 23 e7 98 8d 28 fd 50 c0 60 20 15 07 1c bc 53 c3 6f b7 a5 33 3d 99 e9 dd 64 a9 13 fc 38 63 88 e5 94 84 18 5f 3b 1a f0 cc e5 f0 70 b4 96 54 20 a4 96 95 d6 2b 8e 6b 11 4a 83 dd 8a 0d 3c 3f ae 51 62 ad 43 6d 79 e4 76 d6 ee 6f 45 20 83 30 5f 8b e9 5d d3 e2 de d3 da 4c 61 a9 e9 0c 57 1e 22 65 57 63 38 94 94 2f 30 c2 f9 0c e0 c9 fc f3 03 1d b1 05 86 87 4f 9f 33 b0 cb df e4 6f d3 52 54 f9 e9 3c 03 4c 97 a2 39 4e ef 6c f1 28 34 a0 42 82 6e bd 2d 31 aa 41 5f 5d bd 49 37 ac a5 9c bb 64 82 ab ea c8 fb e9 62 cb fb 72 7e a3 2f 77 63 72 a4 9a 04 6d 8a 37 01 ff 
+Card state change: reset asserted
+Card state change: reset de-asserted
+ATR: 3b 9f 96 80 3f 87 00 80 31 e0 73 fe 21 1b 57 45 4d 75 30 30 17 51 bb 
+PPS: ff 10 96 79 
+PPS: ff 10 96 79 
+Fi/Di switched to 512/32
+TPDU: 00 a4 00 04 02 3f 00 61 2b 
+</code></pre>
+<p>Any ideas what could be causing this? As I understand it, the Red with a HL7800 is basically just a bit pipe - i.e. no fancy applications - and I have checked and things like power management (CPSMS) are disabled.</p>
+<p>I have asked in another thread about firmware versions and I did notice that Legato RTOS and “Apps” are mentioned by ATI9, so I am wondering if there is a “fancy application” that is interfering here.</p>
+<pre><code class="lang-auto">ati9
+HL7800.4.6.9
+HL78xx.4.6.9.4.RK_02_01_02_00_137.20210615
+2021/06/15 21:02:09
+IMEI-SV: 3546160901940314
+Legato RTOS: 18.09.6.ALT1250.rc8 2021/05/18 20:22:09
+atSwi: 44.01
+UBOOT: 01.03
+Apps: RKAPP_02_01_02_00_120__c2a0a2a6e5dd44ea4710b32fe98e69dc72bab7ce
+MAC: ALT1250_02_01_02_00_123_FW
+PHY: 12.50.265649
+PMP: 277291
+SBUB: 0
+SBFW: 0
+RPuK: 
+FPuK: 
+RBUB: 0
+RBFW: 0
+
+OK
+</code></pre>
+            <p><small>11 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/something-is-resetting-my-euicc-during-a-profile-download-hl7800/10240">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/something-is-resetting-my-euicc-during-a-profile-download-hl7800/10240</link>
+          <pubDate>Fri, 24 Feb 2023 00:49:24 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-10240</guid>
+          <source url="https://forum.mangoh.io/t/something-is-resetting-my-euicc-during-a-profile-download-hl7800/10240.rss">Something is RESETting my eUICC during a profile download - HL7800</source>
+        </item>
+        <item>
+          <title>How to update firmware - HL7800</title>
+          <dc:creator><![CDATA[allynsnook]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>My mangOH Red is running the following:</p>
+<pre><code class="lang-auto">ati9
+HL7800.4.6.9
+HL78xx.4.6.9.4.RK_02_01_02_00_137.20210615
+2021/06/15 21:02:09
+IMEI-SV: 3546160901940314
+Legato RTOS: 18.09.6.ALT1250.rc8 2021/05/18 20:22:09
+atSwi: 44.01
+UBOOT: 01.03
+Apps: RKAPP_02_01_02_00_120__c2a0a2a6e5dd44ea4710b32fe98e69dc72bab7ce
+MAC: ALT1250_02_01_02_00_123_FW
+PHY: 12.50.265649
+PMP: 277291
+SBUB: 0
+SBFW: 0
+RPuK: 
+FPuK: 
+RBUB: 0
+RBFW: 0
+
+OK
+</code></pre>
+<p>I assume that’s not the latest firmware - is it? How do I update the firmware when an HL7800 is involved? All the guides I keep finding are for WP series - not HL series.</p>
+<p>Thx!</p>
+            <p><small>3 posts - 1 participant</small></p>
+            <p><a href="https://forum.mangoh.io/t/how-to-update-firmware-hl7800/10239">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/how-to-update-firmware-hl7800/10239</link>
+          <pubDate>Fri, 24 Feb 2023 00:43:41 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-10239</guid>
+          <source url="https://forum.mangoh.io/t/how-to-update-firmware-hl7800/10239.rss">How to update firmware - HL7800</source>
+        </item>
+        <item>
+          <title>How can we reduce stress?</title>
+          <dc:creator><![CDATA[elleyanas]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>We can reduce stress by playing some games like cooking games. There are several food-related programs that we can devise, in my opinion. However, I nearly always like to play the <a href="https://play.google.com/store/apps/details?id=com.fme.cooking.crush.food.games&amp;gl=us&amp;hl=en" rel="noopener nofollow ugc">cooking game</a> at night in my house with my friends and have a cooking game party.</p>
+            <p><small>2 posts - 1 participant</small></p>
+            <p><a href="https://forum.mangoh.io/t/how-can-we-reduce-stress/10113">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/how-can-we-reduce-stress/10113</link>
+          <pubDate>Wed, 14 Sep 2022 08:18:21 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-10113</guid>
+          <source url="https://forum.mangoh.io/t/how-can-we-reduce-stress/10113.rss">How can we reduce stress?</source>
+        </item>
+        <item>
+          <title>How to setup I2C Interrupt Routine Service</title>
+          <dc:creator><![CDATA[babangparhusip]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>I connect my WP76xx module to external MCU via I2C. I want to setup such that when MCU send data to the WP76xx via I2C, it triggers interrupt and then call a callback in user space to implement the handling.</p>
+<p>How can I achieve this?</p>
+            <p><small>3 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/how-to-setup-i2c-interrupt-routine-service/10032">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/how-to-setup-i2c-interrupt-routine-service/10032</link>
+          <pubDate>Fri, 01 Jul 2022 05:08:42 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-10032</guid>
+          <source url="https://forum.mangoh.io/t/how-to-setup-i2c-interrupt-routine-service/10032.rss">How to setup I2C Interrupt Routine Service</source>
+        </item>
+        <item>
+          <title>[WP8548] Date Offset</title>
+          <dc:creator><![CDATA[jeremylaharotte]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>Hi,</p>
+<p>I’m using a Mangoh Red with a WP8548 chip.</p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/5cb8c0c411ab80e3c657f6ffd3f1934c398fd3ee.png" data-download-href="/uploads/short-url/defL2B8B2s9238roR8oLswMskFg.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/5cb8c0c411ab80e3c657f6ffd3f1934c398fd3ee.png" alt="image" data-base62-sha1="defL2B8B2s9238roR8oLswMskFg" width="690" height="263" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/5cb8c0c411ab80e3c657f6ffd3f1934c398fd3ee_2_10x10.png"></a></div><p></p>
+<p>The system is in the field. I can’t access it remotely.</p>
+<p>The date is shifted by 49 days and 17 hours or 2^32 milliseconds.<br>
+it looks like a counter. Has anyone encountered the same problem before?</p>
+<p>Thank,<br>
+Jérémy</p>
+            <p><small>5 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/wp8548-date-offset/10029">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/wp8548-date-offset/10029</link>
+          <pubDate>Tue, 28 Jun 2022 09:43:41 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-10029</guid>
+          <source url="https://forum.mangoh.io/t/wp8548-date-offset/10029.rss">[WP8548] Date Offset</source>
+        </item>
+        <item>
+          <title>GPIO numbers in kernel code [WP76]</title>
+          <dc:creator><![CDATA[clementd]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>Hello everyone,</p>
+<p>I’m tring to get the mangoh red card working with a wiegand keyboard and due to the high frequency of the signals coming from the keyboard i’m writing a kernel driver. The problem is i’m trying to request interrupt on falling edge on my gpios 22 and 23 (located on the expander part) and it doesn’t seems to call any interrupt.</p>
+<p>I think that writing ‘22’ and ‘23’ as my gpios kernel numbers is the problem but i can’t find the right number (with the offset ?), I saw a similar post talking about drivers/gpio/gpiolib-sysfs.c but i can’t find this file… on my leaf profile i have mangoh-red-wp76xx_0.6.0 and SWI-WP76_5.0.4, Linux version 3.18.140</p>
+<p>If anyone would have an idea of where to look / or which cmd to use that would help me a lot.</p>
+<p>Thanks !</p>
+<p>Clément</p>
+            <p><small>2 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/gpio-numbers-in-kernel-code-wp76/9983">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/gpio-numbers-in-kernel-code-wp76/9983</link>
+          <pubDate>Mon, 16 May 2022 14:22:31 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9983</guid>
+          <source url="https://forum.mangoh.io/t/gpio-numbers-in-kernel-code-wp76/9983.rss">GPIO numbers in kernel code [WP76]</source>
+        </item>
+        <item>
+          <title>MangOH Red - Net Signal Impedances</title>
+          <dc:creator><![CDATA[RA_Petal]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>Hello,</p>
+<p>I wanted to ask about the Layer Impedance table that comes with Mangoh red Gerber files (File attached). Do we have a list of signal nets using these impedance profiles?</p>
+<p>I saw there was already this question but I have an urgent project and wanted to see if I could get a quicker answer. If there is a number we could instead utilize to ask about this, we would be very grateful.</p>
+<p>Thank you!</p>
+<p><a class="attachment" href="https://forum.mangoh.io/uploads/short-url/yWCaZIkdpH9eDZCd6aRrkw7YatK.pdf">FAB_5302303_REV_6.pdf</a> (1.1 MB)</p>
+            <p><small>1 post - 1 participant</small></p>
+            <p><a href="https://forum.mangoh.io/t/mangoh-red-net-signal-impedances/9895">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/mangoh-red-net-signal-impedances/9895</link>
+          <pubDate>Tue, 29 Mar 2022 00:32:19 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9895</guid>
+          <source url="https://forum.mangoh.io/t/mangoh-red-net-signal-impedances/9895.rss">MangOH Red - Net Signal Impedances</source>
+        </item>
+        <item>
+          <title>Send data to HL7802</title>
+          <dc:creator><![CDATA[quentinvalenti]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>Hi,<br>
+I have a problem with my mangoh Red. I use the good settings for my terminal emulator and when I enter AT I can’t see anything. My port is the port of my IoT card and the powered LED is turn on.</p>
+<p>Do you have an idea of where is my problem?<br>
+Thank you</p>
+            <p><small>3 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/send-data-to-hl7802/9876">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/send-data-to-hl7802/9876</link>
+          <pubDate>Mon, 28 Feb 2022 09:21:14 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9876</guid>
+          <source url="https://forum.mangoh.io/t/send-data-to-hl7802/9876.rss">Send data to HL7802</source>
+        </item>
+        <item>
+          <title>How to recover target on WP7702 module</title>
+          <dc:creator><![CDATA[takashishiina]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>Customer set “Enable password-based authentication” at SSH setting by mistake.<br>
+Then, customer cannot login WP7702 module by SSH because customer did not set “Enable password-based authentication”.<br>
+Customer would like to recover SSH login information again.</p>
+<p>To recover WP7702, customer did “swiflash -m “wp77xx” -r” command but customer saw “callback status 59399DONE ERROR”.<br>
+When customer send “swiflash -m “wp77xx” -i “xxx.spk”” command, there is not any error.</p>
+<p>Customer already installed SWI driver. Please advise good recovery process for SSH information.</p>
+            <p><small>4 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/how-to-recover-target-on-wp7702-module/9846">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/how-to-recover-target-on-wp7702-module/9846</link>
+          <pubDate>Mon, 31 Jan 2022 07:04:36 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9846</guid>
+          <source url="https://forum.mangoh.io/t/how-to-recover-target-on-wp7702-module/9846.rss">How to recover target on WP7702 module</source>
+        </item>
+        <item>
+          <title>Le_json_parse() not working?</title>
+          <dc:creator><![CDATA[CT1]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>Does this API work? Currently testing with it, and it is marked experimental, but I can’t get a callback to my handler functions, and the le_json_GetBytesRead function indicates zero bytes were read from the input (I’ve tried both a string input and a file descriptor input). The API page indicates it should start reading bytes as soon as the function is called. Anyone know what’s happening here? I’m running 19.11.5</p>
+<pre><code class="lang-auto">#include "legato.h"
+#include "interfaces.h"
+
+#define LE_FULL_API
+#define LE_API_JSON
+#define LE_API_FILESYSTEM
+
+le_result_t result;
+
+static void jsonHandler(le_json_Event_t event){
+	LE_INFO("jsonHandler function call, type: %d", (int)event);
+}
+
+static void jsonError(le_json_Error_t error, const char msg[]){
+	LE_INFO("jsonError function call, type: %d", (int)error);
+	LE_INFO(msg);
+}
+
+
+COMPONENT_INIT{
+
+	const char str[] = "{\"result\":\"failure\"}";
+
+	LE_INFO("init'd at least");
+
+	int fd = open("/home/root/result.json", O_RDONLY | O_EXCL);
+	LE_INFO("opened file");
+
+	LE_INFO("file descriptor %d",fd);
+
+	// le_json_ParsingSessionRef_t JsonParsingSessionRef = le_json_Parse(fd,jsonHandler,jsonError, NULL);
+	le_json_ParsingSessionRef_t JsonParsingSessionRef = le_json_ParseString(str,jsonHandler,jsonError, NULL);
+	
+	LE_INFO(str);
+	LE_INFO("parse");
+	sleep(1);
+	size_t bytesRead = le_json_GetBytesRead(JsonParsingSessionRef);
+	LE_INFO("Bytes read: %d",bytesRead);
+	le_json_Cleanup(JsonParsingSessionRef);
+	close(fd);
+
+	LE_INFO("**** Done");
+	sleep(1);
+	exit(0);
+
+}
+</code></pre>
+            <p><small>3 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/le-json-parse-not-working/9822">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/le-json-parse-not-working/9822</link>
+          <pubDate>Sun, 09 Jan 2022 06:32:04 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9822</guid>
+          <source url="https://forum.mangoh.io/t/le-json-parse-not-working/9822.rss">Le_json_parse() not working?</source>
+        </item>
+        <item>
+          <title>ARM64 Ubuntu installation error</title>
+          <dc:creator><![CDATA[acek]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>Hello,</p>
+<p>I installed leaf on an ARM64 Ubuntu 20.0 desktop, but when doing leaf profile setup for mangoh red I am getting the following error :<br>
+Error during installation: Error during install step for wp76-image_5.0.0 (command returned 126)</p>
+<p>I am trying to set up an environment on mac M1, not sure if this is caused due to incorrect Ubuntu version or because of architecture.</p>
+<p>Any suggestions?</p>
+<p>Thanks</p>
+            <p><small>5 posts - 3 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/arm64-ubuntu-installation-error/9703">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/arm64-ubuntu-installation-error/9703</link>
+          <pubDate>Thu, 07 Oct 2021 22:10:34 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9703</guid>
+          <source url="https://forum.mangoh.io/t/arm64-ubuntu-installation-error/9703.rss">ARM64 Ubuntu installation error</source>
+        </item>
+        <item>
+          <title>Undefined reference to `le_gnss_GetTtff&#39;</title>
+          <dc:creator><![CDATA[ismailmulla]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>Hi i am working on mangOH red since im new to this i want to collect the gps fix time but when i do mkapp -t wp76xx gpsComp.adef im facing this error(undefined reference to `le_gnss_GetTtff’).<br>
+This is how my .c file looks like:<br>
+<span class="hashtag">#include</span> “legato.h”<br>
+<span class="hashtag">#include</span> “le_gnss_common.h”<br>
+<span class="hashtag">#include</span> “le_gnss_interface.h”<br>
+COMPONENT_INIT<br>
+{<br>
+uint32_t ttff = 0;</p>
+<pre><code>    int result = le_gnss_GetTtff(&amp;ttff);
+    LE_INFO("TTFF start =%d msec", ttff);
+</code></pre>
+<p>}</p>
+<p>And this is my .adef file<br>
+executables:<br>
+{<br>
+my_gps = (gpsComp)<br>
+}</p>
+<p>processes:<br>
+{<br>
+run:<br>
+{<br>
+(my_gps)<br>
+}<br>
+}</p>
+            <p><small>2 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/undefined-reference-to-le-gnss-getttff/9670">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/undefined-reference-to-le-gnss-getttff/9670</link>
+          <pubDate>Mon, 20 Sep 2021 06:31:58 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9670</guid>
+          <source url="https://forum.mangoh.io/t/undefined-reference-to-le-gnss-getttff/9670.rss">Undefined reference to `le_gnss_GetTtff&#39;</source>
+        </item>
+        <item>
+          <title>Http get request not working properly</title>
+          <dc:creator><![CDATA[shahriarhemel]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>I use Developer Studio and trying to make a http get request at this <a href="http://worldtimeapi.org/api/ip" rel="noopener nofollow ugc">URL</a> using this <a href="https://github.com/legatoproject/legato-af/blob/master/apps/sample/httpGet/httpGetComponent/httpGet.c" rel="noopener nofollow ugc">code</a>. Unfortunately the “fwrite” or any code written bellow it, doesn’t get executed unless I stop the app.</p>
+<pre><code class="lang-auto">Sep  4 13:20:16 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16400.
+Sep  4 13:20:17 | updateDaemon[840]/updateDaemon T=main | system.c system_Snapshot() 917 | Snapshot taken of system index 177.  Current system index is now 178.
+Sep  4 13:20:17 | updateDaemon[840]/updateDaemon T=main | system.c system_SymlinkApp() 611 | Creating symlink /legato/systems/current/apps/.new.httpGet -&gt; /legato/apps/f0fe395c1f5c91709c4153701ecce08e
+Sep  4 13:20:17 | updateDaemon[840]/updateDaemon T=main | supCtrl.c supCtrl_StopApp() 102 | Stopping app 'httpGet'.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | apps.c appCtrl_Stop() 1694 | Application 'httpGet' is not running and cannot be stopped.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16408.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16416.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16424.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16432.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16440.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16448.
+Sep  4 13:20:17 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16456.
+Sep  4 13:20:17 | updateDaemon[840]/updateDaemon T=main | system.c system_SymlinkApp() 611 | Creating symlink /legato/systems/current/apps/httpGet -&gt; /legato/apps/f0fe395c1f5c91709c4153701ecce08e
+Sep  4 13:20:17 | updateDaemon[840]/framework T=main | LE_FILENAME fs_TryLazyUmount() 97 | Could not lazy unmount '/legato/systems/current/appsWriteable/.new.httpGet'.  No such file or directory.
+Sep  4 13:20:17 | sdir[16461]/framework T=main | LE_FILENAME user_Init() 445 | /etc is writable
+Sep  4 13:20:18 | updateDaemon[840]/framework T=main | LE_FILENAME sysStatus_MarkTried() 261 | Current system has been marked "tried 1".
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c AppInstallHandler() 851 | Application, 'httpGet,' has been installed.
+Sep  4 13:20:18 | updateDaemon[840]/updateDaemon T=main | supCtrl.c supCtrl_StartApp() 61 | Starting app 'httpGet'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c app_Create() 3167 | Creating app 'httpGet'
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | proc.c GetFaultAction() 323 | No fault action specified for process 'httpGet'. Assuming 'ignore'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | proc.c GetWatchdogAction() 359 | httpGet watchdogAction '' in proc section
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | proc.c GetWatchdogAction() 359 | httpGet watchdogAction '' in proc section
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c app_Start() 3380 | Starting app 'httpGet'
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c AppInstallHandler() 898 | Local install, create new object9 instance.
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c GetObject9InstanceForApp() 631 | Instance exists and has been reused.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/dev/log' to '/legato/systems/current/appsWriteable/httpGet/dev/log'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/dev/null' to '/legato/systems/current/appsWriteable/httpGet/dev/null'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/dev/zero' to '/legato/systems/current/appsWriteable/httpGet/dev/zero'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/legato/systems/current/lib/liblegato.so' to '/legato/systems/current/appsWriteable/httpGet/lib/liblegato.so'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/ld-linux.so.3' to '/legato/systems/current/appsWriteable/httpGet/lib/ld-linux.so.3'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libc.so.6' to '/legato/systems/current/appsWriteable/httpGet/lib/libc.so.6'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libpthread.so.0' to '/legato/systems/current/appsWriteable/httpGet/lib/libpthread.so.0'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/librt.so.1' to '/legato/systems/current/appsWriteable/httpGet/lib/librt.so.1'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libdl.so.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libdl.so.2'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libgcc_s.so.1' to '/legato/systems/current/appsWriteable/httpGet/lib/libgcc_s.so.1'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libm.so.6' to '/legato/systems/current/appsWriteable/httpGet/lib/libm.so.6'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/usr/lib/libstdc++.so.6' to '/legato/systems/current/appsWriteable/httpGet/lib/libstdc++.so.6'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/legato/systems/current/apps/httpGet/read-only/lib/libgmp.so.10' to '/legato/systems/current/appsWriteable/httpGet/lib/libgmp.so.10'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/legato/systems/current/apps/httpGet/read-only/lib/libssl.so.1.0.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libssl.so.1.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/legato/systems/current/apps/httpGet/read-only/lib/libcrypto.so.1.0.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libcrypto
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/legato/systems/current/apps/httpGet/read-only/lib/libcurl.so.4' to '/legato/systems/current/appsWriteable/httpGet/lib/libcurl.so.4'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/legato/systems/current/apps/httpGet/read-only/lib/libz.so.1' to '/legato/systems/current/appsWriteable/httpGet/lib/libz.so.1'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/legato/systems/current/apps/httpGet/read-only/lib/libComponent_httpGetComponent.so' to '/legato/systems/current/appsWriteable/httpGet
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/legato/systems/current/apps/httpGet/read-only/bin/httpGet' to '/legato/systems/current/appsWriteable/httpGet/bin/httpGet'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link '/legato/systems/current/apps/httpGet/read-only/lib/libgmp.so.10' to '/legato/systems/current/appsWriteable/httpGet/lib/libgmp.so.10':
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link '/legato/systems/current/apps/httpGet/read-only/lib/libcurl.so.4' to '/legato/systems/current/appsWriteable/httpGet/lib/libcurl.so.4':
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link '/legato/systems/current/apps/httpGet/read-only/lib/libcrypto.so.1.0.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libcrypt
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link '/legato/systems/current/apps/httpGet/read-only/lib/libssl.so.1.0.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libssl.so.1
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link '/legato/systems/current/apps/httpGet/read-only/lib/libz.so.1' to '/legato/systems/current/appsWriteable/httpGet/lib/libz.so.1': Alrea
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/bin/date' to '/legato/systems/current/appsWriteable/httpGet/bin/date'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/bin/sh' to '/legato/systems/current/appsWriteable/httpGet/bin/sh'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/etc/hosts' to '/legato/systems/current/appsWriteable/httpGet/etc/hosts'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/etc/nsswitch.conf' to '/legato/systems/current/appsWriteable/httpGet/etc/nsswitch.conf'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/etc/resolv.conf' to '/legato/systems/current/appsWriteable/httpGet/etc/resolv.conf'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/etc/ssl/certs/ca-certificates.crt' to '/legato/systems/current/appsWriteable/httpGet/etc/ssl/certs/ca-certificates.crt'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libnss_compat.so.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libnss_compat.so.2'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libnss_dns.so.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libnss_dns.so.2'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libnss_files.so.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libnss_files.so.2'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/lib/libresolv.so.2' to '/legato/systems/current/appsWriteable/httpGet/lib/libresolv.so.2'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/usr/bin/curl' to '/legato/systems/current/appsWriteable/httpGet/usr/bin/curl'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 1994 | Skipping file link '/dev/null' to '/legato/systems/current/appsWriteable/httpGet/dev/null': Already exists
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/dev/random' to '/legato/systems/current/appsWriteable/httpGet/dev/random'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/dev/urandom' to '/legato/systems/current/appsWriteable/httpGet/dev/urandom'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateTmpFs() 1698 | Mounted tmpfs at /legato/systems/current/appsWriteable/httpGet/tmp.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/tmp/legato/serviceDirectoryServer' to '/legato/systems/current/appsWriteable/httpGet/tmp/legato/serviceDirectoryServer'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | app.c CreateFileLink() 2064 | Created file link '/tmp/legato/serviceDirectoryClient' to '/legato/systems/current/appsWriteable/httpGet/tmp/legato/serviceDirectoryClient'.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 102400.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 102400.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | proc.c proc_Start() 1389 | Starting process 'httpGet' with pid 16473
+Sep  4 13:20:18 | updateDaemon[840]/updateDaemon T=main | app.c app_InstallIndividual() 794 | App httpGet &lt;f0fe395c1f5c91709c4153701ecce08e&gt; installed
+Sep  4 13:20:18 | updateDaemon[840]/updateDaemon T=main | updateDaemon.c ApplyAppUpdate() 961 | App 'httpGet&lt;f0fe395c1f5c91709c4153701ecce08e&gt;' installed properly.
+Sep  4 13:20:18 | updateDaemon[840]/updateDaemon T=main | updateDaemon.c StartProbation() 219 | System on probation (timer started).
+Sep  4 13:20:18 | supervisor[826]/supervisor T=main | supervisor.c SigChildHandler() 784 | Reaping unconfigured child process 16469.
+Sep  4 13:20:18 | supervisor[16473]/supervisor T=main | proc.c proc_Start() 1354 | Execing 'httpGet'
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c avcApp_SetSwUpdateState() 3027 | No update is going on. CurrentObj9 = null
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c avcApp_SetSwUpdateResult() 2962 | No update is going on. CurrentObj9 = null
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c NotifyObj9List() 691 | Found 3 object 9 instances
+Sep  4 13:20:18 | avcDaemon[893]/avcDaemon T=main | avcAppUpdate.c NotifyObj9List() 692 | obj9ListLen; 38 obj9List: &lt;/lwm2m/9/0&gt;,&lt;/lwm2m/9/1&gt;,&lt;/lwm2m/9/2&gt;
+Sep  4 17:20:18 | _UNKNOWN_[16473]/framework T=main | LE_FILENAME le_fdMonitor_Create() 672 | FD Monitor object name 'httpGet.httpGetComponent.le_data' truncated to 'httpGet.httpGetComponent.le_dat'.
+Sep  4 13:20:18 | httpGet[16473] |  | HTTP Get!
+Sep  4 17:20:18 | httpGet[16473]/httpGetComponent T=main | httpGet.c _httpGetComponent_COMPONENT_INIT() 134 | Requesting connection...
+Sep  4 13:20:18 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c LoadSelectedTechProfile() 1019 | No value set for 'SSID'!
+Sep  4 13:20:18 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c TryStartWifiSession() 1499 | Impossible to use Wifi profile, result -1 (LE_NOT_FOUND)
+Sep  4 13:20:19 | wifiService[993]/daemon T=main | le_wifiClient.c le_wifiClient_Disconnect() 1370 | Disconnect
+Sep  4 13:20:19 | wifiService[993] |  | WIFICLIENT_DISCONNECT
+Sep  4 13:20:19 | wifiService[993] |  | Failed to connect to non-global ctrl_ifname: wlan0  error: No such file or directory
+Sep  4 13:20:19 | wifiService[993]/daemon T=main | pa_wifi_client_ti.c pa_wifiClient_Disconnect() 1122 | WiFi Client Command Failed: (24832)wlan0 WIFICLIENT_DISCONNECT
+Sep  4 13:20:19 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c TryStopWifiSession() 1769 | Impossible to disconnect wifi client
+Sep  4 13:20:19 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c TryStartTechSession() 1608 | Device is attached, ready to start a data session
+Sep  4 13:20:19 | modemDaemon[938]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 795 | Sending QMI_WDS_START_NETWORK_INTERFACE_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=14.[0x0e]
+Sep  4 13:20:19 | modemDaemon[938]/le_pa T=main | pa_mdc_qmi.c StartSession() 1954 | Data connection failure Call End provided 45, Code 1
+Sep  4 13:20:19 | modemDaemon[938]/le_pa T=main | pa_mdc_qmi.c StartSession() 1965 | Data connection failure Verbose Call End provided Type 2, Verbose 210
+Sep  4 13:20:22 | dcsDaemon[911]/le_pa_dcs T=main | pa_dcs_linux.c AddNameserversToResolvConf() 237 | Set DNS '8.8.8.8' '8.8.4.4'
+Sep  4 13:20:22 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c SetDefaultRouteAndDns() 1353 | DNS configuration is set successfully
+Sep  4 13:20:27 | dcsDaemon[911]/dcsCellular T=main | dcsCellular.c DcsCellularConnEventStateHandler() 258 | State of connection 1 transitioned from down to up
+Sep  4 17:20:27 | httpGet[16473]/httpGetComponent T=main | httpGet.c ConnectionStateHandler() 111 | Interface rmnet_data0 connected.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | updateDaemon.c updateDaemon_MarkGood() 232 | System passed probation. Marking 'good'.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum fddace15fcd7eae43fb6b81182b4013d is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum c3115248c80fb17d33b7266fb32c1222 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum f8c4892220f1c09083e0b325e8a3c0d3 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 184ddc91862cb0da1c22221828c13c2f is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum a67621da1bd5da2195cae43276ee8673 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 817706913a543f0faae3efb21b6eb5e0 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 07d6038e0bc5d30f84253c0c8a4b0b7c is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum c74616fc87106738419e848ce70a956b is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum e517a83ae13cb27bb2c4d1cf69ae8bcc is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 24dcb5ef994c92d34d5719bef6370da4 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 1fbc134f517a869ff44b21cb08802d3d is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 290c1db653b416f37ef6746eb2462c30 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 895090cf054200b44a3a6a61484fa8ae is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum b6245200b14d3c6f7920802f436153c7 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum f0fe395c1f5c91709c4153701ecce08e is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 1e84d480c8ff3f87cfea68321adfeb1e is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 21a0b2404307e8fbf3022e3404191983 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum e56a3b079f11879524feb8215fd59eb1 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 818e975eb43092dd7fc1bb13a35a012b is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum 5474ea4d3fe4dace6940fc9eeb271942 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum ee6b2a27e840139a342e41a52d3f5a26 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum ee113867ac3ef7db399784483f74ff1b is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum a1e1e8714ed336b477977f88628edb59 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1072 | Removing unused app with MD5 sum 44fa17fb3b7ade431f97fd65cb0efabd.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum c7ab641a63159d6958149236b1c8bfd7 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum dab1b66d64b96b9663717e9830e3fc66 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum f12e3302d0f6af3df5e65998ec879419 is still needed.
+Sep  4 13:20:28 | updateDaemon[840]/updateDaemon T=main | system.c system_RemoveUnusedApps() 1081 | App with MD5 sum d8171cac090280b6453eb78ea0c48609 is still needed.
+Sep  4 13:20:33 | httpGet[16473] |  | Succesfully received data:
+Sep  4 13:20:33 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c TryStopDataSession() 1698 | Tearing down data session
+Sep  4 13:20:33 | dcsDaemon[911]/le_pa_dcs T=main | pa_dcs_linux.c pa_dcs_SetDefaultGateway() 511 | Default gateway or interface is empty
+Sep  4 13:20:33 | dcsDaemon[911]/dcsCellular T=main | dcsCellular.c DcsCellularConnEventStateHandler() 258 | State of connection 1 transitioned from up to down
+Sep  4 17:20:33 | httpGet[16473]/httpGetComponent T=main | httpGet.c ConnectionStateHandler() 117 | Interface  disconnected.
+Sep  4 13:21:49 | supervisor[826]/supervisor T=main | app.c app_Stop() 3505 | Stopping app 'httpGet'
+Sep  4 13:21:49 | httpGet[16473] |  | {"abbreviation":"CDT","client_ip":"12.153.231.174","datetime":"2021-09-04T12:20:34.208991-05:00","day_of_week":6,"day_of_year":247,"dst":true,"dst_from":"2021-03-14T08:00:00+00:00","dst_offset":3600,"ds
+Sep  4 13:21:49 | httpGet[16473] |  | 00,"timezone":"America/Chicago","unixtime":1630776034,"utc_datetime":"2021-09-04T17:20:34.208991+00:00","utc_offset":"-05:00","week_number":35}Printed
+Sep  4 13:21:49 | dcsDaemon[911]/dcsDaemon T=main | dcsServer.c CloseSessionEventHandler() 2136 | Client 0x7f595c44 killed, remove allocated resources
+Sep  4 13:21:49 | supervisor[826]/supervisor T=main | app.c app_StopComplete() 4646 | app 'httpGet' has stopped.
+Sep  4 13:21:49 | supervisor[826]/supervisor T=main | apps.c DeactivateAppContainer() 374 | Application 'httpGet' has stopped.
+
+</code></pre>
+            <p><small>2 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/http-get-request-not-working-properly/9638">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/http-get-request-not-working-properly/9638</link>
+          <pubDate>Mon, 06 Sep 2021 12:51:58 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9638</guid>
+          <source url="https://forum.mangoh.io/t/http-get-request-not-working-properly/9638.rss">Http get request not working properly</source>
+        </item>
+        <item>
+          <title>WP76xx kernel module update</title>
+          <dc:creator><![CDATA[raghavankanagaraj]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>Hi All,<br>
+I would like to compile and update one kernel module into mangOH Red board with WP7608. Could you please provide compilation procedure for Linux kernel module?.<br>
+I am using Release 16. I am trying to include CONFIG_USB_LAN78XX and gpio module CONFIG_GPIO_MAX732X.</p>
+<p>Thanks,<br>
+Raghavan K.</p>
+            <p><small>2 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/wp76xx-kernel-module-update/9619">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/wp76xx-kernel-module-update/9619</link>
+          <pubDate>Thu, 26 Aug 2021 09:45:23 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9619</guid>
+          <source url="https://forum.mangoh.io/t/wp76xx-kernel-module-update/9619.rss">WP76xx kernel module update</source>
+        </item>
+        <item>
+          <title>Unable to download file larger than 100k</title>
+          <dc:creator><![CDATA[pawelkaniewski]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>I am trying to download file via curl, with system()  call:<br>
+<code>system("curl ftp://speedtest.tele2.net/1MB.zip --output /home/root/test.file --silent")</code></p>
+<p>Every time i try I get:<br>
+<code>Aug  3 13:40:52 swi-mdm9x28-wp user.err Legato: =ERR= | MyAppName[8254] | File size limit exceeded (core dumped)</code></p>
+<p>I tried different settings in the .adef<br>
+<code>sandboxed: false</code><br>
+<code> maxFileSystemBytes: 150000K</code> ← many different values tested<br>
+<code>maxFileBytes: 200K</code></p>
+<p>But no matter what I set downloading process always stops at 100 KB.<br>
+Also I tried writing <code>curl ftp://speedtest.tele2.net/1MB.zip --output /home/root/test.file --silent</code> to a <code>test.sh</code> file and running it as executable. It works when I call it from CLI, it doesn’t work when i call it from code.<br>
+I tried to write the file to the <code>/home/root/</code> directory, but also to the <code>/tmp</code> folder. What am I doing wrong?</p>
+            <p><small>6 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548</link>
+          <pubDate>Tue, 03 Aug 2021 12:32:56 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9548</guid>
+          <source url="https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548.rss">Unable to download file larger than 100k</source>
+        </item>
+        <item>
+          <title>Selecting board specific (mangoh red specific) devicetree with generic kernel</title>
+          <dc:creator><![CDATA[flemmingmadsen]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>We are currently using the mangOH Red to prototype a new Sierra Wireless based embedded platform.</p>
+<p>I am therefore running on a self-built kernel/rootdisk off the swi-linux-src download.<br>
+As described below, I am having trouble booting on the correct device-tree.<br>
+How is this determined in the boot process? by lk (android-boot)? or the kernel itself?<br>
+Assuming it somehow is matched on the “board-id”, where is this stored?</p>
+<p>Also when at a later stage we want to create out own device-tree variant, are there any tutorials/walkthroughs to follow?</p>
+<p>Best /Flemming</p>
+<p>I can see there is a mangoh-red specific devicetree included in the build when I look at the top Makefile:<br>
+arch/arm/boot/dts/qcom/Makefile</p>
+<pre><code class="lang-auto">dtb-$(CONFIG_ARCH_MDM9607) += mdm9607-mtp.dtb \
+	mdm9607-swi-ar.dtb \
+	mdm9607-swi-qemu.dtb \
+	mdm9607-wp76xx-default.dtb \
+	mdm9607-wp76xx-mangoh-green.dtb \
+	mdm9607-wp76xx-mangoh-red.dtb \
+	mdm9607-wp76xx-mangoh-yellow.dtb \
+	mdm9206-wp77xx-default.dtb \
+	mdm9206-wp77xx-mangoh-green.dtb \
+	mdm9206-wp77xx-mangoh-red.dtb \
+	mdm9206-wp77xx-mangoh-yellow.dtb
+</code></pre>
+<p>When I match this with the “model” from the devicetree:</p>
+<pre><code class="lang-auto">&gt;  strings /proc/device-tree/model
+Sierra Wireless, Inc. MDM WP7xxx series
+</code></pre>
+<p>I can see that I booted on “mdm9206-wp77xx-default.dts”:</p>
+<pre><code class="lang-auto">/* Chipset and module description */
+#include "mdm9607-wp76xx.dtsi"
+
+/* Board description */
+/ {
+        model = "Sierra Wireless, Inc. MDM WP7xxx series";
+        compatible = "qcom,mdm9607-mtp", "qcom,mdm9607", "qcom,mtp";
+        qcom,board-id = &lt;8 0x81&gt;;
+};
+</code></pre>
+<p>And <em>not</em> on “mdm9607-wp76xx-mangoh-red.dts” as i would have expected:</p>
+<pre><code class="lang-auto">mdm9607-wp76xx-mangoh-red.dts:
+/* Chipset and module description */
+#include "mdm9607-wp76xx.dtsi"
+
+/* Board description */
+#include "swi-wp-mangoh-red.dtsi"
+
+swi-wp-mangoh-red.dtsi:
+/ {
+	model = "Sierra Wireless, Inc. MDM 9xxx WP series - MangOH Red";
+	compatible = "qcom,mdm9607-mtp", "qcom,mdm9607", "qcom,mtp";
+	qcom,board-id = &lt;8 0x82&gt;;
+};
+
+&amp;sdhc_2 {
+	status = "ok";
+	ti,non-removable;
+	ti,needs-special-hs-handling;
+	cap-power-off-card;
+	keep-power-in-suspend;
+};
+
+&amp;soc {
+	sierra_gpio {
+		alias-BATTGAUGE_INT = &lt;300 0&gt;;
+		alias-BATTCHRGR_INT = &lt;301 0&gt;;
+		/* No GPIO 2 */
+		alias-GPIO_EXP_RPI_1 = &lt;303 0&gt;;
+		alias-GPIO_EXP_RPI_2 = &lt;304 0&gt;;
+...
+</code></pre>
+<p>All built off this release</p>
+<pre><code class="lang-auto">&gt; leaf status
+┌──────────────────────────────────────────────────────────────────────────┐
+│                    Workspace: /home/fm/swi/workspace                     │
+╞══════════════════════════════════════════════════════════════════════════╡
+│                   Profile: wp77stable [current] (sync)                   │
+├──────────┬────────────────┬──────────────────────────────────────────────┤
+│ Packages │   Identifier   │                 Description                  │
+├──────────┼────────────────┼──────────────────────────────────────────────┤
+│ Included │ swi-wp77_5.0.1 │ SDK for WP77 (Release 14.1 + Legato 19.11.5) │
+└──────────┴────────────────┴──────────────────────────────────────────────┘
+
+build_bin&gt; bitbake mdm9x28-image-minimal
+
+</code></pre>
+<p>The boot blob starts like this. It <em>does</em> boot despite the slightly scary initial kernel output …<br>
+The “No devinfo partition found” line looks interesting of course …</p>
+<pre><code class="lang-auto">Android Bootloader - UART_DM Initialized!!!
+[10] Qseecom Init Done in Appsbl version is 0x405000
+[10] secure app region addr=0x87900000 size=0x280000[20] TZ App region notif returned with status:0 addr:87900000 size:2621440
+[20] TZ App log region register returned with status:0 addr:82681000 size:4096
+[30] Qseecom TZ Init Done in Appsbl
+[30] ERROR: No devinfo partition found
+[30] Neither 'config' nor 'frp' partition found
+[40] ERROR: No misc partition found
+[1460] SSMEM init OK[1460] ssmem_get: region 20 not exists[1550] DEBUG: cmdline has root=
+[1720] Channel alloc freed
+[    0.000000] GIC CPU mask not found - kernel will fail to boot.
+[    0.000000] GIC CPU mask not found - kernel will fail to boot.
+[    0.000000] MPM 1 irq mapping errored -517
+[    0.215114] spmi_pmic_arb 200f000.qcom,spmi: PMIC Arb Version-2 0x20010000
+[    0.230337] SWI ssmem_framework_init: SSMEM init OK
+[    0.230423] mdm9607-pinctrl 1000000.pinctrl: gpio-bit-map = 36
+[    0.231953] msm_mpm_dev_probe(): Cannot get clk resource for XO: -517
+[    0.235104] smd_channel_probe_now: allocation table not initialized
+[    0.242822] msm_thermal:msm_thermal_dev_probe Failed reading node=/soc/qcom,msm-thermal, key=qcom,online-hotplug-core. err:-517
+[    0.270579] msm_mpm_dev_probe(): Cannot get clk resource for XO: -517
+</code></pre>
+            <p><small>2 posts - 1 participant</small></p>
+            <p><a href="https://forum.mangoh.io/t/selecting-board-specific-mangoh-red-specific-devicetree-with-generic-kernel/9533">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/selecting-board-specific-mangoh-red-specific-devicetree-with-generic-kernel/9533</link>
+          <pubDate>Thu, 29 Jul 2021 10:31:23 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9533</guid>
+          <source url="https://forum.mangoh.io/t/selecting-board-specific-mangoh-red-specific-devicetree-with-generic-kernel/9533.rss">Selecting board specific (mangoh red specific) devicetree with generic kernel</source>
+        </item>
+        <item>
+          <title>App is gone after it crashed</title>
+          <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>I was testing my Legato app on Mangoh red wp7702, but all of a sudden, the app crashed, and I “app status”, found out the custom app I was testing is gone/auto-deleted somehow. why could this happen? How can I prevent from happening again?</p>
+            <p><small>16 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519</link>
+          <pubDate>Tue, 27 Jul 2021 00:48:44 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9519</guid>
+          <source url="https://forum.mangoh.io/t/app-is-gone-after-it-crashed/9519.rss">App is gone after it crashed</source>
+        </item>
+        <item>
+          <title>How can i get Date and Time with WP77 on mangOH Red</title>
+          <dc:creator><![CDATA[baptistemarc]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>Hi,</p>
+<p>I need to have access to date and Time for my application but i don’t know how to get it.</p>
+<p>I can see, in my logs, that the mangoh have it but i don’t know how i can use it<br>
+<strong>Jun 28 14:26:13</strong> swi-mdm9x28-wp user.info Legato:  INFO |</p>
+<p>Can someone plz help me?</p>
+<p>Regards,<br>
+Baptiste</p>
+            <p><small>4 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/how-can-i-get-date-and-time-with-wp77-on-mangoh-red/9400">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/how-can-i-get-date-and-time-with-wp77-on-mangoh-red/9400</link>
+          <pubDate>Mon, 28 Jun 2021 13:21:54 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9400</guid>
+          <source url="https://forum.mangoh.io/t/how-can-i-get-date-and-time-with-wp77-on-mangoh-red/9400.rss">How can i get Date and Time with WP77 on mangOH Red</source>
+        </item>
+        <item>
+          <title>Failed to activate positioning service in Legato app</title>
+          <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>Hi, I’m writing a program to get GPS coordinate on WP7702. However, the program failed to activate Positiong Service:</p>
+<blockquote>
+<p>Jun 14 17:52:45 swi-mdm9x28-wp user.err Legato: =ERR= | posDaemon[1215]/posDaemon T=main | le_gnss.c le_gnss_SetAcquisitionRate() 4195 | Bad state for that request [2]</p>
+<p>Jun 14 17:52:45 swi-mdm9x28-wp user.warn Legato: -WRN- | posDaemon[1215]/posDaemon T=main | le_pos.c le_posCtrl_Request() 1322 | Failed to set GNSS’s acquisition rate (1000)</p>
+<p>Jun 14 17:52:45 swi-mdm9x28-wp user.err Legato: =ERR= | posDaemon[1215]/posDaemon T=main | le_gnss.c le_gnss_Start() 3643 | Bad state for that request [2]</p>
+<p>Jun 15 00:52:45 swi-mdm9x28-wp user.err Legato: =ERR= | sms[1280]/smsComponent T=main | smsReceiver.c GetCurrentLocation() 62 | Can’t activate Positiong Service</p>
+<p>Jun 15 00:52:45 swi-mdm9x28-wp user.info Legato: INFO | sms[1280]/smsComponent T=main | smsReceiver.c GpsTimer() 132 | Couldn’t get GPS location. Publishing default location: 4928790, -123120900</p>
+</blockquote>
+<p>I tried with</p>
+<blockquote>
+<p>gnss get loc2d</p>
+</blockquote>
+<p>which actually worked as follows:</p>
+<blockquote>
+<p>root@swi-mdm9x28-wp:~# gnss get loc2d<br>
+Latitude(positive-&gt;north) : 48.467516<br>
+Longitude(positive-&gt;east) : -123.345192<br>
+hAccuracy                 : 10.00m</p>
+</blockquote>
+<p>here is my code:</p>
+<blockquote>
+<p>int32_t latitude;</p>
+<pre><code>int32_t longitude;
+
+int32_t horizontalAccuracy;
+
+int len; 
+
+memset(content, 0,400);
+
+
+const le_result_t result = GetCurrentLocation(
+
+    &amp;latitude, &amp;longitude, &amp;horizontalAccuracy, GPSTIMEOUT *60);
+
+if (result == LE_OK)
+
+{
+
+    LE_INFO("Loc:%f,%f", (float)latitude/1000000.0, (float)longitude/1000000.0);
+
+    sprintf((char*)content, "loc: %f, %f", (float)latitude/1000000.0, (float)longitude/1000000.0);
+
+    printf("%d %s\n", strlen((const char*)content), content);
+
+}
+</code></pre>
+<p>else</p>
+<pre><code>{
+
+    latitude = DefaultLatitude;
+
+    longitude = DefaultLongitude;
+
+    LE_INFO(
+
+        "Couldn't get GPS location.  Publishing default location: %d, %d",
+
+        latitude,
+
+        longitude);
+
+}
+</code></pre>
+</blockquote>
+<p>Can anyone help?<br>
+(NOTE: the app actually worked once upon a time, but it just started failing for the time being for some reason)</p>
+            <p><small>19 posts - 3 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334</link>
+          <pubDate>Tue, 15 Jun 2021 00:58:27 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9334</guid>
+          <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+        </item>
+        <item>
+          <title>Example of succesfull output status command of WP7702 connected to LTE-NB1</title>
+          <dc:creator><![CDATA[rickvanderzwet]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>I am trying to connect an WP7702 connected to an LTE-NB1 network, using an Vodafone NB-IoT simcard. MangOH is <a href="https://www.vodafone.com/business/iot/managed-iot-connectivity/nb-iot#devkits" rel="noopener nofollow ugc">not listed as one of their preferred devKits</a> so I am not 100% sure if NB-IoT is supposed to work at all.</p>
+<p>Looking at the forums I cannot see successful connections being made to the LTE-NB1/NB-IoT network, leaves me wondering, is this supported?  If so, would anybody be so kind to provide me with a sample output of <code>cm info</code>, <code>cm radio</code>, <code>cm data</code> &amp; <code>AT!GSTATUS?</code> (and any other status which is useful).  I am very interested how a success established connection looks like.</p>
+<p>Thanks in advance!</p>
+            <p><small>2 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/example-of-succesfull-output-status-command-of-wp7702-connected-to-lte-nb1/9295">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/example-of-succesfull-output-status-command-of-wp7702-connected-to-lte-nb1/9295</link>
+          <pubDate>Mon, 07 Jun 2021 06:50:59 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9295</guid>
+          <source url="https://forum.mangoh.io/t/example-of-succesfull-output-status-command-of-wp7702-connected-to-lte-nb1/9295.rss">Example of succesfull output status command of WP7702 connected to LTE-NB1</source>
+        </item>
+        <item>
+          <title>Status command to find LTE Operating Mode &amp; Cellular IoT (CIOT) operating mode in use?</title>
+          <dc:creator><![CDATA[rickvanderzwet]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>I am using a WP7702 module which I try to connect to an LTE-M1 network. The module is fully compliant with 3GPP Release 13 thus I <a href="https://en.wikipedia.org/wiki/LTE-M" rel="noopener nofollow ugc">expect</a> to see a device receive bandwidth of 1.4MHz, how-ever when looking at <code>AT!GSTATUS?</code> is shows <code>LTE bw: 10 MHz</code>, which I do believe is not LTE-M1, but LTE-WB instead.</p>
+<p>I used <code>ATSELCIOT=6</code> to ensure <code>LTE-WB</code> is disabled, but have no way of knowing if this is actually enforced.  I have not found a status command which give clues in the actual LTE operating mode and  Cellular IoT (CIOT) operating mode in use.</p>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# microcom /dev/ttyAT
+AT!GSTATUS?
+!GSTATUS:
+Current Time:  826              Temperature: 33
+Modem Mitigate Level: 0         ModemProc Mitigate Level: 0
+Reset Counter: 1                Mode:        ONLINE
+System mode:   LTE              PS state:    Attached
+IMS reg state: UNKNOWN          IMS mode:    Not Support
+IMS Srv State: UNKNOWN SMS,UNKNOWN VoIP
+LTE band:      B20              LTE bw:      10 MHz
+LTE Rx chan:   6400             LTE Tx chan: 24400
+LTE CA state:  INACTIVE
+EMM state:     Registered       Normal Service
+RRC state:     RRC Idle
+
+PCC RxM RSSI:  -62              RSRP (dBm):  -89
+PCC RxD RSSI:  -62              RSRP (dBm):  -140
+Tx Power:      --               TAC:         F489 (62601)
+RSRQ (dB):     -9               Cell ID:     007CF70B (8189707)
+SINR (dB):     20.0
+
+OK
+AT!GETBAND?
+!GETBAND: LTE B20
+
+OK
+AT!SELCIOT?
+Current Operating Mode: 0x6
+
+Supported Operating Modes:
+LTE WB:  0x01
+LTE M1:  0x02
+LTE NB1: 0x04
+
+OK
+</code></pre>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# cm info
+Device:                        WP7702
+IMEI:                          352653090108903
+IMEISV:                        6
+FSN:                           VU810385650910
+Firmware Version:              SWI9X06Y_02.36.06.00 63d944 jenkins 2020/12/10 19:12:28
+Bootloader Version:            SWI9X06Y_02.36.06.00 63d944 jenkins 2020/12/10 19:12:28
+MCU Version:                   002.015
+PRI Part Number (PN):          9907365
+PRI Revision:                  001.004
+Carrier PRI Name:              GENERIC
+Carrier PRI Revision:          001.071_001
+SKU:                           1103530
+Last Reset Cause:              Power Down
+Resets Count:                  Expected: 10081  Unexpected: 1
+</code></pre>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# cm radio
+Power:                         ON
+Current Network Operator:      KPN
+Current RAT:                   LTE network (LE_MRC_RAT_LTE)
+Status:                        Registered, home network (LE_MRC_REG_HOME)
+Signal:                        Very strong signal strength (5)
+PS:                            Packet Switched Registered, home network (LE_MRC_REG_HOME)
+</code></pre>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# cm data
+Index:                         1
+APN:                           m2mc.webtrial
+PDP Type:                      IPV4
+Connected:                     yes
+Interface:                     rmnet_data0
+Family[IPv4]:                  inet
+IP[IPv4]:                      100.126.108.176
+Gateway[IPv4]:                 100.126.108.177
+Dns1[IPv4]:                    194.151.228.34
+Dns2[IPv4]:                    194.151.228.18
+</code></pre>
+<p>Does anybody know how-to reveal the  LTE operating mode and Cellular IoT (CIOT) operating mode which is currently in use?</p>
+            <p><small>4 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/status-command-to-find-lte-operating-mode-cellular-iot-ciot-operating-mode-in-use/9294">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/status-command-to-find-lte-operating-mode-cellular-iot-ciot-operating-mode-in-use/9294</link>
+          <pubDate>Mon, 07 Jun 2021 06:41:05 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9294</guid>
+          <source url="https://forum.mangoh.io/t/status-command-to-find-lte-operating-mode-cellular-iot-ciot-operating-mode-in-use/9294.rss">Status command to find LTE Operating Mode &amp; Cellular IoT (CIOT) operating mode in use?</source>
+        </item>
+        <item>
+          <title>Corrupt SD - how to use fsck correctly?</title>
+          <dc:creator><![CDATA[terryc]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>Hi everyone, I’m suffering from corrupted SD cards and am in need of a file system check (fsck).</p>
+<p>I note that it is available through the command line (built into Busybox).  From the command line (via SSH) I’ve tried:</p>
+<pre><code class="lang-auto"> fsck -ANV /dev/mmcblk0p1
+</code></pre>
+<p>I get:</p>
+<blockquote>
+<p>fsck (busybox 1.27.2)<br>
+Checking all filesystems<br>
+root@swi-mdm9x28-wp:/mnt/userrw/sd#</p>
+</blockquote>
+<p>As a response, but that’s it. Is there supposed to be more feedback?</p>
+<p>Even just</p>
+<pre><code class="lang-auto">fsck -V
+</code></pre>
+<p>Gives the same response.</p>
+<p>I know for a fact that the SD card inserted has a bad file system and is marked read-only.</p>
+<p>I figure I’m using it (fsck) incorrectly? Help please?<br>
+Cheers,<br>
+Terry</p>
+            <p><small>12 posts - 3 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285</link>
+          <pubDate>Fri, 04 Jun 2021 06:41:24 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9285</guid>
+          <source url="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285.rss">Corrupt SD - how to use fsck correctly?</source>
+        </item>
+        <item>
+          <title>WP7702 sms receive is unstable</title>
+          <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+          <category>mangOH Red</category>
+          <description><![CDATA[
+            <p>I have a Legato app running on WP7702 which can receive sms from cell phones, but it doesn’t work consistently. I had it working this afternoon, but now it stops decode incoming sms, the log displays the following:</p>
+<blockquote>
+<p>Jun  1 22:23:08 swi-mdm9x28-wp user.info Legato:  INFO | modemDaemon[1199]/modemDaemon T=main | smsPdu.c DecodeUserDataField() 1071 |  messageLen 24, pos 29, size 24<br>
+Jun  1 22:23:08 swi-mdm9x28-wp user.info Legato:  INFO | avcDaemon[1149]/avcDaemon T=main | avcServer.c ProcessWakeupSms() 4359 | SMS is too short or doesn’t start with prefix ‘LWM2M’, ignoring</p>
+</blockquote>
+<p>Can anyone help?</p>
+            <p><small>11 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/wp7702-sms-receive-is-unstable/9274">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/wp7702-sms-receive-is-unstable/9274</link>
+          <pubDate>Wed, 02 Jun 2021 05:29:19 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9274</guid>
+          <source url="https://forum.mangoh.io/t/wp7702-sms-receive-is-unstable/9274.rss">WP7702 sms receive is unstable</source>
+        </item>
+  </channel>
+</rss>

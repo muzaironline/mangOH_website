@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Problem: Installing Legato and mangOH on Device</title>
+    <link>https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213</link>
+    <description>I think I have the same problem with some posts in here.
+I follow every step of installations the YouTube from the begining ( https://www.youtube.com/watch?v=rUqzkDaQNa4&amp;feature=youtu.be). I am trying to &quot;make wp85&quot; in red mangoH. But it found out about compiling problem as below.
+
+&gt; Module: WiFi
+&gt; ********************* VERSION ********************
+&gt; Legato WiFi version: 18.05.0
+&gt; **************************************************
+&gt; Module: Dualsys
+&gt; make -f Makefile.hostTools
+&gt; make[1]: Entering directory &#39;/home/bonsai/workspace/legatoAF/legato&#39;
+&gt; mkdir -p bin
+&gt; Using ninja installed at: /usr/bin/ninja
+&gt; mkdir -p /home/bonsai/workspace/legatoAF/legato/build/tools
+&gt; export TOOLS_ARCH=x86_64 &amp;&amp; \
+&gt; framework/tools/mkTools/ninja-generator
+&gt; Tools arch: x86_64
+&gt; ln -sf ../build/tools/mk bin/mk
+&gt; ln -sf mk bin/mkcomp
+&gt; ln -sf mk bin/mkexe
+&gt; ln -sf mk bin/mkapp
+&gt; ln -sf mk bin/mksys
+&gt; ln -sf ../framework/tools/scripts/splitdebug ../framework/tools/scripts/instsys ../framework/tools/scripts/settime ../framework/tools/scripts/mkinfo ../framework/tools/scripts/instlegato ../framework/tools/scripts/stoplegato ../framework/tools/scripts/cextgenerator.py ../framework/tools/scripts/settz ../framework/tools/scripts/createsdk ../framework/tools/scripts/systoimg ../framework/tools/scripts/legato-qemu ../framework/tools/scripts/checkpa ../framework/tools/scripts/legato-install ../framework/tools/scripts/update-pack ../framework/tools/scripts/security-pack ../framework/tools/scripts/instapp ../framework/tools/scripts/mklegatoimg ../framework/tools/scripts/app ../framework/tools/scripts/av-pack ../framework/tools/scripts/releaselegato ../framework/tools/scripts/findtoolchain ../framework/tools/scripts/remoteDebug ../framework/tools/scripts/systocwe ../framework/tools/scripts/configlegatoenv ../framework/tools/scripts/update ../framework/tools/scripts/sbhelper ../framework/tools/scripts/configtargetssh ../framework/tools/scripts/legs ../framework/tools/scripts/gettargettype ../framework/tools/scripts/update-util ../framework/tools/scripts/configToolchainDirEnvVars ../framework/tools/scripts/simu ../framework/tools/scripts/fwupdate ../framework/tools/scripts/setname ../framework/tools/scripts/mkdoc ../framework/tools/scripts/startlegato ../framework/tools/scripts/shlib ../framework/tools/scripts/mklegatotreero bin/
+&gt; ln -sf /home/bonsai/workspace/legatoAF/legato/framework/tools/ifgen/ifgen bin/
+&gt; ln -sf /home/bonsai/workspace/legatoAF/legato/3rdParty/ima-support-tools/ima-sign.sh bin/
+&gt; ln -sf /home/bonsai/workspace/legatoAF/legato/3rdParty/ima-support-tools/ima-gen-keys.sh bin/
+&gt; make -C framework/tools/mkPatch mkPatch
+&gt; make[2]: Entering directory &#39;/home/bonsai/workspace/legatoAF/legato/framework/tools/mkPatch&#39;
+&gt; /usr/bin/gcc -Wall -Werror -o /home/bonsai/workspace/legatoAF/legato/bin/mkPatch \
+&gt;     mkPatch.c /home/bonsai/workspace/legatoAF/legato/framework/liblegato/crc.c \
+&gt;     -I/home/bonsai/workspace/legatoAF/legato/framework/include \
+&gt;     -I/home/bonsai/workspace/legatoAF/legato/3rdParty/include
+&gt; mkPatch.c: In function ‘main’:
+&gt; mkPatch.c:1412:55: error: ‘%s’ directive output may be truncated writing up to 4095 bytes into a region of size between 4045 and 4063 [-Werror=format-truncation=]
+&gt;  1412 |                   &quot;cat patch.%u.cwe.hdr patch.%u.cwe &gt;%s/patch-%s.cwe&quot;,
+&gt;       |                                                       ^~
+&gt;  1413 |                   pid, pid, CurrentWorkDir, targetPtr );
+&gt;       |                             ~~~~~~~~~~~~~~             
+&gt; mkPatch.c:1411:9: note: ‘snprintf’ output 45 or more bytes (assuming 4140) into a destination of size 4096
+&gt;  1411 |         snprintf( CmdBuf, sizeof(CmdBuf),
+&gt;       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+&gt;  1412 |                   &quot;cat patch.%u.cwe.hdr patch.%u.cwe &gt;%s/patch-%s.cwe&quot;,
+&gt;       |                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+&gt;  1413 |                   pid, pid, CurrentWorkDir, targetPtr );
+&gt;       |                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+&gt; mkPatch.c:1147:60: error: ‘snprintf’ output may be truncated before the last format character [-Werror=format-truncation=]
+&gt;  1147 |                 snprintf(OrigName, sizeof(OrigName), &quot;%s/%s&quot;, CurrentWorkDir, OrigPtr);
+&gt;       |                                                            ^
+&gt; mkPatch.c:1147:17: note: ‘snprintf’ output 2 or more bytes (assuming 4097) into a destination of size 4096
+&gt;  1147 |                 snprintf(OrigName, sizeof(OrigName), &quot;%s/%s&quot;, CurrentWorkDir, OrigPtr);
+&gt;       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+&gt; mkPatch.c:1170:60: error: ‘snprintf’ output may be truncated before the last format character [-Werror=format-truncation=]
+&gt;  1170 |                 snprintf(DestName, sizeof(DestName), &quot;%s/%s&quot;, CurrentWorkDir, DestPtr);
+&gt;       |                                                            ^
+&gt; mkPatch.c:1170:17: note: ‘snprintf’ output 2 or more bytes (assuming 4097) into a destination of size 4096
+&gt;  1170 |                 snprintf(DestName, sizeof(DestName), &quot;%s/%s&quot;, CurrentWorkDir, DestPtr);
+&gt;       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+&gt; mkPatch.c:1223:60: error: ‘snprintf’ output may be truncated before the last format character [-Werror=format-truncation=]
+&gt;  1223 |                 snprintf(OrigName, sizeof(OrigName), &quot;%s/%s&quot;, CurrentWorkDir, OrigPtr);
+&gt;       |                                                            ^
+&gt; mkPatch.c:1223:17: note: ‘snprintf’ output 2 or more bytes (assuming 4097) into a destination of size 4096
+&gt;  1223 |                 snprintf(OrigName, sizeof(OrigName), &quot;%s/%s&quot;, CurrentWorkDir, OrigPtr);
+&gt;       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+&gt; mkPatch.c:1253:60: error: ‘snprintf’ output may be truncated before the last format character [-Werror=format-truncation=]
+&gt;  1253 |                 snprintf(DestName, sizeof(DestName), &quot;%s/%s&quot;, CurrentWorkDir, DestPtr);
+&gt;       |                                                            ^
+&gt; mkPatch.c:1253:17: note: ‘snprintf’ output 2 or more bytes (assuming 4097) into a destination of size 4096
+&gt;  1253 |                 snprintf(DestName, sizeof(DestName), &quot;%s/%s&quot;, CurrentWorkDir, DestPtr);
+&gt;       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+&gt; mkPatch.c:1389:60: error: ‘%s’ directive output may be truncated writing up to 4095 bytes into a region of size between 4048 and 4066 [-Werror=format-truncation=]
+&gt;  1389 |                           &quot;cat patch.%u.hdr patch.%u.bin &gt;&gt;%s/patch-%s.cwe&quot;,
+&gt;       |                                                            ^~
+&gt;  1390 |                           pid, pid, CurrentWorkDir, productPtr );
+&gt;       |                                     ~~~~~~~~~~~~~~          
+&gt; mkPatch.c:1388:17: note: ‘snprintf’ output 42 or more bytes (assuming 4137) into a destination of size 4096
+&gt;  1388 |                 snprintf( CmdBuf, sizeof(CmdBuf),
+&gt;       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+&gt;  1389 |                           &quot;cat patch.%u.hdr patch.%u.bin &gt;&gt;%s/patch-%s.cwe&quot;,
+&gt;       |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+&gt;  1390 |                           pid, pid, CurrentWorkDir, productPtr );
+&gt;       |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+&gt; mkPatch.c:20:16: error: ‘%s’ directive output may be truncated writing up to 4095 bytes into a region of size 4089 [-Werror=format-truncation=]
+&gt;    20 | #define BSDIFF &quot;bsdiff&quot;
+&gt;       |                ^~~~~~~~
+&gt; mkPatch.c:1298:27: note: in expansion of macro ‘BSDIFF’
+&gt;  1298 |                           BSDIFF &quot; %s %s patched.%u.bin.%d&quot;,
+&gt;       |                           ^~~~~~
+&gt; mkPatch.c:1298:36: note: format string is defined here
+&gt;  1298 |                           BSDIFF &quot; %s %s patched.%u.bin.%d&quot;,
+&gt;       |                                    ^~
+&gt; mkPatch.c:20:16: note: using the range [0, 4294967295] for directive argument
+&gt;    20 | #define BSDIFF &quot;bsdiff&quot;
+&gt;       |                ^~~~~~~~
+&gt; mkPatch.c:1298:27: note: in expansion of macro ‘BSDIFF’
+&gt;  1298 |                           BSDIFF &quot; %s %s patched.%u.bin.%d&quot;,
+&gt;       |                           ^~~~~~
+&gt; mkPatch.c:1297:17: note: ‘snprintf’ output between 25 and 8234 bytes into a destination of size 4096
+&gt;  1297 |                 snprintf( CmdBuf, sizeof(CmdBuf),
+&gt;       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+&gt;  1298 |                           BSDIFF &quot; %s %s patched.%u.bin.%d&quot;,
+&gt;       |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+&gt;  1299 |                           OrigName, tmpName, pid, patchNum );
+&gt;       |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+&gt; cc1: all warnings being treated as errors
+&gt; make[2]: *** [Makefile:25: mkPatch] Error 1
+&gt; make[2]: Leaving directory &#39;/home/bonsai/workspace/legatoAF/legato/framework/tools/mkPatch&#39;
+&gt; make[1]: *** [Makefile.hostTools:89: mkPatch] Error 2
+&gt; make[1]: Leaving directory &#39;/home/bonsai/workspace/legatoAF/legato&#39;
+&gt; make: *** [Makefile:298: tools] Error 2
+
+What&#39;s wrong with this? About &#39;environment variable&#39;? or missing package compiler? I using MINT Linux OS.</description>
+    
+    <lastBuildDate>Wed, 16 Sep 2020 01:49:14 +0000</lastBuildDate>
+    <category>Build your own</category>
+    <atom:link href="https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Problem: Installing Legato and mangOH on Device</title>
+        <dc:creator><![CDATA[chaipattanasaisa-ard]]></dc:creator>
+        <description><![CDATA[
+            <p>It seems like it works in Ubuntu 18.04. This is my first time for successful compile. Is it python version issue?</p>
+          <p><a href="https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213/5</link>
+        <pubDate>Wed, 16 Sep 2020 01:49:14 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5213-5</guid>
+        <source url="https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213.rss">Problem: Installing Legato and mangOH on Device</source>
+      </item>
+      <item>
+        <title>Problem: Installing Legato and mangOH on Device</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I used this toolchain in Ubuntu 14:<br>
+<a href="https://source.sierrawireless.com/resources/airprime/software/wpx5xx/wpx5xx-firmware-release-16-components/#sthash.nD3K6wjk.dpbs" class="onebox" target="_blank" rel="noopener nofollow ugc">https://source.sierrawireless.com/resources/airprime/software/wpx5xx/wpx5xx-firmware-release-16-components/#sthash.nD3K6wjk.dpbs</a></p>
+          <p><a href="https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213/4</link>
+        <pubDate>Tue, 15 Sep 2020 15:05:44 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5213-4</guid>
+        <source url="https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213.rss">Problem: Installing Legato and mangOH on Device</source>
+      </item>
+      <item>
+        <title>Problem: Installing Legato and mangOH on Device</title>
+        <dc:creator><![CDATA[chaipattanasaisa-ard]]></dc:creator>
+        <description><![CDATA[
+            <p>When I type “. bin/configlegatoenv” it replies</p>
+<blockquote>
+<p>[wp85] Toolchain dir = /opt/swi/SWI9X15Y_07.14.01.00/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/<br>
+prefix = arm-poky-linux-gnueabi-<br>
+sysroot = /opt/swi/SWI9X15Y_07.14.01.00/sysroots/armv7a-neon-poky-linux-gnueabi<br>
+kernelroot = /opt/swi/SWI9X15Y_07.14.01.00/sysroots/armv7a-neon-poky-linux-gnueabi/usr/src/kernel<br>
+[wp750x] Toolchain dir = /opt/swi/SWI9X15Y_07.14.01.00/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi<br>
+prefix = arm-poky-linux-gnueabi-<br>
+sysroot = /opt/swi/SWI9X15Y_07.14.01.00/sysroots/armv7a-neon-poky-linux-gnueabi<br>
+kernelroot = /opt/swi/SWI9X15Y_07.14.01.00/sysroots/armv7a-neon-poky-linux-gnueabi/usr/src/kernel</p>
+</blockquote>
+<p>Then I “make wp85” got the same error</p>
+          <p><a href="https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213/3</link>
+        <pubDate>Tue, 15 Sep 2020 13:10:36 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5213-3</guid>
+        <source url="https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213.rss">Problem: Installing Legato and mangOH on Device</source>
+      </item>
+      <item>
+        <title>Problem: Installing Legato and mangOH on Device</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>have you typed “. bin/configlegatoenv” before “make wp85”?<br>
+You might also try to compile in Ubuntu PC.</p>
+          <p><a href="https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213/2</link>
+        <pubDate>Tue, 15 Sep 2020 12:31:21 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5213-2</guid>
+        <source url="https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213.rss">Problem: Installing Legato and mangOH on Device</source>
+      </item>
+      <item>
+        <title>Problem: Installing Legato and mangOH on Device</title>
+        <dc:creator><![CDATA[chaipattanasaisa-ard]]></dc:creator>
+        <description><![CDATA[
+            <p>I think I have the same problem with some posts in here.<br>
+I follow every step of installations the YouTube from the begining ( <a href="https://www.youtube.com/watch?v=rUqzkDaQNa4&amp;feature=youtu.be" rel="noopener nofollow ugc">https://www.youtube.com/watch?v=rUqzkDaQNa4&amp;feature=youtu.be</a>). I am trying to “make wp85” in red mangoH. But it found out about compiling problem as below.</p>
+<blockquote>
+<p>Module: WiFi<br>
+********************* VERSION ********************<br>
+Legato WiFi version: 18.05.0</p>
+<hr>
+<p>Module: Dualsys<br>
+make -f Makefile.hostTools<br>
+make[1]: Entering directory ‘/home/bonsai/workspace/legatoAF/legato’<br>
+mkdir -p bin<br>
+Using ninja installed at: /usr/bin/ninja<br>
+mkdir -p /home/bonsai/workspace/legatoAF/legato/build/tools<br>
+export TOOLS_ARCH=x86_64 &amp;&amp; <br>
+framework/tools/mkTools/ninja-generator<br>
+Tools arch: x86_64<br>
+ln -sf …/build/tools/mk bin/mk<br>
+ln -sf mk bin/mkcomp<br>
+ln -sf mk bin/mkexe<br>
+ln -sf mk bin/mkapp<br>
+ln -sf mk bin/mksys<br>
+ln -sf …/framework/tools/scripts/splitdebug …/framework/tools/scripts/instsys …/framework/tools/scripts/settime …/framework/tools/scripts/mkinfo …/framework/tools/scripts/instlegato …/framework/tools/scripts/stoplegato …/framework/tools/scripts/cextgenerator.py …/framework/tools/scripts/settz …/framework/tools/scripts/createsdk …/framework/tools/scripts/systoimg …/framework/tools/scripts/legato-qemu …/framework/tools/scripts/checkpa …/framework/tools/scripts/legato-install …/framework/tools/scripts/update-pack …/framework/tools/scripts/security-pack …/framework/tools/scripts/instapp …/framework/tools/scripts/mklegatoimg …/framework/tools/scripts/app …/framework/tools/scripts/av-pack …/framework/tools/scripts/releaselegato …/framework/tools/scripts/findtoolchain …/framework/tools/scripts/remoteDebug …/framework/tools/scripts/systocwe …/framework/tools/scripts/configlegatoenv …/framework/tools/scripts/update …/framework/tools/scripts/sbhelper …/framework/tools/scripts/configtargetssh …/framework/tools/scripts/legs …/framework/tools/scripts/gettargettype …/framework/tools/scripts/update-util …/framework/tools/scripts/configToolchainDirEnvVars …/framework/tools/scripts/simu …/framework/tools/scripts/fwupdate …/framework/tools/scripts/setname …/framework/tools/scripts/mkdoc …/framework/tools/scripts/startlegato …/framework/tools/scripts/shlib …/framework/tools/scripts/mklegatotreero bin/<br>
+ln -sf /home/bonsai/workspace/legatoAF/legato/framework/tools/ifgen/ifgen bin/<br>
+ln -sf /home/bonsai/workspace/legatoAF/legato/3rdParty/ima-support-tools/ima-sign.sh bin/<br>
+ln -sf /home/bonsai/workspace/legatoAF/legato/3rdParty/ima-support-tools/ima-gen-keys.sh bin/<br>
+make -C framework/tools/mkPatch mkPatch<br>
+make[2]: Entering directory ‘/home/bonsai/workspace/legatoAF/legato/framework/tools/mkPatch’<br>
+/usr/bin/gcc -Wall -Werror -o /home/bonsai/workspace/legatoAF/legato/bin/mkPatch <br>
+mkPatch.c /home/bonsai/workspace/legatoAF/legato/framework/liblegato/crc.c <br>
+-I/home/bonsai/workspace/legatoAF/legato/framework/include <br>
+-I/home/bonsai/workspace/legatoAF/legato/3rdParty/include<br>
+mkPatch.c: In function ‘main’:<br>
+mkPatch.c:1412:55: error: ‘%s’ directive output may be truncated writing up to 4095 bytes into a region of size between 4045 and 4063 [-Werror=format-truncation=]<br>
+1412 |                   “cat patch.%u.cwe.hdr patch.%u.cwe &gt;%s/patch-%s.cwe”,<br>
+|                                                       ^~<br>
+1413 |                   pid, pid, CurrentWorkDir, targetPtr );<br>
+|                             ~~~~~~~~~~~~~~<br>
+mkPatch.c:1411:9: note: ‘snprintf’ output 45 or more bytes (assuming 4140) into a destination of size 4096<br>
+1411 |         snprintf( CmdBuf, sizeof(CmdBuf),<br>
+|         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+1412 |                   “cat patch.%u.cwe.hdr patch.%u.cwe &gt;%s/patch-%s.cwe”,<br>
+|                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+1413 |                   pid, pid, CurrentWorkDir, targetPtr );<br>
+|                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+mkPatch.c:1147:60: error: ‘snprintf’ output may be truncated before the last format character [-Werror=format-truncation=]<br>
+1147 |                 snprintf(OrigName, sizeof(OrigName), “%s/%s”, CurrentWorkDir, OrigPtr);<br>
+|                                                            ^<br>
+mkPatch.c:1147:17: note: ‘snprintf’ output 2 or more bytes (assuming 4097) into a destination of size 4096<br>
+1147 |                 snprintf(OrigName, sizeof(OrigName), “%s/%s”, CurrentWorkDir, OrigPtr);<br>
+|                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+mkPatch.c:1170:60: error: ‘snprintf’ output may be truncated before the last format character [-Werror=format-truncation=]<br>
+1170 |                 snprintf(DestName, sizeof(DestName), “%s/%s”, CurrentWorkDir, DestPtr);<br>
+|                                                            ^<br>
+mkPatch.c:1170:17: note: ‘snprintf’ output 2 or more bytes (assuming 4097) into a destination of size 4096<br>
+1170 |                 snprintf(DestName, sizeof(DestName), “%s/%s”, CurrentWorkDir, DestPtr);<br>
+|                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+mkPatch.c:1223:60: error: ‘snprintf’ output may be truncated before the last format character [-Werror=format-truncation=]<br>
+1223 |                 snprintf(OrigName, sizeof(OrigName), “%s/%s”, CurrentWorkDir, OrigPtr);<br>
+|                                                            ^<br>
+mkPatch.c:1223:17: note: ‘snprintf’ output 2 or more bytes (assuming 4097) into a destination of size 4096<br>
+1223 |                 snprintf(OrigName, sizeof(OrigName), “%s/%s”, CurrentWorkDir, OrigPtr);<br>
+|                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+mkPatch.c:1253:60: error: ‘snprintf’ output may be truncated before the last format character [-Werror=format-truncation=]<br>
+1253 |                 snprintf(DestName, sizeof(DestName), “%s/%s”, CurrentWorkDir, DestPtr);<br>
+|                                                            ^<br>
+mkPatch.c:1253:17: note: ‘snprintf’ output 2 or more bytes (assuming 4097) into a destination of size 4096<br>
+1253 |                 snprintf(DestName, sizeof(DestName), “%s/%s”, CurrentWorkDir, DestPtr);<br>
+|                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+mkPatch.c:1389:60: error: ‘%s’ directive output may be truncated writing up to 4095 bytes into a region of size between 4048 and 4066 [-Werror=format-truncation=]<br>
+1389 |                           “cat patch.%u.hdr patch.%u.bin &gt;&gt;%s/patch-%s.cwe”,<br>
+|                                                            ^~<br>
+1390 |                           pid, pid, CurrentWorkDir, productPtr );<br>
+|                                     ~~~~~~~~~~~~~~<br>
+mkPatch.c:1388:17: note: ‘snprintf’ output 42 or more bytes (assuming 4137) into a destination of size 4096<br>
+1388 |                 snprintf( CmdBuf, sizeof(CmdBuf),<br>
+|                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+1389 |                           “cat patch.%u.hdr patch.%u.bin &gt;&gt;%s/patch-%s.cwe”,<br>
+|                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+1390 |                           pid, pid, CurrentWorkDir, productPtr );<br>
+|                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+mkPatch.c:20:16: error: ‘%s’ directive output may be truncated writing up to 4095 bytes into a region of size 4089 [-Werror=format-truncation=]<br>
+20 | <span class="hashtag">#define</span> BSDIFF “bsdiff”<br>
+|                ^~~~~~~~<br>
+mkPatch.c:1298:27: note: in expansion of macro ‘BSDIFF’<br>
+1298 |                           BSDIFF " %s %s patched.%u.bin.%d",<br>
+|                           ^~~~~~<br>
+mkPatch.c:1298:36: note: format string is defined here<br>
+1298 |                           BSDIFF " %s %s patched.%u.bin.%d",<br>
+|                                    ^~<br>
+mkPatch.c:20:16: note: using the range [0, 4294967295] for directive argument<br>
+20 | <span class="hashtag">#define</span> BSDIFF “bsdiff”<br>
+|                ^~~~~~~~<br>
+mkPatch.c:1298:27: note: in expansion of macro ‘BSDIFF’<br>
+1298 |                           BSDIFF " %s %s patched.%u.bin.%d",<br>
+|                           ^~~~~~<br>
+mkPatch.c:1297:17: note: ‘snprintf’ output between 25 and 8234 bytes into a destination of size 4096<br>
+1297 |                 snprintf( CmdBuf, sizeof(CmdBuf),<br>
+|                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+1298 |                           BSDIFF " %s %s patched.%u.bin.%d",<br>
+|                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+1299 |                           OrigName, tmpName, pid, patchNum );<br>
+|                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+cc1: all warnings being treated as errors<br>
+make[2]: *** [Makefile:25: mkPatch] Error 1<br>
+make[2]: Leaving directory ‘/home/bonsai/workspace/legatoAF/legato/framework/tools/mkPatch’<br>
+make[1]: *** [Makefile.hostTools:89: mkPatch] Error 2<br>
+make[1]: Leaving directory ‘/home/bonsai/workspace/legatoAF/legato’<br>
+make: *** [Makefile:298: tools] Error 2</p>
+</blockquote>
+<p>What’s wrong with this? About ‘environment variable’? or missing package compiler? I using MINT Linux OS.</p>
+          <p><a href="https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213/1</link>
+        <pubDate>Tue, 15 Sep 2020 11:53:48 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5213-1</guid>
+        <source url="https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213.rss">Problem: Installing Legato and mangOH on Device</source>
+      </item>
+  </channel>
+</rss>

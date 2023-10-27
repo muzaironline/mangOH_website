@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Airvantage autostart issue</title>
+    <link>https://forum.mangoh.io/t/airvantage-autostart-issue/397</link>
+    <description>Dear Community,
+
+We are evaluating the WP with mango board and having an issue to autostart the Airvantage service. (fw: SWI9X15Y_07.11.22.00, Legato version 16.10.1) It works fine when started manually sends statuses according to the setting but after reboot the service simply does not connect to Airvantage.
+
+Current configuration:
+AT+WDSC?
++WDSC: 0,0
++WDSC: 1,1  //it should be 0 by default according to the AT manual
++WDSC: 2,1	//it should be 0 by default according to the AT manual
++WDSC: 3,1	//only changed this value from 15 --&gt; 1, (does not work with 15 either)
++WDSC: 4,0
+
+OK
+
+AT+WDSE
+OK
+AT+WDSG
++WDSG: 0,3
++WDSG: 1,0
+
+OK
+
+Airvantage login starts only manually with command:
+AT+WDSS=1,1
+
+	
+OK
+
++WDSI: 4
+
++WDSI: 6
+
++WDSI: 23,1
+
+Does anybody have an idea or do i miss something?
+
+Thanks,
+tom</description>
+    
+    <lastBuildDate>Mon, 20 Mar 2017 16:10:28 +0000</lastBuildDate>
+    <category>Services</category>
+    <atom:link href="https://forum.mangoh.io/t/airvantage-autostart-issue/397.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Airvantage autostart issue</title>
+        <dc:creator><![CDATA[tomalex]]></dc:creator>
+        <description><![CDATA[
+            <p>I tried the AirVantage control application and it works. I used the le_avc_SetPollingTimer() function and it seems to do the job. Only using AT commands the avcDaeom sometimes “forgets” to connect to the airvantage after reboot. I still have issue updating the application, i opened a new topic for it here:</p><aside class="quote quote-modified" data-post="1" data-topic="447">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/t/71e660/40.png" class="avatar">
+    <a href="http://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447">Airvantage Application update failes with code 500 from avcDaemon</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/services/11"><span class="badge-category-bg" style="background-color: #AB9364;"></span><span style="" data-drop-close="true" class="badge-category clear-badge">Services</span></a>
+  </div>
+  <blockquote>
+    Dear community, 
+I have spent  too much time for this issue but  i have no idea how to do anything differently. I always get the following error message: “avcDaemon[505]/le_pa_avc T=unknown | pa_avc_qmi.c ProcessAvmsState() 406 | Download failed. Avms update_complete_status 500.” It is some kind of timeout but i  don’t know why. 
+Here is the complete log: 
+
+Mar 20 16:00:46 | lwm2mCtrlDaemon[4638]/lwm2mControl T=main | lwm2mControl.c StatusHandler() 128 | Air Vantage agent reported update status:…
+  </blockquote>
+</aside>
+
+<p>Thanks for the help!<br>
+tom</p>
+          <p><a href="https://forum.mangoh.io/t/airvantage-autostart-issue/397/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/airvantage-autostart-issue/397/10</link>
+        <pubDate>Mon, 20 Mar 2017 16:10:28 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-397-10</guid>
+        <source url="https://forum.mangoh.io/t/airvantage-autostart-issue/397.rss">Airvantage autostart issue</source>
+      </item>
+      <item>
+        <title>Airvantage autostart issue</title>
+        <dc:creator><![CDATA[tomalex]]></dc:creator>
+        <description><![CDATA[
+            <p>After some restart the Mangoh board does not connect  to the Airvantage again. I have also tested it with a “brand” new Mangoh with different Sim card and it shows the same behaviour.<br>
+AT+WDSC?<br>
++WDSC: 0,0<br>
++WDSC: 1,0<br>
++WDSC: 2,0<br>
++WDSC: 3,10<br>
++WDSC: 4,0<br>
+OK<br>
+And the application update is not working either. What is he meaning of the Customer ID in the firmware? (1102816 by me)<br>
+Isn’t it possible that there is a problem with avcService? I presume it is checking these AT settings.<br>
+I will try out the AirVantage control application later but the avcService should be as robust as possible…</p>
+<p>tom</p>
+          <p><a href="https://forum.mangoh.io/t/airvantage-autostart-issue/397/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/airvantage-autostart-issue/397/9</link>
+        <pubDate>Mon, 13 Mar 2017 13:10:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-397-9</guid>
+        <source url="https://forum.mangoh.io/t/airvantage-autostart-issue/397.rss">Airvantage autostart issue</source>
+      </item>
+      <item>
+        <title>Airvantage autostart issue</title>
+        <dc:creator><![CDATA[tomalex]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello All,</p>
+<p>Strange things, the module is keeping now the settings after reset so at+wdsc=3,x works. I haven’t done anything differently, or at least i don’t know about it.<br>
+Thanks for the help!</p>
+<p>BTW, We would like to update the application with Airvantage.<br>
+I have tried to update the app several times but i always get update failure. Should i open an other topic? Here is the log:</p>
+<p>I have received this sometimes:<br>
+avcDaemon[511]/avcAppUpdate T=main | avcAppUpdate.c Object9FieldActivityHandler() 1481 | Duplicate attempt detected.<br>
+But usually i get these messages:<br>
+avcDaemon[517]/avcDaemon T=main | avcServer.c QueryUninstall() 717 | Automatically accepting uninstall<br>
+Mar 12 19:05:54 | avcDaemon[517]/avcDaemon T=main | assetData.c assetData_DeleteInstance() 3160 | Deleting instance tmCore/0/0<br>
+Mar 12 19:05:54 | avcDaemon[517]/avcDaemon T=main | assetData.c assetData_DeleteInstance() 3160 | Deleting instance tmCore/1/0</p>
+<p>/* Here i See that my application sends some debug messages, so obviously delete was not successful*/</p>
+<p>/* After 60 seconds */<br>
+avcDaemon[517]/le_pa_avc T=unknown | pa_avc_qmi.c ProcessAvmsState() 358 | Received User App update<br>
+Mar 12 19:06:54 | avcDaemon[517]/le_pa_avc T=unknown | pa_avc_qmi.c ProcessAvmsState() 406 | Download failed. Avms update_complete_status 500.</p>
+<p>If somebody has an idea please share it…</p>
+<p>Thanks,<br>
+tom</p>
+          <p><a href="https://forum.mangoh.io/t/airvantage-autostart-issue/397/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/airvantage-autostart-issue/397/8</link>
+        <pubDate>Sun, 12 Mar 2017 19:10:07 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-397-8</guid>
+        <source url="https://forum.mangoh.io/t/airvantage-autostart-issue/397.rss">Airvantage autostart issue</source>
+      </item>
+      <item>
+        <title>Airvantage autostart issue</title>
+        <dc:creator><![CDATA[tomalex]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello Asya &amp; Rjacolinl,</p>
+<p>experience was that it worked till the reset  but after repower the module forgot the setting but i will double check it again a try out the AirVantageControl app and i will let you know!</p>
+<p>BR<br>
+tom</p>
+          <p><a href="https://forum.mangoh.io/t/airvantage-autostart-issue/397/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/airvantage-autostart-issue/397/7</link>
+        <pubDate>Wed, 08 Mar 2017 20:28:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-397-7</guid>
+        <source url="https://forum.mangoh.io/t/airvantage-autostart-issue/397.rss">Airvantage autostart issue</source>
+      </item>
+      <item>
+        <title>Airvantage autostart issue</title>
+        <dc:creator><![CDATA[rjacolin]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Tom,</p>
+<p>When you try at+wdss command, the module is connected to AirVantage.<br>
+You may do at+wdss=1,0 in order to stop the connection. You may see:<br>
++WDSI: 8 (for success)<br>
+at+wdsc=3,1 is a bit low. I prefer you set at+wdsc=3,2 (2 minutes).</p>
+<p>at+wdsc command works. Do you have some +WDSI notification if you do nothing each 2 minutes?</p>
+          <p><a href="https://forum.mangoh.io/t/airvantage-autostart-issue/397/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/airvantage-autostart-issue/397/6</link>
+        <pubDate>Wed, 08 Mar 2017 20:22:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-397-6</guid>
+        <source url="https://forum.mangoh.io/t/airvantage-autostart-issue/397.rss">Airvantage autostart issue</source>
+      </item>
+      <item>
+        <title>Airvantage autostart issue</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Can you try:</p>
+<p>AT+WDSC Device service configuration</p>
+<p>3 Polling mode<br>
+The embedded module will initiate a connection to the Device Services server according to the defined timer</p>
+<p>AT+WDSC=3,<br>
+For  = 3; value in range = 0 – 525600 in min<br>
+0 Polling mode is deactivated</p>
+<p>Not 100% sure whether this works but let me know if it does.</p>
+          <p><a href="https://forum.mangoh.io/t/airvantage-autostart-issue/397/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/airvantage-autostart-issue/397/5</link>
+        <pubDate>Wed, 08 Mar 2017 04:40:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-397-5</guid>
+        <source url="https://forum.mangoh.io/t/airvantage-autostart-issue/397.rss">Airvantage autostart issue</source>
+      </item>
+      <item>
+        <title>Airvantage autostart issue</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Tom,</p>
+<p>Yes, that’s the correct git location <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=5" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+<p>There could be a way to do it using AT commands besides the the legato app. I’ll dig into it, ask internally and let you  know.</p>
+<p>cheers,<br>
+Ashish</p>
+          <p><a href="https://forum.mangoh.io/t/airvantage-autostart-issue/397/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/airvantage-autostart-issue/397/4</link>
+        <pubDate>Sun, 05 Mar 2017 20:48:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-397-4</guid>
+        <source url="https://forum.mangoh.io/t/airvantage-autostart-issue/397.rss">Airvantage autostart issue</source>
+      </item>
+      <item>
+        <title>Airvantage autostart issue</title>
+        <dc:creator><![CDATA[tomalex]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Ashish,</p>
+<p>Thank you for clearing that up!<br>
+You mean this app?<br>
+<a href="https://github.com/legatoproject/legato-af/tree/master/apps/sample/lwm2mAirVantageControl" class="onebox" target="_blank" rel="nofollow noopener">https://github.com/legatoproject/legato-af/tree/master/apps/sample/lwm2mAirVantageControl</a></p>
+<p>It wasn’t evident for me from the AT documentation. I think you should be able to configure the airvantage agent with only at commands without an extra app/configuration as it is with non legato modules (if i remember correctly) It makes me confused!</p>
+<p>Thanks again for the answer,<br>
+Tom</p>
+          <p><a href="https://forum.mangoh.io/t/airvantage-autostart-issue/397/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/airvantage-autostart-issue/397/3</link>
+        <pubDate>Sun, 05 Mar 2017 20:45:28 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-397-3</guid>
+        <source url="https://forum.mangoh.io/t/airvantage-autostart-issue/397.rss">Airvantage autostart issue</source>
+      </item>
+      <item>
+        <title>Airvantage autostart issue</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Tom,</p>
+<p>When you restart your unit, there needs to be an app that tells the airvantageservice to connect to Airvantage.</p>
+<p>Can you install the following app:<br>
+<a href="http://cgit-legato/Legato/tree/apps/sample/lwm2mAirVantageControl" class="onebox" target="_blank">http://cgit-legato/Legato/tree/apps/sample/lwm2mAirVantageControl</a></p>
+<p>on your platform and run it? this should allow your system to connect to AV on bootup. Note that the app is manual start, you may want to change that.</p>
+<p>cheers,<br>
+Ashish</p>
+          <p><a href="https://forum.mangoh.io/t/airvantage-autostart-issue/397/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/airvantage-autostart-issue/397/2</link>
+        <pubDate>Mon, 27 Feb 2017 23:23:27 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-397-2</guid>
+        <source url="https://forum.mangoh.io/t/airvantage-autostart-issue/397.rss">Airvantage autostart issue</source>
+      </item>
+      <item>
+        <title>Airvantage autostart issue</title>
+        <dc:creator><![CDATA[tomalex]]></dc:creator>
+        <description><![CDATA[
+            <p>Dear Community,</p>
+<p>We are evaluating the WP with mango board and having an issue to autostart the Airvantage service. (fw: SWI9X15Y_07.11.22.00, Legato version 16.10.1) It works fine when started manually sends statuses according to the setting but after reboot the service simply does not connect to Airvantage.</p>
+<p>Current configuration:<br>
+AT+WDSC?<br>
++WDSC: 0,0<br>
++WDSC: 1,1  //it should be 0 by default according to the AT manual<br>
++WDSC: 2,1	//it should be 0 by default according to the AT manual<br>
++WDSC: 3,1	//only changed this value from 15 --&gt; 1, (does not work with 15 either)<br>
++WDSC: 4,0</p>
+<p>OK</p>
+<p>AT+WDSE<br>
+OK<br>
+AT+WDSG<br>
++WDSG: 0,3<br>
++WDSG: 1,0</p>
+<p>OK</p>
+<p>Airvantage login starts only manually with command:<br>
+AT+WDSS=1,1</p>
+<p>OK</p>
+<p>+WDSI: 4</p>
+<p>+WDSI: 6</p>
+<p>+WDSI: 23,1</p>
+<p>Does anybody have an idea or do i miss something?</p>
+<p>Thanks,<br>
+tom</p>
+          <p><a href="https://forum.mangoh.io/t/airvantage-autostart-issue/397/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/airvantage-autostart-issue/397/1</link>
+        <pubDate>Mon, 27 Feb 2017 09:10:05 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-397-1</guid>
+        <source url="https://forum.mangoh.io/t/airvantage-autostart-issue/397.rss">Airvantage autostart issue</source>
+      </item>
+  </channel>
+</rss>

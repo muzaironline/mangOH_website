@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Simulate Network Drop Out to Force Calls AirVantage to Session Handler - Build your own - mangOH forum</title>
+    <meta name="description" content="Is there a method to simulate poor network connectivity or no network availability without removing the SIM card or removing the antenna (as the latter would likely damage the radio front end). 
+I’d like to see how my ap&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/simulate-network-drop-out-to-force-calls-airvantage-to-session-handler/2647" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Simulate Network Drop Out to Force Calls AirVantage to Session Handler&#39;" href="https://forum.mangoh.io/t/simulate-network-drop-out-to-force-calls-airvantage-to-session-handler/2647.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/simulate-network-drop-out-to-force-calls-airvantage-to-session-handler/2647" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/simulate-network-drop-out-to-force-calls-airvantage-to-session-handler/2647" />
+<meta property="og:title" content="Simulate Network Drop Out to Force Calls AirVantage to Session Handler" />
+<meta name="twitter:title" content="Simulate Network Drop Out to Force Calls AirVantage to Session Handler" />
+<meta property="og:description" content="Is there a method to simulate poor network connectivity or no network availability without removing the SIM card or removing the antenna (as the latter would likely damage the radio front end).  I’d like to see how my apps behave under these conditions.  Thanks,  Darren" />
+<meta name="twitter:description" content="Is there a method to simulate poor network connectivity or no network availability without removing the SIM card or removing the antenna (as the latter would likely damage the radio front end).  I’d like to see how my apps behave under these conditions.  Thanks,  Darren" />
+<meta property="og:article:section" content="Build your own" />
+<meta property="og:article:section:color" content="25AAE2" />
+<meta property="article:published_time" content="2019-05-16T23:36:09+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Simulate Network Drop Out to Force Calls AirVantage to Session Handler","mainEntity":{"@type":"Question","name":"Simulate Network Drop Out to Force Calls AirVantage to Session Handler","text":"Is there a method to simulate poor network connectivity or no network availability without removing the SIM card or removing the antenna (as the latter would likely damage the radio front end).\n\nI’d like to see how my apps behave under these conditions.\n\nThanks,\n\nDarren","upvoteCount":0,"answerCount":1,"dateCreated":"2019-05-16T23:36:09.541Z","author":{"@type":"Person","name":"Darren Beckwith"},"acceptedAnswer":{"@type":"Answer","text":"This stack exchange has the answer you are looking for\n\n<a href=\"https://electronics.stackexchange.com/users/39266/macdonaldtomw\" target=\"_blank\" rel=\"nofollow noopener\">\n\n[macdonaldtomw]\n\n<\/a>\n\n<a href=\"https://electronics.stackexchange.com/questions/308004/simulate-bad-cell-phone-reception-in-the-lab\" target=\"_blank\" rel=\"nofollow noopener\">Simulate bad cell phone reception in the lab<\/a>\n\nrf, antenna, gsm, transmission\n\nasked by\n\n<a href=\"https://electronics.stackexchange.com/users/39266/macdonaldtomw\" target=\"_blank\" rel=\"nofollow noopener\">\n\nmacdonaldtomw\n\n<\/a>\n\non <a href=\"https://electronics.stackexchange.com/questions/308004/simulate-bad-cell-phone-reception-in-the-lab\" target=\"_blank\" rel=\"nofollow noopener\">03:08PM - 29 May 17 UTC<\/a>","upvoteCount":0,"dateCreated":"2019-05-17T02:52:32.731Z","url":"https://forum.mangoh.io/t/simulate-network-drop-out-to-force-calls-airvantage-to-session-handler/2647/2","author":{"@type":"Person","name":"asyal"}}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/simulate-network-drop-out-to-force-calls-airvantage-to-session-handler/2647">Simulate Network Drop Out to Force Calls AirVantage to Session Handler</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/build-your-own/7" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #25AAE2'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>Build your own</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Simulate Network Drop Out to Force Calls AirVantage to Session Handler'>
+        <meta itemprop='articleSection' content='Build your own'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dbeckwith'><span itemprop='name'>dbeckwith</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/simulate-network-drop-out-to-force-calls-airvantage-to-session-handler/2647">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-05-16T23:36:09Z' class='post-time'>
+                    May 16, 2019, 11:36pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-05-17T15:01:35Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Is there a method to simulate poor network connectivity or no network availability without removing the SIM card or removing the antenna (as the latter would likely damage the radio front end).</p>
+<p>I’d like to see how my apps behave under these conditions.</p>
+<p>Thanks,<br>
+Darren</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/simulate-network-drop-out-to-force-calls-airvantage-to-session-handler/2647">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/411ab2fea103af356bf67d5e9b7d99b493e6c62a.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-05-17T02:52:32Z' class='post-time'>
+                    May 17, 2019,  2:52am
+                  </time>
+                  <meta itemprop='dateModified' content='2019-05-17T02:52:32Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>This stack exchange has the answer you are looking for<br>
+<aside class="onebox stackexchange">
+  <header class="source">
+      <a href="https://electronics.stackexchange.com/questions/308004/simulate-bad-cell-phone-reception-in-the-lab" target="_blank" rel="nofollow noopener">electronics.stackexchange.com</a>
+  </header>
+  <article class="onebox-body">
+      <a href="https://electronics.stackexchange.com/users/39266/macdonaldtomw" target="_blank" rel="nofollow noopener">
+    <img alt="macdonaldtomw" src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/411ab2fea103af356bf67d5e9b7d99b493e6c62a.png" class="thumbnail onebox-avatar" width="128" height="128">
+  </a>
+<h4>
+  <a href="https://electronics.stackexchange.com/questions/308004/simulate-bad-cell-phone-reception-in-the-lab" target="_blank" rel="nofollow noopener">Simulate bad cell phone reception in the lab</a>
+</h4>
+
+<div class="tags">
+  <strong>rf, antenna, gsm, transmission</strong>
+</div>
+
+<div class="date">
+  asked by
+  
+  <a href="https://electronics.stackexchange.com/users/39266/macdonaldtomw" target="_blank" rel="nofollow noopener">
+    macdonaldtomw
+  </a>
+  on <a href="https://electronics.stackexchange.com/questions/308004/simulate-bad-cell-phone-reception-in-the-lab" target="_blank" rel="nofollow noopener">03:08PM - 29 May 17 UTC</a>
+</div>
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dbeckwith'><span itemprop='name'>dbeckwith</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/simulate-network-drop-out-to-force-calls-airvantage-to-session-handler/2647">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-05-17T15:01:31Z' class='post-time'>
+                    May 17, 2019,  3:01pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-05-17T15:01:31Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/asyal">@asyal</a>, thanks for the Stack Exchange link it is defiantly useful for simulating the low/bad cell signals and I think we need to consider getting an enclosure for more detailed testing.</p>
+<p>That said I was hoping for a way to issue a command on the target that would simulate a network drop out which would result in calls to the AirVantage session handlers.  Once I test this I would then like to restore the network and watch the system behaviour.  (I have changed the post subject to better reflect my request)</p>
+<p>Any way to do this without attenuators and/or an RF enclosure?</p>
+<p>Thanks,<br>
+Darren</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/simulate-network-drop-out-to-force-calls-airvantage-to-session-handler/2647">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-05-17T15:29:46Z' class='post-time'>
+                    May 17, 2019,  3:29pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-05-17T15:29:46Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I am not aware of a way to do that. Remember you need to tackle both the tx and rx</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

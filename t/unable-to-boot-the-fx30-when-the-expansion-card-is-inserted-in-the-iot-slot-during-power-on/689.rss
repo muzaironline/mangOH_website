@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Unable to boot the FX30 when the expansion card is inserted in the IoT slot during power-on</title>
+    <link>https://forum.mangoh.io/t/unable-to-boot-the-fx30-when-the-expansion-card-is-inserted-in-the-iot-slot-during-power-on/689</link>
+    <description>I&#39;m unable to boot the FX30 when the card is inserted in the IoT slot during power-on. If the card is not present during power-on, the FX30 will boot. I am also able to boot if I hold the SDA line to the EEPROM (Microchip 24AA32A ) low (shorted to GND) during power-on.
+
+The IoT card has an I2C EEPROM on board, and the memory is as described in table 5-2 in [1]. We&#39;ve also tried with empty EEPROM (0xFF) and zeroed EEPROM (0x00) - the behaviour is the same. The electrical connections are also as descibed in [1], including the transistor address selector in figure 5-2.
+
+After boot, I can hot-plug the card, and all is working perfectly. I can even access the EEPROM using i2cset, i2cget and i2cdump commands from bash.
+
+When measuring the I2C bus with oscilloscope during power-on, I see that 64 bytes are read after about 1 second (long before linux is booted), and the speed is 400 KHz. This is not according to [1], that states that connected EEPROMs must support 100KHz.
+
+When the boot fails, the USB is enumerated as &quot;Qualcomm HS-USB QDLoader 9008 (COM183)&quot;, which to me may indicate that this is something that happens pre-image-boot.
+
+Does anyone know anything about this? Are there others with the same experience or who is using EEPROM successfully?
+
+Version and references:
+References: [1] 4117166_IoT Expansion Card Design Specification_r8-3.pdf from mangoh.io
+
+legato version : 16.10.1_f8947ec5fd286f5b9d2c25ebb9ad81a4
+uname -r : 3.14.29ltsi-a00e464379_3f15cd39ad
+/proc/version: Linux version 3.14.29ltsi-a00e464379_3f15cd39ad (jenkins@CAKEL-EV-ALBLD2) (gcc version 4.9.1 (GCC) ) #2 PREEMPT Mon Feb 20 11:11:17 PST 2017
+
+Output from cm:
+Device:     FX30
+IMEI:       353984080053067
+FSN:        LL705201200310
+Firmware:   SWI9X15Y_07.11.22.00 r33729 CARMD-EV-FRMWR1 2017/01/11 18:04:06
+Bootloader: SWI9X15Y_07.11.22.00 r33729 CARMD-EV-FRMWR1 2017/01/11 18:04:06
+priIdPn:    9906645
+priIdRev:   01.02
+skuId:      1103214
+
+thanks
+Geoff</description>
+    
+    <lastBuildDate>Tue, 09 Jul 2019 12:07:12 +0000</lastBuildDate>
+    <category>IoT Cards</category>
+    <atom:link href="https://forum.mangoh.io/t/unable-to-boot-the-fx30-when-the-expansion-card-is-inserted-in-the-iot-slot-during-power-on/689.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Unable to boot the FX30 when the expansion card is inserted in the IoT slot during power-on</title>
+        <dc:creator><![CDATA[TheGod]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi,<br>
+Did you resolve the issue?</p>
+          <p><a href="https://forum.mangoh.io/t/unable-to-boot-the-fx30-when-the-expansion-card-is-inserted-in-the-iot-slot-during-power-on/689/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/unable-to-boot-the-fx30-when-the-expansion-card-is-inserted-in-the-iot-slot-during-power-on/689/2</link>
+        <pubDate>Tue, 09 Jul 2019 12:07:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-689-2</guid>
+        <source url="https://forum.mangoh.io/t/unable-to-boot-the-fx30-when-the-expansion-card-is-inserted-in-the-iot-slot-during-power-on/689.rss">Unable to boot the FX30 when the expansion card is inserted in the IoT slot during power-on</source>
+      </item>
+      <item>
+        <title>Unable to boot the FX30 when the expansion card is inserted in the IoT slot during power-on</title>
+        <dc:creator><![CDATA[GNSSS]]></dc:creator>
+        <description><![CDATA[
+            <p>I’m unable to boot the FX30 when the card is inserted in the IoT slot during power-on. If the card is not present during power-on, the FX30 will boot. I am also able to boot if I hold the SDA line to the EEPROM (Microchip 24AA32A ) low (shorted to GND) during power-on.</p>
+<p>The IoT card has an I2C EEPROM on board, and the memory is as described in table 5-2 in [1]. We’ve also tried with empty EEPROM (0xFF) and zeroed EEPROM (0x00) - the behaviour is the same. The electrical connections are also as descibed in [1], including the transistor address selector in figure 5-2.</p>
+<p>After boot, I can hot-plug the card, and all is working perfectly. I can even access the EEPROM using i2cset, i2cget and i2cdump commands from bash.</p>
+<p>When measuring the I2C bus with oscilloscope during power-on, I see that 64 bytes are read after about 1 second (long before linux is booted), and the speed is 400 KHz. This is not according to [1], that states that connected EEPROMs must support 100KHz.</p>
+<p>When the boot fails, the USB is enumerated as “Qualcomm HS-USB QDLoader 9008 (COM183)”, which to me may indicate that this is something that happens pre-image-boot.</p>
+<p>Does anyone know anything about this? Are there others with the same experience or who is using EEPROM successfully?</p>
+<p>Version and references:<br>
+References: [1] 4117166_IoT Expansion Card Design Specification_r8-3.pdf from <a href="http://mangoh.io" rel="nofollow noopener">mangoh.io</a></p>
+<p>legato version : 16.10.1_f8947ec5fd286f5b9d2c25ebb9ad81a4<br>
+uname -r : 3.14.29ltsi-a00e464379_3f15cd39ad<br>
+/proc/version: Linux version 3.14.29ltsi-a00e464379_3f15cd39ad (jenkins@CAKEL-EV-ALBLD2) (gcc version 4.9.1 (GCC) ) <span class="hashtag">#2</span> PREEMPT Mon Feb 20 11:11:17 PST 2017</p>
+<p>Output from cm:<br>
+Device:     FX30<br>
+IMEI:       353984080053067<br>
+FSN:        LL705201200310<br>
+Firmware:   SWI9X15Y_07.11.22.00 r33729 CARMD-EV-FRMWR1 2017/01/11 18:04:06<br>
+Bootloader: SWI9X15Y_07.11.22.00 r33729 CARMD-EV-FRMWR1 2017/01/11 18:04:06<br>
+priIdPn:    9906645<br>
+priIdRev:   01.02<br>
+skuId:      1103214</p>
+<p>thanks<br>
+Geoff</p>
+          <p><a href="https://forum.mangoh.io/t/unable-to-boot-the-fx30-when-the-expansion-card-is-inserted-in-the-iot-slot-during-power-on/689/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/unable-to-boot-the-fx30-when-the-expansion-card-is-inserted-in-the-iot-slot-during-power-on/689/1</link>
+        <pubDate>Fri, 18 Aug 2017 16:28:35 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-689-1</guid>
+        <source url="https://forum.mangoh.io/t/unable-to-boot-the-fx30-when-the-expansion-card-is-inserted-in-the-iot-slot-during-power-on/689.rss">Unable to boot the FX30 when the expansion card is inserted in the IoT slot during power-on</source>
+      </item>
+  </channel>
+</rss>

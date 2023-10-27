@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>MangOH Yellow power optimization - #2 by asyal - mangOH Yellow - mangOH forum</title>
+    <meta name="description" content="Hello everyone, 
+I am currently working on a MangOH Yellow connected to Octave using the Orange LTE network in France. I am trying to lower the power consumption as much as possible 
+I measured the current consumption of&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;MangOH Yellow power optimization&#39;" href="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/7400720cf0953abcc558cbedcd982768d259112c.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/7400720cf0953abcc558cbedcd982768d259112c.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216/2" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216/2" />
+<meta property="og:title" content="MangOH Yellow power optimization" />
+<meta name="twitter:title" content="MangOH Yellow power optimization" />
+<meta property="og:description" content="Hi Paul,  One big way to reduce power is to put the HSIC interface into suspend mode. This can drop power by 60 ma.  –&gt; echo 0 &gt; /sys/bus/usb/devices/usb1/authorized  Also make sure wakelock is set in case USB cable is removed:  –&gt; echo NO_SLEEP &gt; /sys/power/wake_lock  Also, if you are ready to take a soldering iron, you can get some more improvements:  a. Add R306 (0R), and check that  EXT_GPS_LNA_EN signal is set 0. Should be 4ma saving  b. Savings over LEDs:  –&gt; echo ‘AT!LEDTEST=0,1;!LEDTEST=..." />
+<meta name="twitter:description" content="Hi Paul,  One big way to reduce power is to put the HSIC interface into suspend mode. This can drop power by 60 ma.  –&gt; echo 0 &gt; /sys/bus/usb/devices/usb1/authorized  Also make sure wakelock is set in case USB cable is removed:  –&gt; echo NO_SLEEP &gt; /sys/power/wake_lock  Also, if you are ready to take a soldering iron, you can get some more improvements:  a. Add R306 (0R), and check that  EXT_GPS_LNA_EN signal is set 0. Should be 4ma saving  b. Savings over LEDs:  –&gt; echo ‘AT!LEDTEST=0,1;!LEDTEST=..." />
+<meta property="og:article:section" content="mangOH Yellow" />
+<meta property="og:article:section:color" content="F1C900" />
+<meta property="article:published_time" content="2020-04-08T05:43:12+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"MangOH Yellow power optimization","mainEntity":{"@type":"Question","name":"MangOH Yellow power optimization","text":"Hello everyone,\n\nI am currently working on a MangOH Yellow connected to Octave using the Orange LTE network in France. I am trying to lower the power consumption as much as possible\n\nI measured the current consumption of the board for several use cases. The lowest configurations I found are the 2 pr&hellip;","upvoteCount":1,"answerCount":1,"dateCreated":"2020-04-06T07:39:38.862Z","author":{"@type":"Person","name":"Paul Meis"},"acceptedAnswer":{"@type":"Answer","text":"Hi Paul,\n\nOne big way to reduce power is to put the HSIC interface into suspend mode. This can drop power by 60 ma.\n\n–&gt; echo 0 &gt; /sys/bus/usb/devices/usb1/authorized\n\nAlso make sure wakelock is set in case USB cable is removed:\n\n–&gt; echo NO_SLEEP &gt; /sys/power/wake_lock\n\nAlso, if you are ready to take&hellip;","upvoteCount":5,"dateCreated":"2020-04-08T05:43:12.652Z","url":"https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216/2","author":{"@type":"Person","name":"asyal"}}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/mangoh-yellow-power-optimization/4216">MangOH Yellow power optimization</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-yellow/15" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #F1C900'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Yellow</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='MangOH Yellow power optimization'>
+        <meta itemprop='articleSection' content='mangOH Yellow'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/paulmeis'><span itemprop='name'>paulmeis</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d5a3824101824688f14ab38890c61da8cef87174.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-04-06T07:39:39Z' class='post-time'>
+                    April 6, 2020,  7:39am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-04-06T07:39:39Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hello everyone,</p>
+<p>I am currently working on a MangOH Yellow connected to Octave using the Orange LTE network in France. I am trying to lower the power consumption as much as possible<br>
+I measured the current consumption of the board for several use cases. The lowest configurations I found are the 2 presented below.</p>
+<h1>Configuration 1</h1>
+<p>For this configuration, I did the following:</p>
+<ul>
+<li>Disable all Edge Actions</li>
+<li>Disable all sensors (Location, IMU, Battery state, Light)</li>
+<li>Disable Developer Mode</li>
+<li>Disable “Heartbeat on empty”</li>
+<li>Disconnect the 2 USB ports of the MangOH</li>
+<li>Use LTE with the following command on the mangOH:</li>
+</ul>
+<pre><code class="lang-auto">$ cm radio rat LTE
+</code></pre>
+<p>The results look like this:</p>
+<p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d5a3824101824688f14ab38890c61da8cef87174.png" data-download-href="/uploads/short-url/utW14845Rfb288wTQqYMB8FG3Ri.png?dl=1" title="floor_lte_graph" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d5a3824101824688f14ab38890c61da8cef87174.png" alt="floor_lte_graph" data-base62-sha1="utW14845Rfb288wTQqYMB8FG3Ri" width="690" height="428" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d5a3824101824688f14ab38890c61da8cef87174_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">floor_lte_graph</span><span class="informations">1611×1000 48.9 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>Average current consumption is 147 mA with ~240 mA spikes.</p>
+<p>If I zoom on this graph, I can see the consumption profile more clearly:</p>
+<p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/001ccb8b13d71508c2f4db0f4689c06663b197f1.jpeg" data-download-href="/uploads/short-url/ZGYEqFmdm274KP4diE85wgTKh.jpeg?dl=1" title="floor_lte_graph_zoom" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/001ccb8b13d71508c2f4db0f4689c06663b197f1_2_690x417.jpeg" alt="floor_lte_graph_zoom" data-base62-sha1="ZGYEqFmdm274KP4diE85wgTKh" width="690" height="417" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/001ccb8b13d71508c2f4db0f4689c06663b197f1_2_690x417.jpeg, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/001ccb8b13d71508c2f4db0f4689c06663b197f1_2_1035x625.jpeg 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/001ccb8b13d71508c2f4db0f4689c06663b197f1_2_1380x834.jpeg 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/001ccb8b13d71508c2f4db0f4689c06663b197f1_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">floor_lte_graph_zoom</span><span class="informations">2248×1361 939 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>A 240 mA spike appears every 1.28 seconds (which corresponds to a normal paging cycle for LTE without PSM, according to this <a href="https://www.link-labs.com/blog/lte-e-drx-psm-explained-for-lte-m1" rel="nofollow noopener">website</a>).<br>
+As you can see, the device alternates between an activity period (~200 mA) and the floor level (125 mA) with a periodicity of ~2 seconds.<br>
+I suspect this is caused by the action manager of the mangOH, but I am not sure about that.</p>
+<h1>Configuration 2</h1>
+<p>For this configuration, I did the following:</p>
+<ul>
+<li>Disable all Edge Actions</li>
+<li>Disable all sensors (Location, IMU, Battery state, Light)</li>
+<li>Disable Developer Mode</li>
+<li>Disable “Heartbeat on empty”</li>
+<li>Disconnect the 2 USB ports of the MangOH</li>
+<li>Disable LTE and GSM connection using this command on the board:</li>
+</ul>
+<pre><code class="lang-auto">$ cm radio off
+</code></pre>
+<p>The results look like this:</p>
+<p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/bca8bb98cb4c46104e831a41b8987a5f491fab2d.jpeg" data-download-href="/uploads/short-url/qUXgUEg5BJimyl9rjnlDGEL5aWN.jpeg?dl=1" title="floor_graph" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/bca8bb98cb4c46104e831a41b8987a5f491fab2d_2_690x208.jpeg" alt="floor_graph" data-base62-sha1="qUXgUEg5BJimyl9rjnlDGEL5aWN" width="690" height="208" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/bca8bb98cb4c46104e831a41b8987a5f491fab2d_2_690x208.jpeg, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/bca8bb98cb4c46104e831a41b8987a5f491fab2d_2_1035x312.jpeg 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/bca8bb98cb4c46104e831a41b8987a5f491fab2d_2_1380x416.jpeg 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/bca8bb98cb4c46104e831a41b8987a5f491fab2d_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">floor_graph</span><span class="informations">2248×678 527 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>Average current consumption is 130 mA with ~160 mA spikes.<br>
+I don’t know what the 2 big spikes of 220 mA (appearing at 1 min and at the very end) corresponds to, as the board was not supposed to send anything to Octave. If anyone has a clue about this, I’m interested.</p>
+<p>Again, if I zoom on the profile I get this:</p>
+<p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/399fa31806adca153025f0860c0d2814ccefb826.jpeg" data-download-href="/uploads/short-url/8dLeFQI4Vvlc5HtZNylEXSrqhBc.jpeg?dl=1" title="floor_graph_zoom" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/399fa31806adca153025f0860c0d2814ccefb826_2_690x417.jpeg" alt="floor_graph_zoom" data-base62-sha1="8dLeFQI4Vvlc5HtZNylEXSrqhBc" width="690" height="417" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/399fa31806adca153025f0860c0d2814ccefb826_2_690x417.jpeg, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/399fa31806adca153025f0860c0d2814ccefb826_2_1035x625.jpeg 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/399fa31806adca153025f0860c0d2814ccefb826_2_1380x834.jpeg 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/399fa31806adca153025f0860c0d2814ccefb826_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">floor_graph_zoom</span><span class="informations">2248×1361 964 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>The floor level went down to 118 mA, and as we could expect the periodic spikes are gone as radio communication is disabled.<br>
+The device still alternates between an activity period (~140 mA) and the floor level (125 mA) with a periodicity of ~2 seconds.</p>
+<p>However, the power consumption is still very high, that is why I am asking the following questions:</p>
+<ul>
+<li><strong>Q1 : Is there a way to get the power consumption any lower using Octave / other ?</strong></li>
+<li><strong>Q2 : What is your target power on mangOH Yellow + Octave ?</strong></li>
+</ul>
+<p>I Hope someone can help me with this.</p>
+<p>Have a good day ! <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=9" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/7400720cf0953abcc558cbedcd982768d259112c.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-04-08T05:43:12Z' class='post-time'>
+                    April 8, 2020,  5:43am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-04-08T18:16:07Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Paul,</p>
+<p>One big way to reduce power is to put the HSIC interface into suspend mode. This can drop power by 60 ma.<br>
+–&gt; echo 0 &gt; /sys/bus/usb/devices/usb1/authorized<br>
+Also make sure wakelock is set in case USB cable is removed:<br>
+–&gt; echo NO_SLEEP &gt; /sys/power/wake_lock<br>
+Also, if you are ready to take a soldering iron, you can get some more improvements:<br>
+a. Add R306 (0R), and check that  EXT_GPS_LNA_EN signal is set 0. Should be 4ma saving<br>
+b. Savings over LEDs:<br>
+–&gt; echo ‘AT!LEDTEST=0,1;!LEDTEST=0,0’ &gt; /dev/ttyAT (Red LED off, 1.5ma)<br>
+–&gt; Remove R428, save couple of ma<br>
+c. Remove USB cable (have a wakelock running though): 12-15ma<br>
+d.  If you want to, you can force the DC/DC buck converter into automatic PFM/PWM mode . Save around 10 ma. Remove R901,remove c901. Add 10K between r901.pin_mode to c901.gnd. <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/7400720cf0953abcc558cbedcd982768d259112c.png" alt="image" data-base62-sha1="gycl95buBL546N5IunaUKIv301m" width="518" height="385"><br>
+e. Run CPU in interactive mode:<br>
+—&gt; echo interactive &gt; /sys/bus/cpu/devices/cpu0/cpufreq/scaling_governor</p>
+<p>If you want to know how low the board can go, you can remove R908 and add R909.<br>
+Then pull-up pin 3 of SW401. This will allow you to power off everything on the board except the module and the ULPM circuitry. If you bring down pin 3 of SW401, you will get all circuitry powered back up. We see module consuming 1.0ma and sensor circuitry at 1.3ma.</p>
+<p>Further, you can put the board in ULPM mode:<br>
+AT!POWERWAKE=CLEAR</p>
+<p>AT!POWERWAKE=1,60</p>
+<p>AT!POWERMODE=1 (VGPIO gets low)</p>
+<p>I will publish this on the mangoh website over the next few days .  Let me know what numbers you hit.<br>
+Would be great if you can post your numbers here.</p>
+<p>regards,<br>
+Ashish</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="5" />
+              <span class='post-likes'>5 Likes</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/about-psm-wakeup-source/9653/3">About PSM wakeup source</a>
+                        <meta itemprop='position' content='1'>
+                      </div>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/reducing-power-requirement/10270/2">Reducing power requirement</a>
+                        <meta itemprop='position' content='2'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/paulmeis'><span itemprop='name'>paulmeis</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-04-09T14:42:59Z' class='post-time'>
+                    April 9, 2020,  2:42pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-04-09T14:42:59Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thank you very much <a class="mention" href="/u/asyal">@asyal</a> for this helpful answer ! <img src="https://emoji.discourse-cdn.com/twitter/smiley.png?v=9" title=":smiley:" class="emoji" alt=":smiley:"><br>
+I will try this as soon as I can and I’ll keep you updated with the results !</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/vanrideout'><span itemprop='name'>vanrideout</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-06-07T14:44:16Z' class='post-time'>
+                    June 7, 2020,  2:44pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-06-07T14:44:16Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks for solving this solution, very impressive codes.</p>
+<p><a href="https://www.laweekly.com/list-of-best-cbd-creams-topicals-for-sale-in-2019/" data-bbcode="true" rel="nofollow noopener"></a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

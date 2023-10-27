@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>GPIO Interrupts on WP7702 Module</title>
+    <link>https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616</link>
+    <description>I am working on getting edge detected GPIO interrupts working on a WP7702 module.  This would be inside a Linux kernel driver.  Loading the module I have written had no luck.  So, I&#39;ve been trying to step through it in user space first, also with no luck.
+
+At the suggestion of the previous post on the forum (https://forum.mangoh.io/t/cross-post-detecting-edges-on-sysfs-pins/1286/2 by @dfrey ) I switched from my initial attempt at GPIO22 (which is available on the Raspberry Pi header) to GPIO36.  However, when attempting the &quot;at+wiocfg=36,16&quot;, I discovered that it appears that GPIO36 is not present on a WP7702 module?  Output from at+wiocfg? is:
+at+wiocfg?
++WIOCFG: 2,16,0,0,1,0,0
++WIOCFG: 6,0,0,0,1,0,0
++WIOCFG: 7,16,0,0,1,0,0
++WIOCFG: 8,16,0,0,1,0,0
++WIOCFG: 13,16,0,0,1,0,0
++WIOCFG: 21,16,0,0,1,0,0
++WIOCFG: 22,16,0,0,3,4,0
++WIOCFG: 23,16,0,0,1,0,0
++WIOCFG: 24,16,0,0,1,0,0
++WIOCFG: 25,16,0,0,1,0,0
++WIOCFG: 28,16,0,0,1,0,0
++WIOCFG: 29,16,0,0,1,0,0
++WIOCFG: 30,16,0,0,1,0,0
++WIOCFG: 31,16,0,0,1,0,0
++WIOCFG: 32,16,0,0,1,0,0
++WIOCFG: 33,16,0,0,1,0,0
++WIOCFG: 35,16,0,0,1,0,0
++WIOCFG: 42,16,0,0,1,0,0
+
+OK
+
+Note that GPIO36 is not present.  Doing &quot;at+wiocfg=36,16&quot; results in an error.
+
+You&#39;ll notice from the above output that I tried allocating GPIO22 to the CF3 module, configuring it with a pull-up, and edge triggered on the falling edge.  Grounding the pin (or tying it to +3.3volts - this is on the Raspberry Pi header so that&#39;s safe) does not result in the &quot;at!gpioint&quot; unsolicited notification.
+
+I guess I have three questions:  1)  Have I screwed this up somehow?  Code for the (very short) kernel driver is here: https://gitlab.bigw.org/fgodfrey/arduino_i2c_keyboard  (yes, I know I can&#39;t printk() from an interrupt, but that&#39;ll work fine for testing).  2)  Did I correctly interpret the previous forum post on this subject correctly that only GPIO&#39;s 36, 38 and 39 can trigger an actual Linux interrupt?  3)  If I have done this all correctly, is there any way to do asynchronous I/O on the WP7702 with a MangOH Red?</description>
+    
+    <lastBuildDate>Tue, 25 Jan 2022 12:37:38 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>GPIO Interrupts on WP7702 Module</title>
+        <dc:creator><![CDATA[srinivasn]]></dc:creator>
+        <description><![CDATA[
+            <p>HI fgodfrey,<br>
+Thanks for sharing this information. That saved me from some heartache. I would like to add that these files in in kernel/drivers directory and copied to the build directory.<br>
+Srinivas</p>
+          <p><a href="https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616/5</link>
+        <pubDate>Tue, 25 Jan 2022 12:37:38 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1616-5</guid>
+        <source url="https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616.rss">GPIO Interrupts on WP7702 Module</source>
+      </item>
+      <item>
+        <title>GPIO Interrupts on WP7702 Module</title>
+        <dc:creator><![CDATA[fgodfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>Alas, this is a one-off “hobby” type project for me (I’m a professional developer, just not in this industry) so I don’t have any contacts.  However, I’ll give it a whirl over on the Sierra forums and see what happens.  At a bare minimum, it should be documented in their manual…<br>
+Thanks!</p>
+          <p><a href="https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616/4</link>
+        <pubDate>Fri, 29 Jun 2018 18:15:05 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1616-4</guid>
+        <source url="https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616.rss">GPIO Interrupts on WP7702 Module</source>
+      </item>
+      <item>
+        <title>GPIO Interrupts on WP7702 Module</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/fgodfrey">@fgodfrey</a>,</p>
+<p>The hardcoded gpiolib table has been a big problem for mangOH for a long time.  Unfortunately, my numerous complaints about this issue haven’t had the desired effect.  If you have any other contacts in Sierra, I encourage you to reach out to them and tell them that the gpiolib implementation is a problem and caused you to lose time.</p>
+          <p><a href="https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616/3</link>
+        <pubDate>Fri, 29 Jun 2018 16:43:18 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1616-3</guid>
+        <source url="https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616.rss">GPIO Interrupts on WP7702 Module</source>
+      </item>
+      <item>
+        <title>GPIO Interrupts on WP7702 Module</title>
+        <dc:creator><![CDATA[fgodfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>If anyone else stumbles across this…  I figured out my issue.  It turns out that Sierra Wireless goes to great lengths to hide Linux’s idea of the “real” GPIO number from you.  This is “great” if you’re in user space since the GPIO on the schematic matches the number in Linux’s sysfs interface.  Unfortunately, if you’re in the kernel, this doesn’t work at all; you need to request the real GPIO number.  My hint was when I hit one of the “wakeup” pins (GPIO36) and the message printed to the console talked about GPIO26, not 36.  Much code tracing later, I finally found the mapping!</p>
+<p>If you are looking to do something like this, the mapping is located in the kernel source.  Not sure if there’s an easier way, but I had it as a byproduct of building Yocto so assuming you did what I did, the mapping is located in:<br>
+yocto/build_bin/tmp/work/swi_mdm9x28-poky-linux-gnueabi/linux-quic/3.18.20+gitdd8fe1c7affdfb324e1b5db7701dbb69af46a8ec-r1/build/source/drivers/gpio/gpiolib-sysfs.c</p>
+<p>Open that file in your favorite editor and look for the table called “ext_gpio_wp”.  The first column is the schematic GPIO number which will also appear in /sys/class/gpio/… (and presumably, Legato).  The second column is the “real” Linux GPIO number, which is what you need to use to call, say, gpio_reserve() or gpio_to_irq().</p>
+<p><a class="mention" href="https://forum.mangoh.io/u/dfrey">@dfrey</a> - would it be possible to get this documented someplace other than the one C file?  (Or is it already and I just missed it?)  It doesn’t seem to be in the SIerra manual for the module and it also doesn’t seem to be in the mangOH docs.  I realize this is more a core Sierra issue than a mangOH one, but anyone on this platform trying to write a GPIO kernel module will likely be interested.</p>
+          <p><a href="https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616/2</link>
+        <pubDate>Thu, 28 Jun 2018 05:13:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1616-2</guid>
+        <source url="https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616.rss">GPIO Interrupts on WP7702 Module</source>
+      </item>
+      <item>
+        <title>GPIO Interrupts on WP7702 Module</title>
+        <dc:creator><![CDATA[fgodfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>I am working on getting edge detected GPIO interrupts working on a WP7702 module.  This would be inside a Linux kernel driver.  Loading the module I have written had no luck.  So, I’ve been trying to step through it in user space first, also with no luck.</p>
+<p>At the suggestion of the previous post on the forum (<a href="https://forum.mangoh.io/t/cross-post-detecting-edges-on-sysfs-pins/1286/2">(Cross post) Detecting edges on SysFS pins</a> by <a class="mention" href="https://forum.mangoh.io/u/dfrey">@dfrey</a> ) I switched from my initial attempt at GPIO22 (which is available on the Raspberry Pi header) to GPIO36.  However, when attempting the “at+wiocfg=36,16”, I discovered that it appears that GPIO36 is not present on a WP7702 module?  Output from at+wiocfg? is:<br>
+at+wiocfg?<br>
++WIOCFG: 2,16,0,0,1,0,0<br>
++WIOCFG: 6,0,0,0,1,0,0<br>
++WIOCFG: 7,16,0,0,1,0,0<br>
++WIOCFG: 8,16,0,0,1,0,0<br>
++WIOCFG: 13,16,0,0,1,0,0<br>
++WIOCFG: 21,16,0,0,1,0,0<br>
++WIOCFG: 22,16,0,0,3,4,0<br>
++WIOCFG: 23,16,0,0,1,0,0<br>
++WIOCFG: 24,16,0,0,1,0,0<br>
++WIOCFG: 25,16,0,0,1,0,0<br>
++WIOCFG: 28,16,0,0,1,0,0<br>
++WIOCFG: 29,16,0,0,1,0,0<br>
++WIOCFG: 30,16,0,0,1,0,0<br>
++WIOCFG: 31,16,0,0,1,0,0<br>
++WIOCFG: 32,16,0,0,1,0,0<br>
++WIOCFG: 33,16,0,0,1,0,0<br>
++WIOCFG: 35,16,0,0,1,0,0<br>
++WIOCFG: 42,16,0,0,1,0,0</p>
+<p>OK</p>
+<p>Note that GPIO36 is not present.  Doing “at+wiocfg=36,16” results in an error.</p>
+<p>You’ll notice from the above output that I tried allocating GPIO22 to the CF3 module, configuring it with a pull-up, and edge triggered on the falling edge.  Grounding the pin (or tying it to +3.3volts - this is on the Raspberry Pi header so that’s safe) does not result in the “at!gpioint” unsolicited notification.</p>
+<p>I guess I have three questions:  1)  Have I screwed this up somehow?  Code for the (very short) kernel driver is here: <a href="https://gitlab.bigw.org/fgodfrey/arduino_i2c_keyboard" rel="nofollow noopener">https://gitlab.bigw.org/fgodfrey/arduino_i2c_keyboard</a>  (yes, I know I can’t printk() from an interrupt, but that’ll work fine for testing).  2)  Did I correctly interpret the previous forum post on this subject correctly that only GPIO’s 36, 38 and 39 can trigger an actual Linux interrupt?  3)  If I have done this all correctly, is there any way to do asynchronous I/O on the WP7702 with a MangOH Red?</p>
+          <p><a href="https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616/1</link>
+        <pubDate>Tue, 26 Jun 2018 04:05:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1616-1</guid>
+        <source url="https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616.rss">GPIO Interrupts on WP7702 Module</source>
+      </item>
+  </channel>
+</rss>

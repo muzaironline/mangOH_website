@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>How to try GPIO control</title>
+    <link>https://forum.mangoh.io/t/how-to-try-gpio-control/7753</link>
+    <description>I would like to control GPIO25 with WP76xx module.
+I am trying sample code as below URL .
+https://github.com/mangOH/mangOH/tree/524d0f9feae2ab6bb92bab03c346b08c4439f38f/samples/tutorials/hardwareInterfaces/gpio/Cf3GpioControl
+But I can&#39;t confirm start of the program.
+(I can&#39;t find this log message &quot;===============CF3 gpio application has started&quot;)[log.txt|attachment](upload://85xjFfJUDzny2oHTadwsflPmn8K.txt) (21.8 KB) 
+
+Could you please let me know how to try GPIO control.</description>
+    
+    <lastBuildDate>Tue, 06 Apr 2021 13:40:01 +0000</lastBuildDate>
+    <category>mangOH Green</category>
+    <atom:link href="https://forum.mangoh.io/t/how-to-try-gpio-control/7753.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>How to try GPIO control</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>You might also try the application here</p>
+<aside class="quote" data-post="7" data-topic="4522">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/s/76d3ee/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/is-there-a-sample-app-using-gpio-pin/4522/7">Is there a sample app using gpio pin?</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-yellow/15"><span class="badge-category-bg" style="background-color: #F1C900;"></span><span style="" data-drop-close="true" class="badge-category clear-badge">mangOH Yellow</span></a>
+  </div>
+  <blockquote>
+    I used the sysfs command, but I don’t know what api can be used to produce the desired output on the digital pin through which function call can be used.
+  </blockquote>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/how-to-try-gpio-control/7753/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-try-gpio-control/7753/5</link>
+        <pubDate>Tue, 06 Apr 2021 13:40:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-7753-5</guid>
+        <source url="https://forum.mangoh.io/t/how-to-try-gpio-control/7753.rss">How to try GPIO control</source>
+      </item>
+      <item>
+        <title>How to try GPIO control</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>You can debug the app and see where makes this:</p>
+<p>gpioSysfsUtils.c gpioSysfs_SetChangeCallback() 596 | Only one change handler can be registered</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-try-gpio-control/7753/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-try-gpio-control/7753/4</link>
+        <pubDate>Mon, 05 Apr 2021 11:07:27 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-7753-4</guid>
+        <source url="https://forum.mangoh.io/t/how-to-try-gpio-control/7753.rss">How to try GPIO control</source>
+      </item>
+      <item>
+        <title>How to try GPIO control</title>
+        <dc:creator><![CDATA[yoheifujimitsu]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks for your reply.<br>
+I tried sample and confirmed start.</p>
+<blockquote>
+<p>Apr 5 02:36:04 swi-mdm9x28-wp user.info Legato: INFO | gpioCf3Demo[12467]/gpioCf3PinComponent T=main | gpioCf3Pin.c _gpioCf3PinComponent_COMPONENT_INIT() 135 | <strong>This is sample gpioctl Legato CF3 GPIO app by using le_gpio.api</strong></p>
+</blockquote>
+<p>But code stopped with the following error.</p>
+<blockquote>
+<p>Apr  5 11:36:04 swi-mdm9x28-wp user.emerg Legato: <em>EMR</em> | gpioService[869]/sysfsGpio T=main | gpioSysfsUtils.c gpioSysfs_SetChangeCallback() 596 | Only one change handler can be registered<br>
+Apr  5 02:36:04 swi-mdm9x28-wp user.emerg Legato: <em>EMR</em> | gpioCf3Demo[12467]/framework T=main | le_gpioPin22_client.c SessionCloseHandler() 451 | Component for le_gpioPin22 disconnected<br>
+Apr  5 11:36:05 swi-mdm9x28-wp user.err Legato: =ERR= | avcDaemon[862]/avcDaemon T=main | assetData.c assetData_RegistrationUpdate() 1946 | unsupported function called.</p>
+</blockquote>
+<p>Please let me know how to resolve.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-try-gpio-control/7753/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-try-gpio-control/7753/3</link>
+        <pubDate>Mon, 05 Apr 2021 04:17:29 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-7753-3</guid>
+        <source url="https://forum.mangoh.io/t/how-to-try-gpio-control/7753.rss">How to try GPIO control</source>
+      </item>
+      <item>
+        <title>How to try GPIO control</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>It seems you need to “app start”  your application.<br>
+You can also try this sample</p>
+<aside class="onebox githubfolder">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/bad3e5f9ad67c1ddf145107ce7032ac1d7b22563.svg" class="site-icon" width="32" height="32">
+      <a href="https://github.com/legatoproject/legato-af/tree/master/apps/sample/gpioCf3Demo" target="_blank" rel="noopener nofollow ugc">github.com</a>
+  </header>
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:400/400;"><img src="https://avatars.githubusercontent.com/u/6480915?s=400&amp;amp;v=4" class="thumbnail" width="400" height="400"></div>
+
+<h3><a href="https://github.com/legatoproject/legato-af/tree/master/apps/sample/gpioCf3Demo" target="_blank" rel="noopener nofollow ugc">legatoproject/legato-af</a></h3>
+
+<p><a href="https://github.com/legatoproject/legato-af/tree/master/apps/sample/gpioCf3Demo" target="_blank" rel="noopener nofollow ugc">master/apps/sample/gpioCf3Demo</a></p>
+
+  <p><span class="label1">Legato Application Framework. Contribute to legatoproject/legato-af development by creating an account on GitHub.</span></p>
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/how-to-try-gpio-control/7753/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-try-gpio-control/7753/2</link>
+        <pubDate>Sun, 04 Apr 2021 04:09:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-7753-2</guid>
+        <source url="https://forum.mangoh.io/t/how-to-try-gpio-control/7753.rss">How to try GPIO control</source>
+      </item>
+      <item>
+        <title>How to try GPIO control</title>
+        <dc:creator><![CDATA[yoheifujimitsu]]></dc:creator>
+        <description><![CDATA[
+            <p>I would like to control GPIO25 with WP76xx module.<br>
+I am trying sample code as below URL .</p><aside class="onebox githubfolder">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/bad3e5f9ad67c1ddf145107ce7032ac1d7b22563.svg" class="site-icon" width="32" height="32">
+      <a href="https://github.com/mangOH/mangOH/tree/524d0f9feae2ab6bb92bab03c346b08c4439f38f/samples/tutorials/hardwareInterfaces/gpio/Cf3GpioControl" target="_blank" rel="noopener nofollow ugc">github.com</a>
+  </header>
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:100/100;"><img src="https://avatars.githubusercontent.com/u/14057398?s=400&amp;amp;v=4" class="thumbnail" width="100" height="100"></div>
+
+<h3><a href="https://github.com/mangOH/mangOH/tree/524d0f9feae2ab6bb92bab03c346b08c4439f38f/samples/tutorials/hardwareInterfaces/gpio/Cf3GpioControl" target="_blank" rel="noopener nofollow ugc">mangOH/mangOH</a></h3>
+
+<p><a href="https://github.com/mangOH/mangOH/tree/524d0f9feae2ab6bb92bab03c346b08c4439f38f/samples/tutorials/hardwareInterfaces/gpio/Cf3GpioControl" target="_blank" rel="noopener nofollow ugc">524d0f9feae2ab6bb92bab03c346b08c4439f38f/samples/tutorials/hardwareInterfaces/gpio/Cf3GpioControl</a></p>
+
+  <p><span class="label1">Primary mangOH git repository. Contribute to mangOH/mangOH development by creating an account on GitHub.</span></p>
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+<p>
+But I can’t confirm start of the program.<br>
+(I can’t find this log message “===============CF3 gpio application has started”)<a class="attachment" href="https://forum.mangoh.io/uploads/short-url/85xjFfJUDzny2oHTadwsflPmn8K.txt">log.txt</a> (21.8 KB)</p>
+<p>Could you please let me know how to try GPIO control.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-try-gpio-control/7753/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-try-gpio-control/7753/1</link>
+        <pubDate>Sat, 03 Apr 2021 09:03:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-7753-1</guid>
+        <source url="https://forum.mangoh.io/t/how-to-try-gpio-control/7753.rss">How to try GPIO control</source>
+      </item>
+  </channel>
+</rss>

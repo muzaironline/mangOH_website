@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Error build libcoap with SSL - mangOH forum</title>
+    <meta name="description" content="Hi, I’m trying to build libcoap as a git module on the mangOH Yellow, using a Component.cdef file. 
+So far I am able to build the library and use it without SSL but the problem comes when I try to enable SSL. 
+With OpenS&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Error build libcoap with SSL&#39;" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080" />
+<meta property="og:title" content="Error build libcoap with SSL" />
+<meta name="twitter:title" content="Error build libcoap with SSL" />
+<meta property="og:description" content="Hi, I’m trying to build libcoap as a git module on the mangOH Yellow, using a Component.cdef file.  So far I am able to build the library and use it without SSL but the problem comes when I try to enable SSL.  With OpenSSL  externalBuild: {       &quot;cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DTLS_BACKEND=openssl -DCMAKE_BUILD_TYPE=Release ${CURDIR}/libcoap&quot;       &quot;cmake --build .&quot; }  I get the following error (same error for gnutls)  CMake Error at /ho..." />
+<meta name="twitter:description" content="Hi, I’m trying to build libcoap as a git module on the mangOH Yellow, using a Component.cdef file.  So far I am able to build the library and use it without SSL but the problem comes when I try to enable SSL.  With OpenSSL  externalBuild: {       &quot;cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DTLS_BACKEND=openssl -DCMAKE_BUILD_TYPE=Release ${CURDIR}/libcoap&quot;       &quot;cmake --build .&quot; }  I get the following error (same error for gnutls)  CMake Error at /ho..." />
+<meta property="article:published_time" content="2022-08-16T14:56:14+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Error build libcoap with SSL","mainEntity":{"@type":"Question","name":"Error build libcoap with SSL","text":"Hi, I’m trying to build libcoap as a git module on the mangOH Yellow, using a Component.cdef file.\n\nSo far I am able to build the library and use it without SSL but the problem comes when I try to enable SSL.\n\nWith OpenSSL\n\nexternalBuild:\n\n{\n\n&quot;cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DEN&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2022-08-16T14:56:14.081Z","author":{"@type":"Person","name":"Nuno Gonçalves"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/error-build-libcoap-with-ssl/10080">Error build libcoap with SSL</a>
+    </h1>
+
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Error build libcoap with SSL'>
+        <meta itemprop='articleSection' content='Uncategorized'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nunogoncalves'><span itemprop='name'>nunogoncalves</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-16T14:56:14Z' class='post-time'>
+                    August 16, 2022,  2:56pm
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-16T14:56:14Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hi, I’m trying to build libcoap as a git module on the mangOH Yellow, using a Component.cdef file.</p>
+<p>So far I am able to build the library and use it without SSL but the problem comes when I try to enable SSL.</p>
+<p><strong>With OpenSSL</strong></p>
+<pre><code class="lang-auto">externalBuild:
+{
+      "cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DTLS_BACKEND=openssl -DCMAKE_BUILD_TYPE=Release ${CURDIR}/libcoap"
+      "cmake --build ."
+}
+</code></pre>
+<p><strong>I get the following error (same error for gnutls)</strong></p>
+<pre><code class="lang-auto">CMake Error at /home/boi/.leaf/mangOH-yellow-wp77xx-toolchain_0.7.0-linux64/sysroots/x86_64-pokysdk-linux/usr/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake:137 (message):
+  Could NOT find OpenSSL, try to set the path to OpenSSL root folder in the
+  system variable OPENSSL_ROOT_DIR (missing: OPENSSL_CRYPTO_LIBRARY
+  OPENSSL_INCLUDE_DIR)
+Call Stack (most recent call first):
+  /home/boi/.leaf/mangOH-yellow-wp77xx-toolchain_0.7.0-linux64/sysroots/x86_64-pokysdk-linux/usr/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake:378 (_FPHSA_FAILURE_MESSAGE)
+  /home/boi/.leaf/mangOH-yellow-wp77xx-toolchain_0.7.0-linux64/sysroots/x86_64-pokysdk-linux/usr/share/cmake-3.10/Modules/FindOpenSSL.cmake:390 (find_package_handle_standard_args)
+  CMakeLists.txt:320 (find_package)
+</code></pre>
+<p><strong>With Mbedtls</strong></p>
+<pre><code class="lang-auto">externalBuild:
+{
+      "cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DTLS_BACKEND=mbedtls -DCMAKE_BUILD_TYPE=Release ${CURDIR}/libcoap"
+      "cmake --build ."
+}
+</code></pre>
+<p><strong>I get the following error</strong></p>
+<pre><code class="lang-auto">/home/boi/workspace/mangOH/components/libcoapComponent/libcoap/src/coap_mbedtls.c:42:10: fatal error: mbedtls/version.h: No such file or directory
+ #include &lt;mbedtls/version.h&gt;
+          ^~~~~~~~~~~~~~~~~~~
+compilation terminated.
+gmake[3]: *** [CMakeFiles/coap-3.dir/build.make:615: CMakeFiles/coap-3.dir/src/coap_mbedtls.c.o] Error 1
+</code></pre>
+<p><strong>And if I try tinydtls</strong></p>
+<pre><code class="lang-auto">externalBuild:
+{
+      "cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DTLS_BACKEND=tinydtls -DCMAKE_BUILD_TYPE=Release ${CURDIR}/libcoap"
+      "cmake --build ."
+}
+</code></pre>
+<p><strong>I get the following error</strong></p>
+<pre><code class="lang-auto">[  2%] Performing autoreconf step for 'external_tinydtls'
+[  5%] Performing configure step for 'external_tinydtls'
+CMake Error at /home/boi/workspace/mangOH/apps/CoAP/_build_coap/wp77xx/component/e778058e3353e3ad686944df67e59779/external_tinydtls-prefix/src/external_tinydtls-stamp/external_tinydtls-configure-Release.cmake:16 (message):
+  Command failed: 1
+
+   '/home/boi/workspace/mangOH/components/libcoapComponent/libcoap/ext/tinydtls/configure' '--disable-manpages' '--prefix=/home/boi/workspace/mangOH/apps/CoAP/_build_coap/wp77xx/component/e778058e3353e3ad686944df67e59779'
+
+  See also
+
+    /home/boi/workspace/mangOH/apps/CoAP/_build_coap/wp77xx/component/e778058e3353e3ad686944df67e59779/external_tinydtls-prefix/src/external_tinydtls-stamp/external_tinydtls-configure-*.log
+</code></pre>
+<p>Has anyone ever come across something similar, while trying to compile with OpenSSL or tinydtls?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-17T02:15:47Z' class='post-time'>
+                    August 17, 2022,  2:15am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-17T02:15:47Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>have you tried to point out the OPENSSL_CRYPTO_LIBRARY and OPENSSL_INCLUDE_DIR to the toolchain ?</p>
+<aside class="onebox stackexchange" data-onebox-src="https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl-library">
+  <header class="source">
+
+      <a href="https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl-library" target="_blank" rel="noopener nofollow ugc">stackoverflow.com</a>
+  </header>
+
+  <article class="onebox-body">
+      <a href="https://stackoverflow.com/users/1871965/allan" target="_blank" rel="noopener nofollow ugc">
+    <img alt="Allan" src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/a/abca26757f115d0177e588eba918e3deb288a624.png" class="thumbnail onebox-avatar" width="256" height="256">
+  </a>
+
+<h4>
+  <a href="https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl-library" target="_blank" rel="noopener nofollow ugc">CMake not able to find OpenSSL library</a>
+</h4>
+
+<div class="tags">
+  <strong>openssl, cmake</strong>
+</div>
+
+<div class="date">
+  asked by
+  
+  <a href="https://stackoverflow.com/users/1871965/allan" target="_blank" rel="noopener nofollow ugc">
+    Allan
+  </a>
+  on <a href="https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl-library" target="_blank" rel="noopener nofollow ugc">05:41AM - 27 Apr 13 UTC</a>
+</div>
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nunogoncalves'><span itemprop='name'>nunogoncalves</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-17T08:13:42Z' class='post-time'>
+                    August 17, 2022,  8:13am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-17T08:22:11Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I tried setting <code>-DOPENSSL_ROOT_DIR</code> and it compiled outside of the Component.adef file. But it’s still not compiling while using <strong>externalBuild</strong></p>
+<p>These are the steps I took:</p>
+<ul>
+<li>cd into the libcoap folder</li>
+<li>create a build folder</li>
+<li>cd into the build folder</li>
+<li>run <code>cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DDTLS_BACKEND=openssl -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl -DCMAKE_BUILD_TYPE=Release ..</code>
+</li>
+<li>run <code>cmake --build .</code>
+</li>
+</ul>
+<p>And it was compiled successfully.</p>
+<p>And inside the Component.adef file I have</p>
+<pre><code class="lang-auto">externalBuild:
+{
+    "cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DDTLS_BACKEND=openssl -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl -DCMAKE_BUILD_TYPE=Release ${CURDIR}/libcoap"
+    "cmake --build ."
+}
+</code></pre>
+<p><strong>EDIT</strong></p>
+<p>The error message changed</p>
+<pre><code class="lang-auto">CMake Error at /home/boi/.leaf/mangOH-yellow-wp77xx-toolchain_0.7.0-linux64/sysroots/x86_64-pokysdk-linux/usr/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake:137 (message):
+  Could NOT find OpenSSL, try to set the path to OpenSSL root folder in the
+  system variable OPENSSL_ROOT_DIR (missing: OPENSSL_CRYPTO_LIBRARY) (found
+  version "1.1.1n")
+</code></pre>
+<p><strong>EDIT 2:</strong></p>
+<p>I set the <code>-DOPENSSL_CRYPTO_LIBRARY</code> to <code>/usr/local/opt/openssl/lib/</code> and now I am getting this error:</p>
+<pre><code class="lang-auto">CMake Error at CMakeLists.txt:26 (add_library):
+  Target "coap-3" links to target "OpenSSL::SSL" but the target was not
+  found.  Perhaps a find_package() call is missing for an IMPORTED target, or
+  an ALIAS target is missing?
+
+
+CMake Error at CMakeLists.txt:26 (add_library):
+  Target "coap-3" links to target "OpenSSL::Crypto" but the target was not
+  found.  Perhaps a find_package() call is missing for an IMPORTED target, or
+  an ALIAS target is missing?
+
+
+CMake Error at CMakeLists.txt:26 (add_library):
+  Target "coap-3" links to target "OpenSSL::SSL" but the target was not
+  found.  Perhaps a find_package() call is missing for an IMPORTED target, or
+  an ALIAS target is missing?
+
+
+CMake Error at CMakeLists.txt:26 (add_library):
+  Target "coap-3" links to target "OpenSSL::Crypto" but the target was not
+  found.  Perhaps a find_package() call is missing for an IMPORTED target, or
+  an ALIAS target is missing?
+
+
+-- Generating done
+-- Build files have been written to: /home/boi/workspace/mangOH/apps/CoAP/_build_coap/wp77xx/component/e778058e3353e3ad686944df67e59779
+ninja: build stopped: subcommand failed.
+make: *** [Makefile:13: wp77xx] Error 1
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-17T08:27:45Z' class='post-time'>
+                    August 17, 2022,  8:27am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-17T08:27:45Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Component.adef<br>
+-DOPENSSL_ROOT_DIR=/usr/local/opt/openssl</p>
+<p>Should this point to toolchain openssl folder?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nunogoncalves'><span itemprop='name'>nunogoncalves</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-17T08:29:57Z' class='post-time'>
+                    August 17, 2022,  8:29am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-17T08:37:39Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I still haven’t figured out where the OpenSSL folder is in the toolchain.</p>
+<p><strong>EDIT</strong></p>
+<p>The only folder I found in the toolchain is in <code>$LEGATO_SYSROOT/usr/include/openssl</code> but it still does not work.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-17T08:38:52Z' class='post-time'>
+                    August 17, 2022,  8:38am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-17T08:46:57Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>how about these?</p>
+<pre><code class="lang-auto">
+owner@ubuntu:~/leaf/leaf-data/wp77/wp77-toolchain$ find ./ -name "openssl"
+./sysroots/x86_64-pokysdk-linux/usr/bin/openssl
+./sysroots/x86_64-pokysdk-linux/usr/lib/arm-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/6.2.0/include-fixed/openssl
+./sysroots/armv7a-neon-poky-linux-gnueabi/usr/bin/openssl
+./sysroots/armv7a-neon-poky-linux-gnueabi/usr/bin/.debug/openssl
+./sysroots/armv7a-neon-poky-linux-gnueabi/usr/include/openssl
+./sysroots/armv7a-neon-poky-linux-gnueabi/usr/src/debug/openssl
+</code></pre>
+<p>$LEGATO_SYSROOT/usr/include/openssl is for OPENSSL_INCLUDE_DIR</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nunogoncalves'><span itemprop='name'>nunogoncalves</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-17T08:48:37Z' class='post-time'>
+                    August 17, 2022,  8:48am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-17T08:48:37Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>None of them works. I get the same error:</p>
+<pre><code class="lang-auto">CMake Error at /home/boi/.leaf/mangOH-yellow-wp77xx-toolchain_0.7.0-linux64/sysroots/x86_64-pokysdk-linux/usr/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake:137 (message):
+  Could NOT find OpenSSL, try to set the path to OpenSSL root folder in the
+  system variable OPENSSL_ROOT_DIR (missing: OPENSSL_CRYPTO_LIBRARY
+  OPENSSL_INCLUDE_DIR)
+Call Stack (most recent call first):
+  /home/boi/.leaf/mangOH-yellow-wp77xx-toolchain_0.7.0-linux64/sysroots/x86_64-pokysdk-linux/usr/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake:378 (_FPHSA_FAILURE_MESSAGE)
+  /home/boi/.leaf/mangOH-yellow-wp77xx-toolchain_0.7.0-linux64/sysroots/x86_64-pokysdk-linux/usr/share/cmake-3.10/Modules/FindOpenSSL.cmake:390 (find_package_handle_standard_args)
+  CMakeLists.txt:320 (find_package)
+
+
+-- Configuring incomplete, errors occurred!
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-17T08:50:31Z' class='post-time'>
+                    August 17, 2022,  8:50am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-17T08:50:31Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>how come it still cannot find  OPENSSL_INCLUDE_DIR if you have specified?<br>
+Can you attach your whole project here?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nunogoncalves'><span itemprop='name'>nunogoncalves</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-17T08:56:39Z' class='post-time'>
+                    August 17, 2022,  8:56am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-17T08:56:39Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="attachment" href="/uploads/short-url/eDtivpmiQhg1a6tPYf7c2HbGbwh.zip">mangoh.zip</a> (6.9 MB)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-17T10:19:26Z' class='post-time'>
+                    August 17, 2022, 10:19am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-17T10:19:26Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I can build it:</p>
+<pre><code class="lang-auto">18:17:57 **** Incremental Build of configuration Target_Legato_Debug for project libcoapComponent ****
+make -C Target_Legato_Debug all 
+make: Entering directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug'
+cd ../..;mkcomp -t wp76xx -l libcoapComponent/Target_Legato_Debug -w libcoapComponent/Target_Legato_Debug -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/atServices" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/airVantage/legacy" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/watchdog" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/portService" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/supervisor" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/logDaemon" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/positioning" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/secureStorage" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/wifi" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/modemServices" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/airVantage" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/dataConnectionService/platformAdaptor/default" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/test/watchdogChain" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/apps/platformServices/airVantageConnector" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/airVantage" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/modules/WiFi/apps/tools/wifi" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/positioning" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/secStore" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/uartMode/platformAdaptor/default" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/portService" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/modemServices/platformAdaptor/default" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/audio/platformAdaptor/default" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/apps/tools" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/3rdParty" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/fwupdate/platformAdaptor/default" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/dataConnectionService" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/modules/WiFi/service" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/airVantage/platformAdaptor/default" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/fwupdate" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/positioning/platformAdaptor/default" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/devMode" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/secStore/platformAdaptor/default" -s "." -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/apps/platformServices/mqttClient" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/atServices" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/modemServices" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/uartMode" -C -g -X -g -L -g libcoapComponent
+[1/3] Running external build step
+make[1]: Entering directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[2]: Entering directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[3]: Entering directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[3]: Leaving directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[2]: Leaving directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[1]: Leaving directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+[2/3] Running external build step
+You have called ADD_LIBRARY for library coap-3 without any source files. This typically indicates a problem with your CMakeLists.txt file
+-- compiling with epoll support
+-- ENABLE_DTLS:.....................OFF
+-- ENABLE_TCP:......................ON
+-- ENABLE_DOCS:.....................OFF
+-- ENABLE_EXAMPLES:.................OFF
+-- DTLS_BACKEND:....................openssl
+-- WITH_GNUTLS:.....................OFF
+-- WITH_TINYDTLS:...................OFF
+-- WITH_OPENSSL:....................OFF
+-- WITH_MBEDTLS:....................OFF
+-- HAVE_LIBTINYDTLS:................
+-- HAVE_LIBGNUTLS:..................
+-- HAVE_OPENSSL:....................
+-- HAVE_MBEDTLS:....................
+-- COAP_EPOLL_SUPPORT:..............1
+-- CMAKE_C_COMPILER:................/home/owner/legato/packages/legato.toolchain.0.28.3.01.SWI9X07Y_02280301-wp76xx-native-x86_64-201906171237/resources/native/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc
+-- BUILD_SHARED_LIBS:...............ON
+-- CMAKE_BUILD_TYPE:................Release
+-- CMAKE_SYSTEM_PROCESSOR:..........x86_64
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5
+[3/3] Running external build step
+make[1]: Entering directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[2]: Entering directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[3]: Entering directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[3]: Leaving directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[3]: Entering directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+[  4%] Building C object CMakeFiles/coap-3.dir/src/address.c.o
+[  8%] Building C object CMakeFiles/coap-3.dir/src/net.c.o
+[ 12%] Building C object CMakeFiles/coap-3.dir/src/coap_debug.c.o
+[ 16%] Building C object CMakeFiles/coap-3.dir/src/encode.c.o
+[ 20%] Building C object CMakeFiles/coap-3.dir/src/uri.c.o
+[ 25%] Building C object CMakeFiles/coap-3.dir/src/subscribe.c.o
+[ 29%] Building C object CMakeFiles/coap-3.dir/src/resource.c.o
+[ 33%] Building C object CMakeFiles/coap-3.dir/src/str.c.o
+[ 37%] Building C object CMakeFiles/coap-3.dir/src/option.c.o
+[ 41%] Building C object CMakeFiles/coap-3.dir/src/async.c.o
+[ 45%] Building C object CMakeFiles/coap-3.dir/src/block.c.o
+[ 50%] Building C object CMakeFiles/coap-3.dir/src/coap_asn1.c.o
+[ 54%] Building C object CMakeFiles/coap-3.dir/src/coap_cache.c.o
+[ 58%] Building C object CMakeFiles/coap-3.dir/src/coap_event.c.o
+[ 62%] Building C object CMakeFiles/coap-3.dir/src/coap_hashkey.c.o
+[ 66%] Building C object CMakeFiles/coap-3.dir/src/coap_io.c.o
+[ 70%] Building C object CMakeFiles/coap-3.dir/src/coap_notls.c.o
+[ 75%] Building C object CMakeFiles/coap-3.dir/src/coap_prng.c.o
+[ 79%] Building C object CMakeFiles/coap-3.dir/src/coap_session.c.o
+[ 83%] Building C object CMakeFiles/coap-3.dir/src/coap_tcp.c.o
+[ 87%] Building C object CMakeFiles/coap-3.dir/src/coap_time.c.o
+[ 91%] Building C object CMakeFiles/coap-3.dir/src/mem.c.o
+[ 95%] Building C object CMakeFiles/coap-3.dir/src/pdu.c.o
+[100%] Linking C shared library libcoap-3.so
+make[3]: Leaving directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+[100%] Built target coap-3
+make[2]: Leaving directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[1]: Leaving directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make: Leaving directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug'
+
+18:18:03 Build Finished (took 5s.981ms)
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nunogoncalves'><span itemprop='name'>nunogoncalves</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-17T10:20:48Z' class='post-time'>
+                    August 17, 2022, 10:20am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-17T10:20:48Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <aside class="quote no-group quote-modified" data-username="jyijyi" data-post="12" data-topic="10080">
+<div class="title">
+<div class="quote-controls"></div>
+<img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar"> jyijyi:</div>
+<blockquote>
+<p><code>-- ENABLE_DTLS:.....................OFF</code><br>
+…<br>
+<code>-- WITH_OPENSSL:....................OFF</code></p>
+</blockquote>
+</aside>
+<p>But the dtls option needs to be ON not  OFF</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-17T10:25:55Z' class='post-time'>
+                    August 17, 2022, 10:25am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-17T10:25:55Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>how to make this?<br>
+I am using this in cdef file:</p>
+<p>“cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DDTLS_BACKEND=openssl -DOPENSSL_ROOT_DIR=$LEGATO_SYSROOT/usr/bin/openssl -DOPENSSL_CRYPTO_LIBRARY=$LEGATO_SYSROOT/usr/lib -DCMAKE_BUILD_TYPE=Release ${CURDIR}/libcoap”</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nunogoncalves'><span itemprop='name'>nunogoncalves</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-17T10:37:21Z' class='post-time'>
+                    August 17, 2022, 10:37am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-17T10:37:21Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I have the same, but it not compiling. Set <code>-DENABLE_DTLS=ON</code></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-17T10:39:06Z' class='post-time'>
+                    August 17, 2022, 10:39am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-17T10:39:06Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>have you seen the file “HOWTO.dual.openssl”?<br>
+Seems you need to add source code to compile according to your openssl version in your module</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_17' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nunogoncalves'><span itemprop='name'>nunogoncalves</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-17T10:39:46Z' class='post-time'>
+                    August 17, 2022, 10:39am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-17T10:39:46Z'>
+              <span itemprop='position'>17</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <aside class="quote no-group" data-username="jyijyi" data-post="16" data-topic="10080">
+<div class="title">
+<div class="quote-controls"></div>
+<img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar"> jyijyi:</div>
+<blockquote>
+<p>have you seen the file “HOWTO.dual.openssl”?</p>
+</blockquote>
+</aside>
+<p>I will look into it. Tanks</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_18' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d79f4bfcf27c52dbdbd3eb76489948d3032d1a34.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-17T10:41:12Z' class='post-time'>
+                    August 17, 2022, 10:41am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-17T10:41:12Z'>
+              <span itemprop='position'>18</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>it seems you said you can compile in terminal, but actually you did not add <code>-DENABLE_DTLS=ON</code></p>
+<p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d79f4bfcf27c52dbdbd3eb76489948d3032d1a34.png" data-download-href="/uploads/short-url/uLtWMdtyLT8a3SIyJA4Afxdd2K0.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d79f4bfcf27c52dbdbd3eb76489948d3032d1a34_2_690x269.png" alt="image" data-base62-sha1="uLtWMdtyLT8a3SIyJA4Afxdd2K0" width="690" height="269" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d79f4bfcf27c52dbdbd3eb76489948d3032d1a34_2_690x269.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d79f4bfcf27c52dbdbd3eb76489948d3032d1a34.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d79f4bfcf27c52dbdbd3eb76489948d3032d1a34.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d79f4bfcf27c52dbdbd3eb76489948d3032d1a34_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use href="#far-image"></use></svg><span class="filename">image</span><span class="informations">1024×400 30.1 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use href="#discourse-expand"></use></svg>
+</div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_19' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nunogoncalves'><span itemprop='name'>nunogoncalves</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-17T11:01:07Z' class='post-time'>
+                    August 17, 2022, 11:01am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-17T11:01:07Z'>
+              <span itemprop='position'>19</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <aside class="quote no-group" data-username="jyijyi" data-post="18" data-topic="10080">
+<div class="title">
+<div class="quote-controls"></div>
+<img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar"> jyijyi:</div>
+<blockquote>
+<p>it seems you said you can compile in terminal, but actually you did not add <code>-DENABLE_DTLS=ON</code></p>
+</blockquote>
+</aside>
+<pre><code class="lang-auto">boi@debian:~/workspace/mangOH/components/libcoapComponent/libcoap/build$ cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DDTLS_BACKEND=openssl -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl -DCMAKE_BUILD_TYPE=Release . -S..
+-- compiling with epoll support
+-- compiling with DTLS support
+-- DTLS_BACKEND: openssl
+-- compiling with openssl support
+-- ENABLE_DTLS:.....................ON
+-- ENABLE_TCP:......................ON
+-- ENABLE_DOCS:.....................OFF
+-- ENABLE_EXAMPLES:.................OFF
+-- DTLS_BACKEND:....................openssl
+-- WITH_GNUTLS:.....................OFF
+-- WITH_TINYDTLS:...................OFF
+-- WITH_OPENSSL:....................ON
+-- WITH_MBEDTLS:....................OFF
+-- HAVE_LIBTINYDTLS:................
+-- HAVE_LIBGNUTLS:..................
+-- HAVE_OPENSSL:....................1
+-- HAVE_MBEDTLS:....................
+-- COAP_EPOLL_SUPPORT:..............1
+-- CMAKE_C_COMPILER:................/usr/bin/cc
+-- BUILD_SHARED_LIBS:...............ON
+-- CMAKE_BUILD_TYPE:................Release
+-- CMAKE_SYSTEM_PROCESSOR:..........x86_64
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/boi/workspace/mangOH/components/libcoapComponent/libcoap/build
+boi@debian:~/workspace/mangOH/components/libcoapComponent/libcoap/build$ cmake --build .
+Scanning dependencies of target coap-3
+[  4%] Building C object CMakeFiles/coap-3.dir/src/address.c.o
+[  8%] Building C object CMakeFiles/coap-3.dir/src/net.c.o
+[ 12%] Building C object CMakeFiles/coap-3.dir/src/coap_debug.c.o
+[ 16%] Building C object CMakeFiles/coap-3.dir/src/encode.c.o
+[ 20%] Building C object CMakeFiles/coap-3.dir/src/uri.c.o
+[ 24%] Building C object CMakeFiles/coap-3.dir/src/subscribe.c.o
+[ 28%] Building C object CMakeFiles/coap-3.dir/src/resource.c.o
+[ 32%] Building C object CMakeFiles/coap-3.dir/src/str.c.o
+[ 36%] Building C object CMakeFiles/coap-3.dir/src/option.c.o
+[ 40%] Building C object CMakeFiles/coap-3.dir/src/async.c.o
+[ 44%] Building C object CMakeFiles/coap-3.dir/src/block.c.o
+[ 48%] Building C object CMakeFiles/coap-3.dir/src/coap_asn1.c.o
+[ 52%] Building C object CMakeFiles/coap-3.dir/src/coap_cache.c.o
+[ 56%] Building C object CMakeFiles/coap-3.dir/src/coap_event.c.o
+[ 60%] Building C object CMakeFiles/coap-3.dir/src/coap_hashkey.c.o
+[ 64%] Building C object CMakeFiles/coap-3.dir/src/coap_io.c.o
+[ 68%] Building C object CMakeFiles/coap-3.dir/src/coap_notls.c.o
+[ 72%] Building C object CMakeFiles/coap-3.dir/src/coap_prng.c.o
+[ 76%] Building C object CMakeFiles/coap-3.dir/src/coap_session.c.o
+[ 80%] Building C object CMakeFiles/coap-3.dir/src/coap_tcp.c.o
+[ 84%] Building C object CMakeFiles/coap-3.dir/src/coap_time.c.o
+[ 88%] Building C object CMakeFiles/coap-3.dir/src/mem.c.o
+[ 92%] Building C object CMakeFiles/coap-3.dir/src/pdu.c.o
+[ 96%] Building C object CMakeFiles/coap-3.dir/src/coap_openssl.c.o
+[100%] Linking C shared library libcoap-3.so
+[100%] Built target coap-3
+boi@debian:~/workspace/mangOH/components/libcoapComponent/libcoap/build$ 
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_20' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-08-17T11:07:04Z' class='post-time'>
+                    August 17, 2022, 11:07am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-08-18T02:56:58Z'>
+              <span itemprop='position'>20</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>From the CMakeLists.txt line 316,  you need to set ENABLE_DTLS=ON</p>
+<pre><code class="lang-auto">    if(DTLS_BACKEND
+       STREQUAL
+       "openssl")
+      # libssl (e.g. debian libssl1.0-dev)
+      find_package(OpenSSL REQUIRED)
+      set(WITH_OPENSSL ON)
+      message(STATUS "compiling with openssl support")
+      set(HAVE_OPENSSL 1)
+    endif()
+</code></pre>
+<p>BTW, you are using the library in /usr/local/opt/openssl, is that complied for x86 machine?</p>
+<p>One more thing, from the following in your log,  seems you are not using the toolchain:<br>
+CMAKE_C_COMPILER:…/usr/bin/cc</p>
+<p>It seems your compiler (/usr/bin/cc for x86) is matching with /usr/local/opt/openssl, but the toolchain is not matched with /usr/local/opt/openssl…<br>
+How do you get /usr/local/opt/openssl?<br>
+Not sure if you need to download the openssl source code to recompile with the toolchain so that you will get something like /usr/local/opt/openssl for module’s toolchain…</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

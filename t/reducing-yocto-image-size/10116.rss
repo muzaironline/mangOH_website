@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Reducing yocto image size</title>
+    <link>https://forum.mangoh.io/t/reducing-yocto-image-size/10116</link>
+    <description>Hello
+
+I am now building YOcto image froum source for WP76xx
+
+I would like to reduce image size
+
+1. any tips \ pointers
+2. I have no use pf Python and would like to totally remove it \ remove as many python packages as possible, how can I do that ?</description>
+    
+    <lastBuildDate>Wed, 28 Sep 2022 09:05:18 +0000</lastBuildDate>
+    <category>Uncategorized</category>
+    <atom:link href="https://forum.mangoh.io/t/reducing-yocto-image-size/10116.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Reducing yocto image size</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>how big is your yocto cwe image size now?</p>
+<p>Have you increased the image size limit here?</p>
+<pre><code class="lang-auto">./meta-swi/meta-swi-mdm9x28/conf/machine/swi-mdm9x28.conf						
+--&gt; change UBI_ROOTFS_SIZE ?= "48MiB"
+</code></pre>
+<p>Another idea is to put the required libraries to SD card or “userapp” partition, and then create<br>
+symbolic link during power on.<br>
+Here is an example to put ffmpeg library in SD card and create symbolic link  to /usr/lib folder</p>
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.legato.io/t/how-to-enable-ffmpeg-in-yocto-image/5038/41">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2f530449ddf3c5969c6d457cc62c7f403f2ae1d3.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/how-to-enable-ffmpeg-in-yocto-image/5038/41" target="_blank" rel="noopener nofollow ugc" title="09:28AM - 11 March 2020">Legato Forum – 11 Mar 20</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-dominant-color="D3CBC3"></div>
+
+<h3><a href="https://forum.legato.io/t/how-to-enable-ffmpeg-in-yocto-image/5038/41" target="_blank" rel="noopener nofollow ugc">How to enable ffmpeg in yocto image</a></h3>
+
+  <p>copy the following binary to the SD card:  ./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/ffmpeg/3.4.2-r0/image/usr/bin/ffmpeg  ./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/ffmpeg/3.4.2-r0/image/usr/lib/libavcodec.so.57 ...</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/reducing-yocto-image-size/10116/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/reducing-yocto-image-size/10116/11</link>
+        <pubDate>Wed, 28 Sep 2022 08:57:05 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10116-11</guid>
+        <source url="https://forum.mangoh.io/t/reducing-yocto-image-size/10116.rss">Reducing yocto image size</source>
+      </item>
+      <item>
+        <title>Reducing yocto image size</title>
+        <dc:creator><![CDATA[deadpoolcode]]></dc:creator>
+        <description><![CDATA[
+            <p>yes, I am placing a lot of code on the device, and need to support OTA, so I am reaching a hard limit on code size.</p>
+<p>so Python seems like the most effective size reduction<br>
+if you have any other suggestions I would they are all welcomed</p>
+          <p><a href="https://forum.mangoh.io/t/reducing-yocto-image-size/10116/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/reducing-yocto-image-size/10116/10</link>
+        <pubDate>Wed, 28 Sep 2022 08:40:11 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10116-10</guid>
+        <source url="https://forum.mangoh.io/t/reducing-yocto-image-size/10116.rss">Reducing yocto image size</source>
+      </item>
+      <item>
+        <title>Reducing yocto image size</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Any reason why you need to reduce the image size?</p>
+          <p><a href="https://forum.mangoh.io/t/reducing-yocto-image-size/10116/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/reducing-yocto-image-size/10116/9</link>
+        <pubDate>Wed, 21 Sep 2022 11:09:59 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10116-9</guid>
+        <source url="https://forum.mangoh.io/t/reducing-yocto-image-size/10116.rss">Reducing yocto image size</source>
+      </item>
+      <item>
+        <title>Reducing yocto image size</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <ol>
+<li>move the original “./meta-openembedded/meta-python/recipes-devtools/” , “”./meta-openembedded/meta-python/recipes-connectivity", “./meta-openembedded/meta-python/recipes-extended”  folders to desktop</li>
+<li>copy only some folders and files “./meta-openembedded/meta-python/recipes-devtools/” folder as follows:<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/f/fd2179dc4adb20ecd57819868c505027cd1be2d8.png" data-download-href="/uploads/short-url/A7iwmNFnUwrwoA8RRA3SguSOxu0.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/fd2179dc4adb20ecd57819868c505027cd1be2d8_2_690x245.png" alt="image" data-base62-sha1="A7iwmNFnUwrwoA8RRA3SguSOxu0" width="690" height="245" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/fd2179dc4adb20ecd57819868c505027cd1be2d8_2_690x245.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/fd2179dc4adb20ecd57819868c505027cd1be2d8_2_1035x367.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/f/fd2179dc4adb20ecd57819868c505027cd1be2d8.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/fd2179dc4adb20ecd57819868c505027cd1be2d8_2_10x10.png"></a></div>
+</li>
+<li>make clean</li>
+<li>make</li>
+</ol>
+<p>But still the yocto image size is the same…<br>
+I think python is needed for the image.</p>
+          <p><a href="https://forum.mangoh.io/t/reducing-yocto-image-size/10116/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/reducing-yocto-image-size/10116/8</link>
+        <pubDate>Tue, 20 Sep 2022 11:25:43 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10116-8</guid>
+        <source url="https://forum.mangoh.io/t/reducing-yocto-image-size/10116.rss">Reducing yocto image size</source>
+      </item>
+      <item>
+        <title>Reducing yocto image size</title>
+        <dc:creator><![CDATA[deadpoolcode]]></dc:creator>
+        <description><![CDATA[
+            <p>yes it is the same. still python packages are not removed from image</p>
+          <p><a href="https://forum.mangoh.io/t/reducing-yocto-image-size/10116/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/reducing-yocto-image-size/10116/7</link>
+        <pubDate>Tue, 20 Sep 2022 10:00:03 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10116-7</guid>
+        <source url="https://forum.mangoh.io/t/reducing-yocto-image-size/10116.rss">Reducing yocto image size</source>
+      </item>
+      <item>
+        <title>Reducing yocto image size</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>how about this?</p>
+<p>is it the same?</p>
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.legato.io/t/removing-packagese-from-yocto-wp760x/3807/5">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2f530449ddf3c5969c6d457cc62c7f403f2ae1d3.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/removing-packagese-from-yocto-wp760x/3807/5" target="_blank" rel="noopener nofollow ugc" title="06:16AM - 03 December 2018">Legato Forum – 3 Dec 18</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/removing-packagese-from-yocto-wp760x/3807/5" target="_blank" rel="noopener nofollow ugc">Removing packagese from Yocto, wp760x</a></h3>
+
+  <p>using build_bin/conf/local.conf can you try with below  IMAGE_INSTALL_remove_pn-mdm9x28-image-minimal = "  "  ensure that you add a space after the starting double quotes.  hope this works.</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/reducing-yocto-image-size/10116/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/reducing-yocto-image-size/10116/6</link>
+        <pubDate>Tue, 20 Sep 2022 06:47:25 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10116-6</guid>
+        <source url="https://forum.mangoh.io/t/reducing-yocto-image-size/10116.rss">Reducing yocto image size</source>
+      </item>
+      <item>
+        <title>Reducing yocto image size</title>
+        <dc:creator><![CDATA[deadpoolcode]]></dc:creator>
+        <description><![CDATA[
+            <p>yes, I added the following to</p>
+<p>meta-swi/meta-swi-mdm9x28/recipes-core/images/mdm9x28-image.inc</p>
+<p>IMAGE_INSTALL_remove = “python”<br>
+IMAGE_INSTALL_remove = “python3-native”<br>
+IMAGE_INSTALL_remove = “python-m2crypto-native”<br>
+IMAGE_INSTALL_remove = “pathon-native”<br>
+IMAGE_INSTALL_remove = “python-setuptools-native”</p>
+<p>but image size remains the same</p>
+<p>any ideas?</p>
+          <p><a href="https://forum.mangoh.io/t/reducing-yocto-image-size/10116/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/reducing-yocto-image-size/10116/5</link>
+        <pubDate>Tue, 20 Sep 2022 06:30:42 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10116-5</guid>
+        <source url="https://forum.mangoh.io/t/reducing-yocto-image-size/10116.rss">Reducing yocto image size</source>
+      </item>
+      <item>
+        <title>Reducing yocto image size</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Have you modified ./meta-swi/meta-swi-mdm9x28/recipes-core/images/mdm9x28-image.inc?</p>
+          <p><a href="https://forum.mangoh.io/t/reducing-yocto-image-size/10116/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/reducing-yocto-image-size/10116/4</link>
+        <pubDate>Mon, 19 Sep 2022 05:52:31 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10116-4</guid>
+        <source url="https://forum.mangoh.io/t/reducing-yocto-image-size/10116.rss">Reducing yocto image size</source>
+      </item>
+      <item>
+        <title>Reducing yocto image size</title>
+        <dc:creator><![CDATA[deadpoolcode]]></dc:creator>
+        <description><![CDATA[
+            <p>this was my first attempt <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=12" title=":slight_smile:" class="emoji" alt=":slight_smile:" loading="lazy" width="20" height="20"> , no not working</p>
+          <p><a href="https://forum.mangoh.io/t/reducing-yocto-image-size/10116/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/reducing-yocto-image-size/10116/3</link>
+        <pubDate>Mon, 19 Sep 2022 05:11:18 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10116-3</guid>
+        <source url="https://forum.mangoh.io/t/reducing-yocto-image-size/10116.rss">Reducing yocto image size</source>
+      </item>
+      <item>
+        <title>Reducing yocto image size</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>does this help?</p><aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.legato.io/t/removing-packagese-from-yocto-wp760x/3807/3">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2f530449ddf3c5969c6d457cc62c7f403f2ae1d3.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/removing-packagese-from-yocto-wp760x/3807/3" target="_blank" rel="noopener nofollow ugc" title="09:56PM - 24 October 2018">Legato Forum – 24 Oct 18</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/removing-packagese-from-yocto-wp760x/3807/3" target="_blank" rel="noopener nofollow ugc">Removing packagese from Yocto, wp760x</a></h3>
+
+  <p>modified to 🙂  IMAGE_INSTALL_remove = “python”  IMAGE_INSTALL_remove = “python3-native”  IMAGE_INSTALL_remove = “python-m2crypto-native”  IMAGE_INSTALL_remove = “pathon-native”  IMAGE_INSTALL_remove = “python-setuptools-native”  but packages are...</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/reducing-yocto-image-size/10116/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/reducing-yocto-image-size/10116/2</link>
+        <pubDate>Sun, 18 Sep 2022 15:30:43 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10116-2</guid>
+        <source url="https://forum.mangoh.io/t/reducing-yocto-image-size/10116.rss">Reducing yocto image size</source>
+      </item>
+      <item>
+        <title>Reducing yocto image size</title>
+        <dc:creator><![CDATA[deadpoolcode]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello</p>
+<p>I am now building YOcto image froum source for WP76xx</p>
+<p>I would like to reduce image size</p>
+<ol>
+<li>any tips \ pointers</li>
+<li>I have no use pf Python and would like to totally remove it \ remove as many python packages as possible, how can I do that ?</li>
+</ol>
+          <p><a href="https://forum.mangoh.io/t/reducing-yocto-image-size/10116/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/reducing-yocto-image-size/10116/1</link>
+        <pubDate>Sun, 18 Sep 2022 06:01:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10116-1</guid>
+        <source url="https://forum.mangoh.io/t/reducing-yocto-image-size/10116.rss">Reducing yocto image size</source>
+      </item>
+  </channel>
+</rss>

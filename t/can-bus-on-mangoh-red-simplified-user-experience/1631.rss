@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>CAN BUS on mangOH Red - simplified user experience</title>
+    <link>https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631</link>
+    <description>Please follow the  instructions here:
+https://github.com/mangOH/mangOH/wiki/Running-the-MCP2515-CAN-driver-for-mangOH-Red
+
+Look forward to your feedback</description>
+    
+    <lastBuildDate>Mon, 09 Nov 2020 01:11:19 +0000</lastBuildDate>
+    <category>Wiki</category>
+    <atom:link href="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>CAN BUS on mangOH Red - simplified user experience</title>
+        <dc:creator><![CDATA[claudiobaldini]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/dfrey">@dfrey</a> anyone using the Talon Can IoT board to read CAN data with extended identifiers?<br>
+It would be fantastic if someone could share his experience, or possibly someone from SWI…?</p>
+          <p><a href="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/13">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/13</link>
+        <pubDate>Mon, 09 Nov 2020 01:11:19 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1631-13</guid>
+        <source url="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631.rss">CAN BUS on mangOH Red - simplified user experience</source>
+      </item>
+      <item>
+        <title>CAN BUS on mangOH Red - simplified user experience</title>
+        <dc:creator><![CDATA[claudiobaldini]]></dc:creator>
+        <description><![CDATA[
+            <p>I have troubleshooted this in many different ways and it seems that the C code is working as it should, but I suspect the problem to be with the kernel module for either can_iot or mcp251x which is not correctly receiving the extended flag?<br>
+Or it may be with some initialization I need to do before running the kernel module???</p>
+          <p><a href="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/12</link>
+        <pubDate>Wed, 04 Nov 2020 02:54:45 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1631-12</guid>
+        <source url="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631.rss">CAN BUS on mangOH Red - simplified user experience</source>
+      </item>
+      <item>
+        <title>CAN BUS on mangOH Red - simplified user experience</title>
+        <dc:creator><![CDATA[claudiobaldini]]></dc:creator>
+        <description><![CDATA[
+            <p>Does anybody has experience about using the 29bit identifiers?<br>
+I have loaded the kmod for can_iot and mcp251x, then I am using a  simple C code to read from the socket but all the identifiers seems to be filtered to the 11bits…<br>
+So If I am transmitting the 901h I am actually only reading (can_id from socket) 101h, the C code seems ok so I am wondering if this is a problem with the hardware or the kmodules…?</p>
+<p>See C code below:</p>
+<pre><code class="lang-auto">    struct can_frame message;
+    struct sockaddr_can addr;
+    struct ifreq ifr;
+    int   fd = -1;                  // file descriptor (itÂ´s a socket)
+
+    if((fd = socket(PF_CAN, SOCK_RAW, CAN_RAW)) &lt; 0)
+    {
+        LE_INFO("cannot open socket");
+        return;
+    }
+    strcpy(ifr.ifr_name, "can0");
+    ioctl(fd, SIOCGIFINDEX, &amp;ifr);
+    addr.can_family = AF_CAN;
+    addr.can_ifindex = ifr.ifr_ifindex;
+    if(bind(fd, (struct sockaddr *)&amp;addr, sizeof(addr)) &lt; 0)
+    {
+        printf("cannot bind socket\n");
+        return;
+    }
+
+    uint8_t nbytes;
+
+    message.can_id |= CAN_EFF_FLAG;
+
+    while(1)
+    {
+        nbytes = read(fd, &amp;message, sizeof(struct can_frame));
+
+        if (nbytes &lt; 0) {
+                perror("can raw socket read");
+                return;
+        }
+
+        /* paranoid check ... */
+        if (nbytes &lt; sizeof(struct can_frame)) {
+                fprintf(stderr, "read: incomplete CAN frame\n");
+                return;
+        }
+
+        printf("READ COB_ID:%x\n",message.can_id | CAN_EFF_FLAG);
+        
+    }
+    return;
+</code></pre>
+<p>I am sending a CAN frame with idx x901 and this is what is printed:</p>
+<p>READ COB_ID:80000101</p>
+<p>READ COB_ID:80000101</p>
+<p>READ COB_ID:80000101</p>
+<p>Anyone able to help on this problem???</p>
+          <p><a href="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/11</link>
+        <pubDate>Mon, 02 Nov 2020 02:29:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1631-11</guid>
+        <source url="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631.rss">CAN BUS on mangOH Red - simplified user experience</source>
+      </item>
+      <item>
+        <title>CAN BUS on mangOH Red - simplified user experience</title>
+        <dc:creator><![CDATA[Nexteer_KM]]></dc:creator>
+        <description><![CDATA[
+            <p>Hey Isabel,</p>
+<p>Have you managed to find a solution or workaround to this problem? I’ve also gotten a myriad of errors when attempting to compile the killSwitch app.</p>
+<p>Thanks<br>
+Garret</p>
+          <p><a href="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/10</link>
+        <pubDate>Wed, 05 Aug 2020 19:26:45 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1631-10</guid>
+        <source url="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631.rss">CAN BUS on mangOH Red - simplified user experience</source>
+      </item>
+      <item>
+        <title>CAN BUS on mangOH Red - simplified user experience</title>
+        <dc:creator><![CDATA[Larumbe2019]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello</p>
+<p>My customer needs to use  two CAN bus standards;<br>
+J1939 for collecting the data and KVP2000 for the control.<br>
+He will use MangOH red with WP7702 and Talon Iot Can card.<br>
+</p><aside class="onebox pdf">
+  <header class="source">
+      <a href="https://mangoh.io/uploaded-documents/Buy/IoT%20Cards/CAN%20IoT%20Card/Talon-mangOH-CAN-Bus-Module-Brief-2018.pdf" target="_blank" rel="nofollow noopener">mangoh.io</a>
+  </header>
+  <article class="onebox-body">
+    <a href="https://mangoh.io/uploaded-documents/Buy/IoT%20Cards/CAN%20IoT%20Card/Talon-mangOH-CAN-Bus-Module-Brief-2018.pdf" target="_blank" rel="nofollow noopener"><span class="pdf-onebox-logo"></span></a>
+<h3><a href="https://mangoh.io/uploaded-documents/Buy/IoT%20Cards/CAN%20IoT%20Card/Talon-mangOH-CAN-Bus-Module-Brief-2018.pdf" target="_blank" rel="nofollow noopener">Talon-mangOH-CAN-Bus-Module-Brief-2018.pdf</a></h3>
+
+<p class="filesize">451.44 KB</p>
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+<p></p>
+<p>Can bus will work at 500kbps and with 50% of load.  It looks we can support it with Legato for the answers  here .</p>
+<p>But  this reference example has plenty of errors when compiling.<br>
+</p><aside class="onebox whitelistedgeneric">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/07ed688be6d6288a669778f65f7eccdd96770925.ico" class="site-icon" width="32" height="32">
+      <a href="https://github.com/mangOH/Demos/tree/master/KillSwitch/canOpen" target="_blank" rel="nofollow noopener">GitHub</a>
+  </header>
+  <article class="onebox-body">
+    <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/44dd46cef0cf811daf1300e8b240fdf87742302f.png" class="thumbnail onebox-avatar" width="100" height="100">
+
+<h3><a href="https://github.com/mangOH/Demos/tree/master/KillSwitch/canOpen" target="_blank" rel="nofollow noopener">mangOH/Demos</a></h3>
+
+<p>Code for mangOH demos. Contribute to mangOH/Demos development by creating an account on GitHub.</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+<p></p>
+<p>Could  we get it without errors?<br>
+Thanks<br>
+Isabel</p>
+          <p><a href="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/9</link>
+        <pubDate>Thu, 12 Mar 2020 14:11:51 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1631-9</guid>
+        <source url="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631.rss">CAN BUS on mangOH Red - simplified user experience</source>
+      </item>
+      <item>
+        <title>CAN BUS on mangOH Red - simplified user experience</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>The best place to find the <code>start_can.sh</code> file is in the mangOH git repository under <a href="https://github.com/mangOH/mangOH/blob/master/linux_kernel_modules/can_common/start_can.sh" rel="nofollow noopener"><code>linux_kernel_modules/can_common/start_can.sh</code></a></p>
+          <p><a href="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/8</link>
+        <pubDate>Tue, 03 Jul 2018 15:16:40 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1631-8</guid>
+        <source url="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631.rss">CAN BUS on mangOH Red - simplified user experience</source>
+      </item>
+      <item>
+        <title>CAN BUS on mangOH Red - simplified user experience</title>
+        <dc:creator><![CDATA[sreesyratron]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="attachment" href="https://forum.mangoh.io/uploads/short-url/yywRRLJmgiVACTL5uSTAvKZoKqR.sh">start_can.sh</a> (889 Bytes)</p>
+<p>Thank you team. Its working fine.<br>
+start_can.sh script attached. FYI.</p>
+          <p><a href="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/7</link>
+        <pubDate>Tue, 03 Jul 2018 05:05:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1631-7</guid>
+        <source url="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631.rss">CAN BUS on mangOH Red - simplified user experience</source>
+      </item>
+      <item>
+        <title>CAN BUS on mangOH Red - simplified user experience</title>
+        <dc:creator><![CDATA[Francis.duhaut]]></dc:creator>
+        <description><![CDATA[
+            <p>second day of test with new CAN IoT build and WP7607.<br>
+Any problem with very high traffic on the CANBUS (send/receive multi frame <span class="mention">@50ms</span>) Speed bus set to 500Kb/s.</p>
+<p>Good !</p>
+          <p><a href="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/6</link>
+        <pubDate>Fri, 29 Jun 2018 20:10:22 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1631-6</guid>
+        <source url="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631.rss">CAN BUS on mangOH Red - simplified user experience</source>
+      </item>
+      <item>
+        <title>CAN BUS on mangOH Red - simplified user experience</title>
+        <dc:creator><![CDATA[Francis.duhaut]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/asyal">@asyal</a></p>
+<p>This is my feedback:</p>
+<p>CAN IoT driver work fine !<br>
+I start test for several day and let you inform about the result.</p>
+<p>Thanks.</p>
+          <p><a href="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/5</link>
+        <pubDate>Thu, 28 Jun 2018 09:57:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1631-5</guid>
+        <source url="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631.rss">CAN BUS on mangOH Red - simplified user experience</source>
+      </item>
+      <item>
+        <title>CAN BUS on mangOH Red - simplified user experience</title>
+        <dc:creator><![CDATA[Francis.duhaut]]></dc:creator>
+        <description><![CDATA[
+            <p>Here some log of the can traffic. The apps send message 0x600 every 200ms.</p>
+<p>and receive message 0x302 from my PC.</p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/ac8b65be7591ab3ed47dc354b59f9bc385df3820.png" data-download-href="/uploads/short-url/oCoMw7sOrtzYc9dZo5PRyJcgahW.png?dl=1" title="image.png" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/ac8b65be7591ab3ed47dc354b59f9bc385df3820.png" alt="image" data-base62-sha1="oCoMw7sOrtzYc9dZo5PRyJcgahW" width="690" height="278" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/ac8b65be7591ab3ed47dc354b59f9bc385df3820_2_10x10.png"></a></div><p></p>
+<p><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/9fcb71b96a3f7da2ab2bd53d1a9c4760dcacbdb0.png" alt="image" data-base62-sha1="mNBNieoPeeOU6a8oa25jb7DZSow" width="532" height="168"></p>
+          <p><a href="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/4</link>
+        <pubDate>Thu, 28 Jun 2018 07:56:19 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1631-4</guid>
+        <source url="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631.rss">CAN BUS on mangOH Red - simplified user experience</source>
+      </item>
+      <item>
+        <title>CAN BUS on mangOH Red - simplified user experience</title>
+        <dc:creator><![CDATA[Francis.duhaut]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello all,</p>
+<p>This work very fine ! Great Job and thanks to theam.</p>
+<p>I’am able to send/receive CAN message with socketcan api with my WP7607.<br>
+Legato 18.05.1</p>
+<p>A solution to start the CAN with your application it’s to embedded the start_can.sh scrpit into your application. It’s a good way when you want to change CAN parameters (baudrate).</p>
+<p>1 save to file start_can.sh and add into your project (root)</p>
+<pre><code>#!/bin/sh
+
+export PATH=$PATH:/sbin
+
+drv_file=`find /legato/systems/current/modules/ -name "*mcp251x.ko"`
+drv=`basename $drv_file`
+# remove the driver
+rmmod $drv
+
+# Take IoT card out of reset
+echo 2 &gt; /sys/class/gpio/export
+echo out  &gt; /sys/class/gpio/gpio2/direction
+echo 1  &gt; /sys/class/gpio/gpio2/value
+
+# Enable level shifter on the CAN IoT card
+echo 13 &gt; /sys/class/gpio/export
+echo out  &gt; /sys/class/gpio/gpio13/direction
+echo 1  &gt; /sys/class/gpio/gpio13/value
+
+# Bring driver back &amp; iproute2 add in CAN
+insmod $drv_file
+ip link set can0 type can bitrate 125000 triple-sampling on
+ifconfig can0 up
+</code></pre>
+<ol start="2">
+<li>
+<p>add the following code and call it on COMPONENT_INIT {}</p>
+<p>void cant_start_sh (void)<br>
+{<br>
+char line[256];<br>
+FILE* fp = popen(“start_can.sh 2&gt;&amp;1”, “r”);<br>
+LE_ASSERT(fp != NULL);<br>
+while (fgets(line, sizeof(line), fp) != NULL)<br>
+{<br>
+LE_INFO(“start_can.sh output: %s”, line);<br>
+}<br>
+int driverInitResult = pclose(fp);<br>
+LE_FATAL_IF(!WIFEXITED(driverInitResult), “Could not run start_can.sh”);<br>
+const int driverInitExitCode = WEXITSTATUS(driverInitResult);<br>
+LE_FATAL_IF(driverInitExitCode != 0, “start_can.sh failed with exit code %d”, driverInitExitCode);<br>
+}</p>
+</li>
+</ol>
+          <p><a href="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/3</link>
+        <pubDate>Thu, 28 Jun 2018 07:53:25 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1631-3</guid>
+        <source url="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631.rss">CAN BUS on mangOH Red - simplified user experience</source>
+      </item>
+      <item>
+        <title>CAN BUS on mangOH Red - simplified user experience</title>
+        <dc:creator><![CDATA[Francis.duhaut]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/asyal">@asyal</a></p>
+<p>Many thanks. I will test it tomorrow morning and post my feed back.</p>
+<p><img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=5" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+          <p><a href="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/2</link>
+        <pubDate>Wed, 27 Jun 2018 21:18:38 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1631-2</guid>
+        <source url="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631.rss">CAN BUS on mangOH Red - simplified user experience</source>
+      </item>
+      <item>
+        <title>CAN BUS on mangOH Red - simplified user experience</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Please follow the  instructions here:<br>
+</p><aside class="onebox whitelistedgeneric">
+  <header class="source">
+      <img src="https://github.githubassets.com/favicons/favicon.svg" class="site-icon" width="32" height="32">
+      <a href="https://github.com/mangOH/mangOH/wiki/Running-the-MCP2515-CAN-driver-for-mangOH-Red" target="_blank">GitHub</a>
+  </header>
+  <article class="onebox-body">
+    <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/44dd46cef0cf811daf1300e8b240fdf87742302f.png" class="thumbnail onebox-avatar" width="100" height="100">
+
+<h3><a href="https://github.com/mangOH/mangOH/wiki/Running-the-MCP2515-CAN-driver-for-mangOH-Red" target="_blank">mangOH/mangOH</a></h3>
+
+<p>Primary mangOH git repository. Contribute to mangOH/mangOH development by creating an account on GitHub.</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+<p></p>
+<p>Look forward to your feedback</p>
+          <p><a href="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631/1</link>
+        <pubDate>Wed, 27 Jun 2018 20:38:57 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1631-1</guid>
+        <source url="https://forum.mangoh.io/t/can-bus-on-mangoh-red-simplified-user-experience/1631.rss">CAN BUS on mangOH Red - simplified user experience</source>
+      </item>
+  </channel>
+</rss>

@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Including le_mrc causes errors on very simple app - mangOH Red - mangOH forum</title>
+    <meta name="description" content="I’m using the following command to build and install the app. mkapp -t wp77xx -i $LEGATO_ROOT/interfaces/modemServices data_test/data_app.adef &amp;amp;&amp;amp; app install data_app.wp77xx.update 192.168.2.2 
+I’ve tried with and withou&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/including-le-mrc-causes-errors-on-very-simple-app/4920" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Including le_mrc causes errors on very simple app&#39;" href="https://forum.mangoh.io/t/including-le-mrc-causes-errors-on-very-simple-app/4920.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/including-le-mrc-causes-errors-on-very-simple-app/4920" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/including-le-mrc-causes-errors-on-very-simple-app/4920" />
+<meta property="og:title" content="Including le_mrc causes errors on very simple app" />
+<meta name="twitter:title" content="Including le_mrc causes errors on very simple app" />
+<meta property="og:description" content="I’m using the following command to build and install the app. mkapp -t wp77xx -i $LEGATO_ROOT/interfaces/modemServices data_test/data_app.adef &amp;&amp; app install data_app.wp77xx.update 192.168.2.2  I’ve tried with and without the -i flag.  Here’s the adef, cdef, and c files, and their directory structure.  data_test  |- cellular  |    |- cellular.c  |    |- Component.cdef  |- data_app.adef   data_app.adef  start:manual version: 0.0.1  executables:{     data_app = (cellular) }  processes:{ 	run:{ 		(..." />
+<meta name="twitter:description" content="I’m using the following command to build and install the app. mkapp -t wp77xx -i $LEGATO_ROOT/interfaces/modemServices data_test/data_app.adef &amp;&amp; app install data_app.wp77xx.update 192.168.2.2  I’ve tried with and without the -i flag.  Here’s the adef, cdef, and c files, and their directory structure.  data_test  |- cellular  |    |- cellular.c  |    |- Component.cdef  |- data_app.adef   data_app.adef  start:manual version: 0.0.1  executables:{     data_app = (cellular) }  processes:{ 	run:{ 		(..." />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta property="article:published_time" content="2020-07-26T23:11:12+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Including le_mrc causes errors on very simple app","mainEntity":{"@type":"Question","name":"Including le_mrc causes errors on very simple app","text":"I’m using the following command to build and install the app. mkapp -t wp77xx -i $LEGATO_ROOT/interfaces/modemServices data_test/data_app.adef &amp;&amp; app install data_app.wp77xx.update 192.168.2.2\n\nI’ve tried with and without the -i flag.\n\nHere’s the adef, cdef, and c files, and their directory structur&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2020-07-26T23:11:11.952Z","author":{"@type":"Person","name":"Connor Scott"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/including-le-mrc-causes-errors-on-very-simple-app/4920">Including le_mrc causes errors on very simple app</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Including le_mrc causes errors on very simple app'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/CT1'><span itemprop='name'>CT1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/including-le-mrc-causes-errors-on-very-simple-app/4920">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-26T23:11:12Z' class='post-time'>
+                    July 26, 2020, 11:11pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-26T23:16:37Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>I’m using the following command to build and install the app. <code>mkapp -t wp77xx -i $LEGATO_ROOT/interfaces/modemServices data_test/data_app.adef &amp;&amp; app install data_app.wp77xx.update 192.168.2.2</code></p>
+<p>I’ve tried with and without the -i flag.</p>
+<p>Here’s the adef, cdef, and c files, and their directory structure.</p>
+<p>data_test<br>
+|- cellular<br>
+|    |- cellular.c<br>
+|    |- Component.cdef<br>
+|- data_app.adef</p>
+<hr>
+<p>data_app.adef</p>
+<pre><code>start:manual
+version: 0.0.1
+
+executables:{
+    data_app = (cellular)
+}
+
+processes:{
+	run:{
+		(data_app)
+	}
+}
+
+bindings:{
+	data_app.cellular.le_mrc -&gt; modemService.le_mrc
+}
+</code></pre>
+<hr>
+<p>Component.cdef</p>
+<pre><code>start:manual
+version: 0.0.1
+
+executables:{
+	data_app = (cellular)
+}
+
+processes:{
+	run:{
+		(data_app)
+	}
+}
+
+bindings:{
+	data_app.cellular.le_mrc -&gt; modemService.le_mrc
+}
+</code></pre>
+<hr>
+<p>cellular.c</p>
+<pre><code>#include "legato.h"
+#include "interfaces.h"
+
+le_onoff_t cellular_onoff;
+
+COMPONENT_INIT{
+
+	LE_INFO("Will the program even start, or is it the le_mrc api inclusion?");
+
+	for(int i = 0; i&lt;1000; i++){
+		usleep(1000);
+	}
+
+    le_mrc_ConnectService();
+
+	le_mrc_GetRadioPower(&amp;cellular_onoff);
+
+	if(cellular_onoff == LE_OFF){
+		LE_INFO("Modem is off.");
+	}else{
+		LE_INFO("Modem is on.");
+	}
+
+	exit(0);
+}
+</code></pre>
+<hr>
+<p>Log output when the program is run. Note the timestamp is not correct.</p>
+<pre><code>Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c app_Start() 3469 | Starting app 'data_app'
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link '/dev/log' to '/legato/systems/current/appsWriteable/data_app/dev/log': Already exists
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link '/dev/null' to '/legato/systems/current/appsWriteable/data_app/dev/null': Already exists
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link '/dev/zero' to '/legato/systems/current/appsWriteable/data_app/dev/zero': Already exists
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link '/dev/urandom' to '/legato/systems/current/appsWriteable/data_app/dev/urandom': Already exists
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link '/legato/systems/current/lib/liblegato.so' to '/legato/systems/current/appsWriteable/data_app/lib/liblegato.so': Already exists
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link '/lib/ld-linux.so.3' to '/legato/systems/current/appsWriteable/data_app/lib/ld-linux.so.3': Already exists
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link '/lib/libc.so.6' to '/legato/systems/current/appsWriteable/data_app/lib/libc.so.6': Already exists
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link '/lib/libpthread.so.0' to '/legato/systems/current/appsWriteable/data_app/lib/libpthread.so.0': Already exists
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link '/lib/librt.so.1' to '/legato/systems/current/appsWriteable/data_app/lib/librt.so.1': Already exists
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link '/lib/libdl.so.2' to '/legato/systems/current/appsWriteable/data_app/lib/libdl.so.2': Already exists
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link '/lib/libgcc_s.so.1' to '/legato/systems/current/appsWriteable/data_app/lib/libgcc_s.so.1': Already exists
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link '/lib/libm.so.6' to '/legato/systems/current/appsWriteable/data_app/lib/libm.so.6': Already exists
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link '/usr/lib/libstdc++.so.6' to '/legato/systems/current/appsWriteable/data_app/lib/libstdc++.so.6': Already exists
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link '/legato/systems/current/apps/data_app/read-only/lib/libComponent_cellular.so' to '/legato/systems/current/appsWriteable/data_app/lib
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link '/legato/systems/current/apps/data_app/read-only/bin/data_app' to '/legato/systems/current/appsWriteable/data_app/bin/data_app': Alre
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateTmpFs() 1787 | Mounted tmpfs at /legato/systems/current/appsWriteable/data_app/tmp.
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateFileLink() 2153 | Created file link '/tmp/legato/serviceDirectoryServer' to '/legato/systems/current/appsWriteable/data_app/tmp/legato/serviceDirectoryServer'.
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c CreateFileLink() 2153 | Created file link '/tmp/legato/serviceDirectoryClient' to '/legato/systems/current/appsWriteable/data_app/tmp/legato/serviceDirectoryClient'.
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | resourceLimits.c GetCfgResourceLimit() 207 | Configured resource limit maxStackBytes is not available.  Using the default value 0.
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | proc.c proc_Start() 1403 | Starting process 'data_app' with pid 6272
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | supervisor.c SigChildHandler() 899 | Reaping unconfigured child process 6268.
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[6272]/supervisor T=main | proc.c proc_Start() 1363 | Execing 'data_app'
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[6272]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxCoreDumpFileBytes to value 102400.
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[6272]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxFileBytes to value 102400.
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[6272]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxLockedMemoryBytes to value 8192.
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[6272]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxFileDescriptors to value 256.
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[6272]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxMQueueBytes to value 512.
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[6272]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxThreads to value 20.
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[6272]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxQueuedSignals to value 100.
+Jan  7 09:33:01 swi-mdm9x28-wp user.err Legato: =ERR= | serviceDirectory[1077]/serviceDirectory T=main | serviceDirectory.c DispatchToServer() 713 | Client (uid 1027 'appdata_app', pid 6272) disagrees with server (uid 0 'root', pid 1198) on protocol ID of service 'data_app.c
+Jan  7 16:33:01 swi-mdm9x28-wp user.emerg Legato: *EMR* | _UNKNOWN_[6272]/framework T=main | messagingSession.c ReceiveSessionOpenResponse() 699 | Unexpected server response: -6 (LE_FAULT).
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | proc.c proc_SigChildHandler() 2079 | Process 'data_app' (PID: 6272) has exited with exit code 1.
+Jan  7 09:33:01 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[1058]/supervisor T=main | app.c app_SigChildHandler() 4064 | Process 'data_app' in app 'data_app' faulted: Ignored.
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | app.c app_StopComplete() 4751 | app 'data_app' has stopped.
+Jan  7 09:33:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1058]/supervisor T=main | apps.c DeactivateAppContainer() 374 | Application 'data_app' has stopped.
+</code></pre>
+<p>Everything looks normal until the user level error <code>serviceDirectory[1077]/serviceDirectory T=main | serviceDirectory.c DispatchToServer() 713 | Client (uid 1027 'appdata_app', pid 6272) disagrees with server (uid 0 'root', pid 1198) on protocol ID of service 'data_app.c</code> at which point legato faults and kills the app.</p>
+<p>If I remove all references to the mrc api and its function calls, then it compiles and runs just fine. Although if everything is removed then the app does absolutely nothing useful…</p>
+<p>It sounds like this error has to do with the IPC protocol of the app. In any case if anyone has any input, I’d love to hear how you overcame this, or a functional workaround.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/including-le-mrc-causes-errors-on-very-simple-app/4920">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-27T02:17:54Z' class='post-time'>
+                    July 27, 2020,  2:17am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-27T02:33:03Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>you can have a look on sample application modemDemo on how to use the le_mrc.</p>
+<aside class="onebox githubblob">
+  <header class="source">
+      <a href="https://github.com/legatoproject/legato-af/blob/master/apps/sample/modemDemo/modemDemo.adef" target="_blank" rel="nofollow noopener">github.com</a>
+  </header>
+  <article class="onebox-body">
+    <h4><a href="https://github.com/legatoproject/legato-af/blob/master/apps/sample/modemDemo/modemDemo.adef" target="_blank" rel="nofollow noopener">legatoproject/legato-af/blob/master/apps/sample/modemDemo/modemDemo.adef</a></h4>
+<pre><code class="lang-adef">executables:
+{
+    modemDemo = ( demoComponent )
+    send      = ( sendComponent )
+}
+
+processes:
+{
+    run:
+    {
+        ( modemDemo )
+
+// To have the app send you an SMS upon start,
+// please uncomment this line and replace &lt;Input number&gt; by your cell number
+//        ( send "&lt;input number&gt;" "Welcome to modemDemo app")
+    }
+}
+
+start: auto
+
+</code></pre>
+
+  This file has been truncated. <a href="https://github.com/legatoproject/legato-af/blob/master/apps/sample/modemDemo/modemDemo.adef" target="_blank" rel="nofollow noopener">show original</a>
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+<p>BTW, why do you add the exit(0); in your program?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/CT1'><span itemprop='name'>CT1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/including-le-mrc-causes-errors-on-very-simple-app/4920">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-27T16:49:00Z' class='post-time'>
+                    July 27, 2020,  4:49pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-27T16:49:00Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I’ve read the documentation. I’ve looked through most of the apps in the legato github repository. None of the commit comments indicate problems like this.</p>
+<p>To answer the question about why I included exit(0):</p>
+<ol>
+<li>Habit</li>
+<li>Without exit(0) the app manager doesn’t know the program has finished, and subsequent calls to <code>app status</code> indicate the program is still running.</li>
+</ol>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/including-le-mrc-causes-errors-on-very-simple-app/4920">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-28T00:45:25Z' class='post-time'>
+                    July 28, 2020, 12:45am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-28T00:45:25Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You can start with the modemdemo app as it should be working fine</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/CT1'><span itemprop='name'>CT1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/including-le-mrc-causes-errors-on-very-simple-app/4920">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-30T01:25:18Z' class='post-time'>
+                    July 30, 2020,  1:25am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-30T01:25:18Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>“should be working fine” doesn’t mean it’s documented well. This is as much a question of documentation as is it towards why including this API results in a program that compiles but won’t run.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/including-le-mrc-causes-errors-on-very-simple-app/4920">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-30T01:40:48Z' class='post-time'>
+                    July 30, 2020,  1:40am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-30T01:40:48Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I am sorry that i don’t quite understand why you don’t start with the modemDemo application which already is working fine but sticking with your application which causes errors.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/CT1'><span itemprop='name'>CT1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/including-le-mrc-causes-errors-on-very-simple-app/4920">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-30T04:15:36Z' class='post-time'>
+                    July 30, 2020,  4:15am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-30T04:15:36Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>The modemDemo app compiles, and returns the exact same problem as I’ve demonstrated with my code. This is why I pulled back the layers until I skimmed everything I could away from the app. It seems like the inclusion of this API isn’t working.</p>
+<p><a class="mention" href="/u/dfrey">@dfrey</a> care to chime in?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/including-le-mrc-causes-errors-on-very-simple-app/4920">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-30T04:49:01Z' class='post-time'>
+                    July 30, 2020,  4:49am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-30T04:49:01Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>How did you run the modemDemo app?<br>
+In my side, I run the following command<br>
+<code>app runProc modemDemo1 send --exe=send -- 1234567 "Online"</code></p>
+<p>After that I can establish data connection in WP76 FW 13.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/CT1'><span itemprop='name'>CT1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/including-le-mrc-causes-errors-on-very-simple-app/4920">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-30T05:58:27Z' class='post-time'>
+                    July 30, 2020,  5:58am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-30T05:58:27Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Fixed it. After recompiling leaf and reflashing the module both programs run fine.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/acek'><span itemprop='name'>acek</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/including-le-mrc-causes-errors-on-very-simple-app/4920">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-04T16:53:42Z' class='post-time'>
+                    March 4, 2021,  4:53pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-04T16:53:42Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello <a class="mention" href="/u/ct1">@CT1</a> <a class="mention" href="/u/jyijyi">@jyijyi</a> , How did you manage to solve this issue on the MangoH red board. I am also facing a similar issue. I tried the modemDemo example but I am getting the same error:-</p>
+<pre><code>Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[881]/supervisor T=main | proc.c proc_Start() 1403 | Starting process 'modemDemo' with pid 14241
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[881]/supervisor T=main | resourceLimits.c GetCfgResourceLimit() 207 | Configured resource limit maxStackBytes is not available.  Using the default value 0.
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[881]/supervisor T=main | proc.c proc_Start() 1403 | Starting process 'send' with pid 14242
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[881]/supervisor T=main | supervisor.c SigChildHandler() 899 | Reaping unconfigured child process 14237.
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[14241]/supervisor T=main | proc.c proc_Start() 1363 | Execing 'modemDemo'
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[14241]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxCoreDumpFileBytes to value 102400.
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[14241]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxFileBytes to value 102400.
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[14241]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxLockedMemoryBytes to value 8192.
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[14241]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxFileDescriptors to value 256.
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[14241]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxMQueueBytes to value 512.
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[14241]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxThreads to value 20.
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[14241]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxQueuedSignals to value 100.
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[14242]/supervisor T=main | proc.c proc_Start() 1363 | Execing 'send'
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[14242]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxCoreDumpFileBytes to value 102400.
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[14242]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxFileBytes to value 102400.
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[14242]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxLockedMemoryBytes to value 8192.
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[14242]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxFileDescriptors to value 256.
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[14242]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxMQueueBytes to value 512.
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[14242]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxThreads to value 20.
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[14242]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxQueuedSignals to value 100.
+Mar  4 17:52:22 swi-mdm9x28-wp user.err Legato: =ERR= | serviceDirectory[892]/serviceDirectory T=main | serviceDirectory.c DispatchToServer() 734 | Client (uid 1027 'appmodemDemo', pid 14241) disagrees with server (uid 0 'root', pid 1665) on max message size (205 vs. 201) of
+Mar  4 16:52:22 swi-mdm9x28-wp user.emerg Legato: *EMR* | _UNKNOWN_[14241]/framework T=main | messagingSession.c ReceiveSessionOpenResponse() 699 | Unexpected server response: -6 (LE_FAULT).
+Mar  4 17:52:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[881]/supervisor T=main | proc.c proc_SigChildHandler() 2079 | Process 'modemDemo' (PID: 14241) has exited with exit code 1.
+Mar  4 17:52:22 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[881]/supervisor T=main | app.c app_SigChildHandler() 4066 | Process 'modemDemo' in app 'modemDemo' faulted: Ignored.
+Mar  4 17:52:25 swi-mdm9x28-wp user.err Legato: =ERR= | supervisor[881]/supervisor T=main | app.c app_CreateProc() 4200 | Process 'send' in app 'modemDemo' is already running.</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/CT1'><span itemprop='name'>CT1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/including-le-mrc-causes-errors-on-very-simple-app/4920">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-04T20:02:34Z' class='post-time'>
+                    March 4, 2021,  8:02pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-04T20:02:34Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I found my settings for the leaf profile mismatched the firmware/software on the modem, and so the code was compiled wrong, and that’s why it was throwing the error.<br>
+Use <code>legato version</code> on the mangoh board to tell you exactly which revision of software it’s running, then on your host use <code>leaf profile</code> to double check the revision is the same on your current profile. Follow <a href="https://docs.legato.io/latest/confLeaf.html#confLeafsearchTarget" rel="noopener nofollow ugc">these</a> directions to set up a new profile with the correct firmware version, OR, flash new firmware to the mangoh board.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

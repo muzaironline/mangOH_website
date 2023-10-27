@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>UART on IoT Connector - IoT Cards - mangOH forum</title>
+    <meta name="description" content="I am trying to talk UART to an HL 7748 on the mangOH red board via an external MCU. My goal is to send AT commands to the HL. I’m trying to do this via the IoT connector breakout board. UART looks to be pins 12 and 13. W&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/uart-on-iot-connector/1246" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;UART on IoT Connector&#39;" href="https://forum.mangoh.io/t/uart-on-iot-connector/1246.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/uart-on-iot-connector/1246" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/uart-on-iot-connector/1246" />
+<meta property="og:title" content="UART on IoT Connector" />
+<meta name="twitter:title" content="UART on IoT Connector" />
+<meta property="og:description" content="I am trying to talk UART to an HL 7748 on the mangOH red board via an external MCU. My goal is to send AT commands to the HL. I’m trying to do this via the IoT connector breakout board. UART looks to be pins 12 and 13. Will only connecting these work? What about the n_card_detect ? Are those signals to the IOT connector only enabled if the n_card_detect is low ?" />
+<meta name="twitter:description" content="I am trying to talk UART to an HL 7748 on the mangOH red board via an external MCU. My goal is to send AT commands to the HL. I’m trying to do this via the IoT connector breakout board. UART looks to be pins 12 and 13. Will only connecting these work? What about the n_card_detect ? Are those signals to the IOT connector only enabled if the n_card_detect is low ?" />
+<meta property="og:article:section" content="IoT Cards" />
+<meta property="og:article:section:color" content="621B4B" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="2 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="1 ❤" />
+<meta property="article:published_time" content="2018-03-15T18:31:20+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"UART on IoT Connector","mainEntity":{"@type":"Question","name":"UART on IoT Connector","text":"I am trying to talk UART to an HL 7748 on the mangOH red board via an external MCU. My goal is to send AT commands to the HL. I’m trying to do this via the IoT connector breakout board. UART looks to be pins 12 and 13. Will only connecting these work? What about the n_card_detect ? Are those signals&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2018-03-15T18:31:20.330Z","author":{"@type":"Person","name":""}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/uart-on-iot-connector/1246">UART on IoT Connector</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/iot-cards/8" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #621B4B'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>IoT Cards</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='UART on IoT Connector'>
+        <meta itemprop='articleSection' content='IoT Cards'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Alex'><span itemprop='name'>Alex</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-on-iot-connector/1246">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-03-15T18:31:20Z' class='post-time'>
+                    March 15, 2018,  6:31pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-03-15T18:31:20Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>I am trying to talk UART to an HL 7748 on the mangOH red board via an external MCU. My goal is to send AT commands to the HL. I’m trying to do this via the IoT connector breakout board. UART looks to be pins 12 and 13. Will only connecting these work? What about the n_card_detect ? Are those signals to the IOT connector only enabled if the n_card_detect is low ?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-on-iot-connector/1246">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-03-16T03:07:16Z' class='post-time'>
+                    March 16, 2018,  3:07am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-03-16T03:07:16Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>maybe you need to talk to <a class="mention" href="/u/davidc">@davidc</a></p>
+<p><a class="mention" href="/u/davidc">@davidc</a> did you want to showcase what you just built?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Alex'><span itemprop='name'>Alex</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-on-iot-connector/1246">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-03-16T03:39:13Z' class='post-time'>
+                    March 16, 2018,  3:39am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-03-16T04:10:23Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi David. So I am evaluating the WP8548 and the HL7800 (i think we have a 7748 now until 7800 becomes available). I’m wanting to send AT commands from an external microcontroller to the HL chip. I’m not receiving anything back on the HL. I am using UART1 in the IOT connector. Also tried the rasp pi connector. Swapped out the HL for the WP and did get data back from WP, but it is “garbage”. I am still digging through all the datasheets.  AT!MAPUART tells me that UART1 is mapped to AT commands, so I still need to do some debugging.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/davidc'><span itemprop='name'>davidc</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-on-iot-connector/1246">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-03-26T05:06:01Z' class='post-time'>
+                    March 26, 2018,  5:06am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-03-26T05:06:01Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Alex,</p>
+<p>Sorry for delay. I’ve PM’d you with more info.</p>
+<p>ciao, Dave</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Alex'><span itemprop='name'>Alex</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-on-iot-connector/1246">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-23T22:55:46Z' class='post-time'>
+                    April 23, 2018, 10:55pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-23T22:55:46Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>For those who may read this post in the future, here are some tips to get UART1 working:</p>
+<p>I have got the UART1 working on the Raspberry Pi header to send and receive AT commands to the cellular chips.  I am using an external microcontroller to talk UART to both the WP and HL chips.  There is a level shifter on the mangOH Red board for the RPi header, so this is the reason I am using it (CF3 modules are 1.8V, but my uC is 3.3).  David will have his  board soon that will be able to connect to the IoT slot and use the UART on that connector.  I did not have to configure the WP or HL chip to get UART1 working on RPi header.  On the WP chip, when I type at!mapuart?, I get 1,16,  I think this was the configuration when I first got the chip.  This says UART1 is configured for AT and UART2 is for console.  I also had to change the UART settings on my microcontroller.  I could not find much information about the settings online but the most important one was parity bit set to none.  When using the HL chip, since I am only using 2 wire UART, I had to tie the RTS and CTS together.  The HL chip would not respond without this.  The WP chip did not require tying RTS and CTS together for some reason. Also if sending AT commands to these chips with a microcontroller, keep in mind the cellular chip might echo your command back to you.  This can be turned on and off via ATE0/1 command.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/communication-with-hl8548-using-uart1/430/14">Communication with HL8548 using Uart1</a>
+                        <meta itemprop='position' content='1'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hitheshkaranth'><span itemprop='name'>hitheshkaranth</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-on-iot-connector/1246">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-26T12:21:30Z' class='post-time'>
+                    April 26, 2018, 12:21pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-26T12:21:30Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/alex">@Alex</a></p>
+<p>In accordance to your above statement is there a way to configure the CN307(Rpi Header) especially(Pin 10,8) as UART ports and use it for any external micro controller usage. I do belive that the above statment meets my necessity too so can you explain in detail how did you acheive this one? Thanks in advance.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Alex'><span itemprop='name'>Alex</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-on-iot-connector/1246">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-26T15:14:05Z' class='post-time'>
+                    April 26, 2018,  3:14pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-26T15:18:08Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Yes, that is exactly what I am doing. I am sending AT commands with an external MCU. If your MCU uses 3.3V, it should work fine via RPi.  When David’s board is available for purchase, you can then use it for IOT connector if mcu voltage is &gt; 1.8V. There is not much to it for RPi. Connect the Rx and Tx lines, as well as a ground. If you are using an HL chip, tie the Rts and Cts together (I did this on the IOT connector ). Make sure th MCU uart settings are 115200 baud rate , no parity , and one stop bit. Though I do need to look into this and figure out how to get error checking working. When I had parity set, my MCU would receive incorrect responses, so I need to figure out how to set it on the HL and WP. But this will get you started. When I start working on it again I will report back. Let me know if you have any questions. I started out just sending “AT\r”. And I would get an “OK” as a response. It will echo the command you sent to it as that setting is on by default , so keep this in mind. On the HL i am getting a few “extra” carriage returns and line feeds, but it is consistent in this. Something else I need to look at. The WP will respond with carriage return , new line , OK, which is more of what I expect. I have sent many other commands too, like at!mapuart? And get good responses.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342/12">Where do I start from to get GPS data transfered via UART on WP7502 using mangOH red?</a>
+                        <meta itemprop='position' content='1'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hitheshkaranth'><span itemprop='name'>hitheshkaranth</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-on-iot-connector/1246">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-28T07:16:10Z' class='post-time'>
+                    April 28, 2018,  7:16am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-28T07:16:10Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/alex">@Alex</a></p>
+<blockquote>
+<p>I belive /dev/ttyHS0 is the directory under taken to use UART0 which is on port 10,8 of CN307 right?</p>
+</blockquote>
+<blockquote>
+<p>This is also considered as uart1 when enabling using “uartMode set 1 app” am i wrong in this one?</p>
+</blockquote>
+<blockquote>
+<p>is linux application mode is considered for usage of uart using application developed via developer studio ?</p>
+</blockquote>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Alex'><span itemprop='name'>Alex</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-on-iot-connector/1246">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-05-04T05:14:01Z' class='post-time'>
+                    May 4, 2018,  5:14am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-05-23T20:45:25Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Worked more on the UART1 via Raspberry Pi connector today.  I am able to use my microcontroller to send SMS messages on the mangOH board with the WP chip.  I am using the WP first because I can easily bring up tera term to send AT messages and verify my work.  I hope the HL chip behaves the same way, but I will try it out soon.  I have been told that they should be exactly the same in this regard ie. If I have code to work with the WP, I should be able to swap out to the HL and it will behave the same.  We will see…</p>
+<p>Edit : I am not able to just simply switch out the WP and HL chip and send AT commands to get the SMS and cellular to work. The WP 8548 chip is 3G technology and will work with many different SIM cards. The HL 7748 uses LTE CAT M1, thus needs a CAT M1 SIM card. Finding a CAT M1 SIM card has been harder than I thought. But I do have some on their way from ATT.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

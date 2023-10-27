@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Fatal error on the modem issue on WP7605 (with R16)</title>
+    <link>https://forum.mangoh.io/t/fatal-error-on-the-modem-issue-on-wp7605-with-r16/9697</link>
+    <description>The system keeps getting Fatal error on the modem and reboot after I enable WIFI and LTE functions..
+![image|364x500](upload://bp1Guych8P3zn3xSa8JbbBDF4UG.png)
+
+Device:                        WP7605
+IMEI:                          353532100111918
+IMEISV:                        E
+FSN:                           2A949485391010
+Firmware Version:              SWI9X07Y_02.37.03.00 73df45 jenkins 2020/04/08 10:59:14
+Bootloader Version:            SWI9X07Y_02.37.03.00 73df45 jenkins 2020/04/08 10:59:14
+MCU Version:
+PRI Part Number (PN):          9908705
+PRI Revision:                  002.006
+Carrier PRI Name:              GENERIC
+Carrier PRI Revision:          002.095_000
+SKU:                           1104208
+Last Reset Cause:              Crash
+Resets Count:                  Expected: 49     Unexpected: 6
+
+
+I’m not sure what caused the system crash, but someone have the same problem  on the forum :
+
+https://forum.sierrawireless.com/t/wp7702-crashes-when-using-nb-iot/17410
+https://forum.mangoh.io/t/intermittent-wp7700-module-failure-fatal-error-on-the-modem/2499/3
+https://forum.mangoh.io/t/intermittent-wp7700-module-failure-fatal-error-on-the-modem/2499/4
+
+What is the cause of this? and how can I fix this problem?
+ Thank you</description>
+    
+    <lastBuildDate>Wed, 27 Apr 2022 10:04:45 +0000</lastBuildDate>
+    <category>Uncategorized</category>
+    <atom:link href="https://forum.mangoh.io/t/fatal-error-on-the-modem-issue-on-wp7605-with-r16/9697.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Fatal error on the modem issue on WP7605 (with R16)</title>
+        <dc:creator><![CDATA[bruceke]]></dc:creator>
+        <description><![CDATA[
+            <p>okay , I will try to verify with R13 , thanks.</p>
+          <p><a href="https://forum.mangoh.io/t/fatal-error-on-the-modem-issue-on-wp7605-with-r16/9697/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/fatal-error-on-the-modem-issue-on-wp7605-with-r16/9697/5</link>
+        <pubDate>Fri, 08 Oct 2021 05:51:44 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9697-5</guid>
+        <source url="https://forum.mangoh.io/t/fatal-error-on-the-modem-issue-on-wp7605-with-r16/9697.rss">Fatal error on the modem issue on WP7605 (with R16)</source>
+      </item>
+      <item>
+        <title>Fatal error on the modem issue on WP7605 (with R16)</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I don’t see original LTE connection is disconnected after USB cable connected to PC with FW R13:</p>
+<pre><code class="lang-auto">
+Poky (Yocto Project Reference Distro) 2.5.2 swi-mdm9x28-wp /dev/ttyHSL1
+
+swi-mdm9x28-wp login: root
+root@swi-mdm9x28-wp:~#
+root@swi-mdm9x28-wp:~# echo NO_SLEEP &gt; /sys/power/wake_lock
+root@swi-mdm9x28-wp:~#
+root@swi-mdm9x28-wp:~# cm data apn smartone
+root@swi-mdm9x28-wp:~#
+root@swi-mdm9x28-wp:~# [   83.775632] Failed to wake up the USB core. ret=-95
+[   83.781008] Failed to wake up the USB core. ret=-95
+[   84.062658] Failed to wake up the USB core. ret=-95
+[   84.871693] Failed to wake up the USB core. ret=-95
+[   84.892822] Failed to wake up the USB core. ret=-95
+
+root@swi-mdm9x28-wp:~#
+root@swi-mdm9x28-wp:~# cm data
+Index:                         1
+APN:                           smartone
+PDP Type:                      IPV4
+Connected:                     no
+Auth type:                     PAP
+User name:
+Password:
+root@swi-mdm9x28-wp:~#
+root@swi-mdm9x28-wp:~# cm data connect &amp;
+root@swi-mdm9x28-wp:~#
+root@swi-mdm9x28-wp:~# Setting up profile 1
+Connecting ... ok
+Checking if device 'rmnet_data0' is up ... ok
+Routing inet ... ok
+mv: can't remove '/etc/resolv.conf': Device or resource busy
+Updating /etc/resolv.conf ... ok
+Updating /etc/resolv.conf ... ok
+Testing connection ...
+root@swi-mdm9x28-wp:~#
+root@swi-mdm9x28-wp:~# cm data
+Index:                         1
+APN:                           smartone
+PDP Type:                      IPV4
+Connected:                     yes
+Auth type:                     PAP
+User name:
+Password:
+Interface:                     rmnet_data0
+Family[IPv4]:                  inet
+IP[IPv4]:                      10.158.102.153
+Gateway[IPv4]:                 10.158.102.154
+Dns1[IPv4]:                    10.30.23.133
+Dns2[IPv4]:                    10.30.25.133
+root@swi-mdm9x28-wp:~#
+
+
+//here I connect the USB cable from PC
+
+
+root@swi-mdm9x28-wp:~# [  101.263088] ch_notify on a closed smd_pkt_dev id:2
+
+root@swi-mdm9x28-wp:~#
+root@swi-mdm9x28-wp:~# cm data
+Index:                         1
+APN:                           smartone
+PDP Type:                      IPV4
+Connected:                     yes
+Auth type:                     PAP
+User name:
+Password:
+Interface:                     rmnet_data0
+Family[IPv4]:                  inet
+IP[IPv4]:                      10.158.102.153
+Gateway[IPv4]:                 10.158.102.154
+Dns1[IPv4]:                    10.30.23.133
+Dns2[IPv4]:                    10.30.25.133
+
+
+root@swi-mdm9x28-wp:~# microcom /dev/ttyAT
+ati3
+Manufacturer: Sierra Wireless, Incorporated
+Model: WP7609
+Revision: SWI9X07Y_02.28.03.05 000000 jenkins 2019/07/08 11:04:16
+IMEI: 359782080100373
+IMEI SV:  6
+FSN: WA803370311610
++GCAP: +CGSM
+
+OK
+[  263.067911] i2c-msm-v2 78b8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x3a MSTR_STS:0x0c1300c8 OPER:0x00000090
+[  263.083969] i2c-msm-v2 78b8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x3a MSTR_STS:0x0c1300c8 OPER:0x00000090
+
+Legato Ver: 19.02.0_4cb954265427b8c2c668a010ff5be274
+Yocto Ver:  FLDIST00_02.28.03.05 2021-09-17_11:30:43
+OS Ver: Linux version 3.18.131 (oe-user@oe-host) (gcc version 7.3.0 (GCC) ) #1 PREEMPT Fri Sep 17 10:55:21 UTC 2021
+LK Ver: SWI9X07Y_02.28.03.05
+RootFS Ver: FLDIST00_02.28.03.05 2021-09-17_11:30:43
+UserFS Ver: unknown
+MCU Ver: 002.011
+
+OK
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/fatal-error-on-the-modem-issue-on-wp7605-with-r16/9697/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/fatal-error-on-the-modem-issue-on-wp7605-with-r16/9697/4</link>
+        <pubDate>Wed, 06 Oct 2021 08:55:19 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9697-4</guid>
+        <source url="https://forum.mangoh.io/t/fatal-error-on-the-modem-issue-on-wp7605-with-r16/9697.rss">Fatal error on the modem issue on WP7605 (with R16)</source>
+      </item>
+      <item>
+        <title>Fatal error on the modem issue on WP7605 (with R16)</title>
+        <dc:creator><![CDATA[bruceke]]></dc:creator>
+        <description><![CDATA[
+            <p>After the test, it seems that it is more likely to happen when the USB cable is connected … so I don’t think it’s caused by electric current.</p>
+<p>Another issue is LTE disconnection after USB cable connect to PC , the original LTE connection will be disconnected<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/7388880ba3757f5192615c7bbc0eee7fb60a9393.png" data-download-href="/uploads/short-url/gu3qqPQB0QGH2aCwt7zfXqG2s6v.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/7388880ba3757f5192615c7bbc0eee7fb60a9393.png" alt="image" data-base62-sha1="gu3qqPQB0QGH2aCwt7zfXqG2s6v" width="690" height="266" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7388880ba3757f5192615c7bbc0eee7fb60a9393_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/fatal-error-on-the-modem-issue-on-wp7605-with-r16/9697/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/fatal-error-on-the-modem-issue-on-wp7605-with-r16/9697/3</link>
+        <pubDate>Wed, 06 Oct 2021 08:44:14 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9697-3</guid>
+        <source url="https://forum.mangoh.io/t/fatal-error-on-the-modem-issue-on-wp7605-with-r16/9697.rss">Fatal error on the modem issue on WP7605 (with R16)</source>
+      </item>
+      <item>
+        <title>Fatal error on the modem issue on WP7605 (with R16)</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>can it be a possibility that not enough current provided to the module?</p>
+          <p><a href="https://forum.mangoh.io/t/fatal-error-on-the-modem-issue-on-wp7605-with-r16/9697/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/fatal-error-on-the-modem-issue-on-wp7605-with-r16/9697/2</link>
+        <pubDate>Tue, 05 Oct 2021 09:59:08 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9697-2</guid>
+        <source url="https://forum.mangoh.io/t/fatal-error-on-the-modem-issue-on-wp7605-with-r16/9697.rss">Fatal error on the modem issue on WP7605 (with R16)</source>
+      </item>
+      <item>
+        <title>Fatal error on the modem issue on WP7605 (with R16)</title>
+        <dc:creator><![CDATA[bruceke]]></dc:creator>
+        <description><![CDATA[
+            <p>The system keeps getting Fatal error on the modem and reboot after I enable WIFI and LTE functions…<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/4/4fec2854b7da8f6707c7ef8f0fc108c5ae34cf92.png" data-download-href="/uploads/short-url/bp1Guych8P3zn3xSa8JbbBDF4UG.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/4/4fec2854b7da8f6707c7ef8f0fc108c5ae34cf92.png" alt="image" data-base62-sha1="bp1Guych8P3zn3xSa8JbbBDF4UG" width="364" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/4/4fec2854b7da8f6707c7ef8f0fc108c5ae34cf92_2_10x10.png"></a></div><p></p>
+<p>Device:                        WP7605<br>
+IMEI:                          353532100111918<br>
+IMEISV:                        E<br>
+FSN:                           2A949485391010<br>
+Firmware Version:              SWI9X07Y_02.37.03.00 73df45 jenkins 2020/04/08 10:59:14<br>
+Bootloader Version:            SWI9X07Y_02.37.03.00 73df45 jenkins 2020/04/08 10:59:14<br>
+MCU Version:<br>
+PRI Part Number (PN):          9908705<br>
+PRI Revision:                  002.006<br>
+Carrier PRI Name:              GENERIC<br>
+Carrier PRI Revision:          002.095_000<br>
+SKU:                           1104208<br>
+Last Reset Cause:              Crash<br>
+Resets Count:                  Expected: 49     Unexpected: 6</p>
+<p>I’m not sure what caused the system crash, but someone have the same problem  on the forum :</p>
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.sierrawireless.com/t/wp7702-crashes-when-using-nb-iot/17410">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/1fc275dea17943ec40a824dc4b7ad3839eb8d72d.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.sierrawireless.com/t/wp7702-crashes-when-using-nb-iot/17410" target="_blank" rel="noopener nofollow ugc" title="10:02AM - 28 August 2019">Sierra Wireless Forum – 28 Aug 19</a>
+  </header>
+
+  <article class="onebox-body">
+    <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png" class="thumbnail onebox-avatar" width="500" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_10x10.png">
+
+<h3><a href="https://forum.sierrawireless.com/t/wp7702-crashes-when-using-nb-iot/17410" target="_blank" rel="noopener nofollow ugc">WP7702 Crashes when using NB-IoT</a></h3>
+
+  <p>Hi,  I am trying to connect to the NB-IoT network but unfortunately the modem crashes after setting the RAT to LTE. The connection is working fine via GSM, but after switching to LTE the OS crashes and reboots. After the reboot it still crashes until...</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+<aside class="quote" data-post="3" data-topic="2499">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/mpetersen/40/1177_2.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/intermittent-wp7700-module-failure-fatal-error-on-the-modem/2499/3">Intermittent WP7700 module Failure: [Fatal error on the modem]</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-red/12"><span class="badge-category-bg" style="background-color: #DF1E2E;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-red">mangOH Red</span></a>
+  </div>
+  <blockquote>
+    Asyal, 
+Thanks for hte suggestion - precisely what I planned for 1st thing this morning - get a baseline. 
+I’ve reflashed the modem firmware (ATT v9.1) - with no change. 
+I’m not quite clear on a baseline build to load - or if the Recovery Procedure is what you imply. 
+(incidentally per Shib’s recommendation I have built with the latest Legato 18.10.3). 
+Appreciate any clarity/pointers, 
+Mike
+  </blockquote>
+</aside>
+<aside class="quote quote-modified" data-post="4" data-topic="2499">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/r/da6949/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/intermittent-wp7700-module-failure-fatal-error-on-the-modem/2499/4">Intermittent WP7700 module Failure: [Fatal error on the modem]</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-red/12"><span class="badge-category-bg" style="background-color: #DF1E2E;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-red">mangOH Red</span></a>
+  </div>
+  <blockquote>
+    Hi Mike, 
+Just linking the two posts, in case anyone can use the response posted in the general WP forum: 
+ 
+ 
+Thanks, 
+Ryan
+  </blockquote>
+</aside>
+
+<p>What is the cause of this? and how can I fix this problem?<br>
+Thank you</p>
+          <p><a href="https://forum.mangoh.io/t/fatal-error-on-the-modem-issue-on-wp7605-with-r16/9697/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/fatal-error-on-the-modem-issue-on-wp7605-with-r16/9697/1</link>
+        <pubDate>Tue, 05 Oct 2021 09:47:38 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9697-1</guid>
+        <source url="https://forum.mangoh.io/t/fatal-error-on-the-modem-issue-on-wp7605-with-r16/9697.rss">Fatal error on the modem issue on WP7605 (with R16)</source>
+      </item>
+  </channel>
+</rss>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Lsusb not found, unable to mount usb drive</title>
+    <link>https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893</link>
+    <description>On module: **mangOH Red (WP7608)**, with firmware **version 9** and **legato ver 18.03**.
+
+Trying to insert a memory stick into the USB host port of mangOH red. It&#39;s led is blinking and dmesg shows it&#39;s connected properly without errors.
+
+&gt; root@swi-mdm9x28:~# lsusb
+&gt; -sh: lsusb: not found
+
+Even if lsusb isn&#39;t found, the module crashes completely when I use:
+
+&gt; root@swi-mdm9x28:~# fdisk -l
+&gt; Disk /dev/mtdblock0: 2 MB, 2621440 bytes
+&gt; 255 heads, 63 sectors/track, 0 cylinders
+&gt; Units = cylinders of 16065 * 512 = 8225280 bytes
+&gt; 
+&gt; Disk /dev/mtdblock0 doesn&#39;t contain a valid partition table
+
+command, preventing me from even being able to mount it. I did a &quot;Erase user partition&quot; from Legato Developer Studio, did that remove some files? This is happening on all firmware versions (tested 6, 8 and 9).</description>
+    
+    <lastBuildDate>Sat, 15 Sep 2018 13:21:20 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Lsusb not found, unable to mount usb drive</title>
+        <dc:creator><![CDATA[mallets]]></dc:creator>
+        <description><![CDATA[
+            <p>Thank you! Mounting USB sticks is working fine now. Your script works alright, but wanted to add native lsusb. Added <code>IMAGE_INSTALL_append = " usbutils"</code> to <code>mdm9x28-image.inc</code> (any better to place to add it?) within the yocto recipes and it successfully added the binaries. But, lsusb is still giving the below issue:</p><aside class="quote quote-modified" data-post="1" data-topic="1372">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/j/c89c15/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/libusb-partly-working-on-red-cannot-find-usbfs/1372">Libusb partly working on red - cannot find usbfs</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-red/12"><span class="badge-category-bg" style="background-color: #DF1E2E;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-red">mangOH Red</span></a>
+  </div>
+  <blockquote>
+    Hi 
+I am working with a mangoh red board with a wp7502 
+I am having problems with libusb, that seems to be partly working, 
+If I call lsusb it will break with an "exception unable to initialize libusb: -99" but libusb -t  seems to work 
+I have tried the fixes i <a href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033/17">USB driver failing to find or power USBs</a>  with no luck. 
+When I try to call libusb from python it seqfaults and if i try from mono i am able to get libusbversion but as soon as try to get the device list it seqfaults. 
+I also have tried t…
+  </blockquote>
+</aside>
+
+<p>But the package added another bin named lsusb.py, which seems to be working partly.</p>
+<p>lsusb.py:</p>
+<blockquote>
+<p>root@swi-mdm9x28:~# lsusb.py<br>
+WARNING: Failure to read usb.ids<br>
+(&lt;type ‘exceptions.IOError’&gt;, IOError(2, ‘No such file or directory’), &lt;traceback object at 0xb6d43030&gt;)<br>
+usb1             1d6b:0002 09  2.00  480MBit/s 0mA 1IF  (Linux 3.18.44 ehci_hcd Qualcomm EHCI Host Controller using HSIC 7c00000.hsic_host) hub<br>
+1-1             0424:3503 09  2.00  480MBit/s 2mA 1IF  () hub<br>
+— 1-1.1          10c4:87a0 00  2.00   12MBit/s 100mA 1IF  (Silicon Laboratories CP2130 USB-to-SPI Bridge 000EB434)</p>
+</blockquote>
+<p>Your script:</p>
+<blockquote>
+<p>0424:3503<br>
+10c4:87a0 - CP2130 USB-to-SPI Bridge<br>
+1d6b:0002 - Qualcomm EHCI Host Controller using HSIC</p>
+</blockquote>
+          <p><a href="https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893/4</link>
+        <pubDate>Sat, 15 Sep 2018 13:21:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1893-4</guid>
+        <source url="https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893.rss">Lsusb not found, unable to mount usb drive</source>
+      </item>
+      <item>
+        <title>Lsusb not found, unable to mount usb drive</title>
+        <dc:creator><![CDATA[Jay]]></dc:creator>
+        <description><![CDATA[
+            <p>I confirm the issue with “<code>fdisk -l</code>” when used without additional parameters.<br>
+For USB drives, you can use “<code>fdisk -l /dev/sd*</code>” which is working fine.<br>
+I can mount my USB flash drive (FAT32 filesystem) with the same setup as you by using this command:<br>
+<code>mount /dev/sda1 /media/</code></p>
+<p>Regarding “<code>lsusb</code>” tool, you can build a custom rootfs image with “usbutils” package by using Yocto.<br>
+Or  you can use the following “poor man’s lsusb” script:</p>
+<aside class="quote no-group">
+<blockquote>
+<pre><code class="lang-auto">#!/bin/sh
+for D in /sys/bus/usb/devices/*; do
+    if [ -d "${D}" ]; then
+        VID=${D}/idVendor
+        PID=${D}/idProduct
+        PROD=${D}/product
+        BUS=${D}/busnum
+        DEV=${D}/devnum
+        if [ -e "$VID" ]; then
+            printf "Bus %03d Device %03d: ID %s:%s" $(cat ${BUS} ${DEV} ${VID} ${PID})
+            if [ -e "$PROD" ]; then
+               echo " "$(cat ${PROD})
+            else
+               echo
+            fi
+        fi
+    fi
+done</code></pre>
+</blockquote>
+</aside>
+          <p><a href="https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893/3</link>
+        <pubDate>Tue, 11 Sep 2018 16:58:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1893-3</guid>
+        <source url="https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893.rss">Lsusb not found, unable to mount usb drive</source>
+      </item>
+      <item>
+        <title>Lsusb not found, unable to mount usb drive</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>I noticed that <code>fdisk -l</code> has issues. I forgot to check whether a bug has been reported for this or not. I will try to look into it tomorrow. What I do remember is that <code>fdisk -l /dev/mtdblk0</code> will work.</p>
+          <p><a href="https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893/2</link>
+        <pubDate>Mon, 10 Sep 2018 01:47:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1893-2</guid>
+        <source url="https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893.rss">Lsusb not found, unable to mount usb drive</source>
+      </item>
+      <item>
+        <title>Lsusb not found, unable to mount usb drive</title>
+        <dc:creator><![CDATA[mallets]]></dc:creator>
+        <description><![CDATA[
+            <p>On module: <strong>mangOH Red (WP7608)</strong>, with firmware <strong>version 9</strong> and <strong>legato ver 18.03</strong>.</p>
+<p>Trying to insert a memory stick into the USB host port of mangOH red. It’s led is blinking and dmesg shows it’s connected properly without errors.</p>
+<blockquote>
+<p>root@swi-mdm9x28:~# lsusb<br>
+-sh: lsusb: not found</p>
+</blockquote>
+<p>Even if lsusb isn’t found, the module crashes completely when I use:</p>
+<blockquote>
+<p>root@swi-mdm9x28:~# fdisk -l<br>
+Disk /dev/mtdblock0: 2 MB, 2621440 bytes<br>
+255 heads, 63 sectors/track, 0 cylinders<br>
+Units = cylinders of 16065 * 512 = 8225280 bytes</p>
+<p>Disk /dev/mtdblock0 doesn’t contain a valid partition table</p>
+</blockquote>
+<p>command, preventing me from even being able to mount it. I did a “Erase user partition” from Legato Developer Studio, did that remove some files? This is happening on all firmware versions (tested 6, 8 and 9).</p>
+          <p><a href="https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893/1</link>
+        <pubDate>Sat, 08 Sep 2018 22:46:27 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1893-1</guid>
+        <source url="https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893.rss">Lsusb not found, unable to mount usb drive</source>
+      </item>
+  </channel>
+</rss>

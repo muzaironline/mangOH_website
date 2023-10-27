@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>[WP7702] Recovery Mechanisms - mangOH Yellow - mangOH forum</title>
+    <meta name="description" content="Hi, 
+I have a system that tends to reboot a lot: 
+
+
+After some time the recovery mechanism is activated and we lose all our applications 
+For our application, it looks like we can embed them in the legato.cwe . 
+But we a&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/wp7702-recovery-mechanisms/10159" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;[WP7702] Recovery Mechanisms&#39;" href="https://forum.mangoh.io/t/wp7702-recovery-mechanisms/10159.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/9/9ad04737b098f388a566fa2052b5971f91449932.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/9/9ad04737b098f388a566fa2052b5971f91449932.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/wp7702-recovery-mechanisms/10159" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/wp7702-recovery-mechanisms/10159" />
+<meta property="og:title" content="[WP7702] Recovery Mechanisms" />
+<meta name="twitter:title" content="[WP7702] Recovery Mechanisms" />
+<meta property="og:description" content="Hi,  I have a system that tends to reboot a lot:    After some time the recovery mechanism is activated and we lose all our applications  For our application, it looks like we can embed them in the legato.cwe .  But we also lose our files in the /home directory.  The datasheet is not very clear on the effect of the recovery mode.     Is there a command that protects the files from the recovery mechanism or is there a directory that is unaffected by the recovery mechanism?  Thank,  Jérémy" />
+<meta name="twitter:description" content="Hi,  I have a system that tends to reboot a lot:    After some time the recovery mechanism is activated and we lose all our applications  For our application, it looks like we can embed them in the legato.cwe .  But we also lose our files in the /home directory.  The datasheet is not very clear on the effect of the recovery mode.     Is there a command that protects the files from the recovery mechanism or is there a directory that is unaffected by the recovery mechanism?  Thank,  Jérémy" />
+<meta property="og:article:section" content="mangOH Yellow" />
+<meta property="og:article:section:color" content="F1C900" />
+<meta property="article:published_time" content="2022-10-28T07:22:10+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"[WP7702] Recovery Mechanisms","mainEntity":{"@type":"Question","name":"[WP7702] Recovery Mechanisms","text":"Hi,\n\nI have a system that tends to reboot a lot:\n\n[image]\n\n<a href=\"https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030\">[WP7702] Can&#39;t go in ULPM Mode<\/a> <a class=\"badge-wrapper  bullet\" href=\"/c/mangoh-yellow/15\">mangOH Yellow<\/a>\n\nHello,\n\nWe are currently using MangOH Yellow cards with a WP7702 chip.\n\nSome of our systems in the field have encountered a problem.\n\nThey no longer go into ULPM mode.\n\n[&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2022-10-28T07:22:10.095Z","author":{"@type":"Person","name":"Jérémy Laharotte"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/wp7702-recovery-mechanisms/10159">[WP7702] Recovery Mechanisms</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-yellow/15" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #F1C900'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Yellow</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='[WP7702] Recovery Mechanisms'>
+        <meta itemprop='articleSection' content='mangOH Yellow'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jeremylaharotte'><span itemprop='name'>jeremylaharotte</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7702-recovery-mechanisms/10159">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/9/9ad04737b098f388a566fa2052b5971f91449932.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-10-28T07:22:10Z' class='post-time'>
+                    October 28, 2022,  7:22am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-10-28T07:22:10Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hi,</p>
+<p>I have a system that tends to reboot a lot:</p>
+<aside class="quote quote-modified" data-post="1" data-topic="10030">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/j/f19dbf/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030">[WP7702] Can't go in ULPM Mode</a> <a class="badge-wrapper  bullet" href="/c/mangoh-yellow/15"><span class="badge-category-bg" style="background-color: #F1C900;"></span><span style="" data-drop-close="true" class="badge-category clear-badge">mangOH Yellow</span></a>
+  </div>
+  <blockquote>
+    Hello, 
+We are currently using MangOH Yellow cards with a WP7702 chip. 
+Some of our systems in the field have encountered a problem. 
+They no longer go into ULPM mode. 
+[image] 
+We use the latest image of the MangOH Yellow software provided by the MangOH website: 0.7.0 
+With a slight modification of the Mango firmware: Modification of the accelerometer driver 
+And modification of the Yocto: Modification of the curl package + addition of python library 
+Method to switch to ULPM mode: 
+We use a Le…
+  </blockquote>
+</aside>
+
+<p>After some time the recovery mechanism is activated and we lose all our applications<br>
+For our application, it looks like we can embed them in the legato.cwe .</p>
+<p>But we also lose our files in the /home directory.<br>
+The datasheet is not very clear on the effect of the recovery mode.</p>
+<p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/9/9ad04737b098f388a566fa2052b5971f91449932.png" data-download-href="/uploads/short-url/m5xLoqRGy58jx7Wc6978O1klkga.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/9/9ad04737b098f388a566fa2052b5971f91449932.png" alt="image" data-base62-sha1="m5xLoqRGy58jx7Wc6978O1klkga" width="690" height="210" data-dominant-color="E9E9EA"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use href="#far-image"></use></svg><span class="filename">image</span><span class="informations">757×231 31.9 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>Is there a command that protects the files from the recovery mechanism or is there a directory that is unaffected by the recovery mechanism?</p>
+<p>Thank,<br>
+Jérémy</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7702-recovery-mechanisms/10159">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-10-28T08:23:55Z' class='post-time'>
+                    October 28, 2022,  8:23am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-10-28T08:23:55Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I have done a test to see if a text file in /home/root will be lost after rollback, but i cannot reproduce your issue.<br>
+Can you double confirm if your lost file is due to system rollback?</p>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# ls /home/root/
+123.txt
+root@swi-mdm9x28-wp:~# legato status
+Systems installed:
+  6 [good]
+  17 [tried 4] &lt;-- current
+Legato framework is running.
+root@swi-mdm9x28-wp:~#
+root@swi-mdm9x28-wp:~# cm info
+Device:                        WP7608
+IMEI:                          352913090501857
+IMEISV:                        6
+FSN:                           XG207430721010
+Firmware Version:              SWI9X07Y_02.28.03.03 000000 jenkins 2019/05/21 03:33:04
+Bootloader Version:            SWI9X07Y_02.28.03.03 000000 jenkins 2019/05/21 03:33:04
+MCU Version:                   002.011
+PRI Part Number (PN):          9908665
+PRI Revision:                  001.004
+Carrier PRI Name:              GENERIC
+Carrier PRI Revision:          002.068_003
+SKU:                           1104194
+Last Reset Cause:              Reset, User Requested
+Resets Count:                  Expected: 13     Unexpected: 0
+root@swi-mdm9x28-wp:~# legato version
+19.02.0_4cb954265427b8c2c668a010ff5be274_modified
+root@swi-mdm9x28-wp:~#
+
+
+
+
+//here I reset the board
+
+
+
+
+
+//the text file is still here
+root@swi-mdm9x28-wp:~# ls /home/root/
+123.txt
+//system rollback and the legato app disappeared.
+root@swi-mdm9x28-wp:~# legato status
+Systems installed:
+  6 [good] &lt;-- current
+Legato framework is running.
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jeremylaharotte'><span itemprop='name'>jeremylaharotte</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7702-recovery-mechanisms/10159">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/210b6de62f0d1a3bac174c9fbba069b7532c44ef.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-10-28T09:16:02Z' class='post-time'>
+                    October 28, 2022,  9:16am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-10-28T09:16:02Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi,</p>
+<p>I don’t lose a file when I do a reset (command or button or switch) but I lose my file when the system got corrupted (when I reboot a lot I guess)</p>
+<p>Like in this case:</p>
+<aside class="quote quote-modified" data-post="12" data-topic="10030">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/j/f19dbf/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/12">[WP7702] Can't go in ULPM Mode</a> <a class="badge-wrapper  bullet" href="/c/mangoh-yellow/15"><span class="badge-category-bg" style="background-color: #F1C900;"></span><span style="" data-drop-close="true" class="badge-category clear-badge">mangOH Yellow</span></a>
+  </div>
+  <blockquote>
+    Hi, 
+I don’t have the system with me. As I said in the previous post, I do a reboot if I can’t get into ULPM. But after some time the recovery mechanism is activated and I lose the Legato apps and the file on the system (I will write a new post about this). The log I am posting is from a system we recovered in the field after an I2C problem and before the recovery mechanism. 
+It’s on this system that I do a hardware reboot (ON/OFF), and I can’t remember if the MCU version was missing. 
+On a syst…
+  </blockquote>
+</aside>
+
+<p>I think that to much reboot can create a file system corruption and activate the recovery mechanism that install a backup.<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/210b6de62f0d1a3bac174c9fbba069b7532c44ef.png" data-download-href="/uploads/short-url/4Ikf6GbC6we62lF9aGFJw7QMGJ1.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/210b6de62f0d1a3bac174c9fbba069b7532c44ef_2_371x500.png" alt="image" data-base62-sha1="4Ikf6GbC6we62lF9aGFJw7QMGJ1" width="371" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/210b6de62f0d1a3bac174c9fbba069b7532c44ef_2_371x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/210b6de62f0d1a3bac174c9fbba069b7532c44ef_2_556x750.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/210b6de62f0d1a3bac174c9fbba069b7532c44ef.png 2x" data-dominant-color="F6F6F6"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use href="#far-image"></use></svg><span class="filename">image</span><span class="informations">632×850 43.2 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>and when this happened my apps disappear and home directory is empty just with home directory /root</p>
+<p>The system is in the same state as when the Mangoh was new and I had used WP77xx_Release14.1_SIERRA.exe or mangOH-yellow-wp77xx_0.7.0.exe to update the board.</p>
+<p>Jérémy</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7702-recovery-mechanisms/10159">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-10-28T09:28:00Z' class='post-time'>
+                    October 28, 2022,  9:28am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-10-28T16:54:09Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>does this help by using the “reserved” partition?</p>
+<pre><code class="lang-auto">
+root@swi-mdm9x28-wp:~#  more /proc/mtd
+dev:    size   erasesize  name
+mtd0: 00280000 00040000 "sbl"
+mtd1: 00280000 00040000 "mibib"
+mtd2: 00680000 00040000 "backup"
+mtd3: 00100000 00040000 "security"
+mtd4: 00200000 00040000 "persist"
+mtd5: 01180000 00040000 "efs2"
+mtd6: 04f40000 00040000 "swifota"
+mtd7: 00180000 00040000 "tz"
+mtd8: 000c0000 00040000 "devcfg"
+mtd9: 000c0000 00040000 "rpm"
+mtd10: 02000000 00040000 "modem"
+mtd11: 00100000 00040000 "aboot"
+mtd12: 00f00000 00040000 "boot"
+mtd13: 01e00000 00040000 "system"
+mtd14: 008c0000 00040000 "lefwkro"
+mtd15: 01900000 00040000 "swirw"
+mtd16: 08300000 00040000 "userapp"
+mtd17: 03680000 00040000 "reserved"
+mtd18: 02180000 00040000 "slot_2"
+mtd19: 02180000 00040000 "slot_1"
+mtd20: 02180000 00040000 "slot_0"
+root@swi-mdm9x28-wp:~# ubiformat /dev/mtd17 -y
+ubiformat: mtd17 (nand), size 57147392 bytes (54.5 MiB), 218 eraseblocks of 262144 bytes (256.0 KiB), min. I/O size 4096 bytes
+libscan: scanning eraseblock 217 -- 100 % complete
+ubiformat: 218 eraseblocks are supposedly empty
+ubiformat: formatting eraseblock 217 -- 100 % complete
+root@swi-mdm9x28-wp:~# ls /dev/ubi*
+/dev/ubi0         /dev/ubi1_0       /dev/ubi4         /dev/ubiblock1_0
+/dev/ubi0_0       /dev/ubi2         /dev/ubi4_0       /dev/ubiblock2_0
+/dev/ubi0_1       /dev/ubi2_0       /dev/ubi_ctrl
+/dev/ubi0_2       /dev/ubi3         /dev/ubiblock0_0
+/dev/ubi1         /dev/ubi3_0       /dev/ubiblock0_1
+root@swi-mdm9x28-wp:~# ls /dev/ubi* -l
+crw-rw----    1 root     root      238,   0 Jan  1  1970 /dev/ubi0
+crw-rw----    1 root     root      238,   1 Jan  1  1970 /dev/ubi0_0
+crw-rw----    1 root     root      238,   2 Jan  1  1970 /dev/ubi0_1
+crw-rw----    1 root     root      238,   3 Jan  1  1970 /dev/ubi0_2
+crw-rw----    1 root     root      234,   0 Jan  1  1970 /dev/ubi1
+crw-rw----    1 root     root      234,   1 Jan  1  1970 /dev/ubi1_0
+crw-rw----    1 root     root      236,   0 Jan  1  1970 /dev/ubi2
+crw-rw----    1 root     root      236,   1 Jan  1  1970 /dev/ubi2_0
+crw-rw----    1 root     root      237,   0 Jan  1  1970 /dev/ubi3
+crw-rw----    1 root     root      237,   1 Jan  1  1970 /dev/ubi3_0
+crw-rw----    1 root     root      235,   0 Jan  1  1970 /dev/ubi4
+crw-rw----    1 root     root      235,   1 Jan  1  1970 /dev/ubi4_0
+crw-rw----    1 root     root       10,  57 Jan  1  1970 /dev/ubi_ctrl
+brw-rw----    1 root     root      253,   0 Jan  1  1970 /dev/ubiblock0_0
+brw-rw----    1 root     root      253,   1 Jan  1  1970 /dev/ubiblock0_1
+brw-rw----    1 root     root      253,   3 Jan  1  1970 /dev/ubiblock1_0
+brw-rw----    1 root     root      253,   2 Jan  1  1970 /dev/ubiblock2_0
+root@swi-mdm9x28-wp:~# ubiattach -m 17 -d 7
+UBI device number 7, total 218 LEBs (55361536 bytes, 52.7 MiB), available 174 LEBs (44187648 bytes, 42.1 MiB), LEB size 253952 bytes (248.0 KiB)
+root@swi-mdm9x28-wp:~# ubimkvol /dev/ubi7 -N test -s 42MiB
+Volume ID 0, size 174 LEBs (44187648 bytes, 42.1 MiB), LEB size 253952 bytes (248.0 KiB), dynamic, name "test", alignment 1
+root@swi-mdm9x28-wp:~# mkdir -p /tmp/customer
+root@swi-mdm9x28-wp:~# mount -t ubifs /dev/ubi7_0 /tmp/customer
+root@swi-mdm9x28-wp:~# ls /tmp/customer/
+root@swi-mdm9x28-wp:~# echo safsdfasdf &gt; /tmp/customer/test.txt
+root@swi-mdm9x28-wp:~# cm info
+Device:                        WP7608
+IMEI:                          352913090501857
+IMEISV:                        6
+FSN:                           XG207430721010
+Firmware Version:              SWI9X07Y_02.28.03.03 000000 jenkins 2019/05/21 03:33:04
+Bootloader Version:            SWI9X07Y_02.28.03.03 000000 jenkins 2019/05/21 03:33:04
+MCU Version:                   002.011
+PRI Part Number (PN):          9908665
+PRI Revision:                  001.004
+Carrier PRI Name:              GENERIC
+Carrier PRI Revision:          002.068_003
+SKU:                           1104194
+Last Reset Cause:              Power Down
+Resets Count:                  Expected: 15     Unexpected: 0
+root@swi-mdm9x28-wp:~# cat /tmp/customer/test.txt
+safsdfasdf
+
+
+
+
+
+
+// power cycle the device
+
+
+root@swi-mdm9x28-wp:~# mkdir -p /tmp/customer
+root@swi-mdm9x28-wp:~# ubiattach -m 17 -d 7
+UBI device number 7, total 218 LEBs (55361536 bytes, 52.7 MiB), available 0 LEBs (0 bytes), LEB size 253952 bytes (248.0 KiB)
+root@swi-mdm9x28-wp:~# mount -t ubifs /dev/ubi7_0 /tmp/customer
+root@swi-mdm9x28-wp:~# cat /tmp/customer/test.txt
+safsdfasdf
+root@swi-mdm9x28-wp:~#
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jeremylaharotte'><span itemprop='name'>jeremylaharotte</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7702-recovery-mechanisms/10159">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-10-28T09:49:36Z' class='post-time'>
+                    October 28, 2022,  9:49am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-10-28T09:49:36Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi,</p>
+<p>This could be a good solution.<br>
+I will try.</p>
+<p>Jeremy</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7702-recovery-mechanisms/10159">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-10-29T03:37:11Z' class='post-time'>
+                    October 29, 2022,  3:37am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-10-29T13:13:45Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You can also see here to split the userapp partition or system partition:</p>
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.sierrawireless.com/t/wp7607-data-deletion-after-power-loss/26944/10">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/1fc275dea17943ec40a824dc4b7ad3839eb8d72d.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.sierrawireless.com/t/wp7607-data-deletion-after-power-loss/26944/10" target="_blank" rel="noopener nofollow ugc" title="08:34AM - 08 June 2022">Sierra Wireless Forum – 8 Jun 22</a>
+  </header>
+
+  <article class="onebox-body">
+    <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png" class="thumbnail onebox-avatar" width="500" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 2x" data-dominant-color="F04223">
+
+<h3><a href="https://forum.sierrawireless.com/t/wp7607-data-deletion-after-power-loss/26944/10" target="_blank" rel="noopener nofollow ugc">[WP7607] Data deletion after power loss</a></h3>
+
+  <p>Got a solution for this problem! After I saw this post: Free (small) partition for storing serial number? - #15 by sierra-wireless I thought about formatting the userapp MTD16 partition and splitting it into two UBI volumes (the first gets a quarter...</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.sierrawireless.com/t/free-small-partition-for-storing-serial-number/24001/15">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/1fc275dea17943ec40a824dc4b7ad3839eb8d72d.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.sierrawireless.com/t/free-small-partition-for-storing-serial-number/24001/15" target="_blank" rel="noopener nofollow ugc" title="08:41AM - 29 July 2021">Sierra Wireless Forum – 29 Jul 21</a>
+  </header>
+
+  <article class="onebox-body">
+    <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png" class="thumbnail onebox-avatar" width="500" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 2x" data-dominant-color="F04223">
+
+<h3><a href="https://forum.sierrawireless.com/t/free-small-partition-for-storing-serial-number/24001/15" target="_blank" rel="noopener nofollow ugc">Free (small) partition for storing serial number?</a></h3>
+
+  <p>In case others google their way to here:  I finally managed to crack this challenge …  The solution was to create extra ufs partitions in the “system” (mtd13) mtd partition with my data.  This way, all can be restored, even if (when) /mnt/flash...</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

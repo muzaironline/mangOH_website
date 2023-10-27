@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>mqttClient Service Connect error? - mangOH forum</title>
+    <meta name="description" content="Hi! I’m developing a SW to connect with mosquitto broker. I started from the source code in apps/platformservices of Legato environment. 
+I can right build the project, create the session, but I have problem when I have &amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093?page=3" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;mqttClient Service Connect error?&#39;" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2399ecdcd116a8bb32206b899de6ab1006b75391.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2399ecdcd116a8bb32206b899de6ab1006b75391.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093?page=3" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093?page=3" />
+<meta property="og:title" content="mqttClient Service Connect error?" />
+<meta name="twitter:title" content="mqttClient Service Connect error?" />
+<meta property="og:description" content="I don’t know,  that is why you need to get evidence to prove which part is going wrong" />
+<meta name="twitter:description" content="I don’t know,  that is why you need to get evidence to prove which part is going wrong" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="6 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="1 ❤" />
+<meta property="article:published_time" content="2021-04-30T10:58:31+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="prev" href="/t/mqttclient-service-connect-error/9093?page=2">
+        <link rel="next" href="/t/mqttclient-service-connect-error/9093?page=4">
+
+    
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/mqttclient-service-connect-error/9093">mqttClient Service Connect error?</a>
+    </h1>
+
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='mqttClient Service Connect error?'>
+        <meta itemprop='articleSection' content='Uncategorized'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_46' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-30T10:58:31Z' class='post-time'>
+                    April 30, 2021, 10:58am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-30T11:18:32Z'>
+              <span itemprop='position'>46</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I don’t know,  that is why you need to get evidence to prove which part is going wrong</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_49' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/1a780f52f0ff60ed7b436831a81e9ce796697656.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T08:45:51Z' class='post-time'>
+                    May 3, 2021,  8:45am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T09:11:52Z'>
+              <span itemprop='position'>49</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/jyijyi">@jyijyi</a> I modified the configuration file of Mosquitto (verstion 2 need a configuration):<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/1a780f52f0ff60ed7b436831a81e9ce796697656.png" data-download-href="/uploads/short-url/3M9DL8jmxuYi0ciEh6JWh7XjuyG.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/1a780f52f0ff60ed7b436831a81e9ce796697656_2_690x208.png" alt="image" data-base62-sha1="3M9DL8jmxuYi0ciEh6JWh7XjuyG" width="690" height="208" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/1a780f52f0ff60ed7b436831a81e9ce796697656_2_690x208.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/1a780f52f0ff60ed7b436831a81e9ce796697656.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/1a780f52f0ff60ed7b436831a81e9ce796697656.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/1a780f52f0ff60ed7b436831a81e9ce796697656_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">742×224 15.3 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>And now I see:<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/3d0870d032f78312ed58af979f53125eac80353c.png" data-download-href="/uploads/short-url/8HVd0kFVusmanzKJmvZkZDbnA1m.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/3d0870d032f78312ed58af979f53125eac80353c.png" alt="image" data-base62-sha1="8HVd0kFVusmanzKJmvZkZDbnA1m" width="690" height="445" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/3d0870d032f78312ed58af979f53125eac80353c_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">744×480 68.4 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d4202bf160a37fbb0b0004644c547598c87dfa82.png" data-download-href="/uploads/short-url/ugy9n8M1FCPKw2E1RypxPbELBBg.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d4202bf160a37fbb0b0004644c547598c87dfa82.png" alt="image" data-base62-sha1="ugy9n8M1FCPKw2E1RypxPbELBBg" width="690" height="122" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d4202bf160a37fbb0b0004644c547598c87dfa82_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">725×129 15.2 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div><br>
+So the broker is running well on the 1883 port, right?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_50' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T10:25:12Z' class='post-time'>
+                    May 3, 2021, 10:25am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T10:25:12Z'>
+              <span itemprop='position'>50</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Have you captured wireshark to understand the traffic?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_51' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/1dd54652f338236a564f488a37c902cc395e10f7.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T10:44:03Z' class='post-time'>
+                    May 3, 2021, 10:44am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T10:44:03Z'>
+              <span itemprop='position'>51</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I see it:<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/1dd54652f338236a564f488a37c902cc395e10f7.png" data-download-href="/uploads/short-url/4fUMHNrHIoS0alN853UW2jwQw3Z.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/1dd54652f338236a564f488a37c902cc395e10f7_2_601x499.png" alt="image" data-base62-sha1="4fUMHNrHIoS0alN853UW2jwQw3Z" width="601" height="499" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/1dd54652f338236a564f488a37c902cc395e10f7_2_601x499.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/1dd54652f338236a564f488a37c902cc395e10f7_2_901x748.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/1dd54652f338236a564f488a37c902cc395e10f7.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/1dd54652f338236a564f488a37c902cc395e10f7_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">968×805 77.5 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2a020a4f6b6d75a7724b72019fda2245e120359a.png" data-download-href="/uploads/short-url/5ZCqlNIdGSLIguGh9f7J70ECv2i.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/2a020a4f6b6d75a7724b72019fda2245e120359a_2_595x500.png" alt="image" data-base62-sha1="5ZCqlNIdGSLIguGh9f7J70ECv2i" width="595" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/2a020a4f6b6d75a7724b72019fda2245e120359a_2_595x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/2a020a4f6b6d75a7724b72019fda2245e120359a_2_892x750.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2a020a4f6b6d75a7724b72019fda2245e120359a.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/2a020a4f6b6d75a7724b72019fda2245e120359a_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">957×803 108 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>I didn’t understand what I should see and where on wireshark…</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_52' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/4/49df9df47c8442feef0cda20f6839ba9bd83113a.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T10:53:50Z' class='post-time'>
+                    May 3, 2021, 10:53am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T10:57:52Z'>
+              <span itemprop='position'>52</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>okay sorry, if I run <strong>sudo wireshark</strong> I see:<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/4/49df9df47c8442feef0cda20f6839ba9bd83113a.png" data-download-href="/uploads/short-url/axvX3IJhIrL4oKbzwHvjvpcacXM.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/4/49df9df47c8442feef0cda20f6839ba9bd83113a_2_593x500.png" alt="image" data-base62-sha1="axvX3IJhIrL4oKbzwHvjvpcacXM" width="593" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/4/49df9df47c8442feef0cda20f6839ba9bd83113a_2_593x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/4/49df9df47c8442feef0cda20f6839ba9bd83113a_2_889x750.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/4/49df9df47c8442feef0cda20f6839ba9bd83113a.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/4/49df9df47c8442feef0cda20f6839ba9bd83113a_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">950×800 59.9 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>So I can see USB interface</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_53' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/b31f1a403a087f6cbeebeaaa016b3a0ec1f8f225.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T10:59:19Z' class='post-time'>
+                    May 3, 2021, 10:59am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T10:59:19Z'>
+              <span itemprop='position'>53</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Isn’t it local adress?<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/b31f1a403a087f6cbeebeaaa016b3a0ec1f8f225.png" data-download-href="/uploads/short-url/pyA6sa2AwT4xUWKKCLwCpczZ1xr.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b31f1a403a087f6cbeebeaaa016b3a0ec1f8f225_2_615x500.png" alt="image" data-base62-sha1="pyA6sa2AwT4xUWKKCLwCpczZ1xr" width="615" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b31f1a403a087f6cbeebeaaa016b3a0ec1f8f225_2_615x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b31f1a403a087f6cbeebeaaa016b3a0ec1f8f225_2_922x750.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/b31f1a403a087f6cbeebeaaa016b3a0ec1f8f225.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b31f1a403a087f6cbeebeaaa016b3a0ec1f8f225_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">969×787 110 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>At this point I should see 0.0.0.0 of 1883 mosquitto, but I can’t see it. Am I in error?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_54' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T11:04:50Z' class='post-time'>
+                    May 3, 2021, 11:04am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T11:04:50Z'>
+              <span itemprop='position'>54</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You can only monitor port 1883</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_55' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T11:06:04Z' class='post-time'>
+                    May 3, 2021, 11:06am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T11:06:04Z'>
+              <span itemprop='position'>55</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>okay, but I can’t see it, so my VM doesn’t see this port?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_56' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T11:16:45Z' class='post-time'>
+                    May 3, 2021, 11:16am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T11:16:45Z'>
+              <span itemprop='position'>56</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>The mqtt should be sent out when app start</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_57' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/6/63820e1fbbc6ccb5e4227b4d777d539c82f2dd26.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T11:17:58Z' class='post-time'>
+                    May 3, 2021, 11:17am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T11:17:58Z'>
+              <span itemprop='position'>57</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I’m capturing TCP packets but I can’t see anything on 192.168.2.3 or port 1883…<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/6/63820e1fbbc6ccb5e4227b4d777d539c82f2dd26.png" data-download-href="/uploads/short-url/echUvMJ1gx3LuZj0vJATAT9FOei.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/6/63820e1fbbc6ccb5e4227b4d777d539c82f2dd26_2_690x180.png" alt="image" data-base62-sha1="echUvMJ1gx3LuZj0vJATAT9FOei" width="690" height="180" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/6/63820e1fbbc6ccb5e4227b4d777d539c82f2dd26_2_690x180.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/6/63820e1fbbc6ccb5e4227b4d777d539c82f2dd26_2_1035x270.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/6/63820e1fbbc6ccb5e4227b4d777d539c82f2dd26.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/6/63820e1fbbc6ccb5e4227b4d777d539c82f2dd26_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">1087×284 83.6 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_58' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T11:21:37Z' class='post-time'>
+                    May 3, 2021, 11:21am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T11:21:37Z'>
+              <span itemprop='position'>58</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You can ping the interface and see if you can capture anything</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_59' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/6/67c5c7162897a047906bae92163a7b77f926e1aa.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T11:22:46Z' class='post-time'>
+                    May 3, 2021, 11:22am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T11:22:46Z'>
+              <span itemprop='position'>59</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/6/67c5c7162897a047906bae92163a7b77f926e1aa.png" data-download-href="/uploads/short-url/eO0UNODaGDIOl2CG4fIzATCkZm2.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/6/67c5c7162897a047906bae92163a7b77f926e1aa_2_690x160.png" alt="image" data-base62-sha1="eO0UNODaGDIOl2CG4fIzATCkZm2" width="690" height="160" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/6/67c5c7162897a047906bae92163a7b77f926e1aa_2_690x160.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/6/67c5c7162897a047906bae92163a7b77f926e1aa_2_1035x240.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/6/67c5c7162897a047906bae92163a7b77f926e1aa.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/6/67c5c7162897a047906bae92163a7b77f926e1aa_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">1137×265 83.4 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div><br>
+Seems not ping any 1883</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_60' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T11:27:07Z' class='post-time'>
+                    May 3, 2021, 11:27am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T11:27:07Z'>
+              <span itemprop='position'>60</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I mean just ping,  and see any ping packet captured,  this can ensure your wireahark is ok</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_61' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T11:28:28Z' class='post-time'>
+                    May 3, 2021, 11:28am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T11:28:28Z'>
+              <span itemprop='position'>61</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Okay, but in all the packets captured I can’t see 1883 interface…</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_62' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T11:30:44Z' class='post-time'>
+                    May 3, 2021, 11:30am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T11:30:44Z'>
+              <span itemprop='position'>62</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Then maybe your wireshark is not capturing correctly</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_63' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T11:32:03Z' class='post-time'>
+                    May 3, 2021, 11:32am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T11:32:03Z'>
+              <span itemprop='position'>63</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>yes…but I cannot make it capture correctly. At the same time I think that mosquitto is running, so really I can’t understand why socket errror. It makes me crazy</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_64' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T11:52:59Z' class='post-time'>
+                    May 3, 2021, 11:52am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T11:52:59Z'>
+              <span itemprop='position'>64</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You need to fix the wireshark first</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_65' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T11:54:55Z' class='post-time'>
+                    May 3, 2021, 11:54am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T11:54:55Z'>
+              <span itemprop='position'>65</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Sorry, does exist a guide? I can’t find it</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_66' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T12:10:09Z' class='post-time'>
+                    May 3, 2021, 12:10pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T12:10:09Z'>
+              <span itemprop='position'>66</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You can search in google …</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_67' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqttclient-service-connect-error/9093">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-03T12:22:27Z' class='post-time'>
+                    May 3, 2021, 12:22pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-03T12:22:27Z'>
+              <span itemprop='position'>67</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Anyway mosquitto is in running, so I don’t think that this could be make some other available, I really can’t understand why this socket error</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><a rel="prev" itemprop="url" href="/t/mqttclient-service-connect-error/9093?page=2">← previous page</a></span>
+        <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/mqttclient-service-connect-error/9093?page=4">next page →</a></b></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

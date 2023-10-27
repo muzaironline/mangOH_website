@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Error while loading shared libraries: Internal Error</title>
+    <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286</link>
+    <description>Hi All,
+
+I am using MangOH green with WP76 module, I have a application which use shared library files to fetch the data from client devices. The shared library file is compiled for arm7 architecture. Able to compile the code successfully but while executing the app it is throwing the below mentioned error
+
+&quot;error while loading shared libraries: Internal Error&quot;
+
+Getting one warning message while compiling also
+
+&quot;
+/home/wimate/.leaf/wp76-toolchain_SWI9X07Y_02.37.10.04-linux64/sysroots/x86_64-pokysdk-linux/usr/libexec/arm-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/7.3.0/real-ld: warning: ld-linux-armhf.so.3, needed by /home/wimate/Sierra_Wireless/Trial_Sierra/components/melpcnc//libcustom_Arm.so, not found (try using -rpath or -rpath-link)&quot;
+
+Please let me know how to solve this warning and what could be the cause for that internal error?</description>
+    
+    <lastBuildDate>Thu, 25 May 2023 08:28:13 +0000</lastBuildDate>
+    <category>mangOH Green</category>
+    <atom:link href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I diff your libcustom_Arm.so and standard library like libssl.so.1.0.2 , it seems to be a bit different to a normal library, not sure if it is related to the <strong>internal error</strong> when loading the library:</p>
+<p><strong>libcustom_Arm.so: ELF 32-bit LSB shared object, ARM, EABI5 version 1 (SYSV), dynamically linked, BuildID[sha1]=7aac04ea29ab20ac8de64e31d9295, with debug_info, not stripped</strong></p>
+<pre><code class="lang-auto">
+owner@ubuntu:~$ file /opt/swi/y22-ext/sysroots/armv7a-neon-poky-linux-gnueabi/usr/lib/libssl.so.1.0.2 
+/opt/swi/y22-ext/sysroots/armv7a-neon-poky-linux-gnueabi/usr/lib/libssl.so.1.0.2: ELF 32-bit LSB shared object, ARM, EABI5 version 1 (SYSV), dynamically linked, BuildID[sha1]=8ec623fe775f879f2a4e32cad24d38ee7bc4e71e, stripped
+</code></pre>
+<p>BTW, here has an example on how to load 3rd party library libsqlite3.so in the application, it should be similar to your situation.<br>
+You can see whether it has problem to load the 3rd party libarary.</p>
+<aside class="quote quote-modified" data-post="15" data-topic="93">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/a/91b2a8/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/database-support/93/15">Database Support</a> 
+  </div>
+  <blockquote>
+    Hi Nila , 
+Please download the Source code present 
+<a href="https://sqlite.org/download.html" class="onebox" target="_blank" rel="noopener nofollow ugc">https://sqlite.org/download.html</a> 
+i.e sqlite-amalgamation-3190300.zip 
+
+
+Make a folder structure for Sqlite3 as 
+mkdir third-party 
+cd third-party 
+mkdir inc 
+mkdir src 
+mkdir lib 
+
+
+Copy sqlite3.h in third-party/inc/ 
+sqlite3.c in third-party/src/ 
+
+
+Create a Makefile in path third-party/src/ 
+vi Makefile 
+add following lines 
+export TOOLCHAIN_DIR:=/opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi 
+GCC = ${TOOLCHAIN…
+  </blockquote>
+</aside>
+<p><a class="attachment" href="https://forum.mangoh.io/uploads/short-url/tn2oWXZ1erj0pYtLXb8huriztPx.7z">testsql.7z</a> (2.8 MB)</p>
+<p>If it works, try to port your code to this application</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/30">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/30</link>
+        <pubDate>Wed, 24 May 2023 09:41:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-30</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[aruna]]></dc:creator>
+        <description><![CDATA[
+            <p>sorry when i tried to make bold it has happened, earlier i made only file name then changed whole line</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/29">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/29</link>
+        <pubDate>Wed, 24 May 2023 09:05:50 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-29</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>do you know why there is a space character just before “libcustom_Arm.so”?</p>
+<p><strong>/legato/apps/7618ecbb168bc980d0c4f2cca97a086e/read-only/bin/…/lib/ libcustom_Arm.so: internal error</strong></p>
+<p>You also get this space character here:</p><aside class="quote" data-post="25" data-topic="10286">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/a/71e660/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/25">Error while loading shared libraries: Internal Error</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-green/6"><span class="badge-category-bg" style="background-color: #9EB83B;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-green">mangOH Green</span></a>
+  </div>
+  <blockquote>
+    Followed same sandboxed is false, 
+tried by setting xattr also 
+May 12 20:18:58 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[876]/supervisor T=main | app.c CreateFileLink() 2183 | Skipping file link ‘/home/root/lib_custom/libcustom_Arm.so’ to ‘/legato/systems/current/appsWriteable/myfirstapp/lib/ libcustom_Arm.so’: Already exists
+  </blockquote>
+</aside>
+
+<p>Normally for this message of “Skipping file link…”, you should not have this space character:</p>
+<aside class="onebox discoursetopic" data-onebox-src="https://forum.legato.io/t/wp77-gpsapp-gives-libssl-so-1-1-error/6503">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/5f30fea73ea53c61f2aab7ff42a8dcaf587ebcbd.png" class="site-icon" data-dominant-color="8B897D" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/wp77-gpsapp-gives-libssl-so-1-1-error/6503" target="_blank" rel="noopener nofollow ugc" title="09:25PM - 12 May 2023">Legato Forum – 12 May 23</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-dominant-color="D3CBC3"></div>
+
+<div class="title-wrapper">
+  <h3><a href="https://forum.legato.io/t/wp77-gpsapp-gives-libssl-so-1-1-error/6503" target="_blank" rel="noopener nofollow ugc">Wp77 gpsApp gives libssl.so.1.1 error</a></h3>
+  <div class="topic-category">
+      <span class="badge-wrapper bullet">
+        <span class="badge-category-bg" style="background-color: #12A89D;"></span>
+        <span class="badge-category clear-badge">
+          <span class="category-name">Legato Application Framework</span>
+        </span>
+      </span>
+  </div>
+</div>
+
+  <p>Hello, I have a mangoH yellow device. I was able to successfully build and install sample gpsApp from legato-af. But now I have another problem which gives me this as an output. I am guessing something to do with versions. Urgent help needed....</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/28">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/28</link>
+        <pubDate>Wed, 24 May 2023 08:30:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-28</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[aruna]]></dc:creator>
+        <description><![CDATA[
+            <p>HI jyijyi,</p>
+<p>Due to some emergency work i couldnt send the log data, please check the log data below, i have fixed the permission issues, no it is loading</p>
+<p>Jan  6 07:26:06 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[873]/supervisor T=main | app.c CreateFileLink() 2253 | Created file link ‘/dev/urandom’ to ‘/legato/systems/current/appsWriteable/myfirstapp/dev/urandom’.<br>
+Jan  6 07:26:06 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[873]/supervisor T=main | resourceLimits.c GetCfgResourceLimit() 207 | Configured resource limit maxStackBytes is not available.  Using the default value 0.<br>
+Jan  6 07:26:06 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[873]/supervisor T=main | proc.c proc_Start() 1403 | Starting process ‘myfirstappComponentExe’ with pid 20029<br>
+Jan  6 07:26:06 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[873]/supervisor T=main | supervisor.c SigChildHandler() 877 | Reaping unconfigured child process 20025.<br>
+Jan  6 07:26:06 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[20029]/supervisor T=main | proc.c proc_Start() 1363 | Execing ‘myfirstappComponentExe’<br>
+Jan  6 07:26:06 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[20029]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxCoreDumpFileBytes to value 102400.<br>
+Jan  6 07:26:06 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[20029]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxFileBytes to value 102400.<br>
+Jan  6 07:26:06 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[20029]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxLockedMemoryBytes to value 8192.<br>
+Jan  6 07:26:06 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[20029]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxFileDescriptors to value 256.<br>
+Jan  6 07:26:06 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[20029]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxMQueueBytes to value 512.<br>
+Jan  6 07:26:06 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[20029]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxThreads to value 20.<br>
+Jan  6 07:26:06 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[20029]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxQueuedSignals to value 100.<br>
+<strong>Jan  6 07:26:06 swi-mdm9x28-wp user.err Legato: =ERR= | myfirstappComponentExe[20029] | myfirstappComponentExe: error while loading shared libraries: /legato/apps/7618ecbb168bc980d0c4f2cca97a086e/read-only/bin/…/lib/ libcustom_Arm.so: internal error</strong><br>
+Jan  6 07:26:06 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[873]/supervisor T=main | proc.c proc_SigChildHandler() 2079 | Process ‘myfirstappComponentExe’ (PID: 20029) has exited with exit code 127.<br>
+Jan  6 07:26:06 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[873]/supervisor T=main | app.c app_SigChildHandler() 4165 | Process ‘myfirstappComponentExe’ in app ‘myfirstapp’ faulted: Ignored.<br>
+Jan  6 07:26:06 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[873]/supervisor T=main | app.c app_StopComplete() 4862 | app ‘myfirstapp’ has stopped.<br>
+Jan  6 07:26:06 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[873]/supervisor T=main | apps.c DeactivateAppContainer() 374 | Application ‘myfirstapp’ has stopped.</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/27">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/27</link>
+        <pubDate>Wed, 24 May 2023 08:07:35 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-27</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>What is the full error log for unsandboxed app</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/26">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/26</link>
+        <pubDate>Fri, 12 May 2023 14:56:14 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-26</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[aruna]]></dc:creator>
+        <description><![CDATA[
+            <p>Followed same sandboxed is false,</p>
+<p>tried by setting xattr also</p>
+<p>May 12 20:18:58 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[876]/supervisor T=main | app.c CreateFileLink() 2183 | Skipping file link ‘/home/root/lib_custom/libcustom_Arm.so’ to ‘/legato/systems/current/appsWriteable/myfirstapp/lib/ libcustom_Arm.so’: Already exists</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/25">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/25</link>
+        <pubDate>Fri, 12 May 2023 14:50:55 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-25</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>See if it works for unsandboxed  app</p><aside class="quote" data-post="2" data-topic="6349">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/sandbox-prevent-file-read/6349/2">Sandbox prevent file read?</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-yellow/15"><span class="badge-category-bg" style="background-color: #F1C900;"></span><span style="" data-drop-close="true" class="badge-category clear-badge">mangOH Yellow</span></a>
+  </div>
+  <blockquote>
+    does it work when unsandboxed? 
+You might see here on how to change the permission for accessing file outside sandbox:
+  </blockquote>
+</aside>
+
+<p>Btw,  which line in the lib is making the SMACK error?</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/24">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/24</link>
+        <pubDate>Fri, 12 May 2023 14:49:07 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-24</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[aruna]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi ,</p>
+<p>This is the error ,message i am getting</p>
+<p>May 12 20:14:10 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[2550]/supervisor T=main | proc.c proc_Start() 1363 | Execing ‘myfirstappComponentExe’<br>
+May 12 20:14:10 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[2550]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxCoreDumpFileBytes to value 102400.<br>
+May 12 20:14:10 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[2550]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxFileBytes to value 102400.<br>
+May 12 20:14:10 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[2550]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxLockedMemoryBytes to value 8192.<br>
+May 12 20:14:10 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[2550]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxFileDescriptors to value 256.<br>
+May 12 20:14:10 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[2550]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxMQueueBytes to value 512.<br>
+May 12 20:14:10 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[2550]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxThreads to value 20.<br>
+May 12 20:14:10 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[2550]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxQueuedSignals to value 100.<br>
+May 12 20:14:10 swi-mdm9x28-wp user.err Legato: =ERR= | myfirstappComponentExe[2550] | myfirstappComponentExe: <strong>error while loading shared libraries: libcustom_Arm.so: cannot open shared object file: No such file or directory</strong><br>
+May 12 20:14:10 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[876]/supervisor T=main | proc.c proc_SigChildHandler() 2079 | Process ‘myfirstappComponentExe’ (PID: 2550) has exited with exit code 127.<br>
+May 12 20:14:10 swi-mdm9x28-wp user.notice kernel: [  192.186730] audit: type=1400 audit(1683902650.814:4): <strong>lsm=SMACK fn=smack_inode_permission action=denied subject=“app.myfirstapp” object=“files1” requested=r pid=2550 comm=“myfirstappCompo” name=“libcustom_Arm.so” dev=“ubifs” ino</strong><br>
+May 12 20:14:11 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[876]/supervisor T=main | app.c app_SigChildHandler() 4165 | Process ‘myfirstappComponentExe’ in app ‘myfirstapp’ faulted: Ignored.</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/23">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/23</link>
+        <pubDate>Fri, 12 May 2023 14:46:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-23</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>See if it works for unsandboxed  app</p><aside class="quote" data-post="2" data-topic="6349">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/sandbox-prevent-file-read/6349/2">Sandbox prevent file read?</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-yellow/15"><span class="badge-category-bg" style="background-color: #F1C900;"></span><span style="" data-drop-close="true" class="badge-category clear-badge">mangOH Yellow</span></a>
+  </div>
+  <blockquote>
+    does it work when unsandboxed? 
+You might see here on how to change the permission for accessing file outside sandbox:
+  </blockquote>
+</aside>
+
+<p>Btw,  which line in the lib is making the SMACK error?</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/22">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/22</link>
+        <pubDate>Fri, 12 May 2023 14:22:21 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-22</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[aruna]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi i have done it is able to load file,</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/21">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/21</link>
+        <pubDate>Fri, 12 May 2023 14:04:14 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-21</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Then can you write a simple linux app to see if it can load this lib?<br>
+This can isolate legato factor</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/20">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/20</link>
+        <pubDate>Fri, 12 May 2023 14:01:28 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-20</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[aruna]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi</p>
+<p>Now i have moved my library files to /usr/lib and /lib folder also</p>
+<p>getting this error<br>
+lsm=SMACK fn=smack_inode_permission action=denied subject=“app.myfirstapp” object=“admin” requested=r pid=18064 comm=“myfirstappCompo” name=" ```<br>
+libcustom_Arm.so" dev=“tmpfs” ino</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/19">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/19</link>
+        <pubDate>Fri, 12 May 2023 13:26:30 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-19</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Then can you write a simple linux app to see if it can load this lib?<br>
+This can isolate legato factor</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/18">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/18</link>
+        <pubDate>Fri, 12 May 2023 13:25:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-18</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[aruna]]></dc:creator>
+        <description><![CDATA[
+            <p>I am not able to copy in /lib/ or /usr/lib/ folder, it s throwing error read only systems</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/17">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/17</link>
+        <pubDate>Fri, 12 May 2023 12:22:14 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-17</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[aruna]]></dc:creator>
+        <description><![CDATA[
+            <p>For that i have copied the file to module in folder lib_custom, and made that linking in .cdef file</p>
+<pre><code class="lang-auto">// File paths local to your target module.
+file:
+{
+    /usr/lib/libssl.so.1.0.2    /lib/
+    /usr/lib/libcrypto.so.1.0.2 /lib/
+
+	/lib/libutil.so.1		/lib/
+
+    [rx]/home/root/lib_custom/libcustom_Arm.so   /lib/
+    [rx]/home/root/lib_custom/ld-linux-armhf.so.3    /lib/
+    
+}
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/16">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/16</link>
+        <pubDate>Fri, 12 May 2023 12:20:36 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-16</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Didn’t your app need this lib in run time?</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/15">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/15</link>
+        <pubDate>Fri, 12 May 2023 12:18:05 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-15</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[aruna]]></dc:creator>
+        <description><![CDATA[
+            <p>No it was not in module, But i recompiled with wp76 tool chain</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/14">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/14</link>
+        <pubDate>Fri, 12 May 2023 12:06:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-14</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Does libcustom_Arm.so already in module /usr/lib folder?<br>
+Have you recompiled this lib with wp toolchain</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/13">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/13</link>
+        <pubDate>Fri, 12 May 2023 11:39:02 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-13</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[aruna]]></dc:creator>
+        <description><![CDATA[
+            <p>in console i performed this activity</p>
+<p>root@swi-mdm9x28-wp:~/lib_custom# mkdir /tmp/tmp_usr_lib<br>
+root@swi-mdm9x28-wp:~/lib_custom# mkdir /tmp/tmp_usr_lib_wr<br>
+root@swi-mdm9x28-wp:~/lib_custom# mount -t overlay overlay /usr/lib -o lowerdir=/usr/lib,upperdir=/tm<br>
+p/tmp_usr_lib,workdir=/tmp/tmp_usr_lib_wr;</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/12</link>
+        <pubDate>Fri, 12 May 2023 11:21:46 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-12</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[aruna]]></dc:creator>
+        <description><![CDATA[
+            <p>Yeah tried with linux console,</p>
+<p>same library files i included in .adef file also</p>
+<p>it has compiled successfully</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/11</link>
+        <pubDate>Fri, 12 May 2023 11:17:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-11</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[aruna]]></dc:creator>
+        <description><![CDATA[
+            <p>My .cdef file<br>
+// myfirstappComponent<br>
+//<br>
+// This is component definition file that specifies the internal content and external interfaces<br>
+// of reusable software components.<br>
+//<br>
+// For more details on the component definition (.cdef) file format see:<br>
+// <a href="https://docs.legato.io/latest/defFilesCdef.html" class="inline-onebox" rel="noopener nofollow ugc">Component Definition .cdef - Legato Docs</a></p>
+<p>// Source code files.<br>
+sources:<br>
+{<br>
+myfirstappComponent.c<br>
+}</p>
+<p>cflags:<br>
+{<br>
+-DOPENSSL=1 -D_LINUX<br>
+-std=c99<br>
+-I${LEGATO_ROOT}/3rdParty/paho.mqtt.c/src  -I/home/wimate/Sierra_Wireless/Trial_Sierra/components/myfirstappComponent/include<br>
+-pthread<br>
+-g<br>
+}</p>
+<p>ldflags:<br>
+{<br>
+-L${LEGATO_BUILD}/3rdParty/paho.mqtt.c<br>
+-L /home/wimate/Sierra_Wireless/Trial_Sierra/components/custom/<br>
+}</p>
+<p>// Bind resources from the target module into your application.<br>
+requires:<br>
+{<br>
+component:<br>
+{<br>
+${LEGATO_ROOT}/components/3rdParty/paho.mqtt.c<br>
+}</p>
+<pre><code>// IPC APIs used by this component.
+api:
+{
+    le_data.api
+}
+
+// File paths local to your target module.
+file:
+{
+    /usr/lib/libssl.so.1.0.2    /lib/
+    /usr/lib/libcrypto.so.1.0.2 /lib/
+
+	/lib/libutil.so.1		/lib/
+
+    [rx]/home/root/lib_custom/libcustom_Arm.so   /lib/
+    [rx]/home/root/lib_custom/ld-linux-armhf.so.3    /lib/
+    
+}
+
+
+// Directories on your target module to make accessible to the app.
+dir:
+{
+}
+
+// Linux filesystem device paths.
+device:
+{
+    
+}
+
+// Shared libraries pre-installed on the module.
+lib:
+{
+    libpaho-mqtt3cs.so
+    libcustom_Arm.so 
+    ssl 
+    crypto
+}
+</code></pre>
+<p>}</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/10</link>
+        <pubDate>Fri, 12 May 2023 11:16:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-10</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Of course in module’linux console</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/9</link>
+        <pubDate>Fri, 12 May 2023 11:10:45 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-9</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Have you recompiled this lib with wp toolchain</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/8</link>
+        <pubDate>Fri, 12 May 2023 11:10:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-8</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[aruna]]></dc:creator>
+        <description><![CDATA[
+            <p>Sorry for this basic question, can you please tell me where exactly i need to do this activity</p>
+<pre><code class="lang-auto">mkdir /tmp/tmp_usr_lib;mkdir /tmp/tmp_usr_lib_wr;
+
+mount -t overlay overlay /usr/lib -o lowerdir=/usr/lib,upperdir=/tmp/tmp_usr_lib,workdir=/tmp/tmp_usr_lib_wr;
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/7</link>
+        <pubDate>Fri, 12 May 2023 10:38:22 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-7</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+      <item>
+        <title>Error while loading shared libraries: Internal Error</title>
+        <dc:creator><![CDATA[aruna]]></dc:creator>
+        <description><![CDATA[
+            <p>Readelf -A gives below info</p>
+<p>Attribute Section: aeabi<br>
+File Attributes<br>
+Tag_CPU_name: “7-A”<br>
+Tag_CPU_arch: v7<br>
+Tag_CPU_arch_profile: Application<br>
+Tag_ARM_ISA_use: Yes<br>
+Tag_THUMB_ISA_use: Thumb-2<br>
+Tag_FP_arch: VFPv3-D16<br>
+Tag_ABI_PCS_wchar_t: 4<br>
+Tag_ABI_FP_denormal: Needed<br>
+Tag_ABI_FP_exceptions: Needed<br>
+Tag_ABI_FP_number_model: IEEE 754<br>
+Tag_ABI_align_needed: 8-byte<br>
+Tag_ABI_align_preserved: 8-byte, except leaf SP<br>
+Tag_ABI_enum_size: int<br>
+Tag_ABI_VFP_args: VFP registers<br>
+Tag_CPU_unaligned_access: v6</p>
+          <p><a href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/6</link>
+        <pubDate>Fri, 12 May 2023 10:28:41 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10286-6</guid>
+        <source url="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286.rss">Error while loading shared libraries: Internal Error</source>
+      </item>
+  </channel>
+</rss>

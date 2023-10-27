@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Setting up MangOH Red as Router to Cellular Gateway - Wiki - mangOH forum</title>
+    <meta name="description" content="Objective:  Configure a MangOH to route cellular internet data to/from other network interfaces.  For example the image below shows how we will route traffic to/from the ethernet IoT slot to/from the cellular gateway. 
+ 
+&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241?page=2" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Setting up MangOH Red as Router to Cellular Gateway&#39;" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/b296e8e445e329438cc0bb56f9a382e684d04a56.jpg" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/b296e8e445e329438cc0bb56f9a382e684d04a56.jpg" />
+<meta property="og:url" content="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241?page=2" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241?page=2" />
+<meta property="og:title" content="Setting up MangOH Red as Router to Cellular Gateway" />
+<meta name="twitter:title" content="Setting up MangOH Red as Router to Cellular Gateway" />
+<meta property="og:description" content="have you put back pin 7 to normal position?" />
+<meta name="twitter:description" content="have you put back pin 7 to normal position?" />
+<meta property="og:article:section" content="Wiki" />
+<meta property="og:article:section:color" content="AB9364" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="7 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="6 ❤" />
+<meta property="article:published_time" content="2020-08-18T06:06:44+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="prev" href="/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+        <link rel="next" href="/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241?page=3">
+
+    
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">Setting up MangOH Red as Router to Cellular Gateway</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/wiki/10" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #AB9364'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>Wiki</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Setting up MangOH Red as Router to Cellular Gateway'>
+        <meta itemprop='articleSection' content='Wiki'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_22' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T06:06:44Z' class='post-time'>
+                    August 18, 2020,  6:06am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T06:06:44Z'>
+              <span itemprop='position'>22</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>have you put back pin 7 to normal position?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_23' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/christopheradams1'><span itemprop='name'>christopheradams1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/ed7c0fa6bdac978f60cb9139ebb9d6aecfd644d2.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T06:11:28Z' class='post-time'>
+                    August 18, 2020,  6:11am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T06:11:28Z'>
+              <span itemprop='position'>23</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>yes I just did, then I tried to re-flash the firmware and that was successful, however the mangoh red is still not showing up on the usb port (image below)<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/ed7c0fa6bdac978f60cb9139ebb9d6aecfd644d2.png" data-download-href="/uploads/short-url/xSSXxeyaRU8LvdX1YQLg6LZAlhg.png?dl=1" title="Screenshot from 2020-08-18 01-10-05" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/e/ed7c0fa6bdac978f60cb9139ebb9d6aecfd644d2_2_690x477.png" alt="Screenshot from 2020-08-18 01-10-05" data-base62-sha1="xSSXxeyaRU8LvdX1YQLg6LZAlhg" width="690" height="477" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/e/ed7c0fa6bdac978f60cb9139ebb9d6aecfd644d2_2_690x477.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/ed7c0fa6bdac978f60cb9139ebb9d6aecfd644d2.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/ed7c0fa6bdac978f60cb9139ebb9d6aecfd644d2.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/e/ed7c0fa6bdac978f60cb9139ebb9d6aecfd644d2_2_10x10.png"><div class="meta"><svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">Screenshot from 2020-08-18 01-10-05</span><span class="informations">888×615 96.8 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg></div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_24' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T06:15:21Z' class='post-time'>
+                    August 18, 2020,  6:15am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T06:15:21Z'>
+              <span itemprop='position'>24</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>what did you see in dmesg?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_25' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/christopheradams1'><span itemprop='name'>christopheradams1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T06:26:45Z' class='post-time'>
+                    August 18, 2020,  6:26am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T06:26:45Z'>
+              <span itemprop='position'>25</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>There is quite a bit, I have attached a .txt file with what I get after dmesg, I am not too sure what I am looking for in this… I see alot of USB 1-3 having some indication that it see’s sierra wireless device but no clue as to what its indicative of<br>
+<a class="attachment" href="/uploads/short-url/k5nfKgPRMbcOmUJAFQzpEtGRipg">dmesg</a> (108.6 KB)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_26' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/christopheradams1'><span itemprop='name'>christopheradams1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/c5dd00e378a508477feb5ef303bf69a39367000c.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T06:28:19Z' class='post-time'>
+                    August 18, 2020,  6:28am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T06:28:19Z'>
+              <span itemprop='position'>26</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>A few rows up from the bottom I see this in bold <div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/c5dd00e378a508477feb5ef303bf69a39367000c.png" data-download-href="/uploads/short-url/senyGs7jINVDKc0UhD5RItapusk.png?dl=1" title="Screenshot from 2020-08-18 01-27-37" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c5dd00e378a508477feb5ef303bf69a39367000c_2_690x132.png" alt="Screenshot from 2020-08-18 01-27-37" data-base62-sha1="senyGs7jINVDKc0UhD5RItapusk" width="690" height="132" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c5dd00e378a508477feb5ef303bf69a39367000c_2_690x132.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/c5dd00e378a508477feb5ef303bf69a39367000c.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/c5dd00e378a508477feb5ef303bf69a39367000c.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c5dd00e378a508477feb5ef303bf69a39367000c_2_10x10.png"><div class="meta"><svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">Screenshot from 2020-08-18 01-27-37</span><span class="informations">784×151 43.4 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg></div></a></div>, I do not think this is the cause for the PC not seeing mangoh red on the usb port.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_27' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T06:36:39Z' class='post-time'>
+                    August 18, 2020,  6:36am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T06:36:39Z'>
+              <span itemprop='position'>27</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>These lines show the ECM interface is established:<br>
+[ 7475.181577] cdc_ether 1-3:1.19 usb0: register ‘cdc_ether’ at usb-0000:00:14.0-3, CDC Ethernet Device, 8e:1e:1c:fd:c9:c7</p>
+<p>[ 7475.215951] cdc_ether 1-3:1.19 enp0s20f0u3i19: renamed from usb0</p>
+<p>you can try:<br>
+sudo ifconfig enp0s20f0u3i19 up<br>
+sudo ifconfig enp0s20f0u3i19 192.168.2.3<br>
+ping 192.168.2.2</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_28' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/christopheradams1'><span itemprop='name'>christopheradams1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T06:41:44Z' class='post-time'>
+                    August 18, 2020,  6:41am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T06:41:44Z'>
+              <span itemprop='position'>28</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>WHOA…what just happened… it worked!!! Thank you so much <img src="https://emoji.discourse-cdn.com/twitter/smile.png?v=9" title=":smile:" class="emoji" alt=":smile:"></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_29' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/christopheradams1'><span itemprop='name'>christopheradams1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T06:41:59Z' class='post-time'>
+                    August 18, 2020,  6:41am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T06:41:59Z'>
+              <span itemprop='position'>29</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I will try to ssh into</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_30' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/christopheradams1'><span itemprop='name'>christopheradams1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T06:43:26Z' class='post-time'>
+                    August 18, 2020,  6:43am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T06:43:26Z'>
+              <span itemprop='position'>30</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><img src="https://emoji.discourse-cdn.com/twitter/frowning.png?v=9" title=":frowning:" class="emoji" alt=":frowning:"> ssh is not occuring, man… do you know what might be causing this problem?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_31' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T06:50:28Z' class='post-time'>
+                    August 18, 2020,  6:50am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T06:50:28Z'>
+              <span itemprop='position'>31</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>sudo ip route add 192.168.2.2 via 192.168.2.3 dev enp0s20f0u3i19<br>
+ssh <a href="mailto:root@192.168.2.2">root@192.168.2.2</a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_32' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/christopheradams1'><span itemprop='name'>christopheradams1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/33d40dea6b0d1f33a3426618fbe71eaab6d0a233.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T06:53:09Z' class='post-time'>
+                    August 18, 2020,  6:53am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T06:53:09Z'>
+              <span itemprop='position'>32</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>hmm, I am getting a strange error saying nexthop has an invalid gateway<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/33d40dea6b0d1f33a3426618fbe71eaab6d0a233.png" data-download-href="/uploads/short-url/7ouFS5ceo1uiQKBrlRYnmWwQgQX.png?dl=1" title="Screenshot from 2020-08-18 01-51-56" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/33d40dea6b0d1f33a3426618fbe71eaab6d0a233_2_690x74.png" alt="Screenshot from 2020-08-18 01-51-56" data-base62-sha1="7ouFS5ceo1uiQKBrlRYnmWwQgQX" width="690" height="74" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/33d40dea6b0d1f33a3426618fbe71eaab6d0a233_2_690x74.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/33d40dea6b0d1f33a3426618fbe71eaab6d0a233.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/33d40dea6b0d1f33a3426618fbe71eaab6d0a233.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/33d40dea6b0d1f33a3426618fbe71eaab6d0a233_2_10x10.png"><div class="meta"><svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">Screenshot from 2020-08-18 01-51-56</span><span class="informations">841×91 22.2 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg></div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_33' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T06:54:43Z' class='post-time'>
+                    August 18, 2020,  6:54am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T06:54:43Z'>
+              <span itemprop='position'>33</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Suggest you using other linux PC or VM player to test</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_34' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/christopheradams1'><span itemprop='name'>christopheradams1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T07:18:27Z' class='post-time'>
+                    August 18, 2020,  7:18am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T07:18:27Z'>
+              <span itemprop='position'>34</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hmm, I am currently without another. is there anyway I can wipe the wp7702 entirely and start from scratch?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_35' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T07:39:01Z' class='post-time'>
+                    August 18, 2020,  7:39am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T07:39:01Z'>
+              <span itemprop='position'>35</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>do you have the UART2 console?<br>
+If yes, you don’t need to use USB ECM SSH to have the console.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_36' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/christopheradams1'><span itemprop='name'>christopheradams1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/0040cca5a0b98666dadd01fe6c62dd1175316bed.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T08:21:47Z' class='post-time'>
+                    August 18, 2020,  8:21am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T08:21:47Z'>
+              <span itemprop='position'>36</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Okay, I did type<br>
+dconf reset -f /</p>
+<p>This reset ubuntu back to a default state, which gives me the idea that the problem may have been created when trying to setup the ethernet communication. Not too sure what happened, but I am now able to ssh into the device<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/0040cca5a0b98666dadd01fe6c62dd1175316bed.png" data-download-href="/uploads/short-url/2ePAvKkXV3pNfmWvuq51KYkbUh.png?dl=1" title="Screenshot from 2020-08-18 03-21-19" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/0040cca5a0b98666dadd01fe6c62dd1175316bed_2_690x402.png" alt="Screenshot from 2020-08-18 03-21-19" data-base62-sha1="2ePAvKkXV3pNfmWvuq51KYkbUh" width="690" height="402" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/0040cca5a0b98666dadd01fe6c62dd1175316bed_2_690x402.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/0040cca5a0b98666dadd01fe6c62dd1175316bed.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/0040cca5a0b98666dadd01fe6c62dd1175316bed.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/0040cca5a0b98666dadd01fe6c62dd1175316bed_2_10x10.png"><div class="meta"><svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">Screenshot from 2020-08-18 03-21-19</span><span class="informations">730×426 60.5 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg></div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_37' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/christopheradams1'><span itemprop='name'>christopheradams1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T08:58:02Z' class='post-time'>
+                    August 18, 2020,  8:58am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T08:58:02Z'>
+              <span itemprop='position'>37</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I do not see CN305, I checked the schematic and it is not listed there either. I do have CN304 which is the USB host</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_38' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T09:16:25Z' class='post-time'>
+                    August 18, 2020,  9:16am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T09:16:25Z'>
+              <span itemprop='position'>38</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>CN305 is the UART console, it is just beside the CN304 USB connector.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_39' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/christopheradams1'><span itemprop='name'>christopheradams1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T13:50:34Z' class='post-time'>
+                    August 18, 2020,  1:50pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T13:50:34Z'>
+              <span itemprop='position'>39</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>i guess there is not one, there is only a reset button, and an audio port on either side of the USB connector.</p>
+<p>I tried to re-ssh into the mangoh this morning and it is having the same problem again. I thought the OS reset helped restore the pc’s default settings, but I guess not. for some reason it started working earlier now its doing the same thing, not connecting, PC is not seeing the mangoh red.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/mangoh-red-cannot-be-sshd-into-randomly-stopped-working-not-pinging-either/5047">Mangoh red cannot be ssh&#39;d into - randomly stopped working - Not pinging either</a>
+                        <meta itemprop='position' content='1'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_40' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T14:42:42Z' class='post-time'>
+                    August 18, 2020,  2:42pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T14:42:42Z'>
+              <span itemprop='position'>40</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>probably this is caused by the network manager or modem manager of your Linux PC.<br>
+You can try to disable them.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_41' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/christopheradams1'><span itemprop='name'>christopheradams1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-18T16:00:18Z' class='post-time'>
+                    August 18, 2020,  4:00pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-18T16:00:18Z'>
+              <span itemprop='position'>41</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I disabled modem manager using several different commands</p>
+<p>sudo apt-get remove -y modemmanager<br>
+systemctl disable ModemManager.service<br>
+systemctl stop ModemManager.service<br>
+sudo apt-get purge modemmanager</p>
+<p>It appears that is disabled, however ssh is still not working. I can’t seem to find any answer in the forums</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><a rel="prev" itemprop="url" href="/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241">← previous page</a></span>
+        <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241?page=3">next page →</a></b></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

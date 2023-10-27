@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>[SOLVED] Using RPI GPIO fails - mangOH Red Orange Starter Kit - mangOH forum</title>
+    <meta name="description" content="Hi, 
+i ve tried this on a mangOH Red With Legato and wp7702 : 
+root@swi-mdm9x28-wp:~# legato version
+18.09.0-1-g8350546a_05025499e71b1dbb905fd75d6f797c3a_modified
+
+here it is the sample source code given by Sierra to man&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;[SOLVED] Using RPI GPIO fails&#39;" href="https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164" />
+<meta property="og:title" content="[SOLVED] Using RPI GPIO fails" />
+<meta name="twitter:title" content="[SOLVED] Using RPI GPIO fails" />
+<meta property="og:description" content="Hi,  i ve tried this on a mangOH Red With Legato and wp7702 :  root@swi-mdm9x28-wp:~# legato version 18.09.0-1-g8350546a_05025499e71b1dbb905fd75d6f797c3a_modified  here it is the sample source code given by Sierra to manage RPI GPIO (available here too) :  #include &quot;legato.h&quot; #include &quot;interfaces.h&quot;   static bool             _led1_on = false; static le_timer_Ref_t   _led1_BlinkTimer = NULL; static bool             _led1_blinking = false;  static bool             _led2_on = false; static le_timer..." />
+<meta name="twitter:description" content="Hi,  i ve tried this on a mangOH Red With Legato and wp7702 :  root@swi-mdm9x28-wp:~# legato version 18.09.0-1-g8350546a_05025499e71b1dbb905fd75d6f797c3a_modified  here it is the sample source code given by Sierra to manage RPI GPIO (available here too) :  #include &quot;legato.h&quot; #include &quot;interfaces.h&quot;   static bool             _led1_on = false; static le_timer_Ref_t   _led1_BlinkTimer = NULL; static bool             _led1_blinking = false;  static bool             _led2_on = false; static le_timer..." />
+<meta property="og:article:section" content="mangOH Red Orange Starter Kit" />
+<meta property="og:article:section:color" content="F7941D" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="9 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="1 ❤" />
+<meta property="article:published_time" content="2018-11-27T11:01:34+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"[SOLVED] Using RPI GPIO fails","mainEntity":{"@type":"Question","name":"[SOLVED] Using RPI GPIO fails","text":"Hi,\n\ni ve tried this on a mangOH Red With Legato and wp7702 :\n\nroot@swi-mdm9x28-wp:~# legato version\n\n18.09.0-1-g8350546a_05025499e71b1dbb905fd75d6f797c3a_modified\n\nhere it is the sample source code given by Sierra to manage RPI GPIO (available <a href=\"https://github.com/LalunePierr0t/iRpioMangoh\" rel=\"nofollow noopener\">here<\/a> too) :\n\n#include &quot;legato.h&quot;\n\n#include &quot;interfaces.h&quot;&hellip;","upvoteCount":0,"answerCount":1,"dateCreated":"2018-11-27T11:01:34.746Z","author":{"@type":"Person","name":""},"acceptedAnswer":{"@type":"Answer","text":"Hi <a class=\"mention\" href=\"/u/nhonchu\">@NhonChu<\/a>,\n\nThank You, IIt works great. Steps in:\n\nIn  ~/mangOH/apps/GpioExpander/gpioExpanderService, modify  Makefile, as follow :\n\nlocalhost: app.localhost\n\nTARGETS := $(MAKECMDGOALS)\n\n.PHONY: all $(TARGETS)\n\nall: $(TARGETS)\n\n$(TARGETS):\n\nmkapp -v -t $@ \\\n\ngpioExpanderServiceRed.adef\n\nar7: app.a&hellip;","upvoteCount":1,"dateCreated":"2018-12-03T15:10:20.748Z","url":"https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164/14","author":{"@type":"Person","name":"pierr0t"}}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/solved-using-rpi-gpio-fails/2164">[SOLVED] Using RPI GPIO fails</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red-orange/16" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #F7941D'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red Orange Starter Kit</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='[SOLVED] Using RPI GPIO fails'>
+        <meta itemprop='articleSection' content='mangOH Red Orange Starter Kit'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pierr0t'><span itemprop='name'>pierr0t</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-11-27T11:01:34Z' class='post-time'>
+                    November 27, 2018, 11:01am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-12-03T15:11:07Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hi,</p>
+<p>i ve tried this on a mangOH Red With Legato and wp7702 :</p>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# legato version
+18.09.0-1-g8350546a_05025499e71b1dbb905fd75d6f797c3a_modified
+</code></pre>
+<p>here it is the sample source code given by Sierra to manage RPI GPIO (available <a href="https://github.com/LalunePierr0t/iRpioMangoh" rel="nofollow noopener">here</a> too) :</p>
+<pre><code class="lang-auto">#include "legato.h"
+#include "interfaces.h"
+
+
+static bool             _led1_on = false;
+static le_timer_Ref_t   _led1_BlinkTimer = NULL;
+static bool             _led1_blinking = false;
+
+static bool             _led2_on = false;
+static le_timer_Ref_t   _led2_BlinkTimer = NULL;
+static bool             _led2_blinking = false;
+
+//-------------------------------------------------------------------------------------------------
+/**
+ * LED 1 state timer handler.
+ */
+//-------------------------------------------------------------------------------------------------
+static void ToogleLed1
+(
+    le_timer_Ref_t timer  ///&lt; Led state timer
+)
+{
+    if (!_led1_on)
+    {
+        LE_DEBUG("turn on LED");
+        rpi_gpio1_Activate();
+        
+        _led1_on = true;
+    }
+    else
+    {
+        LE_DEBUG("turn off LED");
+        rpi_gpio1_Deactivate();
+
+        _led1_on = false;
+    }
+}
+
+//-------------------------------------------------------------------------------------------------
+/**
+ * LED 2 state timer handler.
+ */
+//-------------------------------------------------------------------------------------------------
+static void ToogleLed2
+(
+    le_timer_Ref_t timer  ///&lt; Led state timer
+)
+{
+    if (!_led2_on)
+    {
+        LE_DEBUG("turn on LED");
+        rpi_gpio2_Activate();
+        
+        _led2_on = true;
+    }
+    else
+    {
+        LE_DEBUG("turn off LED");
+        rpi_gpio2_Deactivate();
+
+        _led2_on = false;
+    }
+}
+
+//-------------------------------------------------------------------------------------------------
+/**
+ * Generic Push button handler -&gt; toggle LED1
+ */
+//-------------------------------------------------------------------------------------------------
+static void GenericPushButtonHandler
+(
+    bool state, ///&lt; true if the button is pressed
+    void *ctx   ///&lt; context pointer - not used
+)
+{
+    LE_INFO("Generic Button State change %s", state?"TRUE":"FALSE");
+
+    _led1_blinking = !_led1_blinking;
+
+    if (_led1_blinking)
+    {
+        le_timer_Start(_led1_BlinkTimer);
+    }
+    else
+    {
+        le_timer_Stop(_led1_BlinkTimer);
+    }
+}
+
+//-------------------------------------------------------------------------------------------------
+/**
+ * GPIO_EXP_RPI_3 Push button handler -&gt; toggle LED2
+ */
+//-------------------------------------------------------------------------------------------------
+static void PushButtonHandler
+(
+    bool state, ///&lt; true if the button is pressed
+    void *ctx   ///&lt; context pointer - not used
+)
+{
+    LE_INFO("RPI_GPIO_3 Button State change %s", state?"TRUE":"FALSE");
+
+    _led2_blinking = !_led2_blinking;
+
+    if (_led2_blinking)
+    {
+        le_timer_Start(_led2_BlinkTimer);
+    }
+    else
+    {
+        le_timer_Stop(_led2_BlinkTimer);
+    }
+}
+
+//-------------------------------------------------------------------------------------------------
+/**
+ * Configure GPIOs
+ */
+//-------------------------------------------------------------------------------------------------
+static void ConfigureGpios(void)
+{
+    // Set LED 1 GPIO to output and initially turn the LED OFF
+    LE_FATAL_IF(
+        rpi_gpio1_SetPushPullOutput(RPI_GPIO1_ACTIVE_LOW, true) != LE_OK,
+        "Couldn't configure LED 1 GPIO as a push pull output");
+    rpi_gpio1_Deactivate();
+
+    _led1_on = false;
+
+    // Set LED 2 GPIO to output and initially turn the LED OFF
+    LE_FATAL_IF(
+        rpi_gpio2_SetPushPullOutput(RPI_GPIO2_ACTIVE_LOW, true) != LE_OK,
+        "Couldn't configure LED 1 GPIO as a push pull output");
+    rpi_gpio2_Deactivate();
+
+    _led2_on = false;
+
+    // Set the Generic push-button GPIO as input
+    LE_FATAL_IF(
+        mangoh_button_SetInput(MANGOH_BUTTON_ACTIVE_LOW) != LE_OK,
+        "Couldn't configure push button as input");
+    mangoh_button_AddChangeEventHandler(MANGOH_BUTTON_EDGE_RISING, GenericPushButtonHandler, NULL, 0);
+
+    // Set the RPI_EXP_3 GPIO as input, for push button
+    LE_FATAL_IF(
+        rpi_gpio3_SetInput(RPI_GPIO3_ACTIVE_LOW) != LE_OK,
+        "Couldn't configure RPI_GPIO_3 as push button");
+    rpi_gpio3_AddChangeEventHandler(RPI_GPIO3_EDGE_RISING, PushButtonHandler, NULL, 0);
+}
+
+
+COMPONENT_INIT
+{
+    _led1_BlinkTimer = le_timer_Create("Led 1 Blink");
+    LE_ASSERT_OK(le_timer_SetRepeat(_led1_BlinkTimer, 0));
+    LE_ASSERT_OK(le_timer_SetMsInterval(_led1_BlinkTimer, 1000));    //blink every second
+    LE_ASSERT_OK(le_timer_SetHandler(_led1_BlinkTimer, ToogleLed1));
+
+    _led2_BlinkTimer = le_timer_Create("Led 2 Blink");
+    LE_ASSERT_OK(le_timer_SetRepeat(_led2_BlinkTimer, 0));
+    LE_ASSERT_OK(le_timer_SetMsInterval(_led2_BlinkTimer, 500));    //blink every 500ms
+    LE_ASSERT_OK(le_timer_SetHandler(_led2_BlinkTimer, ToogleLed2));
+
+    ConfigureGpios();
+
+}
+</code></pre>
+<p>But it gets stucked:</p>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# sdir list
+
+BINDINGS
+
+        &lt;root&gt;.sdirTool -&gt; &lt;root&gt;.sdirTool
+        &lt;root&gt;.LogClient -&gt; &lt;root&gt;.LogClient
+        &lt;root&gt;.LogControl -&gt; &lt;root&gt;.LogControl
+        &lt;root&gt;.le_appCtrl -&gt; &lt;root&gt;.le_appCtrl
+        &lt;root&gt;.le_framework -&gt; &lt;root&gt;.le_framework
+        &lt;root&gt;.wdog -&gt; &lt;root&gt;.wdog
+        &lt;root&gt;.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.le_cfgAdmin -&gt; &lt;root&gt;.le_cfgAdmin
+        &lt;root&gt;.le_update -&gt; &lt;root&gt;.le_update
+        &lt;root&gt;.le_updateCtrl -&gt; &lt;root&gt;.le_updateCtrl
+        &lt;root&gt;.le_appRemove -&gt; &lt;root&gt;.le_appRemove
+        &lt;root&gt;.le_instStat -&gt; &lt;root&gt;.le_instStat
+        &lt;root&gt;.le_appInfo -&gt; &lt;root&gt;.le_appInfo
+        &lt;root&gt;.le_appProc -&gt; &lt;root&gt;.le_appProc
+        &lt;root&gt;.le_ima -&gt; &lt;root&gt;.le_ima
+        &lt;root&gt;.appSmack -&gt; &lt;root&gt;.appSmack
+        &lt;root&gt;.logFd -&gt; &lt;root&gt;.logFd
+        &lt;root&gt;.configTreeWdog -&gt; &lt;root&gt;.configTreeWdog
+        &lt;root&gt;.logDaemonWdog -&gt; &lt;root&gt;.logDaemonWdog
+        &lt;root&gt;.updateDaemonWdog -&gt; &lt;root&gt;.updateDaemonWdog
+        &lt;root&gt;.supervisorWdog -&gt; &lt;root&gt;.supervisorWdog
+        &lt;root&gt;.le_sup_ctrl -&gt; &lt;root&gt;.le_sup_ctrl
+        &lt;root&gt;.le_fwupdate -&gt; &lt;root&gt;.le_fwupdate
+        &lt;root&gt;.atClientDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.atServerDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.atServerDaemon.atServer.le_atClient -&gt; &lt;root&gt;.le_atClient
+        &lt;root&gt;.audioDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.audioDaemon.audio.le_pm -&gt; &lt;root&gt;.le_pm
+        &lt;root&gt;.avcDaemon.appCfg.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.avcDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.avcDaemon.avcDaemon.le_instStat -&gt; &lt;root&gt;.le_instStat
+        &lt;root&gt;.avcDaemon.avcDaemon.le_appRemove -&gt; &lt;root&gt;.le_appRemove
+        &lt;root&gt;.avcDaemon.avcDaemon.le_appCtrl -&gt; &lt;root&gt;.le_appCtrl
+        &lt;root&gt;.avcDaemon.avcDaemon.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.avcDaemon.avcDaemon.le_data -&gt; &lt;root&gt;.le_data
+        &lt;root&gt;.avcDaemon.avcDaemon.le_ulpm -&gt; &lt;root&gt;.le_ulpm
+        &lt;root&gt;.avcDaemon.avcDaemon.le_info -&gt; &lt;root&gt;.le_info
+        &lt;root&gt;.avcDaemon.avcDaemon.le_ips -&gt; &lt;root&gt;.le_ips
+        &lt;root&gt;.avcDaemon.avcDaemon.le_mdc -&gt; &lt;root&gt;.le_mdc
+        &lt;root&gt;.avcDaemon.avcDaemon.le_mrc -&gt; &lt;root&gt;.le_mrc
+        &lt;root&gt;.avcDaemon.avcDaemon.le_sim -&gt; &lt;root&gt;.le_sim
+        &lt;root&gt;.avcDaemon.avcDaemon.le_sms -&gt; &lt;root&gt;.le_sms
+        &lt;root&gt;.avcDaemon.avcDaemon.le_temp -&gt; &lt;root&gt;.le_temp
+        &lt;root&gt;.avcDaemon.avcDaemon.le_gnss -&gt; &lt;root&gt;.le_gnss
+        &lt;root&gt;.avcDaemon.avcDaemon.le_pos -&gt; &lt;root&gt;.le_pos
+        &lt;root&gt;.avcDaemon.avcDaemon.le_appInfo -&gt; &lt;root&gt;.le_appInfo
+        &lt;root&gt;.avcDaemon.avcDaemon.le_fwupdate -&gt; &lt;root&gt;.le_fwupdate
+        &lt;root&gt;.avcDaemon.avcDaemon.le_update -&gt; &lt;root&gt;.le_update
+        &lt;root&gt;.avcDaemon.avcDaemon.le_framework -&gt; &lt;root&gt;.le_framework
+        &lt;root&gt;.avcDaemon.avcDaemon.le_secStore -&gt; &lt;root&gt;.le_secStore
+        &lt;root&gt;.avcDaemon.avcDaemon.le_cellnet -&gt; &lt;root&gt;.le_cellnet
+        &lt;root&gt;.battery.batteryComponent.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.battery.batteryComponent.dhubIO -&gt; &lt;root&gt;.io
+        &lt;root&gt;.cellNetService.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.cellNetService.cellNetService.le_sim -&gt; &lt;root&gt;.le_sim
+        &lt;root&gt;.cellNetService.cellNetService.le_mrc -&gt; &lt;root&gt;.le_mrc
+        &lt;root&gt;.cellNetService.cellNetService.le_secStore -&gt; &lt;root&gt;.le_secStore
+        &lt;root&gt;.dcsDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.dcsDaemon.dcsDaemon.le_mdc -&gt; &lt;root&gt;.le_mdc
+        &lt;root&gt;.dcsDaemon.dcsDaemon.le_mrc -&gt; &lt;root&gt;.le_mrc
+        &lt;root&gt;.dcsDaemon.dcsDaemon.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.dcsDaemon.dcsDaemon.le_wifiClient -&gt; &lt;root&gt;.le_wifiClient
+        &lt;root&gt;.dhubToolAdmin -&gt; &lt;root&gt;.admin
+        &lt;root&gt;.dhubToolQuery -&gt; &lt;root&gt;.query
+        &lt;root&gt;.dhubToolIo -&gt; &lt;root&gt;.io
+        &lt;root&gt;.devMode.devMode.le_pm -&gt; &lt;root&gt;.le_pm
+        &lt;root&gt;.devMode.devMode.le_updateCtrl -&gt; &lt;root&gt;.le_updateCtrl
+        &lt;root&gt;.devMode.devMode.le_instStat -&gt; &lt;root&gt;.le_instStat
+        &lt;root&gt;.devMode.devMode.le_framework -&gt; &lt;root&gt;.le_framework
+        &lt;root&gt;.dr.drTool.dataRouter -&gt; dataRouter.dataRouter
+        &lt;root&gt;.fwupdateDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.gpioService.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.gpioService.sysfsGpio.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.modemDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.modemDaemon.modemDaemon.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.modemDaemon.modemDaemon.le_pm -&gt; &lt;root&gt;.le_pm
+        &lt;root&gt;.rSimDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.portDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.portDaemon.portDaemon.le_atServer -&gt; &lt;root&gt;.le_atServer
+        &lt;root&gt;.posDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.posDaemon.posDaemon.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.powerManagerService.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.powerManagerService.powerMgr.le_framework -&gt; &lt;root&gt;.le_framework
+        &lt;root&gt;.secStore.appCfg.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.secStore.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.secStore.secStoreDaemon.le_appInfo -&gt; &lt;root&gt;.le_appInfo
+        &lt;root&gt;.secStore.secStoreDaemon.le_update -&gt; &lt;root&gt;.le_update
+        &lt;root&gt;.smsInboxService.smsInboxService.le_sim -&gt; &lt;root&gt;.le_sim
+        &lt;root&gt;.smsInboxService.smsInboxService.le_sms -&gt; &lt;root&gt;.le_sms
+        &lt;root&gt;.smsInboxService.smsInboxService.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.cm.cm.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.cm.cm.le_ulpm -&gt; &lt;root&gt;.le_ulpm
+        &lt;root&gt;.cm.cm.le_mrc -&gt; &lt;root&gt;.le_mrc
+        &lt;root&gt;.cm.cm.le_mdc -&gt; &lt;root&gt;.le_mdc
+        &lt;root&gt;.cm.cm.le_sim -&gt; &lt;root&gt;.le_sim
+        &lt;root&gt;.cm.cm.le_sms -&gt; &lt;root&gt;.le_sms
+        &lt;root&gt;.cm.cm.le_info -&gt; &lt;root&gt;.le_info
+        &lt;root&gt;.cm.cm.le_adc -&gt; &lt;root&gt;.le_adc
+        &lt;root&gt;.cm.cm.le_temp -&gt; &lt;root&gt;.le_temp
+        &lt;root&gt;.cm.cm.le_ips -&gt; &lt;root&gt;.le_ips
+        &lt;root&gt;.cm.cm.le_rtc -&gt; &lt;root&gt;.le_rtc
+        &lt;root&gt;.cm.cm.le_cellnet -&gt; &lt;root&gt;.le_cellnet
+        &lt;root&gt;.fwupdate.fwupdate.le_fwupdate -&gt; &lt;root&gt;.le_fwupdate
+        &lt;root&gt;.gnss.gnss.le_gnss -&gt; &lt;root&gt;.le_gnss
+        &lt;root&gt;.gnss.gnss.le_pos -&gt; &lt;root&gt;.le_pos
+        &lt;root&gt;.gnss.gnss.le_posCtrl -&gt; &lt;root&gt;.le_posCtrl
+        &lt;root&gt;.kmod.moduleLoad.le_kernelModule -&gt; &lt;root&gt;.le_kernelModule
+        &lt;root&gt;.pmtool.pmtool.le_ulpm -&gt; &lt;root&gt;.le_ulpm
+        &lt;root&gt;.pmtool.pmtool.le_bootReason -&gt; &lt;root&gt;.le_bootReason
+        &lt;root&gt;.pmtool.pmtool.le_pm -&gt; &lt;root&gt;.le_pm
+        &lt;root&gt;.secstore.secstore.secStoreAdmin -&gt; &lt;root&gt;.secStoreAdmin
+        &lt;root&gt;.voiceCallService.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.voiceCallService.voiceCallService.le_mcc -&gt; &lt;root&gt;.le_mcc
+        &lt;root&gt;.voiceCallService.voiceCallService.le_audio -&gt; &lt;root&gt;.le_audio
+        &lt;root&gt;.wifi.wifi.le_wifiClient -&gt; &lt;root&gt;.le_wifiClient
+        &lt;root&gt;.wifi.wifi.le_wifiAp -&gt; &lt;root&gt;.le_wifiAp
+        &lt;root&gt;.wifiApTest.wifiApTestComponent.le_wifiAp -&gt; &lt;root&gt;.le_wifiAp
+        &lt;root&gt;.wifiClientTest.wifiClientTestComponent.le_wifiClient -&gt; &lt;root&gt;.le_wifiClient
+        &lt;root&gt;.wifiWebAp.wifiWebApComponent.le_wifiAp -&gt; &lt;root&gt;.le_wifiAp
+        &lt;root&gt;.mqttClient.mqttClientApiComponent.le_info -&gt; &lt;root&gt;.le_info
+        &lt;root&gt;.OrangeStarterKit.smsClient.le_sms -&gt; &lt;root&gt;.le_sms
+        &lt;root&gt;.OrangeStarterKit.OrangeStarterKitComponent.le_mdc -&gt; &lt;root&gt;.le_mdc
+        &lt;root&gt;.OrangeStarterKit.OrangeStarterKitComponent.le_info -&gt; &lt;root&gt;.le_info
+        &lt;root&gt;.OrangeStarterKit.OrangeStarterKitComponent.le_adc -&gt; &lt;root&gt;.le_adc
+        &lt;root&gt;.OrangeStarterKit.OrangeStarterKitComponent.ma_led -&gt; &lt;root&gt;.ma_led
+        &lt;root&gt;.OrangeStarterKit.dataProfileComponent.le_data -&gt; &lt;root&gt;.le_data
+        &lt;root&gt;.OrangeStarterKit.dataProfileComponent.le_mdc -&gt; &lt;root&gt;.le_mdc
+        &lt;root&gt;.OrangeStarterKit.LiveObjects.mqttClient -&gt; &lt;root&gt;.mqttClient
+        &lt;root&gt;.OrangeStarterKit.LiveObjects.le_data -&gt; &lt;root&gt;.le_data
+        dataRouter.LogClient -&gt; &lt;root&gt;.LogClient
+        dataRouter.dataRouter.routerComponent.mqtt -&gt; &lt;root&gt;.mqtt
+        dataRouter.dataRouter.routerComponent.le_appInfo -&gt; &lt;root&gt;.le_appInfo
+        dataRouter.dataRouter.routerComponent.le_avdata -&gt; &lt;root&gt;.le_avdata
+        dataRouter.dataRouter.routerComponent.le_secStore -&gt; &lt;root&gt;.le_secStore
+        dataRouter.dataRouter.routerComponent.le_cfg -&gt; &lt;root&gt;.le_cfg
+        dataPushTest.LogClient -&gt; &lt;root&gt;.LogClient
+        dataPushTest.dataPushTest.avPublisherComponent.le_avdata -&gt; &lt;root&gt;.le_avdata
+        redSensorToCloud.LogClient -&gt; &lt;root&gt;.LogClient
+        redSensorToCloud.redSensorToCloud.sensorsComponent.le_adc -&gt; &lt;root&gt;.le_adc
+        redSensorToCloud.redSensorToCloud.sensorsComponent.le_posCtrl -&gt; &lt;root&gt;.le_posCtrl
+        redSensorToCloud.redSensorToCloud.sensorsComponent.le_pos -&gt; &lt;root&gt;.le_pos
+        redSensorToCloud.redSensorToCloud.avPublisherComponent.le_avdata -&gt; &lt;root&gt;.le_avdata
+        redSensorToCloud.redSensorToCloud.avPublisherComponent.ma_led -&gt; &lt;root&gt;.ma_led
+        socialService.LogClient -&gt; &lt;root&gt;.LogClient
+        socialService.socialService.social.le_cfg -&gt; &lt;root&gt;.le_cfg
+        socialService.twitterClient.twitterClient.serviceConfig -&gt; socialService.socialService.social.serviceConfig
+        socialService.twitterClient.twitterClient.twitter -&gt; socialService.twitter
+        spiService.LogClient -&gt; &lt;root&gt;.LogClient
+        spiService.spiService.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        helloWorld.LogClient -&gt; &lt;root&gt;.LogClient
+
+SERVICES
+
+        &lt;root&gt;.sdirTool  (protocol ID = 'sdirTool', max message size = 268 bytes)
+        &lt;root&gt;.logFd  (protocol ID = 'f871a40b4c7617a93b47f874956f1e69', max message size = 118 bytes)
+        &lt;root&gt;.logDaemonWdog  (protocol ID = '5f75fa14e4d6040284a6d7f2ca05dade', max message size = 24 bytes)
+        &lt;root&gt;.LogClient  (protocol ID = 'LogControlProtocol', max message size = 300 bytes)
+        &lt;root&gt;.LogControl  (protocol ID = 'LogControlProtocol', max message size = 300 bytes)
+        &lt;root&gt;.le_cfg  (protocol ID = '26b40ad3a107d48e4227dff8903b9601', max message size = 1565 bytes)
+        &lt;root&gt;.le_cfgAdmin  (protocol ID = '2aac298e89c905c985fd3b9437fb9f53', max message size = 1052 bytes)
+        &lt;root&gt;.configTreeWdog  (protocol ID = '5f75fa14e4d6040284a6d7f2ca05dade', max message size = 24 bytes)
+        &lt;root&gt;.le_update  (protocol ID = '17cd65c5c26efb8f22650432980df70f', max message size = 56 bytes)
+        &lt;root&gt;.le_appRemove  (protocol ID = '13c5300b39cc08587796fd4b47183f92', max message size = 67 bytes)
+        &lt;root&gt;.le_instStat  (protocol ID = 'e160a983e92b4310ae8af3fbeff75a1b', max message size = 63 bytes)
+        &lt;root&gt;.le_updateCtrl  (protocol ID = '2068715d5da737c096cc7146ce5f1df6', max message size = 17 bytes)
+        &lt;root&gt;.updateDaemonWdog  (protocol ID = '5f75fa14e4d6040284a6d7f2ca05dade', max message size = 24 bytes)
+        &lt;root&gt;.le_atClient  (protocol ID = 'ef7be0a431448f583f2e7a2ec83a5680', max message size = 4119 bytes)
+        &lt;root&gt;.le_atServer  (protocol ID = '2527056ddcf5218c3a18f8b922a25fd2', max message size = 4123 bytes)
+        &lt;root&gt;.ma_led  (protocol ID = '91c870ebd3551834d9731e5d0681a038', max message size = 16 bytes)
+        &lt;root&gt;.le_port  (protocol ID = 'c7135da061a6a38d810159fff5799177', max message size = 70 bytes)
+        &lt;root&gt;.le_rsim  (protocol ID = 'b09e1d24fc5dc8036c1bf572dbd40b21', max message size = 300 bytes)
+        &lt;root&gt;.le_sup_ctrl  (protocol ID = 'bb17ec49ba32b1f1cfa05c1fa0000719', max message size = 68 bytes)
+        &lt;root&gt;.le_appCtrl  (protocol ID = 'bbc8a1041b89cad83df1e4bfb1c9a067', max message size = 541 bytes)
+        &lt;root&gt;.le_framework  (protocol ID = '28525bdc36d66247ae720424d0b28b51', max message size = 17 bytes)
+        &lt;root&gt;.wdog  (protocol ID = '80408175972a85f9cd0abf02df19f2f3', max message size = 16 bytes)
+        &lt;root&gt;.supervisorWdog  (protocol ID = '5f75fa14e4d6040284a6d7f2ca05dade', max message size = 24 bytes)
+        &lt;root&gt;.le_appInfo  (protocol ID = '092c2f7994c22cecc1e5a2608e1595b0', max message size = 118 bytes)
+        &lt;root&gt;.le_appProc  (protocol ID = '3a750db42e253ea2307d75519c48afeb', max message size = 633 bytes)
+        &lt;root&gt;.le_ima  (protocol ID = '32b128a43637f60e028aba17f6513daa', max message size = 531 bytes)
+        &lt;root&gt;.le_kernelModule  (protocol ID = 'b9a021649e1b6d35ccdd0293014c964b', max message size = 80 bytes)
+        &lt;root&gt;.le_pm  (protocol ID = '39f21a4932ef87d302a8f31dfe5a0af7', max message size = 55 bytes)
+        &lt;root&gt;.le_ulpm  (protocol ID = 'fdb586a476e5e0e19b60614aa1ea5d7a', max message size = 40 bytes)
+        &lt;root&gt;.le_bootReason  (protocol ID = '2d79668511adea4d675f5d77b9f2d3ea', max message size = 17 bytes)
+        &lt;root&gt;.io  (protocol ID = '2521df9c34619280d5712f58693a0ac8', max message size = 238 bytes)
+        &lt;root&gt;.admin  (protocol ID = 'e825b12f3c6c38e778065318ec4bb76c', max message size = 234 bytes)
+        &lt;root&gt;.query  (protocol ID = 'ce058d01527d4eb46f3b3fff76784fa6', max message size = 246 bytes)
+        &lt;root&gt;.le_wdog  (protocol ID = '572ba176b790548eed89b7ba6f9f4b14', max message size = 24 bytes)
+        &lt;root&gt;.le_audio  (protocol ID = '6a8550b129317ef436c4894129509c7c', max message size = 132 bytes)
+        &lt;root&gt;.ma_battery  (protocol ID = '438130cada0d5ac2f4a3245f58f5ba31', max message size = 152 bytes)
+        &lt;root&gt;.ma_adminbattery  (protocol ID = 'c914c29c3c0f31fc2b8641c409866acb', max message size = 152 bytes)
+        &lt;root&gt;.le_wifiClient  (protocol ID = '49eb962b16889a72c83872700e06f2da', max message size = 223 bytes)
+        &lt;root&gt;.le_wifiAp  (protocol ID = '461e6b8f546beb192a8645fb0d26e89d', max message size = 94 bytes)
+        &lt;root&gt;.le_fwupdate  (protocol ID = 'a8f730857c018907842f8ee02858e26f', max message size = 276 bytes)
+        &lt;root&gt;.le_dualsys  (protocol ID = '69539775d6f1358ade33034c2fa222c4', max message size = 20 bytes)
+        &lt;root&gt;.le_flash  (protocol ID = 'a36a81bca852297786086f08a8884cda', max message size = 262172 bytes)
+        &lt;root&gt;.le_gnss  (protocol ID = 'ac786c9bdfedf53fb1ab99476841610f', max message size = 2023 bytes)
+        &lt;root&gt;.le_pos  (protocol ID = 'c9b4a5b877bfe3915d5029d8393d9566', max message size = 36 bytes)
+        &lt;root&gt;.le_posCtrl  (protocol ID = 'd47cc30512e69387f546399a44c565e4', max message size = 16 bytes)
+        &lt;root&gt;.le_secStore  (protocol ID = '98c2a4dd482018a94c642390891be24f', max message size = 8471 bytes)
+        &lt;root&gt;.secStoreGlobal  (protocol ID = '98c2a4dd482018a94c642390891be24f', max message size = 8471 bytes)
+        &lt;root&gt;.secStoreAdmin  (protocol ID = '4995e42beb8aa21c2fabf4414840024d', max message size = 8727 bytes)
+        &lt;root&gt;.le_gpioPin1  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin2  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin3  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin4  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin5  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin7  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin8  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin9  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin10  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin11  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin12  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin14  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin15  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin16  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin17  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin18  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin19  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin20  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin21  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin22  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin23  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin24  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin25  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin26  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin27  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin28  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin29  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin30  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin31  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin32  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin33  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin34  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin35  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin36  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin37  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin38  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin39  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin40  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin41  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin42  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin43  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin44  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin45  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin46  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_info  (protocol ID = '975257ab76b4bd700b883f96a47b6508', max message size = 276 bytes)
+        &lt;root&gt;.le_sms  (protocol ID = '6e36b32bb82b37b44288335e8dec164e', max message size = 205 bytes)
+        &lt;root&gt;.le_mrc  (protocol ID = '9050243ec820d5521bcc635c52691835', max message size = 124 bytes)
+        &lt;root&gt;.le_sim  (protocol ID = 'a0eebdf2681bff48efc6d76ad002fd10', max message size = 540 bytes)
+        &lt;root&gt;.le_mdc  (protocol ID = '5110946da2c3c40cf6a28792bb0cf4ef', max message size = 196 bytes)
+        &lt;root&gt;.le_mcc  (protocol ID = 'bf43202a0369b12bb827e1bc4724bb41', max message size = 41 bytes)
+        &lt;root&gt;.le_ecall  (protocol ID = '9ca2a687836cbb0fe7a26c7519fc2637', max message size = 164 bytes)
+        &lt;root&gt;.le_ips  (protocol ID = '90ad953c761aa71f85c44f94ee91aff1', max message size = 24 bytes)
+        &lt;root&gt;.le_temp  (protocol ID = '01650568439a3a9c47468069df5a7783', max message size = 128 bytes)
+        &lt;root&gt;.le_antenna  (protocol ID = 'c6ad7def5425943d0e3b97ad84593ed5', max message size = 24 bytes)
+        &lt;root&gt;.le_riPin  (protocol ID = 'aafbc3c57eec1350fdae5eb6fe083e5a', max message size = 17 bytes)
+        &lt;root&gt;.le_adc  (protocol ID = 'cca082d3d4d6b9c7c11466ab2ea74e4f', max message size = 54 bytes)
+        &lt;root&gt;.le_rtc  (protocol ID = '88750cf71cdf94a8a7d68de367465558', max message size = 24 bytes)
+        &lt;root&gt;.le_mdmCfg  (protocol ID = 'fcf3b5cece06794472fb938f2c621c50', max message size = 16 bytes)
+        &lt;root&gt;.le_lpt  (protocol ID = 'ddfabab9b938cdcb7564dbd7632f76bc', max message size = 24 bytes)
+        &lt;root&gt;.mqttClient  (protocol ID = 'cfa0257f5f505e5a5cb045d0e9846322', max message size = 1204 bytes)
+        &lt;root&gt;.le_cellnet  (protocol ID = 'd635d930065e3c3f1e7f12c3b1ec3c41', max message size = 32 bytes)
+        &lt;root&gt;.le_data  (protocol ID = '301e0f957699e656d25d93021f0f5a77', max message size = 117 bytes)
+        &lt;root&gt;.le_avc  (protocol ID = '7a818d1ee00573303dc3b4f87c43e029', max message size = 541 bytes)
+        &lt;root&gt;.le_avdata  (protocol ID = 'd042ee9f795ba3ff64aacf91d970b8fc', max message size = 802 bytes)
+
+WAITING CLIENTS
+
+        [pid  9861] &lt;root&gt;.ioRaspi.ioRaspiComponent.mangoh_button UNBOUND  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd')
+</code></pre>
+<p>The rest of the story in the second post</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pierr0t'><span itemprop='name'>pierr0t</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-11-27T11:01:45Z' class='post-time'>
+                    November 27, 2018, 11:01am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-11-27T11:01:45Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>If I remove all code concerning  gpio rpi 1&amp; 2, it s stucking on  gpio 3:</p>
+<pre><code class="lang-auto">
+BINDINGS
+
+        &lt;root&gt;.sdirTool -&gt; &lt;root&gt;.sdirTool
+        &lt;root&gt;.LogClient -&gt; &lt;root&gt;.LogClient
+        &lt;root&gt;.LogControl -&gt; &lt;root&gt;.LogControl
+        &lt;root&gt;.le_appCtrl -&gt; &lt;root&gt;.le_appCtrl
+        &lt;root&gt;.le_framework -&gt; &lt;root&gt;.le_framework
+        &lt;root&gt;.wdog -&gt; &lt;root&gt;.wdog
+        &lt;root&gt;.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.le_cfgAdmin -&gt; &lt;root&gt;.le_cfgAdmin
+        &lt;root&gt;.le_update -&gt; &lt;root&gt;.le_update
+        &lt;root&gt;.le_updateCtrl -&gt; &lt;root&gt;.le_updateCtrl
+        &lt;root&gt;.le_appRemove -&gt; &lt;root&gt;.le_appRemove
+        &lt;root&gt;.le_instStat -&gt; &lt;root&gt;.le_instStat
+        &lt;root&gt;.le_appInfo -&gt; &lt;root&gt;.le_appInfo
+        &lt;root&gt;.le_appProc -&gt; &lt;root&gt;.le_appProc
+        &lt;root&gt;.le_ima -&gt; &lt;root&gt;.le_ima
+        &lt;root&gt;.appSmack -&gt; &lt;root&gt;.appSmack
+        &lt;root&gt;.logFd -&gt; &lt;root&gt;.logFd
+        &lt;root&gt;.configTreeWdog -&gt; &lt;root&gt;.configTreeWdog
+        &lt;root&gt;.logDaemonWdog -&gt; &lt;root&gt;.logDaemonWdog
+        &lt;root&gt;.updateDaemonWdog -&gt; &lt;root&gt;.updateDaemonWdog
+        &lt;root&gt;.supervisorWdog -&gt; &lt;root&gt;.supervisorWdog
+        &lt;root&gt;.le_sup_ctrl -&gt; &lt;root&gt;.le_sup_ctrl
+        &lt;root&gt;.le_fwupdate -&gt; &lt;root&gt;.le_fwupdate
+        &lt;root&gt;.atClientDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.atServerDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.atServerDaemon.atServer.le_atClient -&gt; &lt;root&gt;.le_atClient
+        &lt;root&gt;.audioDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.audioDaemon.audio.le_pm -&gt; &lt;root&gt;.le_pm
+        &lt;root&gt;.avcDaemon.appCfg.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.avcDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.avcDaemon.avcDaemon.le_instStat -&gt; &lt;root&gt;.le_instStat
+        &lt;root&gt;.avcDaemon.avcDaemon.le_appRemove -&gt; &lt;root&gt;.le_appRemove
+        &lt;root&gt;.avcDaemon.avcDaemon.le_appCtrl -&gt; &lt;root&gt;.le_appCtrl
+        &lt;root&gt;.avcDaemon.avcDaemon.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.avcDaemon.avcDaemon.le_data -&gt; &lt;root&gt;.le_data
+        &lt;root&gt;.avcDaemon.avcDaemon.le_ulpm -&gt; &lt;root&gt;.le_ulpm
+        &lt;root&gt;.avcDaemon.avcDaemon.le_info -&gt; &lt;root&gt;.le_info
+        &lt;root&gt;.avcDaemon.avcDaemon.le_ips -&gt; &lt;root&gt;.le_ips
+        &lt;root&gt;.avcDaemon.avcDaemon.le_mdc -&gt; &lt;root&gt;.le_mdc
+        &lt;root&gt;.avcDaemon.avcDaemon.le_mrc -&gt; &lt;root&gt;.le_mrc
+        &lt;root&gt;.avcDaemon.avcDaemon.le_sim -&gt; &lt;root&gt;.le_sim
+        &lt;root&gt;.avcDaemon.avcDaemon.le_sms -&gt; &lt;root&gt;.le_sms
+        &lt;root&gt;.avcDaemon.avcDaemon.le_temp -&gt; &lt;root&gt;.le_temp
+        &lt;root&gt;.avcDaemon.avcDaemon.le_gnss -&gt; &lt;root&gt;.le_gnss
+        &lt;root&gt;.avcDaemon.avcDaemon.le_pos -&gt; &lt;root&gt;.le_pos
+        &lt;root&gt;.avcDaemon.avcDaemon.le_appInfo -&gt; &lt;root&gt;.le_appInfo
+        &lt;root&gt;.avcDaemon.avcDaemon.le_fwupdate -&gt; &lt;root&gt;.le_fwupdate
+        &lt;root&gt;.avcDaemon.avcDaemon.le_update -&gt; &lt;root&gt;.le_update
+        &lt;root&gt;.avcDaemon.avcDaemon.le_framework -&gt; &lt;root&gt;.le_framework
+        &lt;root&gt;.avcDaemon.avcDaemon.le_secStore -&gt; &lt;root&gt;.le_secStore
+        &lt;root&gt;.avcDaemon.avcDaemon.le_cellnet -&gt; &lt;root&gt;.le_cellnet
+        &lt;root&gt;.battery.batteryComponent.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.battery.batteryComponent.dhubIO -&gt; &lt;root&gt;.io
+        &lt;root&gt;.cellNetService.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.cellNetService.cellNetService.le_sim -&gt; &lt;root&gt;.le_sim
+        &lt;root&gt;.cellNetService.cellNetService.le_mrc -&gt; &lt;root&gt;.le_mrc
+        &lt;root&gt;.cellNetService.cellNetService.le_secStore -&gt; &lt;root&gt;.le_secStore
+        &lt;root&gt;.dcsDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.dcsDaemon.dcsDaemon.le_mdc -&gt; &lt;root&gt;.le_mdc
+        &lt;root&gt;.dcsDaemon.dcsDaemon.le_mrc -&gt; &lt;root&gt;.le_mrc
+        &lt;root&gt;.dcsDaemon.dcsDaemon.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.dcsDaemon.dcsDaemon.le_wifiClient -&gt; &lt;root&gt;.le_wifiClient
+        &lt;root&gt;.dhubToolAdmin -&gt; &lt;root&gt;.admin
+        &lt;root&gt;.dhubToolQuery -&gt; &lt;root&gt;.query
+        &lt;root&gt;.dhubToolIo -&gt; &lt;root&gt;.io
+        &lt;root&gt;.devMode.devMode.le_pm -&gt; &lt;root&gt;.le_pm
+        &lt;root&gt;.devMode.devMode.le_updateCtrl -&gt; &lt;root&gt;.le_updateCtrl
+        &lt;root&gt;.devMode.devMode.le_instStat -&gt; &lt;root&gt;.le_instStat
+        &lt;root&gt;.devMode.devMode.le_framework -&gt; &lt;root&gt;.le_framework
+        &lt;root&gt;.dr.drTool.dataRouter -&gt; dataRouter.dataRouter
+        &lt;root&gt;.fwupdateDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.gpioService.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.gpioService.sysfsGpio.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.modemDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.modemDaemon.modemDaemon.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.modemDaemon.modemDaemon.le_pm -&gt; &lt;root&gt;.le_pm
+        &lt;root&gt;.rSimDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.portDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.portDaemon.portDaemon.le_atServer -&gt; &lt;root&gt;.le_atServer
+        &lt;root&gt;.posDaemon.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.posDaemon.posDaemon.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.powerManagerService.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.powerManagerService.powerMgr.le_framework -&gt; &lt;root&gt;.le_framework
+        &lt;root&gt;.secStore.appCfg.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.secStore.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.secStore.secStoreDaemon.le_appInfo -&gt; &lt;root&gt;.le_appInfo
+        &lt;root&gt;.secStore.secStoreDaemon.le_update -&gt; &lt;root&gt;.le_update
+        &lt;root&gt;.smsInboxService.smsInboxService.le_sim -&gt; &lt;root&gt;.le_sim
+        &lt;root&gt;.smsInboxService.smsInboxService.le_sms -&gt; &lt;root&gt;.le_sms
+        &lt;root&gt;.smsInboxService.smsInboxService.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.cm.cm.le_cfg -&gt; &lt;root&gt;.le_cfg
+        &lt;root&gt;.cm.cm.le_ulpm -&gt; &lt;root&gt;.le_ulpm
+        &lt;root&gt;.cm.cm.le_mrc -&gt; &lt;root&gt;.le_mrc
+        &lt;root&gt;.cm.cm.le_mdc -&gt; &lt;root&gt;.le_mdc
+        &lt;root&gt;.cm.cm.le_sim -&gt; &lt;root&gt;.le_sim
+        &lt;root&gt;.cm.cm.le_sms -&gt; &lt;root&gt;.le_sms
+        &lt;root&gt;.cm.cm.le_info -&gt; &lt;root&gt;.le_info
+        &lt;root&gt;.cm.cm.le_adc -&gt; &lt;root&gt;.le_adc
+        &lt;root&gt;.cm.cm.le_temp -&gt; &lt;root&gt;.le_temp
+        &lt;root&gt;.cm.cm.le_ips -&gt; &lt;root&gt;.le_ips
+        &lt;root&gt;.cm.cm.le_rtc -&gt; &lt;root&gt;.le_rtc
+        &lt;root&gt;.cm.cm.le_cellnet -&gt; &lt;root&gt;.le_cellnet
+        &lt;root&gt;.fwupdate.fwupdate.le_fwupdate -&gt; &lt;root&gt;.le_fwupdate
+        &lt;root&gt;.gnss.gnss.le_gnss -&gt; &lt;root&gt;.le_gnss
+        &lt;root&gt;.gnss.gnss.le_pos -&gt; &lt;root&gt;.le_pos
+        &lt;root&gt;.gnss.gnss.le_posCtrl -&gt; &lt;root&gt;.le_posCtrl
+        &lt;root&gt;.kmod.moduleLoad.le_kernelModule -&gt; &lt;root&gt;.le_kernelModule
+        &lt;root&gt;.pmtool.pmtool.le_ulpm -&gt; &lt;root&gt;.le_ulpm
+        &lt;root&gt;.pmtool.pmtool.le_bootReason -&gt; &lt;root&gt;.le_bootReason
+        &lt;root&gt;.pmtool.pmtool.le_pm -&gt; &lt;root&gt;.le_pm
+        &lt;root&gt;.secstore.secstore.secStoreAdmin -&gt; &lt;root&gt;.secStoreAdmin
+        &lt;root&gt;.voiceCallService.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        &lt;root&gt;.voiceCallService.voiceCallService.le_mcc -&gt; &lt;root&gt;.le_mcc
+        &lt;root&gt;.voiceCallService.voiceCallService.le_audio -&gt; &lt;root&gt;.le_audio
+        &lt;root&gt;.wifi.wifi.le_wifiClient -&gt; &lt;root&gt;.le_wifiClient
+        &lt;root&gt;.wifi.wifi.le_wifiAp -&gt; &lt;root&gt;.le_wifiAp
+        &lt;root&gt;.wifiApTest.wifiApTestComponent.le_wifiAp -&gt; &lt;root&gt;.le_wifiAp
+        &lt;root&gt;.wifiClientTest.wifiClientTestComponent.le_wifiClient -&gt; &lt;root&gt;.le_wifiClient
+        &lt;root&gt;.wifiWebAp.wifiWebApComponent.le_wifiAp -&gt; &lt;root&gt;.le_wifiAp
+        &lt;root&gt;.mqttClient.mqttClientApiComponent.le_info -&gt; &lt;root&gt;.le_info
+        &lt;root&gt;.OrangeStarterKit.smsClient.le_sms -&gt; &lt;root&gt;.le_sms
+        &lt;root&gt;.OrangeStarterKit.OrangeStarterKitComponent.le_mdc -&gt; &lt;root&gt;.le_mdc
+        &lt;root&gt;.OrangeStarterKit.OrangeStarterKitComponent.le_info -&gt; &lt;root&gt;.le_info
+        &lt;root&gt;.OrangeStarterKit.OrangeStarterKitComponent.le_adc -&gt; &lt;root&gt;.le_adc
+        &lt;root&gt;.OrangeStarterKit.OrangeStarterKitComponent.ma_led -&gt; &lt;root&gt;.ma_led
+        &lt;root&gt;.OrangeStarterKit.dataProfileComponent.le_data -&gt; &lt;root&gt;.le_data
+        &lt;root&gt;.OrangeStarterKit.dataProfileComponent.le_mdc -&gt; &lt;root&gt;.le_mdc
+        &lt;root&gt;.OrangeStarterKit.LiveObjects.mqttClient -&gt; &lt;root&gt;.mqttClient
+        &lt;root&gt;.OrangeStarterKit.LiveObjects.le_data -&gt; &lt;root&gt;.le_data
+        dataRouter.LogClient -&gt; &lt;root&gt;.LogClient
+        dataRouter.dataRouter.routerComponent.mqtt -&gt; &lt;root&gt;.mqtt
+        dataRouter.dataRouter.routerComponent.le_appInfo -&gt; &lt;root&gt;.le_appInfo
+        dataRouter.dataRouter.routerComponent.le_avdata -&gt; &lt;root&gt;.le_avdata
+        dataRouter.dataRouter.routerComponent.le_secStore -&gt; &lt;root&gt;.le_secStore
+        dataRouter.dataRouter.routerComponent.le_cfg -&gt; &lt;root&gt;.le_cfg
+        dataPushTest.LogClient -&gt; &lt;root&gt;.LogClient
+        dataPushTest.dataPushTest.avPublisherComponent.le_avdata -&gt; &lt;root&gt;.le_avdata
+        redSensorToCloud.LogClient -&gt; &lt;root&gt;.LogClient
+        redSensorToCloud.redSensorToCloud.sensorsComponent.le_adc -&gt; &lt;root&gt;.le_adc
+        redSensorToCloud.redSensorToCloud.sensorsComponent.le_posCtrl -&gt; &lt;root&gt;.le_posCtrl
+        redSensorToCloud.redSensorToCloud.sensorsComponent.le_pos -&gt; &lt;root&gt;.le_pos
+        redSensorToCloud.redSensorToCloud.avPublisherComponent.le_avdata -&gt; &lt;root&gt;.le_avdata
+        redSensorToCloud.redSensorToCloud.avPublisherComponent.ma_led -&gt; &lt;root&gt;.ma_led
+        socialService.LogClient -&gt; &lt;root&gt;.LogClient
+        socialService.socialService.social.le_cfg -&gt; &lt;root&gt;.le_cfg
+        socialService.twitterClient.twitterClient.serviceConfig -&gt; socialService.socialService.social.serviceConfig
+        socialService.twitterClient.twitterClient.twitter -&gt; socialService.twitter
+        spiService.LogClient -&gt; &lt;root&gt;.LogClient
+        spiService.spiService.watchdogChain.le_wdog -&gt; &lt;root&gt;.le_wdog
+        helloWorld.LogClient -&gt; &lt;root&gt;.LogClient
+
+SERVICES
+
+        &lt;root&gt;.sdirTool  (protocol ID = 'sdirTool', max message size = 268 bytes)
+        &lt;root&gt;.logFd  (protocol ID = 'f871a40b4c7617a93b47f874956f1e69', max message size = 118 bytes)
+        &lt;root&gt;.logDaemonWdog  (protocol ID = '5f75fa14e4d6040284a6d7f2ca05dade', max message size = 24 bytes)
+        &lt;root&gt;.LogClient  (protocol ID = 'LogControlProtocol', max message size = 300 bytes)
+        &lt;root&gt;.LogControl  (protocol ID = 'LogControlProtocol', max message size = 300 bytes)
+        &lt;root&gt;.le_cfg  (protocol ID = '26b40ad3a107d48e4227dff8903b9601', max message size = 1565 bytes)
+        &lt;root&gt;.le_cfgAdmin  (protocol ID = '2aac298e89c905c985fd3b9437fb9f53', max message size = 1052 bytes)
+        &lt;root&gt;.configTreeWdog  (protocol ID = '5f75fa14e4d6040284a6d7f2ca05dade', max message size = 24 bytes)
+        &lt;root&gt;.le_update  (protocol ID = '17cd65c5c26efb8f22650432980df70f', max message size = 56 bytes)
+        &lt;root&gt;.le_appRemove  (protocol ID = '13c5300b39cc08587796fd4b47183f92', max message size = 67 bytes)
+        &lt;root&gt;.le_instStat  (protocol ID = 'e160a983e92b4310ae8af3fbeff75a1b', max message size = 63 bytes)
+        &lt;root&gt;.le_updateCtrl  (protocol ID = '2068715d5da737c096cc7146ce5f1df6', max message size = 17 bytes)
+        &lt;root&gt;.updateDaemonWdog  (protocol ID = '5f75fa14e4d6040284a6d7f2ca05dade', max message size = 24 bytes)
+        &lt;root&gt;.ma_led  (protocol ID = '91c870ebd3551834d9731e5d0681a038', max message size = 16 bytes)
+        &lt;root&gt;.le_atClient  (protocol ID = 'ef7be0a431448f583f2e7a2ec83a5680', max message size = 4119 bytes)
+        &lt;root&gt;.le_sup_ctrl  (protocol ID = 'bb17ec49ba32b1f1cfa05c1fa0000719', max message size = 68 bytes)
+        &lt;root&gt;.le_appCtrl  (protocol ID = 'bbc8a1041b89cad83df1e4bfb1c9a067', max message size = 541 bytes)
+        &lt;root&gt;.le_framework  (protocol ID = '28525bdc36d66247ae720424d0b28b51', max message size = 17 bytes)
+        &lt;root&gt;.wdog  (protocol ID = '80408175972a85f9cd0abf02df19f2f3', max message size = 16 bytes)
+        &lt;root&gt;.supervisorWdog  (protocol ID = '5f75fa14e4d6040284a6d7f2ca05dade', max message size = 24 bytes)
+        &lt;root&gt;.le_appInfo  (protocol ID = '092c2f7994c22cecc1e5a2608e1595b0', max message size = 118 bytes)
+        &lt;root&gt;.le_appProc  (protocol ID = '3a750db42e253ea2307d75519c48afeb', max message size = 633 bytes)
+        &lt;root&gt;.le_ima  (protocol ID = '32b128a43637f60e028aba17f6513daa', max message size = 531 bytes)
+        &lt;root&gt;.le_kernelModule  (protocol ID = 'b9a021649e1b6d35ccdd0293014c964b', max message size = 80 bytes)
+        &lt;root&gt;.le_rsim  (protocol ID = 'b09e1d24fc5dc8036c1bf572dbd40b21', max message size = 300 bytes)
+        &lt;root&gt;.le_wdog  (protocol ID = '572ba176b790548eed89b7ba6f9f4b14', max message size = 24 bytes)
+        &lt;root&gt;.le_pm  (protocol ID = '39f21a4932ef87d302a8f31dfe5a0af7', max message size = 55 bytes)
+        &lt;root&gt;.le_ulpm  (protocol ID = 'fdb586a476e5e0e19b60614aa1ea5d7a', max message size = 40 bytes)
+        &lt;root&gt;.le_bootReason  (protocol ID = '2d79668511adea4d675f5d77b9f2d3ea', max message size = 17 bytes)
+        &lt;root&gt;.le_audio  (protocol ID = '6a8550b129317ef436c4894129509c7c', max message size = 132 bytes)
+        &lt;root&gt;.le_atServer  (protocol ID = '2527056ddcf5218c3a18f8b922a25fd2', max message size = 4123 bytes)
+        &lt;root&gt;.io  (protocol ID = '2521df9c34619280d5712f58693a0ac8', max message size = 238 bytes)
+        &lt;root&gt;.admin  (protocol ID = 'e825b12f3c6c38e778065318ec4bb76c', max message size = 234 bytes)
+        &lt;root&gt;.query  (protocol ID = 'ce058d01527d4eb46f3b3fff76784fa6', max message size = 246 bytes)
+        &lt;root&gt;.le_port  (protocol ID = 'c7135da061a6a38d810159fff5799177', max message size = 70 bytes)
+        &lt;root&gt;.ma_battery  (protocol ID = '438130cada0d5ac2f4a3245f58f5ba31', max message size = 152 bytes)
+        &lt;root&gt;.ma_adminbattery  (protocol ID = 'c914c29c3c0f31fc2b8641c409866acb', max message size = 152 bytes)
+        &lt;root&gt;.le_wifiClient  (protocol ID = '49eb962b16889a72c83872700e06f2da', max message size = 223 bytes)
+        &lt;root&gt;.le_wifiAp  (protocol ID = '461e6b8f546beb192a8645fb0d26e89d', max message size = 94 bytes)
+        &lt;root&gt;.le_fwupdate  (protocol ID = 'a8f730857c018907842f8ee02858e26f', max message size = 276 bytes)
+        &lt;root&gt;.le_dualsys  (protocol ID = '69539775d6f1358ade33034c2fa222c4', max message size = 20 bytes)
+        &lt;root&gt;.le_flash  (protocol ID = 'a36a81bca852297786086f08a8884cda', max message size = 262172 bytes)
+        &lt;root&gt;.le_secStore  (protocol ID = '98c2a4dd482018a94c642390891be24f', max message size = 8471 bytes)
+        &lt;root&gt;.secStoreGlobal  (protocol ID = '98c2a4dd482018a94c642390891be24f', max message size = 8471 bytes)
+        &lt;root&gt;.secStoreAdmin  (protocol ID = '4995e42beb8aa21c2fabf4414840024d', max message size = 8727 bytes)
+        &lt;root&gt;.le_gnss  (protocol ID = 'ac786c9bdfedf53fb1ab99476841610f', max message size = 2023 bytes)
+        &lt;root&gt;.le_pos  (protocol ID = 'c9b4a5b877bfe3915d5029d8393d9566', max message size = 36 bytes)
+        &lt;root&gt;.le_posCtrl  (protocol ID = 'd47cc30512e69387f546399a44c565e4', max message size = 16 bytes)
+        &lt;root&gt;.le_gpioPin1  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin2  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin3  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin4  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin5  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin7  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin8  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin9  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin10  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin11  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin12  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin14  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin15  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin16  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin17  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin18  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin19  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin20  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin21  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin22  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin23  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin24  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin25  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin26  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin27  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin28  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin29  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin30  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin31  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin32  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin33  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin34  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin35  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin36  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin37  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin38  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin39  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin40  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin41  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin42  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin43  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin44  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin45  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_gpioPin46  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd', max message size = 28 bytes)
+        &lt;root&gt;.le_info  (protocol ID = '975257ab76b4bd700b883f96a47b6508', max message size = 276 bytes)
+        &lt;root&gt;.le_sms  (protocol ID = '6e36b32bb82b37b44288335e8dec164e', max message size = 205 bytes)
+        &lt;root&gt;.le_mrc  (protocol ID = '9050243ec820d5521bcc635c52691835', max message size = 124 bytes)
+        &lt;root&gt;.le_sim  (protocol ID = 'a0eebdf2681bff48efc6d76ad002fd10', max message size = 540 bytes)
+        &lt;root&gt;.le_mdc  (protocol ID = '5110946da2c3c40cf6a28792bb0cf4ef', max message size = 196 bytes)
+        &lt;root&gt;.le_mcc  (protocol ID = 'bf43202a0369b12bb827e1bc4724bb41', max message size = 41 bytes)
+        &lt;root&gt;.le_ecall  (protocol ID = '9ca2a687836cbb0fe7a26c7519fc2637', max message size = 164 bytes)
+        &lt;root&gt;.le_ips  (protocol ID = '90ad953c761aa71f85c44f94ee91aff1', max message size = 24 bytes)
+        &lt;root&gt;.le_temp  (protocol ID = '01650568439a3a9c47468069df5a7783', max message size = 128 bytes)
+        &lt;root&gt;.le_antenna  (protocol ID = 'c6ad7def5425943d0e3b97ad84593ed5', max message size = 24 bytes)
+        &lt;root&gt;.le_riPin  (protocol ID = 'aafbc3c57eec1350fdae5eb6fe083e5a', max message size = 17 bytes)
+        &lt;root&gt;.le_adc  (protocol ID = 'cca082d3d4d6b9c7c11466ab2ea74e4f', max message size = 54 bytes)
+        &lt;root&gt;.le_rtc  (protocol ID = '88750cf71cdf94a8a7d68de367465558', max message size = 24 bytes)
+        &lt;root&gt;.le_mdmCfg  (protocol ID = 'fcf3b5cece06794472fb938f2c621c50', max message size = 16 bytes)
+        &lt;root&gt;.le_lpt  (protocol ID = 'ddfabab9b938cdcb7564dbd7632f76bc', max message size = 24 bytes)
+        &lt;root&gt;.mqttClient  (protocol ID = 'cfa0257f5f505e5a5cb045d0e9846322', max message size = 1204 bytes)
+        &lt;root&gt;.le_cellnet  (protocol ID = 'd635d930065e3c3f1e7f12c3b1ec3c41', max message size = 32 bytes)
+        &lt;root&gt;.le_data  (protocol ID = '301e0f957699e656d25d93021f0f5a77', max message size = 117 bytes)
+        &lt;root&gt;.le_avc  (protocol ID = '7a818d1ee00573303dc3b4f87c43e029', max message size = 541 bytes)
+        &lt;root&gt;.le_avdata  (protocol ID = 'd042ee9f795ba3ff64aacf91d970b8fc', max message size = 802 bytes)
+
+WAITING CLIENTS
+
+        [pid  4093] &lt;root&gt;.ioRaspi.ioRaspiComponent.rpi_gpio3 UNBOUND  (protocol ID = 'eb4b6dc575d64f27484e7657275f11fd')
+        [pid  1380] dataRouter.dataRouter.routerComponent.mqtt WAITING for &lt;root&gt;.mqtt  (protocol ID = 'bdc248f37f95194d469945e6f5b23d11')
+</code></pre>
+<p>What should I do ?</p>
+<p>Regards</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-11-28T17:35:43Z' class='post-time'>
+                    November 28, 2018,  5:35pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-11-28T17:35:43Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>If you run <code>app status</code> on the target, do you see <code>gpioExpanderServiceRed</code>?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pierr0t'><span itemprop='name'>pierr0t</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-11-28T17:39:32Z' class='post-time'>
+                    November 28, 2018,  5:39pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-11-28T17:39:32Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>No , only gpioService</p>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# app status |grep gpio
+[running] gpioService
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-11-28T17:49:59Z' class='post-time'>
+                    November 28, 2018,  5:49pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-11-28T17:49:59Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>This is the same issue discussed in the other thread about the heartbeat app and in <a href="https://github.com/mangOH/Heartbeat/issues/1" rel="nofollow noopener">the github issue</a>.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pierr0t'><span itemprop='name'>pierr0t</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-11-29T12:55:55Z' class='post-time'>
+                    November 29, 2018, 12:55pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-11-29T12:55:55Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>So if I well understand there is no way to use gpio on mangoh RED with wp7702.<br>
+Am I right ?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-11-29T16:00:02Z' class='post-time'>
+                    November 29, 2018,  4:00pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-11-29T16:00:02Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>That understanding is incorrect.<br>
+All cf3 gpios are usable.<br>
+For gpio expander there are ways to make them work.</p>
+<p>What gpio do you want to use?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pierr0t'><span itemprop='name'>pierr0t</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-11-29T16:21:38Z' class='post-time'>
+                    November 29, 2018,  4:21pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-11-29T16:21:38Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello,</p>
+<p>I just want make running the <a href="https://github.com/LalunePierr0t/iRpioMangoh" rel="nofollow noopener">example</a> given by Sierra<br>
+which use rpi_gpio_1,2,3</p>
+<p>Regards</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-11-30T00:28:01Z' class='post-time'>
+                    November 30, 2018, 12:28am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-11-30T00:28:01Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Here is what you can do:</p>
+<p>a. Create a gpio driver for  RPI 1,2,3 (on yellow we did something like  this: <a href="https://github.com/mangOH/mangOH/tree/master/linux_kernel_modules/expander" rel="nofollow noopener">https://github.com/mangOH/mangOH/tree/master/linux_kernel_modules/expander</a>)</p>
+<p>b. Add the driver on red  driver ( on yellow we did something like this : <a href="https://github.com/mangOH/mangOH/tree/master/linux_kernel_modules/mangoh" rel="nofollow noopener">https://github.com/mangOH/mangOH/tree/master/linux_kernel_modules/mangoh</a>)</p>
+<p>This will create a sysfs entry for those gpios. Now you can write user space code to talk to the sysfs or write a legato api.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/NhonChu'><span itemprop='name'>NhonChu</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-12-03T14:24:59Z' class='post-time'>
+                    December 3, 2018,  2:24pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-12-03T14:26:50Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/pierr0t">@pierr0t</a>,<br>
+The code we gave you is using gpioExpanderServiceRed.<br>
+this is defined in the .adef file :<br>
+ioRaspi.ioRaspiComponent.mangoh_button -&gt; gpioExpanderServiceRed.mangoh_gpioExpPin14</p>
+<p>So you’d need to compile and install gpioExpanderRedService, then restart Legato.</p>
+<p>Hope this helps<br>
+Nhon</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pierr0t'><span itemprop='name'>pierr0t</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-12-03T14:30:25Z' class='post-time'>
+                    December 3, 2018,  2:30pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-12-03T14:30:25Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Nhon,</p>
+<p>Thanks for your reply.</p>
+<aside class="quote no-group" data-username="NhonChu" data-post="10" data-topic="2164">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/n/85f322/40.png" class="avatar"> NhonChu:</div>
+<blockquote>
+<p>So you’d need to compile and install gpioExpanderRedService, then restart Legato.</p>
+</blockquote>
+</aside>
+<p>So, several questions :</p>
+<ul>
+<li>Where are the sources ?</li>
+<li>Can you provide the procedure to do it ?</li>
+</ul>
+<p>Regards</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/NhonChu'><span itemprop='name'>NhonChu</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-12-03T14:39:47Z' class='post-time'>
+                    December 3, 2018,  2:39pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-12-03T14:39:47Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/pierr0t">@pierr0t</a>,</p>
+<p>it is in your VM : mangOH/apps/</p>
+<p>Nhon</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pierr0t'><span itemprop='name'>pierr0t</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/solved-using-rpi-gpio-fails/2164">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-12-03T15:10:20Z' class='post-time'>
+                    December 3, 2018,  3:10pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-12-03T15:10:20Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/nhonchu">@NhonChu</a>,</p>
+<p>Thank You, IIt works great. Steps in:</p>
+<ul>
+<li>In  <code>~/mangOH/apps/GpioExpander/gpioExpanderService</code>, modify  <code>Makefile</code>, as follow :</li>
+</ul>
+<pre><code class="lang-auto">localhost: app.localhost
+TARGETS := $(MAKECMDGOALS)
+
+.PHONY: all $(TARGETS)
+all: $(TARGETS)
+
+$(TARGETS):
+	mkapp -v -t $@ \
+	gpioExpanderServiceRed.adef
+
+ar7: app.ar7
+
+wp7: app.wp7
+
+ar86: app.ar86
+
+wp85: app.wp85
+
+app.%:
+	mkapp gpioExpanderService.adef -i ${MANGOH_ROOT}/apps/GpioExpander/ -t $* -v
+
+clean:
+	rm -rf _build_* *.localhost *.ar7 *.wp7 *.ar8 *.wp85
+</code></pre>
+<ul>
+<li>then <code>make</code>
+</li>
+<li>then ùpdate`</li>
+<li>add a pussh button between pin 1 (3.3V) and pin 22 (GPIO_EXP_RPI3 )</li>
+<li>press button</li>
+</ul>
+<p>And you should get</p>
+<pre><code class="lang-auto">Dec  3 15:07:48 swi-mdm9x28-wp user.info Legato:  INFO | ioRaspi[1900]/ioRaspiComponent T=main | ioRaspi.c PushButtonHandler() 101 | RPI_GPIO_3 Button State change FALSE
+Dec  3 15:07:49 swi-mdm9x28-wp user.info Legato:  INFO | ioRaspi[1900]/ioRaspiComponent T=main | ioRaspi.c PushButtonHandler() 101 | RPI_GPIO_3 Button State change FALSE
+Dec  3 15:07:49 swi-mdm9x28-wp user.info Legato:  INFO | ioRaspi[1900]/ioRaspiComponent T=main | ioRaspi.c PushButtonHandler() 101 | RPI_GPIO_3 Button State change TRUE
+Dec  3 15:07:49 swi-mdm9x28-wp user.info Legato:  INFO | ioRaspi[1900]/ioRaspiComponent T=main | ioRaspi.c PushButtonHandler() 101 | RPI_GPIO_3 Button State change TRUE
+</code></pre>
+<p>Thanks again</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

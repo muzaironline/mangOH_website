@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Data connection not following pdp-context setup</title>
+    <link>https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250</link>
+    <description>I am using two WP8548 units. Both units have been upgraded to the &quot;Generic_upgrade_12&quot;.  Both units are set-up as APN: internet, AUTH: None, PDP-Context: IPV4.  Usually when using &quot;cm data connect&quot; or &quot;go_online()&quot;(from Modem_demo Application), it connects without a problem.
+
+Every so often, it &quot;goes into a mode&quot;, where any of 2 things go wrong with the connecting-action.
+&lt;ol&gt;&lt;li&gt;It fails to register on the SIM card&#39;s home-network, and just tries to connect on a forbidden network, running &quot;cm radio off ; sleep 10 ; cm radio on&quot;, doesn&#39;t fix it, it only tries to connect to another forbidden network. A reboot also does not fix the situation, but after a full power cycle, it registers on the home network again.&lt;/li&gt;&lt;li&gt;It connects to the network, but in only IPV6 mode. &lt;ul&gt;&lt;li&gt;If I then run &quot;echo 1 &gt; /proc/sys/net/ipv6/conf/rmnet0/ipv6/disable_ipv6&quot;, &lt;ul&gt;&lt;li&gt;the entry disappears out of ifconfig, but &quot;cm data info&quot; shows it is still connected&lt;/li&gt;&lt;li&gt; or the connection shows,but has no ip-addr assinged.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;If I disable_ipv6 before connecting, it takes a long time to show in &quot;ifconfig&quot; although &quot;cm data info&quot; already shows connected. When is appears in &quot;ifconfig&quot;, it fist shows no IP, and then after a while, it gives an IPV6 address.&lt;/li&gt;&lt;/ul&gt;&lt;/ol&gt;The only way I have been able to recover it, was a combination of repeatedly modifying the data configuration and power cycling the unit.
+
+I only have this problem with the 1 unit. I have swapped the sim-cards between the units, and the problem stays with the unit.
+So I would like to know:&lt;ol&gt;&lt;li&gt;Is there a way to force attempting to register on the home network?&lt;/li&gt;&lt;li&gt;Is there a method other than &quot;cm data pdp IPV4&quot; and syscrl&#39;s disable_ipv6  to force the rmnet0 connection to use IPV4?&lt;/li&gt;&lt;li&gt;Can I enable debugging of the connecting process (&amp; how)?&lt;/li&gt;&lt;/ol&gt;</description>
+    
+    <lastBuildDate>Wed, 11 May 2022 07:55:13 +0000</lastBuildDate>
+    <category>Uncategorized</category>
+    <atom:link href="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Data connection not following pdp-context setup</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>you can try<br>
+at+CGDCONT=1,“IP”,“APN”</p>
+<p>this will use ipv4 in profile 1.</p>
+          <p><a href="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/11</link>
+        <pubDate>Wed, 11 May 2022 07:55:13 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-250-11</guid>
+        <source url="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250.rss">Data connection not following pdp-context setup</source>
+      </item>
+      <item>
+        <title>Data connection not following pdp-context setup</title>
+        <dc:creator><![CDATA[gennadyk]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello. Im using standart cm data connect, how i can disable ipv6, disable dhcp for ipv6?</p>
+          <p><a href="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/10</link>
+        <pubDate>Wed, 11 May 2022 07:25:13 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-250-10</guid>
+        <source url="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250.rss">Data connection not following pdp-context setup</source>
+      </item>
+      <item>
+        <title>Data connection not following pdp-context setup</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Here are some questions:<br>
+a. one unit works, other doesnt : please confirm<br>
+b. can we ati and ati8 output for both units. To get to at command port: do microcom -E /dev/ttyAT on the terminal.<br>
+c. Is there a reception issue with where this test is done? Happens in lab but not other places?</p>
+          <p><a href="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/9</link>
+        <pubDate>Sat, 22 Oct 2016 00:41:59 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-250-9</guid>
+        <source url="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250.rss">Data connection not following pdp-context setup</source>
+      </item>
+      <item>
+        <title>Data connection not following pdp-context setup</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>I have opened an internal ticket. Waiting for response</p>
+          <p><a href="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/8</link>
+        <pubDate>Fri, 21 Oct 2016 13:30:57 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-250-8</guid>
+        <source url="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250.rss">Data connection not following pdp-context setup</source>
+      </item>
+      <item>
+        <title>Data connection not following pdp-context setup</title>
+        <dc:creator><![CDATA[mouse]]></dc:creator>
+        <description><![CDATA[
+            <p>Any feedback yet, I am very desperate, even if it is only a workaround for now?</p>
+<p>Thanks</p>
+          <p><a href="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/7</link>
+        <pubDate>Fri, 21 Oct 2016 09:14:27 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-250-7</guid>
+        <source url="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250.rss">Data connection not following pdp-context setup</source>
+      </item>
+      <item>
+        <title>Data connection not following pdp-context setup</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>hi,<br>
+Will look into this and get back to you.<br>
+regards,<br>
+ashish</p>
+          <p><a href="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/6</link>
+        <pubDate>Tue, 18 Oct 2016 13:14:31 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-250-6</guid>
+        <source url="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250.rss">Data connection not following pdp-context setup</source>
+      </item>
+      <item>
+        <title>Data connection not following pdp-context setup</title>
+        <dc:creator><![CDATA[mouse]]></dc:creator>
+        <description><![CDATA[
+            <p>This is the dump of when the unit started up with IPV6 only again</p>
+<p>root@swi-mdm9x15:~# ifconfig<br>
+lo        Link encap:Local Loopback<br>
+inet addr:127.0.0.1  Mask:255.0.0.0<br>
+inet6 addr: ::1/128 Scope:Host<br>
+UP LOOPBACK RUNNING  MTU:65536  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:0<br>
+RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)</p>
+<p>usb0      Link encap:Ethernet  HWaddr 92:1C:6D:35:22:43<br>
+inet addr:192.168.2.2  Bcast:192.168.2.255  Mask:255.255.255.0<br>
+inet6 addr: fe80::901c:6dff:fe35:2243/64 Scope:Link<br>
+UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1<br>
+RX packets:1867 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:1243 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:159721 (155.9 KiB)  TX bytes:578384 (564.8 KiB)</p>
+<p>root@swi-mdm9x15:~# cm data info<br>
+Index:      1<br>
+APN:        internet<br>
+PDP Type:   IPV4<br>
+Connected:  no</p>
+<p>root@swi-mdm9x15:~# cm data connect 30 &amp;<br>
+root@swi-mdm9x15:~# cm data info<br>
+Index:      1<br>
+APN:        internet<br>
+PDP Type:   IPV4<br>
+Connected:  yes</p>
+<p>root@swi-mdm9x15:~# ifconfig<br>
+lo        Link encap:Local Loopback<br>
+inet addr:127.0.0.1  Mask:255.0.0.0<br>
+inet6 addr: ::1/128 Scope:Host<br>
+UP LOOPBACK RUNNING  MTU:65536  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:0<br>
+RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)</p>
+<p>rmnet0    Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00<br>
+<strong>inet6 addr: fe80::7210:c1d2:bc7c:9f13/64 Scope:Link</strong><br>
+UP RUNNING  MTU:1430  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:72 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:0 (0.0 B)  TX bytes:16304 (15.9 KiB)</p>
+<p>usb0      Link encap:Ethernet  HWaddr 92:1C:6D:35:22:43<br>
+inet addr:192.168.2.2  Bcast:192.168.2.255  Mask:255.255.255.0<br>
+inet6 addr: fe80::901c:6dff:fe35:2243/64 Scope:Link<br>
+UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1<br>
+RX packets:2093 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:1391 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:179185 (174.9 KiB)  TX bytes:599348 (585.3 KiB)</p>
+<p>root@swi-mdm9x15:~# Connected through interface ‘rmnet0’</p>
+<p>root@swi-mdm9x15:~# ifconfig<br>
+lo        Link encap:Local Loopback<br>
+inet addr:127.0.0.1  Mask:255.0.0.0<br>
+inet6 addr: ::1/128 Scope:Host<br>
+UP LOOPBACK RUNNING  MTU:65536  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:0<br>
+RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)</p>
+<p>rmnet0    Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00<br>
+inet6 addr: fe80::7210:c1d2:bc7c:9f13/64 Scope:Link<br>
+UP RUNNING  MTU:1430  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:75 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:0 (0.0 B)  TX bytes:16752 (16.3 KiB)</p>
+<p>usb0      Link encap:Ethernet  HWaddr 92:1C:6D:35:22:43<br>
+inet addr:192.168.2.2  Bcast:192.168.2.255  Mask:255.255.255.0<br>
+inet6 addr: fe80::901c:6dff:fe35:2243/64 Scope:Link<br>
+UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1<br>
+RX packets:2149 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:1426 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:183535 (179.2 KiB)  TX bytes:605328 (591.1 KiB)</p>
+<p>root@swi-mdm9x15:~# ping <a href="http://www.google.co.za" rel="nofollow noopener">www.google.co.za</a><br>
+ping: bad address '<a href="http://www.google.co.za" rel="nofollow noopener">www.google.co.za</a>’<br>
+root@swi-mdm9x15:~#<br>
+root@swi-mdm9x15:~# cm radio off<br>
+Disconnected<br>
+root@swi-mdm9x15:~#<br>
+root@swi-mdm9x15:~#<br>
+[1]+  Done                       cm data connect 30<br>
+root@swi-mdm9x15:~# cm data info<br>
+Index:      1<br>
+APN:        internet<br>
+PDP Type:   IPV4<br>
+Connected:  no</p>
+<p>root@swi-mdm9x15:~# cm radio on<br>
+root@swi-mdm9x15:~# cm radio status<br>
+Power:      ON<br>
+Current Network Operator: VodaCom-SA<br>
+RAT:        UMTS network (LE_MRC_RAT_UMTS)<br>
+Status:     Registered, home network (LE_MRC_REG_HOME)<br>
+Signal:     Very weak signal strength (1)</p>
+<p>root@swi-mdm9x15:~# cm data connect 30 &amp;<br>
+root@swi-mdm9x15:~# cm data info<br>
+Index:      1<br>
+APN:        internet<br>
+PDP Type:   IPV4<br>
+Connected:  no</p>
+<p>root@swi-mdm9x15:~# cm data info<br>
+Index:      1<br>
+APN:        internet<br>
+PDP Type:   IPV4<br>
+Connected:  yes</p>
+<p>root@swi-mdm9x15:~# ifconfig<br>
+lo        Link encap:Local Loopback<br>
+inet addr:127.0.0.1  Mask:255.0.0.0<br>
+inet6 addr: ::1/128 Scope:Host<br>
+UP LOOPBACK RUNNING  MTU:65536  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:0<br>
+RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)</p>
+<p>rmnet0    Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00<br>
+<strong>inet6 addr: fe80::4024:21dd:6dbc:446f/64 Scope:Link</strong><br>
+UP RUNNING  MTU:1430  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:85 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:0 (0.0 B)  TX bytes:18560 (18.1 KiB)</p>
+<p>usb0      Link encap:Ethernet  HWaddr 92:1C:6D:35:22:43<br>
+inet addr:192.168.2.2  Bcast:192.168.2.255  Mask:255.255.255.0<br>
+inet6 addr: fe80::901c:6dff:fe35:2243/64 Scope:Link<br>
+UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1<br>
+RX packets:2395 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:1635 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:203441 (198.6 KiB)  TX bytes:634243 (619.3 KiB)</p>
+<p>root@swi-mdm9x15:~# Connected through interface ''<br>
+Disconnected</p>
+<p>[1]+  Done                       cm data connect 30<br>
+root@swi-mdm9x15:~# ifconfig<br>
+lo        Link encap:Local Loopback<br>
+inet addr:127.0.0.1  Mask:255.0.0.0<br>
+inet6 addr: ::1/128 Scope:Host<br>
+UP LOOPBACK RUNNING  MTU:65536  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:0<br>
+RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)</p>
+<p>rmnet0    Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00<br>
+inet6 addr: fe80::4024:21dd:6dbc:446f/64 Scope:Link<br>
+UP RUNNING  MTU:1430  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:88 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:0 (0.0 B)  TX bytes:19008 (18.5 KiB)</p>
+<p>usb0      Link encap:Ethernet  HWaddr 92:1C:6D:35:22:43<br>
+inet addr:192.168.2.2  Bcast:192.168.2.255  Mask:255.255.255.0<br>
+inet6 addr: fe80::901c:6dff:fe35:2243/64 Scope:Link<br>
+UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1<br>
+RX packets:2433 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:1660 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:206150 (201.3 KiB)  TX bytes:640532 (625.5 KiB)</p>
+<p>root@swi-mdm9x15:~#</p>
+<p>Linux swi-mdm9x15 3.14.29ltsi-13c67b16ff_922830eb31 <span class="hashtag">#2</span> PREEMPT Fri Apr 15 02:38:16 PDT 2016 armv7l GNU/Linux<br>
+root@swi-mdm9x15:~# logread -f<br>
+Oct 18 08:56:26 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | modemDaemon[477]/le_pa T=main | pa_mrc_qmi.c pa_mrc_GetNetworkRegState() 2040 | called<br>
+Oct 18 08:56:31 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | dcsDaemon[474]/dataConnectionService T=main | dcsServer.c CloseSessionEventHandler() 1419 | Client 0x3308c killed, remove allocated ressources<br>
+Oct 18 08:56:31 swi-mdm9x15 user.warn Legato: -WRN- | dcsDaemon[474]/dataConnectionService T=Data Thread | dcsServer.c TryStartDataSession() 998 | Could not save the default gateway<br>
+Oct 18 08:56:32 swi-mdm9x15 user.err Legato: =ERR= | dcsDaemon[474] | route: SIOCADDRT: Network is unreachable<br>
+Oct 18 08:56:32 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | dcsDaemon[474]/dataConnectionService T=Data Thread | dcsServer.c AddNameserversToResolvConf() 653 | Set DNS ‘196.207.32.83’ '196.207.32.69’<br>
+Oct 18 08:57:03 swi-mdm9x15 <a href="http://daemon.info" rel="nofollow noopener">daemon.info</a> dnsmasq[708]: reading /etc/resolv.conf<br>
+Oct 18 08:57:03 swi-mdm9x15 <a href="http://daemon.info" rel="nofollow noopener">daemon.info</a> dnsmasq[708]: using nameserver 196.207.32.83#53<br>
+Oct 18 08:57:03 swi-mdm9x15 <a href="http://daemon.info" rel="nofollow noopener">daemon.info</a> dnsmasq[708]: using nameserver 196.207.32.69#53<br>
+Oct 18 08:57:03 swi-mdm9x15 <a href="http://daemon.info" rel="nofollow noopener">daemon.info</a> dnsmasq[708]: using nameserver 8.8.8.8#53<br>
+Oct 18 08:57:04 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | dcsDaemon[474]/dataConnectionService T=main | dcsServer.c CloseSessionEventHandler() 1419 | Client 0x28a3c killed, remove allocated ressources<br>
+Oct 18 08:57:07 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[477]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 768 | Sending QMI_NAS_GET_RF_BAND_INFO_REQ_MSG_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=74.[0x4a]<br>
+Oct 18 08:57:07 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[477]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 768 | Sending QMI_WDS_GET_RUNTIME_SETTINGS_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=15.[0x0f]<br>
+Oct 18 08:57:08 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | dcsDaemon[474]/dataConnectionService T=main | dcsServer.c CloseSessionEventHandler() 1419 | Client 0x28a3c killed, remove allocated ressources<br>
+Oct 18 08:57:13 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | modemDaemon[477]/modemDaemon T=main | le_mrc.c SignalStrengthIndHandlerFunc() 630 | Signal Strength Ind Handler called with RAT.4 and ss.-125<br>
+Oct 18 08:57:13 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | modemDaemon[477]/modemDaemon T=main | le_mrc.c SignalStrengthIndHandlerFunc() 630 | Signal Strength Ind Handler called with RAT.2 and ss.-104<br>
+Oct 18 08:57:15 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | modemDaemon[477]/le_pa T=main | pa_mrc_qmi.c pa_mrc_GetNetworkRegState() 2040 | called<br>
+Oct 18 08:57:24 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[477]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 768 | Sending QMI_WDS_GET_RUNTIME_SETTINGS_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=15.[0x0f]<br>
+Oct 18 08:57:25 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | dcsDaemon[474]/dataConnectionService T=main | dcsServer.c CloseSessionEventHandler() 1419 | Client 0x3308c killed, remove allocated ressources<br>
+Oct 18 08:57:38 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | dcsDaemon[474]/dataConnectionService T=main | dcsServer.c CloseSessionEventHandler() 1419 | Client 0x3308c killed, remove allocated ressources<br>
+Oct 18 08:57:40 swi-mdm9x15 user.warn Legato: -WRN- | dcsDaemon[474]/dataConnectionService T=Data Thread | dcsServer.c TryStartDataSession() 998 | Could not save the default gateway<br>
+Oct 18 08:57:40 swi-mdm9x15 user.err Legato: =ERR= | dcsDaemon[474] | route: SIOCADDRT: Network is unreachable<br>
+Oct 18 08:57:40 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | dcsDaemon[474]/dataConnectionService T=Data Thread | dcsServer.c AddNameserversToResolvConf() 653 | Set DNS ‘196.207.32.83’ '196.207.32.69’<br>
+Oct 18 08:57:46 swi-mdm9x15 user.warn Legato: -WRN- | dcsDaemon[474]/dataConnectionService T=Data Thread | dcsServer.c SetDefaultGateway() 459 | Gateway or Interface are empty<br>
+Oct 18 08:57:46 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | modemDaemon[477]/le_pa T=main | pa_mrc_qmi.c pa_mrc_GetNetworkRegState() 2040 | called<br>
+Oct 18 08:57:46 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[477]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 768 | Sending QMI_WDS_GET_RUNTIME_SETTINGS_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=15.[0x0f]<br>
+Oct 18 08:57:46 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | dcsDaemon[474]/dataConnectionService T=main | dcsServer.c CloseSessionEventHandler() 1419 | Client 0x28a3c killed, remove allocated ressources<br>
+Oct 18 08:58:21 swi-mdm9x15 user.warn Legato: -WRN- | dcsDaemon[474]/dataConnectionService T=Data Thread | dcsServer.c TryStartDataSession() 998 | Could not save the default gateway<br>
+Oct 18 08:58:21 swi-mdm9x15 user.err Legato: =ERR= | dcsDaemon[474] | route: SIOCADDRT: Network is unreachable<br>
+Oct 18 08:58:21 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | dcsDaemon[474]/dataConnectionService T=Data Thread | dcsServer.c AddNameserversToResolvConf() 653 | Set DNS ‘196.207.32.83’ '196.207.32.69’<br>
+Oct 18 08:58:27 swi-mdm9x15 user.warn Legato: -WRN- | dcsDaemon[474]/dataConnectionService T=Data Thread | dcsServer.c SetDefaultGateway() 459 | Gateway or Interface are empty<br>
+Oct 18 08:58:27 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[477]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 768 | Sending QMI_WDS_GET_RUNTIME_SETTINGS_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=15.[0x0f]</p>
+          <p><a href="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/5</link>
+        <pubDate>Tue, 18 Oct 2016 09:22:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-250-5</guid>
+        <source url="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250.rss">Data connection not following pdp-context setup</source>
+      </item>
+      <item>
+        <title>Data connection not following pdp-context setup</title>
+        <dc:creator><![CDATA[mouse]]></dc:creator>
+        <description><![CDATA[
+            <p>When I got to the unit this morning, it was in that state of only connecting in IPV6.</p>
+<p>I Got the following before disconnecting and after reconnecting:<br>
+root@swi-mdm9x15:~# ifconfig<br>
+lo        Link encap:Local Loopback<br>
+inet addr:127.0.0.1  Mask:255.0.0.0<br>
+inet6 addr: ::1/128 Scope:Host<br>
+UP LOOPBACK RUNNING  MTU:65536  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:0<br>
+RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)</p>
+<p>rmnet0    Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00<br>
+inet6 addr: fe80::b89f:8297:1ffc:29bc/64 Scope:Link<br>
+UP RUNNING  MTU:1430  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:76 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:0 (0.0 B)  TX bytes:21312 (20.8 KiB)</p>
+<p>usb0      Link encap:Ethernet  HWaddr 32:48:DB:10:04:BC<br>
+inet addr:192.168.2.2  Bcast:192.168.2.255  Mask:255.255.255.0<br>
+inet6 addr: fe80::3048:dbff:fe10:4bc/64 Scope:Link<br>
+UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1<br>
+RX packets:3635 errors:0 dropped:4 overruns:0 frame:0<br>
+TX packets:4502 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:387845 (378.7 KiB)  TX bytes:2175902 (2.0 MiB)</p>
+<p>root@swi-mdm9x15:~# cm data info<br>
+Index:      1<br>
+APN:        internet<br>
+PDP Type:   IPV4<br>
+Connected:  yes<br>
+Auth type:  PAP<br>
+User name:  internet<br>
+Password:   internet</p>
+<p>Disconnecting and reconnecting while keeping logread -f open gave the following:</p>
+<p>Oct 18 07:24:42 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c bCheckMyApn() 285 | Setting APN to internet<br>
+Oct 18 07:24:42 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[481]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 768 | Sending QMI_WDS_GET_RUNTIME_SETTINGS_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=15.[0x0f]<br>
+Oct 18 07:24:42 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c bCheckMyApn() 293 | Setting Auth to PAP, with Usr: internet ,Pass: internet<br>
+Oct 18 07:24:42 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[481]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 768 | Sending QMI_WDS_GET_RUNTIME_SETTINGS_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=15.[0x0f]<br>
+Oct 18 07:24:43 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[481]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 768 | Sending QMI_WDS_GET_RUNTIME_SETTINGS_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=15.[0x0f]<br>
+Oct 18 07:24:43 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | modemDemo[486]/demoComponent_modemFams T=main | demo.c ConnectionStateHandler() 1015 | Connection State Event: ‘’ connected<br>
+Oct 18 07:24:43 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | modemDemo[486]/demoComponent_modemFams T=main | demo.c ConnectionStateHandler() 1015 | Connection State Event: ‘’ not connected<br>
+Oct 18 07:24:46 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[481]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 768 | Sending QMI_WDS_GET_RUNTIME_SETTINGS_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=15.[0x0f]<br>
+Oct 18 07:24:46 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 333 | WP85XX: Data connection failed<br>
+Oct 18 07:24:54 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[481]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 768 | Sending QMI_WDS_GET_RUNTIME_SETTINGS_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=15.[0x0f]<br>
+Oct 18 07:24:54 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 333 | WP85XX: Data connection failed<br>
+Oct 18 07:25:02 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[481]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 768 | Sending QMI_WDS_GET_RUNTIME_SETTINGS_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=15.[0x0f]<br>
+Oct 18 07:25:02 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 333 | WP85XX: Data connection failed<br>
+Oct 18 07:25:10 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[481]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 768 | Sending QMI_WDS_GET_RUNTIME_SETTINGS_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=15.[0x0f]<br>
+Oct 18 07:25:10 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 333 | WP85XX: Data connection failed<br>
+Oct 18 07:25:19 swi-mdm9x15 user.warn Legato: -WRN- | dcsDaemon[477]/dataConnectionService T=Data Thread | dcsServer.c TryStartDataSession() 998 | Could not save the default gateway<br>
+Oct 18 07:25:19 swi-mdm9x15 user.err Legato: =ERR= | dcsDaemon[477] | route: SIOCADDRT: Network is unreachable<br>
+Oct 18 07:25:19 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | dcsDaemon[477]/dataConnectionService T=Data Thread | dcsServer.c AddNameserversToResolvConf() 653 | Set DNS ‘196.207.32.83’ '196.207.32.69’<br>
+Oct 18 07:25:24 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | modemDemo[486]/demoComponent_modemFams T=main | demo.c ConnectionStateHandler() 1015 | Connection State Event: ‘rmnet0’ connected<br>
+Oct 18 07:25:24 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | modemDemo[486]/demoComponent_modemFams T=main | demo.c ConnectionStateHandler() 1015 | Connection State Event: ‘rmnet0’ connected<br>
+Oct 18 07:25:24 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | modemDemo[486]/demoComponent_modemFams T=main | demo.c ConnectionStateHandler() 1015 | Connection State Event: ‘rmnet0’ connected<br>
+Oct 18 07:25:24 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | modemDemo[486]/demoComponent_modemFams T=main | demo.c ConnectionStateHandler() 1015 | Connection State Event: ‘rmnet0’ connected<br>
+Oct 18 07:25:24 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | modemDemo[486]/demoComponent_modemFams T=main | demo.c ConnectionStateHandler() 1015 | Connection State Event: ‘rmnet0’ connected<br>
+Oct 18 07:25:26 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c bGetConnInfo() 597 | 100.90.89.87<br>
+Oct 18 07:25:26 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c bGetConnInfo() 601 | 100.90.89.88<br>
+Oct 18 07:25:26 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 405 | IP  : 100.90.89.87<br>
+Oct 18 07:25:26 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 406 | GW  : 100.90.89.88<br>
+Oct 18 07:25:29 swi-mdm9x15 authpriv.notice dropbear[1236]: Auth succeeded with blank password for ‘root’ from 192.168.2.3:60782<br>
+Oct 18 07:25:29 swi-mdm9x15 authpriv.warn dropbear[1383]: lastlog_perform_login: Couldn’t stat /var/log/lastlog: No such file or directory<br>
+Oct 18 07:25:29 swi-mdm9x15 authpriv.warn dropbear[1383]: lastlog_openseek: /var/log/lastlog is not a file or directory!<br>
+Oct 18 07:25:40 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | modemDaemon[481]/le_pa T=main | pa_mrc_qmi.c pa_mrc_GetNetworkRegState() 2040 | called<br>
+Oct 18 07:25:57 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | dcsDaemon[477]/dataConnectionService T=main | dcsServer.c CloseSessionEventHandler() 1419 | Client 0x416f4 killed, remove allocated ressources<br>
+Oct 18 07:25:57 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 417 | WP85XX: Testing Connection<br>
+Oct 18 07:25:57 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 508 | WP85XX: About to run "ping -c 4 -W 9 www_google.co.za"<br>
+Oct 18 07:25:57 swi-mdm9x15 user.err Legato: =ERR= | WP85XXApp[1012] | ping: bad address 'www_google.co.za’<br>
+Oct 18 07:25:57 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 510 | WP85XX: Returned with 256<br>
+Oct 18 07:25:57 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 519 | WP85XX: Reporting FAIL into buffer<br>
+Oct 18 07:25:57 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 435 | WP85XX: Failed to connect to www_google.co.za.<br>
+Oct 18 07:26:28 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 417 | WP85XX: Testing Connection<br>
+Oct 18 07:26:28 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 508 | WP85XX: About to run "ping -c 4 -W 9 www_google.co.za"<br>
+Oct 18 07:26:28 swi-mdm9x15 user.err Legato: =ERR= | WP85XXApp[1012] | ping: bad address 'www_google.co.za’<br>
+Oct 18 07:26:28 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 510 | WP85XX: Returned with 256<br>
+Oct 18 07:26:28 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 519 | WP85XX: Reporting FAIL into buffer<br>
+Oct 18 07:26:28 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 435 | WP85XX: Failed to connect to www_google.co.za.<br>
+Oct 18 07:26:59 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 417 | WP85XX: Testing Connection<br>
+Oct 18 07:26:59 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 508 | WP85XX: About to run "ping -c 4 -W 9 www_google.co.za"<br>
+Oct 18 07:26:59 swi-mdm9x15 user.err Legato: =ERR= | WP85XXApp[1012] | ping: bad address 'www_google.co.za’<br>
+Oct 18 07:26:59 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 510 | WP85XX: Returned with 256<br>
+Oct 18 07:26:59 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 519 | WP85XX: Reporting FAIL into buffer<br>
+Oct 18 07:26:59 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 435 | WP85XX: Failed to connect to www_google.co.za.<br>
+Oct 18 07:27:17 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | modemDemo[486]/demoComponent_modemFams T=main | demo.c ConnectionStateHandler() 1015 | Connection State Event: ‘’ not connected<br>
+Oct 18 07:27:30 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 417 | WP85XX: Testing Connection<br>
+Oct 18 07:27:30 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 508 | WP85XX: About to run "ping -c 4 -W 9 www_google.co.za"<br>
+Oct 18 07:27:30 swi-mdm9x15 user.err Legato: =ERR= | WP85XXApp[1012] | ping: bad address 'www_google.co.za’<br>
+Oct 18 07:27:30 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 510 | WP85XX: Returned with 256<br>
+Oct 18 07:27:30 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 519 | WP85XX: Reporting FAIL into buffer<br>
+Oct 18 07:27:30 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 435 | WP85XX: Failed to connect to www_google.co.za.<br>
+Oct 18 07:27:51 swi-mdm9x15 user.warn Legato: -WRN- | dcsDaemon[477]/dataConnectionService T=Data Thread | dcsServer.c TryStartDataSession() 998 | Could not save the default gateway<br>
+Oct 18 07:27:51 swi-mdm9x15 user.err Legato: =ERR= | dcsDaemon[477] | route: SIOCADDRT: Network is unreachable<br>
+Oct 18 07:27:51 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | dcsDaemon[477]/dataConnectionService T=Data Thread | dcsServer.c AddNameserversToResolvConf() 653 | Set DNS ‘196.207.32.83’ '196.207.32.69’<br>
+Oct 18 07:27:56 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | modemDemo[486]/demoComponent_modemFams T=main | demo.c ConnectionStateHandler() 1015 | Connection State Event: ‘rmnet0’ connected<br>
+Oct 18 07:28:01 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 417 | WP85XX: Testing Connection<br>
+Oct 18 07:28:01 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 508 | WP85XX: About to run "ping -c 4 -W 9 www_google.co.za"<br>
+Oct 18 07:28:01 swi-mdm9x15 user.err Legato: =ERR= | WP85XXApp[1012] | ping: bad address 'www_google.co.za’<br>
+Oct 18 07:28:01 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 510 | WP85XX: Returned with 256<br>
+Oct 18 07:28:01 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 519 | WP85XX: Reporting FAIL into buffer<br>
+Oct 18 07:28:01 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 435 | WP85XX: Failed to connect to www_google.co.za.<br>
+Oct 18 07:28:32 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 417 | WP85XX: Testing Connection<br>
+Oct 18 07:28:32 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 508 | WP85XX: About to run "ping -c 4 -W 9 www_google.co.za"<br>
+Oct 18 07:28:32 swi-mdm9x15 user.err Legato: =ERR= | WP85XXApp[1012] | ping: bad address 'www_google.co.za’<br>
+Oct 18 07:28:32 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 510 | WP85XX: Returned with 256<br>
+Oct 18 07:28:32 swi-mdm9x15 user.crit Legato: <em>CRT</em> | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c TestDataConnectionV4() 519 | WP85XX: Reporting FAIL into buffer<br>
+Oct 18 07:28:32 swi-mdm9x15 user.err Legato: =ERR= | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 431 | WP85XX: All ping retries have been used up.<br>
+Oct 18 07:28:32 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 435 | WP85XX: Failed to connect to www_google.co.za.<br>
+Oct 18 07:29:03 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c bGprsDisconnect() 478 | Stopping Data Connection<br>
+Oct 18 07:29:03 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 442 | WP85XX: Data disconnection success<br>
+Oct 18 07:29:04 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c bSetRadPwr() 41 | Radio Power was allready ON<br>
+Oct 18 07:29:08 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c bSetRadPwr() 54 | Switching OFF radio power<br>
+Oct 18 07:29:09 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | modemDemo[486]/demoComponent_modemFams T=main | demo.c ConnectionStateHandler() 1015 | Connection State Event: ‘’ not connected<br>
+Oct 18 07:29:20 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 179 | Selecting another sim<br>
+Oct 18 07:29:20 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c bSelectNextSim() 111 | WP85XX: Selected sim card 3<br>
+Oct 18 07:29:25 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | mdmTools.c bSetRadPwr() 37 | Switching ON radio power<br>
+Oct 18 07:29:37 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | WP85XXApp[1012]/WP85XXComp_WP85XX T=main | WP85XXComp.c main_loop() 192 | Testing if we detect sim-card<br>
+Oct 18 07:29:39 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[481]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 768 | Sending QMI_WDS_START_NETWORK_INTERFACE_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=14.[0x0e]<br>
+Oct 18 07:29:39 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[481]/le_pa T=main | pa_mdc_qmi.c StartSession() 1686 | Data connection failure Call End provided 44, Code 12<br>
+Oct 18 07:29:39 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[481]/le_pa T=main | pa_mdc_qmi.c StartSession() 1697 | Data connection failure Verbose Call End provided Type 2, Verbose 201<br>
+Oct 18 07:29:39 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[481]/modemDaemon T=main | le_mdc.c le_mdc_StartSession() 797 | Get Connection failure 44, 12, 2, 201<br>
+Oct 18 07:29:39 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[481]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 768 | Sending QMI_WDS_START_NETWORK_INTERFACE_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=14.[0x0e]<br>
+Oct 18 07:29:39 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[481]/le_pa T=main | pa_mdc_qmi.c StartSession() 1686 | Data connection failure Call End provided 44, Code 12<br>
+Oct 18 07:29:39 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[481]/le_pa T=main | pa_mdc_qmi.c StartSession() 1697 | Data connection failure Verbose Call End provided Type 2, Verbose 201<br>
+Oct 18 07:29:39 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[481]/modemDaemon T=main | le_mdc.c le_mdc_StartSession() 797 | Get Connection failure 44, 12, 2, 201</p>
+<p>The unit only recovered after a power cycle.<br>
+After that the unit was connecting beutifully for 2 hours, while I was trying to recreate the problem.</p>
+<p>I had just given up, and moved the unit back to the development bench, when it started up then, it was back on IPV6-only. I was then able to capture the logread for it, and then I also did a “radio power off” &amp; “… on” , while capturing the logread, but it didn’t really print much. I will post it in next post for readability</p>
+          <p><a href="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/4</link>
+        <pubDate>Tue, 18 Oct 2016 09:09:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-250-4</guid>
+        <source url="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250.rss">Data connection not following pdp-context setup</source>
+      </item>
+      <item>
+        <title>Data connection not following pdp-context setup</title>
+        <dc:creator><![CDATA[mouse]]></dc:creator>
+        <description><![CDATA[
+            <p>I only have access to the units again tomorrow, so I will dump the logread then. Is “logread -f” and “cm” the only connection debugging tools?</p>
+<p>I am using the APN as “internet” , it is set like that in both units, and authentication to none. The 1 unit always connects correctly, the other unit connects correctly for a long time, until “something happens”.<br>
+The units are used for developing two different apps, both that posts periodic updates to the cloud. Every time I download and restart the app, the data-connection closes (during app_exit() it appears) and then reconnects when it needs to post n packet. It works for long times, then suddenly after an app download and restart the posting fails. Using “cm …” to inspect the setup then, shows all the same settings as what has been working earlier.</p>
+<p>So I dont feel APN could be a problem, cause either </p><ul>
+<li> it connects, but only on IPV6, even though pdp is still set to IPV4</li> <li>or it only tries to register on forbidden networks, as if it lost its “home network” setting. </li>
+</ul>
+<p>Thanks</p>
+          <p><a href="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/3</link>
+        <pubDate>Mon, 17 Oct 2016 18:09:03 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-250-3</guid>
+        <source url="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250.rss">Data connection not following pdp-context setup</source>
+      </item>
+      <item>
+        <title>Data connection not following pdp-context setup</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Can you do<br>
+logread  -f<br>
+on the unit?</p>
+<p>Regards,<br>
+Ashish</p>
+          <p><a href="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/2</link>
+        <pubDate>Sun, 16 Oct 2016 19:57:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-250-2</guid>
+        <source url="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250.rss">Data connection not following pdp-context setup</source>
+      </item>
+      <item>
+        <title>Data connection not following pdp-context setup</title>
+        <dc:creator><![CDATA[mouse]]></dc:creator>
+        <description><![CDATA[
+            <p>I am using two WP8548 units. Both units have been upgraded to the “Generic_upgrade_12”.  Both units are set-up as APN: internet, AUTH: None, PDP-Context: IPV4.  Usually when using “cm data connect” or “go_online()”(from Modem_demo Application), it connects without a problem.</p>
+<p>Every so often, it “goes into a mode”, where any of 2 things go wrong with the connecting-action.</p>
+<ol>
+<li>It fails to register on the SIM card's home-network, and just tries to connect on a forbidden network, running "cm radio off ; sleep 10 ; cm radio on", doesn't fix it, it only tries to connect to another forbidden network. A reboot also does not fix the situation, but after a full power cycle, it registers on the home network again.</li>
+<li>It connects to the network, but in only IPV6 mode. <ul>
+<li>If I then run "echo 1 &gt; /proc/sys/net/ipv6/conf/rmnet0/ipv6/disable_ipv6", <ul>
+<li>the entry disappears out of ifconfig, but "cm data info" shows it is still connected</li>
+<li> or the connection shows,but has no ip-addr assinged.</li>
+</ul>
+</li>
+<li>If I disable_ipv6 before connecting, it takes a long time to show in "ifconfig" although "cm data info" already shows connected. When is appears in "ifconfig", it fist shows no IP, and then after a while, it gives an IPV6 address.</li>
+</ul>
+</li>
+</ol>The only way I have been able to recover it, was a combination of repeatedly modifying the data configuration and power cycling the unit.
+<p>I only have this problem with the 1 unit. I have swapped the sim-cards between the units, and the problem stays with the unit.<br>
+So I would like to know:</p><ol>
+<li>Is there a way to force attempting to register on the home network?</li>
+<li>Is there a method other than “cm data pdp IPV4” and syscrl’s disable_ipv6  to force the rmnet0 connection to use IPV4?</li>
+<li>Can I enable debugging of the connecting process (&amp; how)?</li>
+</ol>
+          <p><a href="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250/1</link>
+        <pubDate>Sun, 16 Oct 2016 17:41:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-250-1</guid>
+        <source url="https://forum.mangoh.io/t/data-connection-not-following-pdp-context-setup/250.rss">Data connection not following pdp-context setup</source>
+      </item>
+  </channel>
+</rss>

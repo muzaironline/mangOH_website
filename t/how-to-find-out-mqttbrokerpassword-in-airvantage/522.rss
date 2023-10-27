@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>How to Find Out &quot;mqttBrokerPassword&quot; in Airvantage?</title>
+    <link>https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522</link>
+    <description>Hi, 
+
+I am trying to install &quot;sensorTOAirVantage&quot; app in my mangOH board, but ran into error to start the app.  I wonder if there is instructions to find out &quot;mqttBrokerPassword&lt;string&gt;&quot;. 
+
+&gt; root@swi-mdm9x15:~# config get sensorToAirVantage:/
+&gt; /
+&gt;   mqttBrokerHost&lt;string&gt; == eu.airvantage.net
+&gt;   mqttBrokerPort&lt;int&gt; == 1883
+&gt;   mqttBrokerPassword&lt;string&gt; == ???????
+
+
+Thanks
+YK</description>
+    
+    <lastBuildDate>Sat, 20 May 2017 00:32:40 +0000</lastBuildDate>
+    <category>Cloud &amp; Connectivity</category>
+    <atom:link href="https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>How to Find Out &quot;mqttBrokerPassword&quot; in Airvantage?</title>
+        <dc:creator><![CDATA[Wavefront_yk]]></dc:creator>
+        <description><![CDATA[
+            <p>my mangoh board version and it has bluetooth driver</p>
+<p>root@yk-mangoh:~# cm info<br>
+Device:     WP8548<br>
+Firmware:   SWI9X15Y_07.11.22.00 r33729 CARMD-EV-FRMWR1 2017/01/11 18:04:06<br>
+Bootloader: SWI9X15Y_07.11.22.00 r33729 CARMD-EV-FRMWR1 2017/01/11 18:04:06<br>
+priIdPn:    9905383<br>
+priIdRev:   01.03<br>
+root@yk-mangoh:~#<br>
+root@yk-mangoh:~#<br>
+root@yk-mangoh:~# legato version<br>
+16.10.2_f458c9fff3bcf7150b3c42a6793cd089_modified<br>
+root@yk-mangoh:~#</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522/8</link>
+        <pubDate>Sat, 20 May 2017 00:17:53 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-522-8</guid>
+        <source url="https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522.rss">How to Find Out &quot;mqttBrokerPassword&quot; in Airvantage?</source>
+      </item>
+      <item>
+        <title>How to Find Out &quot;mqttBrokerPassword&quot; in Airvantage?</title>
+        <dc:creator><![CDATA[Wavefront_yk]]></dc:creator>
+        <description><![CDATA[
+            <p>data is connected.  I also tried to stop and start…</p>
+<p>Also, I can start and stop helloWorld app from AirVantage.</p>
+<blockquote>
+<p>root@yk-mangoh:~#<br>
+root@yk-mangoh:~# ping <a href="http://google.ca" rel="nofollow noopener">google.ca</a><br>
+PING <a href="http://google.ca" rel="nofollow noopener">google.ca</a> (216.58.193.67): 56 data bytes<br>
+64 bytes from 216.58.193.67: seq=0 ttl=50 time=606.684 ms<br>
+64 bytes from 216.58.193.67: seq=1 ttl=50 time=446.207 ms<br>
+^C<br>
+— <a href="http://google.ca" rel="nofollow noopener">google.ca</a> ping statistics —<br>
+3 packets transmitted, 2 packets received, 33% packet loss<br>
+round-trip min/avg/max = 446.207/526.445/606.684 ms<br>
+root@yk-mangoh:~#</p>
+</blockquote>
+<blockquote>
+<p>root@yk-mangoh:~#<br>
+root@yk-mangoh:~#<br>
+root@yk-mangoh:~# cm data<br>
+Index:      1<br>
+APN:        ltemobile.apn<br>
+PDP Type:   IPV4V6<br>
+Connected:  yes</p>
+</blockquote>
+<blockquote>
+<p>root@yk-mangoh:~#<br>
+root@yk-mangoh:~#<br>
+root@yk-mangoh:~#</p>
+</blockquote>
+<blockquote>
+<p>root@yk-mangoh:~# app restart sensorToAirVantage<br>
+root@yk-mangoh:~# Connected through interface 'rmnet0’<br>
+May 20 00:11:27 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c CleanupClientData() 195 | Client 0x27c1c is closed !!!<br>
+May 20 00:11:27 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c CleanupClientData() 221 | Found session ref 0x27c1c; match found, so needs cleanup<br>
+May 20 00:11:27 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_RemoveSessionStateHandler() 177 | remove session state handler(0x1000000f)<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | LE_FILENAME ExtractFileDescriptor() 33 | Received fd (12).<br>
+May 20 00:11:28 yk-mangoh user.warn Legato: -WRN- | <em>UNKNOWN</em>[8149]/framework T=main | LE_FILENAME le_fdMonitor_Create() 672 | FD Monitor object name ‘sensorToAirVantage.sensorToAirVantage.mqtt’ truncated to ‘sensorToAirVantage.sensorToAirV’.<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_Config() 96 | MQTT Broker URL(‘<a href="http://eu.airvantage.net" rel="nofollow noopener">eu.airvantage.net</a>’ -&gt; ‘<a href="http://eu.airvantage.net" rel="nofollow noopener">eu.airvantage.net</a>’)<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_Config() 102 | MQTT Broker Port(1883 -&gt; 1883)<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_Config() 108 | Keep Alive(60 -&gt; 60 seconds)<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_Config() 114 | QoS(0 -&gt; 0)<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c Handle_mqtt_Config() 412 | Sending response to client session 0x27c1c : 0 bytes sent<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_AddSessionStateHandler() 165 | add session state handler(0xb6f51ef8)<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c Handle_mqtt_AddSessionStateHandler() 681 | Sending response to client session 0x27c1c : 4 bytes sent<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_Connect() 121 | connect password(‘mangoh’)<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_connectUser() 1673 | pw(‘mangoh’)<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_connectUser() 1681 | initiated data connection<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | le_data_client.c le_data_Request() 745 | Sending message to server and waiting for response : 0 bytes sent<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_connectData() 1372 | requesting data connection(0x10000015)<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c Handle_mqtt_Connect() 451 | Sending response to client session 0x27c1c : 0 bytes sent<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_dataConnectionStateHandler() 942 | interface(‘rmnet0’) connected(1)<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_dataConnectionStateHandler() 947 | starting session<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.Default Timer Pool’ overflowed. Expanded to 31 blocks.<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.Default Timer Pool’ overflowed. Expanded to 32 blocks.<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.Default Timer Pool’ overflowed. Expanded to 33 blocks.<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.hashMap_refDefault Ti’ overflowed. Expanded to 36 blocks.<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_startSession() 1342 | connect(<a href="http://eu.airvantage.net:1883" rel="nofollow noopener">eu.airvantage.net:1883</a>)<br>
+May 20 00:11:28 yk-mangoh user.err Legato: =ERR= | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_connect() 997 | getaddrinfo() failed(-3)<br>
+May 20 00:11:28 yk-mangoh user.err Legato: =ERR= | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_startSession() 1346 | mqttClient_connect() failed(-3)<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_startSession() 1353 | start session failed<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_SendConnStateEvent() 192 | MQTT connected(0), error(-3), sub-error(-1)<br>
+May 20 00:11:28 yk-mangoh user.err Legato: =ERR= | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_dataConnectionStateHandler() 951 | mqttClient_startSession() failed(-3)<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_disconnectData() 1464 | releasing the data connection.<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | le_data_client.c le_data_Release() 803 | Sending message to server and waiting for response : 4 bytes sent<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_SendConnStateEvent() 192 | MQTT connected(0), error(0), sub-error(0)<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c AsyncResponse_mqtt_AddSessionStateHandler() 618 | Sending message to client session 0x27c1c : 13 bytes sent<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c AsyncResponse_mqtt_AddSessionStateHandler() 618 | Sending message to client session 0x27c1c : 13 bytes sent<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | sensorToAirVantage[8149]/sensorToAirVantage T=main | sensorToAirVantage.cpp mqttSessionStateHandler() 299 | Session State: connected=0, connectErrorCode=-3, subscriptionErrorCode=-1<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | sensorToAirVantage[8149]/sensorToAirVantage T=main | sensorToAirVantage.cpp mqttSessionStateHandler() 299 | Session State: connected=0, connectErrorCode=0, subscriptionErrorCode=0<br>
+May 20 00:11:27 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c CleanupClientData() 195 | Client 0x27c1c is closed !!!<br>
+May 20 00:11:27 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c CleanupClientData() 221 | Found session ref 0x27c1c; match found, so needs cleanup<br>
+May 20 00:11:27 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_RemoveSessionStateHandler() 177 | remove session state handler(0x1000000f)<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | LE_FILENAME ExtractFileDescriptor() 33 | Received fd (12).<br>
+May 20 00:11:28 yk-mangoh user.warn Legato: -WRN- | <em>UNKNOWN</em>[8149]/framework T=main | LE_FILENAME le_fdMonitor_Create() 672 | FD Monitor object name ‘sensorToAirVantage.sensorToAirVantage.mqtt’ truncated to ‘sensorToAirVantage.sensorToAirV’.<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_Config() 96 | MQTT Broker URL(‘<a href="http://eu.airvantage.net" rel="nofollow noopener">eu.airvantage.net</a>’ -&gt; ‘<a href="http://eu.airvantage.net" rel="nofollow noopener">eu.airvantage.net</a>’)<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_Config() 102 | MQTT Broker Port(1883 -&gt; 1883)<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_Config() 108 | Keep Alive(60 -&gt; 60 seconds)<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_Config() 114 | QoS(0 -&gt; 0)<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c Handle_mqtt_Config() 412 | Sending response to client session 0x27c1c : 0 bytes sent<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_AddSessionStateHandler() 165 | add session state handler(0xb6f51ef8)<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c Handle_mqtt_AddSessionStateHandler() 681 | Sending response to client session 0x27c1c : 4 bytes sent<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_Connect() 121 | connect password(‘mangoh’)<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_connectUser() 1673 | pw(‘mangoh’)<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_connectUser() 1681 | initiated data connection<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | le_data_client.c le_data_Request() 745 | Sending message to server and waiting for response : 0 bytes sent<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_connectData() 1372 | requesting data connection(0x10000015)<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c Handle_mqtt_Connect() 451 | Sending response to client session 0x27c1c : 0 bytes sent<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_dataConnectionStateHandler() 942 | interface(‘rmnet0’) connected(1)<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_dataConnectionStateHandler() 947 | starting session<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.Default Timer Pool’ overflowed. Expanded to 31 blocks.<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.Default Timer Pool’ overflowed. Expanded to 32 blocks.<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.Default Timer Pool’ overflowed. Expanded to 33 blocks.<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.hashMap_refDefault Ti’ overflowed. Expanded to 36 blocks.<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_startSession() 1342 | connect(<a href="http://eu.airvantage.net:1883" rel="nofollow noopener">eu.airvantage.net:1883</a>)<br>
+May 20 00:11:28 yk-mangoh user.err Legato: =ERR= | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_connect() 997 | getaddrinfo() failed(-3)<br>
+May 20 00:11:28 yk-mangoh user.err Legato: =ERR= | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_startSession() 1346 | mqttClient_connect() failed(-3)<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_startSession() 1353 | start session failed<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_SendConnStateEvent() 192 | MQTT connected(0), error(-3), sub-error(-1)<br>
+May 20 00:11:28 yk-mangoh user.err Legato: =ERR= | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_dataConnectionStateHandler() 951 | mqttClient_startSession() failed(-3)<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_disconnectData() 1464 | releasing the data connection.<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | le_data_client.c le_data_Release() 803 | Sending message to server and waiting for response : 4 bytes sent<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_SendConnStateEvent() 192 | MQTT connected(0), error(0), sub-error(0)<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c AsyncResponse_mqtt_AddSessionStateHandler() 618 | Sending message to client session 0x27c1c : 13 bytes sent<br>
+May 20 00:11:28 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c AsyncResponse_mqtt_AddSessionStateHandler() 618 | Sending message to client session 0x27c1c : 13 bytes sent<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | sensorToAirVantage[8149]/sensorToAirVantage T=main | sensorToAirVantage.cpp mqttSessionStateHandler() 299 | Session State: connected=0, connectErrorCode=-3, subscriptionErrorCode=-1<br>
+May 20 00:11:28 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | sensorToAirVantage[8149]/sensorToAirVantage T=main | sensorToAirVantage.cpp mqttSessionStateHandler() 299 | Session State: connected=0, connectErrorCode=0, subscriptionErrorCode=0</p>
+</blockquote>
+          <p><a href="https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522/7</link>
+        <pubDate>Sat, 20 May 2017 00:08:10 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-522-7</guid>
+        <source url="https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522.rss">How to Find Out &quot;mqttBrokerPassword&quot; in Airvantage?</source>
+      </item>
+      <item>
+        <title>How to Find Out &quot;mqttBrokerPassword&quot; in Airvantage?</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>Rather than running the demo application, try to run <code>cm data connect</code> from the command line.  That should establish a data connection.  Once the connection is established, try to ping a few well known hosts like <a href="http://google.com" rel="nofollow noopener">google.com</a> (and <a href="http://mangoh.io" rel="nofollow noopener">mangoh.io</a>  <img src="https://emoji.discourse-cdn.com/twitter/smile.png?v=5" title=":smile:" class="emoji" alt=":smile:">).  I just want to verify that hostname resolution is working properly and that the problem is specific to the mqtt use case.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522/6</link>
+        <pubDate>Fri, 19 May 2017 23:39:41 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-522-6</guid>
+        <source url="https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522.rss">How to Find Out &quot;mqttBrokerPassword&quot; in Airvantage?</source>
+      </item>
+      <item>
+        <title>How to Find Out &quot;mqttBrokerPassword&quot; in Airvantage?</title>
+        <dc:creator><![CDATA[Wavefront_yk]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks David!</p>
+<p>I have successfully built the .app and uploaded into the AirVantage and I can see the icon and set the password.</p>
+<p>But when I start the app, connection seems published but failed on “getaddrinfo” and then connection get lost. Could you please advise if anything that I missed?</p>
+<p>Here is the mqtt log</p>
+<blockquote>
+<p>root@yk-mangoh:~# logread -f | grep “mqtt” &amp;<br>
+root@yk-mangoh:~# app start sensorToAirVantage<br>
+root@yk-mangoh:~# May 19 23:15:14 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | LE_FILENAME ExtractFileDescriptor() 33 | Received fd (12).<br>
+May 19 23:15:14 yk-mangoh user.warn Legato: -WRN- | <em>UNKNOWN</em>[1887]/framework T=main | LE_FILENAME le_fdMonitor_Create() 672 | FD Monitor object name ‘sensorToAirVantage.sensorToAirVantage.mqtt’ truncated to ‘sensorToAirVantage.sensorToAirV’.<br>
+May 19 23:15:14 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_Config() 96 | MQTT Broker URL(‘<a href="http://eu.airvantage.net" rel="nofollow noopener">eu.airvantage.net</a>’ -&gt; ‘<a href="http://eu.airvantage.net" rel="nofollow noopener">eu.airvantage.net</a>’)<br>
+May 19 23:15:14 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_Config() 102 | MQTT Broker Port(1883 -&gt; 1883)<br>
+May 19 23:15:14 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_Config() 108 | Keep Alive(60 -&gt; 60 seconds)<br>
+May 19 23:15:14 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_Config() 114 | QoS(0 -&gt; 0)<br>
+May 19 23:15:14 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c Handle_mqtt_Config() 412 | Sending response to client session 0x27c1c : 0 bytes sent<br>
+May 19 23:15:14 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_AddSessionStateHandler() 165 | add session state handler(0xb6f51ef8)<br>
+May 19 23:15:14 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c Handle_mqtt_AddSessionStateHandler() 681 | Sending response to client session 0x27c1c : 4 bytes sent<br>
+May 19 23:15:14 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttMain.c mqtt_Connect() 121 | connect password(‘mymangoh’)<br>
+May 19 23:15:14 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_connectUser() 1673 | pw(‘mymangoh’)<br>
+May 19 23:15:14 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp <strong>T=main | mqttClient.c mqttClient_connectUser() 1681 | initiated data connection</strong><br>
+May 19 23:15:14 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | le_data_client.c le_data_Request() 745 | Sending message to server and waiting for response : 0 bytes sent<br>
+May 19 23:15:14 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_connectData() 1372 | requesting data connection(0x10000003)<br>
+May 19 23:15:14 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c Handle_mqtt_Connect() 451 | Sending response to client session 0x27c1c : 0 bytes sent<br>
+May 19 23:15:24 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_dataConnectionStateHandler() 942 | interface(‘rmnet0’) connected(1)<br>
+May 19 23:15:24 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_dataConnectionStateHandler() 947 | starting session<br>
+May 19 23:15:24 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.Default Timer Pool’ overflowed. Expanded to 4 blocks.<br>
+May 19 23:15:24 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.Default Timer Pool’ overflowed. Expanded to 5 blocks.<br>
+May 19 23:15:24 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.Default Timer Pool’ overflowed. Expanded to 6 blocks.<br>
+May 19 23:15:24 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_startSession() 1342 | connect(<a href="http://eu.airvantage.net:1883" rel="nofollow noopener">eu.airvantage.net:1883</a>)<br>
+<strong>May 19 23:15:25 yk-mangoh user.err Legato: =ERR= | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_connect() 997 | getaddrinfo() failed(-3)</strong><br>
+<strong>&gt; May 19 23:15:25 yk-mangoh user.err Legato: =ERR= | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_startSession() 1346 | mqttClient_connect() failed(-3)</strong><br>
+May 19 23:15:25 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_startSession() 1353 | start session failed<br>
+May 19 23:15:25 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_SendConnStateEvent() 192 | MQTT connected(0), error(-3), sub-error(-1)<br>
+May 19 23:15:25 yk-mangoh user.err Legato: =ERR= | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_dataConnectionStateHandler() 951 | mqttClient_startSession() failed(-3)<br>
+May 19 23:15:25 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_disconnectData() 1464 | releasing the data connection.<br>
+May 19 23:15:25 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | le_data_client.c le_data_Release() 803 | Sending message to server and waiting for response : 4 bytes sent<br>
+May 19 23:15:25 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_SendConnStateEvent() 192 | MQTT connected(0), error(0), sub-error(0)<br>
+May 19 23:15:25 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c AsyncResponse_mqtt_AddSessionStateHandler() 618 | Sending message to client session 0x27c1c : 13 bytes sent<br>
+May 19 23:15:25 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | sensorToAirVantage[1887]/sensorToAirVantage T=main | sensorToAirVantage.cpp mqttSessionStateHandler() 299 | Session State: connected=0, connectErrorCode=-3, subscriptionErrorCode=-1<br>
+May 19 23:15:25 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/framework T=main | mqtt_server.c AsyncResponse_mqtt_AddSessionStateHandler() 618 | Sending message to client session 0x27c1c : 13 bytes sent<br>
+May 19 23:15:25 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | sensorToAirVantage[1887]/sensorToAirVantage T=main | sensorToAirVantage.cpp mqttSessionStateHandler() 299 | Session State: connected=0, connectErrorCode=0, subscriptionErrorCode=0<br>
+May 19 23:15:26 yk-mangoh user.debug Legato:  DBUG | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_dataConnectionStateHandler() 942 | interface(’’) connected(0)<br>
+May 19 23:15:26 yk-mangoh <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_dataConnectionStateHandler() 962 | disconnected(’’)<br>
+May 19 23:15:26 yk-mangoh user.err Legato: =ERR= | mqttClient[569]/mqttClientComp T=main | mqttClient.c mqttClient_disconnectData() 1447 | no data connection reference.</p>
+</blockquote>
+          <p><a href="https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522/5</link>
+        <pubDate>Fri, 19 May 2017 23:25:10 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-522-5</guid>
+        <source url="https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522.rss">How to Find Out &quot;mqttBrokerPassword&quot; in Airvantage?</source>
+      </item>
+      <item>
+        <title>How to Find Out &quot;mqttBrokerPassword&quot; in Airvantage?</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>Try just putting the .app file in a .zip file and uploading that instead of using av-pack.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522/4</link>
+        <pubDate>Wed, 17 May 2017 20:10:57 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-522-4</guid>
+        <source url="https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522.rss">How to Find Out &quot;mqttBrokerPassword&quot; in Airvantage?</source>
+      </item>
+      <item>
+        <title>How to Find Out &quot;mqttBrokerPassword&quot; in Airvantage?</title>
+        <dc:creator><![CDATA[Wavefront_yk]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks for your detailed information.  Really appreciated.</p>
+<p>I could not see “unlock” next to my application. <img src="https://emoji.discourse-cdn.com/twitter/frowning.png?v=9" title=":frowning:" class="emoji" alt=":frowning:"><br>
+Not sure if I doesn’t build my .app correctly. I built my app using “av-pack” command:<br>
+<strong>av-pack -u helloWorld.wp85.update -b _build_helloWorld/wp85 -t abcCo.jsmith.helloWorld</strong>  from:<br>
+<a href="http://legato.io/legato-docs/latest/howToAVConnect.html" class="onebox" target="_blank" rel="nofollow noopener">http://legato.io/legato-docs/latest/howToAVConnect.html</a></p>
+<p>I will go through your instructions carefully to building the .app and see if it makes any difference.</p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/a7d958dd3b710158cf492f500e9b740de19f358b.png" data-download-href="/uploads/short-url/nWRoTSGMeKieqgnKgtSxUjKHvXt.png?dl=1" title="airvantage.png" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/a7d958dd3b710158cf492f500e9b740de19f358b_2_690x406.png" alt="" data-base62-sha1="nWRoTSGMeKieqgnKgtSxUjKHvXt" width="690" height="406" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/a7d958dd3b710158cf492f500e9b740de19f358b_2_690x406.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/a7d958dd3b710158cf492f500e9b740de19f358b_2_1035x609.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/a7d958dd3b710158cf492f500e9b740de19f358b_2_1380x812.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/a7d958dd3b710158cf492f500e9b740de19f358b_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522/3</link>
+        <pubDate>Mon, 15 May 2017 23:08:47 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-522-3</guid>
+        <source url="https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522.rss">How to Find Out &quot;mqttBrokerPassword&quot; in Airvantage?</source>
+      </item>
+      <item>
+        <title>How to Find Out &quot;mqttBrokerPassword&quot; in Airvantage?</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi YK,</p>
+<ol>
+<li>login to airvantage</li>
+<li>Select Monitor &gt; Systems from the drop-down menu</li>
+<li>Click on your system name</li>
+<li>In the top right, click More &gt; Edit</li>
+<li>Under “Application” you should see the name of the application model for the application you are trying to run.</li>
+<li>Next to the application, there is a lock icon.  If you click that icon, you will be prompted with a dialog that will allow you to either view or set the password.</li>
+</ol>
+<p>If you don’t have the application model registered with that device record in AirVantage, then you will need to follow these steps:</p>
+<ol>
+<li>On the edit screen of the device, click the search (magnifying glass) icon next to the “Applications” section</li>
+<li>Search within the dialog to find the application model that you want.</li>
+</ol>
+<p>If the application model you want is not found in that dialog, then it may need to be loaded into AirVantage.  Follow these steps:</p>
+<ol>
+<li>Click Develop &gt; My Apps</li>
+<li>Click the Release icon (an upward facing arrow)</li>
+<li>Click the “Select a file” button and browse to the appropriate zip file.  AirVantage expects a zip file that contains a <code>.app</code> file.  <a href="https://github.com/mangOH/Demos/tree/master/AirVantage" rel="nofollow noopener">Here are some examples of <code>.app</code> files</a>.</li>
+<li>From the “Advanced Settings” section of the dialog, choose “Publish”</li>
+</ol>
+<p>If you want more detailed information on the application model, <a href="https://source.sierrawireless.com/airvantage/av/reference/application/" rel="nofollow noopener">here is the reference</a></p>
+<p>Let me know if anything was unclear.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522/2</link>
+        <pubDate>Mon, 15 May 2017 14:58:11 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-522-2</guid>
+        <source url="https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522.rss">How to Find Out &quot;mqttBrokerPassword&quot; in Airvantage?</source>
+      </item>
+      <item>
+        <title>How to Find Out &quot;mqttBrokerPassword&quot; in Airvantage?</title>
+        <dc:creator><![CDATA[Wavefront_yk]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi,</p>
+<p>I am trying to install “sensorTOAirVantage” app in my mangOH board, but ran into error to start the app.  I wonder if there is instructions to find out “mqttBrokerPassword”.</p>
+<blockquote>
+<p>root@swi-mdm9x15:~# config get sensorToAirVantage:/<br>
+/<br>
+mqttBrokerHost == <a href="http://eu.airvantage.net" rel="nofollow noopener">eu.airvantage.net</a><br>
+mqttBrokerPort == 1883<br>
+mqttBrokerPassword == ???</p>
+</blockquote>
+<p>Thanks<br>
+YK</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522/1</link>
+        <pubDate>Wed, 10 May 2017 21:49:17 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-522-1</guid>
+        <source url="https://forum.mangoh.io/t/how-to-find-out-mqttbrokerpassword-in-airvantage/522.rss">How to Find Out &quot;mqttBrokerPassword&quot; in Airvantage?</source>
+      </item>
+  </channel>
+</rss>

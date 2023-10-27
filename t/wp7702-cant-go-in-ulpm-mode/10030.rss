@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>[WP7702] Can&#39;t go in ULPM Mode</title>
+    <link>https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030</link>
+    <description>Hello,
+
+We are currently using MangOH Yellow cards with a WP7702 chip.
+
+Some of our systems in the field have encountered a problem.
+They no longer go into ULPM mode.
+
+![image|605x235](upload://1LHyZODrt3xdTNlgNusPOWi46ak.png)
+
+
+We use the latest image of the MangOH Yellow software provided by the MangOH website: 0.7.0
+
+With a slight modification of the Mango firmware: Modification of the accelerometer driver
+And modification of the Yocto: Modification of the curl package + addition of python library
+
+Method to switch to ULPM mode:
+We use a Legato application in C
+
+Code :
+
+&gt; //Réveil sur Timer
+le_ulpm_BootOnTimer(TimeULPM);
+//Réveil sur ADC
+le_ulpm_BootOnAdc(2,100,500,1799);
+if (le_ulpm_ShutDown() == LE_OK){
+         sleep(5);
+        FILE *fp = popen(&quot;echo -e \&#39;at+cpsms=0\r\n&#39; &gt; /dev/ttyAT&quot;,&quot;r&quot;);
+        pclose(fp);
+}
+
+We have never encountered this problem in the office so far.
+As the systems are currently in the field, I cannot provide more logs.
+
+Has anyone encountered this problem before?
+
+Thank,
+Jérémy</description>
+    
+    <lastBuildDate>Thu, 27 Oct 2022 10:25:08 +0000</lastBuildDate>
+    <category>mangOH Yellow</category>
+    <atom:link href="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>[WP7702] Can&#39;t go in ULPM Mode</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>i am not sure if AT!RESET is equal to “reboot -f”, you might give a try to use AT!RESET and see if it can reset both modem and MCU.<br>
+Another option is to download the FW including MCU FW, I guess it would also reboot the MCU.</p>
+          <p><a href="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/13">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/13</link>
+        <pubDate>Thu, 27 Oct 2022 10:19:19 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10030-13</guid>
+        <source url="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030.rss">[WP7702] Can&#39;t go in ULPM Mode</source>
+      </item>
+      <item>
+        <title>[WP7702] Can&#39;t go in ULPM Mode</title>
+        <dc:creator><![CDATA[jeremylaharotte]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi,</p>
+<p>I don’t have the system with me. As I said in the previous post, I do a reboot if I can’t get into ULPM. But after some time the recovery mechanism is activated and I lose the Legato apps and the file on the system (I will write a new post about this). The log I am posting is from a system we recovered in the field after an I2C problem and before the recovery mechanism.</p>
+<p>It’s on this system that I do a hardware reboot (ON/OFF), and I can’t remember if the MCU version was missing.</p>
+<p>On a system reboot my app uses: reboot -f, when I don’t have ULPM so every 15 minutes (96 reboots per day) but it seems to only reboot the CPU but not the MCU.<br>
+Is there a software command to restart both?</p>
+<p>Jérémy</p>
+          <p><a href="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/12</link>
+        <pubDate>Thu, 27 Oct 2022 10:10:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10030-12</guid>
+        <source url="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030.rss">[WP7702] Can&#39;t go in ULPM Mode</source>
+      </item>
+      <item>
+        <title>[WP7702] Can&#39;t go in ULPM Mode</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>when there is  I2C communication issue between the CPU and the MCU, can you check “cm info” and see if the MCU version is missed?</p>
+<p>Here says you can reset it until a MCU version is shown:</p>
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.legato.io/t/using-gpio36-38-on-wp7607/4828/9">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2f530449ddf3c5969c6d457cc62c7f403f2ae1d3.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/using-gpio36-38-on-wp7607/4828/9" target="_blank" rel="noopener nofollow ugc" title="07:54AM - 13 November 2019">Legato Forum – 13 Nov 19</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-dominant-color="D3CBC3"></div>
+
+<h3><a href="https://forum.legato.io/t/using-gpio36-38-on-wp7607/4828/9" target="_blank" rel="noopener nofollow ugc">Using GPIO36-38 on WP7607</a></h3>
+
+  <p>Yes the missing MCU Version might be a clue.  Found another gateway prototype that did work:   root@swi-mdm9x28-wp:~# cm info  Device:                        WP7607-1  IMEI:                          359780080485307  IMEISV:                        6 ...</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.legato.io/t/mcu-firmware-missing/5365/16">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2f530449ddf3c5969c6d457cc62c7f403f2ae1d3.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/mcu-firmware-missing/5365/16" target="_blank" rel="noopener nofollow ugc" title="09:57AM - 31 May 2021">Legato Forum – 31 May 21</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-dominant-color="D3CBC3"></div>
+
+<h3><a href="https://forum.legato.io/t/mcu-firmware-missing/5365/16" target="_blank" rel="noopener nofollow ugc">MCU Firmware Missing</a></h3>
+
+  <p>Dear Kiran,  The previous logs have been posted with older firmware’s for newer firmware we are seeing different logs.  Both the issues do not seem to be similar.  Thanks &amp; Regards,  Pankaj Sant</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/11</link>
+        <pubDate>Thu, 27 Oct 2022 09:41:30 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10030-11</guid>
+        <source url="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030.rss">[WP7702] Can&#39;t go in ULPM Mode</source>
+      </item>
+      <item>
+        <title>[WP7702] Can&#39;t go in ULPM Mode</title>
+        <dc:creator><![CDATA[jeremylaharotte]]></dc:creator>
+        <description><![CDATA[
+            <p>On some systems we upgraded to swi-wp77_5.0.1 (MCU 2.015) and one system seems to have this problem but we haven’t gotten the log yet.<br>
+On the previous version the problem did not appear immediately. We have systems that have never had this issue and systems that have had this issue after a week in the field.</p>
+          <p><a href="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/10</link>
+        <pubDate>Thu, 27 Oct 2022 09:36:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10030-10</guid>
+        <source url="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030.rss">[WP7702] Can&#39;t go in ULPM Mode</source>
+      </item>
+      <item>
+        <title>[WP7702] Can&#39;t go in ULPM Mode</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Are you able to upgrade the FW and see if problem still happened in these SDK?</p>
+<pre><code class="lang-auto">
+
+
+ swi-wp77_5.0.1             │ SDK for WP77 (Release 14.1 + Legato 19.11.5)                                             │ wp77xx,stable                      │
+│ swi-wp77_5.0.2             │ SDK for WP77 (Release 14.1 + Legato 19.11.6)                                             │ wp77xx,dev                         │
+│ swi-wp77_6.0.0.beta        │ SDK for WP77 (Release 15 + Legato 21.05.0)                                               │ latest,wp77xx,stable
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/9</link>
+        <pubDate>Thu, 27 Oct 2022 09:25:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10030-9</guid>
+        <source url="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030.rss">[WP7702] Can&#39;t go in ULPM Mode</source>
+      </item>
+      <item>
+        <title>[WP7702] Can&#39;t go in ULPM Mode</title>
+        <dc:creator><![CDATA[jeremylaharotte]]></dc:creator>
+        <description><![CDATA[
+            <p>Yes, and we can’t go in ULPM.</p>
+<p>Jérémy</p>
+          <p><a href="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/8</link>
+        <pubDate>Thu, 27 Oct 2022 09:21:57 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10030-8</guid>
+        <source url="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030.rss">[WP7702] Can&#39;t go in ULPM Mode</source>
+      </item>
+      <item>
+        <title>[WP7702] Can&#39;t go in ULPM Mode</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>after “reboot -f”, do you still see those logread message about  I2C communication issue between the CPU and the MCU?</p>
+          <p><a href="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/7</link>
+        <pubDate>Thu, 27 Oct 2022 09:19:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10030-7</guid>
+        <source url="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030.rss">[WP7702] Can&#39;t go in ULPM Mode</source>
+      </item>
+      <item>
+        <title>[WP7702] Can&#39;t go in ULPM Mode</title>
+        <dc:creator><![CDATA[jeremylaharotte]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi ,</p>
+<p>I forgot one detail:<br>
+If I can’t go to ULPM the system restarts: my application does: reboot -f after a while but the problem persists. It seems the solution is to do a hardware reboot (interrupt ON/OFF) and after that the system can switch to ULPM mode but I can’t do that when the system is in the field.</p>
+<p>Thank,<br>
+Jérémy</p>
+          <p><a href="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/6</link>
+        <pubDate>Thu, 27 Oct 2022 09:13:30 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10030-6</guid>
+        <source url="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030.rss">[WP7702] Can&#39;t go in ULPM Mode</source>
+      </item>
+      <item>
+        <title>[WP7702] Can&#39;t go in ULPM Mode</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Can you use at!powermode to force module back to sleep mode?</p>
+          <p><a href="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/5</link>
+        <pubDate>Thu, 27 Oct 2022 09:04:31 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10030-5</guid>
+        <source url="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030.rss">[WP7702] Can&#39;t go in ULPM Mode</source>
+      </item>
+      <item>
+        <title>[WP7702] Can&#39;t go in ULPM Mode</title>
+        <dc:creator><![CDATA[jeremylaharotte]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi</p>
+<p>We have retrieved our faulty systems from the field.</p>
+<p>The problem for the ULPM seems to be an I2C communication issue between the CPU and the MCU.</p>
+<p>Some of the logs we were able to extract from our systems :</p>
+<blockquote>
+<p>Sep 14 13:49:59 swi-mdm9x28-wp user.info kernel: [  424.710009] swimcu_set_fault_mask: 0x1, cnt 41<br>
+Sep 14 13:49:59 swi-mdm9x28-wp user.err kernel: [  424.710789] Failed to send request c2 (-105)<br>
+Sep 14 13:49:59 swi-mdm9x28-wp user.err kernel: [  424.714445] MCU Protocol Command 0xC2 failed, retry=8<br>
+Sep 14 13:50:00 swi-mdm9x28-wp user.err kernel: [  425.220641] i2c-msm-v2 78b8000.i2c: BUS ERROR:noisy bus/unexpected start/stop tag: msgs(n:1 cur:0 tx) bc(rx:0 tx:18) mode:FIFO slv_addr:0x3a MSTR_STS:0x041121c4 OPER:0x00000080<br>
+Sep 14 13:50:00 swi-mdm9x28-wp user.err kernel: [  425.262493] i2c-msm-v2 78b8000.i2c: error timeout on polling for valid state. check core_clk<br>
+Sep 14 13:50:00 swi-mdm9x28-wp user.err kernel: [  425.271767] i2c-msm-v2 78b8000.i2c: BUS ERROR:noisy bus/unexpected start/stop tag: msgs(n:1 cur:0 tx) bc(rx:0 tx:18) mode:FIFO slv_addr:0x3a MSTR_STS:0x041121c4 OPER:0x00000080<br>
+Sep 14 13:50:00 swi-mdm9x28-wp user.err kernel: [  425.313448] i2c-msm-v2 78b8000.i2c: error timeout on polling for valid state. check core_clk<br>
+Sep 14 13:50:00 swi-mdm9x28-wp user.err kernel: [  425.322764] i2c-msm-v2 78b8000.i2c: BUS ERROR:noisy bus/unexpected start/stop tag: msgs(n:1 cur:0 tx) bc(rx:0 tx:18) mode:FIFO slv_addr:0x3a MSTR_STS:0x041121c4 OPER:0x00000080<br>
+Sep 14 13:50:00 swi-mdm9x28-wp user.err kernel: [  425.364812] i2c-msm-v2 78b8000.i2c: error timeout on polling for valid state. check core_clk<br>
+Sep 14 13:50:00 swi-mdm9x28-wp user.err kernel: [  425.374132] i2c-msm-v2 78b8000.i2c: BUS ERROR:noisy bus/unexpected start/stop tag: msgs(n:1 cur:0 tx) bc(rx:0 tx:18) mode:FIFO slv_addr:0x3a MSTR_STS:0x041121c4 OPER:0x00000080<br>
+Sep 14 13:50:00 swi-mdm9x28-wp user.err kernel: [  425.415565] i2c-msm-v2 78b8000.i2c: error timeout on polling for valid state. check core_clk<br>
+Sep 14 13:50:00 swi-mdm9x28-wp user.err kernel: [  425.424878] i2c-msm-v2 78b8000.i2c: BUS ERROR:noisy bus/unexpected start/stop tag: msgs(n:1 cur:0 tx) bc(rx:0 tx:18) mode:FIFO slv_addr:0x3a MSTR_STS:0x041121c4 OPER:0x00000080<br>
+Sep 14 13:50:00 swi-mdm9x28-wp user.err kernel: [  425.466505] i2c-msm-v2 78b8000.i2c: error timeout on polling for valid state. check core_clk<br>
+Sep 14 13:50:00 swi-mdm9x28-wp user.err kernel: [  425.475874] i2c-msm-v2 78b8000.i2c: BUS ERROR:noisy bus/unexpected start/stop tag: msgs(n:1 cur:0 tx) bc(rx:0 tx:18) mode:FIFO slv_addr:0x3a MSTR_STS:0x041121c4 OPER:0x00000080<br>
+Sep 14 13:50:00 swi-mdm9x28-wp user.err kernel: [  425.517562] i2c-msm-v2 78b8000.i2c: error timeout on polling for valid state. check core_clk<br>
+Sep 14 13:50:00 swi-mdm9x28-wp user.err kernel: [  425.525141] mci_protocol_frame_send: write frame fail to I2C: -5 of 18</p>
+</blockquote>
+<p>Our problem seems to be similar to:<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/b84b7ac91afcd9e569f8eca2216bc0e1b31e6016.jpeg" data-download-href="/uploads/short-url/qilzgX713GOhARN2xcLQJD7r2p8.jpeg?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b84b7ac91afcd9e569f8eca2216bc0e1b31e6016_2_690x281.jpeg" alt="image" data-base62-sha1="qilzgX713GOhARN2xcLQJD7r2p8" width="690" height="281" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b84b7ac91afcd9e569f8eca2216bc0e1b31e6016_2_690x281.jpeg, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/b84b7ac91afcd9e569f8eca2216bc0e1b31e6016.jpeg 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/b84b7ac91afcd9e569f8eca2216bc0e1b31e6016.jpeg 2x" data-dominant-color="F0F0EF"></a></div><p></p>
+<p>But we use the version : 002.014.</p>
+<p>Has anyone encountered the same problem before ? And if so what was your solution?</p>
+<p>Thank,<br>
+Jérémy</p>
+          <p><a href="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/4</link>
+        <pubDate>Thu, 27 Oct 2022 08:50:06 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10030-4</guid>
+        <source url="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030.rss">[WP7702] Can&#39;t go in ULPM Mode</source>
+      </item>
+      <item>
+        <title>[WP7702] Can&#39;t go in ULPM Mode</title>
+        <dc:creator><![CDATA[jeremylaharotte]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi,</p>
+<p>Our system wakes up every 15 minutes. It retrieves some data from an external sensor and switches back to ULPM mode. And every hour, it sends a file with the data by FTP. The system has been in the field for a month and has had no issues until this week.</p>
+<p>We’ve restarted some systems at the office in hopes of reproducing the error, but this is an issue we hadn’t previously detected in our testing.</p>
+<p>Thank,<br>
+Jérémy</p>
+          <p><a href="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/3</link>
+        <pubDate>Wed, 29 Jun 2022 15:53:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10030-3</guid>
+        <source url="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030.rss">[WP7702] Can&#39;t go in ULPM Mode</source>
+      </item>
+      <item>
+        <title>[WP7702] Can&#39;t go in ULPM Mode</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>How is the reproducibility?<br>
+Not sure if there is same problem with at!powermode command.</p>
+          <p><a href="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/2</link>
+        <pubDate>Tue, 28 Jun 2022 16:16:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10030-2</guid>
+        <source url="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030.rss">[WP7702] Can&#39;t go in ULPM Mode</source>
+      </item>
+      <item>
+        <title>[WP7702] Can&#39;t go in ULPM Mode</title>
+        <dc:creator><![CDATA[jeremylaharotte]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello,</p>
+<p>We are currently using MangOH Yellow cards with a WP7702 chip.</p>
+<p>Some of our systems in the field have encountered a problem.<br>
+They no longer go into ULPM mode.</p>
+<p><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/0c669b6ebc0c4f47945b9da32f7d2fcf1da0d158.png" alt="image" data-base62-sha1="1LHyZODrt3xdTNlgNusPOWi46ak" width="605" height="235"></p>
+<p>We use the latest image of the MangOH Yellow software provided by the MangOH website: 0.7.0</p>
+<p>With a slight modification of the Mango firmware: Modification of the accelerometer driver<br>
+And modification of the Yocto: Modification of the curl package + addition of python library</p>
+<p>Method to switch to ULPM mode:<br>
+We use a Legato application in C</p>
+<p>Code :</p>
+<blockquote>
+<p>//Réveil sur Timer<br>
+le_ulpm_BootOnTimer(TimeULPM);<br>
+//Réveil sur ADC<br>
+le_ulpm_BootOnAdc(2,100,500,1799);<br>
+if (le_ulpm_ShutDown() == LE_OK){<br>
+sleep(5);<br>
+FILE *fp = popen(“echo -e 'at+cpsms=0\r\n’ &gt; /dev/ttyAT”,“r”);<br>
+pclose(fp);<br>
+}</p>
+</blockquote>
+<p>We have never encountered this problem in the office so far.<br>
+As the systems are currently in the field, I cannot provide more logs.</p>
+<p>Has anyone encountered this problem before?</p>
+<p>Thank,<br>
+Jérémy</p>
+          <p><a href="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030/1</link>
+        <pubDate>Tue, 28 Jun 2022 14:22:00 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10030-1</guid>
+        <source url="https://forum.mangoh.io/t/wp7702-cant-go-in-ulpm-mode/10030.rss">[WP7702] Can&#39;t go in ULPM Mode</source>
+      </item>
+  </channel>
+</rss>

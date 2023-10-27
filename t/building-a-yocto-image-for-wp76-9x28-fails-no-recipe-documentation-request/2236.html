@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Building a Yocto image for wp76/9x28 fails no recipe - Documentation Request - Wiki - mangOH forum</title>
+    <meta name="description" content="Hi, 
+I am having a difficult time finding documentation for the steps to build a new yocto image for any MangoH boards. The documentation here : Building Custom Yocto Image is all that I can find, however, the repositori&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/building-a-yocto-image-for-wp76-9x28-fails-no-recipe-documentation-request/2236" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Building a Yocto image for wp76/9x28 fails no recipe - Documentation Request&#39;" href="https://forum.mangoh.io/t/building-a-yocto-image-for-wp76-9x28-fails-no-recipe-documentation-request/2236.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/building-a-yocto-image-for-wp76-9x28-fails-no-recipe-documentation-request/2236" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/building-a-yocto-image-for-wp76-9x28-fails-no-recipe-documentation-request/2236" />
+<meta property="og:title" content="Building a Yocto image for wp76/9x28 fails no recipe - Documentation Request" />
+<meta name="twitter:title" content="Building a Yocto image for wp76/9x28 fails no recipe - Documentation Request" />
+<meta property="og:description" content="Hi,  I am having a difficult time finding documentation for the steps to build a new yocto image for any MangoH boards. The documentation here : Building Custom Yocto Image is all that I can find, however, the repositories that are linked to are inaccessible.  &lt;details&gt;&lt;summary&gt;Attempt to follow Wiki Directions&lt;/summary&gt;For example, these commands give an error because this is an internal git server to Sierra.   **WP85** : repo init -u git://gerrit-legato/manifest -m lxswi/branches/master/systems/wp85xx.xml -g “default,ams...&lt;/details&gt;" />
+<meta name="twitter:description" content="Hi,  I am having a difficult time finding documentation for the steps to build a new yocto image for any MangoH boards. The documentation here : Building Custom Yocto Image is all that I can find, however, the repositories that are linked to are inaccessible.  &lt;details&gt;&lt;summary&gt;Attempt to follow Wiki Directions&lt;/summary&gt;For example, these commands give an error because this is an internal git server to Sierra.   **WP85** : repo init -u git://gerrit-legato/manifest -m lxswi/branches/master/systems/wp85xx.xml -g “default,ams...&lt;/details&gt;" />
+<meta property="og:article:section" content="Wiki" />
+<meta property="og:article:section:color" content="AB9364" />
+<meta property="article:published_time" content="2018-12-11T01:44:46+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Building a Yocto image for wp76/9x28 fails no recipe - Documentation Request","mainEntity":{"@type":"Question","name":"Building a Yocto image for wp76/9x28 fails no recipe - Documentation Request","text":"Hi,\n\nI am having a difficult time finding documentation for the steps to build a new yocto image for any MangoH boards. The documentation here : <a href=\"https://forum.mangoh.io/t/building-custom-yocto-image/1299\" class=\"inline-onebox\">Building Custom Yocto Image<\/a> is all that I can find, however, the repositories that are linked to are inaccessible.\n\n<details><summary>Attempt to follow Wiki Directions<\/summary>For ex&hellip;<\/details>","upvoteCount":0,"answerCount":0,"dateCreated":"2018-12-11T01:44:45.613Z","author":{"@type":"Person","name":"Ryan"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/building-a-yocto-image-for-wp76-9x28-fails-no-recipe-documentation-request/2236">Building a Yocto image for wp76/9x28 fails no recipe - Documentation Request</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/wiki/10" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #AB9364'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>Wiki</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Building a Yocto image for wp76/9x28 fails no recipe - Documentation Request'>
+        <meta itemprop='articleSection' content='Wiki'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/rauger1'><span itemprop='name'>rauger1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-a-yocto-image-for-wp76-9x28-fails-no-recipe-documentation-request/2236">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-12-11T01:44:46Z' class='post-time'>
+                    December 11, 2018,  1:44am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-12-11T19:34:11Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hi,</p>
+<p>I am having a difficult time finding documentation for the steps to build a new yocto image for any MangoH boards. The documentation here : <a href="https://forum.mangoh.io/t/building-custom-yocto-image/1299" class="inline-onebox">Building Custom Yocto Image</a> is all that I can find, however, the repositories that are linked to are inaccessible.</p>
+<details>
+<summary>
+Attempt to follow Wiki Directions</summary>
+<p>For example, these commands give an error because this is an internal git server to Sierra.</p>
+<blockquote>
+<pre><code>**WP85** :
+repo init -u git://gerrit-legato/manifest -m lxswi/branches/master/systems/wp85xx.xml -g “default,amss”
+
+**WP76** :
+repo init -u git://gerrit-legato/manifest -m lxswi/branches/master/systems/wp76xx.xml
+</code></pre>
+</blockquote>
+<p>So I downloaded the file that <a class="mention" href="/u/nick">@nick</a> suggested, <a href="http://downloads.sierrawireless.com/AirPrime/WPx5xx/Release15/Legato-Dist-Source-mdm9x15-SWI9X15Y_07.12.14.00.tar.bz2" rel="nofollow noopener">http://downloads.sierrawireless.com/AirPrime/WPx5xx/Release15/Legato-Dist-Source-mdm9x15-SWI9X15Y_07.12.14.00.tar.bz2</a></p>
+<p>and did my best to make it up along the way.</p>
+<p>First off here, step 2 is impossible because there is 1) no repo and 2) no rule to make image_src:</p>
+<blockquote>
+<ol start="2">
+<li>Synchronize repo and build yocto</li>
+</ol>
+<p>repo sync<br>
+make image_src<br>
+<strong>make: *** No rule to make target `image_src’.  Stop.</strong></p>
+</blockquote>
+<p>Next we have :</p>
+<blockquote>
+<p>WP76:<br>
+bitbake -c compile -f linux-quic<br>
+bitbake -c build -f linux-quic<br>
+bitbake -c build -f mdm9x28-image-minimal<br>
+<strong>bitbake: command not found</strong></p>
+</blockquote>
+<p>So i went into poky and sourced the build environment…:</p>
+<blockquote>
+<p>. poky/oe-init-build-env</p>
+</blockquote>
+<p>Then tried to build with the commands from the other post…</p>
+<blockquote>
+<p>rauger@M2MD-Ubuntu-Dev:~/repos/yocto/Legato-Dist-Source-mdm9x15-SWI9X15Y_07_13_05_yocto$ . poky/oe-init-build-env</p>
+<p>You had no conf/local.conf file. This configuration file has therefore been</p>
+<p>created for you with some default values. You may wish to edit it to, for</p>
+<p>example, select a different MACHINE (target hardware). See conf/local.conf</p>
+<p>for more information as common configuration options are commented.</p>
+<p>You had no conf/bblayers.conf file. This configuration file has therefore been</p>
+<p>created for you with some default values. To add additional metadata layers</p>
+<p>into your configuration please add entries to conf/bblayers.conf.</p>
+<p>─────</p>
+<p>The Yocto Project has extensive documentation about OE including a reference</p>
+<p>manual which can be found at:</p>
+<p><a href="http://yoctoproject.org/documentation" rel="nofollow noopener">http://yoctoproject.org/documentation</a></p>
+<p>For more information about OpenEmbedded see their website:</p>
+<p><a href="http://www.openembedded.org/" rel="nofollow noopener">http://www.openembedded.org/</a></p>
+<h3>Shell environment set up for builds.</h3>
+<p>You can now run ‘bitbake &lt;target&gt;’</p>
+<p>Common targets are:</p>
+<p>core-image-minimal</p>
+<p>core-image-sato</p>
+<p>meta-toolchain</p>
+<p>meta-ide-support</p>
+<p>You can also run generated qemu images with a command like ‘runqemu qemux86’</p>
+</blockquote>
+<blockquote>
+<p>rauger@M2MD-Ubuntu-Dev:~/repos/yocto/Legato-Dist-Source-mdm9x15-SWI9X15Y_07_13_05_yocto/build$ ls<br>
+conf</p>
+</blockquote>
+<blockquote>
+<p>rauger@M2MD-Ubuntu-Dev:~/repos/yocto/Legato-Dist-Source-mdm9x15-SWI9X15Y_07_13_05_yocto/build$ bitbake -c compile -f linux-quic<br>
+Parsing recipes: 100% |#######################################################################################################################| Time: 0:00:16</p>
+<p>Parsing of 864 .bb files complete (0 cached, 864 parsed). 1318 targets, 50 skipped, 0 masked, 0 errors.</p>
+<p><strong>ERROR: Nothing PROVIDES 'linux-quic’</strong></p>
+<p>Summary: There was 1 ERROR message shown, returning a non-zero exit code.</p>
+</blockquote>
+</details>
+<p>EDIT: I found a readme file in meta-swi-extras/readme/README.build.wp76.md. In it, it says to build, run make. This took about 45 minutes, but only the mdm9x15 was built(wp85) rather than the 9x28(wp76).</p>
+<p>Further in the docs, to build wp76:<br>
+make dev<br>
+bitbake -c cleansstate busybox<br>
+bitbake busybox<br>
+bitbake mdm9x28-image-minimal</p>
+<p>– The last command, mdm9x28 fails with:</p>
+<blockquote>
+<p>rauger@M2MD-Ubuntu-Dev:~/repos/yocto/Legato-Dist-Source-mdm9x15-SWI9X15Y_07_13_05_yocto/build_bin$ bitbake mdm9x28-image-minimal<br>
+Loading cache: 100% |#########################################################################################################################| Time: 0:00:00<br>
+Loaded 2612 entries from dependency cache.<br>
+Parsing recipes: 100% |#######################################################################################################################| Time: 0:00:00<br>
+Parsing of 1906 .bb files complete (1904 cached, 2 parsed). 2614 targets, 372 skipped, 0 masked, 0 errors.<br>
+WARNING: No bb files matched BBFILE_PATTERN_swi-mdm9xxx-bin ‘^/home/rauger/repos/yocto/Legato-Dist-Source-mdm9x15-SWI9X15Y_07_13_05_yocto/meta-swi/…/meta-swi-extras/meta-swi-mdm9xxx-bin/’<br>
+WARNING: No bb files matched BBFILE_PATTERN_swi-mdm9xxx-bin ‘^/home/rauger/repos/yocto/Legato-Dist-Source-mdm9x15-SWI9X15Y_07_13_05_yocto/meta-swi/…/meta-swi-extras/meta-swi-mdm9xxx-bin/’<br>
+ERROR: Nothing PROVIDES ‘mdm9x28-image-minimal’. Close matches:<br>
+mdm9x15-image-minimal<br>
+mdm9x15-image-initramfs<br>
+core-image-minimal</p>
+<p>Summary: There were 2 WARNING messages shown.<br>
+Summary: There was 1 ERROR message shown, returning a non-zero exit code.</p>
+</blockquote>
+<p>There isn’t a recipe for 9x28… so how are we supposed to build it?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-a-yocto-image-for-wp76-9x28-fails-no-recipe-documentation-request/2236">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-12-12T23:18:58Z' class='post-time'>
+                    December 12, 2018, 11:18pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-12-12T23:18:58Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>It seems that you downloaded the 9x15 (wp75, wp85) tarball rather than the 9x28/9x06/9x07 (wp76, wp77) one.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

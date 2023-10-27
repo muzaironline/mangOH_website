@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Sample to send /receive serial data from RS232 and send it to 3G</title>
+    <link>https://forum.mangoh.io/t/sample-to-send-receive-serial-data-from-rs232-and-send-it-to-3g/285</link>
+    <description>Hello
+
+Where   can I  get a basic  sample   getting data from the serial port RS232 and send  it over 3G and vice versa?
+
+ Typical application from customers  will be read  MODBUS data from PLC and   send it  over 3G 
+
+I can´t find any sample with this basic function
+
+Thanks
+
+Isabel</description>
+    
+    <lastBuildDate>Thu, 17 Nov 2016 16:02:27 +0000</lastBuildDate>
+    <category>Tutorials</category>
+    <atom:link href="https://forum.mangoh.io/t/sample-to-send-receive-serial-data-from-rs232-and-send-it-to-3g/285.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Sample to send /receive serial data from RS232 and send it to 3G</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Isabel,</p>
+<p>I think Raf did a good job of providing some information about serial communication.  Can you provide some more detail on what magnitude of data you expect to be sending over the 3G network and whether there is an existing network protocol that you intend to use?  With that information, I might be able to give some suggestions.</p>
+          <p><a href="https://forum.mangoh.io/t/sample-to-send-receive-serial-data-from-rs232-and-send-it-to-3g/285/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/sample-to-send-receive-serial-data-from-rs232-and-send-it-to-3g/285/3</link>
+        <pubDate>Thu, 17 Nov 2016 16:02:27 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-285-3</guid>
+        <source url="https://forum.mangoh.io/t/sample-to-send-receive-serial-data-from-rs232-and-send-it-to-3g/285.rss">Sample to send /receive serial data from RS232 and send it to 3G</source>
+      </item>
+      <item>
+        <title>Sample to send /receive serial data from RS232 and send it to 3G</title>
+        <dc:creator><![CDATA[Raf]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Isabel,</p>
+<p>I don’t believe there are any examples showing basic serial port operations on mangOH just yet, though there are plans to provide this as part of the tutorial series in the near future - see this post.</p><aside class="quote quote-modified" data-post="1" data-topic="241">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/asyal/40/78_2.png" class="avatar">
+    <a href="http://forum.mangoh.io/t/mangoh-green-sample-apps-tutorials/241">mangOH Green sample apps &amp; tutorials</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/tutorials/13"><span class="badge-category-bg" style="background-color: #12A89D;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/tutorials">Tutorials</span></a>
+  </div>
+  <blockquote>
+    All, 
+Over the course of the next few weeks you will be seeing a series of sample apps and  tutorials from our side. 
+The overall process will looks something like this: 
+a. Github code release for a topic. This will allow intermediate/advanced users to know how to code for a certain topic 
+b. Tutorial to follow within the next 3-4 weeks.This will give more fundamental understanding of what was done 
+As a starting point, we will focus on the hardware interfaces on the mangOH Green platform. Here…
+  </blockquote>
+</aside>
+
+<p>Regarding serial data, I can recommend these two pages which I found to be a good reference for information on Linux serial port programming:</p>
+<ol>
+<li><a href="https://www.cmrr.umn.edu/~strupp/serial.html#2_5" class="inline-onebox" rel="noopener nofollow ugc">Serial Programming Guide for POSIX Operating Systems</a></li>
+<li><a href="http://www.tldp.org/HOWTO/text/Serial-Programming-HOWTO" rel="noopener nofollow ugc">http://www.tldp.org/HOWTO/text/Serial-Programming-HOWTO</a></li>
+</ol>
+<p>You can practically copy across the code from examples available on those pages and run them successfully on mangOH with little changes.</p>
+<p>There are a few important notes you should be aware of though:</p>
+<ol>
+<li>
+<p>You need to make sure the UART is mapped as service 17 for Customer Linux application. See here - <a href="http://legato.io/legato-docs/latest/howToCustomizeUART.html" rel="noopener nofollow ugc">http://legato.io/legato-docs/latest/howToCustomizeUART.html</a></p>
+</li>
+<li>
+<p>Ensure your Legato application has permission to Read and Write to the serial port(s). Add  the following to your application’s <strong>.adef</strong> file and modify to suit your needs.</p>
+</li>
+</ol>
+<pre><code class="lang-auto">requires:
+{
+    device:
+    {
+        // Get read and write access to the USB Host port.
+        // I.E. for use with a FTDI USB Serial Device
+        [rw]    /dev/ttyUSB1   /dev/ttyUSB1
+        
+        // Get read and write access to the UART1 port.
+        [rw]    /dev/ttyHS0   /dev/ttyHS0
+    }
+}
+</code></pre>
+<p>For example, If I had a USB serial device plugged into the USB Host port on mangOH, the application     needs permission to read and write to <em>/dev/ttyUSB1</em>. Remove the device(s) you don’t need.</p>
+<p>Cheers,<br>
+Raf</p>
+          <p><a href="https://forum.mangoh.io/t/sample-to-send-receive-serial-data-from-rs232-and-send-it-to-3g/285/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/sample-to-send-receive-serial-data-from-rs232-and-send-it-to-3g/285/2</link>
+        <pubDate>Thu, 17 Nov 2016 04:27:18 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-285-2</guid>
+        <source url="https://forum.mangoh.io/t/sample-to-send-receive-serial-data-from-rs232-and-send-it-to-3g/285.rss">Sample to send /receive serial data from RS232 and send it to 3G</source>
+      </item>
+      <item>
+        <title>Sample to send /receive serial data from RS232 and send it to 3G</title>
+        <dc:creator><![CDATA[Isabel]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello</p>
+<p>Where   can I  get a basic  sample   getting data from the serial port RS232 and send  it over 3G and vice versa?</p>
+<p>Typical application from customers  will be read  MODBUS data from PLC and   send it  over 3G</p>
+<p>I can´t find any sample with this basic function</p>
+<p>Thanks</p>
+<p>Isabel</p>
+          <p><a href="https://forum.mangoh.io/t/sample-to-send-receive-serial-data-from-rs232-and-send-it-to-3g/285/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/sample-to-send-receive-serial-data-from-rs232-and-send-it-to-3g/285/1</link>
+        <pubDate>Wed, 16 Nov 2016 16:59:40 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-285-1</guid>
+        <source url="https://forum.mangoh.io/t/sample-to-send-receive-serial-data-from-rs232-and-send-it-to-3g/285.rss">Sample to send /receive serial data from RS232 and send it to 3G</source>
+      </item>
+  </channel>
+</rss>

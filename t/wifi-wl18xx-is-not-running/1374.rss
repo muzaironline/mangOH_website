@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Wifi wl18xx is not running</title>
+    <link>https://forum.mangoh.io/t/wifi-wl18xx-is-not-running/1374</link>
+    <description>Hello,
+
+I am working on a project that uses the WP7607 module with the WL18xx ti chip. I defined GPIO_40 and GPIO_41 in order to activate and deaactivate the wifi and BLE. For the MSM_WIFI_IRQ_GPIO I defined GPIO_38 (SWIMCU_GPIO_TO_SYS(2)) to manage the irq signal. Since I am not using the GPIOexpander neither an i2c hub, I tried to activate the wifi with the following script : 
+#!/bin/sh
+
+export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
+
+ti_wifi_start() {
+    # Add mdev rule for crda
+    grep crda /etc/mdev.conf &gt; /dev/null
+    if [ $? -ne 0 ]; then
+       echo &quot;\$COUNTRY=.. root:root 0660 */sbin/crda&quot; &gt;&gt; /etc/mdev.conf
+    fi
+    lsmod | grep wlcore &gt;/dev/null
+    if [ $? -ne 0 ]; then
+	   # Set IOT0_RESET = 1 (WP GPIO2)
+	   [ -d /sys/class/gpio/gpio41 ] || echo 41 &gt;/sys/class/gpio/export
+	   echo out &gt;/sys/class/gpio/gpio41/direction
+	   echo 1 &gt;/sys/class/gpio/gpio41/value
+       modprobe wlcore || exit 127
+       modprobe wlcore_sdio || exit 127
+       modprobe wl18xx || exit 127
+    fi
+    sleep 5
+    ifconfig -a | grep wlan0 &gt;/dev/null
+    if [ $? -ne 0 ] ; then
+        echo &quot;Failed to start TI wifi&quot;; exit 127
+    fi
+    ifconfig wlan0 up &gt;/dev/null
+    if [ $? -ne 0 ] ; then
+        echo &quot;Failed to start TI wifi&quot;; exit 127
+    fi
+}
+
+ti_wifi_stop() {
+    ifconfig | grep wlan0 &gt;/dev/null
+    if [ $? -eq 0 ]; then
+       ifconfig wlan0 down
+    fi
+    lsmod | grep wlcore &gt;/dev/null
+    if [ $? -eq 0 ]; then
+       rmmod wl18xx || exit 127
+       rmmod wlcore_sdio || exit 127
+       rmmod wlcore || exit 127
+
+       # Reset IOT0_GPIO4 = 0 (WP GPIO8)
+       echo 0 &gt;/sys/class/gpio/gpio41/value
+    fi
+}
+
+case &quot;$1&quot; in
+    start)
+        ti_wifi_start
+        ;;
+    stop)
+        ti_wifi_stop
+        ;;
+    restart)
+        ti_wifi_stop
+        ti_wifi_start
+        ;;
+    *)
+        exit 1
+        ;;
+esac
+exit 0
+
+However, after running this script, the modules: wl18xx, wlcore_sdio, wlcore mac 80211 and cfg80211  were loaded however the wlan0 interface is not created. Hereaftre are the log when running the scripts : 
+Jan  6 00:53:47 swi-mdm9x28 user.debug kernel: [ 3225.258026] gpio_sync_ri: RI owner is Modem
+Jan  6 00:53:47 swi-mdm9x28 user.debug kernel: [ 3225.258053] gpio_map_name_to_num: find GPIO 204
+Jan  6 00:53:47 swi-mdm9x28 user.debug kernel: [ 3225.258063] export_store: Export GPIO: 204
+Jan  6 00:53:47 swi-mdm9x28 user.err kernel: [ 3225.258438] i2c-msm-v2 78b8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:18) mode:FIFO slv_addr:0x3a MSTR_STS:0x001363c8 OPER:0x00000090
+Jan  6 00:53:47 swi-mdm9x28 user.debug kernel: [ 3225.279907] gpio_sync_ri: RI owner is Modem
+Jan  6 00:53:47 swi-mdm9x28 user.debug kernel: [ 3225.279928] gpiod_export: sierra--find GPIO,chipdev = -833663984,chipngpio = 5,chipbase = 200
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352165] cfg80211: Calling CRDA to update world regulatory domain
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352316] cfg80211: World regulatory domain updated:
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352329] cfg80211:  DFS Master region: unset
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352339] cfg80211:   (start_freq - end_freq @ bandwidth), (max_antenna_gain, max_eirp), (dfs_cac_time)
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352351] cfg80211:   (2402000 KHz - 2472000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352362] cfg80211:   (2457000 KHz - 2482000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352373] cfg80211:   (2474000 KHz - 2494000 KHz @ 20000 KHz), (N/A, 2000 mBm), (N/A)
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352383] cfg80211:   (5170000 KHz - 5250000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352394] cfg80211:   (5250000 KHz - 5330000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352405] cfg80211:   (5490000 KHz - 5710000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352415] cfg80211:   (5735000 KHz - 5835000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352426] cfg80211:   (57240000 KHz - 63720000 KHz @ 2160000 KHz), (N/A, 0 mBm), (N/A)
+Jan  6 00:56:00 swi-mdm9x28 user.info Legato:  INFO | modemDaemon[687]/modemDaemon T=main | le_mrc.c SignalStrengthIndHandlerFunc() 654 | Signal Strength Ind Handler called with RAT.2 and ss.-105
+Jan  6 00:58:39 swi-mdm9x28 user.info Legato:  INFO | modemDaemon[687]/modemDaemon T=main | le_mrc.c SignalStrengthIndHandlerFunc() 654 | Signal Strength Ind Handler called with RAT.2 and ss.-104
+Comparing this log to that that I obtained from the mangoh board it is clear that it misses the next lines related the the mmc interface : 
+Jan  6 00:39:06 swi-mdm9x28 user.warn kernel: [  115.472161] sdhci_msm 7864900.sdhci: card claims to support voltages below defined range
+Jan  6 00:39:06 swi-mdm9x28 user.warn kernel: [  115.524852] mmc0: queuing unknown CIS tuple 0x91 (3 bytes)
+Jan  6 00:39:06 swi-mdm9x28 user.info kernel: [  115.527371] mmc0: new high speed SDIO card at address 0001
+Jan  6 00:39:07 swi-mdm9x28 user.info kernel: [  116.075196] wlcore: wl18xx HW: 183x or 180x, PG 2.2 (ROM 0x11)
+Jan  6 00:39:07 swi-mdm9x28 user.info kernel: [  116.157324] wlcore: loaded
+Jan  6 00:39:12 swi-mdm9x28 user.info kernel: [  120.994600] wlcore: PHY firmware version: Rev 8.2.0.0.212
+Jan  6 00:39:12 swi-mdm9x28 user.info kernel: [  121.056066] wlcore: firmware booted (Rev 8.9.0.0.17)
+Jan  6 00:39:12 swi-mdm9x28 user.info
+
+Can you help me with this issue please.
+
+Best regards,</description>
+    
+    <lastBuildDate>Mon, 07 May 2018 12:08:51 +0000</lastBuildDate>
+    <category>Build your own</category>
+    <atom:link href="https://forum.mangoh.io/t/wifi-wl18xx-is-not-running/1374.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Wifi wl18xx is not running</title>
+        <dc:creator><![CDATA[Souhail]]></dc:creator>
+        <description><![CDATA[
+            <p>The previous behavior was in fact related to a hardware issue. Now, it works very well.</p>
+          <p><a href="https://forum.mangoh.io/t/wifi-wl18xx-is-not-running/1374/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wifi-wl18xx-is-not-running/1374/2</link>
+        <pubDate>Mon, 07 May 2018 12:08:51 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1374-2</guid>
+        <source url="https://forum.mangoh.io/t/wifi-wl18xx-is-not-running/1374.rss">Wifi wl18xx is not running</source>
+      </item>
+      <item>
+        <title>Wifi wl18xx is not running</title>
+        <dc:creator><![CDATA[Souhail]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello,</p>
+<p>I am working on a project that uses the WP7607 module with the WL18xx ti chip. I defined GPIO_40 and GPIO_41 in order to activate and deaactivate the wifi and BLE. For the MSM_WIFI_IRQ_GPIO I defined GPIO_38 (SWIMCU_GPIO_TO_SYS(2)) to manage the irq signal. Since I am not using the GPIOexpander neither an i2c hub, I tried to activate the wifi with the following script :<br>
+#!/bin/sh</p>
+<p>export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin</p>
+<p>ti_wifi_start() {<br>
+# Add mdev rule for crda<br>
+grep crda /etc/mdev.conf &gt; /dev/null<br>
+if [ <span class="math">? -ne 0 ]; then
+       echo "\$COUNTRY=.. root:root 0660 */sbin/crda" &gt;&gt; /etc/mdev.conf
+    fi
+    lsmod | grep wlcore &gt;/dev/null
+    if [ </span>? -ne 0 ]; then<br>
+# Set IOT0_RESET = 1 (WP GPIO2)<br>
+[ -d /sys/class/gpio/gpio41 ] || echo 41 &gt;/sys/class/gpio/export<br>
+echo out &gt;/sys/class/gpio/gpio41/direction<br>
+echo 1 &gt;/sys/class/gpio/gpio41/value<br>
+modprobe wlcore || exit 127<br>
+modprobe wlcore_sdio || exit 127<br>
+modprobe wl18xx || exit 127<br>
+fi<br>
+sleep 5<br>
+ifconfig -a | grep wlan0 &gt;/dev/null<br>
+if [ <span class="math">? -ne 0 ] ; then
+        echo "Failed to start TI wifi"; exit 127
+    fi
+    ifconfig wlan0 up &gt;/dev/null
+    if [ </span>? -ne 0 ] ; then<br>
+echo “Failed to start TI wifi”; exit 127<br>
+fi<br>
+}</p>
+<p>ti_wifi_stop() {<br>
+ifconfig | grep wlan0 &gt;/dev/null<br>
+if [ <span class="math">? -eq 0 ]; then
+       ifconfig wlan0 down
+    fi
+    lsmod | grep wlcore &gt;/dev/null
+    if [ </span>? -eq 0 ]; then<br>
+rmmod wl18xx || exit 127<br>
+rmmod wlcore_sdio || exit 127<br>
+rmmod wlcore || exit 127</p>
+<pre><code>   # Reset IOT0_GPIO4 = 0 (WP GPIO8)
+   echo 0 &gt;/sys/class/gpio/gpio41/value
+fi
+</code></pre>
+<p>}</p>
+<p>case “$1” in<br>
+start)<br>
+ti_wifi_start<br>
+;;<br>
+stop)<br>
+ti_wifi_stop<br>
+;;<br>
+restart)<br>
+ti_wifi_stop<br>
+ti_wifi_start<br>
+;;<br>
+*)<br>
+exit 1<br>
+;;<br>
+esac<br>
+exit 0</p>
+<p>However, after running this script, the modules: wl18xx, wlcore_sdio, wlcore mac 80211 and cfg80211  were loaded however the wlan0 interface is not created. Hereaftre are the log when running the scripts :<br>
+Jan  6 00:53:47 swi-mdm9x28 user.debug kernel: [ 3225.258026] gpio_sync_ri: RI owner is Modem<br>
+Jan  6 00:53:47 swi-mdm9x28 user.debug kernel: [ 3225.258053] gpio_map_name_to_num: find GPIO 204<br>
+Jan  6 00:53:47 swi-mdm9x28 user.debug kernel: [ 3225.258063] export_store: Export GPIO: 204<br>
+Jan  6 00:53:47 swi-mdm9x28 user.err kernel: [ 3225.258438] i2c-msm-v2 78b8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:18) mode:FIFO slv_addr:0x3a MSTR_STS:0x001363c8 OPER:0x00000090<br>
+Jan  6 00:53:47 swi-mdm9x28 user.debug kernel: [ 3225.279907] gpio_sync_ri: RI owner is Modem<br>
+Jan  6 00:53:47 swi-mdm9x28 user.debug kernel: [ 3225.279928] gpiod_export: sierra–find GPIO,chipdev = -833663984,chipngpio = 5,chipbase = 200<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352165] cfg80211: Calling CRDA to update world regulatory domain<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352316] cfg80211: World regulatory domain updated:<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352329] cfg80211:  DFS Master region: unset<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352339] cfg80211:   (start_freq - end_freq @ bandwidth), (max_antenna_gain, max_eirp), (dfs_cac_time)<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352351] cfg80211:   (2402000 KHz - 2472000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352362] cfg80211:   (2457000 KHz - 2482000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352373] cfg80211:   (2474000 KHz - 2494000 KHz @ 20000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352383] cfg80211:   (5170000 KHz - 5250000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352394] cfg80211:   (5250000 KHz - 5330000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352405] cfg80211:   (5490000 KHz - 5710000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352415] cfg80211:   (5735000 KHz - 5835000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352426] cfg80211:   (57240000 KHz - 63720000 KHz @ 2160000 KHz), (N/A, 0 mBm), (N/A)<br>
+Jan  6 00:56:00 swi-mdm9x28 user.info Legato:  INFO | modemDaemon[687]/modemDaemon T=main | le_mrc.c SignalStrengthIndHandlerFunc() 654 | Signal Strength Ind Handler called with RAT.2 and ss.-105<br>
+Jan  6 00:58:39 swi-mdm9x28 user.info Legato:  INFO | modemDaemon[687]/modemDaemon T=main | le_mrc.c SignalStrengthIndHandlerFunc() 654 | Signal Strength Ind Handler called with RAT.2 and ss.-104<br>
+Comparing this log to that that I obtained from the mangoh board it is clear that it misses the next lines related the the mmc interface :<br>
+Jan  6 00:39:06 swi-mdm9x28 user.warn kernel: [  115.472161] sdhci_msm 7864900.sdhci: card claims to support voltages below defined range<br>
+Jan  6 00:39:06 swi-mdm9x28 user.warn kernel: [  115.524852] mmc0: queuing unknown CIS tuple 0x91 (3 bytes)<br>
+Jan  6 00:39:06 swi-mdm9x28 user.info kernel: [  115.527371] mmc0: new high speed SDIO card at address 0001<br>
+Jan  6 00:39:07 swi-mdm9x28 user.info kernel: [  116.075196] wlcore: wl18xx HW: 183x or 180x, PG 2.2 (ROM 0x11)<br>
+Jan  6 00:39:07 swi-mdm9x28 user.info kernel: [  116.157324] wlcore: loaded<br>
+Jan  6 00:39:12 swi-mdm9x28 user.info kernel: [  120.994600] wlcore: PHY firmware version: Rev 8.2.0.0.212<br>
+Jan  6 00:39:12 swi-mdm9x28 user.info kernel: [  121.056066] wlcore: firmware booted (Rev 8.9.0.0.17)<br>
+Jan  6 00:39:12 swi-mdm9x28 user.info</p>
+<p>Can you help me with this issue please.</p>
+<p>Best regards,</p>
+          <p><a href="https://forum.mangoh.io/t/wifi-wl18xx-is-not-running/1374/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wifi-wl18xx-is-not-running/1374/1</link>
+        <pubDate>Wed, 02 May 2018 12:10:26 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1374-1</guid>
+        <source url="https://forum.mangoh.io/t/wifi-wl18xx-is-not-running/1374.rss">Wifi wl18xx is not running</source>
+      </item>
+  </channel>
+</rss>

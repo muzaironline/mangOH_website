@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Make yellow error</title>
+    <link>https://forum.mangoh.io/t/make-yellow-error/5632</link>
+    <description>I am facing one issue when I try to do &#39;make yellow&#39; following the procedure. I get following message:
+
+Not building LEGATO due to $LEGATO == 0
+# NOTE: When using leaf, these TOOLCHAIN_X variables don&#39;t need to be passed to mksys.
+TOOLCHAIN_DIR=/home/marc/myWorkspace/leaf-data/MANGOH-YELLOW-WP77XX/mangOH-yellow-wp77xx-toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi \
+TOOLCHAIN_PREFIX=arm-poky-linux-gnueabi- \
+OCTAVE=1 \
+mksys -t wp77xx --cflags=-O2 --object-dir=build/yellow_wp77xx --output-dir=build/update_files yellow.sdef
+** ERROR:
+/home/marc/myWorkspace/mangOH/sinc/octave_minimal.sinc:5:4: error: Can&#39;t find definition file (diagnostic.adef) or binary app (diagnostic.wp77xx.app) for app specification &#39;/home/marc/myWorkspace/leaf-data/MANGOH-YELLOW-WP77XX/Octave-mangOH-yellow-wp77xx/diagnostic.wp77xx.app&#39;.
+Note: Looked in the following places:
+    &#39;.&#39;
+
+make: *** [Makefile:125: yellow_wp77xx] Error 1
+
+Please advice what I need to do.
+
+I have already try to comment the line in the file but I get another error in the same file Octave_minimal.sinc</description>
+    
+    <lastBuildDate>Wed, 18 Nov 2020 10:04:16 +0000</lastBuildDate>
+    <category>mangOH Yellow</category>
+    <atom:link href="https://forum.mangoh.io/t/make-yellow-error/5632.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[marckasse]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks a lot for your answers</p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/43">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/43</link>
+        <pubDate>Wed, 18 Nov 2020 10:04:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-43</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[jchitty]]></dc:creator>
+        <description><![CDATA[
+            <p>I think <a class="mention" href="https://forum.mangoh.io/u/jyijyi">@jyijyi</a>  was on the right track when they suggested you clear OCTAVE_ROOT.</p>
+<p>OCTAVE_ROOT is an environment variable. You can unset an environment variable on the command line for a single command like this:</p>
+<pre><code class="lang-auto">unset OCTAVE_ROOT
+</code></pre>
+<p>But, if this is being set by leaf, the variable will probably come back into existence when you change directory or exit and restart the leaf shell.  There are ways to use <code>leaf</code>'s <code>env</code> command to control those.  See <code>leaf help env</code> for more information on that.</p>
+<p>However, if you want to use Octave, you’ll need to install the Octave apps.  Unsetting OCTAVE_ROOT or setting OCTAVE=0 will cause your build to exclude the Octave apps from your built image.</p>
+<p>For mangOH Yellow, the instructions to get setup for development are on the mangOH project Wiki on GitHub: <a href="https://github.com/mangOH/mangOH/wiki/Building-the-Legato-%22system%22-(apps)-for-mangOH-Yellow">https://github.com/mangOH/mangOH/wiki/Building-the-Legato-"system"-(apps)-for-mangOH-Yellow</a></p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/42">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/42</link>
+        <pubDate>Mon, 16 Nov 2020 18:17:40 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-42</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <ol>
+<li>logread -f &amp;</li>
+<li>app restart helloworld</li>
+</ol>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/41">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/41</link>
+        <pubDate>Mon, 16 Nov 2020 14:43:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-41</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[marckasse]]></dc:creator>
+        <description><![CDATA[
+            <p>with cm info<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d64fbd46b52a270c8d930dcd7b571d5ce2571612.png" data-download-href="/uploads/short-url/uzT1cPBVMt95rCahM6bQSusO6t4.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d64fbd46b52a270c8d930dcd7b571d5ce2571612.png" alt="image" data-base62-sha1="uzT1cPBVMt95rCahM6bQSusO6t4" width="690" height="235" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d64fbd46b52a270c8d930dcd7b571d5ce2571612_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/40">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/40</link>
+        <pubDate>Mon, 16 Nov 2020 13:55:37 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-40</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[marckasse]]></dc:creator>
+        <description><![CDATA[
+            <p>Ok I’ll try. thanks. Is it also normal to have this message?<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/12d744e8fc6b1b309b5ab0b5ce63cc7301064acf.png" data-download-href="/uploads/short-url/2GFO0pFBQKkKkpquIX6ZKJKVEIf.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/12d744e8fc6b1b309b5ab0b5ce63cc7301064acf_2_690x68.png" alt="image" data-base62-sha1="2GFO0pFBQKkKkpquIX6ZKJKVEIf" width="690" height="68" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/12d744e8fc6b1b309b5ab0b5ce63cc7301064acf_2_690x68.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/12d744e8fc6b1b309b5ab0b5ce63cc7301064acf.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/12d744e8fc6b1b309b5ab0b5ce63cc7301064acf.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/12d744e8fc6b1b309b5ab0b5ce63cc7301064acf_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/39">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/39</link>
+        <pubDate>Mon, 16 Nov 2020 13:49:13 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-39</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I think cm tool will also print out something</p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/38">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/38</link>
+        <pubDate>Mon, 16 Nov 2020 13:39:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-38</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[pinst]]></dc:creator>
+        <description><![CDATA[
+            <p>logread -f only displays messages going forward. If helloWorld has already started you might not see anything. Try logread | grep helloWorld .</p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/37">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/37</link>
+        <pubDate>Mon, 16 Nov 2020 13:34:46 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-37</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[marckasse]]></dc:creator>
+        <description><![CDATA[
+            <p>Yes but there is an app folder in leaf-data and in mangOH folder…</p>
+<p>I’ve tried to launch the app from another location and build and it works. But when I connect to my target and write a logread nothing happens. Is there anything to do to display something, except app start (what I did)?</p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2cf09d1f60af2a29daad71d961947628e9d20e7b.png" data-download-href="/uploads/short-url/6pywjT7Zn5g6i5P26CbupWAtoYX.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2cf09d1f60af2a29daad71d961947628e9d20e7b.png" alt="image" data-base62-sha1="6pywjT7Zn5g6i5P26CbupWAtoYX" width="690" height="54" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/2cf09d1f60af2a29daad71d961947628e9d20e7b_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/36">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/36</link>
+        <pubDate>Mon, 16 Nov 2020 13:12:51 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-36</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>i created the new app in the app folder.</p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/35">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/35</link>
+        <pubDate>Mon, 16 Nov 2020 13:06:42 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-35</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[marckasse]]></dc:creator>
+        <description><![CDATA[
+            <p>No here what I get. Maybe it is because I create my app in mangOH folder and not in leaf-data folder - see below the architecture which comes from downloading from the procedure. Where it is recommended to create app please?<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/35c1fa98b94904179376b7830f52c6def84cf94f.png" data-download-href="/uploads/short-url/7FyU2bFKm5wwEFZJN5hqxp0RdDN.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/35c1fa98b94904179376b7830f52c6def84cf94f.png" alt="image" data-base62-sha1="7FyU2bFKm5wwEFZJN5hqxp0RdDN" width="690" height="209" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/35c1fa98b94904179376b7830f52c6def84cf94f_2_10x10.png"></a></div><br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/f/fad2b675ffb1c9a02bd006c46b75e1f26505d43b.png" alt="image" data-base62-sha1="zMSOGK9LyNLb5UTUxreauV1ijW3" width="531" height="185"><p></p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/34">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/34</link>
+        <pubDate>Mon, 16 Nov 2020 12:23:11 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-34</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Can you build the app?</p>
+<p>Ctrl+shift+b    &gt;    build</p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/33">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/33</link>
+        <pubDate>Mon, 16 Nov 2020 11:44:25 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-33</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[marckasse]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks. Could you tell me how can I solve this issue:<br>
+Many <span class="hashtag">#include</span> xxxxxxxx don’t work. Error message is :<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/e8a0a7968892bb7d4680d13b8fb2e2494ec98012.png" data-download-href="/uploads/short-url/xbUYox8l4rU3RxzlXcE9Szcfax4.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/e/e8a0a7968892bb7d4680d13b8fb2e2494ec98012_2_690x324.png" alt="image" data-base62-sha1="xbUYox8l4rU3RxzlXcE9Szcfax4" width="690" height="324" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/e/e8a0a7968892bb7d4680d13b8fb2e2494ec98012_2_690x324.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/e8a0a7968892bb7d4680d13b8fb2e2494ec98012.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/e8a0a7968892bb7d4680d13b8fb2e2494ec98012.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/e/e8a0a7968892bb7d4680d13b8fb2e2494ec98012_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/32">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/32</link>
+        <pubDate>Mon, 16 Nov 2020 11:41:34 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-32</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[pinst]]></dc:creator>
+        <description><![CDATA[
+            <p>Apparently app stop takes only one argument. You could write a simple bash script to accept multiple applications though.</p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/31">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/31</link>
+        <pubDate>Sun, 15 Nov 2020 16:17:14 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-31</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[marckasse]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks. Another question: is it possible to stop a list of application in one command?<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/5c9160d086f88d0cd2ee38e6e7bd8a2cbd7be440.png" data-download-href="/uploads/short-url/dcToIdpVu4teniUCSYumFi3P6ve.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/5c9160d086f88d0cd2ee38e6e7bd8a2cbd7be440_2_690x387.png" alt="image" data-base62-sha1="dcToIdpVu4teniUCSYumFi3P6ve" width="690" height="387" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/5c9160d086f88d0cd2ee38e6e7bd8a2cbd7be440_2_690x387.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/5c9160d086f88d0cd2ee38e6e7bd8a2cbd7be440_2_1035x580.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/5c9160d086f88d0cd2ee38e6e7bd8a2cbd7be440.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/5c9160d086f88d0cd2ee38e6e7bd8a2cbd7be440_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/30">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/30</link>
+        <pubDate>Sun, 15 Nov 2020 15:21:23 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-30</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>You need to install leaf tool and vscode</p>
+<aside class="onebox allowlistedgeneric">
+  <header class="source">
+      
+      <a href="https://docs.legato.io/latest/tools_vsCode.html" target="_blank" rel="noopener nofollow ugc">docs.legato.io</a>
+  </header>
+  <article class="onebox-body">
+    <img src="" class="thumbnail" width="" height="">
+
+<h3><a href="https://docs.legato.io/latest/tools_vsCode.html" target="_blank" rel="noopener nofollow ugc">Legato Plugin for VSCode  - Legato Docs</a></h3>
+
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/29">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/29</link>
+        <pubDate>Sat, 14 Nov 2020 11:38:07 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-29</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[marckasse]]></dc:creator>
+        <description><![CDATA[
+            <p>Please what do I need more to get started with the mangoH yellow.</p>
+<p>I followed all these steps:<br>
+<a href="http://mangoh.io/uploaded-documents/Reference/mangOH%20Yellow/Discover/Getting%20Started/41113347%20mangOH%20Yellow%20GSG%20-%20HTML5-Responsive%20HTML5/#t=41113347_mangOH_Yellow_GSG_-_HTML5%2FInstall_Leaf_and_Build_mangOH_Software%2FInstall_Leaf_and_Build_mangOH_Software.htm" class="onebox" target="_blank" rel="noopener nofollow ugc">http://mangoh.io/uploaded-documents/Reference/mangOH%20Yellow/Discover/Getting%20Started/41113347%20mangOH%20Yellow%20GSG%20-%20HTML5-Responsive%20HTML5/#t=41113347_mangOH_Yellow_GSG_-_HTML5%2FInstall_Leaf_and_Build_mangOH_Software%2FInstall_Leaf_and_Build_mangOH_Software.htm</a></p>
+<p>Can I start now or do I have to install Legato as well like in this video:</p><p><a href="https://www.youtube.com/watch?v=rUqzkDaQNa4">01   Installing Legato and mangOH on Device</a></p>
+
+<p>Is there a procedure on how to use the git codes and apply to start building my application?</p>
+<p>Thanks</p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/28">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/28</link>
+        <pubDate>Sat, 14 Nov 2020 11:29:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-28</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[pinst]]></dc:creator>
+        <description><![CDATA[
+            <p>Bluetooth on mangOH yellow works out of the box. Nothing needs to be done.</p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/27">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/27</link>
+        <pubDate>Fri, 13 Nov 2020 14:34:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-27</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>here says it has bluetooth function already:<br>
+</p><aside class="quote" data-post="5" data-topic="3372">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/m/ed655f/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/bluetooth-on-mangoh-yellow/3372/5">Bluetooth on mangOH Yellow</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-yellow/15"><span class="badge-category-bg" style="background-color: #F1C900;"></span><span style="" data-drop-close="true" class="badge-category clear-badge">mangOH Yellow</span></a>
+  </div>
+  <blockquote>
+    wow, restart device helps ! thanks! now we can test it deeper…
+  </blockquote>
+</aside>
+<p></p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/26">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/26</link>
+        <pubDate>Fri, 13 Nov 2020 04:34:55 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-26</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[marckasse]]></dc:creator>
+        <description><![CDATA[
+            <p>OK. i am confused about whether we must buy an extension for bluetooth with mango Yellow to be honest.</p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/25">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/25</link>
+        <pubDate>Fri, 13 Nov 2020 04:18:19 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-25</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>yes, I am talking about this document…</p>
+<p>OK, you can simply check if you can enter the following then:</p>
+<pre><code>modprobe hci_uart
+sleep 1
+modprobe bluetooth
+sleep 1
+modprobe rfcomm
+sleep 1
+modprobe hidp
+sleep 1
+modprobe bnep
+sleep 1</code></pre>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/24">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/24</link>
+        <pubDate>Fri, 13 Nov 2020 04:00:46 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-24</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[marckasse]]></dc:creator>
+        <description><![CDATA[
+            <p>The bluetooth is integrated on the card according to the user guide doc. So I guess we can use it directly…<br>
+You are talking about the document for mango green that you  sent?<br>
+</p><aside class="onebox googledrive">
+  <header class="source">
+      <a href="https://drive.google.com/file/d/1oczqd4JzVsCaqyssh4h15vqCBndasFQj/view" target="_blank" rel="noopener nofollow ugc">drive.google.com</a>
+  </header>
+  <article class="onebox-body">
+    
+<div class="aspect-image" style="--aspect-ratio:690/362;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b5708550c09c8a2880c6ee5f59d8658d17d20518_2_690x362.png" class="thumbnail" width="690" height="362" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b5708550c09c8a2880c6ee5f59d8658d17d20518_2_690x362.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b5708550c09c8a2880c6ee5f59d8658d17d20518_2_1035x543.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/b5708550c09c8a2880c6ee5f59d8658d17d20518.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b5708550c09c8a2880c6ee5f59d8658d17d20518_2_10x10.png"></div>
+
+<h3><a href="https://drive.google.com/file/d/1oczqd4JzVsCaqyssh4h15vqCBndasFQj/view" target="_blank" rel="noopener nofollow ugc">How to test bluetooth WL18xx IOT card on WP77xx MangOH Green board.docx</a></h3>
+
+<p>Google Drive file.</p>
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/23">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/23</link>
+        <pubDate>Fri, 13 Nov 2020 03:58:45 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-23</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>If you see the bt-init.sh in the document, it will use</p>
+<pre><code>modprobe hci_uart
+sleep 1
+modprobe bluetooth
+sleep 1
+modprobe rfcomm
+sleep 1
+modprobe hidp
+sleep 1
+modprobe bnep
+sleep 1
+</code></pre>
+<p>so you can double check if currently you have these drivers.</p>
+<p>BTW, if you don’t put on the WL81xx bluetooth card, how are you going to use it?</p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/22">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/22</link>
+        <pubDate>Fri, 13 Nov 2020 03:44:37 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-22</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[marckasse]]></dc:creator>
+        <description><![CDATA[
+            <p>Ok but are sure that the driver WL18 are also needed for yellow as we do not put any BLE card like on the green mangOH?</p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/21">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/21</link>
+        <pubDate>Fri, 13 Nov 2020 03:37:10 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-21</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>never tried on mangoh yellow, but the document in the link says that it uses UART1 to communicate. So I believe it can be used.</p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/20">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/20</link>
+        <pubDate>Fri, 13 Nov 2020 03:11:15 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-20</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+      <item>
+        <title>Make yellow error</title>
+        <dc:creator><![CDATA[marckasse]]></dc:creator>
+        <description><![CDATA[
+            <p>Is it also for mango yellow ?</p>
+          <p><a href="https://forum.mangoh.io/t/make-yellow-error/5632/19">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/make-yellow-error/5632/19</link>
+        <pubDate>Fri, 13 Nov 2020 02:55:46 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5632-19</guid>
+        <source url="https://forum.mangoh.io/t/make-yellow-error/5632.rss">Make yellow error</source>
+      </item>
+  </channel>
+</rss>

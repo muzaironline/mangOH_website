@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Legato/Linux-init /dev/ttyAT availability issue</title>
+    <link>https://forum.mangoh.io/t/legato-linux-init-dev-ttyat-availability-issue/2998</link>
+    <description>Hello there,
+
+I am using Linux and Legato R12 for wp76xx.
+
+I have seen an odd issue when writing to /dev/ttyAT via the Linux init scripts.
+ttyAT _always_ exists when my init script (at S20 or S99) redirects the usual commands to /dev/tty
+e.g. `echo &quot;AT!CUSTOM?&quot; &gt; /dev/tty`
+_But_ occasionally I would get odd errors:
+* `cat: can&#39;t open &#39;/dev/ttyAT&#39;: Resource temporarily unavailable` or
+* `can&#39;t create /dev/ttyAT: Resource temporarily unavailable` or
+* `can&#39;t create /dev/ttyAT: No such device` etc.
+
+There were never lock file errors reported. Interestingly in the Legato firmware src/CellularNetwork.cpp /dev/ttyAT is accessed by CellularNetwork::setAMSConfig()
+
+Legato firmware is started by init script S32startlegato.sh.
+
+So my questions are:
+* Can /dev/ttyAT be guaranteed to be accessible by the Linux init scripts  - somehow ?
+* If not/regardless is accessing /dev/ttyAT by the legato firmware to only recommended way ?
+
+Best Regards,
+Ian</description>
+    
+    <lastBuildDate>Thu, 07 Nov 2019 11:16:09 +0000</lastBuildDate>
+    <category>Build your own</category>
+    <atom:link href="https://forum.mangoh.io/t/legato-linux-init-dev-ttyat-availability-issue/2998.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Legato/Linux-init /dev/ttyAT availability issue</title>
+        <dc:creator><![CDATA[Ian]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello Lotam,</p>
+<p>Thanks for your reply. Yes I have already tried putting the script at S99 and the issue still happened.</p>
+<p>It does look like using the Legato atService is the way to go.</p>
+<p>Best Regards,</p>
+<p>Ian</p>
+          <p><a href="https://forum.mangoh.io/t/legato-linux-init-dev-ttyat-availability-issue/2998/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/legato-linux-init-dev-ttyat-availability-issue/2998/3</link>
+        <pubDate>Thu, 07 Nov 2019 11:16:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2998-3</guid>
+        <source url="https://forum.mangoh.io/t/legato-linux-init-dev-ttyat-availability-issue/2998.rss">Legato/Linux-init /dev/ttyAT availability issue</source>
+      </item>
+      <item>
+        <title>Legato/Linux-init /dev/ttyAT availability issue</title>
+        <dc:creator><![CDATA[lotam]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Ian,</p>
+<p>It may related to the boot sequence, can you try put it at the end of S99?</p>
+<p>Or you may use Legato atService to send from your Legato app with error handling.</p>
+<p>Thx</p>
+          <p><a href="https://forum.mangoh.io/t/legato-linux-init-dev-ttyat-availability-issue/2998/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/legato-linux-init-dev-ttyat-availability-issue/2998/2</link>
+        <pubDate>Thu, 07 Nov 2019 02:28:42 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2998-2</guid>
+        <source url="https://forum.mangoh.io/t/legato-linux-init-dev-ttyat-availability-issue/2998.rss">Legato/Linux-init /dev/ttyAT availability issue</source>
+      </item>
+      <item>
+        <title>Legato/Linux-init /dev/ttyAT availability issue</title>
+        <dc:creator><![CDATA[Ian]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello there,</p>
+<p>I am using Linux and Legato R12 for wp76xx.</p>
+<p>I have seen an odd issue when writing to /dev/ttyAT via the Linux init scripts.<br>
+ttyAT <em>always</em> exists when my init script (at S20 or S99) redirects the usual commands to /dev/tty<br>
+e.g. <code>echo "AT!CUSTOM?" &gt; /dev/tty</code><br>
+<em>But</em> occasionally I would get odd errors:</p>
+<ul>
+<li>
+<code>cat: can't open '/dev/ttyAT': Resource temporarily unavailable</code> or</li>
+<li>
+<code>can't create /dev/ttyAT: Resource temporarily unavailable</code> or</li>
+<li>
+<code>can't create /dev/ttyAT: No such device</code> etc.</li>
+</ul>
+<p>There were never lock file errors reported. Interestingly in the Legato firmware src/CellularNetwork.cpp /dev/ttyAT is accessed by CellularNetwork::setAMSConfig()</p>
+<p>Legato firmware is started by init script S32startlegato.sh.</p>
+<p>So my questions are:</p>
+<ul>
+<li>Can /dev/ttyAT be guaranteed to be accessible by the Linux init scripts  - somehow ?</li>
+<li>If not/regardless is accessing /dev/ttyAT by the legato firmware to only recommended way ?</li>
+</ul>
+<p>Best Regards,<br>
+Ian</p>
+          <p><a href="https://forum.mangoh.io/t/legato-linux-init-dev-ttyat-availability-issue/2998/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/legato-linux-init-dev-ttyat-availability-issue/2998/1</link>
+        <pubDate>Thu, 24 Oct 2019 11:57:15 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2998-1</guid>
+        <source url="https://forum.mangoh.io/t/legato-linux-init-dev-ttyat-availability-issue/2998.rss">Legato/Linux-init /dev/ttyAT availability issue</source>
+      </item>
+  </channel>
+</rss>

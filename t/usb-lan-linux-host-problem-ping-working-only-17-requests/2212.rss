@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>USB-LAN (linux host) problem ping working only 17 requests</title>
+    <link>https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212</link>
+    <description>Strange behavior with ping and ssh : works only from time to time.
+
+for ping, we are able to reproduce (100%) as follow   
+starting with sierra wireless not connect from the VM USB perihperals
+- from the VM :  ping 192.168.2.2 : no response
+- connect the sirra wireless
+-disconnect it  : the ping is now responding but stop after 17 requests . have to connect and disconnect the sierra from ths usb peripherals
+
+kill the ping, issue the command again
+
+ssh of course works only during the time qhere the ping is responding ..
+
+Host : kubuntu 18.04
+lsusb : Bus 003 Device 067: ID 1199:68c0 Sierra Wireless, Inc.
+
+Any idea to solve ?</description>
+    
+    <lastBuildDate>Wed, 05 Dec 2018 23:51:31 +0000</lastBuildDate>
+    <category>mangOH Red Orange Starter Kit</category>
+    <atom:link href="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>USB-LAN (linux host) problem ping working only 17 requests</title>
+        <dc:creator><![CDATA[pserenne]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks !!! found the answer in one of the mango green topic with your link</p>
+<p>Thanks Andy</p>
+          <p><a href="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212/5</link>
+        <pubDate>Wed, 05 Dec 2018 23:51:31 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2212-5</guid>
+        <source url="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212.rss">USB-LAN (linux host) problem ping working only 17 requests</source>
+      </item>
+      <item>
+        <title>USB-LAN (linux host) problem ping working only 17 requests</title>
+        <dc:creator><![CDATA[awneil]]></dc:creator>
+        <description><![CDATA[
+            <p>Is this the old modem manager problem?</p>
+<p><a href="https://forum.mangoh.io/search?q=modem%20manager">https://forum.mangoh.io/search?q=modem%20manager</a></p>
+          <p><a href="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212/4</link>
+        <pubDate>Wed, 05 Dec 2018 20:10:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2212-4</guid>
+        <source url="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212.rss">USB-LAN (linux host) problem ping working only 17 requests</source>
+      </item>
+      <item>
+        <title>USB-LAN (linux host) problem ping working only 17 requests</title>
+        <dc:creator><![CDATA[pserenne]]></dc:creator>
+        <description><![CDATA[
+            <p>is not an issue with the VM, but with the unix host … have the same behavior when using ping or ssh from the Unix host. Any firmware update to apply on the board, or specific requirements on the linux hosts (kubuntu 18.04) ?</p>
+<p>(<span class="mention">@see</span> syslog extract atatched with modemmanager in debug mode trace)</p>
+<p><a class="attachment" href="https://forum.mangoh.io/uploads/short-url/51kNS2SjJSS9I0owgmMqpMfmyrR">syslog</a> (89.8 KB)</p>
+          <p><a href="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212/3</link>
+        <pubDate>Wed, 05 Dec 2018 09:57:36 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2212-3</guid>
+        <source url="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212.rss">USB-LAN (linux host) problem ping working only 17 requests</source>
+      </item>
+      <item>
+        <title>USB-LAN (linux host) problem ping working only 17 requests</title>
+        <dc:creator><![CDATA[pserenne]]></dc:creator>
+        <description><![CDATA[
+            <p>Syslog (host )when ping is running then stop <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=6" title=":slight_smile:" class="emoji" alt=":slight_smile:">Dec  4 15:32:18 multimed nm-dispatcher: req:1 ‘up’ [enp0s20u12i19]: start running ordered scripts…<br>
+Dec  4 15:32:20 multimed ModemManager[778]:   (ttyUSB0): port attributes not fully set<br>
+Dec  4 15:32:20 multimed ModemManager[778]:   (ttyUSB1): port attributes not fully set<br>
+Dec  4 15:32:20 multimed ModemManager[778]:   (ttyUSB2): port attributes not fully set<br>
+Dec  4 15:32:20 multimed ModemManager[778]: [/dev/cdc-wdm0] Opening device with flags ‘version-info, proxy’…<br>
+Dec  4 15:32:20 multimed ModemManager[778]: [/dev/cdc-wdm0] loaded driver of cdc-wdm port: qmi_wwan<br>
+Dec  4 15:32:20 multimed ModemManager[778]: cannot connect to proxy: Could not connect: Connection refused<br>
+Dec  4 15:32:20 multimed ModemManager[778]: spawning new qmi-proxy (try 1)…<br>
+Dec  4 15:32:20 multimed ModemManager[778]: [/dev/cdc-wdm0] Checking version info (10 retries)…<br>
+Dec  4 15:32:20 multimed avahi-daemon[775]: Joining mDNS multicast group on interface enp0s20u12i19.IPv6 with address fe80::6657:6d26:2c9d:8fb5.<br>
+Dec  4 15:32:20 multimed avahi-daemon[775]: New relevant interface enp0s20u12i19.IPv6 for mDNS.<br>
+Dec  4 15:32:20 multimed avahi-daemon[775]: Registering new address record for fe80::6657:6d26:2c9d:8fb5 on enp0s20u12i19.*.<br>
+Dec  4 15:32:29 multimed ModemManager[778]:   (tty/ttyUSB0) failed to parse QCDM version info command result: -7<br>
+Dec  4 15:32:35 multimed ModemManager[778]:   Creating modem with plugin ‘Sierra’ and ‘6’ ports<br>
+Dec  4 15:32:35 multimed ModemManager[778]:   Could not grab port (tty/ttyUSB1): ‘Cannot add port ‘tty/ttyUSB1’, unhandled serial type’<br>
+Dec  4 15:32:35 multimed ModemManager[778]:   Could not grab port (usbmisc/cdc-wdm0): ‘Cannot add port ‘usbmisc/cdc-wdm0’, unsupported’<br>
+Dec  4 15:32:35 multimed ModemManager[778]:   (ttyUSB2): port attributes not fully set<br>
+Dec  4 15:32:35 multimed ModemManager[778]:   Modem for device at ‘/sys/devices/pci0000:00/0000:00:14.0/usb3/3-12’ successfully created<br>
+Dec  4 15:32:36 multimed ModemManager[778]:   Modem: state changed (unknown -&gt; disabled)<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.0865] device (enp0s20u12i19): state change: activated -&gt; deactivating (reason ‘connection-removed’, sys-iface-state: ‘managed’)<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.0990] modem[“ttyUSB2”]: modem state changed, ‘disabled’ --&gt; ‘enabling’ (reason: user preference)<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.0994] manager: (ttyUSB2): new Broadband device (/org/freedesktop/NetworkManager/Devices/43)<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.0995] device (ttyUSB2): state change: unmanaged -&gt; unavailable (reason ‘managed’, sys-iface-state: ‘external’)<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.0996] device (ttyUSB2): modem state ‘enabling’<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.1001] device (enp0s20u12i19): state change: deactivating -&gt; disconnected (reason ‘connection-removed’, sys-iface-state: ‘managed’)<br>
+Dec  4 15:32:36 multimed avahi-daemon[775]: Withdrawing address record for fe80::6657:6d26:2c9d:8fb5 on enp0s20u12i19.<br>
+Dec  4 15:32:36 multimed avahi-daemon[775]: Leaving mDNS multicast group on interface enp0s20u12i19.IPv6 with address fe80::6657:6d26:2c9d:8fb5.<br>
+Dec  4 15:32:36 multimed avahi-daemon[775]: Interface enp0s20u12i19.IPv6 no longer relevant for mDNS.<br>
+Dec  4 15:32:36 multimed ModemManager[778]:   Modem /org/freedesktop/ModemManager1/Modem/18: state changed (disabled -&gt; enabling)<br>
+Dec  4 15:32:36 multimed ModemManager[778]:   (ttyUSB2): port attributes not fully set<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.1192] dhcp4 (enp0s20u12i19): canceled DHCP transaction, DHCP client pid 6567<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.1192] dhcp4 (enp0s20u12i19): state changed bound -&gt; done<br>
+Dec  4 15:32:36 multimed avahi-daemon[775]: Withdrawing address record for 192.168.2.3 on enp0s20u12i19.<br>
+Dec  4 15:32:36 multimed avahi-daemon[775]: Leaving mDNS multicast group on interface enp0s20u12i19.IPv4 with address 192.168.2.3.<br>
+Dec  4 15:32:36 multimed NetworkManager[819]: ((src/nm-dispatcher.c:545)): assertion ‘’ failed<br>
+Dec  4 15:32:36 multimed avahi-daemon[775]: Interface enp0s20u12i19.IPv4 no longer relevant for mDNS.<br>
+Dec  4 15:32:36 multimed NetworkManager[819]: g_object_notify_by_pspec: assertion ‘G_IS_OBJECT (object)’ failed<br>
+Dec  4 15:32:36 multimed NetworkManager[819]: message repeated 4 times: [ g_object_notify_by_pspec: assertion ‘G_IS_OBJECT (object)’ failed]<br>
+Dec  4 15:32:36 multimed NetworkManager[819]: ((src/devices/nm-device.c:1073)): assertion ‘’ failed<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.1198] device [null]: remove_pending_action (1): ‘queued-state-change-disconnected’ not pending<br>
+Dec  4 15:32:36 multimed NetworkManager[819]: file src/devices/nm-device.c: line 12495 (): should not be reached<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.1199] device (ttyUSB2): state change: unavailable -&gt; disconnected (reason ‘none’, sys-iface-state: ‘managed’)<br>
+Dec  4 15:32:36 multimed ModemManager[778]:   Modem /org/freedesktop/ModemManager1/Modem/18: 3GPP Registration state changed (unknown -&gt; searching)<br>
+Dec  4 15:32:36 multimed ModemManager[778]:   Modem /org/freedesktop/ModemManager1/Modem/18: state changed (enabling -&gt; searching)<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.5898] modem[“ttyUSB2”]: modem state changed, ‘enabling’ --&gt; ‘searching’ (reason: user-requested)</p>
+          <p><a href="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212/2</link>
+        <pubDate>Tue, 04 Dec 2018 14:33:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2212-2</guid>
+        <source url="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212.rss">USB-LAN (linux host) problem ping working only 17 requests</source>
+      </item>
+      <item>
+        <title>USB-LAN (linux host) problem ping working only 17 requests</title>
+        <dc:creator><![CDATA[pserenne]]></dc:creator>
+        <description><![CDATA[
+            <p>Strange behavior with ping and ssh : works only from time to time.</p>
+<p>for ping, we are able to reproduce (100%) as follow<br>
+starting with sierra wireless not connect from the VM USB perihperals</p>
+<ul>
+<li>from the VM :  ping 192.168.2.2 : no response</li>
+<li>connect the sirra wireless<br>
+-disconnect it  : the ping is now responding but stop after 17 requests . have to connect and disconnect the sierra from ths usb peripherals</li>
+</ul>
+<p>kill the ping, issue the command again</p>
+<p>ssh of course works only during the time qhere the ping is responding …</p>
+<p>Host : kubuntu 18.04<br>
+lsusb : Bus 003 Device 067: ID 1199:68c0 Sierra Wireless, Inc.</p>
+<p>Any idea to solve ?</p>
+          <p><a href="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212/1</link>
+        <pubDate>Tue, 04 Dec 2018 14:27:58 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2212-1</guid>
+        <source url="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212.rss">USB-LAN (linux host) problem ping working only 17 requests</source>
+      </item>
+  </channel>
+</rss>

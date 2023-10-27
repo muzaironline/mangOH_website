@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>How to replace the module in FW image(R16) - mangOH forum</title>
+    <meta name="description" content="How to replace the module in FW image(R16) 
+(/mnt/legato/system/modules/mangoh_yellow_dev.ko) 
+Becausewe have some modification in mangoh_yellow_dev.ko 
+so we will run 
+rmmod /mnt/legato/system/modules/mangoh_yellow_dev.&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/how-to-replace-the-module-in-fw-image-r16/9735" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;How to replace the module in FW image(R16)&#39;" href="https://forum.mangoh.io/t/how-to-replace-the-module-in-fw-image-r16/9735.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/how-to-replace-the-module-in-fw-image-r16/9735" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/how-to-replace-the-module-in-fw-image-r16/9735" />
+<meta property="og:title" content="How to replace the module in FW image(R16)" />
+<meta name="twitter:title" content="How to replace the module in FW image(R16)" />
+<meta property="og:description" content="How to replace the module in FW image(R16)  (/mnt/legato/system/modules/mangoh_yellow_dev.ko)  Becausewe have some modification in mangoh_yellow_dev.ko  so we will run  rmmod /mnt/legato/system/modules/mangoh_yellow_dev.ko  and insert our modified module after remove module  insmod /home/root/mangoh_yellow_dev.ko  Can we replace this module during the build process? ( I can’t find the this module in yocto source code)" />
+<meta name="twitter:description" content="How to replace the module in FW image(R16)  (/mnt/legato/system/modules/mangoh_yellow_dev.ko)  Becausewe have some modification in mangoh_yellow_dev.ko  so we will run  rmmod /mnt/legato/system/modules/mangoh_yellow_dev.ko  and insert our modified module after remove module  insmod /home/root/mangoh_yellow_dev.ko  Can we replace this module during the build process? ( I can’t find the this module in yocto source code)" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="1 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="3 ❤" />
+<meta property="article:published_time" content="2021-10-26T06:22:05+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"How to replace the module in FW image(R16)","mainEntity":{"@type":"Question","name":"How to replace the module in FW image(R16)","text":"How to replace the module in FW image(R16)\n\n(/mnt/legato/system/modules/mangoh_yellow_dev.ko)\n\nBecausewe have some modification in mangoh_yellow_dev.ko\n\nso we will run\n\nrmmod /mnt/legato/system/modules/mangoh_yellow_dev.ko\n\nand insert our modified module after remove module\n\ninsmod /home/root/mangoh&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2021-10-26T06:22:05.322Z","author":{"@type":"Person","name":"Bruce KE"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/how-to-replace-the-module-in-fw-image-r16/9735">How to replace the module in FW image(R16)</a>
+    </h1>
+
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='How to replace the module in FW image(R16)'>
+        <meta itemprop='articleSection' content='Uncategorized'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/bruceke'><span itemprop='name'>bruceke</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-replace-the-module-in-fw-image-r16/9735">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-26T06:22:05Z' class='post-time'>
+                    October 26, 2021,  6:22am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-26T06:22:05Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>How to replace the module in FW image(R16)<br>
+(/mnt/legato/system/modules/mangoh_yellow_dev.ko)<br>
+Becausewe have some modification in mangoh_yellow_dev.ko<br>
+so we will run<br>
+rmmod /mnt/legato/system/modules/mangoh_yellow_dev.ko<br>
+and insert our modified module after remove module<br>
+insmod /home/root/mangoh_yellow_dev.ko</p>
+<p>Can we replace this module during the build process? ( I can’t find the this module in yocto source code)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-replace-the-module-in-fw-image-r16/9735">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-26T06:54:27Z' class='post-time'>
+                    October 26, 2021,  6:54am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-26T06:54:27Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>have you checked the legato source?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/bruceke'><span itemprop='name'>bruceke</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-replace-the-module-in-fw-image-r16/9735">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-26T07:14:40Z' class='post-time'>
+                    October 26, 2021,  7:14am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-26T07:14:40Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>yes , I also search “mangoh_yellow_dev” in yocto folder , but no related files were found</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-replace-the-module-in-fw-image-r16/9735">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-26T07:15:27Z' class='post-time'>
+                    October 26, 2021,  7:15am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-26T07:15:27Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>It should be in the legato layer, not yocto</p>
+<aside class="onebox githubblob" data-onebox-src="https://github.com/mangOH/mangOH/blob/master/linux_kernel_modules/mangoh/mangoh_yellow_dev.mdef">
+  <header class="source">
+
+      <a href="https://github.com/mangOH/mangOH/blob/master/linux_kernel_modules/mangoh/mangoh_yellow_dev.mdef" target="_blank" rel="noopener nofollow ugc">github.com</a>
+  </header>
+
+  <article class="onebox-body">
+    <h4><a href="https://github.com/mangOH/mangOH/blob/master/linux_kernel_modules/mangoh/mangoh_yellow_dev.mdef" target="_blank" rel="noopener nofollow ugc">mangOH/mangOH/blob/master/linux_kernel_modules/mangoh/mangoh_yellow_dev.mdef</a></h4>
+
+
+    <pre><code class="lang-mdef">cflags:
+{
+    -DDEBUG
+    -I${MANGOH_ROOT}/linux_kernel_modules/expander
+    -I${MANGOH_ROOT}/linux_kernel_modules/opt300x
+    -I${MANGOH_ROOT}/linux_kernel_modules/bq27xxx
+    -I${MANGOH_ROOT}/linux_kernel_modules/bq25601
+
+}
+
+sources:
+{
+    mangoh_yellow.c
+}
+
+params:
+{
+    /*
+     * Do not perform EEPROM based revision detection and assume that the revision is as specified
+     */
+</code></pre>
+
+
+  This file has been truncated. <a href="https://github.com/mangOH/mangOH/blob/master/linux_kernel_modules/mangoh/mangoh_yellow_dev.mdef" target="_blank" rel="noopener nofollow ugc">show original</a>
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/bruceke'><span itemprop='name'>bruceke</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-replace-the-module-in-fw-image-r16/9735">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-26T08:48:19Z' class='post-time'>
+                    October 26, 2021,  8:48am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-26T08:48:19Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks your information.<br>
+I modified it under the source code folder of Legato and recompiled it, and installed it to the WP7605 target board (update yellow.wp76xx.update 192.168.2.2)</p>
+<p>But checking the version of “/mnt/legato/system/modules/mangoh_yellow_dev.ko” is still not updated.</p>
+<p>Did I miss something?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-replace-the-module-in-fw-image-r16/9735">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-26T09:01:17Z' class='post-time'>
+                    October 26, 2021,  9:01am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-26T09:01:17Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>how about compile it together to the legato.cwe image?<br>
+(i.e. not using xxx.update file)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/bruceke'><span itemprop='name'>bruceke</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-replace-the-module-in-fw-image-r16/9735">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-26T09:28:22Z' class='post-time'>
+                    October 26, 2021,  9:28am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-26T09:28:22Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I don’t understand about your suggestion.<br>
+Only update file after compile <a href="https://github.com/mangOH/mangOH" rel="noopener nofollow ugc">“mangOH”</a> .</p>
+<p>And “R16” (Legato-Dist-Source-mdm9x28-SWI9X07Y_02.37.07.00.tar.bz2) can not find the relevant documents of mangoh_yellow_dev</p>
+<p>so I don’t know how to compile it together…</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-replace-the-module-in-fw-image-r16/9735">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-26T09:31:02Z' class='post-time'>
+                    October 26, 2021,  9:31am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-26T09:31:02Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Here has an example to include a new application to legato.cwe</p>
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.legato.io/t/flash-size-wp7607/3805/35">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/252837692301bb53b7d4b8041901ad6486ced526.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/flash-size-wp7607/3805/35" target="_blank" rel="noopener nofollow ugc" title="10:04AM - 27 April 2020">Legato Forum – 27 Apr 20</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/flash-size-wp7607/3805/35" target="_blank" rel="noopener nofollow ugc">Flash size wp7607</a></h3>
+
+  <p>you can go to legato-19.02.0/modules/WiFi/wifi.sdef, under “apps:” section, add  e.g.  $LEGATO_ROOT/apps/sample/helloWorld/helloWorld.adef  Now the new app will be included in legato.cwe.  Please also note that the max size for legato partition is...</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+<p>Probably you need to do the same according to yellow.sdef to include your kernel driver:</p><aside class="onebox githubblob" data-onebox-src="https://github.com/mangOH/mangOH/blob/master/yellow.sdef">
+  <header class="source">
+
+      <a href="https://github.com/mangOH/mangOH/blob/master/yellow.sdef" target="_blank" rel="noopener nofollow ugc">github.com</a>
+  </header>
+
+  <article class="onebox-body">
+    <h4><a href="https://github.com/mangOH/mangOH/blob/master/yellow.sdef" target="_blank" rel="noopener nofollow ugc">mangOH/mangOH/blob/master/yellow.sdef</a></h4>
+
+
+    <pre><code class="lang-sdef">//--------------------------------------------------------------------------------------------------
+// mangOH system definition for the mangOH Yellow board.
+//
+// Copyright (C) Sierra Wireless Inc.
+//--------------------------------------------------------------------------------------------------
+
+#include "shared.sdef"
+
+
+buildVars:
+{
+    MANGOH_BOARD = yellow
+
+    LEGATO_WIFI_PA = ${CURDIR}/linux_kernel_modules/cypwifi/scripts/pa_wifi.sh
+
+#if ${MANGOH_WP_CHIPSET_9X07} = 1
+    MANGOH_BME680_I2C_BUS = 6
+#elif ${MANGOH_WP_CHIPSET_9X15} = 1
+    MANGOH_BME680_I2C_BUS = 2
+#endif
+</code></pre>
+
+
+  This file has been truncated. <a href="https://github.com/mangOH/mangOH/blob/master/yellow.sdef" target="_blank" rel="noopener nofollow ugc">show original</a>
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/bruceke'><span itemprop='name'>bruceke</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-replace-the-module-in-fw-image-r16/9735">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/5f3ef3db7cce1e6342a827ead71d39dc30ad4395.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-11-15T06:54:36Z' class='post-time'>
+                    November 15, 2021,  6:54am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-11-15T06:54:36Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi jyijyi,<br>
+Thanks,<br>
+I have downloaded the tarball (legato-19.11.5.tar.bz2)<br>
+And try to modify localhost.sdef, then compile it (make wp76xx)<br>
+But I didn’t see my newly added module on the target board after firmware updated<br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/5f3ef3db7cce1e6342a827ead71d39dc30ad4395.png" alt="image" data-base62-sha1="dAAez8vNYwgVAaJUXZCPtIomZPT" width="296" height="38"></p>
+<p>(I hope wifi and the modified mangoh_yellow_dev.ko driver can be added)<br>
+Is there any error in my modification?</p>
+<p>below is modified ‘localhost.sdef’</p>
+<pre><code class="lang-auto">//--------------------------------------------------------------------------------------------------
+// Sample system definition that includes essential modem and positioning services.
+//
+// Copyright (C) Sierra Wireless Inc.
+//--------------------------------------------------------------------------------------------------
+
+#include "$LEGATO_ROOT/legatoTargetConfig.sinc"
+
+#include "$LEGATO_ROOT/apps/platformServices/defaultAirVantage.sinc"
+
+buildVars:
+{
+    MANGOH_BOARD = yellow
+
+    LEGATO_WIFI_PA = ${CURDIR}/linux_kernel_modules/cypwifi/scripts/pa_wifi.sh
+
+#if ${MANGOH_WP_CHIPSET_9X07} = 1
+    MANGOH_BME680_I2C_BUS = 6
+#elif ${MANGOH_WP_CHIPSET_9X15} = 1
+    MANGOH_BME680_I2C_BUS = 2
+#endif
+
+    // Exclude a few big libraries from the Legato apps to save space in the legato.cwe.
+    // These libraries are available in the root file system, but by default they also
+    // get added to some apps to prevent potential version mismatches when running on older
+    // root file systems.
+    USE_ROOTFS_CURL = 1
+    USE_ROOTFS_OPENSSL = 1
+    USE_ROOTFS_ZLIB = 1
+}
+
+#if ${OCTAVE} = 1
+#include "sinc/octave_full.sinc"
+#endif
+
+apps:
+{
+    // Platform services.
+    $LEGATO_ROOT/apps/platformServices/audioService
+    $LEGATO_ROOT/apps/platformServices/cellNetService
+    $LEGATO_ROOT/apps/platformServices/dataConnectionService
+    $LEGATO_ROOT/apps/platformServices/fwupdateService
+    $LEGATO_ROOT/apps/platformServices/modemService
+    $LEGATO_ROOT/apps/platformServices/positioningService
+    $LEGATO_ROOT/apps/platformServices/powerMgr
+    $LEGATO_ROOT/apps/platformServices/secStore
+    $LEGATO_ROOT/apps/platformServices/smsInboxService
+    $LEGATO_ROOT/apps/platformServices/voiceCallService
+    $LEGATO_ROOT/apps/platformServices/gpioService
+    $LEGATO_ROOT/apps/platformServices/atService
+    $LEGATO_ROOT/apps/platformServices/portService
+//
+    $CURDIR/apps/YellowSensor/imu
+    $CURDIR/apps/YellowSensor/light
+    $CURDIR/apps/YellowSensor/button
+    $CURDIR/apps/Bme680EnvironmentalSensor/environment
+    $CURDIR/apps/DataHub-Buzzer/buzzer
+    $CURDIR/apps/YellowOnBoardActuators/leds
+    $CURDIR/apps/BatteryService/battery
+    $CURDIR/apps/VegasMode/vegasMode
+    $CURDIR/apps/Welcome/helloYellow
+    $CURDIR/samples/BluetoothSensorTag/bluetoothSensorTag
+    $CURDIR/apps/ntag/ntag
+    $CURDIR/apps/NtagDhubIf/NtagDhubIf
+    $CURDIR/apps/BluetoothServices/bluetoothServices
+    $CURDIR/apps/wakeup_app/wakeup_app
+    // Command-line tools.
+    $LEGATO_ROOT/apps/tools/tools
+}
+
+commands:
+{
+    cm = tools:/scripts/cm
+    fwupdate = tools:/bin/fwupdate
+    secstore = tools:/bin/secstore
+    pmtool = tools:/bin/pmtool
+    gnss = tools:/bin/gnss
+    uartMode = tools:/bin/uartMode
+}
+
+bindings:
+{
+    &lt;root&gt;.le_fwupdate -&gt; fwupdateService.le_fwupdate
+}
+
+interfaceSearch:
+{
+    interfaces/modemServices
+    interfaces/positioning
+    interfaces/atServices
+    $CURDIR/apps/YellowSensor/interfaces
+    $LEGATO_ROOT/interfaces/wifi
+}
+
+kernelModules:
+{
+    $CURDIR/linux_kernel_modules/mangoh/mangoh_yellow_dev
+    $CURDIR/linux_kernel_modules/bmi160/bmi160-i2c
+    $CURDIR/linux_kernel_modules/bmi160/bmi160
+    $CURDIR/linux_kernel_modules/rtc-pcf85063/rtc-pcf85063
+    $CURDIR/linux_kernel_modules/rtc_sync/rtc_sync
+    $CURDIR/linux_kernel_modules/bq25601/bq25601
+    $CURDIR/linux_kernel_modules/bq27xxx/bq27xxx_battery
+    $CURDIR/linux_kernel_modules/opt300x/opt300x
+    $CURDIR/linux_kernel_modules/expander/expander
+    $CURDIR/linux_kernel_modules/cp2130/cp2130
+}
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-replace-the-module-in-fw-image-r16/9735">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-11-15T07:15:03Z' class='post-time'>
+                    November 15, 2021,  7:15am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-11-15T07:40:33Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>How about modifying ./modules/WiFi/wifi.sdef</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

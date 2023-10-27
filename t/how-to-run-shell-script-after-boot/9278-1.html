@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>How to run shell script after boot - mangOH forum</title>
+    <meta name="description" content="Customer would like to run shell script after WP76 module boot. 
+Customer put as following code in the /etc/init.d/legatostart.sh. Then, WP76 module can run shell script automatically. But customer saw that WP76 module s&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278?page=2" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;How to run shell script after boot&#39;" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278?page=2" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278?page=2" />
+<meta property="og:title" content="How to run shell script after boot" />
+<meta name="twitter:title" content="How to run shell script after boot" />
+<meta property="og:description" content="Customer and I do not know how to make kConfig file. I checked kconfig options (Legato KConfig Options - Legato Docs) but I cannot explain it to customer because I am not the expert for Linux." />
+<meta name="twitter:description" content="Customer and I do not know how to make kConfig file. I checked kconfig options (Legato KConfig Options - Legato Docs) but I cannot explain it to customer because I am not the expert for Linux." />
+<meta property="article:published_time" content="2021-06-24T02:46:16+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="prev" href="/t/how-to-run-shell-script-after-boot/9278">
+        <link rel="next" href="/t/how-to-run-shell-script-after-boot/9278?page=3">
+
+    
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/how-to-run-shell-script-after-boot/9278">How to run shell script after boot</a>
+    </h1>
+
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='How to run shell script after boot'>
+        <meta itemprop='articleSection' content='Uncategorized'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_21' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/takashishiina'><span itemprop='name'>takashishiina</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-24T02:46:16Z' class='post-time'>
+                    June 24, 2021,  2:46am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-24T02:46:16Z'>
+              <span itemprop='position'>21</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Customer and I do not know how to make kConfig file. I checked kconfig options (<a href="https://docs.legato.io/latest/kconfigOptions.html" class="inline-onebox" rel="noopener nofollow ugc">Legato KConfig Options - Legato Docs</a>) but I cannot explain it to customer because I am not the expert for Linux.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_22' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-24T02:58:46Z' class='post-time'>
+                    June 24, 2021,  2:58am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-24T02:58:46Z'>
+              <span itemprop='position'>22</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You don’t need to make kconfig file</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_23' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/takashishiina'><span itemprop='name'>takashishiina</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-24T04:23:49Z' class='post-time'>
+                    June 24, 2021,  4:23am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-24T04:23:49Z'>
+              <span itemprop='position'>23</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>What timing and how should customer add their application to cwe file?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_24' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/takashishiina'><span itemprop='name'>takashishiina</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-24T05:22:12Z' class='post-time'>
+                    June 24, 2021,  5:22am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-24T05:22:12Z'>
+              <span itemprop='position'>24</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Customer is using leaf tool and build their application by .adef file.<br>
+To create their application as default application, customer need to create sdef or other to kernel. I need to explain these procedure to customer but I am not the expert for Linux. Could you please prepare sample procedure for Hello world or anything?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_25' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-24T06:03:35Z' class='post-time'>
+                    June 24, 2021,  6:03am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-24T06:03:35Z'>
+              <span itemprop='position'>25</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>What do you mean by timing</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_26' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-24T06:05:30Z' class='post-time'>
+                    June 24, 2021,  6:05am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-24T06:05:30Z'>
+              <span itemprop='position'>26</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>This is how you make legato.cwe</p>
+<p>Leaf shell<br>
+Go to the corresponding legato framweork folder<br>
+make clean<br>
+make wp76xx</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_27' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/takashishiina'><span itemprop='name'>takashishiina</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-28T01:40:56Z' class='post-time'>
+                    June 28, 2021,  1:40am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-28T01:40:56Z'>
+              <span itemprop='position'>27</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Customer cannot succeed to create any file with their application as default application.</p>
+<p>Maybe, I think that we cannot work it because we did not understand final goal.</p>
+<p>Please advise the following question.</p>
+<p>Q1. WP76xx module is configured as follows. Is my understand correct?</p>
+<p>Modem Firmware: modemFW.spk</p>
+<p>Linux Distribution: boot-yocto.cwe</p>
+<p>Base Legato System: legatoz.cwe</p>
+<p>Customer application: custom-firmware.spk</p>
+<p>Q2. To add custom application as default application, should customer create .spk file. Is my understanding correct?</p>
+<p>If not, please let us know which file should customer add their application.</p>
+<p>Q3. Customer sent “make wp76xx”. But there is not selection menu for their application and created spk file. How do customer add their application in this process?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_28' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-28T01:53:22Z' class='post-time'>
+                    June 28, 2021,  1:53am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-28T01:53:22Z'>
+              <span itemprop='position'>28</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>First of all, can they build the legato.cwe ?</p>
+<p>Q1:<br>
+There is no such thing:<br>
+Customer application: custom-firmware.spk</p>
+<p>If you want to build your application as default application, you need to build to legato.cwe</p>
+<p>Q2: No, there is no such thing called “custom-firmware.spk”<br>
+As said before, you need to first successfully build the legato.cwe, and then add your application to wifi.sdef as default application.</p>
+<p>Q3: “make wp76xx” is to build the legato.cwe in “build” folder, not generating the spk file.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_29' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/takashishiina'><span itemprop='name'>takashishiina</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-28T02:56:29Z' class='post-time'>
+                    June 28, 2021,  2:56am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-28T02:56:29Z'>
+              <span itemprop='position'>29</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks. I can image final goal to build legato.cwe.<br>
+Please advise the following.</p>
+<p>Q4. Customer said that there is 2 wifi.sdef. Which is better to use it.<br>
+-/home/root/workspace/legatoAF/legato/modules/WiFi/wifi.sdef<br>
+-/home/root/.leaf/wp76-legato_19.02.0-201903211732/modules/WiFi/wifi.sdef</p>
+<p>Q5. To add their application, should customer add their application to wifi.sdef as below.<br>
+Apps:<br>
+{<br>
+//WiFi services<br>
+$LEGATO_WIFI_ROOT/service/wifiService.adef<br>
+$LEGATO_WIFI_ROOT/apps/sample/wifiClientTest/wifiClientTest.adef<br>
+$LEGATO_WIFI_ROOT/apps/sample/wifiApTest/wifiApTest.adef<br>
+$LEGATO_WIFI_ROOT/apps/sample/wifiWebAp/wifiWebAp.adef<br>
+$LEGATO_WIFI_ROOT/apps/too;s/wifi.adef</p>
+<p>$LEGATO_WIFI_ROOT/customer/HelloWord.adef<br>
+}</p>
+<p>Q6. Which folder should customer set Path and send “make wp76xx” command.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_30' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-28T04:00:24Z' class='post-time'>
+                    June 28, 2021,  4:00am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-28T04:00:24Z'>
+              <span itemprop='position'>30</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Q4. it depends where you build the legato image.</p>
+<p>If you are building the legato (make wp76xx) in<br>
+/home/root/.leaf/wp76-legato_19.02.0-201903211732/.<br>
+Then you should modify<br>
+home/root/.leaf/wp76-legato_19.02.0-201903211732/modules/WiFi/wifi.sdef</p>
+<p>Q5: correct</p>
+<p>Q6: you do “leaf shell” first, and then it will set the path for you.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_31' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/takashishiina'><span itemprop='name'>takashishiina</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T06:11:26Z' class='post-time'>
+                    June 30, 2021,  6:11am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T06:11:26Z'>
+              <span itemprop='position'>31</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks. To explain it to my customer, I sent “make wp76xx”. But I saw the following error.<br>
+c1: all warnings being treated as errors<br>
+make[2]: *** [Makefile:14: /home/nexty/.leaf/wp76-legato_19.02.0-201903211732/bin/mkPatch] Error 1<br>
+make[2]: Leaving directory ‘/home/nexty/.leaf/wp76-legato_19.02.0-201903211732/framework/tools/mkPatch’<br>
+make[1]: *** [Makefile.hostTools:89: mkPatch] Error 2<br>
+make[1]: Leaving directry ‘/home/nexty/.leaf/wp76-legato_19.02.0-201903211732’<br>
+make: *** [Makefile:506: tools] Error 2</p>
+<p>I sent the following and try it. But the result is same.</p>
+<p>(lsh) root:~/.leaf/wp76-legato_19.02.0-201903211732$ . bin/configlegatoenv<br>
+[wp76xx] Toolchain dir = /opt/swi/SWI9X07Y_02.28.03.05/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi<br>
+prefix = arm-poky-linux-gnueabi-<br>
+sysroot = /opt/swi/SWI9X07Y_02.28.03.05/sysroots/armv7a-neon-poky-linux-gnueabi<br>
+kernelroot = /opt/swi/SWI9X07Y_02.28.03.05/sysroots/armv7a-neon-poky-linux-gnueabi/usr/src/kernel<br>
+[wp77xx] Toolchain dir = /opt/swi/SWI9X07Y_02.28.03.05/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi<br>
+prefix = arm-poky-linux-gnueabi-<br>
+sysroot = /opt/swi/SWI9X07Y_02.28.03.05/sysroots/armv7a-neon-poky-linux-gnueabi<br>
+kernelroot = /opt/swi/SWI9X07Y_02.28.03.05/sysroots/armv7a-neon-poky-linux-gnueabi/usr/src/kernel</p>
+<p>I am using Ubuntu 20.04 now, is it working?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_32' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T06:13:28Z' class='post-time'>
+                    June 30, 2021,  6:13am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T06:13:28Z'>
+              <span itemprop='position'>32</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Have you entered  “make clean” before “make wp76xx”?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_33' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/takashishiina'><span itemprop='name'>takashishiina</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T06:27:01Z' class='post-time'>
+                    June 30, 2021,  6:27am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T06:27:01Z'>
+              <span itemprop='position'>33</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Yes, I sent the following step</p>
+<ol>
+<li>leaf shell</li>
+<li>Go to working folder</li>
+<li>. bin/configlegatoenv</li>
+<li>make clean</li>
+<li>make wp76xx</li>
+</ol>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_34' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T06:39:17Z' class='post-time'>
+                    June 30, 2021,  6:39am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T06:39:17Z'>
+              <span itemprop='position'>34</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>if you use “leaf shell” , there is no need to  " . bin/configlegatoenv"</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_35' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/takashishiina'><span itemprop='name'>takashishiina</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T06:52:04Z' class='post-time'>
+                    June 30, 2021,  6:52am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T06:52:04Z'>
+              <span itemprop='position'>35</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I see.<br>
+But the original step was below. But I saw the “c1: all warnings being treated as errors” and stop it.<br>
+Note: I did not add any adef file to wifi.sdef yet. Should I add it?</p>
+<ol>
+<li>leaf shell</li>
+<li>Go to working folder</li>
+<li>make clean</li>
+<li>make wp76xx</li>
+</ol>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_36' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T07:10:48Z' class='post-time'>
+                    June 30, 2021,  7:10am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T07:10:48Z'>
+              <span itemprop='position'>36</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>for the default package, it should be OK to make legato.cwe without any modification.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_37' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/takashishiina'><span itemprop='name'>takashishiina</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T08:09:16Z' class='post-time'>
+                    June 30, 2021,  8:09am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T08:09:16Z'>
+              <span itemprop='position'>37</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I put the all log for make wp76xx. Can you find root cause?<br>
+<a class="attachment" href="/uploads/short-url/g43jMhixs38Go7MmwtZdiE01AiC.txt">log_make.txt</a> (13.7 KB)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_38' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T08:46:09Z' class='post-time'>
+                    June 30, 2021,  8:46am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T08:46:09Z'>
+              <span itemprop='position'>38</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I don’t see such problem in ubuntu 14,16 or 18.<br>
+Here is my compilation log for swi_wp76_4.0.3 (legato 19.2.0) in Ubuntu 14:<br>
+<a class="attachment" href="/uploads/short-url/uMuvlyEK71ukxfVJ1QC3Y2W4WU0.txt">log.txt</a> (185.9 KB)</p>
+<p>Maybe you can give a try on those Ubuntu version.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_39' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/takashishiina'><span itemprop='name'>takashishiina</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-07-02T02:58:52Z' class='post-time'>
+                    July 2, 2021,  2:58am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-07-02T02:58:52Z'>
+              <span itemprop='position'>39</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I tried ubuntu 14 and 16. But I cannot install leaf correctly.<br>
+I install ubuntu 18 and can install leaf correctly. But my environment returned “mkapp: command not found”. My procedure is below, please advise it. ubuntu 20 is no issue at this stage.</p>
+<ol>
+<li>Install ubuntu 18</li>
+<li>apt-get update</li>
+<li>apt-get upgrade</li>
+<li>wget <a href="https://downloads.sierrawireless.com/tools/leaf/leaf_latest.deb" rel="noopener nofollow ugc">https://downloads.sierrawireless.com/tools/leaf/leaf_latest.deb</a> -O /tmp/leaf_latest.deb &amp;&amp; sudo apt install /tmp/leaf_latest.deb</li>
+<li>mkdir ~/myWorkspace; cd ~/myWorkspace</li>
+<li>leaf search -t wp76xx</li>
+<li>leaf setup wp76stable -p swi-wp76_4.0.3</li>
+<li>leaf status</li>
+<li>leaf shell</li>
+<li>mkapp -t wp76xx helloword.adef<br>
+mkapp: command not found</li>
+</ol>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_40' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-07-02T03:07:36Z' class='post-time'>
+                    July 2, 2021,  3:07am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-07-02T03:07:36Z'>
+              <span itemprop='position'>40</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I don’t see problem on Ubuntu 18:</p>
+<pre><code class="lang-auto">Leaf Shell /bin/bash started in Leaf environment.
+
+(lsh:swi-wp76_4.7.0) owner@ubuntu:~/leaf$ mkapp
+** ERROR:
+Bad configuration environment file path '/home/owner/leaf/leaf-data/swi-wp76_4.7.0/wp76-legato/build/localhost/config.sh'.
+(lsh:swi-wp76_4.7.0) owner@ubuntu:~/leaf$ mkapp -h
+
+Command line parameters
+  -C, --cflags, &lt;string&gt;
+        (Multiple, optional) Specify extra flags to be passed to the C compiler.
+
+  -K, --key, &lt;string&gt;
+        (Optional) Specify the private key path which should be used to sign update package. Once specified, corresponding public certificate path must be specified to verify update package on target.
+
+  -L, --ldflags, &lt;string&gt;
+        (Multiple, optional) Specify extra flags to be passed to the linker when linking executables.
+
+  -P, --pub-cert, &lt;string&gt;
+        (Optional) Specify the public certificate path which should be used to verify update package on target. Once specified, corresponding private key path must be specified to sign update package on host.
+
+  -S, --ima-sign
+        (Optional) Sign the package with IMA key. If this option specified, it will first look for IMA private key and public certificatein command line parameter. If nothing specified in command line it will look for environment variable LE_CONFIG_IMA_PRIVATE_KEY (private key path) and LE_CONFIG_IMA_PUBLIC_CERT (public certificate signed by system private key).
+
+  -X, --cxxflags, &lt;string&gt;
+        (Multiple, optional) Specify extra flags to be passed to the C++ compiler.
+
+  -a, --append-to-version, &lt;string&gt;
+        (Multiple, optional) Specify a suffix to append to the application version specified in the .adef file.  Will automatically insert a '.' between the .adef's version string and any version strings specified on the command-line.  Multiple occurences of this argument will be combined into a single string.
+
+  -b, --bin-pack
+        (Optional) Generate a binary-app package instead of a .update file. Binary-app packages can be used to distribute an application without its original source code.  This binary app package file is intended to be included in a system definition (.sdef)  file's 'apps:' section in place of a .adef file.
+
+  -c, --component-search, &lt;string&gt;
+        (Multiple, optional) (DEPRECATED) Add a directory to the source search path (same as -s).
+
+  -d, --debug-dir, &lt;string&gt;
+        (Optional) Generate debug symbols and place them in the specified directory.  Debug symbol files will be named with build-id
+
+  -g, --generate-code
+        (Optional) Only generate code, but don't compile, link, or bundle anything. The interface definition (include) files will be generated, along with component and executable main files and configuration files. This is useful for supporting context-sensitive auto-complete and related features in source code editors, for example.
+
+  -i, --interface-search, &lt;string&gt;
+        (Multiple, optional) Add a directory to the interface search path.
+
+  -j, --jobs, &lt;integer&gt;
+        (Optional) Run N jobs in parallel (default derived from CPUs available)
+
+  -n, --dont-run-ninja
+        (Optional) Even if a build.ninja file exists, ignore it, delete the staging area, parse all inputs, and generate all output files, including a new copy of the build.ninja, then exit without running ninja.  This is used by the build.ninja to to regenerate itself and any other files that need to be regenerated when the build.ninja finds itself out of date.
+
+  -o, --output-dir, &lt;string&gt;
+        (Optional) Specify the directory into which the final, built application file (ready to be installed on the target) should be put.
+
+  -p, --no-pie
+        (Optional) Do not build application executable as a position independent executable.
+
+  -s, --source-search, &lt;string&gt;
+        (Multiple, optional) Add a directory to the source search path.
+
+  -t, --target, &lt;string&gt;
+        (Optional) Set the compile target (localhost|ar7).
+
+  -v, --verbose
+        (Optional) Set into verbose mode for extra diagnostic information.
+
+  -w, --object-dir, &lt;string&gt;
+        (Optional) Specify the directory into which any intermediate build artifacts (such as .o files and generated source code files) should be put.
+
+(lsh:swi-wp76_4.7.0) owner@ubuntu:~/leaf$
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><a rel="prev" itemprop="url" href="/t/how-to-run-shell-script-after-boot/9278">← previous page</a></span>
+        <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/how-to-run-shell-script-after-boot/9278?page=3">next page →</a></b></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

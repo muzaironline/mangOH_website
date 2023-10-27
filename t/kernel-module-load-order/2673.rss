@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Kernel Module Load Order</title>
+    <link>https://forum.mangoh.io/t/kernel-module-load-order/2673</link>
+    <description>I&#39;m cleaning up our kernel modules by adding the required kernel modules to my MDEF files the same as Mangoh https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610
+
+I changed the order my kernel modules load (specifically the BMI160 and IIO) to match the Mango Red .mdef file and then they won&#39;t load.  I change the order back and then it works.
+
+**Old way that works in SDEF**
+// BMI160 accelerometer, NOTE: Order id important here
+  $PROJ_ROOT/drivers/bmi160/bmi160
+  $PROJ_ROOT/drivers/bmi160/bmi160-i2c
+ 
+
+  // battery charger
+  $PROJ_ROOT/drivers/bq24296/bq24296
+
+  // Required for BMI160 NOTE: Order is important here
+  $PROJ_ROOT/drivers/iio/iio
+  $PROJ_ROOT/drivers/iio/iio-kfifo-buf
+  $PROJ_ROOT/drivers/iio/iio-triggered-buffer
+
+**Mangoh Red way that doesn&#39;t work in SDEF**
+// BMI160 accelerometer, NOTE: Order id important here
+  $PROJ_ROOT/drivers/bmi160/bmi160-i2c
+  $PROJ_ROOT/drivers/bmi160/bmi160
+ 
+
+  // battery charger
+  $BRNKL_ROOT/drivers/bq24296/bq24296
+
+  // Required for BMI160 NOTE: Order is important here
+  $BRNKL_ROOT/drivers/iio/iio-triggered-buffer
+  $BRNKL_ROOT/drivers/iio/iio-kfifo-buf
+  $BRNKL_ROOT/drivers/iio/iio
+ 
+Thoughts?  Is there something I&#39;m missing with the new method.  I&#39;m running Legato 18.09.0 on a WP85.</description>
+    
+    <lastBuildDate>Tue, 16 Jul 2019 10:24:01 +0000</lastBuildDate>
+    <category>Build your own</category>
+    <atom:link href="https://forum.mangoh.io/t/kernel-module-load-order/2673.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Kernel Module Load Order</title>
+        <dc:creator><![CDATA[Zahid]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi, dev macros call into printk with the different levels as <a class="mention" href="https://forum.mangoh.io/u/dfrey">@dfrey</a> mentioned.<br>
+They are the recommended way of printing log messages in device drivers<br>
+these days, just like pr_ are in many kernel subsystems. I think you may not be<br>
+seeing messages as if you look at your Kernel config it probably has this set:<br>
+CONFIG_DYNAMIC_DEBUG=y<br>
+This means you have to turn on you device debug messages on the target at<br>
+run-time on the fly as explained here:<br>
+<a href="https://www.kernel.org/doc/html/v5.1/admin-guide/dynamic-debug-howto.html" rel="nofollow noopener">https://www.kernel.org/doc/html/v5.1/admin-guide/dynamic-debug-howto.html</a><br>
+There are also other reasons dev_dbg doesn’t print. Please see the <a href="http://kernel.org" rel="nofollow noopener">kernel.org</a><br>
+docs for more details.</p>
+<p>I’m unsure about the Legato module loading ordering issues, I’ll let <a class="mention" href="https://forum.mangoh.io/u/dfrey">@dfrey</a><br>
+pipe in on those once you get the log messages.</p>
+          <p><a href="https://forum.mangoh.io/t/kernel-module-load-order/2673/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/kernel-module-load-order/2673/8</link>
+        <pubDate>Mon, 03 Jun 2019 15:21:31 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2673-8</guid>
+        <source url="https://forum.mangoh.io/t/kernel-module-load-order/2673.rss">Kernel Module Load Order</source>
+      </item>
+      <item>
+        <title>Kernel Module Load Order</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p>So what’s the difference between dev_info and printk?  Any thoughts on my comments about moving away from the number based kernel module loading to the requires statements?</p>
+          <p><a href="https://forum.mangoh.io/t/kernel-module-load-order/2673/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/kernel-module-load-order/2673/7</link>
+        <pubDate>Thu, 30 May 2019 21:52:51 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2673-7</guid>
+        <source url="https://forum.mangoh.io/t/kernel-module-load-order/2673.rss">Kernel Module Load Order</source>
+      </item>
+      <item>
+        <title>Kernel Module Load Order</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>The quick and dirty method is to raise the log level of the messages so that they do appear.  I too have had issues with “debug” level messages and never really got to the bottom of it.</p>
+          <p><a href="https://forum.mangoh.io/t/kernel-module-load-order/2673/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/kernel-module-load-order/2673/6</link>
+        <pubDate>Thu, 30 May 2019 21:46:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2673-6</guid>
+        <source url="https://forum.mangoh.io/t/kernel-module-load-order/2673.rss">Kernel Module Load Order</source>
+      </item>
+      <item>
+        <title>Kernel Module Load Order</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/dfrey">@dfrey</a> Thanks I looked at that resource and it wasn’t much help.  I have several of these <code>dev_dbg</code> statements but I don’t seem them in the <code>dmesg</code> or <code>logread</code></p>
+<p>I am basically recreating what you did here <a href="https://github.com/mangOH/mangOH/commit/fd1399c48c7924930bace8334071c589ec3c26ec" rel="nofollow noopener">https://github.com/mangOH/mangOH/commit/fd1399c48c7924930bace8334071c589ec3c26ec</a> moving from the number files to the requires statements but it’s not working.</p>
+<p>Any additional help would be greatly appreciated, thanks.</p>
+          <p><a href="https://forum.mangoh.io/t/kernel-module-load-order/2673/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/kernel-module-load-order/2673/5</link>
+        <pubDate>Thu, 30 May 2019 21:44:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2673-5</guid>
+        <source url="https://forum.mangoh.io/t/kernel-module-load-order/2673.rss">Kernel Module Load Order</source>
+      </item>
+      <item>
+        <title>Kernel Module Load Order</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p><a href="https://elinux.org/Debugging_by_printing#Log_Levels" class="onebox" target="_blank" rel="nofollow noopener">https://elinux.org/Debugging_by_printing#Log_Levels</a></p>
+          <p><a href="https://forum.mangoh.io/t/kernel-module-load-order/2673/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/kernel-module-load-order/2673/4</link>
+        <pubDate>Thu, 30 May 2019 20:31:30 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2673-4</guid>
+        <source url="https://forum.mangoh.io/t/kernel-module-load-order/2673.rss">Kernel Module Load Order</source>
+      </item>
+      <item>
+        <title>Kernel Module Load Order</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/dfrey">@dfrey</a> I’m not seeing a lot of my print states in dmesg or the log.  How do I enabled the DEBUG level messages in the kernel modules?</p>
+          <p><a href="https://forum.mangoh.io/t/kernel-module-load-order/2673/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/kernel-module-load-order/2673/3</link>
+        <pubDate>Thu, 30 May 2019 20:15:22 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2673-3</guid>
+        <source url="https://forum.mangoh.io/t/kernel-module-load-order/2673.rss">Kernel Module Load Order</source>
+      </item>
+      <item>
+        <title>Kernel Module Load Order</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>Take a look at <code>dmesg</code> and <code>logread</code> output and see if there are any clues in there about why the modules are failing to load.</p>
+          <p><a href="https://forum.mangoh.io/t/kernel-module-load-order/2673/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/kernel-module-load-order/2673/2</link>
+        <pubDate>Thu, 30 May 2019 18:16:21 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2673-2</guid>
+        <source url="https://forum.mangoh.io/t/kernel-module-load-order/2673.rss">Kernel Module Load Order</source>
+      </item>
+      <item>
+        <title>Kernel Module Load Order</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p>I’m cleaning up our kernel modules by adding the required kernel modules to my MDEF files the same as Mangoh <a href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610" class="inline-onebox">The mangOH repository now uses a Legato 18.05.1 feature</a></p>
+<p>I changed the order my kernel modules load (specifically the BMI160 and IIO) to match the Mango Red .mdef file and then they won’t load.  I change the order back and then it works.</p>
+<p><strong>Old way that works in SDEF</strong><br>
+// BMI160 accelerometer, NOTE: Order id important here<br>
+$PROJ_ROOT/drivers/bmi160/bmi160<br>
+$PROJ_ROOT/drivers/bmi160/bmi160-i2c</p>
+<p>// battery charger<br>
+$PROJ_ROOT/drivers/bq24296/bq24296</p>
+<p>// Required for BMI160 NOTE: Order is important here<br>
+$PROJ_ROOT/drivers/iio/iio<br>
+$PROJ_ROOT/drivers/iio/iio-kfifo-buf<br>
+$PROJ_ROOT/drivers/iio/iio-triggered-buffer</p>
+<p><strong>Mangoh Red way that doesn’t work in SDEF</strong><br>
+// BMI160 accelerometer, NOTE: Order id important here<br>
+$PROJ_ROOT/drivers/bmi160/bmi160-i2c<br>
+$PROJ_ROOT/drivers/bmi160/bmi160</p>
+<p>// battery charger<br>
+$BRNKL_ROOT/drivers/bq24296/bq24296</p>
+<p>// Required for BMI160 NOTE: Order is important here<br>
+$BRNKL_ROOT/drivers/iio/iio-triggered-buffer<br>
+$BRNKL_ROOT/drivers/iio/iio-kfifo-buf<br>
+$BRNKL_ROOT/drivers/iio/iio</p>
+<p>Thoughts?  Is there something I’m missing with the new method.  I’m running Legato 18.09.0 on a WP85.</p>
+          <p><a href="https://forum.mangoh.io/t/kernel-module-load-order/2673/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/kernel-module-load-order/2673/1</link>
+        <pubDate>Thu, 30 May 2019 17:15:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2673-1</guid>
+        <source url="https://forum.mangoh.io/t/kernel-module-load-order/2673.rss">Kernel Module Load Order</source>
+      </item>
+  </channel>
+</rss>

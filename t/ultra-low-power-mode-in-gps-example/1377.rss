@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Ultra low power mode in GPS example</title>
+    <link>https://forum.mangoh.io/t/ultra-low-power-mode-in-gps-example/1377</link>
+    <description>Hello everyone,
+
+
+
+I&#39;m a new developer, I&#39;ve used mangOH for some IoT applications.
+
+
+
+I&#39;m struggling with the following example that sends current location get from GPS to a cellphone via sms. 
+
+
+
+sample link: https://github.com/legatoproject/legato-af/tree/master/apps/sample/textLoc
+
+
+
+The sample starts getting ULPM firmware version. If it&#39;s not found it kills the process by using LE_FATAL_IF.
+
+
+
+Then it gets the cellphone number. After that, it creates a  network registration state handler. This is where my first question is: Why does it uses network registration as parameter to send the location? It&#39;s not using the GPS signal itself as parameters (as I would expect), but the internet registration. The odd part is that when I enter &quot;cm data&quot; via Putty connected to MangOH, it says my sim is registered, why is it expecting that to change prior to sending my GPS location?
+
+
+After adding the handler, it puts the function in the queue via le_event_QueueFunction. The function RegistrationStateHandler is the one executed when network registration state changes (am I right? please let me know if I&#39;m not), and this function uses a switch statement to tell when the network status is LE_MRC_REG_ROAMING. Then it gets the GPS position, set boot by gpio and time and shutdown app via le_ulpm_ShutDown.
+
+
+
+When the application is in ULPM, after a boot event happens (GPIO or time), does the main component start again?
+
+
+
+Best regards,
+
+Renato Zapata Lusni</description>
+    
+    <lastBuildDate>Wed, 02 Dec 2020 12:18:14 +0000</lastBuildDate>
+    <category>mangOH Green</category>
+    <atom:link href="https://forum.mangoh.io/t/ultra-low-power-mode-in-gps-example/1377.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Ultra low power mode in GPS example</title>
+        <dc:creator><![CDATA[antoniohart]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello, rzapata</p>
+<blockquote>
+<p>Why does it uses network registration as parameter to send the location?<br>
+I believe, it is because it uses not pure GPS, but A-GPS (also collecting data about your WI-Fi and cellular connection. You can check this <a href="https://yalantis.com/blog/location-aware-app/" rel="noopener nofollow ugc">guide</a> to learn the difference.</p>
+</blockquote>
+<p>I guess you need to switch to pure GPS mode</p>
+          <p><a href="https://forum.mangoh.io/t/ultra-low-power-mode-in-gps-example/1377/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ultra-low-power-mode-in-gps-example/1377/2</link>
+        <pubDate>Wed, 02 Dec 2020 12:18:14 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1377-2</guid>
+        <source url="https://forum.mangoh.io/t/ultra-low-power-mode-in-gps-example/1377.rss">Ultra low power mode in GPS example</source>
+      </item>
+      <item>
+        <title>Ultra low power mode in GPS example</title>
+        <dc:creator><![CDATA[rzapata]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello everyone,</p>
+<p>I’m a new developer, I’ve used mangOH for some IoT applications.</p>
+<p>I’m struggling with the following example that sends current location get from GPS to a cellphone via sms.</p>
+<p>sample link: <a href="https://github.com/legatoproject/legato-af/tree/master/apps/sample/textLoc" rel="nofollow noopener">https://github.com/legatoproject/legato-af/tree/master/apps/sample/textLoc</a></p>
+<p>The sample starts getting ULPM firmware version. If it’s not found it kills the process by using LE_FATAL_IF.</p>
+<p>Then it gets the cellphone number. After that, it creates a  network registration state handler. This is where my first question is: Why does it uses network registration as parameter to send the location? It’s not using the GPS signal itself as parameters (as I would expect), but the internet registration. The odd part is that when I enter “cm data” via Putty connected to MangOH, it says my sim is registered, why is it expecting that to change prior to sending my GPS location?</p>
+<p>After adding the handler, it puts the function in the queue via le_event_QueueFunction. The function RegistrationStateHandler is the one executed when network registration state changes (am I right? please let me know if I’m not), and this function uses a switch statement to tell when the network status is LE_MRC_REG_ROAMING. Then it gets the GPS position, set boot by gpio and time and shutdown app via le_ulpm_ShutDown.</p>
+<p>When the application is in ULPM, after a boot event happens (GPIO or time), does the main component start again?</p>
+<p>Best regards,</p>
+<p>Renato Zapata Lusni</p>
+          <p><a href="https://forum.mangoh.io/t/ultra-low-power-mode-in-gps-example/1377/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ultra-low-power-mode-in-gps-example/1377/1</link>
+        <pubDate>Thu, 03 May 2018 14:46:11 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1377-1</guid>
+        <source url="https://forum.mangoh.io/t/ultra-low-power-mode-in-gps-example/1377.rss">Ultra low power mode in GPS example</source>
+      </item>
+  </channel>
+</rss>

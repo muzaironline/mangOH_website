@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>I2c app problems - mangOH Red - mangOH forum</title>
+    <meta name="description" content="Hi, 
+I am trying to run an app very similar to BatteryChargerReading which is in: 
+https://github.com/mangOH/mangOH/tree/master/samples/tutorials/mangOH_Red/i2c/BatteryChargerReading 
+The thing is: every time I try to ru&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/i2c-app-problems/2398?page=2" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;I2c app problems&#39;" href="https://forum.mangoh.io/t/i2c-app-problems/2398.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/i2c-app-problems/2398?page=2" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/i2c-app-problems/2398?page=2" />
+<meta property="og:title" content="I2c app problems" />
+<meta name="twitter:title" content="I2c app problems" />
+<meta property="og:description" content="Then why you can compile previously?" />
+<meta name="twitter:description" content="Then why you can compile previously?" />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="8 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="2 ❤" />
+<meta property="article:published_time" content="2021-06-29T12:44:36+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="prev" href="/t/i2c-app-problems/2398">
+
+    
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/i2c-app-problems/2398">I2c app problems</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='I2c app problems'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_21' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/i2c-app-problems/2398">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-29T12:44:36Z' class='post-time'>
+                    June 29, 2021, 12:44pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-29T12:44:36Z'>
+              <span itemprop='position'>21</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Then why you can compile previously?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_22' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/lukasmertens'><span itemprop='name'>lukasmertens</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/i2c-app-problems/2398">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-29T12:45:32Z' class='post-time'>
+                    June 29, 2021, 12:45pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-29T12:45:32Z'>
+              <span itemprop='position'>22</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>If i know that i already fixed it.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_23' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/i2c-app-problems/2398">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-29T12:46:32Z' class='post-time'>
+                    June 29, 2021, 12:46pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-29T15:35:30Z'>
+              <span itemprop='position'>23</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Then same for me here  …</p>
+<p>You are the only one to know what has been changed, so you need to fix that</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_24' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/lukasmertens'><span itemprop='name'>lukasmertens</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/i2c-app-problems/2398">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T09:32:52Z' class='post-time'>
+                    June 30, 2021,  9:32am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T09:32:52Z'>
+              <span itemprop='position'>24</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Now i get this error, why can’t he open this bus?</p>
+<pre><code class="lang-auto">Jun 30 09:25:57 swi-mdm9x28-wp user.info Legato:  INFO | batteryReading[2376]/batteryReadingComponent T=main | batteryReading.c _batteryReadingComponent_COMPONENT_INIT() 274 | =============== I2C Reading &amp; Writing application has started
+Jun 30 09:25:57 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[2376]/batteryReadingComponent T=main | batteryReading.c EnableI2cBus() 177 | Enabling TCA9546A I2C switch...
+Jun 30 09:25:57 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[2376]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 38 | Opening I2C bus: '/dev/i2c/5'
+Jun 30 09:25:57 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[2376]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 43 | Opening I2C bus: '/dev/i2c-5'
+Jun 30 09:25:57 swi-mdm9x28-wp user.err Legato: =ERR= | batteryReading[2376]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 55 | Could not open file /dev/i2c-5 or /dev/i2c/5: No such file or directory
+Jun 30 09:25:57 swi-mdm9x28-wp user.emerg Legato: *EMR* | batteryReading[2376]/batteryReadingComponent T=main | batteryReading.c EnableI2cBus() 180 | failed to open i2cbus 5
+Jun 30 11:25:57 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[909]/supervisor T=main | proc.c proc_SigChildHandler() 2079 | Process 'batteryReading' (PID: 2376) has exited with exit code 1.
+Jun 30 11:25:57 swi-mdm9x28-wp user.emerg Legato: *EMR* | supervisor[909]/supervisor T=main | proc.c proc_SigChildHandler() 2121 | Process 'batteryReading' reached fault limit while system in probation. Device will be rebooted.
+Jun 30 11:25:58 swi-mdm9x28-wp user.emerg Legato: *EMR* | supervisor[909]/supervisor T=main | app.c app_SigChildHandler() 4103 | Process 'batteryReading' in app 'batteryReading' faulted: Rebooting system.
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_25' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/i2c-app-problems/2398">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T09:40:09Z' class='post-time'>
+                    June 30, 2021,  9:40am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T09:40:09Z'>
+              <span itemprop='position'>25</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>there is no such device node.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_26' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/lukasmertens'><span itemprop='name'>lukasmertens</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/i2c-app-problems/2398">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T09:41:46Z' class='post-time'>
+                    June 30, 2021,  9:41am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T09:41:46Z'>
+              <span itemprop='position'>26</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>What do you mean? When i execute the command “i2cdetect -y -r  5” i get the adress i need.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_27' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/i2c-app-problems/2398">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T09:45:30Z' class='post-time'>
+                    June 30, 2021,  9:45am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T09:45:30Z'>
+              <span itemprop='position'>27</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>how do you modify this part??</p>
+<pre><code class="lang-auto">requires:
+{
+    device:
+    {
+        [rw] /dev/i2c-0 /dev/i2c-0
+    }
+</code></pre>
+<p>}</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_28' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/lukasmertens'><span itemprop='name'>lukasmertens</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/i2c-app-problems/2398">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T09:49:39Z' class='post-time'>
+                    June 30, 2021,  9:49am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T09:49:39Z'>
+              <span itemprop='position'>28</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Like this:</p>
+<pre><code class="lang-auto">requires:
+{
+    device:
+    {
+        [rw] /dev/i2c-5 /dev/i2c-5
+    }
+}
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_29' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/i2c-app-problems/2398">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T10:10:27Z' class='post-time'>
+                    June 30, 2021, 10:10am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T10:10:27Z'>
+              <span itemprop='position'>29</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>how about</p>
+<pre><code class="lang-auto">requires:
+{
+    device:
+    {
+        [rw] /dev/i2c-4 /dev/i2c-0
+    }
+}
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_30' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/lukasmertens'><span itemprop='name'>lukasmertens</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/i2c-app-problems/2398">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T10:11:50Z' class='post-time'>
+                    June 30, 2021, 10:11am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T10:11:50Z'>
+              <span itemprop='position'>30</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>No, also doesn’t work. The same error</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_31' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/i2c-app-problems/2398">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T10:14:18Z' class='post-time'>
+                    June 30, 2021, 10:14am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T10:20:10Z'>
+              <span itemprop='position'>31</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>it is working on my side</p>
+<pre><code class="lang-auto">Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c app_Stop() 3545 | Stopping app 'batteryReading'
+Jan  6 00:03:52 swi-mdm9x28-wp user.crit Legato: *CRT* | batteryReading[1896]/framework T=main | LE_FILENAME TermSignalHandler() 643 | Terminated
+Jan  6 08:03:52 swi-mdm9x28-wp user.warn Legato: -WRN- | _appStopClient[1940]/framework T=main | LE_FILENAME CreateSocket() 550 | Socket opened as standard i/o file descriptor 2!
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c app_StopComplete() 4686 | app 'batteryReading' has stopped.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | apps.c DeactivateAppContainer() 374 | Application 'batteryReading' has stopped.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c app_Start() 3420 | Starting app 'batteryReading'
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/dev/log' to '/legato/systems/current/appsWriteable/batteryReading/dev/log': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/dev/null' to '/legato/systems/current/appsWriteable/batteryReading/dev/null': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/dev/zero' to '/legato/systems/current/appsWriteable/batteryReading/dev/zero': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/legato/systems/current/lib/liblegato.so' to '/legato/systems/current/appsWriteable/batteryReading/lib/liblegato.so': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/ld-linux.so.3' to '/legato/systems/current/appsWriteable/batteryReading/lib/ld-linux.so.3': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/libc.so.6' to '/legato/systems/current/appsWriteable/batteryReading/lib/libc.so.6': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/libpthread.so.0' to '/legato/systems/current/appsWriteable/batteryReading/lib/libpthread.so.0': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/librt.so.1' to '/legato/systems/current/appsWriteable/batteryReading/lib/librt.so.1': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/libdl.so.2' to '/legato/systems/current/appsWriteable/batteryReading/lib/libdl.so.2': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/libgcc_s.so.1' to '/legato/systems/current/appsWriteable/batteryReading/lib/libgcc_s.so.1': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/libm.so.6' to '/legato/systems/current/appsWriteable/batteryReading/lib/libm.so.6': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/usr/lib/libstdc++.so.6' to '/legato/systems/current/appsWriteable/batteryReading/lib/libstdc++.so.6': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/legato/systems/current/apps/batteryReading/read-only/lib/libComponent_batteryReadingComponent.so' to '/legato/systems/current/appsWr
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/legato/systems/current/apps/batteryReading/read-only/bin/batteryReading' to '/legato/systems/current/appsWriteable/batteryReading/bi
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/dev/i2c-4' to '/legato/systems/current/appsWriteable/batteryReading/dev/i2c-0': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateTmpFs() 1738 | Mounted tmpfs at /legato/systems/current/appsWriteable/batteryReading/tmp.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/tmp/legato/serviceDirectoryServer' to '/legato/systems/current/appsWriteable/batteryReading/tmp/legato/serviceDirectoryServer'.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/tmp/legato/serviceDirectoryClient' to '/legato/systems/current/appsWriteable/batteryReading/tmp/legato/serviceDirectoryClient'.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 102400.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 102400.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | proc.c proc_Start() 1390 | Starting process 'batteryReading' with pid 1941
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1941]/supervisor T=main | proc.c proc_Start() 1355 | Execing 'batteryReading'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=unknown | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refPathIteratorMap' is truncated to 'framework.hashMap_refPathIterat'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refEventHandlers' is truncated to 'framework.hashMap_refEventHandl'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refDefault Timer SafeRe' is truncated to 'framework.hashMap_refDefault Ti'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.MessagingClientInterfaces' is truncated to 'framework.MessagingClientInterf'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refHandlersRef' is truncated to 'framework.hashMap_refHandlersRe'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_MessagingServices' is truncated to 'framework.hashMap_MessagingServ'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_MessagingClients' is truncated to 'framework.hashMap_MessagingClie'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.PipelineSIGCHLD-reports' is truncated to 'framework.PipelineSIGCHLD-repor'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME fs_Init() 840 | FS prefix path "/data/le_fs/"
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refFsFileRefMap' is truncated to 'framework.hashMap_refFsFileRefM'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME rand_Init() 71 | getrandom function: 0xb6d4a150
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.DestructorObjs' overflowed. Expanded to 1 blocks.
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/&lt;invalid&gt; T=main | _componentMain.c _batteryReadingComponent_Init() 26 | Initializing batteryReadingComponent component library.
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.msgs-LogControlProtocol' is truncated to 'framework.msgs-LogControlProtoc'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.SigMonitor' overflowed. Expanded to 1 blocks.
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.SigHandler' overflowed. Expanded to 1 blocks.
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReading_exe T=main | _main.c main() 60 | == Starting Event Processing Loop ==
+Jan  6 00:03:52 swi-mdm9x28-wp user.info Legato:  INFO | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c _batteryReadingComponent_COMPONENT_INIT() 275 | =============== I2C Reading &amp; Writing application has started
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c EnableI2cBus() 178 | Enabling TCA9546A I2C switch...
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x0, data=0x37
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 201 | Input Source Control value is 55
+Jan  6 00:03:53 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:53 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:53 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x1, data=0x1b
+Jan  6 00:03:53 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 206 | Power-On Configuration Register value is 27
+Jan  6 00:03:54 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:54 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:54 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x2, data=0x60
+Jan  6 00:03:54 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 211 | Charge Current Control Register value is 96
+Jan  6 00:03:55 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:55 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:55 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x3, data=0x11
+Jan  6 00:03:55 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 216 | Pre-Charge/Termination Current Control Register value is 17
+Jan  6 00:03:56 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:56 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:56 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x4, data=0xba
+Jan  6 00:03:56 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 221 | Charge Voltage Control Register value is 186
+Jan  6 00:03:57 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:57 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:57 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x5, data=0x9c
+Jan  6 00:03:57 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 226 | Charge Termination/Timer Control Register value is 156
+Jan  6 00:03:58 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:58 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:58 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x6, data=0x73
+Jan  6 00:03:58 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 231 | Thermal Regulation Control Register value is 115
+Jan  6 00:03:59 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:59 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:59 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x7, data=0x4b
+Jan  6 00:03:59 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 236 | Misc Operation Control Register value is 75
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x8, data=0x85
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 241 | System Status Register value is 133
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x9, data=0x82
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 244 | Fault Register value is 130
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0xa, data=0x20
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 247 | Vendor / Part / Revision Status Register value is 32
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusWriteReg() 157 | SMBUS Write addr 0x6b, reg=0x4, data=0xba
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x4, data=0xba
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c OutputBatteryChargerVoltage() 264 | Output voltage is set to 186
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_32' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/lukasmertens'><span itemprop='name'>lukasmertens</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/i2c-app-problems/2398">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T10:37:56Z' class='post-time'>
+                    June 30, 2021, 10:37am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T10:37:56Z'>
+              <span itemprop='position'>32</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Does it also work when you take bus 5? Because Bus 0 also works for me.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_33' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/i2c-app-problems/2398">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-30T10:44:16Z' class='post-time'>
+                    June 30, 2021, 10:44am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-30T10:51:01Z'>
+              <span itemprop='position'>33</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>i don’t have bus5 on my board<br>
+If bus0 works for you, why don’t you try the following?</p>
+<pre><code class="lang-auto">requires:
+{
+    device:
+    {
+        [rw] /dev/i2c-5 /dev/i2c-0
+    }
+}
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><a rel="prev" itemprop="url" href="/t/i2c-app-problems/2398">← previous page</a></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

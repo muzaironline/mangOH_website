@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Sandbox prevent file read? - #2 by jyijyi - mangOH Yellow - mangOH forum</title>
+    <meta name="description" content="Hi, 
+I was trying to connect to a 3rd party MQTT server and had to add a private CA to the ca-certificates.crt file, so I added the cert and uploaded to the mangoh yellow board. But after that, I cannot connect as I’m ge&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/sandbox-prevent-file-read/6349" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Sandbox prevent file read?&#39;" href="https://forum.mangoh.io/t/sandbox-prevent-file-read/6349.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" />
+<meta property="og:url" content="https://forum.mangoh.io/t/sandbox-prevent-file-read/6349/2" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/sandbox-prevent-file-read/6349/2" />
+<meta property="og:title" content="Sandbox prevent file read?" />
+<meta name="twitter:title" content="Sandbox prevent file read?" />
+<meta property="og:description" content="does it work when unsandboxed?  You might see here on how to change the permission for accessing file outside sandbox:" />
+<meta name="twitter:description" content="does it work when unsandboxed?  You might see here on how to change the permission for accessing file outside sandbox:" />
+<meta property="og:article:section" content="mangOH Yellow" />
+<meta property="og:article:section:color" content="F1C900" />
+<meta property="article:published_time" content="2021-03-16T01:35:35+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Sandbox prevent file read?","mainEntity":{"@type":"Question","name":"Sandbox prevent file read?","text":"Hi,\n\nI was trying to connect to a 3rd party MQTT server and had to add a private CA to the ca-certificates.crt file, so I added the cert and uploaded to the mangoh yellow board. But after that, I cannot connect as I’m getting the following errors:\n\nMar 15 17:29:39 swi-mdm9x28-wp user.notice kernel: &hellip;","upvoteCount":0,"answerCount":1,"dateCreated":"2021-03-15T22:39:12.447Z","author":{"@type":"Person","name":"James Wollaeger"},"acceptedAnswer":{"@type":"Answer","text":"You need to downgrade your wp76 to r12 and use swiflash to erase user partition","upvoteCount":0,"dateCreated":"2021-03-17T15:01:20.694Z","url":"https://forum.mangoh.io/t/sandbox-prevent-file-read/6349/4","author":{"@type":"Person","name":"jyijyi"}}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/sandbox-prevent-file-read/6349">Sandbox prevent file read?</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-yellow/15" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #F1C900'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Yellow</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Sandbox prevent file read?'>
+        <meta itemprop='articleSection' content='mangOH Yellow'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jameswollaeger'><span itemprop='name'>jameswollaeger</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/sandbox-prevent-file-read/6349">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-15T22:39:12Z' class='post-time'>
+                    March 15, 2021, 10:39pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-15T22:39:12Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hi,</p>
+<p>I was trying to connect to a 3rd party MQTT server and had to add a private CA to the ca-certificates.crt file, so I added the cert and uploaded to the mangoh yellow board. But after that, I cannot connect as I’m getting the following errors:</p>
+<p>Mar 15 17:29:39 swi-mdm9x28-wp user.notice kernel: [16173.861156] audit: type=1400 audit(1615847379.191:46): lsm=SMACK fn=smack_inode_getattr action=denied subject=“app.requestController” object=“admin” requested=r pid=17075 comm=“mqttClientServi” path=“pipe:[194068]” dev="pipe<br>
+Mar 15 17:29:40 swi-mdm9x28-wp user.notice kernel: [16175.042740] audit: type=1400 audit(1615847380.371:47): lsm=SMACK fn=smack_inode_permission action=denied subject=“app.requestController” object=“admin” requested=x pid=17075 comm=“mqttClientServi” name=“ssl” dev=“ubifs” ino=<br>
+Mar 15 17:29:41 swi-mdm9x28-wp user.notice kernel: [16176.044736] audit: type=1400 audit(1615847381.371:48): lsm=SMACK fn=smack_inode_permission action=denied subject=“app.requestController” object=“admin” requested=x pid=17075 comm=“mqttClientServi” name=“ssl” dev=“ubifs” ino=</p>
+<p>Is this because the app cannot read the partition. I note that the original folder is mostly file links to a different location.</p>
+<p>lrwxrwxrwx    1 root     root            74 Mar  2 13:07 c089bbbd.0 → …/…/…/usr/share/ca-certificates/mozilla/thawte_Primary_Root_CA_-<em>G2.crt<br>
+lrwxrwxrwx    1 root     root           107 Mar  2 13:07 c0ff1f52.0 → …/…/…/usr/share/ca-certificates/mozilla/Verisign_Class_3_Public_Primary_Certification_Authority</em>-<em>G3.crt<br>
+lrwxrwxrwx    1 root     root            77 Mar  2 13:07 c28a8a30.0 → …/…/…/usr/share/ca-certificates/mozilla/D-TRUST_Root_Class_3_CA_2_2009.crt<br>
+lrwxrwxrwx    1 root     root            79 Mar  2 13:07 c47d9980.0 → …/…/…/usr/share/ca-certificates/mozilla/Chambers_of_Commerce_Root</em>-_2008.crt<br>
+lrwxrwxrwx    1 root     root            57 Mar  2 13:07 c5d3212a.0 → …/…/…/usr/share/ca-certificates/mozilla/PSCProcert.crt<br>
+lrwxrwxrwx    1 root     root            74 Mar  2 13:07 c9f83a1c.0 → …/…/…/usr/share/ca-certificates/mozilla/Comodo_Secure_Services_root.crt<br>
+-rwxrwxrwx    1 root     root        234846 Mar 15 17:12 ca-certificates.crt<br>
+lrwxrwxrwx    1 root     root            80 Mar  2 13:07 ca6e4ad9.0 → …/…/…/usr/share/ca-certificates/mozilla/ePKI_Root_Certification_Authority.crt<br>
+lrwxrwxrwx    1 root     root            81 Mar  2 13:07 cb59f961.0 → …/…/…/usr/share/ca-certificates/mozilla/Camerfirma_Global_Chambersign_Root.crt<br>
+lrwxrwxrwx    1 root     root            67 Mar  2 13:07 cbeee9e2.0 → …/…/…/usr/share/ca-certificates/mozilla/GeoTrust_Global_CA_2.crt</p>
+<p>Is there a better way to approach adding the crt file, or do I simply need to give my app permission to go to a new directory? Thanks!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/sandbox-prevent-file-read/6349">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-16T01:35:35Z' class='post-time'>
+                    March 16, 2021,  1:35am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-16T03:32:14Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>does it work when unsandboxed?</p>
+<p>You might see here on how to change the permission for accessing file outside sandbox:</p><aside class="onebox allowlistedgeneric">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/252837692301bb53b7d4b8041901ad6486ced526.png" class="site-icon" width="32" height="32">
+      <a href="https://forum.legato.io/t/how-to-write-data-to-a-file-outside-sandbox/246/12" target="_blank" rel="noopener nofollow ugc" title="08:44AM - 05 October 2018">Legato Forum – 5 Oct 18</a>
+  </header>
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/how-to-write-data-to-a-file-outside-sandbox/246/12" target="_blank" rel="noopener nofollow ugc">How to write data to a file outside sandbox</a></h3>
+
+<p>Hi Alegato,  Could you please elaborate your answer a bit more? I’ve tried to create file outside sandbox and give app access to it in adef file, but it still says that my file is read only</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/22">Error while loading shared libraries: Internal Error</a>
+                        <meta itemprop='position' content='2'>
+                      </div>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/24">Error while loading shared libraries: Internal Error</a>
+                        <meta itemprop='position' content='3'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jameswollaeger'><span itemprop='name'>jameswollaeger</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/sandbox-prevent-file-read/6349">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-17T14:18:02Z' class='post-time'>
+                    March 17, 2021,  2:18pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-17T14:18:02Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>It does work when unsandboxed.</p>
+<p>Ideally, I want to revert all changes in the USER1 partition. Can I do this without a linux physical PC? I only have a VM running here with ubuntu on it.</p>
+<p>I found this post: <a href="https://forum.legato.io/t/unable-to-erase-user1-partition/4750/6" class="inline-onebox" rel="noopener nofollow ugc">Unable to erase USER1 partition - #6 by tanoue - Legato Application Framework - Legato Forum</a></p>
+<p>method2: “fdt2.exe” with .spk file   can be run on a windows PC, but i dont think that if i use the spk file downloaded from <a href="http://source.sierrawireless.com" rel="noopener nofollow ugc">source.sierrawireless.com</a> that its actually erasing the user partition?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/sandbox-prevent-file-read/6349">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-17T15:01:20Z' class='post-time'>
+                    March 17, 2021,  3:01pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-17T15:01:20Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You need to downgrade your wp76 to r12 and use swiflash to erase user partition</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

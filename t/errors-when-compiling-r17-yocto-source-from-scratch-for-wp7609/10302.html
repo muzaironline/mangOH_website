@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Errors when compiling R17 Yocto source from scratch for WP7609 - mangOH forum</title>
+    <meta name="description" content="Hello, 
+I am trying to compile a complete image for the WP7609 of the new R17 source. 
+I successfully did so with the R16 source but I went to re-do it and one of the hosting repositories has been shut down so I’m redoin&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/errors-when-compiling-r17-yocto-source-from-scratch-for-wp7609/10302" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Errors when compiling R17 Yocto source from scratch for WP7609&#39;" href="https://forum.mangoh.io/t/errors-when-compiling-r17-yocto-source-from-scratch-for-wp7609/10302.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/errors-when-compiling-r17-yocto-source-from-scratch-for-wp7609/10302" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/errors-when-compiling-r17-yocto-source-from-scratch-for-wp7609/10302" />
+<meta property="og:title" content="Errors when compiling R17 Yocto source from scratch for WP7609" />
+<meta name="twitter:title" content="Errors when compiling R17 Yocto source from scratch for WP7609" />
+<meta property="og:description" content="Hello,  I am trying to compile a complete image for the WP7609 of the new R17 source.  I successfully did so with the R16 source but I went to re-do it and one of the hosting repositories has been shut down so I’m redoing the same process but for the R17 source.  I am running into a bug in the build script though.  I am running this on Ubuntu 18.04, with the 64 bit tool chain downloaded from the R17 components website from Sierra Wireless.  When i run the ‘make image’ command to generate the Yoc..." />
+<meta name="twitter:description" content="Hello,  I am trying to compile a complete image for the WP7609 of the new R17 source.  I successfully did so with the R16 source but I went to re-do it and one of the hosting repositories has been shut down so I’m redoing the same process but for the R17 source.  I am running into a bug in the build script though.  I am running this on Ubuntu 18.04, with the 64 bit tool chain downloaded from the R17 components website from Sierra Wireless.  When i run the ‘make image’ command to generate the Yoc..." />
+<meta property="article:published_time" content="2023-06-22T04:48:37+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Errors when compiling R17 Yocto source from scratch for WP7609","mainEntity":{"@type":"Question","name":"Errors when compiling R17 Yocto source from scratch for WP7609","text":"Hello,\n\nI am trying to compile a complete image for the WP7609 of the new R17 source.\n\nI successfully did so with the R16 source but I went to re-do it and one of the hosting repositories has been shut down so I’m redoing the same process but for the R17 source.\n\nI am running into a bug in the build&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2023-06-22T04:48:37.041Z","author":{"@type":"Person","name":"Morgan Adams"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/errors-when-compiling-r17-yocto-source-from-scratch-for-wp7609/10302">Errors when compiling R17 Yocto source from scratch for WP7609</a>
+    </h1>
+
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Errors when compiling R17 Yocto source from scratch for WP7609'>
+        <meta itemprop='articleSection' content='Uncategorized'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/morganadams'><span itemprop='name'>morganadams</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/errors-when-compiling-r17-yocto-source-from-scratch-for-wp7609/10302">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2023-06-22T04:48:37Z' class='post-time'>
+                    June 22, 2023,  4:48am
+                  </time>
+                  <meta itemprop='dateModified' content='2023-06-22T04:48:37Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hello,</p>
+<p>I am trying to compile a complete image for the WP7609 of the new R17 source.</p>
+<p>I successfully did so with the R16 source but I went to re-do it and one of the hosting repositories has been shut down so I’m redoing the same process but for the R17 source.</p>
+<p>I am running into a bug in the build script though.</p>
+<p>I am running this on Ubuntu 18.04, with the 64 bit tool chain downloaded from the R17 components website from Sierra Wireless.</p>
+<p>When i run the ‘make image’ command to generate the Yocto image it gets part way through the jobs and then spits out this error:</p>
+<p>ERROR: lk-1.3.0-r2 do_compile: oe_runmake failed<br>
+ERROR: lk-1.3.0-r2 do_compile: Execution of ‘/home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/temp/run.do_compile.4284’ failed with exit code 1<br>
+ERROR: Logfile of failure stored in: /home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/temp/log.do_compile.4284<br>
+Log data follows:<br>
+| DEBUG: Executing shell function do_compile<br>
+| NOTE: make -j 9 -j 1 TOOLCHAIN_PREFIX=arm-poky-linux-gnueabi- TOOLCHAIN_OPTIONS= --sysroot=/home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/recipe-sysroot mdm9607 DEBUG=0 BOOTLOADER_OUT=/home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/build ARCH=arm CC=arm-poky-linux-gnueabi-gcc  -march=armv7-a -mfpu=neon -mfloat-abi=softfp -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/recipe-sysroot  -Wno-error=format-security ENABLE_IMA=0 ENABLE_FX30= IMA_KERNEL_CMDLINE_OPTIONS= LINUX_KERNEL_DIR=/home/user/yocto/kernel WP_BOARD_PROBE=1 SIGNED_KERNEL=1<br>
+| make[1]: Entering directory ‘/home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/lk’<br>
+| including app/aboot app/nandwrite app/rpmbtests dev/keys dev/pmic/pm8x41 dev/vib lib/debug lib/heap lib/libc lib/libfdt lib/openssl lib/ptable<br>
+| including lib/openssl/crypto lib/zlib_inflate<br>
+| generating /home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/build/build-mdm9607/config.h<br>
+| compiling app/aboot/sierra_bl.c<br>
+| arm-poky-linux-gnueabi-gcc  -march=armv7-a -mfpu=neon -mfloat-abi=softfp -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/recipe-sysroot  -Wno-error=format-security -O2 -g -fno-builtin -finline -W -Wall -Wno-multichar -Wno-unused-parameter -Wno-unused-function -include /home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/build/build-mdm9607/config.h -D_SIGNED_KERNEL=1 -DSIERRA -DSWI_IMAGE_LK -DSSDP_OVER_SPI -DENABLE_HASH_CHECK -fstack-protector-all -fno-strict-overflow -ffunction-sections -fdata-sections -I app/aboot -mcpu=cortex-a8  -DOPENSSL_BN_ASM_MONT -DAES_ASM -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -DOPENSSL_NO_STDIO -DOPENSSL_NO_FP_API -DNO_WINDOWS_BRAINDEATH -DOPENSSL_IMPLEMENTS_strncasecmp -DOPENSSL_NO_DSA -DOPENSSL_NO_DH -DGETPID_IS_MEANINGLESS -DOPENSSL_NO_EC -DOPENSSL_NO_DES -DOPENSSL_THREADS -D_REENTRANT -DDSO_DLFCN -DHAVE_DLFCN_H -DL_ENDIAN  -DOPENSSL_NO_CAMELLIA -DOPENSSL_NO_CAPIENG -DOPENSSL_NO_CAST -DOPENSSL_NO_CMS -DOPENSSL_NO_GMP -DOPENSSL_NO_IDEA -DOPENSSL_NO_JPAKE -DOPENSSL_NO_MD2 -DOPENSSL_NO_MDC2 -DOPENSSL_NO_RC5 -DOPENSSL_NO_SHA0 -DOPENSSL_NO_RFC3779 -DOPENSSL_NO_SEED -DOPENSSL_NO_STORE -DOPENSSL_NO_WHIRLPOOL -DOPENSSL_NO_HW -DOPENSSL_NO_ENGINE -DZLIB -DLK_NO_TIME -DLK_NO_QSORT -DLK_NO_BIO -DLK_NO_HMAC -DLK_NO_ENCODE -DLK_NO_STDERR -DLK_NO_ABORT -DLK_NO_PEM -DLK_NO_OAEP -DLK_NO_SSLV23 -DLK_NO_RAND -DLK_NO_UNISTD -DLK_NO_ERR_STATE -DOPENSSL_LK  --std=c99 -I/home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/build/build-mdm9607 -Iinclude -Itarget/mdm9607/include -I./platform/msm_shared -Iplatform/mdm9607/include -I./platform/msm_shared/include -I./include -I./include/sys -Iplatform/msm_shared/include -I./dev/panel/msm -Iarch/arm/include -I./platform/msm_shared/include -I./lib/zlib_inflate -I/home/user/yocto/kernel/arch/arm/mach-msm/include -I./platform/msm_shared/include -Idev/pmic/pm8x41/include -Idev/vib/include -Ilib/libfdt -Ilib/openssl/crypto -Ilib/openssl/crypto/asn1 -Ilib/openssl/crypto/evp -Ilib/openssl/crypto/x509 -Ilib/openssl/crypto/…/… -Ilib/openssl/crypto/…/include -Ilib/openssl/crypto/…/include/openssl -Ilib/openssl/crypto/…/…/openssl -c app/aboot/sierra_bl.c -MD -MT /home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/build/build-mdm9607/app/aboot/sierra_bl.o -MF /home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/build/build-mdm9607/app/aboot/sierra_bl.d -o /home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/build/build-mdm9607/app/aboot/sierra_bl.o<br>
+| cc1: error: /home/user/yocto/kernel/arch/arm/mach-msm/include: Not a directory<br>
+| cc1: warning: switch ‘-mcpu=cortex-a8’ conflicts with ‘-march=armv7-a’ switch<br>
+| arch/arm/compile.mk:3: recipe for target ‘/home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/build/build-mdm9607/app/aboot/sierra_bl.o’ failed<br>
+| make[1]: *** [/home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/build/build-mdm9607/app/aboot/sierra_bl.o] Error 1<br>
+| make[1]: Leaving directory ‘/home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/lk’<br>
+| ERROR: oe_runmake failed<br>
+| makefile:20: recipe for target ‘make-make’ failed<br>
+| make: *** [make-make] Error 2<br>
+| WARNING: /home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/temp/run.do_compile.4284:1 exit 1 from ‘exit 1’<br>
+| ERROR: Execution of ‘/home/user/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/temp/run.do_compile.4284’ failed with exit code 1<br>
+ERROR: Task (/home/user/yocto/meta-swi/meta-swi-mdm9xxx/recipes-bsp/lk/lk_1.3.0.bb:do_compile) failed with exit code ‘1’</p>
+<p>Can anyone help me fix this error in the build script or with my environment?</p>
+<p>Thanks in advance!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/errors-when-compiling-r17-yocto-source-from-scratch-for-wp7609/10302">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2023-06-22T14:35:38Z' class='post-time'>
+                    June 22, 2023,  2:35pm
+                  </time>
+                  <meta itemprop='dateModified' content='2023-06-22T14:35:38Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>We don’t see problem in compiling r17 yocto source</p>
+<aside class="onebox discoursetopic" data-onebox-src="https://forum.sierrawireless.com/t/i-got-error-when-i-compile-r17-yocto/30010/3">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/ea0a112ab14752f6247d71aa81f507eddb552239.png" class="site-icon" data-dominant-color="F04223" width="32" height="32">
+
+      <a href="https://forum.sierrawireless.com/t/i-got-error-when-i-compile-r17-yocto/30010/3" target="_blank" rel="noopener nofollow ugc" title="02:01AM - 19 June 2023">Sierra Wireless Forum – 19 Jun 23</a>
+  </header>
+
+  <article class="onebox-body">
+    <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png" class="thumbnail onebox-avatar" width="500" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 2x" data-dominant-color="F04223">
+
+<div class="title-wrapper">
+  <h3><a href="https://forum.sierrawireless.com/t/i-got-error-when-i-compile-r17-yocto/30010/3" target="_blank" rel="noopener nofollow ugc">I got error when I compile R17 yocto</a></h3>
+</div>
+
+  <p>I add gstreamer tools, then got this error.</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/morganadams'><span itemprop='name'>morganadams</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/errors-when-compiling-r17-yocto-source-from-scratch-for-wp7609/10302">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2023-06-22T23:50:45Z' class='post-time'>
+                    June 22, 2023, 11:50pm
+                  </time>
+                  <meta itemprop='dateModified' content='2023-06-22T23:50:45Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Did you download the source from the R17 components page or from the git repo?</p>
+<p>Could you please share the environment that you are using to compile with? Perhaps the difference is our environments.</p>
+<p>I am using Ubuntu 18.04, installing the packages from apt that the Yocto project recommend and the x64 toolchain from the sierra wireless website. Then running ‘make image’.</p>
+<p>Thanks in advance!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/errors-when-compiling-r17-yocto-source-from-scratch-for-wp7609/10302">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2023-06-23T01:03:21Z' class='post-time'>
+                    June 23, 2023,  1:03am
+                  </time>
+                  <meta itemprop='dateModified' content='2023-06-23T04:23:02Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I used Ubuntu 16  and I download the yocto package (Legato-Dist-Source-mdm9x28-SWI9X07Y_03.01.07.00.tar.bz2)  from SOURCE:</p>
+<p><a href="https://source.sierrawireless.com/resources/airprime/software/wp76xx/wp76xx-firmware-release-17-components/#sthash.ZccOb9ya.dpbs" class="onebox" target="_blank" rel="noopener nofollow ugc">https://source.sierrawireless.com/resources/airprime/software/wp76xx/wp76xx-firmware-release-17-components/#sthash.ZccOb9ya.dpbs</a></p>
+<p>I think your yocto package has some problem.</p>
+<p><code>| cc1: error: /home/user/yocto/kernel/arch/arm/mach-msm/include: Not a directory</code></p>
+<p>But “yocto/kernel/arch/arm/mach-msm/include/” can be found in my PC:</p>
+<pre><code class="lang-auto">owner@CNHKG-EX-001367:~/Yocto/WP76/R17_SWI9X07Y_03.01.07.00$ ls yocto/kernel/arch/arm/mach-msm/include/
+mach
+owner@CNHKG-EX-001367:~/Yocto/WP76/R17_SWI9X07Y_03.01.07.00$ lsb_release -a
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:	Ubuntu 16.04.7 LTS
+Release:	16.04
+Codename:	xenial
+</code></pre>
+<p>BTW, I used “make” to build the image.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/morganadams'><span itemprop='name'>morganadams</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/errors-when-compiling-r17-yocto-source-from-scratch-for-wp7609/10302">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2023-07-10T02:57:04Z' class='post-time'>
+                    July 10, 2023,  2:57am
+                  </time>
+                  <meta itemprop='dateModified' content='2023-07-10T02:57:04Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello,</p>
+<p>You were of course correct. By redownloading the tar file i have now been able to compile the default image and flash it onto a module successfully.</p>
+<p>I now have the issue where i am trying to compile the gstreamer &amp; usb webcam support into the yocto image. I have followed the pdf guide to integrate it into the compile time and the compile is successful, once I up the image size to 48M. However, when I flash the flash fails.</p>
+<p>Do you have any advice on how to successfully increase the image size and flash correctly?</p>
+<p>Thank you in advance.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/errors-when-compiling-r17-yocto-source-from-scratch-for-wp7609/10302">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2023-07-10T07:43:19Z' class='post-time'>
+                    July 10, 2023,  7:43am
+                  </time>
+                  <meta itemprop='dateModified' content='2023-07-10T09:41:39Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I remember it won’t have enough space on module by default,  you can see if just adding the following  without the “gstreamer1.0-plugins-good” is ok to you:</p>
+<pre><code class="lang-auto">IMAGE_INSTALL += "gstreamer1.0"
+IMAGE_INSTALL += "gstreamer1.0-plugins-base"
+#IMAGE_INSTALL += "gstreamer1.0-plugins-good"
+</code></pre>
+<p>some other user also tried to integrate gstreamer in WP7702:</p><aside class="onebox discoursetopic" data-onebox-src="https://forum.sierrawireless.com/t/compiler-wp7702-error/29698/106">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/ea0a112ab14752f6247d71aa81f507eddb552239.png" class="site-icon" data-dominant-color="F04223" width="32" height="32">
+
+      <a href="https://forum.sierrawireless.com/t/compiler-wp7702-error/29698/106" target="_blank" rel="noopener nofollow ugc" title="03:21AM - 12 May 2023">Sierra Wireless Forum – 12 May 23</a>
+  </header>
+
+  <article class="onebox-body">
+    <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png" class="thumbnail onebox-avatar" width="500" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 2x" data-dominant-color="F04223">
+
+<div class="title-wrapper">
+  <h3><a href="https://forum.sierrawireless.com/t/compiler-wp7702-error/29698/106" target="_blank" rel="noopener nofollow ugc">Compiler WP7702 error</a></h3>
+  <div class="topic-category">
+      <span class="badge-wrapper bullet">
+        <span class="badge-category-bg" style="background-color: #00aeaf;"></span>
+        <span class="badge-category clear-badge">
+          <span class="category-name">IoT Modules</span>
+        </span>
+      </span>
+      <span class="badge-wrapper bullet">
+        <span class="badge-category-bg" style="background-color: #12A89D;"></span>
+        <span class="badge-category clear-badge">
+          <span class="category-name">WP Series</span>
+        </span>
+      </span>
+  </div>
+</div>
+
+  <p>Hi @jyijyi ,  I remove gstreamer-good then the image size is 38MB, but I use gstreamer in shell I got WARNING and it cannot create file.  WARNING: erroneous pipeline: no element "v4l2src"  I want to follow your steps to install ffmpeg but I got...</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+<p>If you need to expand the system size of your module, you need to contact distributor to get a tool</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/morganadams'><span itemprop='name'>morganadams</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/errors-when-compiling-r17-yocto-source-from-scratch-for-wp7609/10302">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2023-07-11T03:45:56Z' class='post-time'>
+                    July 11, 2023,  3:45am
+                  </time>
+                  <meta itemprop='dateModified' content='2023-07-11T03:45:56Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello,</p>
+<p>So I’ve been able to compile in gstreamer and have the image install correctly on the WP76. However, when I modprobe for the uvcvideo driver it appears to not have been loaded into the OS image.</p>
+<p>I have added the camera.cfg to meta-swi/meta-swi-mdm9x28/recipeskernel/linux/files/, and I patched in references to it in the linux-quic_git.bb file.</p>
+<p>The files do differ slightly from the guide to the version in R17, are there any additional changes that i need to make to have the uvc drivers be added to the image?</p>
+<p>Thanks in advance.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/errors-when-compiling-r17-yocto-source-from-scratch-for-wp7609/10302">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/f/fbede7cd459b6d9fad8dadff7ce86ae8a8896aa1.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2023-07-11T05:36:48Z' class='post-time'>
+                    July 11, 2023,  5:36am
+                  </time>
+                  <meta itemprop='dateModified' content='2023-07-11T12:19:49Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You can see here to modify the following file in order to add the driver<br>
+./kernel/arch/arm/configs/mdm9607_defconfig</p>
+<aside class="onebox discoursetopic" data-onebox-src="https://forum.sierrawireless.com/t/compiler-wp7702-error/29698/86">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/ea0a112ab14752f6247d71aa81f507eddb552239.png" class="site-icon" data-dominant-color="F04223" width="32" height="32">
+
+      <a href="https://forum.sierrawireless.com/t/compiler-wp7702-error/29698/86" target="_blank" rel="noopener nofollow ugc" title="01:37AM - 11 May 2023">Sierra Wireless Forum – 11 May 23</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:624/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/f/fbede7cd459b6d9fad8dadff7ce86ae8a8896aa1.png" class="thumbnail" data-dominant-color="F6F6F7" width="624" height="500"></div>
+
+<div class="title-wrapper">
+  <h3><a href="https://forum.sierrawireless.com/t/compiler-wp7702-error/29698/86" target="_blank" rel="noopener nofollow ugc">Compiler WP7702 error</a></h3>
+  <div class="topic-category">
+      <span class="badge-wrapper bullet">
+        <span class="badge-category-bg" style="background-color: #00aeaf;"></span>
+        <span class="badge-category clear-badge">
+          <span class="category-name">IoT Modules</span>
+        </span>
+      </span>
+      <span class="badge-wrapper bullet">
+        <span class="badge-category-bg" style="background-color: #12A89D;"></span>
+        <span class="badge-category clear-badge">
+          <span class="category-name">WP Series</span>
+        </span>
+      </span>
+  </div>
+</div>
+
+  <p>Hi @jyijyi ,  You mean modify swi-mdm9x28.conf that include gstreamer and drivers ? like below:</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

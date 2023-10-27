@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Audio Playback with mangOH Green WP76xx</title>
+    <link>https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362</link>
+    <description>Dear all,
+
+We build an app, you will find source and compiled version for WP67xx in attachment audioPlaybackRec.zip
+
+
+We tested this app for Mangoh Red and seems work, but on Mango Green it not work, when we start it we see the MCLK (SYSTEM_CLK) at 19.2MHz, the BCLK (1.4MHz) and the LRCLK (48KHz). 
+
+
+We check it clocks on CN601 and on IOT#1, switching from Expander#3 GPO10, andh cheking that clocks disappear on IOT#1 but remain on CN601 as expected (detail on gpio settings on gpioexpander.txt).
+
+In all case, we don&#39;t see any data on PCM_IN/PCM_OUT (we check with oscilloscope).
+
+We suspect that in the branch for WP76xx there is a different setting for qdsp6v2 (see dmesg.txt). 
+
+
+We would like to check as first step if audio work on mangoh green with WP76xx, then on our board, is possible for you to check that our app work on mangoh green with WP67xx?
+
+
+File commands.txt contain command that we use for execute playback.
+
+Regards</description>
+    
+    <lastBuildDate>Thu, 17 Jun 2021 06:32:25 +0000</lastBuildDate>
+    <category>mangOH Green</category>
+    <atom:link href="https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Audio Playback with mangOH Green WP76xx</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I remember it should be working fine without AT command</p>
+<aside class="quote quote-modified" data-post="14" data-topic="4130">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130/14">How do I play a simple audio file from the cmd line?</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-red/12"><span class="badge-category-bg" style="background-color: #DF1E2E;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-red">mangOH Red</span></a>
+  </div>
+  <blockquote>
+    I don’t see problem on my WP7607 module even no AT command: 
+root@swi-mdm9x28-wp:~# amix ‘PRI_RX Audio Mixer MultiMedia1’ 1 
+root@swi-mdm9x28-wp:~# amix ‘Sys Clock Enable Switch’ 1 
+root@swi-mdm9x28-wp:~# amix ‘Capture PGA Mute Switch’ 1 
+root@swi-mdm9x28-wp:~# amix ‘Digital Playback Mute Switch’ 1 
+root@swi-mdm9x28-wp:~# amix ‘Digital Playback Volume’ 192 
+capability: volume 
+dBscale- min=-72.00dB step=0.37dB max=2.55dB mute=1 
+min = ffffe3e0 max = ffval = c0Value = 1.92dB 
+root@swi-mdm9x28-wp:…
+  </blockquote>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362/7</link>
+        <pubDate>Wed, 16 Jun 2021 15:04:34 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1362-7</guid>
+        <source url="https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362.rss">Audio Playback with mangOH Green WP76xx</source>
+      </item>
+      <item>
+        <title>Audio Playback with mangOH Green WP76xx</title>
+        <dc:creator><![CDATA[raghavasanikam]]></dc:creator>
+        <description><![CDATA[
+            <p>Any one has the answer for this.</p>
+<ol>
+<li>What is the reason that we need AT!AVAUDIO command before playout</li>
+<li>What about recording, record does not work even after using the AT!AVAUDIO</li>
+</ol>
+          <p><a href="https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362/6</link>
+        <pubDate>Wed, 16 Jun 2021 13:19:03 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1362-6</guid>
+        <source url="https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362.rss">Audio Playback with mangOH Green WP76xx</source>
+      </item>
+      <item>
+        <title>Audio Playback with mangOH Green WP76xx</title>
+        <dc:creator><![CDATA[natanb]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/akshaysk">@Akshaysk</a><br>
+I don’t have a good answer yet.  It seems to me that  “AT!AVAUDIO” command initiates a hw on the board.<br>
+after once using - AT!AVAUDIO=1,1,/home/root/example.wav<br>
+on mine board I don’t have an error=-22. I don’t hear any thing</p>
+<p>aplay  get_ready_for_picture.wav<br>
+aplay: Playing ‘get_ready_for_picture.wav’:Signed 16 bit Little Endian<br>
+buffer_bytes = (1024,1024) omin=0 omax=0 int=1 empty=0<br>
+period_bytes = (128,128) omin=0 omax=0 int=1 empty=0<br>
+Aplay: Done playing</p>
+<p>Using a legato example I can play audio files</p>
+          <p><a href="https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362/5</link>
+        <pubDate>Wed, 08 May 2019 04:58:41 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1362-5</guid>
+        <source url="https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362.rss">Audio Playback with mangOH Green WP76xx</source>
+      </item>
+      <item>
+        <title>Audio Playback with mangOH Green WP76xx</title>
+        <dc:creator><![CDATA[Akshaysk]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/natanb">@natanb</a> ,<br>
+I followed the method you stated it works fine but<br>
+Can you please tell me why is it necessary to pass this AT <strong>“AT!AVAUDIO=1,1,/home/root/example.wav”</strong> command in order to enable the audio play using “<strong>aplay</strong>” ?<br>
+If i try to play it directly <strong>(without AT!AVAUDIO=1,1,/home/root/example.wav)</strong> using aplay i have following error<br>
+<strong>aplay: Playing ‘example.wav’:Signed 16 bit Little Endian</strong><br>
+<strong>buffer_bytes = (1024,1024) omin=0 omax=0 int=1 empty=0</strong><br>
+<strong>period_bytes = (128,128) omin=0 omax=0 int=1 empty=0</strong><br>
+<strong>cannot prepare channel: errno =-22</strong><br>
+<strong>Aplay:Failed in pcm_prepare</strong></p>
+<p>Regards</p>
+<ul>
+<li>Akshay</li>
+</ul>
+          <p><a href="https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362/4</link>
+        <pubDate>Tue, 07 May 2019 06:11:00 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1362-4</guid>
+        <source url="https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362.rss">Audio Playback with mangOH Green WP76xx</source>
+      </item>
+      <item>
+        <title>Audio Playback with mangOH Green WP76xx</title>
+        <dc:creator><![CDATA[natanb]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi<br>
+I have found that after a power on , play a wav file once ,using at commands. For example<br>
+“AT!AVAUDIO=1,1,/home/root/0-to-9.wav” . After that  I can play audio files.<br>
+You can use "microcom -s 115200 -X /dev/ttyAT " for at commands</p>
+          <p><a href="https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362/3</link>
+        <pubDate>Sun, 21 Apr 2019 05:08:33 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1362-3</guid>
+        <source url="https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362.rss">Audio Playback with mangOH Green WP76xx</source>
+      </item>
+      <item>
+        <title>Audio Playback with mangOH Green WP76xx</title>
+        <dc:creator><![CDATA[csicilia.mrdcompany]]></dc:creator>
+        <description><![CDATA[
+            <p>Anyone can help me with the audio issue on mangOH Green and WP76xx?</p>
+<p>We are locked on this, please help!!</p>
+          <p><a href="https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362/2</link>
+        <pubDate>Mon, 30 Apr 2018 08:45:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1362-2</guid>
+        <source url="https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362.rss">Audio Playback with mangOH Green WP76xx</source>
+      </item>
+      <item>
+        <title>Audio Playback with mangOH Green WP76xx</title>
+        <dc:creator><![CDATA[csicilia.mrdcompany]]></dc:creator>
+        <description><![CDATA[
+            <p>Dear all,</p>
+<p>We build an app, you will find source and compiled version for WP67xx in attachment audioPlaybackRec.zip</p>
+<p>We tested this app for Mangoh Red and seems work, but on Mango Green it not work, when we start it we see the MCLK (SYSTEM_CLK) at 19.2MHz, the BCLK (1.4MHz) and the LRCLK (48KHz).</p>
+<p>We check it clocks on CN601 and on IOT#1, switching from Expander#3 GPO10, andh cheking that clocks disappear on IOT#1 but remain on CN601 as expected (detail on gpio settings on gpioexpander.txt).</p>
+<p>In all case, we don’t see any data on PCM_IN/PCM_OUT (we check with oscilloscope).</p>
+<p>We suspect that in the branch for WP76xx there is a different setting for qdsp6v2 (see dmesg.txt).</p>
+<p>We would like to check as first step if audio work on mangoh green with WP76xx, then on our board, is possible for you to check that our app work on mangoh green with WP67xx?</p>
+<p>File commands.txt contain command that we use for execute playback.</p>
+<p>Regards</p>
+          <p><a href="https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362/1</link>
+        <pubDate>Wed, 25 Apr 2018 15:37:00 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1362-1</guid>
+        <source url="https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362.rss">Audio Playback with mangOH Green WP76xx</source>
+      </item>
+  </channel>
+</rss>

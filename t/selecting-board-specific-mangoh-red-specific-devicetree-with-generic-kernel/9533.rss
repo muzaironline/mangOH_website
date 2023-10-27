@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Selecting board specific (mangoh red specific) devicetree with generic kernel</title>
+    <link>https://forum.mangoh.io/t/selecting-board-specific-mangoh-red-specific-devicetree-with-generic-kernel/9533</link>
+    <description>We are currently using the mangOH Red to prototype a new Sierra Wireless based embedded platform.
+
+I am therefore running on a self-built kernel/rootdisk off the swi-linux-src download.
+As described below, I am having trouble booting on the correct device-tree.
+How is this determined in the boot process? by lk (android-boot)? or the kernel itself?
+Assuming it somehow is matched on the &quot;board-id&quot;, where is this stored?
+
+Also when at a later stage we want to create out own device-tree variant, are there any tutorials/walkthroughs to follow?
+
+Best /Flemming
+
+
+I can see there is a mangoh-red specific devicetree included in the build when I look at the top Makefile:
+arch/arm/boot/dts/qcom/Makefile
+```
+dtb-$(CONFIG_ARCH_MDM9607) += mdm9607-mtp.dtb \
+	mdm9607-swi-ar.dtb \
+	mdm9607-swi-qemu.dtb \
+	mdm9607-wp76xx-default.dtb \
+	mdm9607-wp76xx-mangoh-green.dtb \
+	mdm9607-wp76xx-mangoh-red.dtb \
+	mdm9607-wp76xx-mangoh-yellow.dtb \
+	mdm9206-wp77xx-default.dtb \
+	mdm9206-wp77xx-mangoh-green.dtb \
+	mdm9206-wp77xx-mangoh-red.dtb \
+	mdm9206-wp77xx-mangoh-yellow.dtb
+```
+When I match this with the &quot;model&quot; from the devicetree:
+```
+&gt;  strings /proc/device-tree/model
+Sierra Wireless, Inc. MDM WP7xxx series
+```
+I can see that I booted on &quot;mdm9206-wp77xx-default.dts&quot;:
+```
+/* Chipset and module description */
+#include &quot;mdm9607-wp76xx.dtsi&quot;
+
+/* Board description */
+/ {
+        model = &quot;Sierra Wireless, Inc. MDM WP7xxx series&quot;;
+        compatible = &quot;qcom,mdm9607-mtp&quot;, &quot;qcom,mdm9607&quot;, &quot;qcom,mtp&quot;;
+        qcom,board-id = &lt;8 0x81&gt;;
+};
+```
+And *not* on &quot;mdm9607-wp76xx-mangoh-red.dts&quot; as i would have expected:
+```
+mdm9607-wp76xx-mangoh-red.dts:
+/* Chipset and module description */
+#include &quot;mdm9607-wp76xx.dtsi&quot;
+
+/* Board description */
+#include &quot;swi-wp-mangoh-red.dtsi&quot;
+
+swi-wp-mangoh-red.dtsi:
+/ {
+	model = &quot;Sierra Wireless, Inc. MDM 9xxx WP series - MangOH Red&quot;;
+	compatible = &quot;qcom,mdm9607-mtp&quot;, &quot;qcom,mdm9607&quot;, &quot;qcom,mtp&quot;;
+	qcom,board-id = &lt;8 0x82&gt;;
+};
+
+&amp;sdhc_2 {
+	status = &quot;ok&quot;;
+	ti,non-removable;
+	ti,needs-special-hs-handling;
+	cap-power-off-card;
+	keep-power-in-suspend;
+};
+
+&amp;soc {
+	sierra_gpio {
+		alias-BATTGAUGE_INT = &lt;300 0&gt;;
+		alias-BATTCHRGR_INT = &lt;301 0&gt;;
+		/* No GPIO 2 */
+		alias-GPIO_EXP_RPI_1 = &lt;303 0&gt;;
+		alias-GPIO_EXP_RPI_2 = &lt;304 0&gt;;
+...
+```
+
+All built off this release
+```
+&gt; leaf status
+┌──────────────────────────────────────────────────────────────────────────┐
+│                    Workspace: /home/fm/swi/workspace                     │
+╞══════════════════════════════════════════════════════════════════════════╡
+│                   Profile: wp77stable [current] (sync)                   │
+├──────────┬────────────────┬──────────────────────────────────────────────┤
+│ Packages │   Identifier   │                 Description                  │
+├──────────┼────────────────┼──────────────────────────────────────────────┤
+│ Included │ swi-wp77_5.0.1 │ SDK for WP77 (Release 14.1 + Legato 19.11.5) │
+└──────────┴────────────────┴──────────────────────────────────────────────┘
+
+build_bin&gt; bitbake mdm9x28-image-minimal
+
+```
+The boot blob starts like this. It *does* boot despite the slightly scary initial kernel output ..
+The &quot;No devinfo partition found&quot; line looks interesting of course ..
+```
+Android Bootloader - UART_DM Initialized!!!
+[10] Qseecom Init Done in Appsbl version is 0x405000
+[10] secure app region addr=0x87900000 size=0x280000[20] TZ App region notif returned with status:0 addr:87900000 size:2621440
+[20] TZ App log region register returned with status:0 addr:82681000 size:4096
+[30] Qseecom TZ Init Done in Appsbl
+[30] ERROR: No devinfo partition found
+[30] Neither &#39;config&#39; nor &#39;frp&#39; partition found
+[40] ERROR: No misc partition found
+[1460] SSMEM init OK[1460] ssmem_get: region 20 not exists[1550] DEBUG: cmdline has root=
+[1720] Channel alloc freed
+[    0.000000] GIC CPU mask not found - kernel will fail to boot.
+[    0.000000] GIC CPU mask not found - kernel will fail to boot.
+[    0.000000] MPM 1 irq mapping errored -517
+[    0.215114] spmi_pmic_arb 200f000.qcom,spmi: PMIC Arb Version-2 0x20010000
+[    0.230337] SWI ssmem_framework_init: SSMEM init OK
+[    0.230423] mdm9607-pinctrl 1000000.pinctrl: gpio-bit-map = 36
+[    0.231953] msm_mpm_dev_probe(): Cannot get clk resource for XO: -517
+[    0.235104] smd_channel_probe_now: allocation table not initialized
+[    0.242822] msm_thermal:msm_thermal_dev_probe Failed reading node=/soc/qcom,msm-thermal, key=qcom,online-hotplug-core. err:-517
+[    0.270579] msm_mpm_dev_probe(): Cannot get clk resource for XO: -517
+```</description>
+    
+    <lastBuildDate>Fri, 30 Jul 2021 13:12:05 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/selecting-board-specific-mangoh-red-specific-devicetree-with-generic-kernel/9533.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Selecting board specific (mangoh red specific) devicetree with generic kernel</title>
+        <dc:creator><![CDATA[flemmingmadsen]]></dc:creator>
+        <description><![CDATA[
+            <p>Finally solved this:</p>
+<p>First step was to get lk to say anything about devicetrees at boot.<br>
+Turns out “LK_DEBUG” must be set to “1” in the recipe, or all “dprintf(INFO” messages are optimized away.</p>
+<p>Once this was in place, the devicetree selection process showed it’s face and it was fairly obvious to follow it to “board_override_hardware_subtype()” and in turn “WP_BOARD_PROBE”</p>
+<p>So, it turns out the mangOH boards are dynamically probed for, and it can be enabled with the following bbappend file:</p>
+<p><strong>lk_1.3.0.bbappend</strong>:</p>
+<pre><code class="lang-auto">LK_DEBUG := "1"
+WP_BOARD_PROBE := "1"
+
+# Debug
+do_compile_prepend() {
+    echo "OEMAKE: ${EXTRA_OEMAKE}"
+}
+</code></pre>
+<p>Sooo nice:</p>
+<pre><code class="lang-auto">root@amplex-2004042042:~# strings /proc/device-tree/model
+Sierra Wireless, Inc. MDM 9xxx WP series - MangOH Red
+root@amplex-2004042042:~# cat /sys/class/gpio/v2/alias_map
+   0,38   A "2"
+...
+   0,79   A "42"
+   0,25   M "RI"
+   0,58   A "WLAN_EN"
+   0,79   A "WIFI_IRQ"
+ 300,0    A "BATTGAUGE_INT"
+ 300,1    A "BATTCHRGR_INT"
+ 300,3    A "GPIO_EXP_RPI_1"
+ 300,4    A "GPIO_EXP_RPI_2"
+ 300,5    A "MTK_TO_WP_UART_EN"
+ 300,6    A "WIFI_UART1_TX"
+ 300,7    A "GPIO_EXP_RPI_3"
+ 300,8    A "LED_CARD_DETECT_IOT0"
+ 300,9    A "SDIO_SEL"
+ 300,10   A "POWER_FAIL_INDIC"
+ 300,11   A "SENSOR_INT1"
+ 300,12   A "SENSOR_INT2"
+ 300,13   A "PCM_EXP1_SEL"
+ 300,14   A "GENERIC_PUSH_BUTTON"
+ 300,15   A "CONS_DIR"
+root@amplex-2004042042:~#</code></pre>
+          <p><a href="https://forum.mangoh.io/t/selecting-board-specific-mangoh-red-specific-devicetree-with-generic-kernel/9533/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/selecting-board-specific-mangoh-red-specific-devicetree-with-generic-kernel/9533/2</link>
+        <pubDate>Fri, 30 Jul 2021 13:07:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9533-2</guid>
+        <source url="https://forum.mangoh.io/t/selecting-board-specific-mangoh-red-specific-devicetree-with-generic-kernel/9533.rss">Selecting board specific (mangoh red specific) devicetree with generic kernel</source>
+      </item>
+      <item>
+        <title>Selecting board specific (mangoh red specific) devicetree with generic kernel</title>
+        <dc:creator><![CDATA[flemmingmadsen]]></dc:creator>
+        <description><![CDATA[
+            <p>We are currently using the mangOH Red to prototype a new Sierra Wireless based embedded platform.</p>
+<p>I am therefore running on a self-built kernel/rootdisk off the swi-linux-src download.<br>
+As described below, I am having trouble booting on the correct device-tree.<br>
+How is this determined in the boot process? by lk (android-boot)? or the kernel itself?<br>
+Assuming it somehow is matched on the “board-id”, where is this stored?</p>
+<p>Also when at a later stage we want to create out own device-tree variant, are there any tutorials/walkthroughs to follow?</p>
+<p>Best /Flemming</p>
+<p>I can see there is a mangoh-red specific devicetree included in the build when I look at the top Makefile:<br>
+arch/arm/boot/dts/qcom/Makefile</p>
+<pre><code class="lang-auto">dtb-$(CONFIG_ARCH_MDM9607) += mdm9607-mtp.dtb \
+	mdm9607-swi-ar.dtb \
+	mdm9607-swi-qemu.dtb \
+	mdm9607-wp76xx-default.dtb \
+	mdm9607-wp76xx-mangoh-green.dtb \
+	mdm9607-wp76xx-mangoh-red.dtb \
+	mdm9607-wp76xx-mangoh-yellow.dtb \
+	mdm9206-wp77xx-default.dtb \
+	mdm9206-wp77xx-mangoh-green.dtb \
+	mdm9206-wp77xx-mangoh-red.dtb \
+	mdm9206-wp77xx-mangoh-yellow.dtb
+</code></pre>
+<p>When I match this with the “model” from the devicetree:</p>
+<pre><code class="lang-auto">&gt;  strings /proc/device-tree/model
+Sierra Wireless, Inc. MDM WP7xxx series
+</code></pre>
+<p>I can see that I booted on “mdm9206-wp77xx-default.dts”:</p>
+<pre><code class="lang-auto">/* Chipset and module description */
+#include "mdm9607-wp76xx.dtsi"
+
+/* Board description */
+/ {
+        model = "Sierra Wireless, Inc. MDM WP7xxx series";
+        compatible = "qcom,mdm9607-mtp", "qcom,mdm9607", "qcom,mtp";
+        qcom,board-id = &lt;8 0x81&gt;;
+};
+</code></pre>
+<p>And <em>not</em> on “mdm9607-wp76xx-mangoh-red.dts” as i would have expected:</p>
+<pre><code class="lang-auto">mdm9607-wp76xx-mangoh-red.dts:
+/* Chipset and module description */
+#include "mdm9607-wp76xx.dtsi"
+
+/* Board description */
+#include "swi-wp-mangoh-red.dtsi"
+
+swi-wp-mangoh-red.dtsi:
+/ {
+	model = "Sierra Wireless, Inc. MDM 9xxx WP series - MangOH Red";
+	compatible = "qcom,mdm9607-mtp", "qcom,mdm9607", "qcom,mtp";
+	qcom,board-id = &lt;8 0x82&gt;;
+};
+
+&amp;sdhc_2 {
+	status = "ok";
+	ti,non-removable;
+	ti,needs-special-hs-handling;
+	cap-power-off-card;
+	keep-power-in-suspend;
+};
+
+&amp;soc {
+	sierra_gpio {
+		alias-BATTGAUGE_INT = &lt;300 0&gt;;
+		alias-BATTCHRGR_INT = &lt;301 0&gt;;
+		/* No GPIO 2 */
+		alias-GPIO_EXP_RPI_1 = &lt;303 0&gt;;
+		alias-GPIO_EXP_RPI_2 = &lt;304 0&gt;;
+...
+</code></pre>
+<p>All built off this release</p>
+<pre><code class="lang-auto">&gt; leaf status
+┌──────────────────────────────────────────────────────────────────────────┐
+│                    Workspace: /home/fm/swi/workspace                     │
+╞══════════════════════════════════════════════════════════════════════════╡
+│                   Profile: wp77stable [current] (sync)                   │
+├──────────┬────────────────┬──────────────────────────────────────────────┤
+│ Packages │   Identifier   │                 Description                  │
+├──────────┼────────────────┼──────────────────────────────────────────────┤
+│ Included │ swi-wp77_5.0.1 │ SDK for WP77 (Release 14.1 + Legato 19.11.5) │
+└──────────┴────────────────┴──────────────────────────────────────────────┘
+
+build_bin&gt; bitbake mdm9x28-image-minimal
+
+</code></pre>
+<p>The boot blob starts like this. It <em>does</em> boot despite the slightly scary initial kernel output …<br>
+The “No devinfo partition found” line looks interesting of course …</p>
+<pre><code class="lang-auto">Android Bootloader - UART_DM Initialized!!!
+[10] Qseecom Init Done in Appsbl version is 0x405000
+[10] secure app region addr=0x87900000 size=0x280000[20] TZ App region notif returned with status:0 addr:87900000 size:2621440
+[20] TZ App log region register returned with status:0 addr:82681000 size:4096
+[30] Qseecom TZ Init Done in Appsbl
+[30] ERROR: No devinfo partition found
+[30] Neither 'config' nor 'frp' partition found
+[40] ERROR: No misc partition found
+[1460] SSMEM init OK[1460] ssmem_get: region 20 not exists[1550] DEBUG: cmdline has root=
+[1720] Channel alloc freed
+[    0.000000] GIC CPU mask not found - kernel will fail to boot.
+[    0.000000] GIC CPU mask not found - kernel will fail to boot.
+[    0.000000] MPM 1 irq mapping errored -517
+[    0.215114] spmi_pmic_arb 200f000.qcom,spmi: PMIC Arb Version-2 0x20010000
+[    0.230337] SWI ssmem_framework_init: SSMEM init OK
+[    0.230423] mdm9607-pinctrl 1000000.pinctrl: gpio-bit-map = 36
+[    0.231953] msm_mpm_dev_probe(): Cannot get clk resource for XO: -517
+[    0.235104] smd_channel_probe_now: allocation table not initialized
+[    0.242822] msm_thermal:msm_thermal_dev_probe Failed reading node=/soc/qcom,msm-thermal, key=qcom,online-hotplug-core. err:-517
+[    0.270579] msm_mpm_dev_probe(): Cannot get clk resource for XO: -517
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/selecting-board-specific-mangoh-red-specific-devicetree-with-generic-kernel/9533/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/selecting-board-specific-mangoh-red-specific-devicetree-with-generic-kernel/9533/1</link>
+        <pubDate>Thu, 29 Jul 2021 10:31:23 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9533-1</guid>
+        <source url="https://forum.mangoh.io/t/selecting-board-specific-mangoh-red-specific-devicetree-with-generic-kernel/9533.rss">Selecting board specific (mangoh red specific) devicetree with generic kernel</source>
+      </item>
+  </channel>
+</rss>

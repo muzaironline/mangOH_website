@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Using GPIO, ADC and i2c interface on mangOH/legato - Tutorials - mangOH forum</title>
+    <meta name="description" content="All, 
+
+Samples that you can follow to learn how to use GPIOs on the mangOH platform are available at  https://github.com/mangOH/mangOH/tree/524d0f9feae2ab6bb92bab03c346b08c4439f38f/samples/tutorials/hardwareInterfaces Th&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/using-gpio-adc-and-i2c-interface-on-mangoh-legato/245" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Using GPIO, ADC and i2c interface on mangOH/legato&#39;" href="https://forum.mangoh.io/t/using-gpio-adc-and-i2c-interface-on-mangoh-legato/245.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/using-gpio-adc-and-i2c-interface-on-mangoh-legato/245" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/using-gpio-adc-and-i2c-interface-on-mangoh-legato/245" />
+<meta property="og:title" content="Using GPIO, ADC and i2c interface on mangOH/legato" />
+<meta name="twitter:title" content="Using GPIO, ADC and i2c interface on mangOH/legato" />
+<meta property="og:description" content="All,  Samples that you can follow to learn how to use GPIOs on the mangOH platform are available at  https://github.com/mangOH/mangOH/tree/524d0f9feae2ab6bb92bab03c346b08c4439f38f/samples/tutorials/hardwareInterfaces  These sample apps will allow you to:  a. blink an LED on a timer: TimerLed  b. turn LED on and off using push button: TouchSensor  c. turn LED on and off using GPIO : Cf3GpioControl  Tutorials are coming soon and will be posted online. If you want to use them in the meantime, make ..." />
+<meta name="twitter:description" content="All,  Samples that you can follow to learn how to use GPIOs on the mangOH platform are available at  https://github.com/mangOH/mangOH/tree/524d0f9feae2ab6bb92bab03c346b08c4439f38f/samples/tutorials/hardwareInterfaces  These sample apps will allow you to:  a. blink an LED on a timer: TimerLed  b. turn LED on and off using push button: TouchSensor  c. turn LED on and off using GPIO : Cf3GpioControl  Tutorials are coming soon and will be posted online. If you want to use them in the meantime, make ..." />
+<meta property="og:article:section" content="Tutorials" />
+<meta property="og:article:section:color" content="12A89D" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="1 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="1 ❤" />
+<meta property="article:published_time" content="2016-10-13T22:57:42+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Using GPIO, ADC and i2c interface on mangOH/legato","mainEntity":{"@type":"Question","name":"Using GPIO, ADC and i2c interface on mangOH/legato","text":"All,\n\nSamples that you can follow to learn how to use GPIOs on the mangOH platform are available at  <a href=\"https://github.com/mangOH/mangOH/tree/524d0f9feae2ab6bb92bab03c346b08c4439f38f/samples/tutorials/hardwareInterfaces\">https://github.com/mangOH/mangOH/tree/524d0f9feae2ab6bb92bab03c346b08c4439f38f/samples/tutorials/hardwareInterfaces<\/a>\n\nThese sample apps will allow you to:\n\na. blink an LED on a timer: TimerLed\n\nb. tur&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2016-10-13T22:57:42.135Z","author":{"@type":"Person","name":"ashish syal"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/using-gpio-adc-and-i2c-interface-on-mangoh-legato/245">Using GPIO, ADC and i2c interface on mangOH/legato</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/tutorials/13" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #12A89D'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>Tutorials</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Using GPIO, ADC and i2c interface on mangOH/legato'>
+        <meta itemprop='articleSection' content='Tutorials'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-gpio-adc-and-i2c-interface-on-mangoh-legato/245">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-10-13T22:57:42Z' class='post-time'>
+                    October 13, 2016, 10:57pm
+                  </time>
+                  <meta itemprop='dateModified' content='2016-10-14T04:33:54Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>All,</p>
+<p>Samples that you can follow to learn how to use GPIOs on the mangOH platform are available at  <a href="https://github.com/mangOH/mangOH/tree/524d0f9feae2ab6bb92bab03c346b08c4439f38f/samples/tutorials/hardwareInterfaces">https://github.com/mangOH/mangOH/tree/524d0f9feae2ab6bb92bab03c346b08c4439f38f/samples/tutorials/hardwareInterfaces</a><br>
+These sample apps will allow you to:<br>
+a. blink an LED on a timer: TimerLed<br>
+b. turn LED on and off using push button: TouchSensor<br>
+c. turn LED on and off using GPIO : Cf3GpioControl</p>
+<p>Tutorials are coming soon and will be posted online. If you want to use them in the meantime, make sure mangOH system is installed on your target.</p>
+<p>cheers,<br>
+Ashish</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-gpio-adc-and-i2c-interface-on-mangoh-legato/245">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-10-14T03:04:07Z' class='post-time'>
+                    October 14, 2016,  3:04am
+                  </time>
+                  <meta itemprop='dateModified' content='2016-10-14T04:34:08Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Apps to use ADC and i2c are uploaded</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Raf'><span itemprop='name'>Raf</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-gpio-adc-and-i2c-interface-on-mangoh-legato/245">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-10-14T06:39:01Z' class='post-time'>
+                    October 14, 2016,  6:39am
+                  </time>
+                  <meta itemprop='dateModified' content='2016-10-14T06:39:01Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks Ashish. These samples/tutorials are a great idea. I’m sure many (including myself) will find value in them.</p>
+<p>One question that applies these sample apps:</p>
+<p>In the function <code>'touch_ledGpio_ChangeHandler'</code></p>
+<p>What’s the purpose of setting up edge detection on the LED gpio <em>output</em> pin?</p>
+<blockquote>
+<p>// set call back for change in state of GPIO<br>
+mangoh_ledGpio_SetEdgeSense(MANGOH_LEDGPIO_EDGE_BOTH);</p>
+</blockquote>
+<p>The change event handler is added to the push button or gpio <em>input</em> pin when the component is initialised.</p>
+<p>Cheers,<br>
+Raf</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-gpio-adc-and-i2c-interface-on-mangoh-legato/245">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-10-14T15:29:44Z' class='post-time'>
+                    October 14, 2016,  3:29pm
+                  </time>
+                  <meta itemprop='dateModified' content='2016-10-14T15:29:44Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <aside class="quote no-group" data-username="Raf" data-post="3" data-topic="245">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/r/848f3c/40.png" class="avatar"> Raf:</div>
+<blockquote>
+<p>ledGpio</p>
+</blockquote>
+</aside>
+<p>Hi Raf,<br>
+Correct, that line should be removed.<br>
+cheers,<br>
+Ashish</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-gpio-adc-and-i2c-interface-on-mangoh-legato/245">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-10-14T18:26:16Z' class='post-time'>
+                    October 14, 2016,  6:26pm
+                  </time>
+                  <meta itemprop='dateModified' content='2016-10-14T18:26:16Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>The correction was made in commit <code>5685a272df630bb5f058343441eca10fa2c778a1</code>.  Raf, if you (or anyone else) notice errors in the tutorial code or see room for improvement, feel free to make a pull request or open an issue.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gregnietsky'><span itemprop='name'>gregnietsky</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-gpio-adc-and-i2c-interface-on-mangoh-legato/245">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-12-12T12:23:33Z' class='post-time'>
+                    December 12, 2016, 12:23pm
+                  </time>
+                  <meta itemprop='dateModified' content='2016-12-12T12:23:33Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Problems reading ADC2/3</p>
+<p>ADC0/1 work fine is this a known issue ???</p>
+<p>ec 12 12:06:29 | kernel | [  341.513505] qup_i2c qup_i2c.0: QUP: I2C status flags :0x1363c8, irq:187<br>
+Dec 12 12:06:29 | kernel | [  341.519304] qup_i2c qup_i2c.0: I2C slave addr:0x3a not connected<br>
+Dec 12 12:06:29 | kernel | [  341.540424] gpio_check_and_wake: wake-n_gpio77 STATE=WAKEUP<br>
+Dec 12 12:06:29 | kernel | [  341.546009] Frame payload len 0xff0d overruns buffer size (0x26)<br>
+Dec 12 12:06:29 | kernel | [  341.558858] Failed to recv response<br>
+Dec 12 12:06:29 | kernel | [  341.561544] swimcu_read_adc restart failed on chan 8, try init<br>
+Dec 12 12:06:29 | kernel | [  341.579642] Unhandled frame type 191<br>
+Dec 12 12:06:29 | kernel | [  341.582023] Failed to receive a frame 1<br>
+Dec 12 12:06:29 | kernel | [  341.590813] swimcu_event_query: fail 1<br>
+Dec 12 12:06:29 | kernel | [  341.614954] Unhandled frame type 191<br>
+Dec 12 12:06:29 | kernel | [  341.618556] Failed to recv response<br>
+Dec 12 12:06:29 | kernel | [  341.621181] swimcu adc_init: fail chan 1<br>
+Dec 12 12:06:29 | kernel | [  341.625087] swimcu_read_adc: fail to init chan 1<br>
+Dec 12 12:06:29 | Legato | modemDaemon[495]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 768 | Sending QMI_SWI_M2M_ADC_READ_RESP_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=48.[0x30]<br>
+Dec 12 12:06:29 | Legato | modemDaemon[495]/le_pa T=main | pa_adc_qmi.c pa_adc_ReadValue() 154 | Failed to read ADC.3 (channel.11)<br>
+Dec 12 12:06:29 | Legato | combapp[1702]/combwp85 T=main | main.c _combwp85_COMPONENT_INIT() 24 | ADC 0 19944 1 9067 2 -1225338512 3 0</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-gpio-adc-and-i2c-interface-on-mangoh-legato/245">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-12-12T21:00:08Z' class='post-time'>
+                    December 12, 2016,  9:00pm
+                  </time>
+                  <meta itemprop='dateModified' content='2016-12-12T22:33:16Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Gregory,</p>
+<p>Yes, this is a known issue with ADV2 and ADC3 which is caused by excessive loading of i2c bus when all ports of i2c hub are simultaneously enabled. Please update the gpio expander application from github with the fix</p>
+<p>Regards,<br>
+Ashish</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gregnietsky'><span itemprop='name'>gregnietsky</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-gpio-adc-and-i2c-interface-on-mangoh-legato/245">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-01-09T06:25:49Z' class='post-time'>
+                    January 9, 2017,  6:25am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-01-09T06:36:39Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thank you this is running on a prototype board not mango board ill adjust the software accordingly and turn off all I2C expander bus lines we have incorporated the I2C bus expander in the design …</p>
+<p>Thank you for your feedback.</p>
+<p>…</p>
+<p>I can confirm that this resolves the issue thank you</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Wavefront_yk'><span itemprop='name'>Wavefront_yk</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-gpio-adc-and-i2c-interface-on-mangoh-legato/245">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/8ae9397cbdb6b771ff0a4157d0244adb16459fe1.PNG">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-04-20T01:22:26Z' class='post-time'>
+                    April 20, 2017,  1:22am
+                  </time>
+                  <meta itemprop='dateModified' content='2019-07-30T03:51:48Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello Ashish,<br>
+I am using the latest version of gpioExpanderGreen from github and there is still problem to read ADC2 in “wiredSensor” application. Please suggest! Thank You!<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/8ae9397cbdb6b771ff0a4157d0244adb16459fe1.PNG" data-download-href="/uploads/short-url/jORztFYVuA0dOPSierNtMtrxaSt.PNG?dl=1" title="motion_sensor_error.PNG" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/8ae9397cbdb6b771ff0a4157d0244adb16459fe1_2_690x77.PNG" alt data-base62-sha1="jORztFYVuA0dOPSierNtMtrxaSt" width="690" height="77" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/8ae9397cbdb6b771ff0a4157d0244adb16459fe1_2_690x77.PNG, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/8ae9397cbdb6b771ff0a4157d0244adb16459fe1_2_1035x115.PNG 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/8ae9397cbdb6b771ff0a4157d0244adb16459fe1.PNG 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/8ae9397cbdb6b771ff0a4157d0244adb16459fe1_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">motion_sensor_error.PNG</span><span class="informations">1191×134 34.9 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

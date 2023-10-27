@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WP7607-1 IPC using pipes - mangOH Green - mangOH forum</title>
+    <meta name="description" content="Hi everyone, 
+I have the following idea but don’t know how to implement it. 
+One C script sends a string to another C script using pipes. After that, the latter script forwards that string to Putty via UART1. 
+These are &amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;WP7607-1 IPC using pipes&#39;" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449" />
+<meta property="og:title" content="WP7607-1 IPC using pipes" />
+<meta name="twitter:title" content="WP7607-1 IPC using pipes" />
+<meta property="og:description" content="Hi everyone,  I have the following idea but don’t know how to implement it.  One C script sends a string to another C script using pipes. After that, the latter script forwards that string to Putty via UART1.  These are the C files that can already communicate with each other:  /* send.c */  #include &lt;stdio.h&gt;  #include &lt;stdlib.h&gt; #include &lt;unistd.h&gt;  #include &lt;fcntl.h&gt; #include &lt;string.h&gt; #include &lt;sys/select.h&gt; #include &lt;sys/types.h&gt;     #include &lt;errno.h&gt; #include &lt;time.h&gt;  #define BUF 20  in..." />
+<meta name="twitter:description" content="Hi everyone,  I have the following idea but don’t know how to implement it.  One C script sends a string to another C script using pipes. After that, the latter script forwards that string to Putty via UART1.  These are the C files that can already communicate with each other:  /* send.c */  #include &lt;stdio.h&gt;  #include &lt;stdlib.h&gt; #include &lt;unistd.h&gt;  #include &lt;fcntl.h&gt; #include &lt;string.h&gt; #include &lt;sys/select.h&gt; #include &lt;sys/types.h&gt;     #include &lt;errno.h&gt; #include &lt;time.h&gt;  #define BUF 20  in..." />
+<meta property="og:article:section" content="mangOH Green" />
+<meta property="og:article:section:color" content="9EB83B" />
+<meta property="article:published_time" content="2020-10-20T13:49:48+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="next" href="/t/wp7607-1-ipc-using-pipes/5449?page=2">
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"WP7607-1 IPC using pipes","mainEntity":{"@type":"Question","name":"WP7607-1 IPC using pipes","text":"Hi everyone,\n\nI have the following idea but don’t know how to implement it.\n\nOne C script sends a string to another C script using pipes. After that, the latter script forwards that string to Putty via UART1.\n\nThese are the C files that can already communicate with each other:\n\n/* send.c */\n\n#includ&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2020-10-20T13:49:48.426Z","author":{"@type":"Person","name":"Thomas Holz"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/wp7607-1-ipc-using-pipes/5449">WP7607-1 IPC using pipes</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-green/6" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #9EB83B'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Green</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='WP7607-1 IPC using pipes'>
+        <meta itemprop='articleSection' content='mangOH Green'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-20T13:49:48Z' class='post-time'>
+                    October 20, 2020,  1:49pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-20T13:49:48Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hi everyone,</p>
+<p>I have the following idea but don’t know how to implement it.<br>
+One C script sends a string to another C script using pipes. After that, the latter script forwards that string to Putty via UART1.</p>
+<p>These are the C files that can already communicate with each other:</p>
+<pre><code>/* send.c */ 
+#include &lt;stdio.h&gt; 
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+
+#include &lt;fcntl.h&gt;
+#include &lt;string.h&gt;
+#include &lt;sys/select.h&gt;
+#include &lt;sys/types.h&gt;    
+#include &lt;errno.h&gt;
+#include &lt;time.h&gt;
+
+#define BUF 20
+
+int main(){
+	char message[BUF] = "Test message";
+ 	int fd = open("fifo", O_WRONLY);
+
+    if (fd == -1){
+    	printf("fd ==1\n");
+    	return 1;
+    }
+
+    if(write(fd, &amp;message, strlen(message)) == -1){
+    	return 2;
+    }
+    printf("This message was sent: %s\n", message);
+    close(fd);
+
+    return 0;
+}
+</code></pre>
+<hr>
+<pre><code>/*recv.c */
+#include &lt;stdio.h&gt; 
+#include &lt;stdlib.h&gt; 
+#include &lt;unistd.h&gt;
+
+#include &lt;fcntl.h&gt;
+#include &lt;string.h&gt; 
+#include &lt;sys/select.h&gt;
+#include &lt;sys/types.h&gt;    
+#include &lt;errno.h&gt;
+#include &lt;time.h&gt;
+
+#define BUF 40
+
+int main(){
+	char message[BUF];
+	int fd = open("fifo", O_RDONLY);
+
+	if (fd == -1){
+		printf("fd ==1\n");
+		return 1;
+	}
+
+	if(read(fd, &amp;message, BUF) == -1){
+		return 2;
+	}
+	printf("Received this message: %s\n", message);
+	close(fd);
+
+    return 0;
+}
+</code></pre>
+<p>Basically, my plan is to have two apps communicate using pipes.<br>
+Any ideas how to do that?</p>
+<p>I’ve found this <a href="https://docs.legato.io/14_10/componenthello_i_p_c.html#helloIPCDefiningTheAPI" rel="noopener nofollow ugc">https://docs.legato.io/14_10/componenthello_i_p_c.html#helloIPCDefiningTheAPI</a><br>
+but it doesn’t seem to be intended for pipes.</p>
+<p>Thanks,<br>
+Thomas</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-20T13:57:43Z' class='post-time'>
+                    October 20, 2020,  1:57pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-20T13:57:43Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You can see here on how to send data to another app by ipc</p>
+<aside class="onebox allowlistedgeneric">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/bad3e5f9ad67c1ddf145107ce7032ac1d7b22563.svg" class="site-icon" width="32" height="32">
+      <a href="https://github.com/legatoproject/legato-af/tree/master/apps/sample/helloIpc" target="_blank" rel="noopener nofollow ugc">GitHub</a>
+  </header>
+  <article class="onebox-body">
+    <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/9c91fe94f5b465eb47177c78f6dda85e8adf72a9.png" class="thumbnail onebox-avatar" width="400" height="400">
+
+<h3><a href="https://github.com/legatoproject/legato-af/tree/master/apps/sample/helloIpc" target="_blank" rel="noopener nofollow ugc">legatoproject/legato-af</a></h3>
+
+<p>Legato Application Framework. Contribute to legatoproject/legato-af development by creating an account on GitHub.</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-20T14:01:59Z' class='post-time'>
+                    October 20, 2020,  2:01pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-20T14:01:59Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thank you for your quick response <a class="mention" href="/u/jyijyi">@jyijyi</a>.<br>
+This is not quite what I was looking for though.</p>
+<p>Do you happen to know if it’s possible for two apps to communicate with each other using pipes?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-20T14:32:05Z' class='post-time'>
+                    October 20, 2020,  2:32pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-20T14:32:05Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Didn’t the idea of legato ipc is the same</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-20T17:54:53Z' class='post-time'>
+                    October 20, 2020,  5:54pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-20T17:54:53Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I have a Legato application in ‘C’ that communicates with a Python script using a named pipe, so yes you can do it. It uses Posix calls only.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-26T13:06:39Z' class='post-time'>
+                    October 26, 2020,  1:06pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-26T13:06:39Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey pinst,</p>
+<p>I just want to be sure I’ve understood what you described.<br>
+So you have a single app running on the module (written in C) that can communicate with another script written in Python (not installed on the module) using a pipe?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-26T14:02:38Z' class='post-time'>
+                    October 26, 2020,  2:02pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-26T14:02:38Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Yes that’s right. The python script is run at the command prompt, e.g. python xyz.py</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-26T14:19:25Z' class='post-time'>
+                    October 26, 2020,  2:19pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-26T14:19:25Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Okay, thanks for confirming that.</p>
+<p>I am looking for a way of communicating between two separate apps using pipes.<br>
+Or is there generally no possibility for two apps to communicate via pipes?</p>
+<p>Is it possible to have two separate C scripts communicate via pipes in one single app though?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-26T16:22:55Z' class='post-time'>
+                    October 26, 2020,  4:22pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-26T16:22:55Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I don’t see why two apps shouldn’t be able to communicate using a named pipe. You would have to take care that they have the right permissions if sandboxed.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-27T07:25:31Z' class='post-time'>
+                    October 27, 2020,  7:25am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-27T07:25:31Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Is there any simple example that demonstrates that?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-27T13:14:32Z' class='post-time'>
+                    October 27, 2020,  1:14pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-27T13:14:32Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I don’t know any specific examples. But the named pipe is accessed just like a file. My C application does the writing and the python does the reading. You could have two C applications one writing and one reading.</p>
+<p>It would be best to test one application at a time, you could just run cat from the shell to test the writing and reading apps separately.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-27T13:54:39Z' class='post-time'>
+                    October 27, 2020,  1:54pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-27T13:54:39Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I just made two apps, one that sends a string and another one that should receive it.<br>
+The pipe, which I have created under <code>/home/root/</code>, is accessed in both of these files inside the the open function.</p>
+<blockquote>
+<p>root@swi-mdm9x28-wp:~# ls<br>
+fifo</p>
+</blockquote>
+<hr>
+<pre><code>// send.c
+#include "legato.h"
+#include &lt;stdio.h&gt; 
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+
+#include &lt;fcntl.h&gt;
+#include &lt;string.h&gt;
+#include &lt;sys/select.h&gt;
+#include &lt;sys/types.h&gt;    
+#include &lt;errno.h&gt;
+#include &lt;time.h&gt;
+
+#define BUF 20
+
+int main();
+
+COMPONENT_INIT{ 
+	LE_INFO("#####Inside send COMPONENT_INIT.#####");
+
+    main();
+}
+
+int main(){
+    char message[BUF] = "####Test message####";
+    int fd = open("/home/root/fifo", O_WRONLY);
+    LE_INFO("##### SEND Just opened the fifo.##### %d", fd);
+
+    if (fd == -1){
+        printf("fd ==1\n");
+        LE_INFO("##### SEND: opening the fifo has failed.#####");
+        return 1;
+    }
+
+    if(write(fd, &amp;message, strlen(message)) == -1){
+	    LE_INFO("##### SEND: writing the message has failed.#####");
+	    return 2;
+    }
+    LE_INFO("%s", message);
+    printf("This message was sent: %s\n", message);
+    close(fd);
+
+    return 0;
+}
+</code></pre>
+<hr>
+<pre><code>//recv.c
+#include "legato.h"
+#include &lt;stdio.h&gt; 
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+
+#include &lt;fcntl.h&gt;
+#include &lt;string.h&gt;
+#include &lt;sys/select.h&gt;
+#include &lt;sys/types.h&gt;    
+#include &lt;errno.h&gt;
+#include &lt;time.h&gt;
+
+#define BUF 40
+
+int main();
+
+COMPONENT_INIT{ 
+    LE_INFO("#####Inside recv COMPONENT_INIT.#####");
+
+    main();
+}
+
+int main(){
+    char message[BUF];
+    int fd = open("/home/root/fifo", O_RDONLY);
+    LE_INFO("#####Just opened the fifo.##### %d", fd);
+
+    if (fd == -1){
+	    printf("fd ==1\n");
+	    LE_INFO("##### RECV: opening the fifo has failed.#####");
+	    return 1;
+    }
+
+    if(read(fd, &amp;message, BUF) == -1){
+	    LE_INFO("##### RECV: receiving the message has failed.#####");
+	    return 2;
+    }
+    printf("Received this message: %s\n", message);
+    LE_INFO("%s", message);
+    close(fd);
+
+    return 0;
+}
+</code></pre>
+<hr>
+<p>Unfortunately, I get the following error message when starting the send app:</p>
+<pre><code>Oct 27 14:46:46 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c app_Create() 3207 | Creating app 'pipesSend'
+Oct 27 14:46:46 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | proc.c GetFaultAction() 323 | No fault action specified for process 'pipesSend'. Assuming 'ignore'.
+Oct 27 14:46:46 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[833]/supervisor T=main | proc.c GetWatchdogAction() 359 | pipesSend watchdogAction '' in proc section
+Oct 27 14:46:46 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[833]/supervisor T=main | proc.c GetWatchdogAction() 359 | pipesSend watchdogAction '' in proc section
+Oct 27 14:46:46 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c app_Start() 3420 | Starting app 'pipesSend'
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/dev/log' to '/legato/systems/current/appsWriteable/pipesSend/dev/log'.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/dev/null' to '/legato/systems/current/appsWriteable/pipesSend/dev/null'.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/dev/zero' to '/legato/systems/current/appsWriteable/pipesSend/dev/zero'.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/legato/systems/current/lib/liblegato.so' to '/legato/systems/current/appsWriteable/pipesSend/lib/liblegato.so'.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/lib/ld-linux.so.3' to '/legato/systems/current/appsWriteable/pipesSend/lib/ld-linux.so.3'.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/lib/libc.so.6' to '/legato/systems/current/appsWriteable/pipesSend/lib/libc.so.6'.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/lib/libpthread.so.0' to '/legato/systems/current/appsWriteable/pipesSend/lib/libpthread.so.0'.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/lib/librt.so.1' to '/legato/systems/current/appsWriteable/pipesSend/lib/librt.so.1'.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/lib/libdl.so.2' to '/legato/systems/current/appsWriteable/pipesSend/lib/libdl.so.2'.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/lib/libgcc_s.so.1' to '/legato/systems/current/appsWriteable/pipesSend/lib/libgcc_s.so.1'.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/lib/libm.so.6' to '/legato/systems/current/appsWriteable/pipesSend/lib/libm.so.6'.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/usr/lib/libstdc++.so.6' to '/legato/systems/current/appsWriteable/pipesSend/lib/libstdc++.so.6'.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/legato/systems/current/apps/pipesSend/read-only/lib/libComponent_pipesSendComponent.so' to '/legato/systems/current/appsWriteable/pip
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/legato/systems/current/apps/pipesSend/read-only/bin/pipesSend' to '/legato/systems/current/appsWriteable/pipesSend/bin/pipesSend'.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateTmpFs() 1738 | Mounted tmpfs at /legato/systems/current/appsWriteable/pipesSend/tmp.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/tmp/legato/serviceDirectoryServer' to '/legato/systems/current/appsWriteable/pipesSend/tmp/legato/serviceDirectoryServer'.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/tmp/legato/serviceDirectoryClient' to '/legato/systems/current/appsWriteable/pipesSend/tmp/legato/serviceDirectoryClient'.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 102400.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 102400.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | proc.c proc_Start() 1390 | Starting process 'pipesSend' with pid 6771
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[6771]/supervisor T=main | proc.c proc_Start() 1355 | Execing 'pipesSend'
+Oct 27 13:46:47 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[6771]/framework T=unknown | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refPathIteratorMap' is truncated to 'framework.hashMap_refPathIterat'
+Oct 27 13:46:47 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[6771]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refEventHandlers' is truncated to 'framework.hashMap_refEventHandl'
+Oct 27 13:46:47 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[6771]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refDefault Timer SafeRe' is truncated to 'framework.hashMap_refDefault Ti'
+Oct 27 13:46:47 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[6771]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.MessagingClientInterfaces' is truncated to 'framework.MessagingClientInterf'
+Oct 27 13:46:47 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[6771]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refHandlersRef' is truncated to 'framework.hashMap_refHandlersRe'
+Oct 27 13:46:47 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[6771]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_MessagingServices' is truncated to 'framework.hashMap_MessagingServ'
+Oct 27 13:46:47 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[6771]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_MessagingClients' is truncated to 'framework.hashMap_MessagingClie'
+Oct 27 13:46:47 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[6771]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.PipelineSIGCHLD-reports' is truncated to 'framework.PipelineSIGCHLD-repor'
+Oct 27 13:46:47 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[6771]/framework T=main | LE_FILENAME fs_Init() 840 | FS prefix path "/data/le_fs/"
+Oct 27 13:46:47 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[6771]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refFsFileRefMap' is truncated to 'framework.hashMap_refFsFileRefM'
+Oct 27 13:46:47 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[6771]/framework T=main | LE_FILENAME rand_Init() 71 | getrandom function: 0xb6d61150
+Oct 27 13:46:47 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[6771]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.DestructorObjs' overflowed. Expanded to 1 blocks.
+Oct 27 13:46:47 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[6771]/&lt;invalid&gt; T=main | _componentMain.c _pipesSendComponent_Init() 26 | Initializing pipesSendComponent component library.
+Oct 27 13:46:47 swi-mdm9x28-wp user.debug Legato:  DBUG | pipesSend[6771]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.msgs-LogControlProtocol' is truncated to 'framework.msgs-LogControlProtoc'
+Oct 27 13:46:47 swi-mdm9x28-wp user.debug Legato:  DBUG | pipesSend[6771]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.SigMonitor' overflowed. Expanded to 1 blocks.
+Oct 27 13:46:47 swi-mdm9x28-wp user.debug Legato:  DBUG | pipesSend[6771]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.SigHandler' overflowed. Expanded to 1 blocks.
+Oct 27 13:46:47 swi-mdm9x28-wp user.debug Legato:  DBUG | pipesSend[6771]/pipesSend_exe T=main | _main.c main() 60 | == Starting Event Processing Loop ==
+Oct 27 13:46:47 swi-mdm9x28-wp user.info Legato:  INFO | pipesSend[6771]/pipesSendComponent T=main | send.c _pipesSendComponent_COMPONENT_INIT() 19 | #####Inside send COMPONENT_INIT.#####
+Oct 27 13:46:47 swi-mdm9x28-wp user.info Legato:  INFO | pipesSend[6771]/pipesSendComponent T=main | send.c main() 27 | ##### SEND Just opened the fifo.##### -1
+Oct 27 14:46:47 swi-mdm9x28-wp user.info Legato:  INFO | pipesSend[6771] | fd ==1
+Oct 27 13:46:47 swi-mdm9x28-wp user.info Legato:  INFO | pipesSend[6771]/pipesSendComponent T=main | send.c main() 31 | ##### SEND: opening the fifo has failed.#####
+Oct 27 14:46:47 swi-mdm9x28-wp user.notice kernel: [ 2880.270866] audit: type=1400 audit(1603806407.102:9): lsm=SMACK fn=smack_inode_getattr action=denied subject="app.pipesSend" object="admin" requested=r pid=6771 comm="pipesSend" path="pipe:[24224]" dev="pipefs" ino=24224
+</code></pre>
+<p>So, it looks like the fifo cannot be opened.</p>
+<pre><code>root@swi-mdm9x28-wp:~# ls -l
+prwxrwxrwx    1 root     root             0 Oct 27 10:44 fifo
+</code></pre>
+<p>Any ideas what the catch is?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-27T14:27:34Z' class='post-time'>
+                    October 27, 2020,  2:27pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-27T14:27:34Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>It looks like you have a SMACK access problem with the fifo. In addition to the usual Linux permissions, you need to do something like:</p>
+<p>xattr set ‘security.SMACK64’  ‘app.pipesSendrwx’  ‘fifo’</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-27T15:03:51Z' class='post-time'>
+                    October 27, 2020,  3:03pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-27T15:03:51Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks for the hint.</p>
+<p>I did was you suggested:</p>
+<pre><code>root@swi-mdm9x28-wp:~# xattr set 'security.SMACK64' 'app.pipesSendrwx' 'fifo'
+root@swi-mdm9x28-wp:~# xattr get fifo
+                       name=security.SMACK64; value=app.pipesSendrwx
+</code></pre>
+<hr>
+<p>My send.adef file looks like this:</p>
+<pre><code>executables:
+{
+    pipesSend = ( pipesSendComponent )
+}
+
+start: manual
+
+processes:
+{
+    envVars:
+    {
+        LE_LOG_LEVEL = DEBUG
+    }
+
+    run:
+    {
+        ( pipesSend )
+    }
+}
+</code></pre>
+<hr>
+<p>And this is my Component.cdef file:</p>
+<pre><code>sources:
+{
+    send.c
+}
+</code></pre>
+<hr>
+<pre><code>Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c app_Start() 3420 | Starting app 'pipesSend'
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/dev/log' to '/legato/systems/current/appsWriteable/pipesSend/dev/log': Already exists
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/dev/null' to '/legato/systems/current/appsWriteable/pipesSend/dev/null': Already exists
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/dev/zero' to '/legato/systems/current/appsWriteable/pipesSend/dev/zero': Already exists
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/legato/systems/current/lib/liblegato.so' to '/legato/systems/current/appsWriteable/pipesSend/lib/liblegato.so': Already exists
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/ld-linux.so.3' to '/legato/systems/current/appsWriteable/pipesSend/lib/ld-linux.so.3': Already exists
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/libc.so.6' to '/legato/systems/current/appsWriteable/pipesSend/lib/libc.so.6': Already exists
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/libpthread.so.0' to '/legato/systems/current/appsWriteable/pipesSend/lib/libpthread.so.0': Already exists
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/librt.so.1' to '/legato/systems/current/appsWriteable/pipesSend/lib/librt.so.1': Already exists
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/libdl.so.2' to '/legato/systems/current/appsWriteable/pipesSend/lib/libdl.so.2': Already exists
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/libgcc_s.so.1' to '/legato/systems/current/appsWriteable/pipesSend/lib/libgcc_s.so.1': Already exists
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/libm.so.6' to '/legato/systems/current/appsWriteable/pipesSend/lib/libm.so.6': Already exists
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/usr/lib/libstdc++.so.6' to '/legato/systems/current/appsWriteable/pipesSend/lib/libstdc++.so.6': Already exists
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/legato/systems/current/apps/pipesSend/read-only/lib/libComponent_pipesSendComponent.so' to '/legato/systems/current/appsWriteable/pi
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/legato/systems/current/apps/pipesSend/read-only/bin/pipesSend' to '/legato/systems/current/appsWriteable/pipesSend/bin/pipesSend': A
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateTmpFs() 1738 | Mounted tmpfs at /legato/systems/current/appsWriteable/pipesSend/tmp.
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/tmp/legato/serviceDirectoryServer' to '/legato/systems/current/appsWriteable/pipesSend/tmp/legato/serviceDirectoryServer'.
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/tmp/legato/serviceDirectoryClient' to '/legato/systems/current/appsWriteable/pipesSend/tmp/legato/serviceDirectoryClient'.
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 102400.
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 102400.
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | proc.c proc_Start() 1390 | Starting process 'pipesSend' with pid 14831
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[14831]/supervisor T=main | proc.c proc_Start() 1355 | Execing 'pipesSend'
+Oct 27 14:55:33 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[14831]/framework T=unknown | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refPathIteratorMap' is truncated to 'framework.hashMap_refPathIterat'
+Oct 27 14:55:33 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[14831]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refEventHandlers' is truncated to 'framework.hashMap_refEventHandl'
+Oct 27 14:55:33 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[14831]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refDefault Timer SafeRe' is truncated to 'framework.hashMap_refDefault Ti'
+Oct 27 14:55:33 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[14831]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.MessagingClientInterfaces' is truncated to 'framework.MessagingClientInterf'
+Oct 27 14:55:33 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[14831]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refHandlersRef' is truncated to 'framework.hashMap_refHandlersRe'
+Oct 27 14:55:33 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[14831]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_MessagingServices' is truncated to 'framework.hashMap_MessagingServ'
+Oct 27 14:55:33 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[14831]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_MessagingClients' is truncated to 'framework.hashMap_MessagingClie'
+Oct 27 14:55:33 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[14831]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.PipelineSIGCHLD-reports' is truncated to 'framework.PipelineSIGCHLD-repor'
+Oct 27 14:55:33 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[14831]/framework T=main | LE_FILENAME fs_Init() 840 | FS prefix path "/data/le_fs/"
+Oct 27 14:55:33 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[14831]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refFsFileRefMap' is truncated to 'framework.hashMap_refFsFileRefM'
+Oct 27 14:55:33 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[14831]/framework T=main | LE_FILENAME rand_Init() 71 | getrandom function: 0xb6d04150
+Oct 27 14:55:33 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[14831]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.DestructorObjs' overflowed. Expanded to 1 blocks.
+Oct 27 14:55:33 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[14831]/&lt;invalid&gt; T=main | _componentMain.c _pipesSendComponent_Init() 26 | Initializing pipesSendComponent component library.
+Oct 27 14:55:33 swi-mdm9x28-wp user.debug Legato:  DBUG | pipesSend[14831]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.msgs-LogControlProtocol' is truncated to 'framework.msgs-LogControlProtoc'
+Oct 27 14:55:33 swi-mdm9x28-wp user.debug Legato:  DBUG | pipesSend[14831]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.SigMonitor' overflowed. Expanded to 1 blocks.
+Oct 27 14:55:33 swi-mdm9x28-wp user.debug Legato:  DBUG | pipesSend[14831]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.SigHandler' overflowed. Expanded to 1 blocks.
+Oct 27 14:55:33 swi-mdm9x28-wp user.debug Legato:  DBUG | pipesSend[14831]/pipesSend_exe T=main | _main.c main() 60 | == Starting Event Processing Loop ==
+Oct 27 14:55:33 swi-mdm9x28-wp user.info Legato:  INFO | pipesSend[14831]/pipesSendComponent T=main | send.c _pipesSendComponent_COMPONENT_INIT() 19 | #####Inside send COMPONENT_INIT.#####
+Oct 27 14:55:33 swi-mdm9x28-wp user.info Legato:  INFO | pipesSend[14831]/pipesSendComponent T=main | send.c main() 27 | ##### SEND Just opened the fifo.##### -1
+Oct 27 15:55:33 swi-mdm9x28-wp user.info Legato:  INFO | pipesSend[14831] | fd ==1
+Oct 27 14:55:33 swi-mdm9x28-wp user.info Legato:  INFO | pipesSend[14831]/pipesSendComponent T=main | send.c main() 31 | ##### SEND: opening the fifo has failed.#####
+Oct 27 15:55:33 swi-mdm9x28-wp user.notice kernel: [ 7006.708414] audit: type=1400 audit(1603810533.532:15): lsm=SMACK fn=smack_inode_getattr action=denied subject="app.pipesSend" object="admin" requested=r pid=14831 comm="pipesSend" path="pipe:[47207]" dev="pipefs" ino=47207
+Oct 27 15:57:30 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[873]/dcsCellular T=main | dcsCellular.c DcsCellularPacketSwitchHandler() 673 | Packet switch state: previous 1, new 0
+Oct 27 15:57:30 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[873]/dcs T=main | dcs_db.c le_dcs_EventNotifierTechStateTransition() 341 | Notify all channels of technology 2 of system state transition to down
+Oct 27 15:57:30 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[873]/dcsCellular T=main | dcsCellular.c DcsCellularPacketSwitchHandler() 673 | Packet switch state: previous 0, new 1
+Oct 27 15:57:30 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[873]/dcs T=main | dcs_db.c le_dcs_EventNotifierTechStateTransition() 341 | Notify all channels of technology 2 of system state transition to up</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-27T19:44:42Z' class='post-time'>
+                    October 27, 2020,  7:44pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-27T19:44:42Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <aside class="quote no-group" data-username="tadera" data-post="12" data-topic="5449">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/t/f14d63/40.png" class="avatar"> tadera:</div>
+<blockquote>
+<p><code>"/home/root/fifo"</code></p>
+</blockquote>
+</aside>
+<p>You can’t use absolute path in a sandboxed application. Try putting “sandboxed: false” in your adef, you can then use absolute paths. After you get it working you can go back to sandboxed, you will use the file name as just “fifo” and you will need to add a directory assignment for /home/root in your .adef .</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-28T12:11:02Z' class='post-time'>
+                    October 28, 2020, 12:11pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-28T12:11:02Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I just changed the adef files like so:</p>
+<pre><code>executables:
+{
+    pipesSend = ( pipesSendComponent )
+}
+
+start: manual
+
+requires:
+{
+    file:
+   {
+        [rw] /home/root/ 
+   }
+}
+
+processes:
+{
+    envVars:
+    {
+        LE_LOG_LEVEL = DEBUG
+    }
+
+    run:
+    {
+        ( pipesSend )
+    }
+}
+</code></pre>
+<hr>
+<pre><code>executables:
+{
+    pipesRecv = ( pipesRecvComponent )
+}
+
+start: manual
+
+requires:
+{
+    file:{
+
+        [rw] /home/root/ 
+   }
+}
+
+processes:
+{
+    envVars:
+    {
+        LE_LOG_LEVEL = DEBUG
+    }
+
+    run:
+    {
+        ( pipesRecv )
+    }
+}
+</code></pre>
+<hr>
+<p>This is what both .c files look like with regard to the open function:</p>
+<pre><code>int fd = open("fifo", O_WRONLY);   // send.c
+</code></pre>
+<hr>
+<pre><code>int fd = open("fifo", O_RDONLY);   // recv.c
+</code></pre>
+<hr>
+<pre><code>Oct 28 12:48:00 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c app_Create() 3207 | Creating app 'pipesSend'
+Oct 28 12:48:00 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | proc.c GetFaultAction() 323 | No fault action specified for process 'pipesSend'. Assuming 'ignore'.
+Oct 28 12:48:00 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[833]/supervisor T=main | proc.c GetWatchdogAction() 359 | pipesSend watchdogAction '' in proc section
+Oct 28 12:48:00 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[833]/supervisor T=main | proc.c GetWatchdogAction() 359 | pipesSend watchdogAction '' in proc section
+Oct 28 12:48:00 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c app_Start() 3420 | Starting app 'pipesSend'
+Oct 28 12:48:00 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/dev/log' to '/legato/systems/current/appsWriteable/pipesSend/dev/log'.
+Oct 28 12:48:00 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/dev/null' to '/legato/systems/current/appsWriteable/pipesSend/dev/null'.
+Oct 28 12:48:00 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/dev/zero' to '/legato/systems/current/appsWriteable/pipesSend/dev/zero'.
+Oct 28 12:48:00 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/legato/systems/current/lib/liblegato.so' to '/legato/systems/current/appsWriteable/pipesSend/lib/liblegato.so'.
+Oct 28 12:48:00 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/lib/ld-linux.so.3' to '/legato/systems/current/appsWriteable/pipesSend/lib/ld-linux.so.3'.
+Oct 28 12:48:00 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/lib/libc.so.6' to '/legato/systems/current/appsWriteable/pipesSend/lib/libc.so.6'.
+Oct 28 12:48:00 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/lib/libpthread.so.0' to '/legato/systems/current/appsWriteable/pipesSend/lib/libpthread.so.0'.
+Oct 28 12:48:00 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/lib/librt.so.1' to '/legato/systems/current/appsWriteable/pipesSend/lib/librt.so.1'.
+Oct 28 12:48:00 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/lib/libdl.so.2' to '/legato/systems/current/appsWriteable/pipesSend/lib/libdl.so.2'.
+Oct 28 12:48:00 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/lib/libgcc_s.so.1' to '/legato/systems/current/appsWriteable/pipesSend/lib/libgcc_s.so.1'.
+Oct 28 12:48:00 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/lib/libm.so.6' to '/legato/systems/current/appsWriteable/pipesSend/lib/libm.so.6'.
+Oct 28 12:48:00 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/usr/lib/libstdc++.so.6' to '/legato/systems/current/appsWriteable/pipesSend/lib/libstdc++.so.6'.
+Oct 28 12:48:00 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/legato/systems/current/apps/pipesSend/read-only/lib/libComponent_pipesSendComponent.so' to '/legato/systems/current/appsWriteable/pip
+Oct 28 12:48:00 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/legato/systems/current/apps/pipesSend/read-only/bin/pipesSend' to '/legato/systems/current/appsWriteable/pipesSend/bin/pipesSend'.
+Oct 28 12:48:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateTmpFs() 1738 | Mounted tmpfs at /legato/systems/current/appsWriteable/pipesSend/tmp.
+Oct 28 12:48:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/tmp/legato/serviceDirectoryServer' to '/legato/systems/current/appsWriteable/pipesSend/tmp/legato/serviceDirectoryServer'.
+Oct 28 12:48:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/tmp/legato/serviceDirectoryClient' to '/legato/systems/current/appsWriteable/pipesSend/tmp/legato/serviceDirectoryClient'.
+Oct 28 12:48:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 102400.
+Oct 28 12:48:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 102400.
+Oct 28 12:48:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.
+Oct 28 12:48:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.
+Oct 28 12:48:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.
+Oct 28 12:48:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.
+Oct 28 12:48:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.
+Oct 28 12:48:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | proc.c proc_Start() 1390 | Starting process 'pipesSend' with pid 25289
+Oct 28 12:48:01 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[25289]/supervisor T=main | proc.c proc_Start() 1355 | Execing 'pipesSend'
+Oct 28 11:48:01 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[25289]/framework T=unknown | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refPathIteratorMap' is truncated to 'framework.hashMap_refPathIterat'
+Oct 28 11:48:01 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[25289]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refEventHandlers' is truncated to 'framework.hashMap_refEventHandl'
+Oct 28 11:48:01 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[25289]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refDefault Timer SafeRe' is truncated to 'framework.hashMap_refDefault Ti'
+Oct 28 11:48:01 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[25289]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.MessagingClientInterfaces' is truncated to 'framework.MessagingClientInterf'
+Oct 28 11:48:01 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[25289]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refHandlersRef' is truncated to 'framework.hashMap_refHandlersRe'
+Oct 28 11:48:01 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[25289]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_MessagingServices' is truncated to 'framework.hashMap_MessagingServ'
+Oct 28 11:48:01 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[25289]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_MessagingClients' is truncated to 'framework.hashMap_MessagingClie'
+Oct 28 11:48:01 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[25289]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.PipelineSIGCHLD-reports' is truncated to 'framework.PipelineSIGCHLD-repor'
+Oct 28 11:48:01 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[25289]/framework T=main | LE_FILENAME fs_Init() 840 | FS prefix path "/data/le_fs/"
+Oct 28 11:48:01 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[25289]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refFsFileRefMap' is truncated to 'framework.hashMap_refFsFileRefM'
+Oct 28 11:48:01 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[25289]/framework T=main | LE_FILENAME rand_Init() 71 | getrandom function: 0xb6d17150
+Oct 28 11:48:01 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[25289]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.DestructorObjs' overflowed. Expanded to 1 blocks.
+Oct 28 11:48:01 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[25289]/&lt;invalid&gt; T=main | _componentMain.c _pipesSendComponent_Init() 26 | Initializing pipesSendComponent component library.
+Oct 28 11:48:01 swi-mdm9x28-wp user.debug Legato:  DBUG | pipesSend[25289]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.msgs-LogControlProtocol' is truncated to 'framework.msgs-LogControlProtoc'
+Oct 28 11:48:01 swi-mdm9x28-wp user.debug Legato:  DBUG | pipesSend[25289]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.SigMonitor' overflowed. Expanded to 1 blocks.
+Oct 28 11:48:01 swi-mdm9x28-wp user.debug Legato:  DBUG | pipesSend[25289]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.SigHandler' overflowed. Expanded to 1 blocks.
+Oct 28 11:48:01 swi-mdm9x28-wp user.debug Legato:  DBUG | pipesSend[25289]/pipesSend_exe T=main | _main.c main() 60 | == Starting Event Processing Loop ==
+Oct 28 11:48:01 swi-mdm9x28-wp user.info Legato:  INFO | pipesSend[25289]/pipesSendComponent T=main | send.c _pipesSendComponent_COMPONENT_INIT() 19 | #####Inside send COMPONENT_INIT.#####
+Oct 28 11:48:01 swi-mdm9x28-wp user.info Legato:  INFO | pipesSend[25289]/pipesSendComponent T=main | send.c main() 27 | ##### SEND Just opened the fifo.##### -1
+Oct 28 12:48:01 swi-mdm9x28-wp user.info Legato:  INFO | pipesSend[25289] | fd ==1
+Oct 28 11:48:01 swi-mdm9x28-wp user.info Legato:  INFO | pipesSend[25289]/pipesSendComponent T=main | send.c main() 31 | ##### SEND: opening the fifo has failed.#####
+Oct 28 12:48:01 swi-mdm9x28-wp user.notice kernel: [13250.605730] audit: type=1400 audit(1603885681.051:5): lsm=SMACK fn=smack_inode_getattr action=denied subject="app.pipesSend" object="admin" requested=r pid=25289 comm="pipesSend" path="pipe:[78040]" dev="pipefs" ino=78040</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_17' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-29T14:04:13Z' class='post-time'>
+                    October 29, 2020,  2:04pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-29T14:04:13Z'>
+              <span itemprop='position'>17</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You might also need to set the smack permission on the /home/root directory.</p>
+<p>Also if you get an open fail you could try printing strerror(errno) which is a message describing the error.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_18' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-10T11:17:14Z' class='post-time'>
+                    November 10, 2020, 11:17am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-10T11:17:14Z'>
+              <span itemprop='position'>18</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Don’t I have to do the same thing for pipesRecv?</p>
+<pre><code>xattr set 'security.SMACK64' 'app.pipesRecvrwx' 'fifo'
+</code></pre>
+<p>But to me it seems like each file can only have one value as it changed after running the command above.</p>
+<pre><code>name=security.SMACK64; value=app.pipesRecvrwx
+</code></pre>
+<p>Feel free to correct me if I’m wrong.</p>
+<p>How exactly do I set smack permissions on the /home/root/ directory?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_19' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-10T13:08:14Z' class='post-time'>
+                    November 10, 2020,  1:08pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-10T13:08:14Z'>
+              <span itemprop='position'>19</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I just added a proper error printing and missing permissions indeed seem to be the problem.</p>
+<pre><code>Nov 10 13:03:35 swi-mdm9x28-wp user.info Legato:  INFO | pipesSend[24024]/pipesSendComponent T=main | send.c _pipesSendComponent_COMPONENT_INIT() 19 | #####Inside send COMPONENT_INIT.#####
+Nov 10 13:03:35 swi-mdm9x28-wp user.info Legato:  INFO | pipesSend[24024]/pipesSendComponent T=main | send.c main() 27 | ##### SEND Just opened the fifo.##### -1
+Nov 10 13:03:35 swi-mdm9x28-wp user.info Legato:  INFO | pipesSend[24024]/pipesSendComponent T=main | send.c main() 31 | ##### Error opening fd: Permission denied
+Nov 10 13:03:35 swi-mdm9x28-wp user.info Legato:  INFO | pipesSend[24024]/pipesSendComponent T=main | send.c main() 32 | ##### SEND: opening the fifo has failed.#####
+Nov 10 14:03:35 swi-mdm9x28-wp user.notice kernel: [12801.920348] audit: type=1400 audit(1605013415.402:5): lsm=SMACK fn=smack_inode_getattr action=denied subject="app.pipesSend" object="admin" requested=r pid=24024 comm="pipesSend" path="pipe:[76071]" dev="pipefs" ino=76071</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_20' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wp7607-1-ipc-using-pipes/5449">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-12T15:15:33Z' class='post-time'>
+                    November 12, 2020,  3:15pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-12T17:17:18Z'>
+              <span itemprop='position'>20</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Our Python script creates the pipe, apparently it does not need to set SMACK permissions to access the pipe after this. Note the Python script runs from root. SMACK permissions on the pipe are set by the Python script for the Legato application which runs sandboxed.</p>
+<p>It appears to me that SMACK permissions would be needed on the directory if the pipe is created by a sandboxed application.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/wp7607-1-ipc-using-pipes/5449?page=2">next page →</a></b></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

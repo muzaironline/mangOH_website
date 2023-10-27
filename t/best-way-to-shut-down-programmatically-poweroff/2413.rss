@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Best way to shut down programmatically - poweroff?</title>
+    <link>https://forum.mangoh.io/t/best-way-to-shut-down-programmatically-poweroff/2413</link>
+    <description>Using the cli, # poweroff does exactly what I want: a total power-down.
+I have seen other posts that describe using system(&quot;poweroff&quot;) in app-code.
+But my Wp7601 with Legato 18.08 doesn&#39;t seem to include it.
+
+I entered these lines into my app:
+system(&quot;pwd&quot;);
+system(&quot;ls&quot;);
+system(&quot;poweroff&quot;);
+The first two linux system calls result in a reasonable output as shown below, but the &quot;poweroff&quot; call is not found. 
+
+Has it been replaced?
+
+Feb 27 05:54:49 swi-mdm9x28 user.info Legato:  INFO | maxTrack[1485] | /legato/systems/current/appsWriteable/maxTracker
+Feb 27 05:54:49 swi-mdm9x28 user.info Legato:  INFO | maxTrack[1485] | bin dev etc lib sys usr
+
+Feb 27 05:54:49 swi-mdm9x28 user.err Legato: =ERR= | maxTrack[1485] | sh: 
+Feb 27 05:54:49 swi-mdm9x28 user.err Legato: =ERR= | maxTrack[1485] | poweroff: not found
+Feb 27 05:54:49 swi-mdm9x28 user.err Legato: =ERR= | maxTrack[1485] |</description>
+    
+    <lastBuildDate>Fri, 21 Feb 2020 00:34:55 +0000</lastBuildDate>
+    <category>Services</category>
+    <atom:link href="https://forum.mangoh.io/t/best-way-to-shut-down-programmatically-poweroff/2413.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Best way to shut down programmatically - poweroff?</title>
+        <dc:creator><![CDATA[jdots83]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello <a class="mention" href="https://forum.mangoh.io/u/dfrey">@dfrey</a>, I just saw your reply. Sorry to be late but to finish the story for others:<br>
+We have a battery powered product that is also a consumer product. Consumers being capable of anything, they will surely run the thing until it dies before thinking to plug it in for re-charge of the battery. My goal was to get a clean, graceful shutdown, which will remain off until the user plugs in to charge. So I monitor the V and when it drops below 3.4 I shutdown. There is hysteresis built into the hardware to delay starting up again until V is back up to 3.7.</p>
+          <p><a href="https://forum.mangoh.io/t/best-way-to-shut-down-programmatically-poweroff/2413/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/best-way-to-shut-down-programmatically-poweroff/2413/4</link>
+        <pubDate>Fri, 21 Feb 2020 00:34:55 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2413-4</guid>
+        <source url="https://forum.mangoh.io/t/best-way-to-shut-down-programmatically-poweroff/2413.rss">Best way to shut down programmatically - poweroff?</source>
+      </item>
+      <item>
+        <title>Best way to shut down programmatically - poweroff?</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>Can I ask why you’re trying to programmatically power off?  There won’t be any way to power back on again without physically interacting with the unit right?  Is that ok?</p>
+          <p><a href="https://forum.mangoh.io/t/best-way-to-shut-down-programmatically-poweroff/2413/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/best-way-to-shut-down-programmatically-poweroff/2413/3</link>
+        <pubDate>Tue, 05 Mar 2019 22:50:21 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2413-3</guid>
+        <source url="https://forum.mangoh.io/t/best-way-to-shut-down-programmatically-poweroff/2413.rss">Best way to shut down programmatically - poweroff?</source>
+      </item>
+      <item>
+        <title>Best way to shut down programmatically - poweroff?</title>
+        <dc:creator><![CDATA[jdots83]]></dc:creator>
+        <description><![CDATA[
+            <p>Ok, that was an easy one.<br>
+system("/sbin/poweroff -f");<br>
+is a line that works for me.</p>
+          <p><a href="https://forum.mangoh.io/t/best-way-to-shut-down-programmatically-poweroff/2413/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/best-way-to-shut-down-programmatically-poweroff/2413/2</link>
+        <pubDate>Wed, 27 Feb 2019 07:04:33 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2413-2</guid>
+        <source url="https://forum.mangoh.io/t/best-way-to-shut-down-programmatically-poweroff/2413.rss">Best way to shut down programmatically - poweroff?</source>
+      </item>
+      <item>
+        <title>Best way to shut down programmatically - poweroff?</title>
+        <dc:creator><![CDATA[jdots83]]></dc:creator>
+        <description><![CDATA[
+            <p>Using the cli, # poweroff does exactly what I want: a total power-down.<br>
+I have seen other posts that describe using system(“poweroff”) in app-code.<br>
+But my Wp7601 with Legato 18.08 doesn’t seem to include it.</p>
+<p>I entered these lines into my app:<br>
+system(“pwd”);<br>
+system(“ls”);<br>
+system(“poweroff”);<br>
+The first two linux system calls result in a reasonable output as shown below, but the “poweroff” call is not found.</p>
+<p>Has it been replaced?</p>
+<p>Feb 27 05:54:49 swi-mdm9x28 user.info Legato:  INFO | maxTrack[1485] | /legato/systems/current/appsWriteable/maxTracker<br>
+Feb 27 05:54:49 swi-mdm9x28 user.info Legato:  INFO | maxTrack[1485] | bin dev etc lib sys usr</p>
+<p>Feb 27 05:54:49 swi-mdm9x28 user.err Legato: =ERR= | maxTrack[1485] | sh:<br>
+Feb 27 05:54:49 swi-mdm9x28 user.err Legato: =ERR= | maxTrack[1485] | poweroff: not found<br>
+Feb 27 05:54:49 swi-mdm9x28 user.err Legato: =ERR= | maxTrack[1485] |</p>
+          <p><a href="https://forum.mangoh.io/t/best-way-to-shut-down-programmatically-poweroff/2413/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/best-way-to-shut-down-programmatically-poweroff/2413/1</link>
+        <pubDate>Wed, 27 Feb 2019 06:10:28 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2413-1</guid>
+        <source url="https://forum.mangoh.io/t/best-way-to-shut-down-programmatically-poweroff/2413.rss">Best way to shut down programmatically - poweroff?</source>
+      </item>
+  </channel>
+</rss>

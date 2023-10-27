@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Wifi wl18xx is not running - Build your own - mangOH forum</title>
+    <meta name="description" content="Hello, 
+I am working on a project that uses the WP7607 module with the WL18xx ti chip. I defined GPIO_40 and GPIO_41 in order to activate and deaactivate the wifi and BLE. For the MSM_WIFI_IRQ_GPIO I defined GPIO_38 (SWI&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/wifi-wl18xx-is-not-running/1374" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Wifi wl18xx is not running&#39;" href="https://forum.mangoh.io/t/wifi-wl18xx-is-not-running/1374.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/wifi-wl18xx-is-not-running/1374" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/wifi-wl18xx-is-not-running/1374" />
+<meta property="og:title" content="Wifi wl18xx is not running" />
+<meta name="twitter:title" content="Wifi wl18xx is not running" />
+<meta property="og:description" content="Hello,  I am working on a project that uses the WP7607 module with the WL18xx ti chip. I defined GPIO_40 and GPIO_41 in order to activate and deaactivate the wifi and BLE. For the MSM_WIFI_IRQ_GPIO I defined GPIO_38 (SWIMCU_GPIO_TO_SYS(2)) to manage the irq signal. Since I am not using the GPIOexpander neither an i2c hub, I tried to activate the wifi with the following script :  #!/bin/sh  export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin  ti_wifi_start() {  # Add mdev rule for crda  grep crda /et..." />
+<meta name="twitter:description" content="Hello,  I am working on a project that uses the WP7607 module with the WL18xx ti chip. I defined GPIO_40 and GPIO_41 in order to activate and deaactivate the wifi and BLE. For the MSM_WIFI_IRQ_GPIO I defined GPIO_38 (SWIMCU_GPIO_TO_SYS(2)) to manage the irq signal. Since I am not using the GPIOexpander neither an i2c hub, I tried to activate the wifi with the following script :  #!/bin/sh  export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin  ti_wifi_start() {  # Add mdev rule for crda  grep crda /et..." />
+<meta property="og:article:section" content="Build your own" />
+<meta property="og:article:section:color" content="25AAE2" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="1 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="1 ❤" />
+<meta property="article:published_time" content="2018-05-02T12:10:26+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Wifi wl18xx is not running","mainEntity":{"@type":"Question","name":"Wifi wl18xx is not running","text":"Hello,\n\nI am working on a project that uses the WP7607 module with the WL18xx ti chip. I defined GPIO_40 and GPIO_41 in order to activate and deaactivate the wifi and BLE. For the MSM_WIFI_IRQ_GPIO I defined GPIO_38 (SWIMCU_GPIO_TO_SYS(2)) to manage the irq signal. Since I am not using the GPIOexpan&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2018-05-02T12:10:26.778Z","author":{"@type":"Person","name":"HAGGUI"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/wifi-wl18xx-is-not-running/1374">Wifi wl18xx is not running</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/build-your-own/7" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #25AAE2'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>Build your own</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Wifi wl18xx is not running'>
+        <meta itemprop='articleSection' content='Build your own'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Souhail'><span itemprop='name'>Souhail</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-wl18xx-is-not-running/1374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-05-02T12:10:26Z' class='post-time'>
+                    May 2, 2018, 12:10pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-05-02T12:10:26Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hello,</p>
+<p>I am working on a project that uses the WP7607 module with the WL18xx ti chip. I defined GPIO_40 and GPIO_41 in order to activate and deaactivate the wifi and BLE. For the MSM_WIFI_IRQ_GPIO I defined GPIO_38 (SWIMCU_GPIO_TO_SYS(2)) to manage the irq signal. Since I am not using the GPIOexpander neither an i2c hub, I tried to activate the wifi with the following script :<br>
+#!/bin/sh</p>
+<p>export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin</p>
+<p>ti_wifi_start() {<br>
+# Add mdev rule for crda<br>
+grep crda /etc/mdev.conf &gt; /dev/null<br>
+if [ <span class="math">? -ne 0 ]; then
+       echo "\$COUNTRY=.. root:root 0660 */sbin/crda" &gt;&gt; /etc/mdev.conf
+    fi
+    lsmod | grep wlcore &gt;/dev/null
+    if [ </span>? -ne 0 ]; then<br>
+# Set IOT0_RESET = 1 (WP GPIO2)<br>
+[ -d /sys/class/gpio/gpio41 ] || echo 41 &gt;/sys/class/gpio/export<br>
+echo out &gt;/sys/class/gpio/gpio41/direction<br>
+echo 1 &gt;/sys/class/gpio/gpio41/value<br>
+modprobe wlcore || exit 127<br>
+modprobe wlcore_sdio || exit 127<br>
+modprobe wl18xx || exit 127<br>
+fi<br>
+sleep 5<br>
+ifconfig -a | grep wlan0 &gt;/dev/null<br>
+if [ <span class="math">? -ne 0 ] ; then
+        echo "Failed to start TI wifi"; exit 127
+    fi
+    ifconfig wlan0 up &gt;/dev/null
+    if [ </span>? -ne 0 ] ; then<br>
+echo “Failed to start TI wifi”; exit 127<br>
+fi<br>
+}</p>
+<p>ti_wifi_stop() {<br>
+ifconfig | grep wlan0 &gt;/dev/null<br>
+if [ <span class="math">? -eq 0 ]; then
+       ifconfig wlan0 down
+    fi
+    lsmod | grep wlcore &gt;/dev/null
+    if [ </span>? -eq 0 ]; then<br>
+rmmod wl18xx || exit 127<br>
+rmmod wlcore_sdio || exit 127<br>
+rmmod wlcore || exit 127</p>
+<pre><code>   # Reset IOT0_GPIO4 = 0 (WP GPIO8)
+   echo 0 &gt;/sys/class/gpio/gpio41/value
+fi
+</code></pre>
+<p>}</p>
+<p>case “$1” in<br>
+start)<br>
+ti_wifi_start<br>
+;;<br>
+stop)<br>
+ti_wifi_stop<br>
+;;<br>
+restart)<br>
+ti_wifi_stop<br>
+ti_wifi_start<br>
+;;<br>
+*)<br>
+exit 1<br>
+;;<br>
+esac<br>
+exit 0</p>
+<p>However, after running this script, the modules: wl18xx, wlcore_sdio, wlcore mac 80211 and cfg80211  were loaded however the wlan0 interface is not created. Hereaftre are the log when running the scripts :<br>
+Jan  6 00:53:47 swi-mdm9x28 user.debug kernel: [ 3225.258026] gpio_sync_ri: RI owner is Modem<br>
+Jan  6 00:53:47 swi-mdm9x28 user.debug kernel: [ 3225.258053] gpio_map_name_to_num: find GPIO 204<br>
+Jan  6 00:53:47 swi-mdm9x28 user.debug kernel: [ 3225.258063] export_store: Export GPIO: 204<br>
+Jan  6 00:53:47 swi-mdm9x28 user.err kernel: [ 3225.258438] i2c-msm-v2 78b8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:18) mode:FIFO slv_addr:0x3a MSTR_STS:0x001363c8 OPER:0x00000090<br>
+Jan  6 00:53:47 swi-mdm9x28 user.debug kernel: [ 3225.279907] gpio_sync_ri: RI owner is Modem<br>
+Jan  6 00:53:47 swi-mdm9x28 user.debug kernel: [ 3225.279928] gpiod_export: sierra–find GPIO,chipdev = -833663984,chipngpio = 5,chipbase = 200<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352165] cfg80211: Calling CRDA to update world regulatory domain<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352316] cfg80211: World regulatory domain updated:<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352329] cfg80211:  DFS Master region: unset<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352339] cfg80211:   (start_freq - end_freq @ bandwidth), (max_antenna_gain, max_eirp), (dfs_cac_time)<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352351] cfg80211:   (2402000 KHz - 2472000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352362] cfg80211:   (2457000 KHz - 2482000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352373] cfg80211:   (2474000 KHz - 2494000 KHz @ 20000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352383] cfg80211:   (5170000 KHz - 5250000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352394] cfg80211:   (5250000 KHz - 5330000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352405] cfg80211:   (5490000 KHz - 5710000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352415] cfg80211:   (5735000 KHz - 5835000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+Jan  6 00:53:47 swi-mdm9x28 user.info kernel: [ 3225.352426] cfg80211:   (57240000 KHz - 63720000 KHz @ 2160000 KHz), (N/A, 0 mBm), (N/A)<br>
+Jan  6 00:56:00 swi-mdm9x28 user.info Legato:  INFO | modemDaemon[687]/modemDaemon T=main | le_mrc.c SignalStrengthIndHandlerFunc() 654 | Signal Strength Ind Handler called with RAT.2 and ss.-105<br>
+Jan  6 00:58:39 swi-mdm9x28 user.info Legato:  INFO | modemDaemon[687]/modemDaemon T=main | le_mrc.c SignalStrengthIndHandlerFunc() 654 | Signal Strength Ind Handler called with RAT.2 and ss.-104<br>
+Comparing this log to that that I obtained from the mangoh board it is clear that it misses the next lines related the the mmc interface :<br>
+Jan  6 00:39:06 swi-mdm9x28 user.warn kernel: [  115.472161] sdhci_msm 7864900.sdhci: card claims to support voltages below defined range<br>
+Jan  6 00:39:06 swi-mdm9x28 user.warn kernel: [  115.524852] mmc0: queuing unknown CIS tuple 0x91 (3 bytes)<br>
+Jan  6 00:39:06 swi-mdm9x28 user.info kernel: [  115.527371] mmc0: new high speed SDIO card at address 0001<br>
+Jan  6 00:39:07 swi-mdm9x28 user.info kernel: [  116.075196] wlcore: wl18xx HW: 183x or 180x, PG 2.2 (ROM 0x11)<br>
+Jan  6 00:39:07 swi-mdm9x28 user.info kernel: [  116.157324] wlcore: loaded<br>
+Jan  6 00:39:12 swi-mdm9x28 user.info kernel: [  120.994600] wlcore: PHY firmware version: Rev 8.2.0.0.212<br>
+Jan  6 00:39:12 swi-mdm9x28 user.info kernel: [  121.056066] wlcore: firmware booted (Rev 8.9.0.0.17)<br>
+Jan  6 00:39:12 swi-mdm9x28 user.info</p>
+<p>Can you help me with this issue please.</p>
+<p>Best regards,</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Souhail'><span itemprop='name'>Souhail</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-wl18xx-is-not-running/1374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-05-07T12:08:51Z' class='post-time'>
+                    May 7, 2018, 12:08pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-05-07T12:08:51Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>The previous behavior was in fact related to a hardware issue. Now, it works very well.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

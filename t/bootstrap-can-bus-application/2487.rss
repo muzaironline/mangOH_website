@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Bootstrap CAN Bus application</title>
+    <link>https://forum.mangoh.io/t/bootstrap-can-bus-application/2487</link>
+    <description>Hello everyone,
+
+I’m currently working around a connected card application using the IoT CAN card with my team.
+It can be a little tricky so feel free to ask any questions if I can help you :slight_smile:
+
+Regards,</description>
+    
+    <lastBuildDate>Thu, 02 May 2019 07:12:34 +0000</lastBuildDate>
+    <category>Open Connected Car Challenge</category>
+    <atom:link href="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Bootstrap CAN Bus application</title>
+        <dc:creator><![CDATA[majditoumi]]></dc:creator>
+        <description><![CDATA[
+            <p>It was a firmware update issue. Not from mangoh|legato team but one of a developer I’m working with has not use the right tools describe on sierra website <img src="https://emoji.discourse-cdn.com/twitter/wink.png?v=9" title=":wink:" class="emoji" alt=":wink:"></p>
+          <p><a href="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/9</link>
+        <pubDate>Tue, 16 Apr 2019 08:41:22 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2487-9</guid>
+        <source url="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487.rss">Bootstrap CAN Bus application</source>
+      </item>
+      <item>
+        <title>Bootstrap CAN Bus application</title>
+        <dc:creator><![CDATA[Naej]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi All,<br>
+I finally manage to have the CAN bus working. For me the blocking point was the mangOH.sdef file. I had to link kernel modules. Like:</p>
+<pre><code class="lang-auto">kernelModules:
+{
+...
+$CURDIR/linux_kernel_modules/can_9x07/mcp251x
+$CURDIR/linux_kernel_modules/can_common/can_iot
+...
+}
+</code></pre>
+<p>Rebuild the firmware for my board (“make red_wp76xx”).</p>
+<p>Uncomment <code>#include "sinc/can_iot_card.sinc"</code> did not works (for me).</p>
+          <p><a href="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/8</link>
+        <pubDate>Wed, 10 Apr 2019 14:12:05 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2487-8</guid>
+        <source url="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487.rss">Bootstrap CAN Bus application</source>
+      </item>
+      <item>
+        <title>Bootstrap CAN Bus application</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-username="Naej" data-post="6" data-topic="2487">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/n/bc8723/40.png" class="avatar"> Naej:</div>
+<blockquote>
+<p>Or something more reliable than pieces of code in a forum not able to handle code quotes?</p>
+</blockquote>
+</aside>
+<p>Getting a little bit off-topic,  but…</p>
+<pre><code class="lang-auto">int main(int argc, char **argv)
+{
+    /*
+     * This is a multi-line code section.  This can be achieved by triple backticks to start and end.
+     */
+}
+</code></pre>
+<p>There are also <code>inline code snippets</code> which are created by surrounding the text in single backticks.</p>
+          <p><a href="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/7</link>
+        <pubDate>Mon, 08 Apr 2019 17:28:10 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2487-7</guid>
+        <source url="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487.rss">Bootstrap CAN Bus application</source>
+      </item>
+      <item>
+        <title>Bootstrap CAN Bus application</title>
+        <dc:creator><![CDATA[Naej]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote quote-modified" data-post="50" data-topic="997">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/n/bc8723/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/can-iot-card-driver/997/50">CAN IoT Card driver</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-red/12"><span class="badge-category-bg" style="background-color: #DF1E2E;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-red">mangOH Red</span></a>
+  </div>
+  <blockquote>
+    Hi, 
+Thanks for your help but it still did not work. I got thoses errors with the new start_can.sh: 
+Jan  6 01:01:36 swi-mdm9x28-wp user.warn Legato: -WRN- | UNKNOWN[1900]/framework T=main | LE_FILENAME le_ref_CreateMap() 149 | Map name ‘refle_kernelModule_ClientHandlers’ truncated to ‘refle_kernelModule_ClientHandle’. 
+Jan  6 01:01:36 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[855]/supervisor T=main | kernelModules.c le_kernelModule_Unload() 1515 | Requested to unload module ‘can_iot.k…
+  </blockquote>
+</aside>
+
+<p>Here is a topic where we also looking for the same help.</p>
+<p>Here is THE point.</p>
+<blockquote>
+<p>Does anyone can provide a simple read/write exemple for the mangOH red wp7607 with CAN board? With all the conf files (*.sdef, *.adef, *.cdef) than I’m pretty sure I missunderstood. And also the start.sh script, and the version of the legato firmware it works on. Or something more reliable than pieces of code in a forum not able to handle code quotes?</p>
+</blockquote>
+          <p><a href="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/6</link>
+        <pubDate>Mon, 08 Apr 2019 10:10:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2487-6</guid>
+        <source url="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487.rss">Bootstrap CAN Bus application</source>
+      </item>
+      <item>
+        <title>Bootstrap CAN Bus application</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>What’s the issue? Please provide more info</p>
+          <p><a href="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/5</link>
+        <pubDate>Sat, 06 Apr 2019 16:17:37 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2487-5</guid>
+        <source url="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487.rss">Bootstrap CAN Bus application</source>
+      </item>
+      <item>
+        <title>Bootstrap CAN Bus application</title>
+        <dc:creator><![CDATA[majditoumi]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello Naej,</p>
+<p>We have some technical issues with our current mangoh firmware but when everything works I can give you a basic solution that read|send data to the cloud</p>
+          <p><a href="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/3</link>
+        <pubDate>Fri, 29 Mar 2019 10:50:08 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2487-3</guid>
+        <source url="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487.rss">Bootstrap CAN Bus application</source>
+      </item>
+      <item>
+        <title>Bootstrap CAN Bus application</title>
+        <dc:creator><![CDATA[Naej]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi, I’ve just seen your post. Thanks for providing help.<br>
+I have to red can frame with the IoT CAN Card and a mangohRED board. Does you have a simple read example?</p>
+<p>I’ve already ask on this post:</p>
+<aside class="quote quote-modified" data-post="44" data-topic="997">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/n/bc8723/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/can-iot-card-driver/997/44">CAN IoT Card driver</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-red/12"><span class="badge-category-bg" style="background-color: #DF1E2E;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-red">mangOH Red</span></a>
+  </div>
+  <blockquote>
+    Hi, 
+I got a mangOH red board with the Talon CAN IoT board. Is there a simple (working ;-]) read example? I’ve tried the <a class="mention" href="https://forum.mangoh.io/u/francis.duhaut">@Francis.duhaut</a> code and it won’t compile. I also tried the KillSwitch Example compile but did not works. So I made a simple read code: 
+#include “legato.h” 
+#include “interfaces.h” 
+#include &lt;stdio.h&gt; 
+#include &lt;string.h&gt; 
+#include &lt;fcntl.h&gt; 
+#include &lt;sys/ioctl.h&gt; 
+#include &lt;net/if.h&gt; 
+#include &lt;linux/can.h&gt; 
+#include &lt;linux/can/raw.h&gt; 
+int soc; 
+int read_can_port; 
+int open…
+  </blockquote>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/2</link>
+        <pubDate>Thu, 28 Mar 2019 12:52:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2487-2</guid>
+        <source url="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487.rss">Bootstrap CAN Bus application</source>
+      </item>
+      <item>
+        <title>Bootstrap CAN Bus application</title>
+        <dc:creator><![CDATA[majditoumi]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello everyone,</p>
+<p>I’m currently working around a connected card application using the IoT CAN card with my team.<br>
+It can be a little tricky so feel free to ask any questions if I can help you <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=6" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+<p>Regards,</p>
+          <p><a href="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/bootstrap-can-bus-application/2487/1</link>
+        <pubDate>Tue, 19 Mar 2019 13:27:03 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2487-1</guid>
+        <source url="https://forum.mangoh.io/t/bootstrap-can-bus-application/2487.rss">Bootstrap CAN Bus application</source>
+      </item>
+  </channel>
+</rss>

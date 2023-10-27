@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+    <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184</link>
+    <description>Hello. Can i get acces to Diagnostic port of modem in Mango&#39;s linux?</description>
+    
+    <lastBuildDate>Thu, 01 Dec 2022 10:57:05 +0000</lastBuildDate>
+    <category>Uncategorized</category>
+    <atom:link href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>no, i don’t have mask for “-m” mdm filter</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/31">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/31</link>
+        <pubDate>Thu, 01 Dec 2022 10:57:05 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-31</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[gennadyk]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-username="jyijyi" data-post="29" data-topic="10184">
+<div class="title">
+<div class="quote-controls"></div>
+<img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar"> jyijyi:</div>
+<blockquote>
+<p><code>diag_mdlog -f Default.cfg -o /tmp/test.log</code></p>
+</blockquote>
+</aside>
+<p>thanks, it works.<br>
+do you have mask for mdm?</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/30">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/30</link>
+        <pubDate>Thu, 01 Dec 2022 10:22:41 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-30</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I don’ see problem, you can use my default.cfg filter:<br>
+<a class="attachment" href="https://forum.mangoh.io/uploads/short-url/2n2XbrTR55lStZvCw2ZmN3t6e1U.cfg">Default.cfg</a> (3.9 KB)</p>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# diag_mdlog -f Default.cfg -o /tmp/test.log
+diag_mdlog: Directory /mnt/userrw is accessible
+diag_mdlog: successfully created pid file, pid: 3344
+diag_mdlog: Created logging directory /tmp/test.log
+Total Disk Space: 79929344, Available Disk Space: 79892480, Maximum file size adjusted to 71899546 bytes.
+Turned off circular logging because max file size is too big.
+
+diag_mdlog: Diag_LSM_Init succeeded.
+
+ REMOTE PROCESSOR MASK 0
+ logging switched
+Output dirs /tmp/test.log --- /tmp/test.log
+
+diag_mdlog: Reading mask for MSM, proc_type: 0
+Reading the mask file: Default.cfg
+diag: Determining contents of directory /tmp/test.log for logging ...
+ creating new file /tmp/test.log/diag_log_19800106_081028315965428765.qmdl
+^Cdiag: Signal received
+diag:In diag_kill_qshrink4_threads finished killing qshrink4 threads
+diag: sending signal to unblock read thread
+diag:dummy_handler: pid-tid 3344-3353
+ CreateWaitThread exiting ...[1]..
+ Exiting....WriteToDisk
+diag: Sending cond to CreateWaitThread
+diag: Exiting program
+root@swi-mdm9x28-wp:~# ls /tmp/test.log/diag_
+diag_log_19800106_081028315965428765.qmdl
+diag_qsr4_guid_list.xml
+root@swi-mdm9x28-wp:~# ls /tmp/test.log/diag_
+diag_log_19800106_081028315965428765.qmdl
+diag_qsr4_guid_list.xml
+root@swi-mdm9x28-wp:~# ls /tmp/test.log/diag_log_19800106_081028315965428765.qmd
+l -l
+-rw-r--r--    1 root     root        811215 Jan  6 08:10 /tmp/test.log/diag_log_19800106_081028315965428765.qmdl
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/29">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/29</link>
+        <pubDate>Thu, 01 Dec 2022 09:24:00 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-29</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[gennadyk]]></dc:creator>
+        <description><![CDATA[
+            <p>/mnt/userrw/diag_logs is empty</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/28">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/28</link>
+        <pubDate>Thu, 01 Dec 2022 09:07:30 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-28</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>The log mask is in .cfg format.</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/27">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/27</link>
+        <pubDate>Thu, 01 Dec 2022 09:03:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-27</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[gennadyk]]></dc:creator>
+        <description><![CDATA[
+            <p>yes, i try find default mask</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/26">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/26</link>
+        <pubDate>Thu, 01 Dec 2022 08:59:28 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-26</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>yes, did you try “diag_mdlog -h” on the console?</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/25">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/25</link>
+        <pubDate>Thu, 01 Dec 2022 08:58:21 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-25</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[gennadyk]]></dc:creator>
+        <description><![CDATA[
+            <p>i found it</p><aside class="onebox allowlistedgeneric" data-onebox-src="https://osmocom.org/projects/quectel-modems/wiki/Sierra_Wireless_Modems">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/0edeeab510be790e0f7c4184521bd94370a41d86.png" class="site-icon" width="32" height="32">
+
+      <a href="https://osmocom.org/projects/quectel-modems/wiki/Sierra_Wireless_Modems" target="_blank" rel="noopener nofollow ugc">osmocom.org</a>
+  </header>
+
+  <article class="onebox-body">
+    
+
+<h3><a href="https://osmocom.org/projects/quectel-modems/wiki/Sierra_Wireless_Modems" target="_blank" rel="noopener nofollow ugc">Sierra Wireless Modems - Qualcomm Linux Modems by Quectel &amp; Co - Open...</a></h3>
+
+  <p>Redmine</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+<p>
+Can it helps to get acces to DM? on mango yellow</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/24">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/24</link>
+        <pubDate>Thu, 01 Dec 2022 08:21:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-24</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[gennadyk]]></dc:creator>
+        <description><![CDATA[
+            <blockquote>
+<p>then what program are you going to run on the module linux?<br>
+we have program send read data from dm port and parsing raw data.</p>
+</blockquote>
+<blockquote>
+<p>As mentioned before, you can use diag_mdlog to capture DM log locally in module.</p>
+</blockquote>
+<p>so diag_mdlog i can run on the module’s linux?</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/23">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/23</link>
+        <pubDate>Thu, 01 Dec 2022 08:17:45 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-23</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>then what program are you going to run on the module linux?</p>
+<p>As mentioned before, you can use diag_mdlog to capture DM log locally in module.</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/22">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/22</link>
+        <pubDate>Thu, 01 Dec 2022 08:11:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-22</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[gennadyk]]></dc:creator>
+        <description><![CDATA[
+            <p>yes, only mango without PC.  I understand that I cannot run QXDM on the board, I only need a diagnostic port</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/21">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/21</link>
+        <pubDate>Thu, 01 Dec 2022 08:08:15 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-21</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>so you want to use QXDM on module’s  linux?</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/20">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/20</link>
+        <pubDate>Thu, 01 Dec 2022 08:06:51 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-20</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[gennadyk]]></dc:creator>
+        <description><![CDATA[
+            <p>we want use linux in mango without external PC</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/19">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/19</link>
+        <pubDate>Thu, 01 Dec 2022 08:01:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-19</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>then what is the problem?<br>
+QXDM can work with the USB DM port</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/18">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/18</link>
+        <pubDate>Thu, 01 Dec 2022 01:15:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-18</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[gennadyk]]></dc:creator>
+        <description><![CDATA[
+            <p>we use sierra with other equipment and we need complete sytem information on the radio part.<br>
+now we are using qxdm</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/17">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/17</link>
+        <pubDate>Wed, 30 Nov 2022 08:53:17 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-17</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>why don’t you use USB DM port?</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/16">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/16</link>
+        <pubDate>Wed, 30 Nov 2022 08:50:07 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-16</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[gennadyk]]></dc:creator>
+        <description><![CDATA[
+            <p>sadly, I really hoped to get access to it</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/15">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/15</link>
+        <pubDate>Wed, 30 Nov 2022 08:48:18 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-15</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>that is wrong information in the old version</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/14">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/14</link>
+        <pubDate>Wed, 30 Nov 2022 08:43:53 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-14</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[gennadyk]]></dc:creator>
+        <description><![CDATA[
+            <p>strange, it was also documented, which means that some firmware supported it</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/13">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/13</link>
+        <pubDate>Wed, 30 Nov 2022 08:40:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-13</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>i think no FW is supporting the DM port mapped to UART</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/12</link>
+        <pubDate>Wed, 30 Nov 2022 08:33:00 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-12</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[gennadyk]]></dc:creator>
+        <description><![CDATA[
+            <p>does the version of at commands depend on the version of the modem firmware?<br>
+what version of modem do i need to install?</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/11</link>
+        <pubDate>Wed, 30 Nov 2022 08:18:55 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-11</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>not the FW, rev 7 is the AT command user guide pdf<br>
+your pdf is rev 6.</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/10</link>
+        <pubDate>Wed, 30 Nov 2022 08:16:35 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-10</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[gennadyk]]></dc:creator>
+        <description><![CDATA[
+            <p>so before rev 7 it worked?<br>
+rev 7 it is<br>
+<a href="https://source.sierrawireless.com/resources/airprime/software/wp77xx/wp77xx-firmware-release-7/#sthash.e87hZbYG.dpbs" class="onebox" target="_blank" rel="noopener nofollow ugc">https://source.sierrawireless.com/resources/airprime/software/wp77xx/wp77xx-firmware-release-7/#sthash.e87hZbYG.dpbs</a><br>
+?</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/9</link>
+        <pubDate>Wed, 30 Nov 2022 08:15:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-9</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Diagnostic Message (DM) service is not supported with AT!MAPUART. So, it has been removed from the AT command user guide version 7.</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/8</link>
+        <pubDate>Wed, 30 Nov 2022 08:03:27 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-8</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+      <item>
+        <title>Acces to Diansotic port in Mango&#39;s Linux</title>
+        <dc:creator><![CDATA[gennadyk]]></dc:creator>
+        <description><![CDATA[
+            <p>Could you tell me what revision i need to install to get this functionality?</p>
+          <p><a href="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184/7</link>
+        <pubDate>Wed, 30 Nov 2022 07:52:26 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10184-7</guid>
+        <source url="https://forum.mangoh.io/t/acces-to-diansotic-port-in-mangos-linux/10184.rss">Acces to Diansotic port in Mango&#39;s Linux</source>
+      </item>
+  </channel>
+</rss>

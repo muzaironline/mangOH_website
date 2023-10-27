@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>UART on IoT Connector</title>
+    <link>https://forum.mangoh.io/t/uart-on-iot-connector/1246</link>
+    <description>I am trying to talk UART to an HL 7748 on the mangOH red board via an external MCU. My goal is to send AT commands to the HL. I&#39;m trying to do this via the IoT connector breakout board. UART looks to be pins 12 and 13. Will only connecting these work? What about the n_card_detect ? Are those signals to the IOT connector only enabled if the n_card_detect is low ?</description>
+    
+    <lastBuildDate>Wed, 23 May 2018 20:45:25 +0000</lastBuildDate>
+    <category>IoT Cards</category>
+    <atom:link href="https://forum.mangoh.io/t/uart-on-iot-connector/1246.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>UART on IoT Connector</title>
+        <dc:creator><![CDATA[Alex]]></dc:creator>
+        <description><![CDATA[
+            <p>Worked more on the UART1 via Raspberry Pi connector today.  I am able to use my microcontroller to send SMS messages on the mangOH board with the WP chip.  I am using the WP first because I can easily bring up tera term to send AT messages and verify my work.  I hope the HL chip behaves the same way, but I will try it out soon.  I have been told that they should be exactly the same in this regard ie. If I have code to work with the WP, I should be able to swap out to the HL and it will behave the same.  We will see…</p>
+<p>Edit : I am not able to just simply switch out the WP and HL chip and send AT commands to get the SMS and cellular to work. The WP 8548 chip is 3G technology and will work with many different SIM cards. The HL 7748 uses LTE CAT M1, thus needs a CAT M1 SIM card. Finding a CAT M1 SIM card has been harder than I thought. But I do have some on their way from ATT.</p>
+          <p><a href="https://forum.mangoh.io/t/uart-on-iot-connector/1246/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/uart-on-iot-connector/1246/9</link>
+        <pubDate>Fri, 04 May 2018 05:14:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1246-9</guid>
+        <source url="https://forum.mangoh.io/t/uart-on-iot-connector/1246.rss">UART on IoT Connector</source>
+      </item>
+      <item>
+        <title>UART on IoT Connector</title>
+        <dc:creator><![CDATA[hitheshkaranth]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/alex">@Alex</a></p>
+<blockquote>
+<p>I belive /dev/ttyHS0 is the directory under taken to use UART0 which is on port 10,8 of CN307 right?</p>
+</blockquote>
+<blockquote>
+<p>This is also considered as uart1 when enabling using “uartMode set 1 app” am i wrong in this one?</p>
+</blockquote>
+<blockquote>
+<p>is linux application mode is considered for usage of uart using application developed via developer studio ?</p>
+</blockquote>
+          <p><a href="https://forum.mangoh.io/t/uart-on-iot-connector/1246/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/uart-on-iot-connector/1246/8</link>
+        <pubDate>Sat, 28 Apr 2018 07:16:10 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1246-8</guid>
+        <source url="https://forum.mangoh.io/t/uart-on-iot-connector/1246.rss">UART on IoT Connector</source>
+      </item>
+      <item>
+        <title>UART on IoT Connector</title>
+        <dc:creator><![CDATA[Alex]]></dc:creator>
+        <description><![CDATA[
+            <p>Yes, that is exactly what I am doing. I am sending AT commands with an external MCU. If your MCU uses 3.3V, it should work fine via RPi.  When David’s board is available for purchase, you can then use it for IOT connector if mcu voltage is &gt; 1.8V. There is not much to it for RPi. Connect the Rx and Tx lines, as well as a ground. If you are using an HL chip, tie the Rts and Cts together (I did this on the IOT connector ). Make sure th MCU uart settings are 115200 baud rate , no parity , and one stop bit. Though I do need to look into this and figure out how to get error checking working. When I had parity set, my MCU would receive incorrect responses, so I need to figure out how to set it on the HL and WP. But this will get you started. When I start working on it again I will report back. Let me know if you have any questions. I started out just sending “AT\r”. And I would get an “OK” as a response. It will echo the command you sent to it as that setting is on by default , so keep this in mind. On the HL i am getting a few “extra” carriage returns and line feeds, but it is consistent in this. Something else I need to look at. The WP will respond with carriage return , new line , OK, which is more of what I expect. I have sent many other commands too, like at!mapuart? And get good responses.</p>
+          <p><a href="https://forum.mangoh.io/t/uart-on-iot-connector/1246/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/uart-on-iot-connector/1246/7</link>
+        <pubDate>Thu, 26 Apr 2018 15:14:05 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1246-7</guid>
+        <source url="https://forum.mangoh.io/t/uart-on-iot-connector/1246.rss">UART on IoT Connector</source>
+      </item>
+      <item>
+        <title>UART on IoT Connector</title>
+        <dc:creator><![CDATA[hitheshkaranth]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/alex">@Alex</a></p>
+<p>In accordance to your above statement is there a way to configure the CN307(Rpi Header) especially(Pin 10,8) as UART ports and use it for any external micro controller usage. I do belive that the above statment meets my necessity too so can you explain in detail how did you acheive this one? Thanks in advance.</p>
+          <p><a href="https://forum.mangoh.io/t/uart-on-iot-connector/1246/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/uart-on-iot-connector/1246/6</link>
+        <pubDate>Thu, 26 Apr 2018 12:21:30 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1246-6</guid>
+        <source url="https://forum.mangoh.io/t/uart-on-iot-connector/1246.rss">UART on IoT Connector</source>
+      </item>
+      <item>
+        <title>UART on IoT Connector</title>
+        <dc:creator><![CDATA[Alex]]></dc:creator>
+        <description><![CDATA[
+            <p>For those who may read this post in the future, here are some tips to get UART1 working:</p>
+<p>I have got the UART1 working on the Raspberry Pi header to send and receive AT commands to the cellular chips.  I am using an external microcontroller to talk UART to both the WP and HL chips.  There is a level shifter on the mangOH Red board for the RPi header, so this is the reason I am using it (CF3 modules are 1.8V, but my uC is 3.3).  David will have his  board soon that will be able to connect to the IoT slot and use the UART on that connector.  I did not have to configure the WP or HL chip to get UART1 working on RPi header.  On the WP chip, when I type at!mapuart?, I get 1,16,  I think this was the configuration when I first got the chip.  This says UART1 is configured for AT and UART2 is for console.  I also had to change the UART settings on my microcontroller.  I could not find much information about the settings online but the most important one was parity bit set to none.  When using the HL chip, since I am only using 2 wire UART, I had to tie the RTS and CTS together.  The HL chip would not respond without this.  The WP chip did not require tying RTS and CTS together for some reason. Also if sending AT commands to these chips with a microcontroller, keep in mind the cellular chip might echo your command back to you.  This can be turned on and off via ATE0/1 command.</p>
+          <p><a href="https://forum.mangoh.io/t/uart-on-iot-connector/1246/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/uart-on-iot-connector/1246/5</link>
+        <pubDate>Mon, 23 Apr 2018 22:55:46 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1246-5</guid>
+        <source url="https://forum.mangoh.io/t/uart-on-iot-connector/1246.rss">UART on IoT Connector</source>
+      </item>
+      <item>
+        <title>UART on IoT Connector</title>
+        <dc:creator><![CDATA[davidc]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Alex,</p>
+<p>Sorry for delay. I’ve PM’d you with more info.</p>
+<p>ciao, Dave</p>
+          <p><a href="https://forum.mangoh.io/t/uart-on-iot-connector/1246/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/uart-on-iot-connector/1246/4</link>
+        <pubDate>Mon, 26 Mar 2018 05:06:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1246-4</guid>
+        <source url="https://forum.mangoh.io/t/uart-on-iot-connector/1246.rss">UART on IoT Connector</source>
+      </item>
+      <item>
+        <title>UART on IoT Connector</title>
+        <dc:creator><![CDATA[Alex]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi David. So I am evaluating the WP8548 and the HL7800 (i think we have a 7748 now until 7800 becomes available). I’m wanting to send AT commands from an external microcontroller to the HL chip. I’m not receiving anything back on the HL. I am using UART1 in the IOT connector. Also tried the rasp pi connector. Swapped out the HL for the WP and did get data back from WP, but it is “garbage”. I am still digging through all the datasheets.  AT!MAPUART tells me that UART1 is mapped to AT commands, so I still need to do some debugging.</p>
+          <p><a href="https://forum.mangoh.io/t/uart-on-iot-connector/1246/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/uart-on-iot-connector/1246/3</link>
+        <pubDate>Fri, 16 Mar 2018 03:39:13 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1246-3</guid>
+        <source url="https://forum.mangoh.io/t/uart-on-iot-connector/1246.rss">UART on IoT Connector</source>
+      </item>
+      <item>
+        <title>UART on IoT Connector</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>maybe you need to talk to <a class="mention" href="https://forum.mangoh.io/u/davidc">@davidc</a></p>
+<p><a class="mention" href="https://forum.mangoh.io/u/davidc">@davidc</a> did you want to showcase what you just built?</p>
+          <p><a href="https://forum.mangoh.io/t/uart-on-iot-connector/1246/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/uart-on-iot-connector/1246/2</link>
+        <pubDate>Fri, 16 Mar 2018 03:07:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1246-2</guid>
+        <source url="https://forum.mangoh.io/t/uart-on-iot-connector/1246.rss">UART on IoT Connector</source>
+      </item>
+      <item>
+        <title>UART on IoT Connector</title>
+        <dc:creator><![CDATA[Alex]]></dc:creator>
+        <description><![CDATA[
+            <p>I am trying to talk UART to an HL 7748 on the mangOH red board via an external MCU. My goal is to send AT commands to the HL. I’m trying to do this via the IoT connector breakout board. UART looks to be pins 12 and 13. Will only connecting these work? What about the n_card_detect ? Are those signals to the IOT connector only enabled if the n_card_detect is low ?</p>
+          <p><a href="https://forum.mangoh.io/t/uart-on-iot-connector/1246/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/uart-on-iot-connector/1246/1</link>
+        <pubDate>Thu, 15 Mar 2018 18:31:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1246-1</guid>
+        <source url="https://forum.mangoh.io/t/uart-on-iot-connector/1246.rss">UART on IoT Connector</source>
+      </item>
+  </channel>
+</rss>

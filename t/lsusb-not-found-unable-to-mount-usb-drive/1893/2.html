@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Lsusb not found, unable to mount usb drive - #2 by dfrey - mangOH Red - mangOH forum</title>
+    <meta name="description" content="On module: mangOH Red (WP7608), with firmware version 9 and legato ver 18.03. 
+Trying to insert a memory stick into the USB host port of mangOH red. It’s led is blinking and dmesg shows it’s connected properly without er&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Lsusb not found, unable to mount usb drive&#39;" href="https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893/2" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893/2" />
+<meta property="og:title" content="Lsusb not found, unable to mount usb drive" />
+<meta name="twitter:title" content="Lsusb not found, unable to mount usb drive" />
+<meta property="og:description" content="I noticed that fdisk -l has issues. I forgot to check whether a bug has been reported for this or not. I will try to look into it tomorrow. What I do remember is that fdisk -l /dev/mtdblk0 will work." />
+<meta name="twitter:description" content="I noticed that fdisk -l has issues. I forgot to check whether a bug has been reported for this or not. I will try to look into it tomorrow. What I do remember is that fdisk -l /dev/mtdblk0 will work." />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta property="article:published_time" content="2018-09-10T01:47:24+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Lsusb not found, unable to mount usb drive","mainEntity":{"@type":"Question","name":"Lsusb not found, unable to mount usb drive","text":"On module: mangOH Red (WP7608), with firmware version 9 and legato ver 18.03.\n\nTrying to insert a memory stick into the USB host port of mangOH red. It’s led is blinking and dmesg shows it’s connected properly without errors.\n\nroot@swi-mdm9x28:~# lsusb\n\n-sh: lsusb: not found\n\nEven if lsusb isn’t f&hellip;","upvoteCount":0,"answerCount":1,"dateCreated":"2018-09-08T22:46:27.599Z","author":{"@type":"Person","name":"smallet"},"acceptedAnswer":{"@type":"Answer","text":"I confirm the issue with “fdisk -l” when used without additional parameters.\n\nFor USB drives, you can use “fdisk -l /dev/sd*” which is working fine.\n\nI can mount my USB flash drive (FAT32 filesystem) with the same setup as you by using this command:\n\nmount /dev/sda1 /media/\n\nRegarding “lsusb” tool, &hellip;","upvoteCount":1,"dateCreated":"2018-09-11T16:58:56.034Z","url":"https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893/3","author":{"@type":"Person","name":"Jay"}}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/lsusb-not-found-unable-to-mount-usb-drive/1893">Lsusb not found, unable to mount usb drive</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Lsusb not found, unable to mount usb drive'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/mallets'><span itemprop='name'>mallets</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-09-08T22:46:27Z' class='post-time'>
+                    September 8, 2018, 10:46pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-09-08T22:47:41Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>On module: <strong>mangOH Red (WP7608)</strong>, with firmware <strong>version 9</strong> and <strong>legato ver 18.03</strong>.</p>
+<p>Trying to insert a memory stick into the USB host port of mangOH red. It’s led is blinking and dmesg shows it’s connected properly without errors.</p>
+<blockquote>
+<p>root@swi-mdm9x28:~# lsusb<br>
+-sh: lsusb: not found</p>
+</blockquote>
+<p>Even if lsusb isn’t found, the module crashes completely when I use:</p>
+<blockquote>
+<p>root@swi-mdm9x28:~# fdisk -l<br>
+Disk /dev/mtdblock0: 2 MB, 2621440 bytes<br>
+255 heads, 63 sectors/track, 0 cylinders<br>
+Units = cylinders of 16065 * 512 = 8225280 bytes</p>
+<p>Disk /dev/mtdblock0 doesn’t contain a valid partition table</p>
+</blockquote>
+<p>command, preventing me from even being able to mount it. I did a “Erase user partition” from Legato Developer Studio, did that remove some files? This is happening on all firmware versions (tested 6, 8 and 9).</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-09-10T01:47:24Z' class='post-time'>
+                    September 10, 2018,  1:47am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-09-10T01:47:24Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I noticed that <code>fdisk -l</code> has issues. I forgot to check whether a bug has been reported for this or not. I will try to look into it tomorrow. What I do remember is that <code>fdisk -l /dev/mtdblk0</code> will work.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/fdisk-l-crashes-wp7702-on-mango-red/10174/2">`fdisk -l` crashes WP7702 on mango red</a>
+                        <meta itemprop='position' content='1'>
+                      </div>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/cant-mount-sd-card-on-mangoh-yellow-wp7607/6381/10">Can&#39;t mount SD card on mangOH yellow+wp7607</a>
+                        <meta itemprop='position' content='2'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Jay'><span itemprop='name'>Jay</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-09-11T16:58:56Z' class='post-time'>
+                    September 11, 2018,  4:58pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-09-17T09:38:03Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I confirm the issue with “<code>fdisk -l</code>” when used without additional parameters.<br>
+For USB drives, you can use “<code>fdisk -l /dev/sd*</code>” which is working fine.<br>
+I can mount my USB flash drive (FAT32 filesystem) with the same setup as you by using this command:<br>
+<code>mount /dev/sda1 /media/</code></p>
+<p>Regarding “<code>lsusb</code>” tool, you can build a custom rootfs image with “usbutils” package by using Yocto.<br>
+Or  you can use the following “poor man’s lsusb” script:</p>
+<aside class="quote no-group">
+<blockquote>
+<pre><code class="lang-auto">#!/bin/sh
+for D in /sys/bus/usb/devices/*; do
+    if [ -d "${D}" ]; then
+        VID=${D}/idVendor
+        PID=${D}/idProduct
+        PROD=${D}/product
+        BUS=${D}/busnum
+        DEV=${D}/devnum
+        if [ -e "$VID" ]; then
+            printf "Bus %03d Device %03d: ID %s:%s" $(cat ${BUS} ${DEV} ${VID} ${PID})
+            if [ -e "$PROD" ]; then
+               echo " "$(cat ${PROD})
+            else
+               echo
+            fi
+        fi
+    fi
+done</code></pre>
+</blockquote>
+</aside>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/mallets'><span itemprop='name'>mallets</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/lsusb-not-found-unable-to-mount-usb-drive/1893">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-09-15T13:21:20Z' class='post-time'>
+                    September 15, 2018,  1:21pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-09-15T13:21:20Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thank you! Mounting USB sticks is working fine now. Your script works alright, but wanted to add native lsusb. Added <code>IMAGE_INSTALL_append = " usbutils"</code> to <code>mdm9x28-image.inc</code> (any better to place to add it?) within the yocto recipes and it successfully added the binaries. But, lsusb is still giving the below issue:</p><aside class="quote quote-modified" data-post="1" data-topic="1372">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/j/c89c15/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/libusb-partly-working-on-red-cannot-find-usbfs/1372">Libusb partly working on red - cannot find usbfs</a> <a class="badge-wrapper  bullet" href="/c/mangoh-red/12"><span class="badge-category-bg" style="background-color: #DF1E2E;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-red">mangOH Red</span></a>
+  </div>
+  <blockquote>
+    Hi 
+I am working with a mangoh red board with a wp7502 
+I am having problems with libusb, that seems to be partly working, 
+If I call lsusb it will break with an "exception unable to initialize libusb: -99" but libusb -t  seems to work 
+I have tried the fixes i <a href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033/17">USB driver failing to find or power USBs</a>  with no luck. 
+When I try to call libusb from python it seqfaults and if i try from mono i am able to get libusbversion but as soon as try to get the device list it seqfaults. 
+I also have tried t…
+  </blockquote>
+</aside>
+
+<p>But the package added another bin named lsusb.py, which seems to be working partly.</p>
+<p>lsusb.py:</p>
+<blockquote>
+<p>root@swi-mdm9x28:~# lsusb.py<br>
+WARNING: Failure to read usb.ids<br>
+(&lt;type ‘exceptions.IOError’&gt;, IOError(2, ‘No such file or directory’), &lt;traceback object at 0xb6d43030&gt;)<br>
+usb1             1d6b:0002 09  2.00  480MBit/s 0mA 1IF  (Linux 3.18.44 ehci_hcd Qualcomm EHCI Host Controller using HSIC 7c00000.hsic_host) hub<br>
+1-1             0424:3503 09  2.00  480MBit/s 2mA 1IF  () hub<br>
+— 1-1.1          10c4:87a0 00  2.00   12MBit/s 100mA 1IF  (Silicon Laboratories CP2130 USB-to-SPI Bridge 000EB434)</p>
+</blockquote>
+<p>Your script:</p>
+<blockquote>
+<p>0424:3503<br>
+10c4:87a0 - CP2130 USB-to-SPI Bridge<br>
+1d6b:0002 - Qualcomm EHCI Host Controller using HSIC</p>
+</blockquote>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

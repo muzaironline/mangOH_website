@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>[SOLVED] Modprobe on boot</title>
+    <link>https://forum.mangoh.io/t/solved-modprobe-on-boot/2165</link>
+    <description>Hello,
+
+On a &quot;classic&quot; linux I use to add modules that I want be loaded on boot  in `/etc/modules`.
+How should I do it on Legato ?
+
+Regards</description>
+    
+    <lastBuildDate>Sat, 01 Dec 2018 06:01:16 +0000</lastBuildDate>
+    <category>mangOH Red Orange Starter Kit</category>
+    <atom:link href="https://forum.mangoh.io/t/solved-modprobe-on-boot/2165.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>[SOLVED] Modprobe on boot</title>
+        <dc:creator><![CDATA[pierr0t]]></dc:creator>
+        <description><![CDATA[
+            <p>I found a way.<br>
+I put it in <code>/etc/init.d/startlegato.sh</code></p>
+<p>in the section <code>start</code></p>
+<pre><code class="lang-auto">case "$1" in
+    start)
+        echo "Legato start sequence"
+        modprobe ftdi_sio
+        umount /legato 2&gt;/dev/null
+        mount -o bind $LEGATO_MNT /legato
+
+        $LEGATO_START
+        ;;
+
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/solved-modprobe-on-boot/2165/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/solved-modprobe-on-boot/2165/5</link>
+        <pubDate>Sat, 01 Dec 2018 06:01:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2165-5</guid>
+        <source url="https://forum.mangoh.io/t/solved-modprobe-on-boot/2165.rss">[SOLVED] Modprobe on boot</source>
+      </item>
+      <item>
+        <title>[SOLVED] Modprobe on boot</title>
+        <dc:creator><![CDATA[pierr0t]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi,</p>
+<p>DOnt you have any idea please ?</p>
+          <p><a href="https://forum.mangoh.io/t/solved-modprobe-on-boot/2165/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/solved-modprobe-on-boot/2165/4</link>
+        <pubDate>Fri, 30 Nov 2018 21:24:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2165-4</guid>
+        <source url="https://forum.mangoh.io/t/solved-modprobe-on-boot/2165.rss">[SOLVED] Modprobe on boot</source>
+      </item>
+      <item>
+        <title>[SOLVED] Modprobe on boot</title>
+        <dc:creator><![CDATA[pierr0t]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi,</p>
+<p>thanks for your reply. I think thiis is a third case, It is a built in module:</p>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# modprobe ftdi_sio
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/solved-modprobe-on-boot/2165/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/solved-modprobe-on-boot/2165/3</link>
+        <pubDate>Wed, 28 Nov 2018 07:07:05 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2165-3</guid>
+        <source url="https://forum.mangoh.io/t/solved-modprobe-on-boot/2165.rss">[SOLVED] Modprobe on boot</source>
+      </item>
+      <item>
+        <title>[SOLVED] Modprobe on boot</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>How are you building the module?  Is it built when the kernel is built or are you using Legato to build the module?  In the first case,  put it in <code>/etc/modules</code>.  In the second case, by including the <code>.mdef</code> file in the <code>kernelModules</code> section of the SDEF, you will cause Legato to load the module when it starts.</p>
+          <p><a href="https://forum.mangoh.io/t/solved-modprobe-on-boot/2165/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/solved-modprobe-on-boot/2165/2</link>
+        <pubDate>Tue, 27 Nov 2018 18:23:45 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2165-2</guid>
+        <source url="https://forum.mangoh.io/t/solved-modprobe-on-boot/2165.rss">[SOLVED] Modprobe on boot</source>
+      </item>
+      <item>
+        <title>[SOLVED] Modprobe on boot</title>
+        <dc:creator><![CDATA[pierr0t]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello,</p>
+<p>On a “classic” linux I use to add modules that I want be loaded on boot  in <code>/etc/modules</code>.<br>
+How should I do it on Legato ?</p>
+<p>Regards</p>
+          <p><a href="https://forum.mangoh.io/t/solved-modprobe-on-boot/2165/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/solved-modprobe-on-boot/2165/1</link>
+        <pubDate>Tue, 27 Nov 2018 13:44:13 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2165-1</guid>
+        <source url="https://forum.mangoh.io/t/solved-modprobe-on-boot/2165.rss">[SOLVED] Modprobe on boot</source>
+      </item>
+  </channel>
+</rss>

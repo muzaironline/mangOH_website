@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>MQTT publish (paho) not working with new firmware - mangOH Red - mangOH forum</title>
+    <meta name="description" content="Hello, 
+I have been using the MQTT publish example application, from mangOH git (paho_legato branch). I had it working somehow on WP7702, but had to import some SSL files to root folder. 
+Now again updated WP8548 with Re&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;MQTT publish (paho) not working with new firmware&#39;" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373" />
+<meta property="og:title" content="MQTT publish (paho) not working with new firmware" />
+<meta name="twitter:title" content="MQTT publish (paho) not working with new firmware" />
+<meta property="og:description" content="Hello,  I have been using the MQTT publish example application, from mangOH git (paho_legato branch). I had it working somehow on WP7702, but had to import some SSL files to root folder.  Now again updated WP8548 with Release 15, and it seems to have different OpenSSL version as well. This might not be a bug in itself, but I do not know to what libraries I need to point the application for it to work again.  The application works as it should with Release 14 (OpenSSL 1.0.1p). On modules using ne..." />
+<meta name="twitter:description" content="Hello,  I have been using the MQTT publish example application, from mangOH git (paho_legato branch). I had it working somehow on WP7702, but had to import some SSL files to root folder.  Now again updated WP8548 with Release 15, and it seems to have different OpenSSL version as well. This might not be a bug in itself, but I do not know to what libraries I need to point the application for it to work again.  The application works as it should with Release 14 (OpenSSL 1.0.1p). On modules using ne..." />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="2 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="3 ❤" />
+<meta property="article:published_time" content="2018-05-02T11:14:01+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"MQTT publish (paho) not working with new firmware","mainEntity":{"@type":"Question","name":"MQTT publish (paho) not working with new firmware","text":"Hello,\n\nI have been using the MQTT publish example application, from mangOH git (paho_legato branch). I had it working somehow on WP7702, but had to import some SSL files to root folder.\n\nNow again updated WP8548 with Release 15, and it seems to have different OpenSSL version as well. This might not&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2018-05-02T11:14:01.698Z","author":{"@type":"Person","name":""}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/mqtt-publish-paho-not-working-with-new-firmware/1373">MQTT publish (paho) not working with new firmware</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='MQTT publish (paho) not working with new firmware'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/basti'><span itemprop='name'>basti</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-05-02T11:14:01Z' class='post-time'>
+                    May 2, 2018, 11:14am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-05-02T11:14:01Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hello,</p>
+<p>I have been using the MQTT publish example application, from mangOH git (paho_legato branch). I had it working somehow on WP7702, but had to import some SSL files to root folder.</p>
+<p>Now again updated WP8548 with Release 15, and it seems to have different OpenSSL version as well. This might not be a bug in itself, but I do not know to what libraries I need to point the application for it to work again.</p>
+<p>The application works as it should with Release 14 (OpenSSL 1.0.1p). On modules using newer OpenSSL 1.0.2n it does not work.  I know <a class="mention" href="/u/dfrey">@dfrey</a> have been developing the paho_legato branch, but any help here would be great! Thanks!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/basti'><span itemprop='name'>basti</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-05-02T12:05:26Z' class='post-time'>
+                    May 2, 2018, 12:05pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-05-02T12:05:26Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Okay so I was able to solve this, I think. The libcrypto.so.* and libssl.so.* files are both located under /usr/lib, for previous versions libcrypto was found under /lib/.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Kayathri'><span itemprop='name'>Kayathri</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-05-18T04:43:55Z' class='post-time'>
+                    May 18, 2018,  4:43am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-05-18T04:43:55Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi basti,</p>
+<p>I am testing paho_mqtt version &amp; I’m getting  error like swi-mdm9x28 user.err Legato: =ERR= | supervisor[4340]/supervisor T=main | app.c CreateFileLink() 1588 | Failed to create link at ‘/lib/libcrypto.so’ in app ‘mqttClient’</p>
+<p>How did you solved that problem?</p>
+<p>Regards,<br>
+Kayathri</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/basti'><span itemprop='name'>basti</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-05-18T05:51:07Z' class='post-time'>
+                    May 18, 2018,  5:51am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-05-18T05:51:07Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/kayathri">@Kayathri</a>,</p>
+<p>If you are using a newer firmware, they have moved the libcrypto. Under pahoLegatoComponent -&gt; Component.cdef change:</p>
+<blockquote>
+<p>/lib/libcrypto.so.1.0.0</p>
+</blockquote>
+<p>to</p>
+<blockquote>
+<p>/usr/lib/libcrypto.so.1.0.2</p>
+</blockquote>
+<p>The /lib/libcrypto.so is just a symlink to the correct version.<br>
+You can also verify on the device that libcrypto.so.1.0.2 is present under /usr/lib with:</p>
+<blockquote>
+<p>ls /usr/lib/libcrypto*</p>
+</blockquote>
+<p>Hope this helped.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Kayathri'><span itemprop='name'>Kayathri</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-05-18T07:38:47Z' class='post-time'>
+                    May 18, 2018,  7:38am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-05-18T07:38:47Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi basti,</p>
+<p>Thank you,</p>
+<p>I am able to run mqttClient app. I am getting error like mqttClientService[5233]/framework T=main | LE_FILENAME le_event_AddLayeredHandler() 1118 | Event handler name ‘MqttClient connection lost notification’ truncated to ‘MqttClient connection lost noti’.</p>
+<p>I am able to ping 8.8.8.8 also</p>
+<p>I am new to this environment. Help me to proceed further.</p>
+<p>Regards,<br>
+Kayathri</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/basti'><span itemprop='name'>basti</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-05-18T08:54:02Z' class='post-time'>
+                    May 18, 2018,  8:54am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-05-18T08:54:02Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi,</p>
+<p>Difficult to tell from that alone. But are you using a working IP for the application? It needs to be able to send the messages to a MQTT broker.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/david'><span itemprop='name'>david</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-03T13:11:46Z' class='post-time'>
+                    June 3, 2018,  1:11pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-03T13:11:46Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello,<br>
+I ran into the same problem, i tried to change Component.cdef  in pahoLegatoComponent but seems like my change doesn’t affect the program .<br>
+I am getting this error:</p>
+<blockquote>
+<pre><code>Jan  6 02:32:13 swi-mdm9x15 user.err Legato: =ERR= | supervisor[579]/supervisor 
+   T=main | app.c CreateFileLink() 1593 | Failed to create link at 
+  '/usr/lib/libssl.so.1.0.0' in app 'mqttClient'.
+</code></pre>
+</blockquote>
+<p>In Component.cdef i got :</p>
+<blockquote>
+<pre><code> file:
+{
+    /usr/lib/ssl/openssl.cnf    /usr/lib/ssl/
+    /usr/lib/libssl.so          /usr/lib/
+    /usr/lib/libssl.so.1.0.2    /usr/lib/
+    /usr/lib/libcrypto.so           /lib/
+    /usr/lib/libcrypto.so.1.0.2     /lib/
+    /lib/libnss_dns.so.2        /lib/
+    /lib/libnss_dns-2.20.so     /lib/
+    /lib/libresolv.so.2         /lib/
+    /lib/libresolv-2.20.so      /lib/
+}
+</code></pre>
+</blockquote>
+<p>I made sure that all of this lib’s exist on my device.</p>
+<p>Any idea what i am doing worng ?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/basti'><span itemprop='name'>basti</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-03T19:18:09Z' class='post-time'>
+                    June 3, 2018,  7:18pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-03T19:18:09Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi,</p>
+<p>It looks like the program is still trying to use libssl.so version 1.0.0. You have checked <code>/usr/lib</code> path and the version on the module is 1.0.2? Not 1.0.0?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/david'><span itemprop='name'>david</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-04T06:20:17Z' class='post-time'>
+                    June 4, 2018,  6:20am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-04T06:20:17Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Yes. Do you know what is the meaning of the second path ?</p>
+<blockquote>
+<p>/usr/lib/ssl/ /usr/lib/ /lib/<br>
+i changed it to suite the first path and now my Component.cdef looks like this :<br>
+file:<br>
+{<br>
+/usr/lib/ssl/openssl.cnf    /usr/lib/ssl/<br>
+/usr/lib/libssl.so          /usr/lib/<br>
+/usr/lib/libssl.so.1.0.2    /usr/lib/<br>
+/usr/lib/libcrypto.so       /usr/lib/<br>
+/usr/lib/libcrypto.so.1.0.2 /usr/lib/<br>
+/lib/libnss_dns.so.2        /lib/<br>
+/lib/libnss_dns-2.20.so     /lib/<br>
+/lib/libresolv.so.2         /lib/<br>
+/lib/libresolv-2.20.so      /lib/<br>
+}</p>
+</blockquote>
+<p>But the program crashes and i am not able to connect to my board until i reset the power.</p>
+<p>Thanks for your help !</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/basti'><span itemprop='name'>basti</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-04T07:19:01Z' class='post-time'>
+                    June 4, 2018,  7:19am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-04T07:19:01Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I have this firmware installed on my WP77: SWI9X06Y_02.14.04.00</p>
+<p>This is what my cdef looks like:</p>
+<blockquote>
+<p>/usr/lib/ssl/openssl.cnf    /usr/lib/ssl/<br>
+/usr/lib/libssl.so.1.0.2    /usr/lib/<br>
+/usr/lib/libcrypto.so.1.0.2 /lib/<br>
+/lib/libnss_dns.so.2        /lib/<br>
+/lib/libnss_dns-2.24.so     /lib/<br>
+/lib/libresolv.so.2         /lib/<br>
+/lib/libresolv-2.24.so      /lib/</p>
+</blockquote>
+<p>This works fine for me. You can read more about CDEF here: <a href="https://docs.legato.io/16_10/defFilesCdef.html" rel="nofollow noopener">https://docs.legato.io/16_10/defFilesCdef.html</a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="2" />
+              <span class='post-likes'>2 Likes</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-04T09:35:28Z' class='post-time'>
+                    June 4, 2018,  9:35am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-04T09:35:28Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks <a class="mention" href="/u/basti">@basti</a></p>
+<p>I think I will have to add some <code>#if</code> statements into the cdef.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-12T22:01:49Z' class='post-time'>
+                    June 12, 2018, 10:01pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-12T22:01:49Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Do the location of these files also depend on the WP model? To my knowledge the slightly newer chipset on the WP76 might have newer firmware with a different library locations.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/devaiah'><span itemprop='name'>devaiah</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-23T13:11:21Z' class='post-time'>
+                    June 23, 2018,  1:11pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-23T13:11:21Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I modified the file section of Component.cdef as below and the app started running now.</p>
+<pre><code>file:
+{
+    /usr/lib/ssl/openssl.cnf    /usr/lib/ssl/
+    /usr/lib/libssl.so.1.0.2    /usr/lib/
+    /lib/libcrypt.so.1          /lib/
+    /usr/lib/libcrypto.so.1.0.2 /lib/
+    /lib/libnss_dns.so.2        /lib/
+    /lib/libnss_dns-2.24.so     /lib/
+    /lib/libresolv.so.2         /lib/
+    /lib/libresolv-2.24.so      /lib/
+}
+</code></pre>
+<p>I think the new path in the firmware is not updated in this particular Component.cdef file also I had to completely remove <strong><em>/usr/lib/libssl.so /usr/lib/</em></strong> path to get it working.</p>
+<p>Thank you all, <a class="mention" href="/u/basti">@basti</a> especially for pointing me towards solution!!</p>
+<p>Regards,<br>
+Devaiah</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-07-11T18:27:37Z' class='post-time'>
+                    July 11, 2018,  6:27pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-07-11T18:27:37Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I pushed an update to the <code>use_paho_linux_version</code> branch of the mqttClient which addresses the library path issues.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-15T15:06:02Z' class='post-time'>
+                    April 15, 2021,  3:06pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-15T15:06:02Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I have the same problem. Do you remember how did you solve it?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jameswollaeger'><span itemprop='name'>jameswollaeger</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mqtt-publish-paho-not-working-with-new-firmware/1373">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-05T15:29:04Z' class='post-time'>
+                    May 5, 2021,  3:29pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-05T15:29:04Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>We added the following to our adef file of the app implementing the mqtt broker:</p>
+<p>requires:<br>
+{<br>
+file:<br>
+{<br>
+// needed for networking:<br>
+/lib/libnss_compat.so.2 /lib/<br>
+/lib/libnss_files.so.2 /lib/<br>
+/etc/nsswitch.conf /etc/<br>
+/etc/hosts /etc/<br>
+/etc/resolv.conf /etc/<br>
+/lib/libnss_dns.so.2 /lib/<br>
+/lib/libresolv.so.2 /lib/<br>
+}</p>
+<p>}</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

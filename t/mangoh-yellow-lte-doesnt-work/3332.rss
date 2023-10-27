@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>mangOH Yellow LTE doesn&#39;t work?</title>
+    <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332</link>
+    <description>Hi there,
+
+I&#39;ve been experimenting with the mangOH Yellow over the past several weeks, and I simply can&#39;t get it to connect on LTE. It always connects to T-Mobile&#39;s 2G network. I&#39;ve tried everything. I&#39;m using the 3-month Octave trial, and I&#39;ve also tried a Hologram SIM card.
+
+Various relevant info:
+
+    Firmware Version:              SWI9X06Y_02.32.02.00 c2e98c jenkins 2019/08/30 07:28:21
+    Bootloader Version:            SWI9X06Y_02.32.02.00 c2e98c jenkins 2019/08/30 07:28:21
+    MCU Version:                   002.013
+    PRI Part Number (PN):          9909138
+    PRI Revision:                  001.001 
+    Carrier PRI Name:              SIERRA
+    Carrier PRI Revision:          001.027_000
+
+If I prevent GSM fallback by doing:
+
+`cm radio rat LTE`
+
+...then it just never registers on the network. I end up seeing stuff like this:
+
+    root@swi-mdm9x28-wp:~# cm radio
+    Power:                         ON
+    Current Network Operator:      AT&amp;T
+    Current RAT:                   Module not registered on network, RAT not available
+    Status:                        Registration was denied, usually because of invalid access credentials (LE_MRC_REG_DENIED)
+    Signal:                        Strong signal strength (4)
+    PS:                            Packet Switched Not registered (LE_MRC_REG_NONE)
+
+(It also sometimes shows Verizon instead of AT&amp;T)
+
+As soon as I allow GSM fallback:
+
+`cm radio rat GSM LTE`
+
+Then it eventually connects to T-Mobile:
+
+    root@swi-mdm9x28-wp:~# cm radio
+    Power:                         ON
+    Current Network Operator:      T-Mobile
+    Current RAT:                   GSM network (LE_MRC_RAT_GSM)
+    Status:                        Registered to a roaming network (LE_MRC_REG_ROAMING)
+    Signal:                        Strong signal strength (4)
+    PS:                            Packet Switched Not registered (LE_MRC_REG_NONE)
+
+I&#39;m in a pretty rural area, so I suppose that poor coverage is a possibility, but I read that AT&amp;T has nationwide LTE-M coverage. AT&amp;T definitely has LTE coverage here, so wouldn&#39;t that mean that LTE-M should work too? I can&#39;t get the Hologram card to work with AT&amp;T or Verizon&#39;s LTE networks either, and I believe it is supposed to be compatible with both carriers. Same thing -- LE_MRC_REG_DENIED. I tried the AT&amp;T firmware as well...didn&#39;t seem to matter.
+
+Here&#39;s the output of AT+COPS=?:
+
+`+COPS: (1,&quot;T-Mobile&quot;,&quot;T-Mobile&quot;,&quot;310260&quot;,0),(1,&quot;AT&amp;T&quot;,&quot;AT&amp;T&quot;,&quot;310410&quot;,7),(1,&quot;313 100&quot;,&quot;313 100&quot;,&quot;313100&quot;,7),(1,&quot;Verizon&quot;,&quot;Verizon&quot;,&quot;311480&quot;,7),,(0,1,2,3,4),(0,1,2)`
+
+Am I going crazy? Am I missing something simple?
+
+Thanks for any advice!</description>
+    
+    <lastBuildDate>Wed, 09 Sep 2020 09:34:48 +0000</lastBuildDate>
+    <category>Cloud &amp; Connectivity</category>
+    <atom:link href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[dhaouriadh]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello,<br>
+I have same trouble to connect the Orange F network since a couple of months.<br>
+I capture the parameters state of the mangoh-red and the SIM cards.<br>
+root@swi-mdm9x28-wp:~# cm radio<br>
+Power: ON<br>
+Current Network Operator: Orange F<br>
+Current RAT: Module not registered on network, RAT not available<br>
+Status: Not registered but currently searching for a new operator (LE_MRC_REG_SEARCHING)<br>
+Signal: Weak signal strength (2)<br>
+PS: Packet Switched Not registered (LE_MRC_REG_NONE)</p>
+<p>root@swi-mdm9x28-wp:~# cm sim<br>
+SIM card is inserted and unlocked (LE_SIM_READY).</p>
+<p>root@swi-mdm9x28-wp:~# cm sim info<br>
+Type: EXTERNAL_SLOT_1<br>
+ICCID: 89330128436008688820<br>
+Home Network Operator: Orange F<br>
+EID:<br>
+IMSI: 208011406038376<br>
+Phone Number:</p>
+<p>root@swi-mdm9x28-wp:~# cm info<br>
+Device: WP7702<br>
+IMEI: 352653090107178<br>
+IMEISV: 5<br>
+FSN: VU810385331510<br>
+Firmware Version: SWI9X06Y_02.35.02.00 5208b3 jenkins 2020/06/10 00:30:12<br>
+Bootloader Version: SWI9X06Y_02.35.02.00 5208b3 jenkins 2020/06/10 00:30:12<br>
+MCU Version: 002.014<br>
+PRI Part Number (PN): 9907365<br>
+PRI Revision: 001.004<br>
+Carrier PRI Name: GENERIC<br>
+Carrier PRI Revision: 001.064_001<br>
+SKU: 1103530<br>
+Last Reset Cause: Power Down<br>
+Resets Count: Expected: 129 Unexpected: 1</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/20">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/20</link>
+        <pubDate>Wed, 09 Sep 2020 09:34:48 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-20</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Could you please open a separate thread for that ?  thanks.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/19">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/19</link>
+        <pubDate>Tue, 14 Jan 2020 20:31:33 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-19</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[dougbrown]]></dc:creator>
+        <description><![CDATA[
+            <p>What you said is correct with 0.4.0. And with 0.3.0 I never got LTE to work with or without Octave.</p>
+<p>I’m not sure if this is the right place to report it, but I’ve also noticed a couple of other anomalies with 0.4.0. The module has powered itself off a few times, almost like it’s going into ULPM on its own or something. The console output I see is:</p>
+<pre><code>swimcu_pm_wusrc_config: check statep-&gt;gpio_pin_mask 0x0
+pm_set_mcu_ulpm_enable: wakeup source setup mask=0x2
+rcK: Executing run_K_scripts...
+...etc
+</code></pre>
+<p>I don’t have any apps trying to do this. Also, <code>pmtool shutdown</code> no longer works. It prints out “Initiated shutdown of MDM” but nothing happens after that, until I do “AT+CPSMS=0” as suggested in another thread. Changing back to 0.3.0 allows <code>pmtool shutdown</code> to work normally again as expected.</p>
+<p>Edit: The <code>pmtool shutdown</code> problem seems to be my own fault, because your supplied 0.4.0 spk doesn’t exhibit the same symptom. Not sure why I can’t build a working spk.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/18">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/18</link>
+        <pubDate>Tue, 14 Jan 2020 19:45:30 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-18</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Will need to look into it.<br>
+Let me know if this correct for 0.4.0 (in your geographical area)<br>
+a. non-Octave: connects to LTE using Hologram<br>
+b. Octave: doesnt connect to LTE</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/17">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/17</link>
+        <pubDate>Tue, 14 Jan 2020 19:36:58 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-17</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[dougbrown]]></dc:creator>
+        <description><![CDATA[
+            <p>But I built 0.3.0 without Octave, so it wasn’t forcing the iot.swir APN, and the problem was still there…is it something at a different level internally? And does the APN setting prevent from even attaching to the network?</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/16">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/16</link>
+        <pubDate>Tue, 14 Jan 2020 19:34:17 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-16</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>0.3.0 sets a private apn so you couldnt get out to a different network.<br>
+With 0.4.0 with non-octave, you are not set to private apn so it works.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/15">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/15</link>
+        <pubDate>Tue, 14 Jan 2020 19:32:36 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-15</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[dougbrown]]></dc:creator>
+        <description><![CDATA[
+            <p>I just wanted to add a few more details. Version 0.3.0 does <em>not</em> work with LTE on the Hologram card – I also get CME ERROR 30. (I built it without Octave by checking out the mangOH project in my leaf workspace and doing <code>OCTAVE=0 make yellow_spk</code> in order to test). Installing 0.3.0 breaks it, installing 0.4.0 (either the spk on the website or my own) fixes it. So something about 0.4.0 was responsible for fixing the LTE issue.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/14">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/14</link>
+        <pubDate>Tue, 14 Jan 2020 19:28:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-14</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[dougbrown]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Ashish,</p>
+<p>Thanks for the suggestion. First I tried the 0.4.0 Octave firmware with the internal SIM, and saw the CME ERROR 30 again. Then, I tried the non-Octave 0.4.0 firmware with a SIM card from Hologram, and successfully connected over LTE (although the connection defaulted to T-Mobile 2G until I forced it to AT&amp;T’s network with the AT+COPS command above).</p>
+<p>So…it looks like the module’s internal SIM (activated with Octave trial) doesn’t have permission to connect on LTE for some reason. The external SIM does work okay on LTE.</p>
+<p><a class="mention" href="https://forum.mangoh.io/u/asyal">@asyal</a> <a class="mention" href="https://forum.mangoh.io/u/mlw">@mlw</a> Thank you both for all of your help on this. I think this means I’m good to go, at least with Hologram…</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/13">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/13</link>
+        <pubDate>Mon, 13 Jan 2020 23:08:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-13</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Doug,</p>
+<p>We have released a non-octave sku firmware. Could you use that firmware to see if a different sim works in your area?</p>
+<p>regards,<br>
+Ashish</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/12</link>
+        <pubDate>Sat, 11 Jan 2020 05:08:35 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-12</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[dougbrown]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/mlw">@mlw</a> thanks for the info.</p>
+<p>I guess I’m confused now – this is happening with the built-in Sierra SIM that I activated with the Octave trial. Does this mean it’s not provisioned properly for LTE-M? Who can I contact about this?</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/11</link>
+        <pubDate>Fri, 10 Jan 2020 23:33:40 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-11</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[mlw]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/dougbrown">@dougbrown</a>,</p>
+<p>Since the unit is a 2G/NB1/M1 only unit, yes it will only see an M1 bearer, which is indicated as 7,  rather than cat 0+, which also indicated as 7, 9 is NB1 and 0 is 2G.</p>
+<p>Normally 30 is exactly what it says, in this case it must be a reject from the network, probably an unsubscribed service hence it is falling back to 2G on Tmo.</p>
+<p>Regards</p>
+<p>Matt</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/10</link>
+        <pubDate>Fri, 10 Jan 2020 21:20:18 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-10</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[dougbrown]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/mlw">@mlw</a>,</p>
+<p>Thank you for the info and idea! That’s something that I’ve been wondering – if a cell tower has LTE support, but it doesn’t have Cat-M1 support, would it show up in AT+COPS=? – sounds like you’re implying it won’t. That’s helpful to know.</p>
+<p>I just ran the command to force AT&amp;T as a test (using the built-in Sierra SIM that I’m using with the Octave trial). Here’s what I got:</p>
+<pre><code>AT+CMEE=1
+OK
+AT+COPS=1,2,"310410",7
++CME ERROR: 30
+
++CREG: 3
+
++CGREG: 3
+
++CEREG: 3
+</code></pre>
+<p>It looks like CME ERROR 30 means “No network service”. Any thoughts on what this might possibly mean?</p>
+<p>Thanks,<br>
+Doug</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/9</link>
+        <pubDate>Fri, 10 Jan 2020 18:02:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-9</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[mlw]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/dougbrown">@dougbrown</a>,</p>
+<p>Given the response to the at+cops=? command, this part, (1,“AT&amp;T”,“AT&amp;T”,“310410”,7), shows that you can see the AT&amp;T M1 network (the 7 indicates LTE and in the WP7702’s case this can only mean M1).</p>
+<p>What might be interesting is ending the below commands.<br>
+at+cmee=1    //Set error reporting on<br>
+at+cops=1,2,“310410”,7       //Manually force the unit to attach to AT&amp;T LTE which should result in a response to work with.<br>
+at+cops=0     //Set the unit back to automatic</p>
+<p>This is normally a problem with roaming rights.</p>
+<p>Regards</p>
+<p>Matt</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/8</link>
+        <pubDate>Fri, 10 Jan 2020 07:27:31 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-8</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/dlahay">@dlahay</a> can you look at this?</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/7</link>
+        <pubDate>Fri, 03 Jan 2020 22:59:53 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-7</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[dougbrown]]></dc:creator>
+        <description><![CDATA[
+            <p>It looks like it was already set that way to begin with:</p>
+<pre><code>AT!SELCIOT?
+Current Operating Mode: 0x2
+
+Supported Operating Modes:
+LTE WB:  0x01
+LTE M1:  0x02
+LTE NB1: 0x04
+
+OK
+AT!SELCIOT=2                                                                    
+OK                                                                              
+AT!SELCIOT?                                                                     
+Current Operating Mode: 0x2                                                     
+                                                                                
+Supported Operating Modes:                                                      
+LTE WB:  0x01                                                                   
+LTE M1:  0x02                                                                   
+LTE NB1: 0x04                                                                   
+                                                                                
+OK</code></pre>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/5</link>
+        <pubDate>Fri, 03 Jan 2020 22:47:15 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-5</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Try the following command<br>
+at!selciot=2</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/4</link>
+        <pubDate>Fri, 03 Jan 2020 22:43:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-4</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[dougbrown]]></dc:creator>
+        <description><![CDATA[
+            <p>I don’t know for sure which LTE bands are available. <a href="http://cellmapper.net" rel="nofollow noopener">cellmapper.net</a> says AT&amp;T uses bands 2, 12, and 17 in my area.</p>
+<p>I tried the taoglas FXUB63 antenna (connected to “MAIN” connector, changed SW403.5 to ON) but it doesn’t seem to make a difference at all. Still only connects to T-Mobile 2G. AT+COPS started showing US Cellular as another available network, but other than that, no change.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/3</link>
+        <pubDate>Fri, 03 Jan 2020 22:37:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-3</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Do you know what LTE bands you get in your area?<br>
+Can you try the external LTE antenna that we provide in the kit?</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/2</link>
+        <pubDate>Fri, 03 Jan 2020 22:17:29 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-2</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+      <item>
+        <title>mangOH Yellow LTE doesn&#39;t work?</title>
+        <dc:creator><![CDATA[dougbrown]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi there,</p>
+<p>I’ve been experimenting with the mangOH Yellow over the past several weeks, and I simply can’t get it to connect on LTE. It always connects to T-Mobile’s 2G network. I’ve tried everything. I’m using the 3-month Octave trial, and I’ve also tried a Hologram SIM card.</p>
+<p>Various relevant info:</p>
+<pre><code>Firmware Version:              SWI9X06Y_02.32.02.00 c2e98c jenkins 2019/08/30 07:28:21
+Bootloader Version:            SWI9X06Y_02.32.02.00 c2e98c jenkins 2019/08/30 07:28:21
+MCU Version:                   002.013
+PRI Part Number (PN):          9909138
+PRI Revision:                  001.001 
+Carrier PRI Name:              SIERRA
+Carrier PRI Revision:          001.027_000
+</code></pre>
+<p>If I prevent GSM fallback by doing:</p>
+<p><code>cm radio rat LTE</code></p>
+<p>…then it just never registers on the network. I end up seeing stuff like this:</p>
+<pre><code>root@swi-mdm9x28-wp:~# cm radio
+Power:                         ON
+Current Network Operator:      AT&amp;T
+Current RAT:                   Module not registered on network, RAT not available
+Status:                        Registration was denied, usually because of invalid access credentials (LE_MRC_REG_DENIED)
+Signal:                        Strong signal strength (4)
+PS:                            Packet Switched Not registered (LE_MRC_REG_NONE)
+</code></pre>
+<p>(It also sometimes shows Verizon instead of AT&amp;T)</p>
+<p>As soon as I allow GSM fallback:</p>
+<p><code>cm radio rat GSM LTE</code></p>
+<p>Then it eventually connects to T-Mobile:</p>
+<pre><code>root@swi-mdm9x28-wp:~# cm radio
+Power:                         ON
+Current Network Operator:      T-Mobile
+Current RAT:                   GSM network (LE_MRC_RAT_GSM)
+Status:                        Registered to a roaming network (LE_MRC_REG_ROAMING)
+Signal:                        Strong signal strength (4)
+PS:                            Packet Switched Not registered (LE_MRC_REG_NONE)
+</code></pre>
+<p>I’m in a pretty rural area, so I suppose that poor coverage is a possibility, but I read that AT&amp;T has nationwide LTE-M coverage. AT&amp;T definitely has LTE coverage here, so wouldn’t that mean that LTE-M should work too? I can’t get the Hologram card to work with AT&amp;T or Verizon’s LTE networks either, and I believe it is supposed to be compatible with both carriers. Same thing – LE_MRC_REG_DENIED. I tried the AT&amp;T firmware as well…didn’t seem to matter.</p>
+<p>Here’s the output of AT+COPS=?:</p>
+<p><code>+COPS: (1,"T-Mobile","T-Mobile","310260",0),(1,"AT&amp;T","AT&amp;T","310410",7),(1,"313 100","313 100","313100",7),(1,"Verizon","Verizon","311480",7),,(0,1,2,3,4),(0,1,2)</code></p>
+<p>Am I going crazy? Am I missing something simple?</p>
+<p>Thanks for any advice!</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332/1</link>
+        <pubDate>Fri, 03 Jan 2020 19:56:58 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3332-1</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+      </item>
+  </channel>
+</rss>

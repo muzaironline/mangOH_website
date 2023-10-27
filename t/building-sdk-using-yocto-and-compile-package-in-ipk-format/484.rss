@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Building SDK using yocto and compile package in .ipk format</title>
+    <link>https://forum.mangoh.io/t/building-sdk-using-yocto-and-compile-package-in-ipk-format/484</link>
+    <description>Hi All,
+
+I&#39;am trying build SDK using yocto, which will include all the external packages i have
+addded e.g libconfig, mosquitto etc.
+After building sdk, i want to compile my application software in &quot;ipk&quot; format, which will
+be handled by opkg manager, as in &#39;openwrt&#39; environment.
+
+For that i have followed below steps to compile sdk
+
+&gt; $ cd yocto/build_bin
+
+&gt; $ source ../poky/oe-init-build-env .
+
+&gt; $ bitbake mdm9x15-image-minimal -c populate_sdk
+
+I am getting below error:
+
+&gt; START:==================================================================================================================
+&gt; /yocto/build_bin$ bitbake mdm9x15-image-minimal -c populate_sdk
+&gt; Loading cache: 100% |##########################################################################################################| ETA: 00:00:00
+&gt; Loaded 2148 entries from dependency cache.
+&gt; Parsing recipes: 100% |########################################################################################################| Time: 00:00:02
+&gt; Parsing of 1654 .bb files complete (1652 cached, 2 parsed). 2148 targets, 200 skipped, 0 masked, 0 errors.
+&gt; NOTE: Resolving any missing task queue dependencies
+
+&gt; Build Configuration:
+&gt; BB_VERSION = &quot;1.24.0&quot;
+&gt; BUILD_SYS = &quot;x86_64-linux&quot;
+&gt; NATIVELSBSTRING = &quot;Ubuntu-12.04&quot;
+&gt; TARGET_SYS = &quot;arm-poky-linux-gnueabi&quot;
+&gt; MACHINE = &quot;swi-mdm9x15&quot;
+&gt; DISTRO = &quot;poky-swi-ext&quot;
+&gt; DISTRO_VERSION = &quot;1.7.3&quot;
+&gt; TUNE_FEATURES = &quot;arm armv7a vfp neon&quot;
+&gt; TARGET_FPU = &quot;vfp-neon&quot;
+&gt; meta
+&gt; meta-yocto
+&gt; meta-yocto-bsp = &quot;(nobranch):c282df8993828bd7b1d50cfcf637a477eaf481a1&quot;
+&gt; meta-swiflu = &quot;:&quot;
+&gt; meta-nodejs = &quot;master:3c2d7b61ba45436c6c62d60555cd91370a7ad1a2&quot;
+&gt; meta-nodejs-contrib = &quot;master:be99cba0c6fcfb1ba7e85d3446f2a806ae7c3da2&quot;
+&gt; meta-mangoh = &quot;(nobranch):b58ad3c6a4e4d0f2d563e8af86c46f96f8ba3bb6&quot;
+&gt; meta-python
+&gt; meta-networking
+&gt; meta-oe = &quot;(nobranch):70beecb2716bca1b9dfbc7d6a264233e1f05e82b&quot;
+&gt; meta-swi
+&gt; meta-swi-mdm9xxx
+&gt; meta-swi-mdm9x15 = &quot;master:0f1bf8d6d24d7389168eafead6c2f2bede345d18&quot;
+&gt; meta-swi-extras
+&gt; meta-swi-bin = &quot;master:6f65f78f6e8a1801ae7cd424191f3513457e4bbe&quot;
+&gt; meta-openwrt-master = &quot;:&quot;
+
+&gt; NOTE: Preparing runqueue
+&gt; NOTE: Executing SetScene Tasks
+&gt; NOTE: Executing RunQueue Tasks
+&gt; ERROR: Function failed: do_configure (log file is located at /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-autoconf/2.69-r11/temp/log.do_configure.15266)
+&gt; ERROR: Logfile of failure stored in: /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-autoconf/2.69-r11/temp/log.do_configure.15266
+&gt; Log data follows:
+&gt; | DEBUG: Executing python function sysroot_cleansstate
+&gt; | DEBUG: Python function sysroot_cleansstate finished
+&gt; | DEBUG: SITE files [&#39;endian-little&#39;, &#39;common-linux&#39;, &#39;common-glibc&#39;, &#39;bit-64&#39;, &#39;x86_64-linux&#39;, &#39;common&#39;]
+&gt; | DEBUG: Executing shell function autotools_preconfigure
+&gt; | DEBUG: Shell function autotools_preconfigure finished
+&gt; | DEBUG: Executing python function autotools_copy_aclocals
+&gt; | DEBUG: Python function autotools_copy_aclocals finished
+&gt; | DEBUG: Executing shell function do_configure
+&gt; | ERROR: no configure script found at /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-autoconf/2.69-r11/autoconf-2.69/configure
+&gt; | WARNING: /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-autoconf/2.69-r11/temp/run.do_configure.15266:1 exit 1 from
+&gt; | exit 1
+&gt; | ERROR: Function failed: do_configure (log file is located at /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-autoconf/2.69-r11/temp/log.do_configure.15266)
+&gt; ERROR: Task 1700 (virtual:nativesdk:/home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/poky/meta/recipes-devtools/autoconf/autoconf_2.69.bb, do_configure) failed with exit code &#39;1&#39;
+&gt; ERROR: Function failed: do_configure (log file is located at /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-qemu/2.1.0-r0/temp/log.do_configure.15265)
+&gt; ERROR: Logfile of failure stored in: /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-qemu/2.1.0-r0/temp/log.do_configure.15265
+&gt; Log data follows:
+&gt; | DEBUG: Executing python function sysroot_cleansstate
+&gt; | DEBUG: Python function sysroot_cleansstate finished
+&gt; | DEBUG: SITE files [&#39;endian-little&#39;, &#39;common-linux&#39;, &#39;common-glibc&#39;, &#39;bit-64&#39;, &#39;x86_64-linux&#39;, &#39;common&#39;]
+&gt; | DEBUG: Executing shell function autotools_preconfigure
+&gt; | DEBUG: Shell function autotools_preconfigure finished
+&gt; | DEBUG: Executing python function autotools_copy_aclocals
+&gt; | DEBUG: Python function autotools_copy_aclocals finished
+&gt; | DEBUG: Executing shell function do_configure
+&gt; | sed: can&#39;t read Makefile.target: No such file or directory
+&gt; | WARNING: /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-qemu/2.1.0-r0/temp/run.do_configure.15265:1 exit 2 from
+&gt; | sed -i &#39;s/-lX11//g&#39; Makefile.target
+&gt; | ERROR: Function failed: do_configure (log file is located at /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-qemu/2.1.0-r0/temp/log.do_configure.15265)
+&gt; ERROR: Task 1756 (virtual:nativesdk:/home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/poky/meta/recipes-devtools/qemu/qemu_2.1.0.bb, do_configure) failed with exit code &#39;1&#39;
+&gt; NOTE: Tasks Summary: Attempted 1822 tasks of which 1820 didn&#39;t need to be rerun and 2 failed.
+&gt; Waiting for 0 running tasks to finish:
+
+&gt; Summary: 2 tasks failed:
+&gt; virtual:nativesdk:/home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/poky/meta/recipes-devtools/autoconf/autoconf_2.69.bb, do_configure
+&gt; virtual:nativesdk:/home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/poky/meta/recipes-devtools/qemu/qemu_2.1.0.bb, do_configure
+&gt; Summary: There were 2 ERROR messages shown, returning a non-zero exit code.
+&gt; onerelysys@onerelysys:~/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin$
+
+&gt; ==================================================================================================================END:
+
+so, anybody please help me to solve this problem
+and to create ipk using sdk.
+
+Thank you
+:slight_smile:</description>
+    
+    <lastBuildDate>Fri, 14 Apr 2017 05:48:59 +0000</lastBuildDate>
+    <category>Tutorials</category>
+    <atom:link href="https://forum.mangoh.io/t/building-sdk-using-yocto-and-compile-package-in-ipk-format/484.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Building SDK using yocto and compile package in .ipk format</title>
+        <dc:creator><![CDATA[abhishek1390]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi All,</p>
+<p>I’am trying build SDK using yocto, which will include all the external packages i have<br>
+addded e.g libconfig, mosquitto etc.<br>
+After building sdk, i want to compile my application software in “ipk” format, which will<br>
+be handled by opkg manager, as in ‘openwrt’ environment.</p>
+<p>For that i have followed below steps to compile sdk</p>
+<blockquote>
+<p>$ cd yocto/build_bin</p>
+</blockquote>
+<blockquote>
+<p>$ source …/poky/oe-init-build-env .</p>
+</blockquote>
+<blockquote>
+<p>$ bitbake mdm9x15-image-minimal -c populate_sdk</p>
+</blockquote>
+<p>I am getting below error:</p>
+<blockquote>
+<p>START:==================================================================================================================<br>
+/yocto/build_bin$ bitbake mdm9x15-image-minimal -c populate_sdk<br>
+Loading cache: 100% |##########################################################################################################| ETA: 00:00:00<br>
+Loaded 2148 entries from dependency cache.<br>
+Parsing recipes: 100% |########################################################################################################| Time: 00:00:02<br>
+Parsing of 1654 .bb files complete (1652 cached, 2 parsed). 2148 targets, 200 skipped, 0 masked, 0 errors.<br>
+NOTE: Resolving any missing task queue dependencies</p>
+</blockquote>
+<blockquote>
+<p>Build Configuration:<br>
+BB_VERSION = "1.24.0"<br>
+BUILD_SYS = "x86_64-linux"<br>
+NATIVELSBSTRING = "Ubuntu-12.04"<br>
+TARGET_SYS = "arm-poky-linux-gnueabi"<br>
+MACHINE = "swi-mdm9x15"<br>
+DISTRO = "poky-swi-ext"<br>
+DISTRO_VERSION = "1.7.3"<br>
+TUNE_FEATURES = "arm armv7a vfp neon"<br>
+TARGET_FPU = "vfp-neon"<br>
+meta<br>
+meta-yocto<br>
+meta-yocto-bsp = "(nobranch):c282df8993828bd7b1d50cfcf637a477eaf481a1"<br>
+meta-swiflu = ":"<br>
+meta-nodejs = "master:3c2d7b61ba45436c6c62d60555cd91370a7ad1a2"<br>
+meta-nodejs-contrib = "master:be99cba0c6fcfb1ba7e85d3446f2a806ae7c3da2"<br>
+meta-mangoh = "(nobranch):b58ad3c6a4e4d0f2d563e8af86c46f96f8ba3bb6"<br>
+meta-python<br>
+meta-networking<br>
+meta-oe = "(nobranch):70beecb2716bca1b9dfbc7d6a264233e1f05e82b"<br>
+meta-swi<br>
+meta-swi-mdm9xxx<br>
+meta-swi-mdm9x15 = "master:0f1bf8d6d24d7389168eafead6c2f2bede345d18"<br>
+meta-swi-extras<br>
+meta-swi-bin = "master:6f65f78f6e8a1801ae7cd424191f3513457e4bbe"<br>
+meta-openwrt-master = “:”</p>
+</blockquote>
+<blockquote>
+<p>NOTE: Preparing runqueue<br>
+NOTE: Executing SetScene Tasks<br>
+NOTE: Executing RunQueue Tasks<br>
+ERROR: Function failed: do_configure (log file is located at /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-autoconf/2.69-r11/temp/log.do_configure.15266)<br>
+ERROR: Logfile of failure stored in: /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-autoconf/2.69-r11/temp/log.do_configure.15266<br>
+Log data follows:<br>
+| DEBUG: Executing python function sysroot_cleansstate<br>
+| DEBUG: Python function sysroot_cleansstate finished<br>
+| DEBUG: SITE files [‘endian-little’, ‘common-linux’, ‘common-glibc’, ‘bit-64’, ‘x86_64-linux’, ‘common’]<br>
+| DEBUG: Executing shell function autotools_preconfigure<br>
+| DEBUG: Shell function autotools_preconfigure finished<br>
+| DEBUG: Executing python function autotools_copy_aclocals<br>
+| DEBUG: Python function autotools_copy_aclocals finished<br>
+| DEBUG: Executing shell function do_configure<br>
+| ERROR: no configure script found at /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-autoconf/2.69-r11/autoconf-2.69/configure<br>
+| WARNING: /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-autoconf/2.69-r11/temp/run.do_configure.15266:1 exit 1 from<br>
+| exit 1<br>
+| ERROR: Function failed: do_configure (log file is located at /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-autoconf/2.69-r11/temp/log.do_configure.15266)<br>
+ERROR: Task 1700 (virtual:nativesdk:/home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/poky/meta/recipes-devtools/autoconf/autoconf_2.69.bb, do_configure) failed with exit code '1’<br>
+ERROR: Function failed: do_configure (log file is located at /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-qemu/2.1.0-r0/temp/log.do_configure.15265)<br>
+ERROR: Logfile of failure stored in: /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-qemu/2.1.0-r0/temp/log.do_configure.15265<br>
+Log data follows:<br>
+| DEBUG: Executing python function sysroot_cleansstate<br>
+| DEBUG: Python function sysroot_cleansstate finished<br>
+| DEBUG: SITE files [‘endian-little’, ‘common-linux’, ‘common-glibc’, ‘bit-64’, ‘x86_64-linux’, ‘common’]<br>
+| DEBUG: Executing shell function autotools_preconfigure<br>
+| DEBUG: Shell function autotools_preconfigure finished<br>
+| DEBUG: Executing python function autotools_copy_aclocals<br>
+| DEBUG: Python function autotools_copy_aclocals finished<br>
+| DEBUG: Executing shell function do_configure<br>
+| sed: can’t read Makefile.target: No such file or directory<br>
+| WARNING: /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-qemu/2.1.0-r0/temp/run.do_configure.15265:1 exit 2 from<br>
+| sed -i ‘s/-lX11//g’ Makefile.target<br>
+| ERROR: Function failed: do_configure (log file is located at /home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin/tmp/work/x86_64-nativesdk-pokysdk-linux/nativesdk-qemu/2.1.0-r0/temp/log.do_configure.15265)<br>
+ERROR: Task 1756 (virtual:nativesdk:/home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/poky/meta/recipes-devtools/qemu/qemu_2.1.0.bb, do_configure) failed with exit code '1’<br>
+NOTE: Tasks Summary: Attempted 1822 tasks of which 1820 didn’t need to be rerun and 2 failed.<br>
+Waiting for 0 running tasks to finish:</p>
+</blockquote>
+<blockquote>
+<p>Summary: 2 tasks failed:<br>
+virtual:nativesdk:/home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/poky/meta/recipes-devtools/autoconf/autoconf_2.69.bb, do_configure<br>
+virtual:nativesdk:/home/onerelysys/Bharath_WorkSpace/legato/build3_yocto/yocto/poky/meta/recipes-devtools/qemu/qemu_2.1.0.bb, do_configure<br>
+Summary: There were 2 ERROR messages shown, returning a non-zero exit code.<br>
+onerelysys@onerelysys:~/Bharath_WorkSpace/legato/build3_yocto/yocto/build_bin$</p>
+</blockquote>
+<blockquote>
+<p>==================================================================================================================END:</p>
+</blockquote>
+<p>so, anybody please help me to solve this problem<br>
+and to create ipk using sdk.</p>
+<p>Thank you<br>
+<img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=5" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+          <p><a href="https://forum.mangoh.io/t/building-sdk-using-yocto-and-compile-package-in-ipk-format/484/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-sdk-using-yocto-and-compile-package-in-ipk-format/484/1</link>
+        <pubDate>Fri, 14 Apr 2017 05:48:59 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-484-1</guid>
+        <source url="https://forum.mangoh.io/t/building-sdk-using-yocto-and-compile-package-in-ipk-format/484.rss">Building SDK using yocto and compile package in .ipk format</source>
+      </item>
+  </channel>
+</rss>

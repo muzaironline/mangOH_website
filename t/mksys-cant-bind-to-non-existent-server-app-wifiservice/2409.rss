@@ -1,0 +1,730 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+    <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409</link>
+    <description>Hello All,
+
+  Trying to build my first system for the WP7603 and hitting an issue. It looks like `mksys` can&#39;t find the `wifiService` app. I created a simple system to show the problem. It consists of two hello-world-style apps and one that uses the WiFi Client Service. Each of the three apps successfully build on their own. When I try to build the system it fails because it can&#39;t find the &quot;server app &#39;wifiService&#39;.&quot;
+
+  The file structure and some of their content is listed below. I&#39;ve also included a ZIP file of the whole system at the bottom.
+
+  When building I&#39;ve tried many variations of the `--interface-search` option to `mksys` as well as `interfaceSearch` option in the system definition file. Hopefully it&#39;s not a bug and I&#39;m just misunderstanding something. Thanks for any input!
+
+Thanks Again!
+
+**File Structure**
+
+    apps/
+      testApp1/
+        testApp1.adef
+        testApp1Component/
+          Component.cdef
+          testApp1.c
+      testApp2/
+        testApp2.adef
+        testApp2Component/
+          Component.cdef
+          testApp2.c
+      testWifiApp/
+        testWifiApp.adef
+        testWifiAppComponent/
+          Component.cdef
+          testWifiApp.c
+    testSystem.sdef
+
+**System Definition**
+
+    #include &quot;$LEGATO_ROOT/default.sdef&quot;
+
+    apps: {
+      testApp1
+      testApp2
+      testWifiApp
+    }
+
+    appSearch: {
+      $CURDIR/apps/testApp1
+      $CURDIR/apps/testApp2
+      $CURDIR/apps/testWifiApp
+    }
+
+
+**testApp1 Definition**
+
+    executables: {
+      testApp1 = (testApp1Component)
+    }
+
+    processes: {
+      run: {
+        (testApp1)
+      }
+    }
+
+**testApp2 Definition**
+
+    executables: {
+      testApp2 = (testApp2Component)
+    }
+
+    processes: {
+      run: {
+        (testApp2)
+      }
+    }
+
+**testWifiApp Definition**
+
+    executables: {
+      testWifiApp = (testWifiAppComponent)
+    }
+
+    processes: {
+      run: {
+        (testWifiApp)
+      }
+    }
+
+    bindings: {
+      testWifiApp.testWifiAppComponent.le_wifiClient -&gt; wifiService.le_wifiClient
+    }
+
+**testWifiAppComponent Definition**
+
+    sources: {
+      testWifiApp.c
+    }
+
+    requires: {
+      api: {
+        ${LEGATO_ROOT}/interfaces/wifi/le_wifiClient.api
+      }
+    }
+
+**Building The Apps**
+
+    $ cd apps/testApp1/
+    $ mkapp -t wp76xx testApp1.adef 
+    [9/9] Packaging app
+
+    $ cd ../testApp2/
+    $ mkapp -t wp76xx testApp2.adef 
+    [9/9] Packaging app
+
+    $ cd ../testWifiApp/
+    $ mkapp -t wp76xx testWifiApp.adef   # &lt;-- It builds here??
+    [12/12] Packaging app
+
+**Trying To Build The System**
+
+    $ mksys -t wp76xx testSystem.sdef 
+    ** Warning: Ignoring empty app specification
+    ** Warning: Ignoring empty app specification
+    ** Warning: Ignoring empty app specification
+    ** ERROR:
+    ... /testSystem/apps/testWifiApp/testWifiApp.adef:12:2: error: Binding to non-existent server app &#39;wifiService&#39;.
+
+    $ mksys -t wp76xx --interface-search=$LEGATO_ROOT/interfaces/wifi testSystem.sdef 
+    ** Warning: Ignoring empty app specification
+    ** Warning: Ignoring empty app specification
+    ** Warning: Ignoring empty app specification
+    ** ERROR:
+    ... /testSystem/apps/testWifiApp/testWifiApp.adef:12:2: error: Binding to non-existent server app &#39;wifiService&#39;.
+
+
+[testSystem.zip|attachment](upload://qWVpx3xQtXKBUTvhjcOOYisHjH4.zip) (6.0 KB)</description>
+    
+    <lastBuildDate>Tue, 12 Oct 2021 08:03:15 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>it is in above  testWifiApp inside above testSystem.zip</p>
+<p>or you can see here:</p><aside class="onebox githubfolder" data-onebox-src="https://github.com/legatoproject/legato-WiFi/tree/master/apps/sample">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/bad3e5f9ad67c1ddf145107ce7032ac1d7b22563.svg" class="site-icon" width="32" height="32">
+
+      <a href="https://github.com/legatoproject/legato-WiFi/tree/master/apps/sample" target="_blank" rel="noopener nofollow ugc">github.com</a>
+  </header>
+
+  <article class="onebox-body">
+    <h3><a href="https://github.com/legatoproject/legato-WiFi/tree/master/apps/sample" target="_blank" rel="noopener nofollow ugc">legato-WiFi/apps/sample at master · legatoproject/legato-WiFi</a></h3>
+
+  <p><a href="https://github.com/legatoproject/legato-WiFi/tree/master/apps/sample" target="_blank" rel="noopener nofollow ugc">master/apps/sample</a></p>
+
+  <p><span class="label1">WiFi support for Legato. Contribute to legatoproject/legato-WiFi development by creating an account on GitHub.</span></p>
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/46">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/46</link>
+        <pubDate>Tue, 12 Oct 2021 08:03:15 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-46</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[kalaivani]]></dc:creator>
+        <description><![CDATA[
+            <p>can u share any sample code to access wifiAP</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/45">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/45</link>
+        <pubDate>Tue, 12 Oct 2021 07:59:22 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-45</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I don’t see problem to build the testWifiApp inside above testSystem.zip on WP76 FW R13:</p>
+<pre><code class="lang-auto">bindings: {
+  testWifiApp.testWifiAppComponent.le_wifiClient -&gt; wifiService.le_wifiClient
+}
+</code></pre>
+<aside class="quote" data-post="3" data-topic="2409">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/g/f475e1/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/3">Mksys can't bind to non-existent server app 'wifiService'</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-red/12"><span class="badge-category-bg" style="background-color: #DF1E2E;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-red">mangOH Red</span></a>
+  </div>
+  <blockquote>
+    Sorry, do you know if with this *.le_wifiClient the wifi app works? I can’t find a solution for versions below the 20 one…
+  </blockquote>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/44">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/44</link>
+        <pubDate>Tue, 12 Oct 2021 07:51:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-44</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[kalaivani]]></dc:creator>
+        <description><![CDATA[
+            <p>while compiling the program getting error as above</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/43">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/43</link>
+        <pubDate>Tue, 12 Oct 2021 07:39:06 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-43</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>where do you see this?<br>
+make wp76xx?</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/42">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/42</link>
+        <pubDate>Tue, 12 Oct 2021 07:28:47 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-42</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[kalaivani]]></dc:creator>
+        <description><![CDATA[
+            <p>Binding to non-existent server app ‘wifiService’. what is the reason for the issue</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/41">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/41</link>
+        <pubDate>Tue, 12 Oct 2021 07:16:26 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-41</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>you can scp this file to module and use “fwupdate download xxx.spk” to upgrade FW:</p>
+<p>/home/owner/leaf/leaf-data/swi-wp76_4.7.0/wp76-image/9999999_9907152_SWI9X07Y_02.28.03.05_00_GENERIC_002.073_000-full.spk</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/40">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/40</link>
+        <pubDate>Tue, 12 Oct 2021 06:27:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-40</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[kalaivani]]></dc:creator>
+        <description><![CDATA[
+            <p>one more this in which legato version wifi is present inbuild in interface, baz in legato version 19.11.2 i was not able to provide bining for wifi services</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/39">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/39</link>
+        <pubDate>Tue, 12 Oct 2021 06:09:00 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-39</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[kalaivani]]></dc:creator>
+        <description><![CDATA[
+            <p>let know the steps to install or any reference</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/38">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/38</link>
+        <pubDate>Tue, 12 Oct 2021 06:05:36 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-38</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Then it means you did not install successfully.</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/37">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/37</link>
+        <pubDate>Tue, 12 Oct 2021 06:03:35 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-37</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[kalaivani]]></dc:creator>
+        <description><![CDATA[
+            <p>yes i installed to the module</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/36">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/36</link>
+        <pubDate>Tue, 12 Oct 2021 06:01:41 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-36</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Did you download the fw image of wp76-4.7.0 to module?</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/35">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/35</link>
+        <pubDate>Tue, 12 Oct 2021 05:59:47 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-35</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[kalaivani]]></dc:creator>
+        <description><![CDATA[
+            <p>hi,<br>
+need a calrification i have downloaded the SWI version as wp76-4.7.0 but when i query the legto version it showning response as</p>
+<p>root@swi-mdm9x28-wp:~# legato version<br>
+19.11.2_72a30ed2ee7f18d8029917647e529c3c</p>
+<p>when i query the leaf version its Legato 20.04.0<br>
+│ Included │ swi-vscode-support_200624 │ VS Code features support for legacy SDKs    │<br>
+│                   swi-wp76_4.7.0                          │ SDK for WP76 (Release 13.3 + Legato 20.04.0) │</p>
+<p>why the legato versions are different</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/34">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/34</link>
+        <pubDate>Tue, 12 Oct 2021 05:20:17 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-34</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>Hei <a class="mention" href="https://forum.mangoh.io/u/jyijyi">@jyijyi</a> I think I solved the problem. CAN drivers start correctly also on the latest legato version, BUT they have to be started before WiFi (I don’t know why) I can run all on FW16. the only problem I have left is the fact that when I generate the CAN drivers in the FW16, even if they work on the board, the dependency tree on VSCode disappears and therefore it becomes difficult to work. I will try to do the same. Thanks for the support</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/33">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/33</link>
+        <pubDate>Mon, 31 May 2021 15:11:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-33</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>Hei <a class="mention" href="https://forum.mangoh.io/u/jyijyi">@jyijyi</a> Surprisingly I managed to get GPIO, MUX and CAN to work on version 16 (I also tried on the board!), But I still have a problem: when I run these apps the Legato Hierarchy View disappears and this problem occurs (also if on the board all works):<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/3035c4c1affa26520940333d05792d5c630afeac.png" data-download-href="/uploads/short-url/6Su7gE6I3wpjDQncmlPwEoZyOtu.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/3035c4c1affa26520940333d05792d5c630afeac.png" alt="image" data-base62-sha1="6Su7gE6I3wpjDQncmlPwEoZyOtu" width="396" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/3035c4c1affa26520940333d05792d5c630afeac_2_10x10.png"></a></div><p></p>
+<p>Do you think this could be a <strong>dependancies problem</strong>? If nothing else, by doing so, I’m limited to adding and removing apps from my Legato, so I don’t have full control over my project. But the good thing is that it even works on the latest version of Legato !!! <img src="https://emoji.discourse-cdn.com/twitter/grin.png?v=9" title=":grin:" class="emoji" alt=":grin:"></p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/32">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/32</link>
+        <pubDate>Fri, 28 May 2021 07:49:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-32</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>Ok <a class="mention" href="https://forum.mangoh.io/u/jyijyi">@jyijyi</a> but I have already done my project in FW16! I can run correctly wifi, Mqtt, GPS, positioning, etc. So, on FW 16 I have only to make available gpioexpanderservicegreen and mux tools, in order to activate iot2 for can bus (I did It for FW13). That’s all <img src="https://emoji.discourse-cdn.com/twitter/grin.png?v=9" title=":grin:" class="emoji" alt=":grin:">. If I can run gpio and mux on FW16 my project Is completed</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/31">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/31</link>
+        <pubDate>Fri, 28 May 2021 05:19:22 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-31</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Not sure if you have enough technical skill to upgrade everything to R16…<br>
+e.g. mangoh layer<br>
+MQTT<br>
+CAN interface<br>
+WIFI<br>
+etc…</p>
+<p>That is why I suggest you staying on R13 as everything seems to be quite OK to you.<br>
+Changing your WIFI app is much more easier.</p>
+<p>BTW, I don’t see problem to “make wp76xx” on swi-wp76_4.7.0 inside leaf shell.<br>
+I can compile out the legato.cwe.</p>
+<pre><code>(lsh:swi-wp76_4.7.0) owner@ubuntu:~/leaf/leaf-data/swi-wp76_4.7.0/wp76-legato$ ls ./build/wp76xx/legato.cwe -l
+lrwxrwxrwx 1 owner owner 23 May 28 09:32 ./build/wp76xx/legato.cwe -&gt; legato-squashfs.ubi.cwe
+</code></pre>
+<p>Good luck!</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/30">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/30</link>
+        <pubDate>Fri, 28 May 2021 02:23:19 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-30</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>sorry <a class="mention" href="https://forum.mangoh.io/u/jyijyi">@jyijyi</a> I do not want to be controversial, but unfortunately I have to dirlk (and this highlights all the paucity of this HW).  If I am a new Legato user and I go to the Internet, to learn how to program in this environment, I find ONLY the Legato reference manual of version 16, as well as the Legato IO getting started of 16, which explains programming and libraries to use. (I didn’t invent anything).  The manuals of the 13 are not even found on the net.  That is why I have programmed the latest version according to.  At this point, how can you expect to do a port on an old version if there are no manuals to understand how programming takes place in it?  Are we kidding? Where am I wrong?</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/29">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/29</link>
+        <pubDate>Thu, 27 May 2021 19:00:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-29</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>No idea as i don’t see such thing in legato 19.2</p>
+<p>Suggest you using the sample app to do modification.</p>
+<p>Good luck!</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/28">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/28</link>
+        <pubDate>Thu, 27 May 2021 15:08:37 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-28</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>I compiled by myself this simple code. Is there a simil code version for Legato 19.02.0…without the libraries I can’t do anything <img src="https://emoji.discourse-cdn.com/twitter/disappointed_relieved.png?v=9" title=":disappointed_relieved:" class="emoji" alt=":disappointed_relieved:"><br>
+// WiFiAppComponent.c<br>
+//<br>
+// Specifies the main source file of the component. Add initialization and event registrations to<br>
+// the files COMPONENT_INIT functions.</p>
+<p>// Include the core framework C APIs.<br>
+<span class="hashtag">#include</span> “legato.h”</p>
+<p>// Include your component’s API interfaces.<br>
+<span class="hashtag">#include</span> “interfaces.h”<br>
+<span class="hashtag">#include</span> “le_wifiDefs_interface.h”<br>
+<span class="hashtag">#include</span> “le_wifiClient_common.h”</p>
+<p><span class="hashtag">#define</span> MAX_SSID_BYTES 8<br>
+<span class="hashtag">#define</span> NBR_OF_PINGS   “5”<br>
+le_result_t result;<br>
+le_wifiClient_NewEventHandlerRef_t WiFiEventHandlerRef = NULL;<br>
+le_wifiClient_AccessPointRef_t accessPointRef = NULL;</p>
+<p>static void AskForIpAddress<br>
+(<br>
+void<br>
+)<br>
+{<br>
+int16_t systemResult;<br>
+char tmpString[512];</p>
+<pre><code>// DHCP Client
+snprintf( tmpString,
+        sizeof( tmpString ),
+        "PATH=/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin;"
+        "/sbin/udhcpc -R -b -i wlan0"
+        );
+
+systemResult = system( tmpString );
+// Return value of -1 means that the fork() has failed (see man system).
+if ( 0 == WEXITSTATUS( systemResult ) )
+{
+    LE_INFO("le_wifiClient_Connect DHCP client: %s", tmpString);
+}
+else
+{
+    LE_ERROR( "le_wifiClient_Connect DHCP client %s Failed: (%d)", tmpString, systemResult );
+}
+</code></pre>
+<p>}</p>
+<p>static void TestToPingGooglesDNS<br>
+(<br>
+void<br>
+)<br>
+{<br>
+int16_t systemResult;<br>
+char tmpString[512];</p>
+<pre><code>// PING
+snprintf( tmpString,
+        sizeof( tmpString ),
+        "ping -c " NBR_OF_PINGS " 8.8.8.8"
+);
+
+
+LE_INFO("pinging 8.8.8.8 5x times: %s", tmpString);
+systemResult = system( tmpString );
+// Return value of -1 means that the fork() has failed (see man system).
+if ( 0 == WEXITSTATUS( systemResult ) )
+{
+    LE_INFO("le_wifiClient_Connect Ping: %s", tmpString);
+}
+else
+{
+    LE_ERROR( "le_wifiClient_Connect Ping %s Failed: (%d)", tmpString, systemResult );
+}
+</code></pre>
+<p>}</p>
+<p>//static le_wifiClient_AccessPointRef_t MyHandleScanResult<br>
+static void MyHandleScanResult<br>
+(<br>
+void<br>
+)<br>
+{<br>
+LE_INFO(“ECCOCI”);<br>
+uint8_t ssid[MAX_SSID_BYTES];</p>
+<pre><code>size_t ssidNumElements = MAX_SSID_BYTES;
+le_wifiClient_AccessPointRef_t accessPointRef = le_wifiClient_GetFirstAccessPoint();
+
+ 
+while( NULL != accessPointRef )
+{
+    LE_INFO("ECCOCIwhile");
+     result = le_wifiClient_GetSsid( accessPointRef, ssid, &amp;ssidNumElements );
+     if (( result == LE_OK ) &amp;&amp; ( memcmp( ssid, "", ssidNumElements) == 0 ))
+     {
+          LE_INFO("WiFi Client found.");
+           printf("Found:\tSSID:\t\"%.*s\"\tStrength:%d\tRef:%p\n",
+                                (int)ssidNumElements,
+                                (char*) &amp;ssid,
+                                le_wifiClient_GetSignalStrength(accessPointRef),
+                                accessPointRef);
+            
+          break;
+        
+     }
+     else {
+         LE_INFO("WiFiClient not found");
+     }
+     LE_INFO("Scegli un'altra rete!!!");
+     accessPointRef = le_wifiClient_GetNextAccessPoint();
+     
+     //le_wifiClient_Connect ( accessPointRef );
+}
+//return accessPointRef;
+
+result = le_wifiClient_SetSecurityProtocol( accessPointRef, LE_WIFICLIENT_SECURITY_WPA2_PSK_PERSONAL );
+
+result = le_wifiClient_SetPassphrase ( accessPointRef, "");
+if (result != LE_OK){
+    LE_INFO("Controllare i parametri.");
+}
+result = le_wifiClient_Connect ( accessPointRef );
+ if (result == LE_OK)
+{
+    LE_INFO("Mi sto connettendo...");
+}
+else {
+    LE_INFO("Non riesco a connettermi.");
+}
+</code></pre>
+<p>}</p>
+<p>static void EventHandler<br>
+(</p>
+<pre><code>le_wifiClient_Event_t clientEvent,
+void* contextPtr
+</code></pre>
+<p>)<br>
+{</p>
+<pre><code>switch( clientEvent )
+{
+
+     case LE_WIFICLIENT_EVENT_CONNECTED:
+     {
+         LE_INFO("WiFi Client Connected.");
+         AskForIpAddress();
+         TestToPingGooglesDNS();
+     }
+     break;
+     case LE_WIFICLIENT_EVENT_DISCONNECTED:
+     {
+         LE_INFO("WiFi Client Disconnected.");
+     }
+     break;
+     case LE_WIFICLIENT_EVENT_SCAN_DONE:
+     {
+         LE_INFO("WiFi Client Scan is done.");
+          MyHandleScanResult();
+          
+        
+     }
+     break;
+     default:
+        LE_INFO( "ERROR Unknown event");
+    break;
+}
+</code></pre>
+<p>}</p>
+<p>static void MyInit<br>
+(<br>
+void<br>
+)<br>
+{</p>
+<pre><code>le_result_t result = le_wifiClient_Start();
+    if ( LE_OK == result )
+{
+    LE_INFO("WiFi Client started.");
+    
+    WiFiEventHandlerRef = le_wifiClient_AddNewEventHandler( EventHandler, NULL);
+
+    LE_INFO ("prova");
+    
+}
+else if ( LE_BUSY == result )
+{
+    LE_INFO("ERROR: WiFi Client already started.");
+}
+else
+{
+    LE_INFO("ERROR: WiFi Client not started.");
+}
+</code></pre>
+<p>}</p>
+<p>// This function is called only once on startup.  Place your initialization and event registration<br>
+// here.<br>
+COMPONENT_INIT<br>
+{<br>
+// Write in the log that this component has started.<br>
+LE_INFO(“Component WiFiAppComponent started.”);<br>
+le_wifiClient_Scan();<br>
+MyInit();</p>
+<p>/*sleep(5);<br>
+le_wifiClient_Stop();<br>
+*/<br>
+}</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/27">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/27</link>
+        <pubDate>Thu, 27 May 2021 15:03:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-27</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I don’t see the sample is using these .h file</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/26">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/26</link>
+        <pubDate>Thu, 27 May 2021 15:01:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-26</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>Yes I am using 19.02.0 Legato that is coherent with FW13</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/25">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/25</link>
+        <pubDate>Thu, 27 May 2021 15:00:00 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-25</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Are you referring to the wifi sample code on legato 19.2.0?</p>
+<aside class="onebox githubfolder">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/bad3e5f9ad67c1ddf145107ce7032ac1d7b22563.svg" class="site-icon" width="32" height="32">
+
+      <a href="https://github.com/legatoproject/legato-WiFi/tree/19.02.0/apps/sample" target="_blank" rel="noopener nofollow ugc">github.com</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:690/345;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/50b442dd6b7ddcbb41fc9f21b84494291dc95991_2_690x345.png" class="thumbnail" width="690" height="345" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/50b442dd6b7ddcbb41fc9f21b84494291dc95991_2_690x345.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/50b442dd6b7ddcbb41fc9f21b84494291dc95991_2_1035x517.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/50b442dd6b7ddcbb41fc9f21b84494291dc95991.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/50b442dd6b7ddcbb41fc9f21b84494291dc95991_2_10x10.png"></div>
+
+<h3><a href="https://github.com/legatoproject/legato-WiFi/tree/19.02.0/apps/sample" target="_blank" rel="noopener nofollow ugc">legatoproject/legato-WiFi</a></h3>
+
+  <p><a href="https://github.com/legatoproject/legato-WiFi/tree/19.02.0/apps/sample" target="_blank" rel="noopener nofollow ugc">19.02.0/apps/sample</a></p>
+
+  <p><span class="label1">WiFi support for Legato. Contribute to legatoproject/legato-WiFi development by creating an account on GitHub.</span></p>
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/24">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/24</link>
+        <pubDate>Thu, 27 May 2021 14:57:31 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-24</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>ok but I have a problem on FW13: to implement the connection I need the two libraries below and it doen’t find them: how can I solve this issue?<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/7440855b40ecc9007a249d6397bfd48e01a28de1.png" data-download-href="/uploads/short-url/gApCz1eJ9pNUPc49OZzZ35uQQpz.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7440855b40ecc9007a249d6397bfd48e01a28de1_2_690x350.png" alt="image" data-base62-sha1="gApCz1eJ9pNUPc49OZzZ35uQQpz" width="690" height="350" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7440855b40ecc9007a249d6397bfd48e01a28de1_2_690x350.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7440855b40ecc9007a249d6397bfd48e01a28de1_2_1035x525.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7440855b40ecc9007a249d6397bfd48e01a28de1_2_1380x700.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7440855b40ecc9007a249d6397bfd48e01a28de1_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/23">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/23</link>
+        <pubDate>Thu, 27 May 2021 14:50:07 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-23</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+      <item>
+        <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Why don’t you use R13?<br>
+I suggest you staying on what is working</p>
+          <p><a href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/22">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409/22</link>
+        <pubDate>Thu, 27 May 2021 13:46:21 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2409-22</guid>
+        <source url="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</source>
+      </item>
+  </channel>
+</rss>

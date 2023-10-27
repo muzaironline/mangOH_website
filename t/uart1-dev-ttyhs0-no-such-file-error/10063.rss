@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>UART1 /dev/ttyHS0 No such file Error</title>
+    <link>https://forum.mangoh.io/t/uart1-dev-ttyhs0-no-such-file-error/10063</link>
+    <description>Hello,
+
+I am using a mangOH yellow with a breakout IOT expansion and I am trying to activate uart1 on it.
+Here the steps I have done so far :
+
+- On the mangOH board : uartMode set 1 app
+- On the mangOH board: ls -al /dev/ttyHS* and I have ttyHS0 and 1 as result
+- On my app I am using :
+    &gt; le_tty_Open(&quot;/dev/ttyHS0&quot;, O_RDWR | O_NOCTTY | O_NDELAY);
+
+-In my .adef file I have added : 
+   
+ &gt;  [rw]    /dev/ttyHS0   /dev/ttyHS0
+
+and
+
+&gt;groups : dialout
+
+When I installed and lauched my app, I have the following error message in the logs :
+
+```
+swi-mdm9x28-wp user.emerg Legato: *EMR* | deviceCommunication[23112]/framework T=main | tty.c le_tty_Open() 231 | Error opening serial device &#39;/dev/ttyHS0&#39;: No such file or directory
+``` 
+
+If I use the same code with ttyHS1le_tty_Open is working and I get a valid file descriptor to write to.
+
+Any ideas of what I&#39;m doing wrong ?
+
+Regards</description>
+    
+    <lastBuildDate>Thu, 28 Jul 2022 06:36:27 +0000</lastBuildDate>
+    <category>mangOH Yellow</category>
+    <atom:link href="https://forum.mangoh.io/t/uart1-dev-ttyhs0-no-such-file-error/10063.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>UART1 /dev/ttyHS0 No such file Error</title>
+        <dc:creator><![CDATA[clementfumey]]></dc:creator>
+        <description><![CDATA[
+            <p>Thank you for your answer <a class="mention" href="https://forum.mangoh.io/u/jyijyi">@jyijyi</a> . It definitely helped me. I have chosen to had the requires section in .cdef which is, as I understood the best solution even if for now I don’t really know nor understand about sandboxing.</p>
+<p>In my case, in the cdef I added :</p>
+<pre><code class="lang-auto">requires:
+{
+   device:
+   {
+        [rw]   /dev/ttyHS0       /dev/
+   }
+}
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/uart1-dev-ttyhs0-no-such-file-error/10063/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/uart1-dev-ttyhs0-no-such-file-error/10063/3</link>
+        <pubDate>Thu, 28 Jul 2022 06:36:27 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10063-3</guid>
+        <source url="https://forum.mangoh.io/t/uart1-dev-ttyhs0-no-such-file-error/10063.rss">UART1 /dev/ttyHS0 No such file Error</source>
+      </item>
+      <item>
+        <title>UART1 /dev/ttyHS0 No such file Error</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Does this help?</p>
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.sierrawireless.com/t/use-legato-api-to-open-ttyusb0-and-got-error/27512">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/1fc275dea17943ec40a824dc4b7ad3839eb8d72d.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.sierrawireless.com/t/use-legato-api-to-open-ttyusb0-and-got-error/27512" target="_blank" rel="noopener nofollow ugc" title="07:58AM - 26 July 2022">Sierra Wireless Forum – 26 Jul 22</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:490/44;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/13328b2fbc7aad7a1ce04dda3ea5d6d035300acc.png" class="thumbnail" width="490" height="44"></div>
+
+<h3><a href="https://forum.sierrawireless.com/t/use-legato-api-to-open-ttyusb0-and-got-error/27512" target="_blank" rel="noopener nofollow ugc">Use legato API to open ttyUSB0 and got error</a></h3>
+
+  <p>Hi,  I want to use legato API to read ttyUSB0, but i can’t open ttyUSB0.  #include “legato.h”  #include “le_tty.h”  COMPONENT_INIT  {  int SerialPortFd = -1;  int ret = 0 , num_ret = 0;  char buf[1024] = {0};  SerialPortFd =...</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/uart1-dev-ttyhs0-no-such-file-error/10063/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/uart1-dev-ttyhs0-no-such-file-error/10063/2</link>
+        <pubDate>Tue, 26 Jul 2022 16:45:26 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10063-2</guid>
+        <source url="https://forum.mangoh.io/t/uart1-dev-ttyhs0-no-such-file-error/10063.rss">UART1 /dev/ttyHS0 No such file Error</source>
+      </item>
+      <item>
+        <title>UART1 /dev/ttyHS0 No such file Error</title>
+        <dc:creator><![CDATA[clementfumey]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello,</p>
+<p>I am using a mangOH yellow with a breakout IOT expansion and I am trying to activate uart1 on it.<br>
+Here the steps I have done so far :</p>
+<ul>
+<li>On the mangOH board : uartMode set 1 app</li>
+<li>On the mangOH board: ls -al /dev/ttyHS* and I have ttyHS0 and 1 as result</li>
+<li>On my app I am using :
+<blockquote>
+<p>le_tty_Open(“/dev/ttyHS0”, O_RDWR | O_NOCTTY | O_NDELAY);</p>
+</blockquote>
+</li>
+</ul>
+<p>-In my .adef file I have added :</p>
+<blockquote>
+<p>[rw]    /dev/ttyHS0   /dev/ttyHS0</p>
+</blockquote>
+<p>and</p>
+<blockquote>
+<p>groups : dialout</p>
+</blockquote>
+<p>When I installed and lauched my app, I have the following error message in the logs :</p>
+<pre><code class="lang-auto">swi-mdm9x28-wp user.emerg Legato: *EMR* | deviceCommunication[23112]/framework T=main | tty.c le_tty_Open() 231 | Error opening serial device '/dev/ttyHS0': No such file or directory
+</code></pre>
+<p>If I use the same code with ttyHS1le_tty_Open is working and I get a valid file descriptor to write to.</p>
+<p>Any ideas of what I’m doing wrong ?</p>
+<p>Regards</p>
+          <p><a href="https://forum.mangoh.io/t/uart1-dev-ttyhs0-no-such-file-error/10063/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/uart1-dev-ttyhs0-no-such-file-error/10063/1</link>
+        <pubDate>Tue, 26 Jul 2022 15:24:42 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10063-1</guid>
+        <source url="https://forum.mangoh.io/t/uart1-dev-ttyhs0-no-such-file-error/10063.rss">UART1 /dev/ttyHS0 No such file Error</source>
+      </item>
+  </channel>
+</rss>

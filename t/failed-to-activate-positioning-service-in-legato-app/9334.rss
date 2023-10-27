@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Failed to activate positioning service in Legato app</title>
+    <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334</link>
+    <description>Hi, I&#39;m writing a program to get GPS coordinate on WP7702. However, the program failed to activate Positiong Service: 
+&gt; Jun 14 17:52:45 swi-mdm9x28-wp user.err Legato: =ERR= | posDaemon[1215]/posDaemon T=main | le_gnss.c le_gnss_SetAcquisitionRate() 4195 | Bad state for that request [2]
+&gt; 
+&gt; Jun 14 17:52:45 swi-mdm9x28-wp user.warn Legato: -WRN- | posDaemon[1215]/posDaemon T=main | le_pos.c le_posCtrl_Request() 1322 | Failed to set GNSS&#39;s acquisition rate (1000)
+&gt; 
+&gt; Jun 14 17:52:45 swi-mdm9x28-wp user.err Legato: =ERR= | posDaemon[1215]/posDaemon T=main | le_gnss.c le_gnss_Start() 3643 | Bad state for that request [2]
+&gt; 
+&gt; Jun 15 00:52:45 swi-mdm9x28-wp user.err Legato: =ERR= | sms[1280]/smsComponent T=main | smsReceiver.c GetCurrentLocation() 62 | Can&#39;t activate Positiong Service
+&gt; 
+&gt; Jun 15 00:52:45 swi-mdm9x28-wp user.info Legato: INFO | sms[1280]/smsComponent T=main | smsReceiver.c GpsTimer() 132 | Couldn&#39;t get GPS location. Publishing default location: 4928790, -123120900
+
+I tried with
+
+&gt; gnss get loc2d
+
+which actually worked as follows: 
+
+&gt; root@swi-mdm9x28-wp:~# gnss get loc2d
+&gt; Latitude(positive-&gt;north) : 48.467516
+&gt; Longitude(positive-&gt;east) : -123.345192
+&gt; hAccuracy                 : 10.00m
+
+here is my code: 
+&gt; int32_t latitude;
+&gt; 
+&gt;     int32_t longitude;
+&gt; 
+&gt;     int32_t horizontalAccuracy;
+&gt; 
+&gt;     int len; 
+&gt; 
+&gt;     memset(content, 0,400);
+&gt; 
+&gt; 
+&gt;     const le_result_t result = GetCurrentLocation(
+&gt; 
+&gt;         &amp;latitude, &amp;longitude, &amp;horizontalAccuracy, GPSTIMEOUT *60);
+&gt; 
+&gt;     if (result == LE_OK)
+&gt; 
+&gt;     {
+&gt; 
+&gt;         LE_INFO(&quot;Loc:%f,%f&quot;, (float)latitude/1000000.0, (float)longitude/1000000.0);
+&gt; 
+&gt;         sprintf((char*)content, &quot;loc: %f, %f&quot;, (float)latitude/1000000.0, (float)longitude/1000000.0);
+&gt; 
+&gt;         printf(&quot;%d %s\n&quot;, strlen((const char*)content), content);
+&gt; 
+&gt;     }
+&gt; else
+&gt; 
+&gt;     {
+&gt; 
+&gt;         latitude = DefaultLatitude;
+&gt; 
+&gt;         longitude = DefaultLongitude;
+&gt; 
+&gt;         LE_INFO(
+&gt; 
+&gt;             &quot;Couldn&#39;t get GPS location.  Publishing default location: %d, %d&quot;,
+&gt; 
+&gt;             latitude,
+&gt; 
+&gt;             longitude);
+&gt; 
+&gt;     }
+
+Can anyone help?
+(NOTE: the app actually worked once upon a time, but it just started failing for the time being for some reason)</description>
+    
+    <lastBuildDate>Tue, 22 Jun 2021 08:39:52 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[gianmariaiaculo]]></dc:creator>
+        <description><![CDATA[
+            <p>We use Taoglas antennas. Take a look here:</p><aside class="onebox allowlistedgeneric" data-onebox-src="https://www.taoglas.com/product-category/gps-glonass-beidou-galileo-antennas-2/">
+  <header class="source">
+      
+
+      <a href="https://www.taoglas.com/product-category/gps-glonass-beidou-galileo-antennas-2/" target="_blank" rel="noopener nofollow ugc">Taoglas</a>
+  </header>
+
+  <article class="onebox-body">
+    
+
+<h3><a href="https://www.taoglas.com/product-category/gps-glonass-beidou-galileo-antennas-2/" target="_blank" rel="noopener nofollow ugc">GPS-GLONASS-BeiDou-Galileo Antennas - Taoglas</a></h3>
+
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+<p>regards</p>
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/19">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/19</link>
+        <pubDate>Tue, 22 Jun 2021 08:39:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-19</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <p>I suspect the issue is caused by the deficiency of  the GPS antenna. Where can I buy this antenna?<br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/da31ea607d336f6849b4850975d5f914bedd18f0.jpeg" alt="image" data-base62-sha1="v8f1ZnQNyjNADYYUlGhe1pw6afS" width="359" height="432"></p>
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/18">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/18</link>
+        <pubDate>Sun, 20 Jun 2021 23:05:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-18</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>then you need to figure out why the GNSS tool is working fine but not for your app:</p>
+<aside class="onebox githubfolder" data-onebox-src="https://github.com/legatoproject/legato-af/tree/master/apps/tools/gnss">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/bad3e5f9ad67c1ddf145107ce7032ac1d7b22563.svg" class="site-icon" width="32" height="32">
+
+      <a href="https://github.com/legatoproject/legato-af/tree/master/apps/tools/gnss" target="_blank" rel="noopener nofollow ugc">github.com</a>
+  </header>
+
+  <article class="onebox-body">
+    <h3><a href="https://github.com/legatoproject/legato-af/tree/master/apps/tools/gnss" target="_blank" rel="noopener nofollow ugc">legatoproject/legato-af</a></h3>
+
+  <p><a href="https://github.com/legatoproject/legato-af/tree/master/apps/tools/gnss" target="_blank" rel="noopener nofollow ugc">master/apps/tools/gnss</a></p>
+
+  <p><span class="label1">Legato Application Framework. Contribute to legatoproject/legato-af development by creating an account on GitHub.</span></p>
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/17">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/17</link>
+        <pubDate>Tue, 15 Jun 2021 06:14:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-17</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <p>but the app printing “Can’t activate Positiong Service”</p>
+<pre><code class="lang-auto">Jun 14 22:49:53 swi-mdm9x28-wp user.err Legato: =ERR= | posDaemon[1220]/posDaemon T=main | le_gnss.c le_gnss_SetAcquisitionRate() 4195 | Bad state for that request [2]
+
+Jun 14 22:49:53 swi-mdm9x28-wp user.warn Legato: -WRN- | posDaemon[1220]/posDaemon T=main | le_pos.c le_posCtrl_Request() 1322 | Failed to set GNSS's acquisition rate (1000)
+
+Jun 14 22:49:53 swi-mdm9x28-wp user.err Legato: =ERR= | posDaemon[1220]/posDaemon T=main | le_gnss.c le_gnss_Start() 3643 | Bad state for that request [2]
+
+Jun 15 05:49:53 swi-mdm9x28-wp user.err Legato: =ERR= | sms[1289]/smsComponent T=main | smsReceiver.c GetCurrentLocation() 62 | Can't activate Positiong Service
+
+Jun 15 05:49:53 swi-mdm9x28-wp user.info Legato: INFO | sms[1289]/smsComponent T=main | smsReceiver.c GpsTimer() 133 | Couldn't get GPS location. Publishing default location: 4928790, -123120900
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/16">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/16</link>
+        <pubDate>Tue, 15 Jun 2021 05:52:26 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-16</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>OK, then you can use it</p>
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/15">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/15</link>
+        <pubDate>Tue, 15 Jun 2021 05:17:53 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-15</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <p>it returns NO SAT INFO</p>
+<pre><code class="lang-auto">at!gpssatinfo?
+
+NO SAT INFO
+
+OK
+</code></pre>
+<p>but gnss get loc2d could return my current location…</p>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# gnss get loc2d
+Latitude(positive-&gt;north) : 48.467472
+Longitude(positive-&gt;east) : -123.345296
+hAccuracy                 : 9.00m
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/14">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/14</link>
+        <pubDate>Tue, 15 Jun 2021 05:06:44 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-14</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>can the module see any satellite ?(AT!GPSSATINFO?)</p>
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/13">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/13</link>
+        <pubDate>Tue, 15 Jun 2021 04:59:38 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-13</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <blockquote>
+<p>at!gpsloc?</p>
+<p>Not Available</p>
+<p>OK</p>
+</blockquote>
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/12</link>
+        <pubDate>Tue, 15 Jun 2021 04:46:43 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-12</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>then can you get the position fix by AT command? (AT!GPSLOC?)</p>
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/11</link>
+        <pubDate>Tue, 15 Jun 2021 04:45:41 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-11</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <p>this was what I got:</p>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# gnss get posInfo
+
+TTFF not calculated (Position not fixed)
+
+Position state: No Fix
+
+Location invalid [50000002, -97000002, 2147483647]
+
+Altitude invalid [31000, 2147483647]
+
+AltitudeOnWgs84 : 0.000m
+
+GPS time invalid [0, 0]
+
+Time invalid 00:00:00.000
+
+Time invalid 0 ms
+
+GPS time accuracy invalid [65535]
+
+Date invalid 0000-00-00
+
+Position dilution of precision (PDOP) invalid 65535
+
+Horizontal dilution of precision (HDOP) invalid 65535
+
+Vertical dilution of precision (VDOP) invalid 65535
+
+Geometric dilution of precision (GDOP) invalid 65535
+
+Time dilution of precision (TDOP) invalid 65535
+
+hSpeed invalid [4294967295, 4294967295]
+
+vSpeed invalid [2147483647, 2147483647]
+
+Direction invalid [4294967295, 4294967295]
+
+root@swi-mdm9x28-wp:~# gnss get loc2d
+
+Location invalid [50000002, -97000002, 2147483647]
+</code></pre>
+<hr>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# gnss get loc2d
+Latitude(positive-&gt;north) : 48.467400
+Longitude(positive-&gt;east) : -123.345304
+hAccuracy                 : 9.00m
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/10</link>
+        <pubDate>Tue, 15 Jun 2021 04:38:41 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-10</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>then you can try those gnss command</p>
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/9</link>
+        <pubDate>Tue, 15 Jun 2021 04:06:46 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-9</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <p>I think its working, isnt it?</p>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# microcom /dev/ttyAT
+at!gpsend=0
+OK
+at!gpsfix=1,60,60
+OK
+ati3
+Manufacturer: Sierra Wireless, Incorporated
+Model: WP7702
+Revision: SWI9X06Y_02.35.02.00 5208b3 jenkins 2020/06/10 00:30:12
+IMEI: 352653090137381
+IMEI SV:  5
+FSN: VU838385211510
++GCAP: +CGSM,+DS
+
+OK
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/8</link>
+        <pubDate>Tue, 15 Jun 2021 03:11:37 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-8</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>you can see here</p>
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.sierrawireless.com/t/no-erorr-codes/23741/2">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/1fc275dea17943ec40a824dc4b7ad3839eb8d72d.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.sierrawireless.com/t/no-erorr-codes/23741/2" target="_blank" rel="noopener nofollow ugc" title="07:26AM - 17 May 2021">Sierra Wireless Forum – 17 May 21</a>
+  </header>
+
+  <article class="onebox-body">
+    <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png" class="thumbnail onebox-avatar" width="500" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_10x10.png">
+
+<h3><a href="https://forum.sierrawireless.com/t/no-erorr-codes/23741/2" target="_blank" rel="noopener nofollow ugc">No erorr codes</a></h3>
+
+  <p>you can first type AT!GPSEND=0 first, and then try the AT!GPSFIX command.  at!gpsend=0  OK  AT!GPSFIX=1,60,60  OK  ati3  Manufacturer: Sierra Wireless, Incorporated  Model: MC7455  Revision: SWI9X30C_02.30.01.01 r7792 CARMD-EV-FRMWR2 2018/07/13...</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/7</link>
+        <pubDate>Tue, 15 Jun 2021 03:04:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-7</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <p>what parameter do I need to add to check if the GPS is working&gt;</p>
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/6</link>
+        <pubDate>Tue, 15 Jun 2021 02:50:08 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-6</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I think you cannot just type AT!GPSFIX, you need to add paramter</p>
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/5</link>
+        <pubDate>Tue, 15 Jun 2021 02:26:23 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-5</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <p>at!gpsfix returns error</p>
+<blockquote>
+<p>root@swi-mdm9x28-wp:~# microcom /dev/ttyAT<br>
+at!gpsfix<br>
+ERROR</p>
+<p>at!gpsfix=?<br>
+!GPSFIX: ,,<br>
+: 1-Standalone, 2-MS-Based, 3-MS-Assisted<br>
+: 1-255 seconds<br>
+: 1-4294967280 meters</p>
+<p>OK</p>
+</blockquote>
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/4</link>
+        <pubDate>Tue, 15 Jun 2021 02:21:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-4</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>does gnss command work?<br>
+Have you tried the AT!GPSFIX first to make sure the GPS is working?</p>
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/3</link>
+        <pubDate>Tue, 15 Jun 2021 01:36:32 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-3</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <p><code>gnss watch</code> returns as follows:</p>
+<blockquote>
+<p>TTFF not calculated (Position not fixed)<br>
+Position state: No Fix<br>
+Location invalid [50000002, -97000002, 2147483647]<br>
+Altitude invalid [31000, 2147483647]<br>
+AltitudeOnWgs84  : 0.000m<br>
+GPS time invalid [0, 0]<br>
+Time invalid 00:00:00.000<br>
+Time invalid 0 ms<br>
+GPS time accuracy invalid [65535]<br>
+Date invalid 0000-00-00<br>
+Position dilution of precision (PDOP) invalid 65535<br>
+Horizontal dilution of precision (HDOP) invalid 65535<br>
+Vertical dilution of precision (VDOP) invalid 65535<br>
+Geometric dilution of precision (GDOP) invalid 65535<br>
+Time dilution of precision (TDOP) invalid 65535<br>
+hSpeed invalid [4294967295, 4294967295]<br>
+vSpeed invalid [2147483647, 2147483647]</p>
+</blockquote>
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/2</link>
+        <pubDate>Tue, 15 Jun 2021 01:25:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-2</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+      <item>
+        <title>Failed to activate positioning service in Legato app</title>
+        <dc:creator><![CDATA[jeremyzhang]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi, I’m writing a program to get GPS coordinate on WP7702. However, the program failed to activate Positiong Service:</p>
+<blockquote>
+<p>Jun 14 17:52:45 swi-mdm9x28-wp user.err Legato: =ERR= | posDaemon[1215]/posDaemon T=main | le_gnss.c le_gnss_SetAcquisitionRate() 4195 | Bad state for that request [2]</p>
+<p>Jun 14 17:52:45 swi-mdm9x28-wp user.warn Legato: -WRN- | posDaemon[1215]/posDaemon T=main | le_pos.c le_posCtrl_Request() 1322 | Failed to set GNSS’s acquisition rate (1000)</p>
+<p>Jun 14 17:52:45 swi-mdm9x28-wp user.err Legato: =ERR= | posDaemon[1215]/posDaemon T=main | le_gnss.c le_gnss_Start() 3643 | Bad state for that request [2]</p>
+<p>Jun 15 00:52:45 swi-mdm9x28-wp user.err Legato: =ERR= | sms[1280]/smsComponent T=main | smsReceiver.c GetCurrentLocation() 62 | Can’t activate Positiong Service</p>
+<p>Jun 15 00:52:45 swi-mdm9x28-wp user.info Legato: INFO | sms[1280]/smsComponent T=main | smsReceiver.c GpsTimer() 132 | Couldn’t get GPS location. Publishing default location: 4928790, -123120900</p>
+</blockquote>
+<p>I tried with</p>
+<blockquote>
+<p>gnss get loc2d</p>
+</blockquote>
+<p>which actually worked as follows:</p>
+<blockquote>
+<p>root@swi-mdm9x28-wp:~# gnss get loc2d<br>
+Latitude(positive-&gt;north) : 48.467516<br>
+Longitude(positive-&gt;east) : -123.345192<br>
+hAccuracy                 : 10.00m</p>
+</blockquote>
+<p>here is my code:</p>
+<blockquote>
+<p>int32_t latitude;</p>
+<pre><code>int32_t longitude;
+
+int32_t horizontalAccuracy;
+
+int len; 
+
+memset(content, 0,400);
+
+
+const le_result_t result = GetCurrentLocation(
+
+    &amp;latitude, &amp;longitude, &amp;horizontalAccuracy, GPSTIMEOUT *60);
+
+if (result == LE_OK)
+
+{
+
+    LE_INFO("Loc:%f,%f", (float)latitude/1000000.0, (float)longitude/1000000.0);
+
+    sprintf((char*)content, "loc: %f, %f", (float)latitude/1000000.0, (float)longitude/1000000.0);
+
+    printf("%d %s\n", strlen((const char*)content), content);
+
+}
+</code></pre>
+<p>else</p>
+<pre><code>{
+
+    latitude = DefaultLatitude;
+
+    longitude = DefaultLongitude;
+
+    LE_INFO(
+
+        "Couldn't get GPS location.  Publishing default location: %d, %d",
+
+        latitude,
+
+        longitude);
+
+}
+</code></pre>
+</blockquote>
+<p>Can anyone help?<br>
+(NOTE: the app actually worked once upon a time, but it just started failing for the time being for some reason)</p>
+          <p><a href="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334/1</link>
+        <pubDate>Tue, 15 Jun 2021 00:58:27 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9334-1</guid>
+        <source url="https://forum.mangoh.io/t/failed-to-activate-positioning-service-in-legato-app/9334.rss">Failed to activate positioning service in Legato app</source>
+      </item>
+  </channel>
+</rss>

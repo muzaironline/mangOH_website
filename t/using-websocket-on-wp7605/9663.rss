@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Using WebSocket on WP7605</title>
+    <link>https://forum.mangoh.io/t/using-websocket-on-wp7605/9663</link>
+    <description>I would like to run WebSocket (using python ).
+So, I can not find pip or apt-get command.
+I tried install pip ↓, 
+&gt;curl -kL https://bootstrap.pypa.io/pip/2.7/get-pip.py | python
+ but I cannnot installed because of  ImportError.
+&gt;ImportError: No module named pkgutil
+
+How I can use WebSocket?</description>
+    
+    <lastBuildDate>Thu, 29 Jun 2023 04:58:53 +0000</lastBuildDate>
+    <category>Uncategorized</category>
+    <atom:link href="https://forum.mangoh.io/t/using-websocket-on-wp7605/9663.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Using WebSocket on WP7605</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>You can try the following to import websocket</p>
+<ol>
+<li>
+<p>Download the WP76 R16.0.1 yocto source code</p>
+</li>
+<li>
+<p>put the following python-websocket_0.2.1.bb files in ./meta-openembedded/meta-python/recipes-devtools/python<br>
+<a class="attachment" href="https://forum.mangoh.io/uploads/short-url/z9ZBaMRCbRUTrJy6ucFkmbmyG8j.bb">python-websocket_0.2.1.bb</a> (580 Bytes)</p>
+</li>
+<li>
+<p>in ./meta-swi/meta-swi-mdm9x28/recipes-core/images/mdm9x28-image.inc, add the following:<br>
+IMAGE_INSTALL_append = " python-websocket"</p>
+</li>
+<li>
+<p>type make to build the yocto image, but there is no need to download the yocto cwe image as there are extra libraries which are needed to load to WP76 module</p>
+</li>
+<li>
+<p>the required library will be built in following paths:</p>
+</li>
+</ol>
+<p>./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/python-websocket/0.2.1-r0/image/usr/lib/python2.7/site-packages</p>
+<p>./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/python/2.7.15-r1/image/usr/lib/python2.7/</p>
+<ol start="6">
+<li>
+<p>upgrade the WP76 module to R16.0.1</p>
+</li>
+<li>
+<p>The required libraries are packed in the following python_websocket_binary.tar. You can transfer this file to /home/root of module by SCP tool</p>
+</li>
+</ol>
+<p><a class="attachment" href="https://forum.mangoh.io/uploads/short-url/qC41UvdgdIXMKbHKs3FFDZSCHLG.tar">python_websocket_binary.tar</a> (672.5 KB)</p>
+<ol start="9">
+<li>type the following command to extract the  python_websocket_binary.tar to /tmp folder of module</li>
+</ol>
+<p><code>tar -xf /home/root/python_websocket_binary.tar -C /tmp</code></p>
+<ol start="10">
+<li>type the following to copy the libraries to correct path:</li>
+</ol>
+<pre><code class="lang-auto">mkdir /tmp/tmp_usr_lib/;mkdir /tmp/tmp_usr_lib_wr;
+mount -t overlay overlay /usr/lib -o lowerdir=/usr/lib,upperdir=/tmp/tmp_usr_lib,workdir=/tmp/tmp_usr_lib_wr;
+cp -rf /tmp/python_websocket_binary/usr/lib/python2.7/* /usr/lib/python2.7/
+</code></pre>
+<ol start="10">
+<li>Now websocket can be imported inside python:</li>
+</ol>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# python
+Python 2.7.15 (default, Aug  3 2021, 08:12:13)
+[GCC 7.3.0] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+&gt;&gt;&gt; import websocket
+&gt;&gt;&gt; exit()
+root@swi-mdm9x28-wp:~#
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/using-websocket-on-wp7605/9663/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/using-websocket-on-wp7605/9663/3</link>
+        <pubDate>Wed, 28 Jun 2023 17:19:27 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9663-3</guid>
+        <source url="https://forum.mangoh.io/t/using-websocket-on-wp7605/9663.rss">Using WebSocket on WP7605</source>
+      </item>
+      <item>
+        <title>Using WebSocket on WP7605</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>you need to rebuild yocto to include the required library:</p>
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.sierrawireless.com/t/installing-boto3-onn-airprime-wp7702/18683/4">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/1fc275dea17943ec40a824dc4b7ad3839eb8d72d.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.sierrawireless.com/t/installing-boto3-onn-airprime-wp7702/18683/4" target="_blank" rel="noopener nofollow ugc" title="11:39AM - 13 December 2019">Sierra Wireless Forum – 13 Dec 19</a>
+  </header>
+
+  <article class="onebox-body">
+    <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png" class="thumbnail onebox-avatar" width="500" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_10x10.png">
+
+<h3><a href="https://forum.sierrawireless.com/t/installing-boto3-onn-airprime-wp7702/18683/4" target="_blank" rel="noopener nofollow ugc">Installing Boto3 onn AirPrime WP7702</a></h3>
+
+  <p>You can download the yocto source code here  https://source.sierrawireless.com/resources/airprime/software/wp77xx/wp77xx-firmware-release-12-components/#sthash.VQOzZQNn.mvJDJnaN.dpbs  To make the yocto image,  just type make.</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+<p>But I don’t see there is official recipe for python websocket.</p>
+          <p><a href="https://forum.mangoh.io/t/using-websocket-on-wp7605/9663/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/using-websocket-on-wp7605/9663/2</link>
+        <pubDate>Thu, 16 Sep 2021 09:39:50 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9663-2</guid>
+        <source url="https://forum.mangoh.io/t/using-websocket-on-wp7605/9663.rss">Using WebSocket on WP7605</source>
+      </item>
+      <item>
+        <title>Using WebSocket on WP7605</title>
+        <dc:creator><![CDATA[yoheifujimitsu]]></dc:creator>
+        <description><![CDATA[
+            <p>I would like to run WebSocket (using python ).<br>
+So, I can not find pip or apt-get command.<br>
+I tried install pip ↓,</p>
+<blockquote>
+<p>curl -kL <a href="https://bootstrap.pypa.io/pip/2.7/get-pip.py" rel="noopener nofollow ugc">https://bootstrap.pypa.io/pip/2.7/get-pip.py</a> | python<br>
+but I cannnot installed because of  ImportError.<br>
+ImportError: No module named pkgutil</p>
+</blockquote>
+<p>How I can use WebSocket?</p>
+          <p><a href="https://forum.mangoh.io/t/using-websocket-on-wp7605/9663/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/using-websocket-on-wp7605/9663/1</link>
+        <pubDate>Thu, 16 Sep 2021 08:41:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9663-1</guid>
+        <source url="https://forum.mangoh.io/t/using-websocket-on-wp7605/9663.rss">Using WebSocket on WP7605</source>
+      </item>
+  </channel>
+</rss>

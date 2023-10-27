@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>GPIO 7 Problems - mangOH Red - mangOH forum</title>
+    <meta name="description" content="WP7702 
+GPIO 7 (Mangoh Red IOT0_GPIO3, pin 26) will not respond to the le_gpio commands issued to it. legato programs will bind properly and silently accept all issued commands, but it will not change value or pull-up/pu&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/gpio-7-problems/6171" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;GPIO 7 Problems&#39;" href="https://forum.mangoh.io/t/gpio-7-problems/6171.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/gpio-7-problems/6171" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/gpio-7-problems/6171" />
+<meta property="og:title" content="GPIO 7 Problems" />
+<meta name="twitter:title" content="GPIO 7 Problems" />
+<meta property="og:description" content="WP7702  GPIO 7 (Mangoh Red IOT0_GPIO3, pin 26) will not respond to the le_gpio commands issued to it. legato programs will bind properly and silently accept all issued commands, but it will not change value or pull-up/pull-down. Interestingly I can apparently change the input/output state and the pull-up/pull-down state from the command line, but the changes have no effect.  cat /sys/kernel/debug/gpio GPIOs 0-79, platform/1000000.pinctrl, 1000000.pinctrl:  gpio0   : in  0 2mA pull down  gpio1   ..." />
+<meta name="twitter:description" content="WP7702  GPIO 7 (Mangoh Red IOT0_GPIO3, pin 26) will not respond to the le_gpio commands issued to it. legato programs will bind properly and silently accept all issued commands, but it will not change value or pull-up/pull-down. Interestingly I can apparently change the input/output state and the pull-up/pull-down state from the command line, but the changes have no effect.  cat /sys/kernel/debug/gpio GPIOs 0-79, platform/1000000.pinctrl, 1000000.pinctrl:  gpio0   : in  0 2mA pull down  gpio1   ..." />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta property="article:published_time" content="2021-02-15T09:16:08+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="next" href="/t/gpio-7-problems/6171?page=2">
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"GPIO 7 Problems","mainEntity":{"@type":"Question","name":"GPIO 7 Problems","text":"WP7702\n\nGPIO 7 (Mangoh Red IOT0_GPIO3, pin 26) will not respond to the le_gpio commands issued to it. legato programs will bind properly and silently accept all issued commands, but it will not change value or pull-up/pull-down. Interestingly I can apparently change the input/output state and the pu&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2021-02-15T09:16:08.647Z","author":{"@type":"Person","name":"Connor Scott"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/gpio-7-problems/6171">GPIO 7 Problems</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='GPIO 7 Problems'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/CT1'><span itemprop='name'>CT1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-02-15T09:16:08Z' class='post-time'>
+                    February 15, 2021,  9:16am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-02-15T09:16:08Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>WP7702<br>
+GPIO 7 (Mangoh Red IOT0_GPIO3, pin 26) will not respond to the le_gpio commands issued to it. legato programs will bind properly and silently accept all issued commands, but it will not change value or pull-up/pull-down. Interestingly I can apparently change the input/output state and the pull-up/pull-down state from the command line, but the changes have no effect.</p>
+<pre><code>cat /sys/kernel/debug/gpio
+GPIOs 0-79, platform/1000000.pinctrl, 1000000.pinctrl:
+ gpio0   : in  0 2mA pull down
+ gpio1   : in  0 2mA pull down
+ gpio2   : in  0 2mA pull up
+ gpio3   : in  0 2mA pull down
+ gpio4   : out 2 2mA pull up
+ gpio5   : in  2 2mA pull down
+ gpio6   : in  2 2mA pull down
+ gpio7   : out 2 2mA pull up
+ gpio8   : in  0 2mA no pull
+ gpio9   : in  0 2mA no pull
+ gpio10  : in  0 2mA no pull
+ gpio11  : in  0 2mA no pull
+ gpio12  : out 2 2mA pull down
+ gpio13  : in  2 2mA pull down
+ gpio14  : in  2 2mA no pull
+ gpio15  : in  2 2mA no pull
+ gpio16  : out 0 2mA pull up
+ gpio17  : in  0 2mA pull up
+ gpio18  : in  0 2mA pull down
+ gpio19  : in  0 2mA pull down
+ gpio20  : out 3 8mA no pull
+ gpio21  : in  3 8mA no pull
+ gpio22  : out 3 8mA no pull
+ gpio23  : out 3 8mA no pull
+ gpio24  : out 0 2mA no pull
+ gpio25  : out 0 6mA no pull
+ gpio26  : in  0 2mA pull up
+ gpio27  : out 0 2mA no pull
+ gpio28  : out 0 2mA no pull
+ gpio29  : out 0 2mA no pull
+ gpio30  : in  1 2mA pull up
+ gpio31  : out 1 2mA no pull
+ gpio32  : out 1 2mA no pull
+ gpio33  : out 1 2mA no pull
+ gpio34  : in  1 2mA pull up
+ gpio35  : in  0 2mA pull down
+ gpio36  : out 0 2mA no pull
+ gpio37  : in  0 2mA no pull
+ gpio38  : in  0 2mA no pull
+ gpio39  : out 1 2mA pull down
+ gpio40  : out 1 2mA pull down
+ gpio41  : out 1 2mA pull down
+ gpio42  : out 1 2mA pull down
+ gpio43  : out 1 2mA pull down
+ gpio44  : out 1 2mA pull down
+ gpio45  : in  0 2mA no pull
+ gpio46  : in  0 2mA no pull
+ gpio47  : in  0 2mA no pull
+ gpio48  : in  0 2mA no pull
+ gpio49  : out 1 2mA pull down
+ gpio50  : out 1 2mA pull down
+ gpio51  : in  0 2mA no pull
+ gpio52  : out 1 2mA pull down
+ gpio53  : out 3 2mA pull down
+ gpio54  : out 0 6mA no pull
+ gpio55  : out 1 2mA no pull
+ gpio56  : out 1 2mA pull down
+ gpio57  : out 1 2mA pull down
+ gpio58  : out 0 2mA no pull
+ gpio59  : in  0 2mA pull up
+ gpio60  : in  0 2mA pull down
+ gpio61  : in  0 2mA pull down
+ gpio62  : in  0 2mA pull down
+ gpio63  : in  0 2mA pull down
+ gpio64  : in  0 2mA pull down
+ gpio65  : in  0 2mA pull down
+ gpio66  : in  0 2mA pull down
+ gpio67  : in  0 2mA pull down
+ gpio68  : in  0 2mA pull down
+ gpio69  : in  0 2mA pull down
+ gpio70  : in  0 2mA pull down
+ gpio71  : in  0 2mA pull down
+ gpio72  : in  0 2mA pull down
+ gpio73  : in  0 2mA pull down
+ gpio74  : in  0 2mA pull down
+ gpio75  : out 0 6mA no pull
+ gpio76  : out 0 2mA no pull
+ gpio77  : in  0 2mA no pull
+ gpio78  : in  0 2mA no pull
+ gpio79  : in  0 2mA no pull
+
+GPIOs 200-204, platform/swimcu-gpio, swimcu, can sleep:
+
+GPIOs 820-851, platform/soc:qcom,smp2pgpio-ssr-smp2p-1-out, master-kernel:
+
+GPIOs 852-883, platform/soc:qcom,smp2pgpio-ssr-smp2p-1-in, slave-kernel:
+
+GPIOs 884-915, platform/soc:qcom,smp2pgpio-smp2p-1-out, smp2p:
+
+GPIOs 916-947, platform/soc:qcom,smp2pgpio-smp2p-1-in, smp2p:
+
+GPIOs 948-979, platform/soc:qcom,smp2pgpio-smp2p-15-out, smp2p:
+
+GPIOs 980-1011, platform/soc:qcom,smp2pgpio-smp2p-15-in, smp2p:
+
+GPIOs 1012-1017, spmi/qpnp-pin-7, pm8019-mpp:
+ gpio-1012 (USB_ID_GPIO         ) in  hi    
+
+GPIOs 1018-1023, spmi/qpnp-pin-6, pm8019-gpio:
+ gpio-1023 (sfpr-gpio           ) in  lo   
+
+
+
+echo 1 &gt; /sys/class/gpio/gpio7/value; cat /sys/class/gpio/gpio7/value
+0
+</code></pre>
+<p>I can even unexport and export gpio7 to no effect. It will not write the pin high, and will still silently accept any commands issued to it.</p>
+<p>I can also use AT commands to check if the GPIO is supposed to be attached to the linux processor or not, and the problem is still present there. I can configure it as a GPIO output under the AT command section with AT+WIOCFG=7,4,1,0,1,0,0 and it will respond OK to AT+WIOW=7,1 but the output is still low.</p>
+<p>Anyone else seen this? I haven’t come across any other documentation indicating GPIO7 is disabled or unavailable.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/13ee39ed570a71afb115d2f26fc9a1995a88724f.jpeg">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-02-15T12:43:52Z' class='post-time'>
+                    February 15, 2021, 12:43pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-02-15T12:43:52Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I don’t see problem on controlling GPIO7 on WP7702 on mangoh red board.<br>
+I can see the voltage is changed:</p>
+<p>echo 7 &gt; /sys/class/gpio/export<br>
+echo out &gt; /sys/class/gpio/gpio7/direction<br>
+echo 0 &gt; /sys/class/gpio/gpio7/value<br>
+echo 1 &gt; /sys/class/gpio/gpio7/value</p>
+<p>ati3<br>
+Manufacturer: Sierra Wireless, Incorporated<br>
+Model: WP7702<br>
+Revision: SWI9X06Y_02.22.12.00 eaf79c jenkins 2019/04/24 18:48:27<br>
+IMEI: 352653090002874<br>
+IMEI SV:  3<br>
+FSN: VU735370521401<br>
++GCAP: +CGSM</p>
+<p>OK<br>
+[   37.337537] i2c-msm-v2 78b8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x3a MSTR_STS:0x0c1300c8 OPER:0x00000090</p>
+<p>Legato Ver: 18.09.4.c964f253_3ba44b6732e03bacfafb714c4463754d<br>
+Yocto Ver:  SWI9X06Y_02.22.04.00 2020-06-18_02:43:58<br>
+OS Ver: Linux version 3.18.44 (jenkins@CAKEL-EV-ALBLD2) (gcc version 6.2.0 (GCC) ) <span class="hashtag">#2</span> PREEMPT Thu Jun 18 02:45:08 UTC 2020<br>
+LK Ver: 1.3.0_da731a7332<br>
+RootFS Ver: SWI9X06Y_02.22.04.00 2020-06-18_02:43:58<br>
+UserFS Ver: unknown<br>
+MCU Ver: 002.011</p>
+<p>OK</p>
+<p>I am measuring on here:<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/13ee39ed570a71afb115d2f26fc9a1995a88724f.jpeg" data-download-href="/uploads/short-url/2Qjt6jwsNZmnMvIkwZPFhjc0Wyb.jpeg?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/13ee39ed570a71afb115d2f26fc9a1995a88724f.jpeg" alt="image" data-base62-sha1="2Qjt6jwsNZmnMvIkwZPFhjc0Wyb" width="657" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/13ee39ed570a71afb115d2f26fc9a1995a88724f_2_10x10.png"><div class="meta"><svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">689×524 163 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg></div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/CT1'><span itemprop='name'>CT1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-02-15T17:20:37Z' class='post-time'>
+                    February 15, 2021,  5:20pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-02-15T17:20:37Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I followed the above commands and could not detect any change on my scope. Measured as indicated on the PCB, and soldered into pin 26 of the IoT connector.</p>
+<pre><code>root@swi-mdm9x28-wp:~# echo 7 &gt; /sys/class/gpio/export 
+root@swi-mdm9x28-wp:~# echo out &gt; /sys/class/gpio/gpio7/direction 
+root@swi-mdm9x28-wp:~# echo 0 &gt; /sys/class/gpio/gpio7/value 
+root@swi-mdm9x28-wp:~# echo 1 &gt; /sys/class/gpio/gpio7/value 
+root@swi-mdm9x28-wp:~# cat /sys/class/gpio/gpio7/value 
+0
+root@swi-mdm9x28-wp:~# microcom /dev/ttyAT
+ati3
+Manufacturer: Sierra Wireless, Incorporated
+Model: WP7702
+Revision: SWI9X06Y_02.16.06.00 7605a6 jenkins 2018/06/20 17:56:12
+IMEI: 3526xxxx
+IMEI SV: 2
+FSN: VU74xxx
+
++GCAP: +CGSM
+</code></pre>
+<p>Just to double check I used swiflash to instal the latest spk I could find from Sierra wireless and It’s still on IMEI SV:2. How do I get to your revision?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-02-15T23:45:57Z' class='post-time'>
+                    February 15, 2021, 11:45pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-02-16T01:26:53Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I am using fx30 (WP77 module inside) fw which is fw r11.</p>
+<p>FYI, i also tried on wp76 module with same mangoh red board,  no problem is found on gpio7.</p>
+<p>Not sure if you are really measuring the correct pin on the board, maybe you can measure the same point as my indication above.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/CT1'><span itemprop='name'>CT1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-02-16T14:50:04Z' class='post-time'>
+                    February 16, 2021,  2:50pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-02-16T14:50:04Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>These are the documentation I’ve been referencing.</p><aside class="onebox pdf">
+  <header class="source">
+      <a href="https://mangoh.io/uploaded-documents/Reference/mangOH%20Red/Hardware/Schematics/MangoRed_DV6_final.pdf" target="_blank" rel="noopener nofollow ugc">mangoh.io</a>
+  </header>
+  <article class="onebox-body">
+    <a href="https://mangoh.io/uploaded-documents/Reference/mangOH%20Red/Hardware/Schematics/MangoRed_DV6_final.pdf" target="_blank" rel="noopener nofollow ugc"><span class="pdf-onebox-logo"></span></a>
+<h3><a href="https://mangoh.io/uploaded-documents/Reference/mangOH%20Red/Hardware/Schematics/MangoRed_DV6_final.pdf" target="_blank" rel="noopener nofollow ugc">MangoRed_DV6_final.pdf</a></h3>
+
+<p class="filesize">1609.24 KB</p>
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+<p><a href="https://source.sierrawireless.com/resources/airprime/hardware_specs_user_guides/airprime_wp77xx_product_technical_specification/#sthash.pfxN6N27.dpbs" class="onebox" target="_blank" rel="noopener nofollow ugc">https://source.sierrawireless.com/resources/airprime/hardware_specs_user_guides/airprime_wp77xx_product_technical_specification/#sthash.pfxN6N27.dpbs</a></p>
+<p>First point:<br>
+In the Technical specifications GPIO7 is listed as pin 40.<br>
+In the schematic, Page 2, section C-3 indicated pin 40 is indeed gpio7.<br>
+In the same schematic, Page 3, section H-3, says the pin is connected to CN306 Pin 26.<br>
+In the same schematic, Page 4, section I-8, says the pin is also connected to CN401 Pin 4, or the unpopulated surface mount header you illustrated.<br>
+I made measurements of both points, neither produced any change.<br>
+If you still think I’m not measuring the right point I’ll send you picture of the scope leads connected to the board next week when I’m back in the office.</p>
+<p>Second point:<br>
+Even if I was measuring the wrong pin, I am very suspicious of the fact that I can’t write to the pin.  If I cat the value immediately after writing it high, and the pin is already low. I think there’s a service/program/driver somewhere forcing the pin low. Why else would the pin ignore any output commands from the linux system, and from the AT system? The pin is never driven high, and <strong>that’s verifiable with the oscilloscope</strong>.</p>
+<p>The unpopulated connector you mentioned on page 4 section I-7 of the schematic shows GPIO7 is used for SWD_CLK. The product spec makes no mention of SWD, nor does the legato docs. Could SWD be messing with this? I have no idea what else this could be.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-02-16T15:00:44Z' class='post-time'>
+                    February 16, 2021,  3:00pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-02-16T15:00:44Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>In the same schematic, Page 3, section H-3, says the pin is connected to CN306 Pin 26.<br>
+In the same schematic, Page 4, section I-8, says the pin is also connected to CN401 Pin 4, or the unpopulated surface mount header you illustrated.</p>
+<p>You can double check by using multimeter and see if those two points are actually the same point.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/CT1'><span itemprop='name'>CT1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-02-16T15:57:12Z' class='post-time'>
+                    February 16, 2021,  3:57pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-02-16T15:57:12Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You seem to be very focused on thinking that I can’t measure the voltage of a pin properly. <strong>I probed both points.</strong><br>
+Did you read my second point about the value of the pin not changing? Assume for a second that I can operate an oscilloscope and a multimeter, what would be the next thing you check? Why would the value of gpio7 not respond to a write by the root user?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-02-16T16:02:23Z' class='post-time'>
+                    February 16, 2021,  4:02pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-02-16T16:07:27Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>i don’t see anything else i can check then as I cannot see the problem. ( and that is why I suspect you are not measuring the correct point)<br>
+Maybe you can try the same FW as mine.</p>
+<p><a href="https://source.sierrawireless.com/resources/airlink/software_downloads/fx30-firmware/fx30-firmware-catm/#sthash.Ub3J4uTS.dpbs" class="onebox" target="_blank" rel="noopener nofollow ugc">https://source.sierrawireless.com/resources/airlink/software_downloads/fx30-firmware/fx30-firmware-catm/#sthash.Ub3J4uTS.dpbs</a></p>
+<p>Another possibility is that your metal case of WP77 is not closed well…</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/CT1'><span itemprop='name'>CT1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-02-22T07:40:03Z' class='post-time'>
+                    February 22, 2021,  7:40am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-02-22T07:40:03Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Back in the lab today. I tested the mangoh red PCB with WP module removed. Pin 40 has continuity to both the pin indicated in your drawing and IOT3 connector pin 26.</p>
+<p>Will FX30 firmware work on mangoh red boards? Anything I should be aware of?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-02-22T07:48:58Z' class='post-time'>
+                    February 22, 2021,  7:48am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-02-22T07:48:58Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>i already use the FX30 FW on mangoh red board to test GPIO7.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/CT1'><span itemprop='name'>CT1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-02-22T08:21:28Z' class='post-time'>
+                    February 22, 2021,  8:21am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-02-22T08:21:28Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Under FX30 firmware the board reports an error rather than silently accepting it. It’s a step in the right direction.</p>
+<pre><code>root@fx30:~# echo 1 &gt; /sys/class/gpio/gpio7/value 
+sh: write error: Operation not permitted
+</code></pre>
+<p>I have also unexported and re-exported the gpio, to no effect.</p>
+<pre><code>root@fx30:~# cat /sys/kernel/debug/gpio 
+GPIOs 0-79, platform/1000000.pinctrl, 1000000.pinctrl:
+ gpio0   : in  0 2mA pull down
+ gpio1   : in  0 2mA pull down
+ gpio2   : in  0 2mA pull up
+ gpio3   : in  0 2mA pull down
+ gpio4   : out 2 2mA pull up
+ gpio5   : in  2 2mA pull down
+ gpio6   : in  2 2mA pull down
+ gpio7   : out 2 2mA pull up
+ gpio8   : in  0 2mA pull up
+ gpio9   : in  0 2mA pull up
+ gpio10  : out 0 16mA pull down
+ gpio11  : in  0 2mA pull up
+ gpio12  : out 2 2mA pull down
+ gpio13  : in  2 2mA pull down
+ gpio14  : in  2 2mA pull down
+ gpio15  : in  2 2mA pull down
+ gpio16  : in  0 2mA pull up
+ gpio17  : in  0 2mA pull up
+ gpio18  : in  0 2mA pull down
+ gpio19  : in  0 2mA pull down
+ gpio20  : out 3 8mA no pull
+ gpio21  : in  3 8mA no pull
+ gpio22  : out 3 8mA no pull
+ gpio23  : out 3 8mA no pull
+ gpio24  : out 0 2mA no pull
+ gpio25  : out 0 6mA no pull
+ gpio26  : in  0 2mA pull up
+ gpio27  : out 0 2mA no pull
+ gpio28  : out 0 2mA no pull
+ gpio29  : out 0 2mA no pull
+ gpio30  : in  1 2mA pull up
+ gpio31  : out 1 2mA no pull
+ gpio32  : out 1 2mA no pull
+ gpio33  : out 1 2mA no pull
+ gpio34  : in  1 2mA pull up
+ gpio35  : in  0 2mA pull down
+ gpio36  : out 0 2mA no pull
+ gpio37  : in  0 2mA no pull
+ gpio38  : in  0 2mA pull up
+ gpio39  : in  0 2mA pull down
+ gpio40  : in  0 2mA pull down
+ gpio41  : in  0 2mA pull down
+ gpio42  : in  0 2mA pull down
+ gpio43  : in  0 2mA pull down
+ gpio44  : in  0 2mA pull down
+ gpio45  : in  0 2mA no pull
+ gpio46  : out 0 2mA no pull
+ gpio47  : in  0 2mA no pull
+ gpio48  : in  0 2mA no pull
+ gpio49  : in  0 2mA pull down
+ gpio50  : in  0 2mA pull down
+ gpio51  : in  0 2mA pull up
+ gpio52  : in  0 2mA pull up
+ gpio53  : in  3 2mA pull down
+ gpio54  : out 0 6mA no pull
+ gpio55  : out 0 2mA no pull
+ gpio56  : in  0 2mA no pull
+ gpio57  : out 0 2mA no pull
+ gpio58  : in  0 2mA no pull
+ gpio59  : in  0 2mA pull up
+ gpio60  : in  0 2mA pull down
+ gpio61  : in  0 2mA pull down
+ gpio62  : in  0 2mA pull down
+ gpio63  : in  0 2mA pull down
+ gpio64  : in  0 2mA pull down
+ gpio65  : in  0 2mA pull down
+ gpio66  : in  0 2mA pull down
+ gpio67  : in  0 2mA pull down
+ gpio68  : in  0 2mA pull down
+ gpio69  : in  0 2mA pull down
+ gpio70  : in  0 2mA pull down
+ gpio71  : in  0 2mA pull down
+ gpio72  : in  0 2mA pull down
+ gpio73  : in  0 2mA pull down
+ gpio74  : in  0 2mA pull down
+ gpio75  : out 0 6mA no pull
+ gpio76  : in  0 2mA no pull
+ gpio77  : out 0 2mA no pull
+ gpio78  : in  0 2mA no pull
+ gpio79  : in  0 2mA no pull
+
+GPIOs 200-204, platform/swimcu-gpio, swimcu, can sleep:
+ gpio-200 (sysfs               ) in  hi    
+ gpio-202 (sysfs               ) in  hi    
+
+GPIOs 820-851, platform/soc:qcom,smp2pgpio-ssr-smp2p-1-out, master-kernel:
+
+GPIOs 852-883, platform/soc:qcom,smp2pgpio-ssr-smp2p-1-in, slave-kernel:
+
+GPIOs 884-915, platform/soc:qcom,smp2pgpio-smp2p-1-out, smp2p:
+
+GPIOs 916-947, platform/soc:qcom,smp2pgpio-smp2p-1-in, smp2p:
+
+GPIOs 948-979, platform/soc:qcom,smp2pgpio-smp2p-15-out, smp2p:
+
+GPIOs 980-1011, platform/soc:qcom,smp2pgpio-smp2p-15-in, smp2p:
+ gpio-996 (sysfs               ) in  hi    
+ gpio-997 (sysfs               ) in  hi    
+ gpio-998 (sysfs               ) in  hi    
+ gpio-999 (sysfs               ) in  hi    
+ gpio-1000 (sysfs               ) in  hi    
+ gpio-1001 (sysfs               ) in  hi    
+ gpio-1002 (sysfs               ) in  hi    
+ gpio-1003 (sysfs               ) in  hi    
+ gpio-1004 (sysfs               ) in  hi    
+ gpio-1005 (sysfs               ) in  hi    
+ gpio-1006 (sysfs               ) in  hi    
+ gpio-1007 (sysfs               ) in  hi    
+ gpio-1008 (sysfs               ) in  hi    
+ gpio-1009 (sysfs               ) in  hi    
+ gpio-1010 (sysfs               ) in  hi    
+ gpio-1011 (sysfs               ) in  hi    
+
+GPIOs 1012-1017, spmi/qpnp-pin-7, pm8019-mpp:
+ gpio-1012 (USB_ID_GPIO         ) in  hi    
+
+GPIOs 1018-1023, spmi/qpnp-pin-6, pm8019-gpio:
+ gpio-1023 (sfpr-gpio           ) in  lo    
+root@fx30:~#</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-02-22T08:45:51Z' class='post-time'>
+                    February 22, 2021,  8:45am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-02-22T08:45:51Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>do you set it to output?<br>
+It seems it is still set as input.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/CT1'><span itemprop='name'>CT1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-02-22T15:40:26Z' class='post-time'>
+                    February 22, 2021,  3:40pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-02-22T15:40:26Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Set as output now.<br>
+It’s back to ignoring any errors and not setting the value as directed.</p>
+<pre><code>root@fx30:~# cat /sys/class/gpio/gpio7/direction 
+in
+root@fx30:~# echo out &gt; /sys/class/gpio/gpio7/direction 
+root@fx30:~# echo 1 &gt; /sys/class/gpio/gpio7/value 
+root@fx30:~# cat /sys/class/gpio/gpio7/value 
+0</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/CT1'><span itemprop='name'>CT1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-02-22T21:52:28Z' class='post-time'>
+                    February 22, 2021,  9:52pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-02-22T21:52:28Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I ordered new WP7702 modules to test with. If that doesn’t fix it then the mangoh red board will be my next replaced item.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/CT1'><span itemprop='name'>CT1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-08T20:30:12Z' class='post-time'>
+                    March 8, 2021,  8:30pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-08T20:30:12Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/jyijyi">@jyijyi</a> 5 new WP7702 modules later, and no change, so it wasn’t ESD.</p>
+<p>I decided to do measure a couple things with the module removed, turns out there’s a low impedance path to ground from the pin you indicated. This tells me either my mangoh red PCB is damaged in some way, or my PCB is different from yours. Were there different revisions of the PCB?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-09T01:10:27Z' class='post-time'>
+                    March 9, 2021,  1:10am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-09T01:10:27Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>on my mangoh red board, it says “REV5.0”</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_17' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/CT1'><span itemprop='name'>CT1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-09T06:00:34Z' class='post-time'>
+                    March 9, 2021,  6:00am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-09T06:00:34Z'>
+              <span itemprop='position'>17</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I also have revision 5.0</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_18' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-09T06:07:21Z' class='post-time'>
+                    March 9, 2021,  6:07am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-09T06:07:21Z'>
+              <span itemprop='position'>18</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>do you mean CN306 Pin 26 or  CN401 Pin 4 are actually ground?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_19' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/CT1'><span itemprop='name'>CT1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-09T06:24:18Z' class='post-time'>
+                    March 9, 2021,  6:24am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-09T06:24:18Z'>
+              <span itemprop='position'>19</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>They’re both ground. To be explicitly clear… With the module removed CN306 Pin 26, CN401 Pin 4, J200 Pin 40 and GND are all connected.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_20' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/gpio-7-problems/6171">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-09T06:30:54Z' class='post-time'>
+                    March 9, 2021,  6:30am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-09T06:30:54Z'>
+              <span itemprop='position'>20</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>strange, isn’t this violate the schematic???</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/gpio-7-problems/6171?page=2">next page →</a></b></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

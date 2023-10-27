@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Network Rejection WP7702</title>
+    <link>https://forum.mangoh.io/t/network-rejection-wp7702/5186</link>
+    <description>I&#39;ve been having a terrible time getting the mangoh red to connect to a network. I&#39;ve finally gone back to using the mangoh red firmware and the Sierra wireless SIM card, as any other combination just do not seem to work. In any case, even with the Sierra Wireless SIM card, I get network rejections when left on autoconnect. Does anyone know how to ensure a good network registration? I can&#39;t seem to trace down what the intended reason is besides &quot;Location area not allowed&quot;. Here&#39;s my log, and the steps I&#39;ve taken to follow this so far. 
+
+    Sep 10 13:19:06 swi-mdm9x28-wp user.info Legato:  INFO | modemDaemon[1513]/modemDaemon T=main | le_mrc.c NetRegRejectHandler() 1621 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.
+    Sep 10 13:19:06 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1466]/dcsCellular T=main | dcsCellular.c DcsNetRegRejectHandler() 756 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.
+    Sep 10 13:19:41 swi-mdm9x28-wp user.info Legato:  INFO | modemDaemon[1513]/modemDaemon T=main | le_mrc.c NetRegRejectHandler() 1621 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.
+    Sep 10 13:19:41 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1466]/dcsCellular T=main | dcsCellular.c DcsNetRegRejectHandler() 756 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.
+    Sep 10 13:56:43 swi-mdm9x28-wp user.info Legato:  INFO | modemDaemon[1513]/modemDaemon T=main | le_mrc.c NetRegRejectHandler() 1621 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.
+    Sep 10 13:56:43 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1466]/dcsCellular T=main | dcsCellular.c DcsNetRegRejectHandler() 756 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.
+    Sep 10 13:57:18 swi-mdm9x28-wp user.info Legato:  INFO | modemDaemon[1513]/modemDaemon T=main | le_mrc.c NetRegRejectHandler() 1621 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.
+    Sep 10 13:57:18 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1466]/dcsCellular T=main | dcsCellular.c DcsNetRegRejectHandler() 756 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.
+
+Three quarters the way down [this page](https://docs.legato.io/17_10/platformConstraintsSpecificErrorCodes.html), it seems to indicate the location area is not allowed. Odd, as the modem has connected to these towers previously. This is not the only rejection code I&#39;ve seen. 
+
+When trying other SIM cards on the standard wp7702 firmware (not the mangoh red firmware), I&#39;ve seen codes 8, 10, 12, 13, 15, and 17. 
+
+I would like to know what I can do in order to solve this rejection code 12, and if anyone has any ideas as to why I&#39;m getting flat out rejected with other SIM cards, I would love to hear your ideas.</description>
+    
+    <lastBuildDate>Wed, 11 May 2022 02:13:42 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/network-rejection-wp7702/5186.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Network Rejection WP7702</title>
+        <dc:creator><![CDATA[brettabbott]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Christophe</p>
+<p>I understand that the cellular firmware is included in the current BETA release for cat-M FX30 (swi-fx30-catm-4.0.0.beta) but I’d hold off taking that leap until the crinkles have been ironed out (SW are working through the issues in Australia).</p>
+<p>We’re testing using an internal release (details below) which is available from SW support. I’m uncertain if that too is beta or not but it is very much more stable where the network doesn’t have 2G.</p>
+<p>The file we’re using (more stable):</p>
+<p>FX30_WP77xx_full_R14.2.1.001-telstra-SWI9X06Y_02.36.08.02.cwe</p>
+<p>The file from the SW website (not stable in Australia Telstra or New Zealand Spark – neither have 2g)</p>
+<p>FX30_WP77xx_full_R14.1.1.002-generic_gcf-SWI9X06Y_02.36.06.00.cwe</p>
+<p>With the 02.36.08.02 installed:</p>
+<p>ati</p>
+<p>Manufacturer: Sierra Wireless, Incorporated</p>
+<p>Model: FX30(WP7702)</p>
+<p>Revision: SWI9X06Y_02.36.08.02 c3f5ef jenkins 2021/09/07 08:00:51</p>
+<p>IMEI: 354723090223313</p>
+<p>IMEI SV: 6</p>
+<p>FSN: VU050686681510</p>
+<p>+GCAP: +CGSM</p>
+<p>OK</p>
+<p>ati8</p>
+<p>Legato Ver: 19.11.5.97b4c834_656c465708c8a8e9268d32c5005651c5_modified</p>
+<p>Yocto Ver: SWI9X06Y_02.36.08.02 2021-09-22_05:38:17</p>
+<p>OS Ver: Linux version 3.18.140 (oe-user@oe-host) () <span class="hashtag">#1</span> PREEMPT Wed Sep 22 05:30:50 UTC 2021</p>
+<p>LK Ver: 1.3.0_9c047c35f7</p>
+<p>RootFS Ver: SWI9X06Y_02.36.08.02 2021-09-22_05:38:17</p>
+<p>UserFS Ver: unknown</p>
+<p>MCU Ver: 002.015</p>
+<p>Hope this helps, please let us know what you find. We’re still seeing lesser issues with poor signal areas where it doesn’t reconnect when the signal returns (tunnels, removed antennas etc) but we’re working with SW on this.</p>
+          <p><a href="https://forum.mangoh.io/t/network-rejection-wp7702/5186/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/network-rejection-wp7702/5186/10</link>
+        <pubDate>Wed, 11 May 2022 02:13:42 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5186-10</guid>
+        <source url="https://forum.mangoh.io/t/network-rejection-wp7702/5186.rss">Network Rejection WP7702</source>
+      </item>
+      <item>
+        <title>Network Rejection WP7702</title>
+        <dc:creator><![CDATA[christophecourtoy]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi, it looks like we face the same issue here in Quebec.  Issue with Telus but not Rogers (still running 2G).  Could you provide firmware details and versions that made you progress.</p>
+          <p><a href="https://forum.mangoh.io/t/network-rejection-wp7702/5186/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/network-rejection-wp7702/5186/9</link>
+        <pubDate>Wed, 04 May 2022 00:08:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5186-9</guid>
+        <source url="https://forum.mangoh.io/t/network-rejection-wp7702/5186.rss">Network Rejection WP7702</source>
+      </item>
+      <item>
+        <title>Network Rejection WP7702</title>
+        <dc:creator><![CDATA[brettabbott]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi.  A progress update.</p>
+<p>We’ve been testing in Australia and New Zealand where some networks dont have 2G or are about to phase it out.  SW Support have provided us with a new firmware release for the cellular engine side of things.  It seems that when 2G isn’t available or has a really poor signal, a recently discovered issue causes the modem to de-register from perfectly good 4G network and go wandering for a while before going back to 4G.  The new firmware is heading towards general release but not quite yet.  If you’re in an area where 2G isn’t that great and you’ve got WP77xx, this could be (but may not be) the source of intermittent loss of Registration.   The SW team have been really helpful with this one and the improvement is very encouraging.</p>
+<p>Cheers<br>
+B</p>
+          <p><a href="https://forum.mangoh.io/t/network-rejection-wp7702/5186/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/network-rejection-wp7702/5186/8</link>
+        <pubDate>Mon, 07 Feb 2022 05:47:08 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5186-8</guid>
+        <source url="https://forum.mangoh.io/t/network-rejection-wp7702/5186.rss">Network Rejection WP7702</source>
+      </item>
+      <item>
+        <title>Network Rejection WP7702</title>
+        <dc:creator><![CDATA[CT1]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Brett,</p>
+<p>This issue plagued me a while ago, but I think it was cleared after I performed a clearing of <a href="https://www.twilio.com/docs/iot/supersim/how-and-why-to-set-super-sims-uplmn-table" rel="noopener nofollow ugc">the UPLMN list</a>, along with <a href="https://support.hologram.io/hc/en-us/articles/360035697373-Clear-the-FPLMN-forbidden-networks-list" rel="noopener nofollow ugc">the FPLMN list</a>. Edit: Try clearing the FPLMN list first, and testing extensively with that. I know my operator has told me that their UPLMN list should give the best performance and they would prefer if I didn’t delete it. Additionally, they specified that the FPLMN list will be rebuilt as the SIM searches through networks.</p>
+<p>Another seemingly simple issue that caused odd failures like this- ensure your legato profile matches the one you’re running on the device. We went through a number of different firmwares while finding one that actually worked for us. Usually the apps fail outright, but sometimes they will indicate incorrect or confusing errors.</p>
+          <p><a href="https://forum.mangoh.io/t/network-rejection-wp7702/5186/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/network-rejection-wp7702/5186/7</link>
+        <pubDate>Sun, 09 Jan 2022 15:12:59 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5186-7</guid>
+        <source url="https://forum.mangoh.io/t/network-rejection-wp7702/5186.rss">Network Rejection WP7702</source>
+      </item>
+      <item>
+        <title>Network Rejection WP7702</title>
+        <dc:creator><![CDATA[brettabbott]]></dc:creator>
+        <description><![CDATA[
+            <p>A bit more data.  The following logs are from the FX30 at the time that the deregistration occurs.  AT+CREG at the time indicates network rejection as well.  I believe that reject code 12 is Location Area not available.</p>
+<p>Jan  9 20:38:25 fx30 user.info Legato:  INFO | dcsDaemon[3218]/dcsCellular T=main | dcsCellular.c DcsCellularConnEventStateHandler() 254 | State of connection 1 transitioned from up to down<br>
+Jan  9 20:38:25 fx30 user.info Legato:  INFO | dcsDaemon[3218]/dcsCellular T=main | dcsCellular.c le_dcsCellular_RetryConn() 1300 | Initiated retrying connection 1; retry attempt 1, backoff 1 secs<br>
+Jan  9 20:38:25 fx30 user.info Legato:  INFO | dcsDaemon[3218]/dcsCellular T=main | dcsCellular.c DcsCellularConnEventStateHandler() 311 | Wait for the next retry before failing connection 1<br>
+Jan  9 20:38:25 fx30 user.info Legato:  INFO | xtensorCore[8262]/xtensorCmpt T=main | connectionManager.c ChannelEventHandler() 699 | ChannelEventHandler: Channel state DOWN after event: 0<br>
+Jan  9 20:38:25 fx30 user.info Legato:  INFO | modemDaemon[1263]/modemDaemon T=main | le_mrc.c SignalStrengthIndHandlerFunc() 879 | Signal Strength Ind Handler called with RAT.4 and ss.0<br>
+Jan  9 20:38:25 fx30 user.info Legato:  INFO | dcsDaemon[3218]/dcsCellular T=main | dcsCellular.c DcsCellularPacketSwitchHandler() 726 | Packet switch state: previous 1, new 0<br>
+Jan  9 20:38:25 fx30 user.info Legato:  INFO | dcsDaemon[3218]/dcs T=main | dcs_db.c le_dcs_EventNotifierTechStateTransition() 311 | Notify all channels of technology 2 of system state transition to down<br>
+Jan  9 20:38:25 fx30 user.info Legato:  INFO | xtensorCore[8262]/xtensorCmpt T=main | connectionManager.c ChannelEventHandler() 699 | ChannelEventHandler: Channel state DOWN after event: 0<br>
+Jan  9 20:38:25 fx30 user.info Legato:  INFO | modemDaemon[1263]/modemDaemon T=main | le_mrc.c NetRegRejectHandler() 1461 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.<br>
+Jan  9 20:38:25 fx30 user.info Legato:  INFO | dcsDaemon[3218]/dcsCellular T=main | dcsCellular.c DcsNetRegRejectHandler() 751 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.</p>
+<p>This is in AEST time.</p>
+<p>The Channel Event Handler is in my Legato App and detects the loss of registration – based on sample code from Legato site.  At this stage, it is monitoring only and doesn’t try to resolve the outage.   It feels like open TCP connections may aggravate the issue but I may be imagining this and this may be a red herring.  airVantage also seems to struggle with the issue.</p>
+          <p><a href="https://forum.mangoh.io/t/network-rejection-wp7702/5186/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/network-rejection-wp7702/5186/6</link>
+        <pubDate>Sun, 09 Jan 2022 11:00:17 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5186-6</guid>
+        <source url="https://forum.mangoh.io/t/network-rejection-wp7702/5186.rss">Network Rejection WP7702</source>
+      </item>
+      <item>
+        <title>Network Rejection WP7702</title>
+        <dc:creator><![CDATA[brettabbott]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Jyijyi</p>
+<p>R14, I believe PSM and EDRX are disabled.</p>
+<p>Details below.<br>
+R14.1.1.002 Firmware for Generic GCF<br>
+FX30_WP77xx_full_R14.1.1.002-generic_gcf-SWI9X06Y_02.36.06.00.cwe<br>
+ati8<br>
+Legato Ver: 19.11.5.a1621d58_27c4cd8552e17e79fdc3b0c91ff8bce9_modified<br>
+Yocto Ver: SWI9X06Y_02.36.08.00 2021-05-14_12:13:48<br>
+OS Ver: Linux version 3.18.140 (oe-user@oe-host) () <span class="hashtag">#1</span> PREEMPT Fri May 14 11:13:23 UTC 2021<br>
+LK Ver: 1.3.0_9c047c35f7<br>
+RootFS Ver: SWI9X06Y_02.36.08.00 2021-05-14_12:13:48<br>
+UserFS Ver: unknown<br>
+MCU Ver: 002.015<br>
+OK</p>
+<p>at+gmr<br>
+SWI9X06Y_02.36.06.00 63d944 jenkins 2020/12/10 19:12:28<br>
+OK</p>
+<p>at+cedrxs?<br>
++CEDRXS:<br>
+OK</p>
+<p>at+cpsms?<br>
++CPSMS:0,“01100000”,“00000000”<br>
+OK</p>
+<p>at+cedrxrdp<br>
+CEDRXRDP: 0<br>
+OK</p>
+<p>I’ve got a ticket logged with M2MOne (Australia) 101862 but they’ve been on holiday over Christmas we haven’t made any progress.  This topic seemed very similar.  Jasper doesnt even notice the loss of registration until we reconnect and then sees it as user requested.</p>
+<p>Any ideas appreciated.<br>
+Brett</p>
+          <p><a href="https://forum.mangoh.io/t/network-rejection-wp7702/5186/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/network-rejection-wp7702/5186/5</link>
+        <pubDate>Sun, 09 Jan 2022 10:30:28 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5186-5</guid>
+        <source url="https://forum.mangoh.io/t/network-rejection-wp7702/5186.rss">Network Rejection WP7702</source>
+      </item>
+      <item>
+        <title>Network Rejection WP7702</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Are you using fw 14?<br>
+Did you turn off psm mode and edrx mode?</p>
+          <p><a href="https://forum.mangoh.io/t/network-rejection-wp7702/5186/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/network-rejection-wp7702/5186/4</link>
+        <pubDate>Sun, 09 Jan 2022 09:54:17 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5186-4</guid>
+        <source url="https://forum.mangoh.io/t/network-rejection-wp7702/5186.rss">Network Rejection WP7702</source>
+      </item>
+      <item>
+        <title>Network Rejection WP7702</title>
+        <dc:creator><![CDATA[brettabbott]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi CT1<br>
+I’m seeing almost an identical issue with FX30 (WP77) in Australia using Telstra.  Registration bouncing between allowed (works for between 15 and 180 mins) and being rejected for 10-90 mins.  Bouncing the radio or forcing a manual at+creg often causes a reconnect.  reject cause code 12 is a frequent offender.<br>
+Any luck solving this one?<br>
+Thanks<br>
+Brett</p>
+          <p><a href="https://forum.mangoh.io/t/network-rejection-wp7702/5186/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/network-rejection-wp7702/5186/3</link>
+        <pubDate>Sun, 09 Jan 2022 09:30:21 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5186-3</guid>
+        <source url="https://forum.mangoh.io/t/network-rejection-wp7702/5186.rss">Network Rejection WP7702</source>
+      </item>
+      <item>
+        <title>Network Rejection WP7702</title>
+        <dc:creator><![CDATA[CT1]]></dc:creator>
+        <description><![CDATA[
+            <p>Also, very rarely will the module connect to LTE around here. Connects to GSM service just fine but LTE gets rejected with the above mentioned codes constantly. The lab I work in is located downtown, so it isn’t a quality-of-service problem. Signal levels are consistently high.</p>
+          <p><a href="https://forum.mangoh.io/t/network-rejection-wp7702/5186/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/network-rejection-wp7702/5186/2</link>
+        <pubDate>Thu, 10 Sep 2020 22:09:53 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5186-2</guid>
+        <source url="https://forum.mangoh.io/t/network-rejection-wp7702/5186.rss">Network Rejection WP7702</source>
+      </item>
+      <item>
+        <title>Network Rejection WP7702</title>
+        <dc:creator><![CDATA[CT1]]></dc:creator>
+        <description><![CDATA[
+            <p>I’ve been having a terrible time getting the mangoh red to connect to a network. I’ve finally gone back to using the mangoh red firmware and the Sierra wireless SIM card, as any other combination just do not seem to work. In any case, even with the Sierra Wireless SIM card, I get network rejections when left on autoconnect. Does anyone know how to ensure a good network registration? I can’t seem to trace down what the intended reason is besides “Location area not allowed”. Here’s my log, and the steps I’ve taken to follow this so far.</p>
+<pre><code>Sep 10 13:19:06 swi-mdm9x28-wp user.info Legato:  INFO | modemDaemon[1513]/modemDaemon T=main | le_mrc.c NetRegRejectHandler() 1621 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.
+Sep 10 13:19:06 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1466]/dcsCellular T=main | dcsCellular.c DcsNetRegRejectHandler() 756 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.
+Sep 10 13:19:41 swi-mdm9x28-wp user.info Legato:  INFO | modemDaemon[1513]/modemDaemon T=main | le_mrc.c NetRegRejectHandler() 1621 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.
+Sep 10 13:19:41 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1466]/dcsCellular T=main | dcsCellular.c DcsNetRegRejectHandler() 756 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.
+Sep 10 13:56:43 swi-mdm9x28-wp user.info Legato:  INFO | modemDaemon[1513]/modemDaemon T=main | le_mrc.c NetRegRejectHandler() 1621 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.
+Sep 10 13:56:43 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1466]/dcsCellular T=main | dcsCellular.c DcsNetRegRejectHandler() 756 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.
+Sep 10 13:57:18 swi-mdm9x28-wp user.info Legato:  INFO | modemDaemon[1513]/modemDaemon T=main | le_mrc.c NetRegRejectHandler() 1621 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.
+Sep 10 13:57:18 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1466]/dcsCellular T=main | dcsCellular.c DcsNetRegRejectHandler() 756 | Network Reject Ind with reject cause.12, domain.3, RAT.4, mcc. and mnc.
+</code></pre>
+<p>Three quarters the way down <a href="https://docs.legato.io/17_10/platformConstraintsSpecificErrorCodes.html" rel="nofollow noopener">this page</a>, it seems to indicate the location area is not allowed. Odd, as the modem has connected to these towers previously. This is not the only rejection code I’ve seen.</p>
+<p>When trying other SIM cards on the standard wp7702 firmware (not the mangoh red firmware), I’ve seen codes 8, 10, 12, 13, 15, and 17.</p>
+<p>I would like to know what I can do in order to solve this rejection code 12, and if anyone has any ideas as to why I’m getting flat out rejected with other SIM cards, I would love to hear your ideas.</p>
+          <p><a href="https://forum.mangoh.io/t/network-rejection-wp7702/5186/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/network-rejection-wp7702/5186/1</link>
+        <pubDate>Thu, 10 Sep 2020 21:47:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5186-1</guid>
+        <source url="https://forum.mangoh.io/t/network-rejection-wp7702/5186.rss">Network Rejection WP7702</source>
+      </item>
+  </channel>
+</rss>

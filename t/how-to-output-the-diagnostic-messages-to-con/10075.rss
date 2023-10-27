@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>How to output the diagnostic messages to CON?</title>
+    <link>https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075</link>
+    <description>To output Linux kernel diagnostic messages (which a command `dmesg` displays) to CON(a serial console), what should I do?
+
+I would like to solve the problem that the Linux kernel I had rebuilt does not output anything (details below).
+
+[https://forum.mangoh.io/t/what-i-should-check-if-kernel-outputs-nothing-to-console/10065](https://forum.mangoh.io/t/what-i-should-check-if-kernel-outputs-nothing-to-console/10065)
+
+To understand what raised an error in the Linux initial sequence, I would like to output the diagnostic messages to CON.</description>
+    
+    <lastBuildDate>Wed, 31 Aug 2022 01:34:16 +0000</lastBuildDate>
+    <category>mangOH Yellow</category>
+    <atom:link href="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>How to output the diagnostic messages to CON?</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>how about  you directly reply in that thread and describing your problem?</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/12</link>
+        <pubDate>Wed, 31 Aug 2022 00:07:36 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10075-12</guid>
+        <source url="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075.rss">How to output the diagnostic messages to CON?</source>
+      </item>
+      <item>
+        <title>How to output the diagnostic messages to CON?</title>
+        <dc:creator><![CDATA[qwedrfghjpoiujhygfd]]></dc:creator>
+        <description><![CDATA[
+            <p>I am new in this forum. I have some questions about this forum. These questions are shown below:</p>
+<p><a href="https://forum.mangoh.io/t/recording-mdmtxaudio/10058">https://forum.mangoh.io/t/recording-mdmtxaudio/10058</a><a href="https://lotto4d.co/" rel="noopener nofollow ugc">lotto4d</a></p>
+<p>My question is about this thread. If you have any information about this thread. Please quote me and solve my problem.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/11</link>
+        <pubDate>Tue, 30 Aug 2022 18:06:00 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10075-11</guid>
+        <source url="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075.rss">How to output the diagnostic messages to CON?</source>
+      </item>
+      <item>
+        <title>How to output the diagnostic messages to CON?</title>
+        <dc:creator><![CDATA[uchida.s]]></dc:creator>
+        <description><![CDATA[
+            <p>I succeeded in outputting <code>dmesg</code> by scripts below:</p>
+<pre><code class="lang-auto">case "$1" in
+    start)
+        # snip
+        dmesg &gt;&gt; /tmp/dmesg.txt 2&gt;&gt; /tmp/dmesg.txt
+        # Redirecting to /dev/tty2 did not work. Instead, redirecting to /dev/ttyHS1 worked.
+        cat /tmp/dmesg.txt &gt; /dev/ttyHS1
+        # snip
+        ;;
+    # snip
+esac
+</code></pre>
+<p>The scripts are from the web page below with some modifications.<br>
+Thank you for your help.</p>
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.legato.io/t/adding-scripts-to-run-at-startup/2412/7">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2f530449ddf3c5969c6d457cc62c7f403f2ae1d3.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/adding-scripts-to-run-at-startup/2412/7" target="_blank" rel="noopener nofollow ugc" title="01:48AM - 01 August 2018">Legato Forum – 1 Aug 18</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/adding-scripts-to-run-at-startup/2412/7" target="_blank" rel="noopener nofollow ugc">Adding scripts to run at startup</a></h3>
+
+  <p>I just tried on WP76 R9, I found that modifying mount_early is not working.  Instead I modify /etc/init.d/startlegato.sh, and I can add my command there.   case “$1” in  start)  echo “Legato start sequence 123”  echo 123 &gt; /tmp/123.txt   You can...</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/10</link>
+        <pubDate>Thu, 18 Aug 2022 01:25:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10075-10</guid>
+        <source url="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075.rss">How to output the diagnostic messages to CON?</source>
+      </item>
+      <item>
+        <title>How to output the diagnostic messages to CON?</title>
+        <dc:creator><![CDATA[uchida.s]]></dc:creator>
+        <description><![CDATA[
+            <p>Thank you. I will try to execute the scripts in about two weeks, when a mangOH Yellow is available in my office.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/9</link>
+        <pubDate>Fri, 05 Aug 2022 06:24:21 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10075-9</guid>
+        <source url="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075.rss">How to output the diagnostic messages to CON?</source>
+      </item>
+      <item>
+        <title>How to output the diagnostic messages to CON?</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>have you tried " echo 123 &gt; /dev/tty2"</p>
+<p>To add init script, you can see here:</p><aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.legato.io/t/adding-scripts-to-run-at-startup/2412/6">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2f530449ddf3c5969c6d457cc62c7f403f2ae1d3.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/adding-scripts-to-run-at-startup/2412/6" target="_blank" rel="noopener nofollow ugc" title="05:24PM - 31 July 2018">Legato Forum – 31 Jul 18</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:676/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/4/400f70f82a5b45f371bcafc676a1f9d369fab7f5.jpeg" class="thumbnail" width="676" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/4/400f70f82a5b45f371bcafc676a1f9d369fab7f5_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/adding-scripts-to-run-at-startup/2412/6" target="_blank" rel="noopener nofollow ugc">Adding scripts to run at startup</a></h3>
+
+  <p>Hi JyiJyi,  I appreciate your previous reply to my post, but I attempted to make the changes that you recommended and am still unable to launch the script on boot. I have included a screenshot of several simple shell commands that I entered into...</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/8</link>
+        <pubDate>Fri, 05 Aug 2022 06:00:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10075-8</guid>
+        <source url="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075.rss">How to output the diagnostic messages to CON?</source>
+      </item>
+      <item>
+        <title>How to output the diagnostic messages to CON?</title>
+        <dc:creator><![CDATA[uchida.s]]></dc:creator>
+        <description><![CDATA[
+            <p>Unfortunately, I cannot write the script right now.<br>
+To do this, I have to understand the following:</p>
+<ul>
+<li>How to output a specified connector device. I don’t think the script “<code>cat output.txt &gt; /dev/tty2</code>” is correct.</li>
+<li>How to execute the script when the Linux kernel is being initialized, etc.</li>
+</ul>
+          <p><a href="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/7</link>
+        <pubDate>Fri, 05 Aug 2022 05:38:26 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10075-7</guid>
+        <source url="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075.rss">How to output the diagnostic messages to CON?</source>
+      </item>
+      <item>
+        <title>How to output the diagnostic messages to CON?</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>can you write a script to save those dmesg messages into files and then periodically echo the files to your connector?</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/6</link>
+        <pubDate>Fri, 05 Aug 2022 05:23:00 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10075-6</guid>
+        <source url="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075.rss">How to output the diagnostic messages to CON?</source>
+      </item>
+      <item>
+        <title>How to output the diagnostic messages to CON?</title>
+        <dc:creator><![CDATA[uchida.s]]></dc:creator>
+        <description><![CDATA[
+            <p>Yes, this is what I want to output on the “CON connector”, not the “USB connector”.</p>
+<p>I understand I can output this by executing <code>dmesg</code>.</p>
+<p>However, I would like to output this <strong>before establishing an Ethernet over USB connection</strong> between the mangOH Yellow and my Ubuntu computer, because my original kernel I rebuilt cannot establish the connection due to some errors.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/5</link>
+        <pubDate>Fri, 05 Aug 2022 05:07:00 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10075-5</guid>
+        <source url="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075.rss">How to output the diagnostic messages to CON?</source>
+      </item>
+      <item>
+        <title>How to output the diagnostic messages to CON?</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Is this what you want?</p>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# dmesg
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Initializing cgroup subsys cpuacct
+[    0.000000] Linux version 3.18.131 (oe-user@oe-host) (gcc version 7.3.0 (GCC) ) #1 PREEMPT Thu Aug 19 11:02:22 UTC 2021
+[    0.000000] CPU: ARMv7 Processor [410fc075] revision 5 (ARMv7), cr=10c53c7d
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[    0.000000] Machine model: Sierra Wireless, Inc. MDM 9607 WP series
+[    0.000000] Reserved memory: reserved region for node 'modem_adsp_region@0': base 0x82a00000, size 80 MiB
+[    0.000000] Reserved memory: reserved region for node 'cnss_debug_region@0': base 0x87a00000, size 2 MiB
+[    0.000000] Reserved memory: reserved region for node 'external_image_region@0': base 0x87c00000, size 4 MiB
+[    0.000000] Reserved memory: reserved region for node 'sierra_region@0x8ff00000': base 0x8ff00000, size 1 MiB
+[    0.000000] Removed memory: created DMA memory pool at 0x82a00000, size 80 MiB
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/4</link>
+        <pubDate>Fri, 05 Aug 2022 04:48:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10075-4</guid>
+        <source url="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075.rss">How to output the diagnostic messages to CON?</source>
+      </item>
+      <item>
+        <title>How to output the diagnostic messages to CON?</title>
+        <dc:creator><![CDATA[uchida.s]]></dc:creator>
+        <description><![CDATA[
+            <p>Thank you for answering.<br>
+Unfortunately, I received only the messages below, which do not seem to have Linux kernel messages; these messages are displayed regardless of whether the kernel initialization have finished normally or not.</p>
+<pre><code class="lang-auto">Format: Log Type - Time(microsec) - Message - Optional Info
+Log Type: B - Since Boot(Power On Reset),  D - Delta,  S - Statistic
+S - QC_IMAGE_VERSION_STRING=BOOT.BF.3.1.2-00094
+S - IMAGE_VARIANT_STRING=LAATANAZA
+S - OEM_IMAGE_VERSION_STRING=jenkins
+S - Boot Config, 0x000002e1
+B -      1216 - PBL, Start
+B -      3720 - bootable_media_detect_entry, Start
+B -      4389 - bootable_media_detect_success, Start
+B -      4394 - elf_loader_entry, Start
+B -      7847 - auth_hash_seg_entry, Start
+B -     31497 - auth_hash_seg_exit, Start
+B -     82848 - elf_segs_hash_verify_entry, Start
+B -    129913 - PBL, End
+B -    138348 - SBL1, Start
+B -    196145 - pm_device_init, Start
+B -    216336 - PM_SET_VAL:Skip
+D -     18788 - pm_device_init, Delta
+B -    217983 - boot_config_data_table_init, Start
+D -         0 - boot_config_data_table_init, Delta - (0 Bytes)
+B -    226462 - CDT version:3,Platform ID:8,Major ID:1,Minor ID:0,Subtype:129
+B -    233264 - sbl1_ddr_set_params, Start
+B -    237107 - Pre_DDR_clock_init, Start
+D -       213 - Pre_DDR_clock_init, Delta
+D -         0 - sbl1_ddr_set_params, Delta
+B -    249795 - pm_driver_init, Start
+D -      4483 - pm_driver_init, Delta
+B -    256139 - cpr_init, Start
+D -       122 - cpr_init, Delta
+B -    260744 - cpr_cx_mx_apc_vol_update, Start
+D -        91 - cpr_cx_mx_apc_vol_update, Delta
+B -    275903 - clock_init, Start
+D -       152 - clock_init, Delta
+B -    276147 - boot_flash_init, Start
+D -     39558 - boot_flash_init, Delta
+B -    318725 - boot_flash_swi_ddr_init, Start
+D -     29371 - boot_flash_swi_ddr_init, Delta
+B -    485468 - hw_family:5, hw_type:16, hw_rev:40
+B -    489372 - SSMEM init OK
+B -    507550 - USB non-zero endpoint requirements: 9 in, 5 out
+B -    509075 - opening partition 0:SWIFOTA
+B -    511393 - error for readpage:0
+B -    516670 - DWL-get: ecnt=0 code=0
+B -    530913 - Failed to read size: /swinv/item_files/CUST_IM_SWITCH_HIDE
+B -    537318 - Failed to read size: /swinv/item_files/FOTA_PARTITION
+B -    537837 - Failed to read size: /swinv/item_files/CUST_IM_CONFIG
+B -    549274 - flags: u=1 e=1 obmsk=c,0
+B -    560956 - ssmem_release: region 20 not exists
+B -    561017 - ssmem_get: region 20 not exists
+B -    567086 - Image Load, Start
+D -     94306 - QSEE Image Loaded, Delta - (489292 Bytes)
+D -       213 - boot_pm_post_tz_device_init, Delta
+B -    665784 - sbl1_efs_handle_cookies, Start
+D -         0 - sbl1_efs_handle_cookies, Delta
+B -    673775 - DEVCFG ELF verification failure
+B -    677313 - Image Load, Start
+D -        30 - SEC Image Loaded, Delta - (0 Bytes)
+B -    684999 - Image Load, Start
+D -     55266 - RPM Image Loaded, Delta - (152712 Bytes)
+B -    740967 - Image Load, Start
+B -    743285 - Auth disabled for image 9
+B -    782904 - ssmem_get: region 20 not exists
+D -     41968 - APPSBL Image Loaded, Delta - (379176 Bytes)
+B -    786137 - QSEE Execution, Start
+D -       884 - QSEE Execution, Delta
+B -    792878 - SBL1, End
+D -    656909 - SBL1, Delta
+S - Throughput, 8000 KB/s  (1196044 Bytes,  136878 us)
+S - DDR Frequency, 240 MHz
+Android Bootloader - UART_DM Initialized!!!
+[10] ERROR: No devinfo partition found
+[10] Neither 'config' nor 'frp' partition found
+[10] ERROR: No misc partition found
+[1110] SSMEM init OK[1110] ssmem_get: region 20 not exists[1200] DEBUG: cmdline has root=
+[1330] Channel alloc freed
+</code></pre>
+<p>I would like to output the messages like below (which are the output of <code>dmesg</code>)  to CON:</p>
+<pre><code class="lang-auto">[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x12345678]
+[    0.000000] Linux version 3.18.131 ...
+...
+</code></pre>
+<p>What should I do to output the messages above to CON?</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/3</link>
+        <pubDate>Fri, 05 Aug 2022 04:00:22 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10075-3</guid>
+        <source url="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075.rss">How to output the diagnostic messages to CON?</source>
+      </item>
+      <item>
+        <title>How to output the diagnostic messages to CON?</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I think message in UART console and dmesg already show all the kernel message…</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/2</link>
+        <pubDate>Thu, 04 Aug 2022 01:51:53 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10075-2</guid>
+        <source url="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075.rss">How to output the diagnostic messages to CON?</source>
+      </item>
+      <item>
+        <title>How to output the diagnostic messages to CON?</title>
+        <dc:creator><![CDATA[uchida.s]]></dc:creator>
+        <description><![CDATA[
+            <p>To output Linux kernel diagnostic messages (which a command <code>dmesg</code> displays) to CON(a serial console), what should I do?</p>
+<p>I would like to solve the problem that the Linux kernel I had rebuilt does not output anything (details below).</p>
+<p><a href="https://forum.mangoh.io/t/what-i-should-check-if-kernel-outputs-nothing-to-console/10065">https://forum.mangoh.io/t/what-i-should-check-if-kernel-outputs-nothing-to-console/10065</a></p>
+<p>To understand what raised an error in the Linux initial sequence, I would like to output the diagnostic messages to CON.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075/1</link>
+        <pubDate>Wed, 03 Aug 2022 22:08:05 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10075-1</guid>
+        <source url="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075.rss">How to output the diagnostic messages to CON?</source>
+      </item>
+  </channel>
+</rss>

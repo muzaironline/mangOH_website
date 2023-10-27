@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Testing Issue with RC7620 on MangOH evaluation board - mangOH Red - mangOH forum</title>
+    <meta name="description" content="Hello, This is Souvik. We were testing the RC7620 module using mangOH red evaluation board. We were successful in testing for call functionality using AT commands but while testing for SMS and HTTP, we were encountering &amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Testing Issue with RC7620 on MangOH evaluation board&#39;" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602" />
+<meta property="og:title" content="Testing Issue with RC7620 on MangOH evaluation board" />
+<meta name="twitter:title" content="Testing Issue with RC7620 on MangOH evaluation board" />
+<meta property="og:description" content="Hello, This is Souvik. We were testing the RC7620 module using mangOH red evaluation board. We were successful in testing for call functionality using AT commands but while testing for SMS and HTTP, we were encountering a certain error with error code as +CMS ERROR: 305 while passing the commands  at+cmgf=1  OK  at+cmgf?  +CMGF: 1  OK  at+cmgs=“8178743739”   test    +CMS ERROR: 305  We have tried several iterations of the same even by changing the syntax of  at+cmgs=“8178743739” to at+cmgs=&quot;+918..." />
+<meta name="twitter:description" content="Hello, This is Souvik. We were testing the RC7620 module using mangOH red evaluation board. We were successful in testing for call functionality using AT commands but while testing for SMS and HTTP, we were encountering a certain error with error code as +CMS ERROR: 305 while passing the commands  at+cmgf=1  OK  at+cmgf?  +CMGF: 1  OK  at+cmgs=“8178743739”   test    +CMS ERROR: 305  We have tried several iterations of the same even by changing the syntax of  at+cmgs=“8178743739” to at+cmgs=&quot;+918..." />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta property="article:published_time" content="2021-04-15T03:49:27+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="next" href="/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602?page=2">
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Testing Issue with RC7620 on MangOH evaluation board","mainEntity":{"@type":"Question","name":"Testing Issue with RC7620 on MangOH evaluation board","text":"Hello, This is Souvik. We were testing the RC7620 module using mangOH red evaluation board. We were successful in testing for call functionality using AT commands but while testing for SMS and HTTP, we were encountering a certain error with error code as +CMS ERROR: 305 while passing the commands\n\na&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2021-04-15T03:49:27.602Z","author":{"@type":"Person","name":"Souvik Sarkar"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">Testing Issue with RC7620 on MangOH evaluation board</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Testing Issue with RC7620 on MangOH evaluation board'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/souviksarkar'><span itemprop='name'>souviksarkar</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-15T03:49:27Z' class='post-time'>
+                    April 15, 2021,  3:49am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-15T03:49:27Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hello, This is Souvik. We were testing the RC7620 module using mangOH red evaluation board. We were successful in testing for call functionality using AT commands but while testing for SMS and HTTP, we were encountering a certain error with error code as +CMS ERROR: 305 while passing the commands</p>
+<p>at+cmgf=1</p>
+<p>OK</p>
+<p>at+cmgf?</p>
+<p>+CMGF: 1</p>
+<p>OK</p>
+<p>at+cmgs=“8178743739”</p>
+<blockquote>
+<p>test</p>
+</blockquote>
+<blockquote></blockquote>
+<p><strong>+CMS ERROR: 305</strong></p>
+<p>We have tried several iterations of the same even by changing the syntax of  at+cmgs=“8178743739” to at+cmgs="+918178743739", yet the result was an error as mentioned above.<br>
+Any help regarding the same is greatly appreciated. Thank you.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-15T04:42:26Z' class='post-time'>
+                    April 15, 2021,  4:42am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-15T04:42:26Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I don’t see problem to send SMS:</p>
+<p>at+cmgs=“1234567”</p>
+<blockquote>
+<p>asdfasdf</p>
+</blockquote>
+<p>+CMGS: 12</p>
+<p>OK<br>
+ati3<br>
+Manufacturer: Sierra Wireless, Incorporated<br>
+Model: RC7620<br>
+Revision: SWI9X07H_00.03.03.00 2bb7a4 jenkins 2020/04/15 07:57:29<br>
+IMEI: 353634110000980<br>
+IMEI SV: 14<br>
+FSN: 7Q9472000710AA<br>
++GCAP: +CGSM,+DS,+ES</p>
+<p>OK<br>
+at+cmgf?<br>
++CMGF: 1</p>
+<p>OK<br>
+at+csca?<br>
++CSCA: “+85290288000”,145</p>
+<p>OK</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/souviksarkar'><span itemprop='name'>souviksarkar</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-15T05:12:21Z' class='post-time'>
+                    April 15, 2021,  5:12am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-15T05:12:21Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>But we have tried the possible formats as per the AT command reference guide but we keep on getting the same error code.  Sending you some information which might be relevant regarding the board.</p>
+<p>ati9<br>
+Manufacturer: Sierra Wireless, Incorporated<br>
+Model: RC7620<br>
+QTI baseline: MPSS.JO.2.0.2.c1.1-00043-9607_GENNS_PACK-1.275918.1<br>
+Revision: SWI9X07H_00.03.03.00 2bb7a4 jenkins 2020/04/15 07:57:29<br>
+IMEI: 353634110101218<br>
+IMEI SV: 14<br>
+FSN: 7Q0232000203A0<br>
++GCAP: +CGSM</p>
+<p>OK<br>
+ati8<br>
+Legato Ver: 20.03.0.m4.ThreadX.rc2<br>
+Modem Ver: SWI9X07H_00.03.03.00 2bb7a4 jenkins 2020/04/15 07:57:29<br>
+MCU Ver: unknown<br>
+TAOP Ver: TZ.BF.4.0.C6-00117</p>
+<p>OK</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-15T06:22:02Z' class='post-time'>
+                    April 15, 2021,  6:22am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-15T06:22:02Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>does this SIM OK to send SMS?<br>
+Have you tried other module like WP76?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/souviksarkar'><span itemprop='name'>souviksarkar</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-22T08:44:01Z' class='post-time'>
+                    April 22, 2021,  8:44am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-22T08:44:01Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Yes, the SIM has been tested for sending SMS on mobile. We were previously testing WP7702 module. Since we intended to use the UART interface, we shifted to RC7620 but we observed this error while testing.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-22T09:15:03Z' class='post-time'>
+                    April 22, 2021,  9:15am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-22T09:18:32Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>What is return of at!gstatus?</p>
+<p>You can try more sim card from other operator and see if this is only happening to this sim card only</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/souviksarkar'><span itemprop='name'>souviksarkar</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-22T09:35:27Z' class='post-time'>
+                    April 22, 2021,  9:35am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-22T09:35:27Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>at!gstatus?<br>
+!GSTATUS:<br>
+Current Time:  4248             Temperature: 34<br>
+Modem Mitigate Level: 0         ModemProc Mitigate Level: 0<br>
+Reset Counter: 1                Mode:        ONLINE<br>
+System mode:   LTE              PS state:    Attached<br>
+IMS reg state: REGISTERED       IMS mode:    Normal<br>
+IMS Srv State: FULL SMS,FULL VoIP<br>
+LTE band:      B1               LTE bw:      10 MHz<br>
+LTE Rx chan:   240              LTE Tx chan: 18240<br>
+LTE CA state:  INACTIVE<br>
+EMM state:     Registered       Normal Service<br>
+RRC state:     RRC Idle</p>
+<p>PCC RxM RSSI:  -77              RSRP (dBm):  -109<br>
+PCC RxD RSSI:  -98              RSRP (dBm):  -137<br>
+Tx Power:      –               TAC:         0889 (2185)<br>
+RSRQ (dB):     -15              Cell ID:     09376433 (154625075)<br>
+SINR (dB):     -5.2</p>
+<p>OK</p>
+<p>We had already tested with a different SIM card. Could you tell more regarding the error code +CMS ERROR: 305 that keeps coming. Thank you</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-22T12:20:16Z' class='post-time'>
+                    April 22, 2021, 12:20pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-22T12:20:16Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Error 305 means" Invalid text mode parameter"</p>
+<p>Do you find problem on using pdu mode</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/souviksarkar'><span itemprop='name'>souviksarkar</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-23T06:14:36Z' class='post-time'>
+                    April 23, 2021,  6:14am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-23T06:14:36Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello,</p>
+<p>Could you please elaborate on the said PDU mode.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/exceed-buffer-while-attempting-to-send-sms/9134/2">Exceed buffer while attempting to send SMS</a>
+                        <meta itemprop='position' content='1'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/f/f18b424b62a964deef5971b2ea07b542803c14a9.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-23T06:33:10Z' class='post-time'>
+                    April 23, 2021,  6:33am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-23T06:33:10Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>you set AT+CMGF=1, and then you can use below link to convert text message to pdu format.</p>
+<p><a href="http://rednaxela.net/pdu.php" class="onebox" target="_blank" rel="noopener nofollow ugc">http://rednaxela.net/pdu.php</a></p>
+<p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/f/f18b424b62a964deef5971b2ea07b542803c14a9.png" data-download-href="/uploads/short-url/ysNqK20BMKYKqllAVL8GCeRhtI5.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/f/f18b424b62a964deef5971b2ea07b542803c14a9.png" alt="image" data-base62-sha1="ysNqK20BMKYKqllAVL8GCeRhtI5" width="690" height="271" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/f18b424b62a964deef5971b2ea07b542803c14a9_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">1079×425 10.6 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/souviksarkar'><span itemprop='name'>souviksarkar</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-23T06:49:22Z' class='post-time'>
+                    April 23, 2021,  6:49am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-23T06:49:22Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Okay thanks. Will do this and let you know</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/souviksarkar'><span itemprop='name'>souviksarkar</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-10T08:53:54Z' class='post-time'>
+                    June 10, 2021,  8:53am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-10T08:53:54Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello, I have done the same you asked. The PDU mode was working. After few tries, text message mode worked too.</p>
+<p>Also, I have one more query. How to connect to the internet. The SIM is registered, but no IP address is allocated even after giving the accesspoint name. Can you suggest a document from where this testing can be refered?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-10T09:05:13Z' class='post-time'>
+                    June 10, 2021,  9:05am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-10T09:13:29Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You can try</p>
+<p>At+cgact=1,1</p>
+<p>But it is automatic at my side:</p>
+<pre><code class="lang-auto">ati3
+Manufacturer: Sierra Wireless, Incorporated
+Model: RC7620
+Revision: SWI9X07H_00.03.03.00 2bb7a4 jenkins 2020/04/15 07:57:29
+IMEI: 353634110000980
+IMEI SV: 14
+FSN: 7Q9472000710AA
++GCAP: +CGSM
+
+OK
+at!gstatus?
+!GSTATUS:
+Current Time:  14               Temperature: 35
+Modem Mitigate Level: 0         ModemProc Mitigate Level: 0
+Reset Counter: 1                Mode:        LOW POWER MODE
+
+OK
+at+Cfun=1
+OK
+at!gstatus?
+!GSTATUS:
+Current Time:  21               Temperature: 35
+Modem Mitigate Level: 0         ModemProc Mitigate Level: 0
+Reset Counter: 1                Mode:        ONLINE
+System mode:   LTE              PS state:    Attached
+IMS reg state: UNKNOWN          IMS mode:    Not Support
+IMS Srv State: UNKNOWN SMS,UNKNOWN VoIP
+LTE band:      B3               LTE bw:      10 MHz
+LTE Rx chan:   1851             LTE Tx chan: 19851
+LTE CA state:  INACTIVE
+EMM state:     Registered       Normal Service
+RRC state:     RRC Connected
+
+PCC RxM RSSI:  -54              RSRP (dBm):  -82
+PCC RxD RSSI:  -90              RSRP (dBm):  -118
+Tx Power:      -2               TAC:         0652 (1618)
+RSRQ (dB):     -10              Cell ID:     01E5110B (31789323)
+SINR (dB):     11.4
+
+OK
+at+cgpaddr=1
++CGPADDR: 1,10.179.43.104
+
+OK
+at+cgact?
++CGACT: 1,1
+
+OK
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/souviksarkar'><span itemprop='name'>souviksarkar</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-10T09:21:51Z' class='post-time'>
+                    June 10, 2021,  9:21am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-10T09:21:51Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>ati3<br>
+Manufacturer: Sierra Wireless, Incorporated<br>
+Model: RC7620<br>
+Revision: SWI9X07H_00.03.03.00 2bb7a4 jenkins 2020/04/15 07:57:29<br>
+IMEI: 353634110101218<br>
+IMEI SV: 14<br>
+FSN: 7Q0232000203A0<br>
++GCAP: +CGSM</p>
+<p>OK<br>
+at!gstatus?<br>
+!GSTATUS:<br>
+Current Time:  4684             Temperature: 42<br>
+Modem Mitigate Level: 0         ModemProc Mitigate Level: 0<br>
+Reset Counter: 1                Mode:        ONLINE<br>
+System mode:   LTE              PS state:    Attached<br>
+IMS reg state: REGISTERED       IMS mode:    Normal<br>
+IMS Srv State: FULL SMS,FULL VoIP<br>
+LTE band:      B3               LTE bw:      10 MHz<br>
+LTE Rx chan:   1251             LTE Tx chan:  —<br>
+LTE CA state:  INACTIVE<br>
+EMM state:     Registered       Normal Service<br>
+RRC state:     RRC Idle</p>
+<p>PCC RxM RSSI:  -60              RSRP (dBm):  -89<br>
+PCC RxD RSSI:  -92              RSRP (dBm):  -121<br>
+Tx Power:      –               TAC:         0028 (40)<br>
+RSRQ (dB):     -11              Cell ID:     00316625 (3237413)<br>
+SINR (dB):     10.0</p>
+<p>OK<br>
+at+cgpaddr=1<br>
++CGPADDR: 1,25.83.94.125</p>
+<p>OK<br>
+at+cgact?<br>
++CGACT: 1,1<br>
++CGACT: 2,1<br>
++CGACT: 3,0</p>
+<p>OK<br>
+at+cgdcont?<br>
++CGDCONT: 1,“IP”,“jionet”,“0.0.0.0”,0,0,0,0<br>
++CGDCONT: 2,“IPV4V6”,“ims”,“0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0”,0,0,0,0<br>
++CGDCONT: 3,“IPV4V6”,“sos”,“0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0”,0,0,0,1</p>
+<p>OK</p>
+<p>Tried the same, but why is the 0.0.0.0 showing as IP address?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-10T10:00:25Z' class='post-time'>
+                    June 10, 2021, 10:00am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-10T10:00:25Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>This is the ip address</p>
+<p>at+cgpaddr=1<br>
++CGPADDR: 1,25.83.94.125</p>
+<p>OK</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/souviksarkar'><span itemprop='name'>souviksarkar</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-10T10:06:14Z' class='post-time'>
+                    June 10, 2021, 10:06am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-10T10:06:14Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Ok I got it. If you can help with the commands so that I can fetch response from google website, I would be obliged.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_17' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-10T10:16:41Z' class='post-time'>
+                    June 10, 2021, 10:16am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-10T10:16:41Z'>
+              <span itemprop='position'>17</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You can see here</p>
+<aside class="onebox allowlistedgeneric">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/1fc275dea17943ec40a824dc4b7ad3839eb8d72d.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.sierrawireless.com/t/rc7620-and-https/19958/28" target="_blank" rel="noopener nofollow ugc" title="07:27AM - 14 May 2021">Sierra Wireless Forum – 14 May 21</a>
+  </header>
+
+  <article class="onebox-body">
+    <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png" class="thumbnail onebox-avatar" width="500" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_10x10.png">
+
+<h3><a href="https://forum.sierrawireless.com/t/rc7620-and-https/19958/28" target="_blank" rel="noopener nofollow ugc">RC7620 and HTTPS</a></h3>
+
+  <p>Dear @jerdung ,  Thanks for your support, I turn off PC manager cellular and HTTP works stable now.  issue http-https.txt (2.3 KB)  These current issues I got is:   HTTPGGET success for the only short link, HTTPGET return error for long link HTTPS...</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_18' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/souviksarkar'><span itemprop='name'>souviksarkar</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-11T04:35:08Z' class='post-time'>
+                    June 11, 2021,  4:35am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-11T04:35:08Z'>
+              <span itemprop='position'>18</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello, Thank you for your suggestion. I tried the below.</p>
+<p>+SIM: 1</p>
+<p>+CEREG: 2</p>
+<p>+CEREG: 5,“28”,“0”,“316625”,7<br>
+at+cpin?<br>
++CPIN: READY</p>
+<p>OK<br>
+at+cgdcont?<br>
++CGDCONT: 1,“IP”,“jionet”,“0.0.0.0”,0,0,0,0<br>
++CGDCONT: 2,“IPV4V6”,“ims”,“0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0”,0,0,0,0<br>
++CGDCONT: 3,“IPV4V6”,“sos”,“0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0”,0,0,0,1</p>
+<p>OK<br>
+at+kcnxcfg?<br>
+OK<br>
+at+kcnxcfg=1,“GPRS”,“jionet”<br>
+OK<br>
+at+kcnxcfg?</p>
+<p>+KCNXCFG: 1,“GPRS”,“jionet”,"","",“IPV4”,“0.0.0.0”,“0.0.0.0”,“0.0.0.0”,0</p>
+<p>OK<br>
+at+cgdcont?<br>
++CGDCONT: 1,“IP”,“jionet”,“0.0.0.0”,0,0,0,0<br>
++CGDCONT: 2,“IPV4V6”,“ims”,“0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0”,0,0,0,0<br>
++CGDCONT: 3,“IPV4V6”,“sos”,“0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0”,0,0,0,1</p>
+<p>OK<br>
+at+cereg?<br>
++CEREG: 2,5,“28”,“0”,“316625”,7</p>
+<p>OK<br>
+at+khttpcfg=1,“<a href="https://www.google.com" rel="noopener nofollow ugc">https://www.google.com</a>”,443</p>
+<p>+KHTTPCFG: 1</p>
+<p>OK</p>
+<p>+KCNX_IND: 1,4,1</p>
+<p>+KCNX_IND: 1,1,0</p>
+<p>+KHTTP_IND: 1,1</p>
+<p>at+<br>
+ERROR<br>
+at<br>
+OK<br>
+at<br>
+OK</p>
+<p>+KCNX_IND: 1,5,30</p>
+<p>+KHTTP_IND: 1,0</p>
+<p>+KCNX_IND: 1,3</p>
+<p>+KCNX_IND: 1,0,0</p>
+<p>Does this confirm a successful HTTPS connection?</p>
+<p>Is it possible to get certain values from an HTTP server and store it in a file on PC or post it somewhere else? In each case, what is the amount of data that could be done? Please help regarding the commands for the same.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_19' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-11T05:07:21Z' class='post-time'>
+                    June 11, 2021,  5:07am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-11T05:07:21Z'>
+              <span itemprop='position'>19</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>why don’t you try on some normal HTTP website first to make sure it works fine first?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_20' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/souviksarkar'><span itemprop='name'>souviksarkar</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-11T08:02:38Z' class='post-time'>
+                    June 11, 2021,  8:02am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-11T08:02:38Z'>
+              <span itemprop='position'>20</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <pre><code class="lang-auto">t+khttpcfg=1,"https://webhook.site",443
+
++KHTTPCFG: 2
+
+OK
+
+
++KCNX_IND: 1,6
+
+
+
++KCNX_IND: 1,1,0
+
+
+
++KHTTP_IND: 2,1
+
+at+khttpget=2,"https://webhook.site/23af7938-c228-48ff-a082-1a8812c2498c",1
+CONNECT
+
+
++KCNX_IND: 1,6
+
++KCNX_IND: 1,1,0
+
++KHTTP_IND: 2,1
+
+NO CARRIER
+
+
+
++KHTTP_ERROR: 2,6
+
+
+
++KCNX_IND: 1,5,30
+
+
+
++KHTTP_IND: 2,0
+
+
+
++KCNX_IND: 1,3
+
+
+
++KCNX_IND: 1,0,0
+
+at+khttpcfg?
+
++KHTTPCFG: 1,1,"https://webhook.site",443,0,"","",0,0,0
++KHTTPCFG: 2,1,"https://webhook.site",443,0,"","",0,0,0
+
+OK
+at+khttpdel=1
+OK
+at+khttpdel=2
+OK
+at+khttpcfg?
+OK
+at+khtp
+ERROR
+at+khttpcfg=1,"https://webhook.site/23af7938-c228-48ff-a082-1a8812c2498c",443
+
++KHTTPCFG: 1
+
+OK
+
+
++KCNX_IND: 1,4,1
+
+
+
++KCNX_IND: 1,1,0
+
+
+
++KHTTP_ERROR: 1,4
+</code></pre>
+<p>Hello, I tried the above lines of code. I could not understand why it is showing as DNS error at the end. Also, it between it says NO CARRIER.  I want to access the said URL “<a href="https://webhook.site/23af7938-c228-48ff-a082-1a8812c2498c" rel="noopener nofollow ugc">https://webhook.site/23af7938-c228-48ff-a082-1a8812c2498c</a>”.  Pasting the same on web browser brings up “Hello Boy”.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/testing-issue-with-rc7620-on-mangoh-evaluation-board/8602?page=2">next page →</a></b></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

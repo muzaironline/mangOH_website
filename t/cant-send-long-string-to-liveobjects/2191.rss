@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Can&#39;t send long string to liveobjects</title>
+    <link>https://forum.mangoh.io/t/cant-send-long-string-to-liveobjects/2191</link>
+    <description>Hi,
+
+I have to send ~800ko of base64 encoded data to liveobjects.
+When string is about 20-30 chars it works, but for more application stop.
+(I am new with C)
+
+Here what i do :
+```c
+    char payload[  ] = &quot;{\&quot;test\&quot;:\&quot;long_base64_encoded_string\&quot;}&quot;;
+    liveobjects_pubData(&quot;starterkit!dev&quot;, payload, &quot;&quot;, &quot;[  ]&quot;, 0, 0);
+```
+
+Here my log :
+```
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | PROCESS: 10258 ,TID 10258
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | SIGNAL: 11, ADDR 0x61616160, AT 0xb6d670ae SI_CODE 0x00000001
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | ILLEGAL ADDRESS 0x61616160
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | LEGATO VERSION
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | 18.09.0-1-g8350546a_05025499e71b1dbb905fd75d6f797c3a_modified
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | 
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | PROCESS COMMAND LINE
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | test 
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | 
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | PROCESS MAP
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | 7f555000-7f557000 r-xp 00000000 ec:01 102725     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/bin/test
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | 7f566000-7f567000 rw-p 00001000 ec:01 102725     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/bin/test
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | 7f567000-7f5a6000 rw-p 00000000 00:00 0          [heap]
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6cf1000-b6e19000 r-xp 00000000 fe:00 863        /lib/libc-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6e19000-b6e28000 ---p 00128000 fe:00 863        /lib/libc-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6e28000-b6e2a000 r--p 00127000 fe:00 863        /lib/libc-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6e2a000-b6e2c000 rw-p 00129000 fe:00 863        /lib/libc-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6e2c000-b6e2e000 rw-p 00000000 00:00 0 
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6e2e000-b6e9c000 r-xp 00000000 fe:00 876        /lib/libm-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6e9c000-b6eab000 ---p 0006e000 fe:00 876        /lib/libm-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6eab000-b6eac000 r--p 0006d000 fe:00 876        /lib/libm-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6eac000-b6ead000 rw-p 0006e000 fe:00 876        /lib/libm-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ead000-b6eaf000 r-xp 00000000 fe:00 871        /lib/libdl-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6eaf000-b6ebe000 ---p 00002000 fe:00 871        /lib/libdl-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ebe000-b6ebf000 r--p 00001000 fe:00 871        /lib/libdl-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ebf000-b6ec0000 rw-p 00002000 fe:00 871        /lib/libdl-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ec0000-b6ec6000 r-xp 00000000 fe:00 892        /lib/librt-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ec6000-b6ed5000 ---p 00006000 fe:00 892        /lib/librt-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ed5000-b6ed6000 r--p 00005000 fe:00 892        /lib/librt-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ed6000-b6ed7000 rw-p 00006000 fe:00 892        /lib/librt-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ed7000-b6eed000 r-xp 00000000 fe:00 888        /lib/libpthread-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6eed000-b6efc000 ---p 00016000 fe:00 888        /lib/libpthread-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6efc000-b6efd000 r--p 00015000 fe:00 888        /lib/libpthread-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6efd000-b6efe000 rw-p 00016000 fe:00 888        /lib/libpthread-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6efe000-b6f00000 rw-p 00000000 00:00 0 
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6f00000-b6f50000 r-xp 00000000 ec:01 29259      /legato/systems/current/lib/liblegato.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6f50000-b6f51000 rw-p 00050000 ec:01 29259      /legato/systems/current/lib/liblegato.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6f51000-b6f70000 r-xp 00000000 ec:01 102731     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_testComponent.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6f70000-b6f7f000 ---p 0001f000 ec:01 102731     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_testComponent.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6f7f000-b6f80000 rw-p 0001e000 ec:01 102731     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_testComponent.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6f80000-b6f95000 r-xp 00000000 ec:01 102733     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_dataProfileComponent.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6f95000-b6fa5000 ---p 00015000 ec:01 102733     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_dataProfileComponent.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6fa5000-b6fa6000 rw-p 00015000 ec:01 102733     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_dataProfileComponent.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6fa6000-b6fb8000 r-xp 00000000 ec:01 102729     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_LiveObjects.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6fb8000-b6fc8000 ---p 00012000 ec:01 102729     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_LiveObjects.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6fc8000-b6fc9000 rw-p 00012000 ec:01 102729     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_LiveObjects.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6fc9000-b6fe9000 r-xp 00000000 fe:00 853        /lib/ld-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ff0000-b6ff2000 rw-p 00000000 00:00 0 
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ff6000-b6ff8000 rw-p 00000000 00:00 0 
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ff8000-b6ff9000 r--p 0001f000 fe:00 853        /lib/ld-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ff9000-b6ffa000 rw-p 00020000 fe:00 853        /lib/ld-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | bef86000-befa7000 rw-p 00000000 00:00 0          [stack]
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | befce000-befcf000 r-xp 00000000 00:00 0          [sigpage]
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | ffff0000-ffff1000 r-xp 00000000 00:00 0          [vectors]
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | BACKTRACE
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | PC at b6d670ae
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | LR at b6d33288 [0xbefa5694]
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | LR at b6d4f7fc [0xbefa5eec]
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | LR at 61616161 [0xbefa61ec]
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | r0  61616161 r1  61616160 r2  00000073 r3  00000000 r4  00000001  r5  b6fb6100
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | r6  00000001 r7  b6ff10a0 r8  00000000 r9  61616161 r10 00000000 cpsr 20030030
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | fp  befa5eec ip  ffffffff sp  befa5a08 lr  b6d33288 pc  b6d670ae
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | STACK befa5a08, FRAME befa5eec
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | befa5988: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+    ...
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | DONE
+    Nov 30 12:19:51 swi-mdm9x28-wp user.debug Legato:  DBUG | ledService[1404]/framework T=main | ma_led_server.c CleanupClientData() 148 | Client 0x7f57de1c is closed !!!
+    Nov 30 12:19:51 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1367]/dcsDaemon T=main | dcsServer.c CloseSessionEventHandler() 2146 | Client 0x7f57da14 killed, remove allocated resources
+    Nov 30 12:19:51 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1367]/dcsDaemon T=main | dcsServer.c CloseSessionEventHandler() 2146 | Client 0x7f57daa4 killed, remove allocated resources
+    Nov 30 12:19:51 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1367]/dcsDaemon T=main | dcsServer.c TryStopDataSession() 1727 | Tearing down data session
+    Nov 30 12:19:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[797]/supervisor T=main | proc.c proc_SigChildHandler() 2064 | Process &#39;test&#39; (PID: 10258) has exited due to signal 11 (Segmentation fault).
+    Nov 30 12:19:51 swi-mdm9x28-wp user.warn Legato: -WRN- | dcsDaemon[1367]/le_pa_dcs T=main | pa_dcs_linux.c pa_dcs_SetDefaultGateway() 568 | Default gateway or interface is empty
+    Nov 30 12:19:51 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[797]/supervisor T=main | app.c app_SigChildHandler() 3972 | Process &#39;test&#39; in app &#39;test&#39; faulted: Ignored.
+    Nov 30 12:19:51 swi-mdm9x28-wp user.warn Legato: -WRN- | _appStopClient[10306]/framework T=main | LE_FILENAME CreateSocket() 550 | Socket opened as standard i/o file descriptor 2!
+    Nov 30 12:19:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[797]/supervisor T=main | app.c app_StopComplete() 4643 | app &#39;test&#39; has stopped.
+    Nov 30 12:19:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[797]/supervisor T=main | apps.c DeactivateAppContainer() 374 | Application &#39;test&#39; has stopped.
+```
+
+Thanks</description>
+    
+    <lastBuildDate>Fri, 30 Nov 2018 12:41:26 +0000</lastBuildDate>
+    <category>mangOH Red Orange Starter Kit</category>
+    <atom:link href="https://forum.mangoh.io/t/cant-send-long-string-to-liveobjects/2191.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Can&#39;t send long string to liveobjects</title>
+        <dc:creator><![CDATA[pierre.josselin]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi,</p>
+<p>I have to send ~800ko of base64 encoded data to liveobjects.<br>
+When string is about 20-30 chars it works, but for more application stop.<br>
+(I am new with C)</p>
+<p>Here what i do :</p>
+<pre><code class="lang-auto">    char payload[  ] = "{\"test\":\"long_base64_encoded_string\"}";
+    liveobjects_pubData("starterkit!dev", payload, "", "[  ]", 0, 0);
+</code></pre>
+<p>Here my log :</p>
+<pre><code class="lang-auto">    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | PROCESS: 10258 ,TID 10258
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | SIGNAL: 11, ADDR 0x61616160, AT 0xb6d670ae SI_CODE 0x00000001
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | ILLEGAL ADDRESS 0x61616160
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | LEGATO VERSION
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | 18.09.0-1-g8350546a_05025499e71b1dbb905fd75d6f797c3a_modified
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | 
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | PROCESS COMMAND LINE
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | test 
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | 
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | PROCESS MAP
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | 7f555000-7f557000 r-xp 00000000 ec:01 102725     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/bin/test
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | 7f566000-7f567000 rw-p 00001000 ec:01 102725     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/bin/test
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | 7f567000-7f5a6000 rw-p 00000000 00:00 0          [heap]
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6cf1000-b6e19000 r-xp 00000000 fe:00 863        /lib/libc-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6e19000-b6e28000 ---p 00128000 fe:00 863        /lib/libc-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6e28000-b6e2a000 r--p 00127000 fe:00 863        /lib/libc-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6e2a000-b6e2c000 rw-p 00129000 fe:00 863        /lib/libc-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6e2c000-b6e2e000 rw-p 00000000 00:00 0 
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6e2e000-b6e9c000 r-xp 00000000 fe:00 876        /lib/libm-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6e9c000-b6eab000 ---p 0006e000 fe:00 876        /lib/libm-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6eab000-b6eac000 r--p 0006d000 fe:00 876        /lib/libm-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6eac000-b6ead000 rw-p 0006e000 fe:00 876        /lib/libm-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ead000-b6eaf000 r-xp 00000000 fe:00 871        /lib/libdl-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6eaf000-b6ebe000 ---p 00002000 fe:00 871        /lib/libdl-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ebe000-b6ebf000 r--p 00001000 fe:00 871        /lib/libdl-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ebf000-b6ec0000 rw-p 00002000 fe:00 871        /lib/libdl-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ec0000-b6ec6000 r-xp 00000000 fe:00 892        /lib/librt-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ec6000-b6ed5000 ---p 00006000 fe:00 892        /lib/librt-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ed5000-b6ed6000 r--p 00005000 fe:00 892        /lib/librt-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ed6000-b6ed7000 rw-p 00006000 fe:00 892        /lib/librt-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ed7000-b6eed000 r-xp 00000000 fe:00 888        /lib/libpthread-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6eed000-b6efc000 ---p 00016000 fe:00 888        /lib/libpthread-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6efc000-b6efd000 r--p 00015000 fe:00 888        /lib/libpthread-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6efd000-b6efe000 rw-p 00016000 fe:00 888        /lib/libpthread-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6efe000-b6f00000 rw-p 00000000 00:00 0 
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6f00000-b6f50000 r-xp 00000000 ec:01 29259      /legato/systems/current/lib/liblegato.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6f50000-b6f51000 rw-p 00050000 ec:01 29259      /legato/systems/current/lib/liblegato.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6f51000-b6f70000 r-xp 00000000 ec:01 102731     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_testComponent.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6f70000-b6f7f000 ---p 0001f000 ec:01 102731     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_testComponent.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6f7f000-b6f80000 rw-p 0001e000 ec:01 102731     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_testComponent.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6f80000-b6f95000 r-xp 00000000 ec:01 102733     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_dataProfileComponent.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6f95000-b6fa5000 ---p 00015000 ec:01 102733     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_dataProfileComponent.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6fa5000-b6fa6000 rw-p 00015000 ec:01 102733     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_dataProfileComponent.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6fa6000-b6fb8000 r-xp 00000000 ec:01 102729     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_LiveObjects.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6fb8000-b6fc8000 ---p 00012000 ec:01 102729     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_LiveObjects.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6fc8000-b6fc9000 rw-p 00012000 ec:01 102729     /legato/apps/078cccf1707352bf3c446f3db863f5d6/read-only/lib/libComponent_LiveObjects.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6fc9000-b6fe9000 r-xp 00000000 fe:00 853        /lib/ld-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ff0000-b6ff2000 rw-p 00000000 00:00 0 
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ff6000-b6ff8000 rw-p 00000000 00:00 0 
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ff8000-b6ff9000 r--p 0001f000 fe:00 853        /lib/ld-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | b6ff9000-b6ffa000 rw-p 00020000 fe:00 853        /lib/ld-2.24.so
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | bef86000-befa7000 rw-p 00000000 00:00 0          [stack]
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | befce000-befcf000 r-xp 00000000 00:00 0          [sigpage]
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | ffff0000-ffff1000 r-xp 00000000 00:00 0          [vectors]
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | BACKTRACE
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | PC at b6d670ae
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | LR at b6d33288 [0xbefa5694]
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | LR at b6d4f7fc [0xbefa5eec]
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | LR at 61616161 [0xbefa61ec]
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | r0  61616161 r1  61616160 r2  00000073 r3  00000000 r4  00000001  r5  b6fb6100
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | r6  00000001 r7  b6ff10a0 r8  00000000 r9  61616161 r10 00000000 cpsr 20030030
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | fp  befa5eec ip  ffffffff sp  befa5a08 lr  b6d33288 pc  b6d670ae
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | STACK befa5a08, FRAME befa5eec
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | befa5988: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+    ...
+    Nov 30 12:19:51 swi-mdm9x28-wp user.err Legato: =ERR= | test[10258] | DONE
+    Nov 30 12:19:51 swi-mdm9x28-wp user.debug Legato:  DBUG | ledService[1404]/framework T=main | ma_led_server.c CleanupClientData() 148 | Client 0x7f57de1c is closed !!!
+    Nov 30 12:19:51 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1367]/dcsDaemon T=main | dcsServer.c CloseSessionEventHandler() 2146 | Client 0x7f57da14 killed, remove allocated resources
+    Nov 30 12:19:51 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1367]/dcsDaemon T=main | dcsServer.c CloseSessionEventHandler() 2146 | Client 0x7f57daa4 killed, remove allocated resources
+    Nov 30 12:19:51 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[1367]/dcsDaemon T=main | dcsServer.c TryStopDataSession() 1727 | Tearing down data session
+    Nov 30 12:19:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[797]/supervisor T=main | proc.c proc_SigChildHandler() 2064 | Process 'test' (PID: 10258) has exited due to signal 11 (Segmentation fault).
+    Nov 30 12:19:51 swi-mdm9x28-wp user.warn Legato: -WRN- | dcsDaemon[1367]/le_pa_dcs T=main | pa_dcs_linux.c pa_dcs_SetDefaultGateway() 568 | Default gateway or interface is empty
+    Nov 30 12:19:51 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[797]/supervisor T=main | app.c app_SigChildHandler() 3972 | Process 'test' in app 'test' faulted: Ignored.
+    Nov 30 12:19:51 swi-mdm9x28-wp user.warn Legato: -WRN- | _appStopClient[10306]/framework T=main | LE_FILENAME CreateSocket() 550 | Socket opened as standard i/o file descriptor 2!
+    Nov 30 12:19:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[797]/supervisor T=main | app.c app_StopComplete() 4643 | app 'test' has stopped.
+    Nov 30 12:19:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[797]/supervisor T=main | apps.c DeactivateAppContainer() 374 | Application 'test' has stopped.
+</code></pre>
+<p>Thanks</p>
+          <p><a href="https://forum.mangoh.io/t/cant-send-long-string-to-liveobjects/2191/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cant-send-long-string-to-liveobjects/2191/1</link>
+        <pubDate>Fri, 30 Nov 2018 12:39:06 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2191-1</guid>
+        <source url="https://forum.mangoh.io/t/cant-send-long-string-to-liveobjects/2191.rss">Can&#39;t send long string to liveobjects</source>
+      </item>
+  </channel>
+</rss>

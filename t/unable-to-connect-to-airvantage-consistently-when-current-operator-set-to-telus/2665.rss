@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Unable to Connect To AirVantage Consistently When Current Operator Set to Telus</title>
+    <link>https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665</link>
+    <description>I am working on making our data connection to AirVantage robust by automatically reconnecting if it drops out without rebooting or restarting the app.
+
+Today I can&#39;t seem to get a connection to AirVantage.  My logs keeping saying the following:
+
+`May 24 17:53:46 swi-mdm9x15 user.info Legato:  INFO | sensorToCloud[29484]/avPublisher T=main | avPublisher.c sessionTimerHandler() 1128 | AirVantage Connection Controller started.
+May 24 17:53:47 swi-mdm9x15 user.err Legato: =ERR= | avcDaemon[1195]/avcDaemon T=main | osUdp.c ResolveIpAddress() 188 | IP bs.airvantage.net not resolved: Temporary failure in name resolution
+May 24 17:53:48 swi-mdm9x15 user.err Legato: =ERR= | avcDaemon[1195]/avcDaemon T=main | osUdp.c ResolveIpAddress() 188 | IP bs.airvantage.net not resolved: Temporary failure in name resolution
+^FMay 24 17:54:46 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[1066]/modemDaemon T=main | le_sms.c CloseSessionEventHandler() 2181 | SessionRef (0xb70723cc) has been closed
+May 24 17:54:48 swi-mdm9x15 user.err Legato: =ERR= | avcDaemon[1195]/avcDaemon T=main | avcClient.c EventHandler() 544 | Session failure
+May 24 17:54:48 swi-mdm9x15 user.err Legato: =ERR= | avcDaemon[1195]/avcDaemon T=main | avcClient.c EventHandler() 552 | Session failure on bootstrap server
+May 24 17:54:48 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1195]/avcDaemon T=main | avcServer.c ProcessUserAgreement() 1472 | Broadcast notification to applications
+May 24 17:54:48 swi-mdm9x15 user.err Legato: =ERR= | avcDaemon[1195]/avcDaemon T=main | osTimer.c lwm2mcore_TimerStop() 173 | Unable to stop the timer
+May 24 17:54:48 swi-mdm9x15 user.err Legato: =ERR= | avcControl[1014]/avcControl T=main | avcControl.c StatusHandler() 165 | Air Vantage agent reported unexpected update status: 16
+`
+
+Then after a few minutes it&#39;s fine and the session is restored.  I did notice that when a session couldn&#39;t be established the results of `cm data` had different IP and Gateway addresses than when it was able to establish a session, see below.  The after a few successful data pushes the connection dropped again and was unable to establish a new connection for 3 hours at which time I reset the unit.
+
+**Not Able to Establish a Session**
+`cm radio
+Power:                         ON
+Current Network Operator:      TELUS
+Current RAT:                   UMTS network (LE_MRC_RAT_UMTS)
+Status:                        Registered to a roaming network (LE_MRC_REG_ROAMING)
+Signal:                        Strong signal strength (4)
+PS:                            Packet Switched Registered to a roaming network (LE_MRC_REG_ROAMING)
+`
+
+`cm data 
+Index:                         1
+APN:                           internet.sierrawireless.com
+PDP Type:                      IPV4
+Connected:                     yes
+Interface:                     rmnet0
+Family[IPv4]:                  inet
+IP[IPv4]:                      100.71.156.120
+Gateway[IPv4]:                 100.71.156.121
+Dns1[IPv4]:                    8.8.8.8
+Dns2[IPv4]:                    4.2.2.2`
+
+**Able to Establish a Session**
+`cm radio
+Power:                         ON
+Current Network Operator:      TELUS
+Current RAT:                   UMTS network (LE_MRC_RAT_UMTS)
+Status:                        Registered to a roaming network (LE_MRC_REG_ROAMING)
+Signal:                        Strong signal strength (4)
+PS:                            Packet Switched Registered to a roaming network (LE_MRC_REG_ROAMING)`
+
+`cm data
+Index:                         1
+APN:                           internet.sierrawireless.com
+PDP Type:                      IPV4
+Connected:                     yes
+Interface:                     rmnet0
+Family[IPv4]:                  inet
+IP[IPv4]:                      100.71.177.17
+Gateway[IPv4]:                 100.71.177.18
+Dns1[IPv4]:                    8.8.8.8
+Dns2[IPv4]:                    4.2.2.2`</description>
+    
+    <lastBuildDate>Wed, 04 Sep 2019 18:58:36 +0000</lastBuildDate>
+    <category>Build your own</category>
+    <atom:link href="https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Unable to Connect To AirVantage Consistently When Current Operator Set to Telus</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/nilsarve">@nilsarve</a> I updated our connection algorithm to be state machine based and it now flips the radio off an off after a period of not having a data session.</p>
+          <p><a href="https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665/6</link>
+        <pubDate>Wed, 04 Sep 2019 18:58:36 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2665-6</guid>
+        <source url="https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665.rss">Unable to Connect To AirVantage Consistently When Current Operator Set to Telus</source>
+      </item>
+      <item>
+        <title>Unable to Connect To AirVantage Consistently When Current Operator Set to Telus</title>
+        <dc:creator><![CDATA[nilsarve]]></dc:creator>
+        <description><![CDATA[
+            <p>I have seen this happen as well (on different operator) but it is difficult to reproduce so not sure what is best procedure when this happens. Waiting for it to work is not a solution it seems. Disconnect and connect again?<br>
+Restart app? Reboot?</p>
+<pre><code>DcsStateHandler() 1268 | CONNECTION STATE HANDLER
+DcsStateHandler() 1271 | CONNECTED
+ResolveIpAddress() 188 | IP bs.airvantage.net not resolved: Temporary failure in name resolution
+getaddrinfo failed for addr *******.com with rc -3
+*******.com is not a valid IP address
+mqttClientService.c mqtt_Connect() 281 | Socket error</code></pre>
+          <p><a href="https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665/5</link>
+        <pubDate>Mon, 26 Aug 2019 07:14:21 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2665-5</guid>
+        <source url="https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665.rss">Unable to Connect To AirVantage Consistently When Current Operator Set to Telus</source>
+      </item>
+      <item>
+        <title>Unable to Connect To AirVantage Consistently When Current Operator Set to Telus</title>
+        <dc:creator><![CDATA[nick]]></dc:creator>
+        <description><![CDATA[
+            <p>Hey <a class="mention" href="https://forum.mangoh.io/u/dbeckwith">@dbeckwith</a>,</p>
+<p>Telus UTMS should refer to a specific type of 3G network. I believe each WP85 has more than one adapter for each type of network (to my knowledge it at-least has GSM and WCDMA). I’ve seen power failures on the WCDMA transmit band before so that could be an issue here. That AT command will force the target to connect to a GSM network and not use any other cell adapters.</p>
+          <p><a href="https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665/4</link>
+        <pubDate>Wed, 26 Jun 2019 20:26:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2665-4</guid>
+        <source url="https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665.rss">Unable to Connect To AirVantage Consistently When Current Operator Set to Telus</source>
+      </item>
+      <item>
+        <title>Unable to Connect To AirVantage Consistently When Current Operator Set to Telus</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/nick">@nick</a> No I haven’t tried that but I’m curious how that helps a system that can’t seem to get a network connection.</p>
+          <p><a href="https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665/3</link>
+        <pubDate>Wed, 26 Jun 2019 20:05:25 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2665-3</guid>
+        <source url="https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665.rss">Unable to Connect To AirVantage Consistently When Current Operator Set to Telus</source>
+      </item>
+      <item>
+        <title>Unable to Connect To AirVantage Consistently When Current Operator Set to Telus</title>
+        <dc:creator><![CDATA[nick]]></dc:creator>
+        <description><![CDATA[
+            <p>Hey <a class="mention" href="https://forum.mangoh.io/u/dbeckwith">@dbeckwith</a>,</p>
+<p>What happens when you force the device into GSM only mode using <code>AT!SELRAT=02</code>?</p>
+          <p><a href="https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665/2</link>
+        <pubDate>Tue, 25 Jun 2019 02:33:44 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2665-2</guid>
+        <source url="https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665.rss">Unable to Connect To AirVantage Consistently When Current Operator Set to Telus</source>
+      </item>
+      <item>
+        <title>Unable to Connect To AirVantage Consistently When Current Operator Set to Telus</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p>I am working on making our data connection to AirVantage robust by automatically reconnecting if it drops out without rebooting or restarting the app.</p>
+<p>Today I can’t seem to get a connection to AirVantage.  My logs keeping saying the following:</p>
+<p><code>May 24 17:53:46 swi-mdm9x15 user.info Legato: INFO | sensorToCloud[29484]/avPublisher T=main | avPublisher.c sessionTimerHandler() 1128 | AirVantage Connection Controller started. May 24 17:53:47 swi-mdm9x15 user.err Legato: =ERR= | avcDaemon[1195]/avcDaemon T=main | osUdp.c ResolveIpAddress() 188 | IP bs.airvantage.net not resolved: Temporary failure in name resolution May 24 17:53:48 swi-mdm9x15 user.err Legato: =ERR= | avcDaemon[1195]/avcDaemon T=main | osUdp.c ResolveIpAddress() 188 | IP bs.airvantage.net not resolved: Temporary failure in name resolution ^FMay 24 17:54:46 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[1066]/modemDaemon T=main | le_sms.c CloseSessionEventHandler() 2181 | SessionRef (0xb70723cc) has been closed May 24 17:54:48 swi-mdm9x15 user.err Legato: =ERR= | avcDaemon[1195]/avcDaemon T=main | avcClient.c EventHandler() 544 | Session failure May 24 17:54:48 swi-mdm9x15 user.err Legato: =ERR= | avcDaemon[1195]/avcDaemon T=main | avcClient.c EventHandler() 552 | Session failure on bootstrap server May 24 17:54:48 swi-mdm9x15 user.info Legato: INFO | avcDaemon[1195]/avcDaemon T=main | avcServer.c ProcessUserAgreement() 1472 | Broadcast notification to applications May 24 17:54:48 swi-mdm9x15 user.err Legato: =ERR= | avcDaemon[1195]/avcDaemon T=main | osTimer.c lwm2mcore_TimerStop() 173 | Unable to stop the timer May 24 17:54:48 swi-mdm9x15 user.err Legato: =ERR= | avcControl[1014]/avcControl T=main | avcControl.c StatusHandler() 165 | Air Vantage agent reported unexpected update status: 16</code></p>
+<p>Then after a few minutes it’s fine and the session is restored.  I did notice that when a session couldn’t be established the results of <code>cm data</code> had different IP and Gateway addresses than when it was able to establish a session, see below.  The after a few successful data pushes the connection dropped again and was unable to establish a new connection for 3 hours at which time I reset the unit.</p>
+<p><strong>Not Able to Establish a Session</strong><br>
+<code>cm radio Power: ON Current Network Operator: TELUS Current RAT: UMTS network (LE_MRC_RAT_UMTS) Status: Registered to a roaming network (LE_MRC_REG_ROAMING) Signal: Strong signal strength (4) PS: Packet Switched Registered to a roaming network (LE_MRC_REG_ROAMING)</code></p>
+<p><code>cm data Index: 1 APN: internet.sierrawireless.com PDP Type: IPV4 Connected: yes Interface: rmnet0 Family[IPv4]: inet IP[IPv4]: 100.71.156.120 Gateway[IPv4]: 100.71.156.121 Dns1[IPv4]: 8.8.8.8 Dns2[IPv4]: 4.2.2.2</code></p>
+<p><strong>Able to Establish a Session</strong><br>
+<code>cm radio Power: ON Current Network Operator: TELUS Current RAT: UMTS network (LE_MRC_RAT_UMTS) Status: Registered to a roaming network (LE_MRC_REG_ROAMING) Signal: Strong signal strength (4) PS: Packet Switched Registered to a roaming network (LE_MRC_REG_ROAMING)</code></p>
+<p><code>cm data Index: 1 APN: internet.sierrawireless.com PDP Type: IPV4 Connected: yes Interface: rmnet0 Family[IPv4]: inet IP[IPv4]: 100.71.177.17 Gateway[IPv4]: 100.71.177.18 Dns1[IPv4]: 8.8.8.8 Dns2[IPv4]: 4.2.2.2</code></p>
+          <p><a href="https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665/1</link>
+        <pubDate>Fri, 24 May 2019 18:12:58 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2665-1</guid>
+        <source url="https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665.rss">Unable to Connect To AirVantage Consistently When Current Operator Set to Telus</source>
+      </item>
+  </channel>
+</rss>

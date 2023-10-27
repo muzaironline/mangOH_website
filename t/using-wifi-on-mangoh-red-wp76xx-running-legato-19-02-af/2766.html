@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Using WiFi on mangOH Red + wp76xx running Legato 19.02 AF - mangOH Red - mangOH forum</title>
+    <meta name="description" content="I have deployed the Legato 19.02 application framework on my mangOH red + wp76xx board using the Leaf workspace manager environment. Now I am trying to use the onboard WiFi capabilities of the mangOH red development boar&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/using-wifi-on-mangoh-red-wp76xx-running-legato-19-02-af/2766" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Using WiFi on mangOH Red + wp76xx running Legato 19.02 AF&#39;" href="https://forum.mangoh.io/t/using-wifi-on-mangoh-red-wp76xx-running-legato-19-02-af/2766.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/using-wifi-on-mangoh-red-wp76xx-running-legato-19-02-af/2766" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/using-wifi-on-mangoh-red-wp76xx-running-legato-19-02-af/2766" />
+<meta property="og:title" content="Using WiFi on mangOH Red + wp76xx running Legato 19.02 AF" />
+<meta name="twitter:title" content="Using WiFi on mangOH Red + wp76xx running Legato 19.02 AF" />
+<meta property="og:description" content="I have deployed the Legato 19.02 application framework on my mangOH red + wp76xx board using the Leaf workspace manager environment. Now I am trying to use the onboard WiFi capabilities of the mangOH red development board.  I have been reading different posts on the mangOH Forum, and I found a reference to some instructions described in “mangOH Red mt7697 WiFi using WPx5xx, WP76xx or WP77xx”; I am following this approach, but I am having some issues in following up, as the information does not r..." />
+<meta name="twitter:description" content="I have deployed the Legato 19.02 application framework on my mangOH red + wp76xx board using the Leaf workspace manager environment. Now I am trying to use the onboard WiFi capabilities of the mangOH red development board.  I have been reading different posts on the mangOH Forum, and I found a reference to some instructions described in “mangOH Red mt7697 WiFi using WPx5xx, WP76xx or WP77xx”; I am following this approach, but I am having some issues in following up, as the information does not r..." />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="6 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="1 ❤" />
+<meta property="article:published_time" content="2019-07-10T18:56:30+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Using WiFi on mangOH Red + wp76xx running Legato 19.02 AF","mainEntity":{"@type":"Question","name":"Using WiFi on mangOH Red + wp76xx running Legato 19.02 AF","text":"I have deployed the Legato 19.02 application framework on my mangOH red + wp76xx board using the Leaf workspace manager environment. Now I am trying to use the onboard WiFi capabilities of the mangOH red development board.\n\nI have been reading different posts on the mangOH Forum, and I found a refer&hellip;","upvoteCount":0,"answerCount":1,"dateCreated":"2019-07-10T18:56:30.026Z","author":{"@type":"Person","name":"Luis Villasenor"},"acceptedAnswer":{"@type":"Answer","text":"Finally I managed to get it working. Here is a brief description, in case somebody finds it useful. Note that I followed the documentation regarding “<a href=\"https://docs.legato.io/latest/confLeaf.html\" rel=\"nofollow noopener\">Leaf Workspace Manager<\/a>”, so in my mangOH development VM I have ~/myWorkspace folder where I tested the different tutorials described in the documentat&hellip;","upvoteCount":0,"dateCreated":"2019-07-12T03:31:24.130Z","url":"https://forum.mangoh.io/t/using-wifi-on-mangoh-red-wp76xx-running-legato-19-02-af/2766/3","author":{"@type":"Person","name":"luisvi70"}}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/using-wifi-on-mangoh-red-wp76xx-running-legato-19-02-af/2766">Using WiFi on mangOH Red + wp76xx running Legato 19.02 AF</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Using WiFi on mangOH Red + wp76xx running Legato 19.02 AF'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/luisvi70'><span itemprop='name'>luisvi70</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-wifi-on-mangoh-red-wp76xx-running-legato-19-02-af/2766">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-07-10T18:56:30Z' class='post-time'>
+                    July 10, 2019,  6:56pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-07-10T18:56:30Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>I have deployed the Legato 19.02 application framework on my mangOH red + wp76xx board using the Leaf workspace manager environment. Now I am trying to use the onboard WiFi capabilities of the mangOH red development board.</p>
+<p>I have been reading different posts on the mangOH Forum, and I found a reference to some instructions described in “<a href="https://github.com/mangOH/mangOH/wiki/mangOH-Red-mt7697-WiFi#mangoh-red-mt7697-wifi-using-wpx5xx-wp76xx-or-wp77xx" rel="nofollow noopener">mangOH Red mt7697 WiFi using WPx5xx, WP76xx or WP77xx</a>”; I am following this approach, but I am having some issues in following up, as the information does not relate specifically to a Legato leaf deployed workspace. I have managed to update the onboard MediaTek MT7697 firmware as described, but I am stuck in the “Patch Legato” section. The “Legato_patches” folder, which is included in mangOH VM, only provides updates up to the Legato 18.09.00 version, so there seems to be no patches for my Legato 19.02 AF. I am not even sure if the patches are already incorporated in the latest Legato 19.02 AF so there may be no need to patch Legato 19.02 at all. At this point I am wondering if there is an updated tutorial on how to make use of the onboard WiFi capabilities of the mangOH red running a newer Legato 19.02 AF?</p>
+<p>I will appreciate if somebody can point me on the right direction on how to proceed and start using WiFi on my deployed Legato 19.02 AF. Thanks, in advanced.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/luisvi70'><span itemprop='name'>luisvi70</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-wifi-on-mangoh-red-wp76xx-running-legato-19-02-af/2766">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-07-11T02:30:40Z' class='post-time'>
+                    July 11, 2019,  2:30am
+                  </time>
+                  <meta itemprop='dateModified' content='2019-07-11T02:30:40Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I have managed to build an updated legato system build based on 19.02 using the wifi.sdef system definition file located in $LEGATO_ROOT/modules/WiFi folder. The build required me to follow the steps described in the “<a href="https://forum.legato.io/t/migrate-from-legato-18-09-0-to-19-02-0/4368/2" rel="nofollow noopener">Migrate from Legato 18.09.0 to 19.02.0</a>” post, because running “mksys -t wp76xx wifi.sdef” was heaving some issues.</p>
+<p>So basically, I had to:</p>
+<ul>
+<li>Run “make wp76xx” within the Legato directory.</li>
+<li>source $LEGATO_ROOT/build/wp76xx/config.sh into my environment aka leaf shell.</li>
+<li>Then run “mksys -t wp76xx wifi.sdef”</li>
+<li>Finally “update wifi.wp76xx.update 192.168.2.2”</li>
+</ul>
+<p>So now I can see the WiFi related apps when I execute the “app status” on my mangOH red target board. However, when I try to start the wifiApTest app, using the “app start wifiApTest” command, I get the following messages in the logread output and the app stops; I am assuming I am still missing the Mediatek mt7697 patches updates. Any comments:</p>
+<pre>root@swi-mdm9x28-wp:~# logread -f
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c app_Create() 3207 | Creating app 'wifiApTest'
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | proc.c GetFaultAction() 323 | No fault action specified for process 'wifiApTest'. Assuming 'ignore'.
+Jul 10 19:05:31 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[842]/supervisor T=main | proc.c GetWatchdogAction() 359 | wifiApTest watchdogAction '' in proc section
+Jul 10 19:05:31 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[842]/supervisor T=main | proc.c GetWatchdogAction() 359 | wifiApTest watchdogAction '' in proc section
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c app_Start() 3420 | Starting app 'wifiApTest'
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/legato/systems/current/apps/wifiApTest/read-only/lib/libComponent_wifiApTestComponent.so' to '/legato/systems/current/appsWriteable/w
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/legato/systems/current/apps/wifiApTest/read-only/bin/wifiApTest' to '/legato/systems/current/appsWriteable/wifiApTest/bin/wifiApTest'
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 102400.
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 102400.
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | proc.c proc_Start() 1390 | Starting process 'wifiApTest' with pid 2025
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[2025]/supervisor T=main | proc.c proc_Start() 1355 | Execing 'wifiApTest'
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/framework T=unknown | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refPathIteratorMap' is truncated to 'framework.hashMap_refPathIterat'
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refEventHandlers' is truncated to 'framework.hashMap_refEventHandl'
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refDefault Timer SafeRe' is truncated to 'framework.hashMap_refDefault Ti'
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.MessagingClientInterfaces' is truncated to 'framework.MessagingClientInterf'
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refHandlersRef' is truncated to 'framework.hashMap_refHandlersRe'
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_MessagingServices' is truncated to 'framework.hashMap_MessagingServ'
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_MessagingClients' is truncated to 'framework.hashMap_MessagingClie'
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.PipelineSIGCHLD-reports' is truncated to 'framework.PipelineSIGCHLD-repor'
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/framework T=main | LE_FILENAME fs_Init() 840 | FS prefix path "/data/le_fs/"
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refFsFileRefMap' is truncated to 'framework.hashMap_refFsFileRefM'
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/framework T=main | LE_FILENAME rand_Init() 71 | getrandom function: 0xb6d23150
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.DestructorObjs' overflowed. Expanded to 1 blocks.
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/&lt;invalid&gt; T=main | _componentMain.c _wifiApTestComponent_Init() 29 | Initializing wifiApTestComponent component library.
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refle_wifiAp_ClientHand' is truncated to 'framework.hashMap_refle_wifiAp_'
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/framework T=main | LE_FILENAME msgMessage_CreatePool() 112 | Pool name truncated to 'msgs-376b52b7f3ec3cdfa5c5d29caa' for protocol '376b52b7f3ec3cdfa5c5d29caa6777f6'.
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.msgs-376b52b7f3ec3cdfa5c5d29caa' is truncated to 'framework.msgs-376b52b7f3ec3cdf'
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiService[889]/framework T=main | LE_FILENAME ExtractFileDescriptor() 34 | Received fd (13).
+Jul 10 19:05:31 swi-mdm9x28-wp user.warn Legato: -WRN- | _UNKNOWN_[2025]/framework T=main | LE_FILENAME le_fdMonitor_Create() 667 | FD Monitor object name 'wifiApTest.wifiApTestComponent.le_wifiAp' truncated to 'wifiApTest.wifiApTestComponent.'.
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool '.le_wifiAp_ClientThreadData' overflowed. Expanded to 1 blocks.
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[2025]/framework T=main | le_wifiAp_client.c DoConnectService() 355 | ======= Starting client for 'wifiApTest.wifiApTestComponent.le_wifiAp' service ========
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiApTest[2025]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.msgs-LogControlProtocol' is truncated to 'framework.msgs-LogControlProtoc'
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiApTest[2025]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.SigMonitor' overflowed. Expanded to 1 blocks.
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiApTest[2025]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.SigHandler' overflowed. Expanded to 1 blocks.
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiApTest[2025]/wifiApTest_exe T=main | _main.c main() 61 | == Starting Event Processing Loop ==
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | wifiApTest[2025]/wifiApTestComponent T=main | wifiApTest.c _wifiApTestComponent_COMPONENT_INIT() 270 | ======== WiFi AP Test  ========
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | wifiApTest[2025]/wifiApTestComponent T=main | wifiApTest.c Testle_wifiApStart() 201 | Start Test WiFi access point
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiApTest[2025]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool '.le_wifiAp_ClientData' overflowed. Expanded to 1 blocks.
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiService[889]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool '.le_wifiAp_ServerData' overflowed. Expanded to 1 blocks.
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiService[889]/daemon T=main | le_wifiAp.c le_wifiAp_AddNewEventHandler() 89 | Add new event handler
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | wifiService[889]/daemon T=main | pa_wifi_ap_ti.c pa_wifiAp_SetSsid() 696 | SSID length 10 | SSID: "wifiApSSID"
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | wifiService[889]/daemon T=main | pa_wifi_ap_ti.c pa_wifiAp_SetPassPhrase() 770 | Set passphrase
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | wifiService[889]/daemon T=main | pa_wifi_ap_ti.c pa_wifiAp_SetSecurityProtocol() 733 | Security protocol : 1
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | wifiService[889]/daemon T=main | pa_wifi_ap_ti.c pa_wifiAp_SetDiscoverable() 851 | Set discoverability
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiService[889]/daemon T=main | pa_wifi_ap_ti.c pa_wifiAp_Start() 469 | Starting AP, SSID: wifiApSSID
+Jul 10 19:05:31 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiService[889]/framework T=WifiApPaThread | LE_FILENAME PThreadStartRoutine() 360 | Set nice level to 0.
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | wifiService[889]/daemon T=WifiApPaThread | pa_wifi_ap_ti.c WifiApPaThreadMain() 243 | Started!
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | wifiService[889] | WIFI_START
+Jul 10 19:05:31 swi-mdm9x28-wp user.info Legato:  INFO | wifiService[889]/daemon T=WifiApPaThread | pa_wifi_ap_ti.c WifiApPaThreadMain() 260 | PARSING:WIFI_SET_EVENT : len:15
+Jul 10 19:05:36 swi-mdm9x28-wp user.info Legato:  INFO | wifiService[889] | Failed to start TI wifi
+Jul 10 19:05:36 swi-mdm9x28-wp user.err Legato: =ERR= | wifiService[889]/daemon T=main | pa_wifi_ap_ti.c pa_wifiAp_Start() 484 | WiFi AP Command Failed: (23296)wlan0 WIFI_START
+Jul 10 19:05:36 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | supervisor.c SigChildHandler() 792 | Reaping unconfigured child process 2030.
+Jul 10 19:05:36 swi-mdm9x28-wp user.err Legato: =ERR= | wifiService[889]/daemon T=WifiApPaThread | pa_wifi_ap_ti.c ThreadDestructor() 192 | Unable to kill the WIFI events script
+Jul 10 19:05:36 swi-mdm9x28-wp user.err Legato: =ERR= | wifiApTest[2025]/wifiApTestComponent T=main | wifiApTest.c Testle_wifiApStart() 220 | Start ERROR
+Jul 10 19:05:36 swi-mdm9x28-wp user.info Legato:  INFO | wifiService[889]/daemon T=main | pa_wifi_ap_ti.c pa_wifiAp_SetIpRange() 978 | @AP=c0a80a01, @APstart=c0a80a0a, @APstop=c0a80a14
+Jul 10 19:05:36 swi-mdm9x28-wp user.err Legato: =ERR= | wifiService[889] | ifconfig: SIOCSIFADDR: No such device
+Jul 10 19:05:36 swi-mdm9x28-wp user.err Legato: =ERR= | wifiService[889]/daemon T=main | pa_wifi_ap_ti.c pa_wifiAp_SetIpRange() 1007 | Unable to mount the network interface.
+Jul 10 19:05:36 swi-mdm9x28-wp user.emerg Legato: *EMR* | wifiApTest[2025]/wifiApTestComponent T=main | wifiApTest.c Testle_wifiApStart() 223 | Assert Failed: 'LE_OK == le_wifiAp_SetIpRange(HOST_IP, IP_RANGE_START, IP_RANGE_END)'
+Jul 10 19:05:36 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiService[889]/framework T=main | le_wifiAp_server.c CleanupClientData() 148 | Client 0x7f57f6bc is closed !!!
+Jul 10 19:05:36 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiService[889]/framework T=main | le_wifiAp_server.c CleanupClientData() 174 | Found session ref 0x7f57f6bc; match found, so needs cleanup
+Jul 10 19:05:36 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | proc.c proc_SigChildHandler() 2051 | Process 'wifiApTest' (PID: 2025) has exited with exit code 1.
+Jul 10 19:05:37 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[842]/supervisor T=main | app.c app_SigChildHandler() 4015 | Process 'wifiApTest' in app 'wifiApTest' faulted: Ignored.
+Jul 10 19:05:37 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c app_StopComplete() 4686 | app 'wifiApTest' has stopped.
+Jul 10 19:05:37 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | apps.c DeactivateAppContainer() 374 | Application 'wifiApTest' has stopped.</pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/luisvi70'><span itemprop='name'>luisvi70</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-wifi-on-mangoh-red-wp76xx-running-legato-19-02-af/2766">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-07-12T03:31:24Z' class='post-time'>
+                    July 12, 2019,  3:31am
+                  </time>
+                  <meta itemprop='dateModified' content='2019-07-12T03:31:24Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Finally I managed to get it working. Here is a brief description, in case somebody finds it useful. Note that I followed the documentation regarding “<em><a href="https://docs.legato.io/latest/confLeaf.html" rel="nofollow noopener">Leaf Workspace Manager</a></em>”, so in my mangOH development VM I have ~/<em>myWorkspace</em> folder where I tested the different tutorials described in the documentation.</p>
+<p>In the <em><a href="https://docs.legato.io/latest/sampleApps.html" rel="nofollow noopener">Sample Apps</a></em> section of the documentation there are multiple WiFi sample apps listed, which I found in <em>$LEGATO_ROOT/modules/WiFi/apps/sample</em> folder. I decided to copy the <em>$LEGATO_ROOT/modules/WiFi</em> folder into <em>myWorksape</em> folder and work locally in <em>myWorkspace</em>.</p>
+<p>To enable the onboard MediaTek WiFi support, I found it useful to follow the instructions described in the “<em><a href="https://www.youtube.com/watch?v=KDO835vo1Lg" rel="nofollow noopener">mangoh Red WiFi and IoT card WiFi on WP76</a></em>” video.</p>
+<p>From my initial trial to make WiFi work I was missing several steps, which I describe below:</p>
+<ul>
+<li>As I describe in my initial post, I was following the “<em><a href="https://github.com/mangOH/mangOH/wiki/mangOH-Red-mt7697-WiFi" rel="nofollow noopener">mangOH Red mt7697 WiFi using WPx5xx, WP76xx or WP77xx</a></em>” instructions.</li>
+<li>As I was working on a Leaf workspace deployment based on Legato 19.02, I stop following the instructions once I got to the “<em>Patch Legato</em>” section.</li>
+<li>Now, back to <em>myWorkspace</em> folder, “<em>cd ~/myWorkspace/WiFi</em>”. Copy the <em>~/mangOH/linux_kernel_modules</em> into the <em>WiFi</em> folder.</li>
+<li>Edit the <em>wifi.sdef</em> file and include some required kernel modules:<br>
+kernelModules:<br>
+{<br>
+linux_kernel_modules/mt7697wifi/mt7697wifi_core<br>
+linux_kernel_modules/cp2130/cp2130<br>
+linux_kernel_modules/mt7697q/mt7697q<br>
+linux_kernel_modules/mt7697serial/mt7697serial<br>
+}</li>
+<li>Rebuild the new system deployment using the <em>wifi.sdef</em> definition file “<em>mksys -t wp76xx wifi.sdef</em>”</li>
+<li>Update the new system deployment “<em>update wifi.wp76xx.update 192.168.2.2</em>”</li>
+<li>Deploy required WiFi scripts. I used the approach described in the video above. Alternatively you can:<br>
+<em>cd linux_kernel_modules/mt7697wifi/scripts</em><br>
+<em>scp mtwifi <a href="mailto:root@192.168.2.2">root@192.168.2.2</a>:/etc/init.d/mtwifi</em><br>
+<em>scp interfaces <a href="mailto:root@192.168.2.2">root@192.168.2.2</a>:/etc/network/interfaces</em>
+</li>
+<li>Make the WiFi init script executable in the target:<br>
+<em>ssh <a href="mailto:root@192.168.2.2">root@192.168.2.2</a></em><br>
+<em>chmod +x /etc/init.d/mtwifi</em>
+</li>
+<li>Setup the UART; run these commands on the target<br>
+Run <em>microcom /dev/ttyAT</em><br>
+Run the AT command <em>at!mapuart=17,1</em> to configure UART1 for use with mt7697 WiFi<br>
+Press ctrl-x to exit<br>
+Power cycle the mangOH Red</li>
+</ul>
+<p>After system power cycle, I was able to ssh into the target and run the command “<em>/sbin/ifup wlan1</em>” which successfully enabled the wlan1 interface. You can see it listed by running the command “<em>ifconfig -a</em>”</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/onboard-wifi-custom-yocto/2773">Onboard Wifi &amp; Custom Yocto</a>
+                        <meta itemprop='position' content='5'>
+                      </div>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/mt7697wifi-kernel-module-source/1187/9">Mt7697wifi kernel module source</a>
+                        <meta itemprop='position' content='6'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jbroderick'><span itemprop='name'>jbroderick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-wifi-on-mangoh-red-wp76xx-running-legato-19-02-af/2766">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-07-17T12:59:22Z' class='post-time'>
+                    July 17, 2019, 12:59pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-07-17T12:59:22Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I have followed all of these steps in the VM provided. When I try to run <em>/sbin/ifup wlan1</em> I get the following error:</p>
+<pre><code class="lang-auto">insmod: can't insert '/legato/systems/current/modules/mt7697wifi_core.ko': No such file or directory</code></pre>
+<p>When I run <em>“mksys -t wp77xx wifi.sdef”</em> I get the following error even though I included the kernalModules in the <em>wifi.sdef</em> file:</p>
+<p>WARNING: “mt7697q_read” [/home/mangoh/legato_framework/legato/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!<br>
+WARNING: “mt7697_uart_read” [/home/mangoh/legato_framework/legato/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!<br>
+WARNING: “mt7697q_shutdown” [/home/mangoh/legato_framework/legato/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!<br>
+WARNING: “mt7697_uart_close” [/home/mangoh/legato_framework/legato/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!<br>
+WARNING: “mt7697_uart_write” [/home/mangoh/legato_framework/legato/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!<br>
+WARNING: “mt7697q_unblock_writer” [/home/mangoh/legato_framework/legato/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!<br>
+WARNING: “mt7697_uart_open” [/home/mangoh/legato_framework/legato/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!<br>
+WARNING: “mt7697q_write” [/home/mangoh/legato_framework/legato/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!<br>
+WARNING: “mt7697q_init” [/home/mangoh/legato_framework/legato/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!</p>
+<p>Any ideas on why this wouldn’t be defined?</p>
+<p>Thanks!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/brumble'><span itemprop='name'>brumble</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-wifi-on-mangoh-red-wp76xx-running-legato-19-02-af/2766">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-07-17T15:23:09Z' class='post-time'>
+                    July 17, 2019,  3:23pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-07-17T15:23:09Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Is the WiFi folder directly inside the <strong><code>legato_framework</code></strong> directory with the <strong><code>linux_kernel_modules</code></strong> folder inside it?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jbroderick'><span itemprop='name'>jbroderick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-wifi-on-mangoh-red-wp76xx-running-legato-19-02-af/2766">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-07-17T15:36:47Z' class='post-time'>
+                    July 17, 2019,  3:36pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-07-17T15:36:47Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I believe so. In the VM, I am working in the <em>~/legato_framework/legato</em> directory where I have copied over the <em>WiFi</em> directory and the <em>linux_kernel_modules</em> folder is inside of it.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/brumble'><span itemprop='name'>brumble</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-wifi-on-mangoh-red-wp76xx-running-legato-19-02-af/2766">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-07-17T17:14:36Z' class='post-time'>
+                    July 17, 2019,  5:14pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-07-17T17:14:36Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>The wifi folder needs to be directly under legato_framework, not the legato subfolder. Move it up one level so it’s ~/legato_framework/Wifi and see if it works.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jbroderick'><span itemprop='name'>jbroderick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-wifi-on-mangoh-red-wp76xx-running-legato-19-02-af/2766">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-07-17T17:39:45Z' class='post-time'>
+                    July 17, 2019,  5:39pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-07-17T17:39:45Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks for getting back to me.</p>
+<p>I moved it up but I’m still getting the same error when I run <em>mksys</em></p>
+<pre><code class="lang-auto">WARNING: "mt7697q_read" [/home/mangoh/legato_framework/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!
+WARNING: "mt7697_uart_read" [/home/mangoh/legato_framework/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!
+WARNING: "mt7697q_shutdown" [/home/mangoh/legato_framework/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!
+WARNING: "mt7697_uart_close" [/home/mangoh/legato_framework/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!
+WARNING: "mt7697_uart_write" [/home/mangoh/legato_framework/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!
+WARNING: "mt7697q_unblock_writer" [/home/mangoh/legato_framework/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!
+WARNING: "mt7697_uart_open" [/home/mangoh/legato_framework/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!
+WARNING: "mt7697q_write" [/home/mangoh/legato_framework/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!
+WARNING: "mt7697q_init" [/home/mangoh/legato_framework/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/mt7697wifi_core.ko] undefined!</code></pre>
+<p>As well as the same error on the target device:<br>
+<em>insmod: can’t insert ‘/legato/systems/current/modules/mt7697wifi_core.ko’: No such file or directory</em></p>
+<p>The weird thing is that if I navigate to<br>
+<em>/home/mangoh/legato_framework/WiFi/_build_wifi/wp77xx/modules/mt7697wifi_core/</em> after the build there is a <em>mt7697wifi_core.ko</em> file.</p>
+<p>There was also another similar Warning the I hadn’t seen before. Looking at old terminal outputs though it had been there I just hadn’t seen it:</p>
+<pre><code class="lang-auto">WARNING: "cp2130_update_ch_config" [/home/mangoh/legato_framework/WiFi/_build_wifi/wp77xx/modules/mt7697q/mt7697q.ko] undefined!</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/kalaivani'><span itemprop='name'>kalaivani</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-wifi-on-mangoh-red-wp76xx-running-legato-19-02-af/2766">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/8661892e8e9b9db58a3ba578aa5c145c29aa77ef.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-07-08T11:07:05Z' class='post-time'>
+                    July 8, 2021, 11:07am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-07-08T11:07:05Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>hi am trying to use wifi module, when i check for app status i didnt find the any wifi services running in my mangoh red board and when i issued WIFI command getting the error command not executing here i have attached the screenshot for refernce , could any one guide me what are the steps to be followed to access wifi<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/8661892e8e9b9db58a3ba578aa5c145c29aa77ef.png" data-download-href="/uploads/short-url/jaMWWns1jOib47YUoj0eKYfVVsr.png?dl=1" title="Screenshot_2021-07-08_16-32-57" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/8/8661892e8e9b9db58a3ba578aa5c145c29aa77ef_2_690x388.png" alt="Screenshot_2021-07-08_16-32-57" data-base62-sha1="jaMWWns1jOib47YUoj0eKYfVVsr" width="690" height="388" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/8/8661892e8e9b9db58a3ba578aa5c145c29aa77ef_2_690x388.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/8/8661892e8e9b9db58a3ba578aa5c145c29aa77ef_2_1035x582.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/8661892e8e9b9db58a3ba578aa5c145c29aa77ef.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/8/8661892e8e9b9db58a3ba578aa5c145c29aa77ef_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">Screenshot_2021-07-08_16-32-57</span><span class="informations">1364×768 134 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/using-wifi-on-mangoh-red-wp76xx-running-legato-19-02-af/2766">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-07-08T12:54:26Z' class='post-time'>
+                    July 8, 2021, 12:54pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-07-08T12:54:26Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Are you using the offcial wp7608 FW?<br>
+Have you tried fw r13?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

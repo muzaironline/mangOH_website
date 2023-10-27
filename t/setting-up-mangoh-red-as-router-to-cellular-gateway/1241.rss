@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+    <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241</link>
+    <description>**Objective**:  Configure a MangOH to route cellular internet data to/from other network interfaces.  For example the image below shows how we will route traffic to/from the ethernet IoT slot to/from the cellular gateway.
+
+![IMG_2399|375x500](upload://ptSjmGfzewA3kJmGDP5LAtaLKYe.jpg)
+
+**Solution**:  To configure the MangOH to route data to/from network interfaces to/from the public cellular interface execute the following steps:
+
+**A.  For wired interfaces, i.e. eth0 run the following steps:**
+
+1.  Download the cfg_gateway.sh script to the MangOH device (also found under /scripts in the 
+     MangOH GitHub) using the following:
+        scp ./scripts/cfg_gateway.sh  root@192.168.2.2:/tmp/.
+
+2.  ssh or console into the MangOH device.
+        ssh root@192.168.2.2
+
+3.  Move to the /tmp directory (or directory where the cfg_gateway.sh script was copied to above)
+        cd /tmp
+
+4.  Run the cfg_gateway.sh script
+       ./cfg_gateway.sh
+
+5.  An example run of executing the script is shown below (note the default parameters are used):
+
+david@sw-dclark:~/MTPublic4.3.0$ ssh root@192.168.2.2
+root@swi-mdm9x28:~# cd /tmp
+root@swi-mdm9x28:/tmp# chmod +x cfg_gateway.sh 
+root@swi-mdm9x28:/tmp# ./cfg_gateway.sh 
+MangOH gateway configuration
+Enter WAN (cellular) interface (default: rmnet_data0): 
+WAN interface rmnet_data0
+Enter LAN interface (default: eth0): 
+LAN interface eth0
+Enter LAN IP (default: 192.168.20.1): 
+IP address (192.168.20.1)
+Enter LAN Net Mask (default: 255.255.255.0): 
+net mask (255.255.255.0)
+Mounting LAN interface &#39;eth0&#39; IP: &#39;192.168.20.1&#39;, net mask: &#39;255.255.255.0&#39;
+Check SIM inserted...
+SIM card is inserted and unlocked (LE_SIM_READY).
+
+Mounting the relay interface &#39;rmnet_data0&#39;...
+Enabling the radio on &#39;rmnet_data0&#39;...
+Radio power is already set to ON.
+Enter APN (default: internet.sierrawireless.com): 
+Enabling the data connection on &#39;rmnet_data0&#39; using APN &#39;internet.sierrawireless.com&#39;...
+Setting up profile 1
+Setting access point name ... ok
+Setting packet data protocol ... ok
+Setting Authentication ... ok
+Connecting ... ok
+Checking if device is up ... ok
+Routing ... ok
+Updating /etc/resolv.conf ... ok
+Updating /etc/resolv.conf ... ok
+Testing connection ... Waiting for data connection on &#39;rmnet_data0&#39;...
+Relay interface &#39;rmnet_data0&#39; IP address is &#39;100.71.221.227&#39;
+ok
+Cleaning IP tables...
+Enabling IP forwarding...
+net.ipv4.ip_forward = 1
+Configuring the NAT...
+Configure DHCP server (Y/n): Y
+Enter start IP (default: 192.168.20.10): 
+IP address (192.168.20.10)
+Enter end IP (default: 192.168.20.100): 
+IP address (192.168.20.100)
+Reconfiguring the DHCP server...
+stopping DNS forwarder and DHCP server: dnsmasq... stopped /usr/bin/dnsmasq (pid 1196)
+done.
+Generating the configuration file &#39;/tmp/dnsmasq.eth0.conf&#39; for the DHCP server...
+Restarting the DHCP server...
+starting DNS forwarder and DHCP server: dnsmasq... done.
+MangOH gateway configuration completed
+
+6.  You can verify that the interface is up with the given parameters using ifconfig as shown below:
+
+root@swi-mdm9x28:/tmp# ifconfig eth0
+eth0      Link encap:Ethernet  HWaddr AE:BA:5B:62:58:29  
+          inet addr:192.168.20.1  Bcast:192.168.20.255  Mask:255.255.255.0
+          inet6 addr: fe80::acba:5bff:fe62:5829/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:991 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:1168 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:240898 (235.2 KiB)  TX bytes:811303 (792.2 KiB)
+
+**B.  For wireless interfaces, i.e. wlan0 (TI) or wlan1 (MT7692) run the following steps to configure a WiFi Access Point (AP):**
+
+1.  First follow the instructions for setting up the WiFi found on the MangOH Red Wiki (note that if the TI WiFi is used then the first 2 sections on this wiki can be skipped as they are required only for MediaTek7692 WiFi):
+
+https://github.com/mangOH/mangOH/wiki/mangOH-Red-mt7697-WiFi
+
+2.  Check if the WiFi AP web service is running using &#39;app status&#39;
+
+root@swi-mdm9x28:/tmp# app status
+[running] atAirVantage
+[running] atQmiLinker
+[running] atService
+[running] audioService
+[running] avcService
+[running] cellNetService
+[running] dataConnectionService
+[running] fwupdateService
+[running] gpioService
+[running] modemService
+[running] portService
+[running] positioningService
+[running] powerMgr
+[running] secStore
+[stopped] smsInboxService
+[stopped] spiService
+[stopped] tools
+[stopped] voiceCallService
+[stopped] wifi
+[stopped] wifiApTest
+[stopped] wifiClientTest
+[running] wifiService
+[stopped] wifiWebAp
+
+2.  If the WiFi AP web service is stopped then start the web service using &#39;app start wifiWebAp&#39;
+
+3.  From a web browser on a laptop/desktop PC connected to CF3 USB port on the MangOH goto the following local URL which can be used to configure the MangOH WiFi interface (wlan0, wlan1) as an AP:
+        http://192.168.2.2:8080/
+
+**Summary**:  The attached script which can also be found on the MangOH GitHub web site can be used to configure the MangOH as a gateway.  
+
+For example, when I tested the script I wanted to create a gateway between the ethernet IoT slot (eth0) and the cellular interface (rmnet_data0).  After running the script I was able to connect my lap top to the ethernet port on the MangOH Red IoT slot and use the cellular interface (rmnet_data0) for internet access.
+
+[cfg_gateway.sh|attachment](upload://dHJQ8Tz33YyzUYh3U4hVlCwGuC2.sh) (8.3 KB)</description>
+    
+    <lastBuildDate>Sun, 03 Jan 2021 17:25:35 +0000</lastBuildDate>
+    <category>Wiki</category>
+    <atom:link href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[reinerkeilig]]></dc:creator>
+        <description><![CDATA[
+            <p>Thank you very much,<br>
+All is OK again<br>
+Reiner</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/63">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/63</link>
+        <pubDate>Sun, 03 Jan 2021 17:25:35 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-63</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I don’t see such problem</p>
+<p>You might do a factory reset in fw r12</p>
+<aside class="onebox allowlistedgeneric">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/252837692301bb53b7d4b8041901ad6486ced526.png" class="site-icon" width="32" height="32">
+      <a href="https://forum.legato.io/t/unable-to-erase-user1-partition/4750" target="_blank" rel="noopener nofollow ugc" title="09:27AM - 04 October 2019">Legato Forum – 4 Oct 19</a>
+  </header>
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/unable-to-erase-user1-partition/4750" target="_blank" rel="noopener nofollow ugc">Unable to erase USER1 partition</a></h3>
+
+<p>Hi,  I would like to erase the custom changes on my WP76 target, but I always get the failure code “callback status 59399” during the download process.  I’ve tried several ways, but, none with success:   DS 5.3.1 : Legato Target Recovery  - Option...</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/62">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/62</link>
+        <pubDate>Sun, 03 Jan 2021 15:29:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-62</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[reinerkeilig]]></dc:creator>
+        <description><![CDATA[
+            <p>I don’t think the problem is with my PC. The same thing can be observed on 2 other PCs. Under Windows 10, the IP address is 169.254.xxx.xxx. xxx is reassigned after every reboot. Before I used the script, I always had 192.168.2.3.</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/61">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/61</link>
+        <pubDate>Sun, 03 Jan 2021 14:16:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-61</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I don’t see problem,  mayby it  related to your PC</p>
+<aside class="quote quote-modified" data-post="20" data-topic="5370">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/wifi-not-coming-up-with-rmnet-enabled/5370/20">Wifi not coming up, with rmnet enabled</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-red/12"><span class="badge-category-bg" style="background-color: #DF1E2E;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-red">mangOH Red</span></a>
+  </div>
+  <blockquote>
+    I don’t see problem to have the DHCP on USB ECM port: 
+[8864798.502432] usb 3-6: Product: Sierra Wireless WP7607-1 
+[8864798.502438] usb 3-6: Manufacturer: Sierra Wireless, Incorporated 
+[8864798.502444] usb 3-6: SerialNumber: V284257032101004 
+[8864798.509630] GobiSerial 3-6:1.0: GobiSerial converter detected 
+[8864798.510011] usb 3-6: GobiSerial converter now attached to ttyUSB0 
+[8864798.510739] GobiSerial 3-6:1.2: GobiSerial converter detected 
+[8864798.510986] usb 3-6: GobiSerial converter …
+  </blockquote>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/60">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/60</link>
+        <pubDate>Sun, 03 Jan 2021 11:43:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-60</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[reinerkeilig]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-username="jyijyi" data-post="58" data-topic="1241">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar"> jyijyi:</div>
+<blockquote>
+<p>sudo dhclient</p>
+</blockquote>
+</aside>
+<p>without mangOH Red with WP7607<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/248d23b9a4454419c4966aaefdedbc5bfc9a684c.png" data-download-href="/uploads/short-url/5dlzTNaLBuA5EkWjpdDUSyEfoaU.png?dl=1" title="Bildschirmfoto von 2021-01-03 11-28-05" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/248d23b9a4454419c4966aaefdedbc5bfc9a684c_2_690x486.png" alt="Bildschirmfoto von 2021-01-03 11-28-05" data-base62-sha1="5dlzTNaLBuA5EkWjpdDUSyEfoaU" width="690" height="486" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/248d23b9a4454419c4966aaefdedbc5bfc9a684c_2_690x486.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/248d23b9a4454419c4966aaefdedbc5bfc9a684c_2_1035x729.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/248d23b9a4454419c4966aaefdedbc5bfc9a684c_2_1380x972.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/248d23b9a4454419c4966aaefdedbc5bfc9a684c_2_10x10.png"></a></div><p></p>
+<p>after connecting the mangOH Red to the USB<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/811a9e29724356ba73174d26ac240677561c4548.png" data-download-href="/uploads/short-url/iq6CzmP9uk2qXFUYt53VeMeQcwo.png?dl=1" title="Bildschirmfoto von 2021-01-03 11-44-06" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/8/811a9e29724356ba73174d26ac240677561c4548_2_541x500.png" alt="Bildschirmfoto von 2021-01-03 11-44-06" data-base62-sha1="iq6CzmP9uk2qXFUYt53VeMeQcwo" width="541" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/8/811a9e29724356ba73174d26ac240677561c4548_2_541x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/8/811a9e29724356ba73174d26ac240677561c4548_2_811x750.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/8/811a9e29724356ba73174d26ac240677561c4548_2_1082x1000.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/8/811a9e29724356ba73174d26ac240677561c4548_2_10x10.png"></a></div><p></p>
+<p>“sudo dhclient xxxx” nothing happens, after about 2min I aborted with ^C<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/5b93f5bd4227d2d5750d954225e2804523bf71e2.png" data-download-href="/uploads/short-url/d48s3jAFIrJUcy8qKlCLqiWOyau.png?dl=1" title="Bildschirmfoto von 2021-01-03 11-48-52" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/5b93f5bd4227d2d5750d954225e2804523bf71e2_2_621x500.png" alt="Bildschirmfoto von 2021-01-03 11-48-52" data-base62-sha1="d48s3jAFIrJUcy8qKlCLqiWOyau" width="621" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/5b93f5bd4227d2d5750d954225e2804523bf71e2_2_621x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/5b93f5bd4227d2d5750d954225e2804523bf71e2_2_931x750.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/5b93f5bd4227d2d5750d954225e2804523bf71e2_2_1242x1000.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/5b93f5bd4227d2d5750d954225e2804523bf71e2_2_10x10.png"></a></div><p></p>
+<p>after “sudo ifconfig enxfeb179cef435 192.168.2.3” it works again until I reboot the mangOH Red, I am confused <img src="https://emoji.discourse-cdn.com/twitter/confused.png?v=9" title=":confused:" class="emoji" alt=":confused:"><br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/6/6adc3bd12aa97cb93f5f426dc03eabe96e3470c9.png" data-download-href="/uploads/short-url/ffksxqtOkzVTblkZxHveBiIBaRP.png?dl=1" title="Bildschirmfoto von 2021-01-03 12-08-06" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/6/6adc3bd12aa97cb93f5f426dc03eabe96e3470c9_2_690x224.png" alt="Bildschirmfoto von 2021-01-03 12-08-06" data-base62-sha1="ffksxqtOkzVTblkZxHveBiIBaRP" width="690" height="224" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/6/6adc3bd12aa97cb93f5f426dc03eabe96e3470c9_2_690x224.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/6/6adc3bd12aa97cb93f5f426dc03eabe96e3470c9_2_1035x336.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/6/6adc3bd12aa97cb93f5f426dc03eabe96e3470c9_2_1380x448.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/6/6adc3bd12aa97cb93f5f426dc03eabe96e3470c9_2_10x10.png"></a></div><p></p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/f/ff23650c53774c4603e91cc67c428e031fa2eaf1.png" data-download-href="/uploads/short-url/Ap3Arvq8JygmT2Uwck7zHebmEEx.png?dl=1" title="Bildschirmfoto von 2021-01-03 12-13-40" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/ff23650c53774c4603e91cc67c428e031fa2eaf1_2_635x500.png" alt="Bildschirmfoto von 2021-01-03 12-13-40" data-base62-sha1="Ap3Arvq8JygmT2Uwck7zHebmEEx" width="635" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/ff23650c53774c4603e91cc67c428e031fa2eaf1_2_635x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/ff23650c53774c4603e91cc67c428e031fa2eaf1_2_952x750.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/ff23650c53774c4603e91cc67c428e031fa2eaf1_2_1270x1000.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/ff23650c53774c4603e91cc67c428e031fa2eaf1_2_10x10.png"></a></div><p></p>
+<p>reboot<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/f/ffd3ff9220528c191ca63787d72a724e97d1eebc.png" data-download-href="/uploads/short-url/Av9XtsKoJNhUFYrM5BX1xI5VVW4.png?dl=1" title="Bildschirmfoto von 2021-01-03 12-15-30" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/ffd3ff9220528c191ca63787d72a724e97d1eebc_2_632x500.png" alt="Bildschirmfoto von 2021-01-03 12-15-30" data-base62-sha1="Av9XtsKoJNhUFYrM5BX1xI5VVW4" width="632" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/ffd3ff9220528c191ca63787d72a724e97d1eebc_2_632x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/ffd3ff9220528c191ca63787d72a724e97d1eebc_2_948x750.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/ffd3ff9220528c191ca63787d72a724e97d1eebc_2_1264x1000.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/ffd3ff9220528c191ca63787d72a724e97d1eebc_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/59">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/59</link>
+        <pubDate>Sun, 03 Jan 2021 11:16:32 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-59</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>How about “sudo dhclient xxxxx”</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/58">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/58</link>
+        <pubDate>Sun, 03 Jan 2021 02:51:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-58</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[reinerkeilig]]></dc:creator>
+        <description><![CDATA[
+            <p>Yes, the network manager is enabled</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/57">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/57</link>
+        <pubDate>Sat, 02 Jan 2021 18:21:11 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-57</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Have you enabled network manager in your ubuntu?</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/56">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/56</link>
+        <pubDate>Fri, 01 Jan 2021 22:35:58 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-56</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[reinerkeilig]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-username="jyijyi" data-post="27" data-topic="1241" data-full="true">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar"> jyijyi:</div>
+<blockquote>
+<p>These lines show the ECM interface is established:<br>
+[ 7475.181577] cdc_ether 1-3:1.19 usb0: register ‘cdc_ether’ at usb-0000:00:14.0-3, CDC Ethernet Device, 8e:1e:1c:fd:c9:c7</p>
+<p>[ 7475.215951] cdc_ether 1-3:1.19 enp0s20f0u3i19: renamed from usb0</p>
+<p>you can try:<br>
+sudo ifconfig enp0s20f0u3i19 up<br>
+sudo ifconfig enp0s20f0u3i19 192.168.2.3<br>
+ping 192.168.2.2</p>
+</blockquote>
+</aside>
+<p>After trying to run the script I also have the problem that 192.168.2.2 is not reachable.<br>
+After running sudo ifconfig xxxxx up and sudo ifconfig xxxxx 192.168.2.3 it works again.</p>
+<p>Unfortunately after every reset the problem is present again.</p>
+<p>dconf reset -f / I have also tried, unfortunately without success</p>
+<p>Does anyone else have an idea?<br>
+Thanks Reiner</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/55">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/55</link>
+        <pubDate>Fri, 01 Jan 2021 21:10:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-55</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Worth to givea try,</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/53">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/53</link>
+        <pubDate>Fri, 21 Aug 2020 14:32:00 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-53</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[christopheradams1]]></dc:creator>
+        <description><![CDATA[
+            <p>interesting. the FW revision I am using is rev. 13. should i be using rev 9?</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/52">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/52</link>
+        <pubDate>Fri, 21 Aug 2020 13:27:15 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-52</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I can see this file in my WP77 module FW R9.<br>
+root@fx30:~# ls /usr/bin/dns*<br>
+/usr/bin/dnsmasq</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/51">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/51</link>
+        <pubDate>Fri, 21 Aug 2020 01:24:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-51</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[christopheradams1]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/jyijyi">@jyijyi</a><br>
+I tried using the cfg_gateway.sh file but the APN is not compatible with my network service provider. I did not get a Flush iptables failed error this time however I am getting a new error</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/80f7804aae6839986e5a3a9dc56388dab77d3d4f.png" data-download-href="/uploads/short-url/ioTnRNyhTjZaVm4M3LFan1tsMgv.png?dl=1" title="Screenshot from 2020-08-20 14-44-00" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/8/80f7804aae6839986e5a3a9dc56388dab77d3d4f_2_690x472.png" alt="Screenshot from 2020-08-20 14-44-00" data-base62-sha1="ioTnRNyhTjZaVm4M3LFan1tsMgv" width="690" height="472" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/8/80f7804aae6839986e5a3a9dc56388dab77d3d4f_2_690x472.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/80f7804aae6839986e5a3a9dc56388dab77d3d4f.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/80f7804aae6839986e5a3a9dc56388dab77d3d4f.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/8/80f7804aae6839986e5a3a9dc56388dab77d3d4f_2_10x10.png"></a></div><br>
+I checked and this file is actually in the /usr/Sbin/ folder<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/8f0c0729554c53c1cb446a017e4df8a76ad38c9e.png" data-download-href="/uploads/short-url/kps2YRl3jzBjjcEBePK6T24Z8jc.png?dl=1" title="Screenshot from 2020-08-20 14-48-43" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/8/8f0c0729554c53c1cb446a017e4df8a76ad38c9e_2_690x50.png" alt="Screenshot from 2020-08-20 14-48-43" data-base62-sha1="kps2YRl3jzBjjcEBePK6T24Z8jc" width="690" height="50" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/8/8f0c0729554c53c1cb446a017e4df8a76ad38c9e_2_690x50.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/8f0c0729554c53c1cb446a017e4df8a76ad38c9e.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/8f0c0729554c53c1cb446a017e4df8a76ad38c9e.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/8/8f0c0729554c53c1cb446a017e4df8a76ad38c9e_2_10x10.png"></a></div><br>
+I tried moving it to the /usr/bin folder however it says its a read-only file system<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/51b3509d8ef6d946dbe3dc62e47d6e173e892733.png" data-download-href="/uploads/short-url/bEKR2BA9JCNL0dNydZpfyH16EFB.png?dl=1" title="Screenshot from 2020-08-20 14-50-02" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/51b3509d8ef6d946dbe3dc62e47d6e173e892733_2_690x67.png" alt="Screenshot from 2020-08-20 14-50-02" data-base62-sha1="bEKR2BA9JCNL0dNydZpfyH16EFB" width="690" height="67" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/51b3509d8ef6d946dbe3dc62e47d6e173e892733_2_690x67.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/51b3509d8ef6d946dbe3dc62e47d6e173e892733.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/51b3509d8ef6d946dbe3dc62e47d6e173e892733.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/51b3509d8ef6d946dbe3dc62e47d6e173e892733_2_10x10.png"></a></div><br>
+I then tried to change the directory in the cfg_gateway.sh file as such<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/f/fa61f514c12e4e7b6cafb002096a084e2b75af44.png" data-download-href="/uploads/short-url/zIZeTzew1i2r3S980L3D962Ryy8.png?dl=1" title="Screenshot from 2020-08-20 14-58-29" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/fa61f514c12e4e7b6cafb002096a084e2b75af44_2_690x115.png" alt="Screenshot from 2020-08-20 14-58-29" data-base62-sha1="zIZeTzew1i2r3S980L3D962Ryy8" width="690" height="115" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/fa61f514c12e4e7b6cafb002096a084e2b75af44_2_690x115.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/f/fa61f514c12e4e7b6cafb002096a084e2b75af44.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/f/fa61f514c12e4e7b6cafb002096a084e2b75af44.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/fa61f514c12e4e7b6cafb002096a084e2b75af44_2_10x10.png"></a></div><br>
+and re-ran ./cfg_gateway.sh and now it is unable to find the LAN IP Address<br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/75a0aa11eb00525e11baa85f9e1ab4ce9e9c28d1.png" alt="Screenshot from 2020-08-20 14-59-24" data-base62-sha1="gMA5jNh63HOLJz8OvGBNlVnXMAx" width="551" height="397"><p></p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/50">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/50</link>
+        <pubDate>Thu, 20 Aug 2020 19:59:55 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-50</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>seems you solved the eth0 problem.<br>
+I have no idea about your “No chain/target/match by that name”.<br>
+Here is my script, you can give a try.<a class="attachment" href="https://forum.mangoh.io/uploads/short-url/7LqB93zZRWDNvUXnJhZkLKpIxah.sh">cfg_gateway.sh</a> (8.2 KB)</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/49">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/49</link>
+        <pubDate>Wed, 19 Aug 2020 03:01:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-49</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[christopheradams1]]></dc:creator>
+        <description><![CDATA[
+            <p>Here is my output, I see that you have an APN of hkcsl and I have one of <a href="http://internet.sierrawireless.com" rel="nofollow noopener">internet.sierrawireless.com</a> after I set the apn to the default it does its own thing then fails to flush iptables, it says no chain/target to match by that name?</p>
+<p>root@swi-mdm9x28-wp:~# cd /tmp<br>
+root@swi-mdm9x28-wp:/tmp# ls -l<br>
+-rwxr–r--    1 root     root          8495 Aug 18 21:40 cfg_gateway.sh<br>
+-rw-r–r--    1 root     root           237 Aug 18 19:43 hosts<br>
+-rw-r–r--    1 root     root         13757 Aug 18 19:43 ld.so.cache<br>
+-rw-r–r--    1 root     root            28 Aug 18 19:43 ld.so.conf<br>
+drwx-----x    2 root     root           120 Jan  5  1980 legato<br>
+drwxrwxrwx    2 root     root            60 Jan  5  1980 legato_logs<br>
+drwx------    2 root     root            80 Jan  5  1980 pkgdwl<br>
+drw-r–r--    2 root     root            60 Aug 18 19:43 psm_socket<br>
+srwx------    1 root     root             0 Jan  5  1980 sock0<br>
+srwxr-xr-x    1 root     root             0 Jan  5  1980 thermal_engi_ipc<br>
+-rw-r–r--    1 root     root             0 Aug 18 21:43 tmpfdbtable.txt<br>
+root@swi-mdm9x28-wp:/tmp# ./cfg_gateway.sh<br>
+mangOH gateway configuration<br>
+Enter WAN (cellular) interface (default: rmnet_data0): rmnet_data0<br>
+WAN interface rmnet_data0<br>
+Enter LAN interface (default: eth0): eth0<br>
+LAN interface eth0<br>
+Enter LAN IP (default: 192.168.20.1): 192.168.20.1<br>
+IP address (192.168.20.1)<br>
+Enter LAN Net Mask (default: 255.255.255.0): 255.255.255.0<br>
+net mask (255.255.255.0)<br>
+Mounting LAN interface ‘eth0’ IP: ‘192.168.20.1’, net mask: ‘255.255.255.0’<br>
+Check SIM inserted…<br>
+SIM card is inserted and unlocked (LE_SIM_READY).</p>
+<p>Mounting the relay interface ‘rmnet_data0’…<br>
+Enabling the radio on ‘rmnet_data0’…<br>
+Radio power is already set to ON.<br>
+Enter APN (default: <a href="http://internet.sierrawireless.com" rel="nofollow noopener">internet.sierrawireless.com</a>): <a href="http://internet.sierrawireless.com" rel="nofollow noopener">internet.sierrawireless.com</a><br>
+Enabling the data connection on ‘rmnet_data0’ using APN ‘<a href="http://internet.sierrawireless.com" rel="nofollow noopener">internet.sierrawireless.com</a>’…<br>
+Setting up profile 1<br>
+Connecting … Waiting for data connection on ‘rmnet_data0’…<br>
+Relay interface ‘rmnet_data0’ IP address is ‘100.71.124.148’<br>
+ok<br>
+Checking if device ‘rmnet_data0’ is up … ok<br>
+Routing inet … ok<br>
+Updating /etc/resolv.conf … ok<br>
+Updating /etc/resolv.conf … ok<br>
+Testing connection … Cleaning IP tables…<br>
+iptables: No chain/target/match by that name.<br>
+Flush iptables failed<br>
+root@swi-mdm9x28-wp:/tmp#</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/48">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/48</link>
+        <pubDate>Wed, 19 Aug 2020 02:50:33 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-48</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I don’t think so,  but you can give a try</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/47">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/47</link>
+        <pubDate>Wed, 19 Aug 2020 02:36:32 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-47</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[christopheradams1]]></dc:creator>
+        <description><![CDATA[
+            <p>I see that you access cfg_gateway.sh from the main directory of your root device. I have this file placed in the /tmp folder, should this be in the main directory like yours?</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/46">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/46</link>
+        <pubDate>Wed, 19 Aug 2020 02:32:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-46</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>no idea as i don’t see problem:</p>
+<hr>
+<p>root@swi-mdm9x28-wp:~# echo 2 &gt; /sys/class/gpio/export<br>
+root@swi-mdm9x28-wp:~# echo out &gt; /sys/class/gpio/gpio2/direction<br>
+root@swi-mdm9x28-wp:~# echo 1 &gt; /sys/class/gpio/gpio2/value<br>
+root@swi-mdm9x28-wp:~# ./cfg_gateway.sh<br>
+MangOH gateway configuration<br>
+Enter WAN (cellular) interface (default: rmnet_data0): WAN interface rmnet_data0<br>
+Enter LAN interface (default: eth0):</p>
+<p>LAN interface eth0<br>
+Enter LAN IP (default: 192.168.20.1): IP address (192.168.20.1)<br>
+Enter LAN Net Mask (default: 255.255.255.0):</p>
+<p>net mask (255.255.255.0)<br>
+Mounting LAN interface ‘eth0’ IP: ‘192.168.20.1’, net mask: ‘255.255.255.0’<br>
+Check SIM inserted…<br>
+SIM card is inserted and unlocked (LE_SIM_READY).</p>
+<p>Mounting the relay interface ‘rmnet_data0’…<br>
+Enabling the radio on ‘rmnet_data0’…<br>
+Radio power is already set to ON.<br>
+Enter APN (default: hkcsl): Enabling the data connection on ‘rmnet_data0’ using APN ‘hkcsl’…<br>
+Could not set APN ‘hkcsl’ for profile 1.<br>
+Maybe the profile is connectedCould not set PDP ‘IPV4’ for profile 1.<br>
+Maybe the profile is connectedChecking if device ‘rmnet_data0’ is up … ok<br>
+Routing inet … ok<br>
+mv: can’t remove ‘/etc/resolv.conf’: Device or resource busy<br>
+Testing connection … ok<br>
+Waiting for data connection on ‘rmnet_data0’…<br>
+Relay interface ‘rmnet_data0’ IP address is ‘10.102.45.194’<br>
+Cleaning IP tables…<br>
+Enabling IP forwarding…<br>
+net.ipv4.ip_forward = 1<br>
+Configuring the NAT…<br>
+Configure DHCP server (Y/n): Y</p>
+<p>Enter start IP (default: 192.168.20.10): IP address (192.168.20.10)<br>
+Enter end IP (default: 192.168.20.100):</p>
+<p>IP address (192.168.20.100)<br>
+Reconfiguring the DHCP server…<br>
+stopping DNS forwarder and DHCP server: dnsmasq… stopped /usr/bin/dnsmasq (pid 1334)<br>
+done.<br>
+Generating the configuration file ‘/tmp/dnsmasq.eth0.conf’ for the DHCP server…<br>
+Restarting the DHCP server…<br>
+starting DNS forwarder and DHCP server: dnsmasq… done.<br>
+MangOH gateway configuration completed<br>
+root@swi-mdm9x28-wp:~#<br>
+root@swi-mdm9x28-wp:~# ping 192.168.20.58<br>
+PING 192.168.20.58 (192.168.20.58): 56 data bytes<br>
+64 bytes from 192.168.20.58: seq=0 ttl=64 time=2.015 ms<br>
+64 bytes from 192.168.20.58: seq=1 ttl=64 time=1.778 ms<br>
+64 bytes from 192.168.20.58: seq=2 ttl=64 time=1.765 ms<br>
+^C<br>
+— 192.168.20.58 ping statistics —<br>
+3 packets transmitted, 3 packets received, 0% packet loss<br>
+round-trip min/avg/max = 1.765/1.852/2.015 ms</p>
+<hr>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/45">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/45</link>
+        <pubDate>Wed, 19 Aug 2020 01:26:57 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-45</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[christopheradams1]]></dc:creator>
+        <description><![CDATA[
+            <p>I think if I modify the LAN configuration per the steps above when running cfg_gateway.sh I may be able to fix the ssh issue (not sure just speculation). So I started to run it as normal and ran into this issue where it tries to bring up LAN eth0 and fails<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/da8768f083448843936faea4642bc29b922a60ad.png" data-download-href="/uploads/short-url/vbccAeex6KmO6vsgkWvVCI63Ayp.png?dl=1" title="Screenshot from 2020-08-18 16-19-49" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/da8768f083448843936faea4642bc29b922a60ad_2_690x421.png" alt="Screenshot from 2020-08-18 16-19-49" data-base62-sha1="vbccAeex6KmO6vsgkWvVCI63Ayp" width="690" height="421" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/da8768f083448843936faea4642bc29b922a60ad_2_690x421.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/da8768f083448843936faea4642bc29b922a60ad.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/da8768f083448843936faea4642bc29b922a60ad.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/da8768f083448843936faea4642bc29b922a60ad_2_10x10.png"></a></div><br>
+Why could this be?<p></p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/44">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/44</link>
+        <pubDate>Tue, 18 Aug 2020 21:20:46 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-44</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[christopheradams1]]></dc:creator>
+        <description><![CDATA[
+            <p>I tried re running</p>
+<p>sudo ifconfig commands you mentioned before<br>
+and got it to ssh into mangoh red<br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/f/fc24a15c946bf17e362c5cfea1398ed50954d8c0.png" alt="Screenshot from 2020-08-18 13-45-25" data-base62-sha1="zYyNLnQfwuTsd4IcXroDTgaUMIU" width="625" height="128"></p>
+<p>but why is this necessary, is there anyway I can fix the naming or reassign it its default IP address, so that I do not have to take extra steps to talk to it?</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/42">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/42</link>
+        <pubDate>Tue, 18 Aug 2020 18:47:08 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-42</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[christopheradams1]]></dc:creator>
+        <description><![CDATA[
+            <p>I disabled modem manager using several different commands</p>
+<p>sudo apt-get remove -y modemmanager<br>
+systemctl disable ModemManager.service<br>
+systemctl stop ModemManager.service<br>
+sudo apt-get purge modemmanager</p>
+<p>It appears that is disabled, however ssh is still not working. I can’t seem to find any answer in the forums</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/41">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/41</link>
+        <pubDate>Tue, 18 Aug 2020 16:00:18 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-41</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>probably this is caused by the network manager or modem manager of your Linux PC.<br>
+You can try to disable them.</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/40">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/40</link>
+        <pubDate>Tue, 18 Aug 2020 14:42:42 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-40</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[christopheradams1]]></dc:creator>
+        <description><![CDATA[
+            <p>i guess there is not one, there is only a reset button, and an audio port on either side of the USB connector.</p>
+<p>I tried to re-ssh into the mangoh this morning and it is having the same problem again. I thought the OS reset helped restore the pc’s default settings, but I guess not. for some reason it started working earlier now its doing the same thing, not connecting, PC is not seeing the mangoh red.</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/39">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/39</link>
+        <pubDate>Tue, 18 Aug 2020 13:50:34 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-39</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>CN305 is the UART console, it is just beside the CN304 USB connector.</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/38">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/38</link>
+        <pubDate>Tue, 18 Aug 2020 09:16:25 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-38</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+      <item>
+        <title>Setting up MangOH Red as Router to Cellular Gateway</title>
+        <dc:creator><![CDATA[christopheradams1]]></dc:creator>
+        <description><![CDATA[
+            <p>I do not see CN305, I checked the schematic and it is not listed there either. I do have CN304 which is the USB host</p>
+          <p><a href="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/37">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241/37</link>
+        <pubDate>Tue, 18 Aug 2020 08:58:02 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1241-37</guid>
+        <source url="https://forum.mangoh.io/t/setting-up-mangoh-red-as-router-to-cellular-gateway/1241.rss">Setting up MangOH Red as Router to Cellular Gateway</source>
+      </item>
+  </channel>
+</rss>

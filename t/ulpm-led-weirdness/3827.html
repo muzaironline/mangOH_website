@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>ULPM LED weirdness - mangOH Yellow - mangOH forum</title>
+    <meta name="description" content="Hey everyone, 
+I’ve been playing around with ultra low power mode on the mangOH Yellow and have noticed some strange behaviors. I’m trying to troubleshoot an issue with a custom IoT module and I found these weird symptom&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;ULPM LED weirdness&#39;" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/ulpm-led-weirdness/3827" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/ulpm-led-weirdness/3827" />
+<meta property="og:title" content="ULPM LED weirdness" />
+<meta name="twitter:title" content="ULPM LED weirdness" />
+<meta property="og:description" content="Hey everyone,  I’ve been playing around with ultra low power mode on the mangOH Yellow and have noticed some strange behaviors. I’m trying to troubleshoot an issue with a custom IoT module and I found these weird symptoms. I was wondering if anyone has any ideas what’s going on here.  Without any IoT card inserted – if you touch the mangOH Yellow in the area near the power switch when it’s in ULPM, the power light blips on 3 times in approximately 1 second intervals. It looks like VCC_5V0 is try..." />
+<meta name="twitter:description" content="Hey everyone,  I’ve been playing around with ultra low power mode on the mangOH Yellow and have noticed some strange behaviors. I’m trying to troubleshoot an issue with a custom IoT module and I found these weird symptoms. I was wondering if anyone has any ideas what’s going on here.  Without any IoT card inserted – if you touch the mangOH Yellow in the area near the power switch when it’s in ULPM, the power light blips on 3 times in approximately 1 second intervals. It looks like VCC_5V0 is try..." />
+<meta property="og:article:section" content="mangOH Yellow" />
+<meta property="og:article:section:color" content="F1C900" />
+<meta property="article:published_time" content="2020-02-21T23:22:22+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"ULPM LED weirdness","mainEntity":{"@type":"Question","name":"ULPM LED weirdness","text":"Hey everyone,\n\nI’ve been playing around with ultra low power mode on the mangOH Yellow and have noticed some strange behaviors. I’m trying to troubleshoot an issue with a custom IoT module and I found these weird symptoms. I was wondering if anyone has any ideas what’s going on here.\n\nWithout any Io&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2020-02-21T23:22:22.602Z","author":{"@type":"Person","name":"Doug Brown"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/ulpm-led-weirdness/3827">ULPM LED weirdness</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-yellow/15" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #F1C900'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Yellow</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='ULPM LED weirdness'>
+        <meta itemprop='articleSection' content='mangOH Yellow'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dougbrown'><span itemprop='name'>dougbrown</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-02-21T23:22:22Z' class='post-time'>
+                    February 21, 2020, 11:22pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-02-21T23:22:22Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hey everyone,</p>
+<p>I’ve been playing around with ultra low power mode on the mangOH Yellow and have noticed some strange behaviors. I’m trying to troubleshoot an issue with a custom IoT module and I found these weird symptoms. I was wondering if anyone has any ideas what’s going on here.</p>
+<p>Without any IoT card inserted – if you touch the mangOH Yellow in the area near the power switch when it’s in ULPM, the power light blips on 3 times in approximately 1 second intervals. It looks like VCC_5V0 is trying to turn itself back on?</p>
+<p>With the custom IoT card inserted – sometimes the LEDs on the mangOH Yellow board stay on after it enters ULPM. It looks like maybe VCC_5V0_EN is floating or something? I noticed that enable line ends up going directly to a GPIO pin on the WP7702. Does the WP7702 maintain the GPIO output states when it’s in ULPM? I couldn’t find a good answer to that question in the product specification document.</p>
+<p>Thanks for any ideas,<br>
+Doug</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-02-21T23:25:25Z' class='post-time'>
+                    February 21, 2020, 11:25pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-02-21T23:25:25Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Did you modify your board in anyway?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dougbrown'><span itemprop='name'>dougbrown</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-02-21T23:34:23Z' class='post-time'>
+                    February 21, 2020, 11:34pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-02-21T23:40:32Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I moved R607 to R608 to enable ADC3 on the IoT connector. I also moved R601 to R600 so I can supply USB_VBUS through the IoT card instead of the USB port.</p>
+<p>Adding an external 1M pulldown on VCC_5V0_EN seems to somewhat help (seems to fix the LEDs staying on in ULPM, but doesn’t completely stop the blips when touching), but I’m not sure if there is a valid reason to be adding that or not…</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-02-22T22:33:04Z' class='post-time'>
+                    February 22, 2020, 10:33pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-02-22T22:33:04Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Is any part of your iot card touching the yellow board? Maybe the SIM/SD card connector.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dougbrown'><span itemprop='name'>dougbrown</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-02-24T17:56:01Z' class='post-time'>
+                    February 24, 2020,  5:56pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-02-24T17:56:01Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>No, nothing is touching. As far as I know, we completely followed the IoT card spec requirements. We don’t have any components on the bottom of the board.</p>
+<p>Is GPIO41 going to maintain its state keeping BUCK_CONV_EN low when the WP7702 goes into ULPM? It looks like BUCK_CONV_EN is floating in ULPM and allowing the 5V rail to sometimes turn on. Maybe I’m missing something? I can’t find anything in the datasheet saying what the GPIOs do when you enter ULPM.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-02-24T19:57:58Z' class='post-time'>
+                    February 24, 2020,  7:57pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-02-24T19:57:58Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>sounds like it is floating…I’ll need to check,</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dougbrown'><span itemprop='name'>dougbrown</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-09T23:16:32Z' class='post-time'>
+                    March 9, 2020, 11:16pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-09T23:16:32Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/asyal">@asyal</a> Have you had a chance to look at this any more? At first glance it seems like it would have to be a problem caused by my IoT card, but all of my diagnostics point to the 5V rail being allowed to stay on when it shouldn’t</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dougbrown'><span itemprop='name'>dougbrown</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-16T22:24:01Z' class='post-time'>
+                    March 16, 2020, 10:24pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-16T22:24:01Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/asyal">@asyal</a> Any updates? This is a pretty big deal for us, I’m kind of scared of putting our stuff in the field knowing that the battery is draining faster than it should</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-16T23:15:59Z' class='post-time'>
+                    March 16, 2020, 11:15pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-16T23:15:59Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>It’s floating.<br>
+Can you  DNI BUCK_CONV_EN  resistor R904? System should work seamlessly without it being present.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dougbrown'><span itemprop='name'>dougbrown</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-17T05:38:03Z' class='post-time'>
+                    March 17, 2020,  5:38am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-17T05:38:03Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/asyal">@asyal</a>,</p>
+<p>Thanks for your response. I just removed R904. The system still works fine, but the LEDs are still staying on when it goes into ULPM. Any other ideas to try?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-17T05:50:52Z' class='post-time'>
+                    March 17, 2020,  5:50am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-17T05:50:52Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>what particular LED is staying on in ULPM? We dont see any LED on in ULPM.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dougbrown'><span itemprop='name'>dougbrown</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-17T14:43:21Z' class='post-time'>
+                    March 17, 2020,  2:43pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-17T14:43:21Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>All 3 of the LEDs stay lit up (which is really more than 3 because they are multi-color):</p>
+<ul>
+<li>D401 is yellow I believe</li>
+<li>D402 is on</li>
+<li>D500 is white</li>
+</ul>
+<p>The only logical conclusion I can reach is that VCC_5V0 is still turned on</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-18T03:21:37Z' class='post-time'>
+                    March 18, 2020,  3:21am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-18T03:21:37Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <aside class="quote no-group" data-username="dougbrown" data-post="12" data-topic="3827">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/dougbrown/40/1020_2.png" class="avatar"> dougbrown:</div>
+<blockquote>
+<p>The only logical conclusion I can reach is that VCC_5V0 is still turned on</p>
+</blockquote>
+</aside>
+<p>We dont get that on any of our units. It seems the mod you made introduces the problem.<br>
+Can you double/triple check your R600/R601 mod?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dougbrown'><span itemprop='name'>dougbrown</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/7a9c8fd847e0fca9e9291f11985e9d2d9eb180c0.jpeg">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-18T15:18:25Z' class='post-time'>
+                    March 18, 2020,  3:18pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-18T15:18:25Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/asyal">@asyal</a>, I really appreciate you looking into this. I just don’t know what to do next. I triple checked all of our mods (R601 -&gt; R600, R607 -&gt; R608, remove R904) and took pictures as I checked them. Obviously we also remove the jumper on CN801. Earlier I talked about adding a 1M pulldown that seemed to help, but that was on a different board so I’m working on a fresh one now without that mod.</p>
+<p>Here are the pictures to verify that we did the correct mods:</p>
+<p>R601 -&gt; R600:<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/7a9c8fd847e0fca9e9291f11985e9d2d9eb180c0.jpeg" data-download-href="/uploads/short-url/huFGoaaKVbaujgm1kkZWGp8orxS.jpeg?dl=1" title="R601_R600" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7a9c8fd847e0fca9e9291f11985e9d2d9eb180c0_2_690x388.jpeg" alt="R601_R600" data-base62-sha1="huFGoaaKVbaujgm1kkZWGp8orxS" width="690" height="388" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7a9c8fd847e0fca9e9291f11985e9d2d9eb180c0_2_690x388.jpeg, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7a9c8fd847e0fca9e9291f11985e9d2d9eb180c0_2_1035x582.jpeg 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7a9c8fd847e0fca9e9291f11985e9d2d9eb180c0_2_1380x776.jpeg 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7a9c8fd847e0fca9e9291f11985e9d2d9eb180c0_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">R601_R600</span><span class="informations">1920×1080 479 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>R607 -&gt; R608:<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/749689ac9ebfcd939758dd9d9f3fa67500db9295.jpeg" data-download-href="/uploads/short-url/gDnUySFSmhzrVVXlO5UeomcnzUN.jpeg?dl=1" title="R607_R608" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/749689ac9ebfcd939758dd9d9f3fa67500db9295_2_690x388.jpeg" alt="R607_R608" data-base62-sha1="gDnUySFSmhzrVVXlO5UeomcnzUN" width="690" height="388" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/749689ac9ebfcd939758dd9d9f3fa67500db9295_2_690x388.jpeg, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/749689ac9ebfcd939758dd9d9f3fa67500db9295_2_1035x582.jpeg 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/749689ac9ebfcd939758dd9d9f3fa67500db9295_2_1380x776.jpeg 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/749689ac9ebfcd939758dd9d9f3fa67500db9295_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">R607_R608</span><span class="informations">1920×1080 364 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>Removal of R904:<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/77c0a5501214dff190346d35a88bed8fa591f53a.jpeg" data-download-href="/uploads/short-url/h5nyKY36mXBUdDP0KcqKDX8zUaC.jpeg?dl=1" title="R904" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/77c0a5501214dff190346d35a88bed8fa591f53a_2_690x388.jpeg" alt="R904" data-base62-sha1="h5nyKY36mXBUdDP0KcqKDX8zUaC" width="690" height="388" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/77c0a5501214dff190346d35a88bed8fa591f53a_2_690x388.jpeg, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/77c0a5501214dff190346d35a88bed8fa591f53a_2_1035x582.jpeg 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/77c0a5501214dff190346d35a88bed8fa591f53a_2_1380x776.jpeg 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/77c0a5501214dff190346d35a88bed8fa591f53a_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">R904</span><span class="informations">1920×1080 328 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>Just tested again this morning, and the LEDs all stayed on when it went into ULPM. I can’t remember if I’ve mentioned it, but it’s running from a LiPo battery when this happens, if that’s relevant at all.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-18T15:54:39Z' class='post-time'>
+                    March 18, 2020,  3:54pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-18T15:54:39Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <aside class="quote no-group" data-username="dougbrown" data-post="14" data-topic="3827">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/dougbrown/40/1020_2.png" class="avatar"> dougbrown:</div>
+<blockquote>
+<p>Here are the pictures to verify that we did the correct mods:</p>
+</blockquote>
+</aside>
+<p>Do you have a fresh board?  Are you running stock firmware?<br>
+Can you measure VGPIO on R200 when its not in ULPM and when it is ULPM?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/johnofleek'><span itemprop='name'>johnofleek</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/719c660d954107397920c5e071b1cef5e3a99a5d.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-09-29T18:37:18Z' class='post-time'>
+                    September 29, 2022,  6:37pm
+                  </time>
+                  <meta itemprop='dateModified' content='2022-09-29T19:14:56Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Two years later I was experiencing similar more potentially damaging issues whilst attempting to reduce the 200mA Idle current drawn by the mangoh yellow - for interest the WP7702 idle is &gt;3mA</p>
+<p><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/719c660d954107397920c5e071b1cef5e3a99a5d.png" alt="image" data-base62-sha1="gd32h7rgZwfbMXKnOSFlAslvR4V" width="589" height="493"></p>
+<p>Turns out that my mangoh yellow has both R908 (supposed to be a NF) and R907 fitted</p>
+<p>Not a great combo if you also fit R909 - it connects 3V7 to 1v8 via a resistor</p>
+<p>Here’s the cct<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/1583c27335de708707d7e49f8fb30dfb91318fbb.png" data-download-href="/uploads/short-url/34kjRPVS9uv0Tw9ZIqv2mxFcMCT.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/1583c27335de708707d7e49f8fb30dfb91318fbb_2_487x499.png" alt="image" data-base62-sha1="34kjRPVS9uv0Tw9ZIqv2mxFcMCT" width="487" height="499" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/1583c27335de708707d7e49f8fb30dfb91318fbb_2_487x499.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/1583c27335de708707d7e49f8fb30dfb91318fbb.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/1583c27335de708707d7e49f8fb30dfb91318fbb.png 2x" data-dominant-color="FBF8FB"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use href="#far-image"></use></svg><span class="filename">image</span><span class="informations">669×686 27.3 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>Note that VGPIO is off if the WP is off - there is no way to POWER_ON_N the modem if U901 is OFF. and no way to connect something external to the WPs POWER_ON_N.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

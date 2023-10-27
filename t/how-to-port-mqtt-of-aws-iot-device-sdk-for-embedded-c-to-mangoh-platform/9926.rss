@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</title>
+    <link>https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926</link>
+    <description>I am trying to integrate MQTT stack of AWS IoT Device SDK into my mangOH red board.
+
+I downloaded latest SDK here:
+https://github.com/aws/aws-iot-device-sdk-embedded-C/releases/tag/202108.00
+
+and manage to make it work on local PC (Ubuntu 18.04 ) i.e. it can do mutual TLS authentication and simple MQTT publish to AWS IoT core cloud.
+
+However when I tried to port over to mangOH platform, I made some progress but was stuck at compilation error which seemed from openssl library integration, it could not find function which was defined in this inclusion:
+
+#include &lt;openssl/ssl.h&gt;
+
+This mean, this library was recognized locally by my local PC OS but not by legato (release 16 ver 19.11.2). This is the snippet of compilation error:
+
+&lt;project_base&gt;/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:247:17: error: implicit declaration of function &#39;SSL_set1_host&#39;; did you mean &#39;SSL_set_trust&#39;? [-Werror=implicit-function-declaration]
+     sslStatus = SSL_set1_host( pOpensslParams-&gt;pSsl, pServerInfo-&gt;pHostName );
+                 ^~~~~~~~~~~~~
+                 SSL_set_trust
+&lt;project_base&gt;/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c: In function &#39;setOptionalConfigurations&#39;:
+/home/iotlab0035x1804/repo/gatewayx/src/gateway/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:533:13: error: implicit declaration of function &#39;SSL_set_default_read_buffer_len&#39;; did you mean &#39;SSL_CTX_set_default_read_ahead&#39;? [-Werror=implicit-function-declaration]
+             SSL_set_default_read_buffer_len( pSsl, ( size_t ) readBufferLength );
+             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+             SSL_CTX_set_default_read_ahead
+&lt;project_base&gt;/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c: In function &#39;Openssl_Connect&#39;:
+&lt;project_base&gt;/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:625:36: error: implicit declaration of function &#39;TLS_client_method&#39;; did you mean &#39;DTLS_client_method&#39;? [-Werror=implicit-function-declaration]
+         pSslContext = SSL_CTX_new( TLS_client_method() );
+                                    ^~~~~~~~~~~~~~~~~
+                                    DTLS_client_method
+&lt;project_base&gt;/src/gateway/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:625:36: error: passing argument 1 of &#39;SSL_CTX_new&#39; makes pointer from integer without a cast [-Werror=int-conversion]
+In file included from &lt;project_base&gt;/src/gateway/cloud/aws/sdk/platform/posix/transport/include/openssl_posix.h:59:0,
+                 from &lt;project_base&gt;/gatewayx/src/gateway/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:35:
+&lt;project_base&gt;/gatewayx/leaf-data/r16/wp76-toolchain/sysroots/armv7a-neon-poky-linux-gnueabi/usr/include/openssl/ssl.h:2131:10: note: expected &#39;const SSL_METHOD * {aka const struct ssl_method_st *}&#39; but argument is of type &#39;int&#39;
+ SSL_CTX *SSL_CTX_new(const SSL_METHOD *meth);
+          ^~~~~~~~~~~
+
+This is snippet of my .cdef
+cxxflags: {
+    -std=c++1z
+    -DMQTT_DO_NOT_USE_CUSTOM_CONFIG
+    -DDISABLE_LOGGING
+    -DLIBRARY_LOG_LEVEL=LOG_NONE
+    -I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/include
+    -I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/
+    -I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/interface
+    -I$CURDIR/cloud/aws/sdk/platform/posix/transport/include
+    -I$CURDIR/cloud/aws/logging-stack
+    -I$CURDIR/cloud/aws/sdk/platform/include
+    -I$CURDIR/cloud/aws/sdk/platform/posix/transport/include
+}
+
+cflags: {
+    -std=c99
+    -DMQTT_DO_NOT_USE_CUSTOM_CONFIG
+    -DDISABLE_LOGGING
+    -DLIBRARY_LOG_LEVEL=LOG_NONE
+    -I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/include
+    -I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/
+    -I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/interface
+    -I$CURDIR/cloud/aws/sdk/platform/posix/transport/include
+    -I$CURDIR/cloud/aws/logging-stack
+    -I$CURDIR/cloud/aws/sdk/platform/include
+    -I$CURDIR/cloud/aws/sdk/platform/posix/transport/include
+}
+
+
+provides: {
+    api: {
+        ipcGateway = $CURDIR/../leipc/ipcGateway.api
+    }
+}
+
+sources: {
+    ...
+
+    // AWS MQTT library
+    $CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/core_mqtt.c
+    $CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/core_mqtt_state.c
+    $CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/core_mqtt_serializer.c
+
+    $CURDIR/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c
+    
+}</description>
+    
+    <lastBuildDate>Thu, 21 Apr 2022 04:41:20 +0000</lastBuildDate>
+    <category>Cloud &amp; Connectivity</category>
+    <atom:link href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Probably you need to wait for next release r17</p>
+<p>Or you can see here</p>
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.legato.io/t/integrating-aws-iot-alexa-with-wp76-upgrading-openssl/5902">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2f530449ddf3c5969c6d457cc62c7f403f2ae1d3.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/integrating-aws-iot-alexa-with-wp76-upgrading-openssl/5902" target="_blank" rel="noopener nofollow ugc" title="04:22PM - 22 July 2021">Legato Forum – 22 Jul 21</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/integrating-aws-iot-alexa-with-wp76-upgrading-openssl/5902" target="_blank" rel="noopener nofollow ugc">Integrating AWS IoT (Alexa) with WP76 | Upgrading OpenSSL</a></h3>
+
+  <p>Hello,  We are working with WP76xx and Legato 19.11.2 (the stable version from release 16). We would like to integrate it with AWS (Registration | AVS for AWS IoT) which requires  Curve25519.  Currently, the Linux Kernel prebuilt has OpenSSL version...</p>
+
+  <p>
+    <span class="label1">Reading time: 1 mins 🕑</span>
+      <span class="label2">Likes: 1 ❤</span>
+  </p>
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+<p>To include in .cdef file:</p>
+<aside class="quote" data-post="1" data-topic="9107">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/j/4da419/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/using-openssl-to-implement-cryptography/9107">Using Openssl to implement cryptography</a> 
+  </div>
+  <blockquote>
+    Hi, 
+I’m writing a program to transmit SMS message on WP7702, I would like  to encrypt the message before it is transmitted over the network. I wonder how can I use openssl lib on Legato? 
+sample code would be very helpful!! 
+Thanks
+  </blockquote>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/9</link>
+        <pubDate>Thu, 21 Apr 2022 04:41:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9926-9</guid>
+        <source url="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926.rss">How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</source>
+      </item>
+      <item>
+        <title>How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</title>
+        <dc:creator><![CDATA[babangparhusip]]></dc:creator>
+        <description><![CDATA[
+            <p>Ok, I read again AWS SDK, it needs openssl 1.1.0 or later.<br>
+This explains why the AWS SDK MQTT can’t be integrated to Legato release 16.</p>
+<p>How should I go about this? Any legato release includes updated openssl?</p>
+<p>If I were to add manually, how should I do it? How can I write the component def (i.e. cdef)</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/8</link>
+        <pubDate>Thu, 21 Apr 2022 03:29:13 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9926-8</guid>
+        <source url="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926.rss">How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</source>
+      </item>
+      <item>
+        <title>How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</title>
+        <dc:creator><![CDATA[babangparhusip]]></dc:creator>
+        <description><![CDATA[
+            <p>I see, the version is ssl 1.0.2 , the one associated with release 16:</p>
+<p>root@swi-mdm9x28-wp:~# openssl version<br>
+OpenSSL 1.0.2p  14 Aug 2018</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/7</link>
+        <pubDate>Thu, 21 Apr 2022 03:21:03 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9926-7</guid>
+        <source url="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926.rss">How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</source>
+      </item>
+      <item>
+        <title>How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Maybe only new version of ssl lib have that function</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/6</link>
+        <pubDate>Thu, 21 Apr 2022 02:39:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9926-6</guid>
+        <source url="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926.rss">How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</source>
+      </item>
+      <item>
+        <title>How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</title>
+        <dc:creator><![CDATA[babangparhusip]]></dc:creator>
+        <description><![CDATA[
+            <p>Why would ssl version matter? This is compile error.</p>
+<p>Thanks for the link, but not that relevant.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/5</link>
+        <pubDate>Thu, 21 Apr 2022 01:59:37 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9926-5</guid>
+        <source url="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926.rss">How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</source>
+      </item>
+      <item>
+        <title>How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p><a href="https://www.openssl.org/docs/manmaster/man3/SSL_set_default_read_buffer_len.html" class="onebox" target="_blank" rel="noopener nofollow ugc">https://www.openssl.org/docs/manmaster/man3/SSL_set_default_read_buffer_len.html</a></p>
+<p>what is your “openssl version” on module?</p>
+<p>You might also see here:</p><aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.legato.io/t/integrating-aws-iot-alexa-with-wp76-upgrading-openssl/5902">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2f530449ddf3c5969c6d457cc62c7f403f2ae1d3.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/integrating-aws-iot-alexa-with-wp76-upgrading-openssl/5902" target="_blank" rel="noopener nofollow ugc" title="04:22PM - 22 July 2021">Legato Forum – 22 Jul 21</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/integrating-aws-iot-alexa-with-wp76-upgrading-openssl/5902" target="_blank" rel="noopener nofollow ugc">Integrating AWS IoT (Alexa) with WP76 | Upgrading OpenSSL</a></h3>
+
+  <p>Hello,  We are working with WP76xx and Legato 19.11.2 (the stable version from release 16). We would like to integrate it with AWS (Registration | AVS for AWS IoT) which requires  Curve25519.  Currently, the Linux Kernel prebuilt has OpenSSL version...</p>
+
+  <p>
+    <span class="label1">Reading time: 1 mins 🕑</span>
+      <span class="label2">Likes: 1 ❤</span>
+  </p>
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/4</link>
+        <pubDate>Mon, 18 Apr 2022 03:46:48 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9926-4</guid>
+        <source url="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926.rss">How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</source>
+      </item>
+      <item>
+        <title>How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</title>
+        <dc:creator><![CDATA[babangparhusip]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks but It’s not.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/3</link>
+        <pubDate>Mon, 18 Apr 2022 03:32:06 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9926-3</guid>
+        <source url="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926.rss">How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</source>
+      </item>
+      <item>
+        <title>How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Is it same issue as this one?</p>
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.legato.io/t/running-azure-iot-sdk-c/5635/12">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2f530449ddf3c5969c6d457cc62c7f403f2ae1d3.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/running-azure-iot-sdk-c/5635/12" target="_blank" rel="noopener nofollow ugc" title="09:53AM - 16 May 2021">Legato Forum – 16 May 21</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/running-azure-iot-sdk-c/5635/12" target="_blank" rel="noopener nofollow ugc">Running Azure IoT sdk-c</a></h3>
+
+  <p>You can see here</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/2</link>
+        <pubDate>Mon, 18 Apr 2022 02:31:51 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9926-2</guid>
+        <source url="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926.rss">How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</source>
+      </item>
+      <item>
+        <title>How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</title>
+        <dc:creator><![CDATA[babangparhusip]]></dc:creator>
+        <description><![CDATA[
+            <p>I am trying to integrate MQTT stack of AWS IoT Device SDK into my mangOH red board.</p>
+<p>I downloaded latest SDK here:</p><aside class="onebox allowlistedgeneric" data-onebox-src="https://github.com/aws/aws-iot-device-sdk-embedded-C/releases/tag/202108.00">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/bad3e5f9ad67c1ddf145107ce7032ac1d7b22563.svg" class="site-icon" width="32" height="32">
+
+      <a href="https://github.com/aws/aws-iot-device-sdk-embedded-C/releases/tag/202108.00" target="_blank" rel="noopener nofollow ugc">GitHub</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:690/345;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2_2_690x345.png" class="thumbnail" width="690" height="345" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2_2_690x345.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2_2_1035x517.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2_2_10x10.png"></div>
+
+<h3><a href="https://github.com/aws/aws-iot-device-sdk-embedded-C/releases/tag/202108.00" target="_blank" rel="noopener nofollow ugc">Release 202108.00 · aws/aws-iot-device-sdk-embedded-C</a></h3>
+
+  <p>Release version 202108.00 of the AWS IoT Device SDK for Embedded C.</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+<p>and manage to make it work on local PC (Ubuntu 18.04 ) i.e. it can do mutual TLS authentication and simple MQTT publish to AWS IoT core cloud.</p>
+<p>However when I tried to port over to mangOH platform, I made some progress but was stuck at compilation error which seemed from openssl library integration, it could not find function which was defined in this inclusion:</p>
+<p><span class="hashtag">#include</span> &lt;openssl/ssl.h&gt;</p>
+<p>This mean, this library was recognized locally by my local PC OS but not by legato (release 16 ver 19.11.2). This is the snippet of compilation error:</p>
+<p>&lt;project_base&gt;/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:247:17: error: implicit declaration of function ‘SSL_set1_host’; did you mean ‘SSL_set_trust’? [-Werror=implicit-function-declaration]<br>
+sslStatus = SSL_set1_host( pOpensslParams-&gt;pSsl, pServerInfo-&gt;pHostName );<br>
+^~~~~~~~~~~~~<br>
+SSL_set_trust<br>
+&lt;project_base&gt;/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c: In function ‘setOptionalConfigurations’:<br>
+/home/iotlab0035x1804/repo/gatewayx/src/gateway/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:533:13: error: implicit declaration of function ‘SSL_set_default_read_buffer_len’; did you mean ‘SSL_CTX_set_default_read_ahead’? [-Werror=implicit-function-declaration]<br>
+SSL_set_default_read_buffer_len( pSsl, ( size_t ) readBufferLength );<br>
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+SSL_CTX_set_default_read_ahead<br>
+&lt;project_base&gt;/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c: In function ‘Openssl_Connect’:<br>
+&lt;project_base&gt;/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:625:36: error: implicit declaration of function ‘TLS_client_method’; did you mean ‘DTLS_client_method’? [-Werror=implicit-function-declaration]<br>
+pSslContext = SSL_CTX_new( TLS_client_method() );<br>
+^~~~~~~~~~~~~~~~~<br>
+DTLS_client_method<br>
+&lt;project_base&gt;/src/gateway/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:625:36: error: passing argument 1 of ‘SSL_CTX_new’ makes pointer from integer without a cast [-Werror=int-conversion]<br>
+In file included from &lt;project_base&gt;/src/gateway/cloud/aws/sdk/platform/posix/transport/include/openssl_posix.h:59:0,<br>
+from &lt;project_base&gt;/gatewayx/src/gateway/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:35:<br>
+&lt;project_base&gt;/gatewayx/leaf-data/r16/wp76-toolchain/sysroots/armv7a-neon-poky-linux-gnueabi/usr/include/openssl/ssl.h:2131:10: note: expected ‘const SSL_METHOD * {aka const struct ssl_method_st *}’ but argument is of type ‘int’<br>
+SSL_CTX *SSL_CTX_new(const SSL_METHOD *meth);<br>
+^~~~~~~~~~~</p>
+<p>This is snippet of my .cdef<br>
+cxxflags: {<br>
+-std=c++1z<br>
+-DMQTT_DO_NOT_USE_CUSTOM_CONFIG<br>
+-DDISABLE_LOGGING<br>
+-DLIBRARY_LOG_LEVEL=LOG_NONE<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/include<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/interface<br>
+-I$CURDIR/cloud/aws/sdk/platform/posix/transport/include<br>
+-I$CURDIR/cloud/aws/logging-stack<br>
+-I$CURDIR/cloud/aws/sdk/platform/include<br>
+-I$CURDIR/cloud/aws/sdk/platform/posix/transport/include<br>
+}</p>
+<p>cflags: {<br>
+-std=c99<br>
+-DMQTT_DO_NOT_USE_CUSTOM_CONFIG<br>
+-DDISABLE_LOGGING<br>
+-DLIBRARY_LOG_LEVEL=LOG_NONE<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/include<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/interface<br>
+-I$CURDIR/cloud/aws/sdk/platform/posix/transport/include<br>
+-I$CURDIR/cloud/aws/logging-stack<br>
+-I$CURDIR/cloud/aws/sdk/platform/include<br>
+-I$CURDIR/cloud/aws/sdk/platform/posix/transport/include<br>
+}</p>
+<p>provides: {<br>
+api: {<br>
+ipcGateway = $CURDIR/…/leipc/ipcGateway.api<br>
+}<br>
+}</p>
+<p>sources: {<br>
+…</p>
+<pre><code>// AWS MQTT library
+$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/core_mqtt.c
+$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/core_mqtt_state.c
+$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/core_mqtt_serializer.c
+
+$CURDIR/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c
+</code></pre>
+<p>}</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926/1</link>
+        <pubDate>Mon, 18 Apr 2022 02:01:55 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9926-1</guid>
+        <source url="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926.rss">How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</source>
+      </item>
+  </channel>
+</rss>

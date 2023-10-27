@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>App sync after wake-up from ULPM</title>
+    <link>https://forum.mangoh.io/t/app-sync-after-wake-up-from-ulpm/10158</link>
+    <description>Hello,
+
+In my system I have a mangOH yellow that is most of the time in ULPM and is woken up by an other sensor over a GPIO. I have made a custom application that communicate with the sensor over UART and then send sensor value to Octave through DataHub app. The corresponding resource have an observations that should trigger the sending of the value to Octave cloud.
+
+However, since I have configured the ULPM, the data is not forwarded to the cloud. When I check the log with logread, I can see that my application is communicating over uart and sending data to DataHub before CloudInterface / Router apps configure the observation for my resource. I thus suspect the observation not to be triggered.
+
+As a provisonal solution I have delayed my stuff in my app but this is not a great solution as I want to be sure the observation is triggered no matter how long CloudInterface app take to configure itself and even more important I don&#39;t want to spend time waiting if everything is ready and consume battery battery for nothing.
+
+Is there a way to sync apps to wait for example that CloudInterface and cellular network is ready before performing my tasks ?</description>
+    
+    <lastBuildDate>Fri, 13 Jan 2023 16:04:32 +0000</lastBuildDate>
+    <category>Cloud &amp; Connectivity</category>
+    <atom:link href="https://forum.mangoh.io/t/app-sync-after-wake-up-from-ulpm/10158.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>App sync after wake-up from ULPM</title>
+        <dc:creator><![CDATA[clementfumey]]></dc:creator>
+        <description><![CDATA[
+            <p>After further discussion with the support team, it seems the correct way of doing what I was trying to achieve was to :</p>
+<ul>
+<li>Power up the device</li>
+<li>wait for /cloudInterface/connected/value to be true</li>
+<li>push the data</li>
+<li>wait for /cloudInterface/store_forward/storage_empty to be true</li>
+<li>go in ULPM</li>
+</ul>
+<p>So to achieve this I have used <code>dhubIO_GetBoolean</code> within a function that I call in a while loop to wait for cloud to be ready:</p>
+<pre><code class="lang-auto">static bool isCloudReady()
+{
+  bool retVal = false;
+  double timestmp = 0;
+  dhubIO_GetBoolean("/app/cloudInterface/connected/value", &amp;timestmp, &amp;retVal);
+
+  return retVal;
+}
+</code></pre>
+<p>I haven’t tested yet.</p>
+          <p><a href="https://forum.mangoh.io/t/app-sync-after-wake-up-from-ulpm/10158/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-sync-after-wake-up-from-ulpm/10158/2</link>
+        <pubDate>Fri, 13 Jan 2023 16:04:32 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10158-2</guid>
+        <source url="https://forum.mangoh.io/t/app-sync-after-wake-up-from-ulpm/10158.rss">App sync after wake-up from ULPM</source>
+      </item>
+      <item>
+        <title>App sync after wake-up from ULPM</title>
+        <dc:creator><![CDATA[clementfumey]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello,</p>
+<p>In my system I have a mangOH yellow that is most of the time in ULPM and is woken up by an other sensor over a GPIO. I have made a custom application that communicate with the sensor over UART and then send sensor value to Octave through DataHub app. The corresponding resource have an observations that should trigger the sending of the value to Octave cloud.</p>
+<p>However, since I have configured the ULPM, the data is not forwarded to the cloud. When I check the log with logread, I can see that my application is communicating over uart and sending data to DataHub before CloudInterface / Router apps configure the observation for my resource. I thus suspect the observation not to be triggered.</p>
+<p>As a provisonal solution I have delayed my stuff in my app but this is not a great solution as I want to be sure the observation is triggered no matter how long CloudInterface app take to configure itself and even more important I don’t want to spend time waiting if everything is ready and consume battery battery for nothing.</p>
+<p>Is there a way to sync apps to wait for example that CloudInterface and cellular network is ready before performing my tasks ?</p>
+          <p><a href="https://forum.mangoh.io/t/app-sync-after-wake-up-from-ulpm/10158/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/app-sync-after-wake-up-from-ulpm/10158/1</link>
+        <pubDate>Tue, 25 Oct 2022 11:15:48 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10158-1</guid>
+        <source url="https://forum.mangoh.io/t/app-sync-after-wake-up-from-ulpm/10158.rss">App sync after wake-up from ULPM</source>
+      </item>
+  </channel>
+</rss>

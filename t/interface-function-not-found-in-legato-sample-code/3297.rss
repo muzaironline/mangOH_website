@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Interface function not found in legato sample code</title>
+    <link>https://forum.mangoh.io/t/interface-function-not-found-in-legato-sample-code/3297</link>
+    <description>The gpsApp in my leaf profile 023 calls the le_dcs_GetList which is not part of ithe interface as per the latest [le_dcs interface](https://docs.legato.io/latest/le__dcs__interface_8h.html) documentation.
+
+![image|690x365](upload://jCek2hvXKSL93a8AWYNxaJ5EazD.png) 
+
+This results in an error while making the app for the wp77xx, the compiler thinks it is a in implicit function declaration but the truth is that is not part of the api in my local repos.
+
+Before starting figuring out how to implement the failing functionality: am I using the right interface version or is there an updated code to use? How to pull the latest tag if my profile has not done it already? Am I on the right track?
+
+Thank you,
+Marc Farssac</description>
+    
+    <lastBuildDate>Thu, 11 May 2023 13:02:45 +0000</lastBuildDate>
+    <category>mangOH Yellow</category>
+    <atom:link href="https://forum.mangoh.io/t/interface-function-not-found-in-legato-sample-code/3297.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Interface function not found in legato sample code</title>
+        <dc:creator><![CDATA[nilsarve]]></dc:creator>
+        <description><![CDATA[
+            <p>Noticed the same thing. A working DCS example would be great as I am trying to replace the le_data interface but I do get some errors from dcsDaemon even tho my connection works.</p>
+<blockquote>
+<p>Mar 17 11:54:59 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[903]/dcsDaemon T=main | dcsTechRank.c dcsTechRank_SelectDataChannel() 220 | Selected channel name 1<br>
+Mar 17 11:54:59 swi-mdm9x28-wp user.err Legato: =ERR= | dcsDaemon[903]/dcs T=main | dcs.c le_dcs_AddEventHandler() 614 | Failed to proceed with null session reference<br>
+Mar 17 11:54:59 swi-mdm9x28-wp user.err Legato: =ERR= | dcsDaemon[903]/dcsDaemon T=main | dcsServer.c TryStartTechSession() 1089 | Failed to add event handler for channel 1 of technology 1<br>
+Mar 17 11:54:59 swi-mdm9x28-wp user.info Legato:  INFO | dcsDaemon[903]/dcsDaemon T=main | dcsServer.c UpdateTechnologyStatus() 1040 | Technology retry to connect will happen after 512 sec</p>
+</blockquote>
+          <p><a href="https://forum.mangoh.io/t/interface-function-not-found-in-legato-sample-code/3297/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/interface-function-not-found-in-legato-sample-code/3297/4</link>
+        <pubDate>Tue, 17 Mar 2020 11:00:17 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3297-4</guid>
+        <source url="https://forum.mangoh.io/t/interface-function-not-found-in-legato-sample-code/3297.rss">Interface function not found in legato sample code</source>
+      </item>
+      <item>
+        <title>Interface function not found in legato sample code</title>
+        <dc:creator><![CDATA[iotenginyers]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks Jchitty, that confirms my guess. In the meantime I think I found a workaround. I am seeing if calling le_dcs_GetChannels and handling the channel list query results’ in a callback function solves my needs, like this:</p>
+<pre><code>  static void ClientChannelQueryHandler
+(
+    le_result result,                       ///&lt; [IN] Result of the query
+    const le_dcs_ChannelInfo_t *channelList,  ///&lt; [IN] Channel list returned
+    size_t channelListSize,                   ///&lt; [IN] Channel list's size
+    void *contextPtr                          ///&lt; [IN] Associated user context pointer
+)
+{
+    uint16_t i;
+
+    LE_INFO("Received channel query result %d, channel list size %d", result, channelListSize);
+
+    if (channelListSize == 0)
+    {
+        return;
+    }
+
+    for (i = 0; i &lt; channelListSize; i++)
+    {
+        LE_INFO("Available channel #%d: name %s from technology %d, state %d, reference %p",
+                i + 1, channelList[i].name, channelList[i].technology, channelList[i].state,
+                channelList[i].ref);
+    }
+}</code></pre>
+          <p><a href="https://forum.mangoh.io/t/interface-function-not-found-in-legato-sample-code/3297/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/interface-function-not-found-in-legato-sample-code/3297/3</link>
+        <pubDate>Fri, 03 Jan 2020 07:36:51 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3297-3</guid>
+        <source url="https://forum.mangoh.io/t/interface-function-not-found-in-legato-sample-code/3297.rss">Interface function not found in legato sample code</source>
+      </item>
+      <item>
+        <title>Interface function not found in legato sample code</title>
+        <dc:creator><![CDATA[jchitty]]></dc:creator>
+        <description><![CDATA[
+            <p>It looks like the Legato project has broken one of their own sample apps when they updated their Data Connection Service API.  You could try asking on <a href="https://forum.legato.io/">the Legato forum</a> to see if they have a solution for you.</p>
+          <p><a href="https://forum.mangoh.io/t/interface-function-not-found-in-legato-sample-code/3297/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/interface-function-not-found-in-legato-sample-code/3297/2</link>
+        <pubDate>Thu, 02 Jan 2020 23:23:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3297-2</guid>
+        <source url="https://forum.mangoh.io/t/interface-function-not-found-in-legato-sample-code/3297.rss">Interface function not found in legato sample code</source>
+      </item>
+      <item>
+        <title>Interface function not found in legato sample code</title>
+        <dc:creator><![CDATA[iotenginyers]]></dc:creator>
+        <description><![CDATA[
+            <p>The gpsApp in my leaf profile 023 calls the le_dcs_GetList which is not part of ithe interface as per the latest <a href="https://docs.legato.io/latest/le__dcs__interface_8h.html" rel="nofollow noopener">le_dcs interface</a> documentation.</p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/897ba54d962a516c6447e3f8e7ccbb21025a6f39.png" data-download-href="/uploads/short-url/jCek2hvXKSL93a8AWYNxaJ5EazD.png?dl=1" title="image" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/897ba54d962a516c6447e3f8e7ccbb21025a6f39.png" alt="image" data-base62-sha1="jCek2hvXKSL93a8AWYNxaJ5EazD" width="690" height="365" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/8/897ba54d962a516c6447e3f8e7ccbb21025a6f39_2_10x10.png"></a></div><p></p>
+<p>This results in an error while making the app for the wp77xx, the compiler thinks it is a in implicit function declaration but the truth is that is not part of the api in my local repos.</p>
+<p>Before starting figuring out how to implement the failing functionality: am I using the right interface version or is there an updated code to use? How to pull the latest tag if my profile has not done it already? Am I on the right track?</p>
+<p>Thank you,<br>
+Marc Farssac</p>
+          <p><a href="https://forum.mangoh.io/t/interface-function-not-found-in-legato-sample-code/3297/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/interface-function-not-found-in-legato-sample-code/3297/1</link>
+        <pubDate>Sun, 29 Dec 2019 07:17:19 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3297-1</guid>
+        <source url="https://forum.mangoh.io/t/interface-function-not-found-in-legato-sample-code/3297.rss">Interface function not found in legato sample code</source>
+      </item>
+  </channel>
+</rss>

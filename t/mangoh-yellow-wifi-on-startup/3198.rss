@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>MangOH Yellow - WiFi on Startup</title>
+    <link>https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198</link>
+    <description>Hi guys,
+
+I&#39;m having some issues getting MangOH yellow to start/connect to WiFi on startup. I essentially have this script I run to start WiFi:
+
+    /legato/systems/current/modules/files/brcmutil/etc/init.d/cywifi.sh init
+    /legato/systems/current/modules/files/brcmutil/etc/init.d/cywifi.sh start
+    wpa_supplicant -B -Dnl80211 -iwlan0 -c /etc/wpa_supplicant.conf
+    /sbin/udhcpc -R -b -i wlan0
+
+This works great after I log in. I have my network info in wpa_supplicant.conf. 
+
+If I put those same commands in /etc/init.d/startlegato.sh between these two lines:
+
+    mount -o bind $LEGATO_MNT /legato
+    test -x $LEGATO_START &amp;&amp; $LEGATO_START
+
+The WiFi doesn&#39;t seem to work, and I get these log statements:
+
+    Linux swi-mdm9x28-wp 3.18.140 #1 PREEMPT Tue Oct 8 00:58:07 UTC 2019 armv7l GNU/Linux
+    Cypress chip MMC recognition may have been overwritten
+    wlan0 interface was not created by Cypress drivers
+    Successfully initialized wpa_supplicant
+    Could not read interface wlan0 flags: No such device
+    nl80211: Driver does not support authentication/association or connect commands
+    nl80211: deinit ifname=wlan0 disabled_11b_rates=0
+    Could not read interface wlan0 flags: No such device
+    wlan0: Failed to initialize driver interface
+
+Any ideas what could be going wrong?</description>
+    
+    <lastBuildDate>Wed, 18 Dec 2019 21:50:33 +0000</lastBuildDate>
+    <category>mangOH Yellow</category>
+    <atom:link href="https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>MangOH Yellow - WiFi on Startup</title>
+        <dc:creator><![CDATA[Zahid]]></dc:creator>
+        <description><![CDATA[
+            <p>Nick,<br>
+Actually, the cypwifi README.md actually needs updating as it was based on Legato versions earlier<br>
+than 19.04 which had the Tiwifi IoT card as the default way to start wifi on wlan0 and thus Cypress<br>
+had to use wlan1. Since, 19.04 Legato allows other Wifi chips besides TI Wifi (Note, they all must be<br>
+based on wlan0 - you cannot have multiple wifi interfaces - you would need to apply the Legato<br>
+patches if you wanted that). Cypwifi is changing soon as the Linux kernel backports for cypwifi<br>
+will be integrated with Bluez 5.52 backport kernel changes, so I think we will wait for that<br>
+complete before updating the README.</p>
+<p>I regards. to configuring wifi please see the following pages (first is the command-line tool and<br>
+the second is the coding interface):<br>
+<a href="https://docs.legato.io/19_01/wifi_toolsTarget_wifi.html#toolsTarget_wifi_clientExample" class="onebox" target="_blank" rel="nofollow noopener">https://docs.legato.io/19_01/wifi_toolsTarget_wifi.html#toolsTarget_wifi_clientExample</a><br>
+<a href="https://docs.legato.io/latest/c_le_wifi_client.html" class="onebox" target="_blank" rel="nofollow noopener">https://docs.legato.io/latest/c_le_wifi_client.html</a></p>
+<p>The wifi passphrases/creds are stored in secure storage in Legato releases after Legato 19.04.<br>
+Thus, if you set the SSID/protocol/passphrase… on your target it should persist.</p>
+<p>Zahid</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198/4</link>
+        <pubDate>Wed, 18 Dec 2019 21:50:33 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3198-4</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198.rss">MangOH Yellow - WiFi on Startup</source>
+      </item>
+      <item>
+        <title>MangOH Yellow - WiFi on Startup</title>
+        <dc:creator><![CDATA[nrcrast]]></dc:creator>
+        <description><![CDATA[
+            <p>Zahid,</p>
+<p>All I’m really trying to do is get the MangOH Yellow to connect to my WiFi network on startup. I have been following this page: <a href="https://github.com/mangOH/mangOH/tree/master/linux_kernel_modules/cypwifi" rel="nofollow noopener">https://github.com/mangOH/mangOH/tree/master/linux_kernel_modules/cypwifi</a></p>
+<p>It is unclear to me what the best way to accomplish this is. I how does the legato wifi service know  the SSID and password to use?</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198/3</link>
+        <pubDate>Wed, 18 Dec 2019 20:07:33 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3198-3</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198.rss">MangOH Yellow - WiFi on Startup</source>
+      </item>
+      <item>
+        <title>MangOH Yellow - WiFi on Startup</title>
+        <dc:creator><![CDATA[Zahid]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Nick,<br>
+Please look at the script:<br>
+</p><aside class="onebox githubblob">
+  <header class="source">
+      <a href="https://github.com/mangOH/mangOH/blob/master/linux_kernel_modules/cypwifi/scripts/cywifi.sh" target="_blank" rel="nofollow noopener">github.com</a>
+  </header>
+  <article class="onebox-body">
+    <h4><a href="https://github.com/mangOH/mangOH/blob/master/linux_kernel_modules/cypwifi/scripts/cywifi.sh" target="_blank" rel="nofollow noopener">mangOH/mangOH/blob/master/linux_kernel_modules/cypwifi/scripts/cywifi.sh</a></h4>
+<pre><code class="lang-sh">#!/bin/sh
+# Broadcom/Cypress chip startup for mangOH Yellow
+
+export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
+
+# The Broadcom/Cypress uses the WL_REG_ON gpio to bring out of reset, but
+# needs 2 sleep cycles after VBAT &amp; VDDIO is applied before it is
+# turned on. Both the WP76 &amp; 85 are setup to connect GPIO 33 to WL_REG_ON,
+# though its configurable on the command-line. It seems with the current
+# way that the GPIO expander is being initialized this is not needed, nor
+# does the routing need to be setup for SDIO going to the Cypress chip
+# rather than the SD card. The SD card was supposed to be the default.
+#if  [ -z "$2" ] ; then
+	#WL_REG_ON_GPIO=8
+#else
+	#WL_REG_ON_GPIO=$2
+#fi
+
+# The WP76 series has an SDHCI-MSM driver that has been setup to run in polled
+# mode. Whereas, the WP85 has an MSM-SDCC driver that has been setup to run in
+</code></pre>
+
+  This file has been truncated. <a href="https://github.com/mangOH/mangOH/blob/master/linux_kernel_modules/cypwifi/scripts/cywifi.sh" target="_blank" rel="nofollow noopener">show original</a>
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+<p></p>
+<p>as if you are on a DV4 board as I am you should fail in trying to set wl_reg_on to the Cypress wifi<br>
+chip as the sysfs entries are created by the expander driver in the mangOH modules:<br>
+</p><aside class="onebox githubblob">
+  <header class="source">
+      <a href="https://github.com/mangOH/mangOH/blob/master/linux_kernel_modules/expander/expander.c" target="_blank" rel="nofollow noopener">github.com</a>
+  </header>
+  <article class="onebox-body">
+    <h4><a href="https://github.com/mangOH/mangOH/blob/master/linux_kernel_modules/expander/expander.c" target="_blank" rel="nofollow noopener">mangOH/mangOH/blob/master/linux_kernel_modules/expander/expander.c</a></h4>
+<pre><code class="lang-c">#include &lt;linux/slab.h&gt;
+#include &lt;linux/device.h&gt;
+#include &lt;linux/platform_device.h&gt;
+#include &lt;linux/gpio.h&gt;
+#include &lt;linux/version.h&gt;
+#include "expander.h"
+
+/*
+ *-----------------------------------------------------------------------------
+ * Constants
+ *-----------------------------------------------------------------------------
+ */
+#define GENERIC_LED		(4)
+#define PCM_SEL			(5)
+#define WL_REG_ON		(1)
+#define TRI_LED_BLU		(7)
+#define TRI_LED_GRN		(15)
+#define TRI_LED_RED		(10)
+
+
+</code></pre>
+
+  This file has been truncated. <a href="https://github.com/mangOH/mangOH/blob/master/linux_kernel_modules/expander/expander.c" target="_blank" rel="nofollow noopener">show original</a>
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+<p></p>
+<p>which has definitely not been insmod/modprob’ed by Legato as you are trying to load the<br>
+Cypress modules even before Legato has started fully (it is startlegato.sh that you are modifying).</p>
+<p>I guess you could create a S99/S98 initscript that could make sure that the expander driver has created the proper gpio entry and then start the wifi as you want outside of Legato.</p>
+<p>I am curious what you are trying to do and why you decided to not let Legato start wifi.<br>
+We currently have the wifiService in a stop state by default, you could change the config settings to set it to start by default and it will probably be<br>
+start by default as the data channel service (DCS) will start it automatically:<br>
+<a href="https://docs.legato.io/latest/legatoServicesDCS.html" class="onebox" target="_blank" rel="nofollow noopener">https://docs.legato.io/latest/legatoServicesDCS.html</a><br>
+To use DCS to auto-start things, please remove the “{ start: manual }” from:<br>
+</p><aside class="onebox githubblob">
+  <header class="source">
+      <a href="https://github.com/mangOH/mangOH/blob/master/wifi.sdef" target="_blank" rel="nofollow noopener">github.com</a>
+  </header>
+  <article class="onebox-body">
+    <h4><a href="https://github.com/mangOH/mangOH/blob/master/wifi.sdef" target="_blank" rel="nofollow noopener">mangOH/mangOH/blob/master/wifi.sdef</a></h4>
+<pre><code class="lang-sdef">//--------------------------------------------------------------------------------------------------
+// Sample system definition that includes essential services and WiFi-related services and sample
+// applications.
+//
+// Copyright (C) Sierra Wireless Inc.
+//--------------------------------------------------------------------------------------------------
+
+#include "${LEGATO_ROOT}/default.sdef"
+
+buildVars:
+{
+    LEGATO_WIFI_ROOT=${LEGATO_ROOT}/modules/WiFi
+    // File is selected by users, replace "ti" with "qca" to support qca chipset
+    // For mangOH we select the PA script in the board file - i.e. red/yellow ...
+    //LEGATO_WIFI_PA=${LEGATO_WIFI_ROOT}/service/platformAdaptor/ti/pa_wifi.sh
+}
+
+apps:
+{
+    // WiFi services
+</code></pre>
+
+  This file has been truncated. <a href="https://github.com/mangOH/mangOH/blob/master/wifi.sdef" target="_blank" rel="nofollow noopener">show original</a>
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+<p></p>
+<p>Let me know if you have any further questions/problems.</p>
+<p>Zahid</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198/2</link>
+        <pubDate>Wed, 18 Dec 2019 19:33:59 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3198-2</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198.rss">MangOH Yellow - WiFi on Startup</source>
+      </item>
+      <item>
+        <title>MangOH Yellow - WiFi on Startup</title>
+        <dc:creator><![CDATA[nrcrast]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi guys,</p>
+<p>I’m having some issues getting MangOH yellow to start/connect to WiFi on startup. I essentially have this script I run to start WiFi:</p>
+<pre><code>/legato/systems/current/modules/files/brcmutil/etc/init.d/cywifi.sh init
+/legato/systems/current/modules/files/brcmutil/etc/init.d/cywifi.sh start
+wpa_supplicant -B -Dnl80211 -iwlan0 -c /etc/wpa_supplicant.conf
+/sbin/udhcpc -R -b -i wlan0
+</code></pre>
+<p>This works great after I log in. I have my network info in wpa_supplicant.conf.</p>
+<p>If I put those same commands in /etc/init.d/startlegato.sh between these two lines:</p>
+<pre><code>mount -o bind $LEGATO_MNT /legato
+test -x $LEGATO_START &amp;&amp; $LEGATO_START
+</code></pre>
+<p>The WiFi doesn’t seem to work, and I get these log statements:</p>
+<pre><code>Linux swi-mdm9x28-wp 3.18.140 #1 PREEMPT Tue Oct 8 00:58:07 UTC 2019 armv7l GNU/Linux
+Cypress chip MMC recognition may have been overwritten
+wlan0 interface was not created by Cypress drivers
+Successfully initialized wpa_supplicant
+Could not read interface wlan0 flags: No such device
+nl80211: Driver does not support authentication/association or connect commands
+nl80211: deinit ifname=wlan0 disabled_11b_rates=0
+Could not read interface wlan0 flags: No such device
+wlan0: Failed to initialize driver interface
+</code></pre>
+<p>Any ideas what could be going wrong?</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198/1</link>
+        <pubDate>Mon, 16 Dec 2019 15:15:40 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3198-1</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198.rss">MangOH Yellow - WiFi on Startup</source>
+      </item>
+  </channel>
+</rss>

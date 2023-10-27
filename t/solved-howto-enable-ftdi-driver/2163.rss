@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>[SOLVED] Howto enable FTDI driver</title>
+    <link>https://forum.mangoh.io/t/solved-howto-enable-ftdi-driver/2163</link>
+    <description>Hi, 
+
+I d like to know how to enable FTDI driver ( serial USB &lt;=&gt; TTL ) on a mangOH Red With Legato and wp7702 : 
+```
+root@swi-mdm9x28-wp:~# legato version
+18.09.0-1-g8350546a_05025499e71b1dbb905fd75d6f797c3a_modified
+```
+
+What is the process ?
+
+Regards</description>
+    
+    <lastBuildDate>Tue, 27 Nov 2018 10:47:06 +0000</lastBuildDate>
+    <category>mangOH Red Orange Starter Kit</category>
+    <atom:link href="https://forum.mangoh.io/t/solved-howto-enable-ftdi-driver/2163.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>[SOLVED] Howto enable FTDI driver</title>
+        <dc:creator><![CDATA[pierr0t]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks you, It works perfectly:</p>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# modprobe ftdi_sio
+root@swi-mdm9x28-wp:~# ls /dev/ttyUSB* 
+/dev/ttyUSB0
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/solved-howto-enable-ftdi-driver/2163/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/solved-howto-enable-ftdi-driver/2163/5</link>
+        <pubDate>Tue, 27 Nov 2018 10:47:06 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2163-5</guid>
+        <source url="https://forum.mangoh.io/t/solved-howto-enable-ftdi-driver/2163.rss">[SOLVED] Howto enable FTDI driver</source>
+      </item>
+      <item>
+        <title>[SOLVED] Howto enable FTDI driver</title>
+        <dc:creator><![CDATA[francois.ravache.neo]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi use FTDI on my board:<br>
+See this link : <a href="https://forum.mangoh.io/t/wp76-r9-and-usb-serial-ftdi/1550?u=francois.ravache.neo">WP76 R9 and usb serial ftdi</a><br>
+You have to use this command " modprobe ftdi_sio" to enable FTDI</p>
+          <p><a href="https://forum.mangoh.io/t/solved-howto-enable-ftdi-driver/2163/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/solved-howto-enable-ftdi-driver/2163/4</link>
+        <pubDate>Tue, 27 Nov 2018 10:41:44 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2163-4</guid>
+        <source url="https://forum.mangoh.io/t/solved-howto-enable-ftdi-driver/2163.rss">[SOLVED] Howto enable FTDI driver</source>
+      </item>
+      <item>
+        <title>[SOLVED] Howto enable FTDI driver</title>
+        <dc:creator><![CDATA[pierr0t]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi,</p>
+<p>I can’t see any ttyUSBx<br>
+dmesg output</p>
+<pre><code class="lang-auto">[   38.191622] QTI:LINK_UP message posted
+[   65.826467] usb 1-1.3: USB disconnect, device number 4
+[   68.371117] usb 1-1.3: new full-speed USB device number 5 using msm_hsic_host
+[   68.495506] usb 1-1.3: New USB device found, idVendor=0403, idProduct=6001
+[   68.495526] usb 1-1.3: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[   68.495539] usb 1-1.3: Product: TTL232RG-VIP
+[   68.495550] usb 1-1.3: Manufacturer: FTDI
+[   68.495561] usb 1-1.3: SerialNumber: FTWTHVMG
+root@swi-mdm9x28-wp:~# 
+</code></pre>
+<p>/dev</p>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# ls /dev/tty*
+/dev/tty      /dev/tty12    /dev/tty17    /dev/tty21    /dev/tty26    /dev/tty30    /dev/tty35    /dev/tty4     /dev/tty44    /dev/tty49    /dev/tty53    /dev/tty58    /dev/tty62    /dev/ttyAT
+/dev/tty0     /dev/tty13    /dev/tty18    /dev/tty22    /dev/tty27    /dev/tty31    /dev/tty36    /dev/tty40    /dev/tty45    /dev/tty5     /dev/tty54    /dev/tty59    /dev/tty63    /dev/ttyHS0
+/dev/tty1     /dev/tty14    /dev/tty19    /dev/tty23    /dev/tty28    /dev/tty32    /dev/tty37    /dev/tty41    /dev/tty46    /dev/tty50    /dev/tty55    /dev/tty6     /dev/tty7     /dev/ttyHSL1
+/dev/tty10    /dev/tty15    /dev/tty2     /dev/tty24    /dev/tty29    /dev/tty33    /dev/tty38    /dev/tty42    /dev/tty47    /dev/tty51    /dev/tty56    /dev/tty60    /dev/tty8
+/dev/tty11    /dev/tty16    /dev/tty20    /dev/tty25    /dev/tty3     /dev/tty34    /dev/tty39    /dev/tty43    /dev/tty48    /dev/tty52    /dev/tty57    /dev/tty61    /dev/tty9
+root@swi-mdm9x28-wp:~# 
+</code></pre>
+<p>What tty can you see on your Green ?</p>
+<p>Regards</p>
+          <p><a href="https://forum.mangoh.io/t/solved-howto-enable-ftdi-driver/2163/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/solved-howto-enable-ftdi-driver/2163/3</link>
+        <pubDate>Tue, 27 Nov 2018 10:03:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2163-3</guid>
+        <source url="https://forum.mangoh.io/t/solved-howto-enable-ftdi-driver/2163.rss">[SOLVED] Howto enable FTDI driver</source>
+      </item>
+      <item>
+        <title>[SOLVED] Howto enable FTDI driver</title>
+        <dc:creator><![CDATA[awneil]]></dc:creator>
+        <description><![CDATA[
+            <p>Last time I tried, on a mangOH Green, it just worked.</p>
+<p>Have you tried it?</p>
+          <p><a href="https://forum.mangoh.io/t/solved-howto-enable-ftdi-driver/2163/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/solved-howto-enable-ftdi-driver/2163/2</link>
+        <pubDate>Tue, 27 Nov 2018 09:42:47 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2163-2</guid>
+        <source url="https://forum.mangoh.io/t/solved-howto-enable-ftdi-driver/2163.rss">[SOLVED] Howto enable FTDI driver</source>
+      </item>
+      <item>
+        <title>[SOLVED] Howto enable FTDI driver</title>
+        <dc:creator><![CDATA[pierr0t]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi,</p>
+<p>I d like to know how to enable FTDI driver ( serial USB &lt;=&gt; TTL ) on a mangOH Red With Legato and wp7702 :</p>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# legato version
+18.09.0-1-g8350546a_05025499e71b1dbb905fd75d6f797c3a_modified
+</code></pre>
+<p>What is the process ?</p>
+<p>Regards</p>
+          <p><a href="https://forum.mangoh.io/t/solved-howto-enable-ftdi-driver/2163/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/solved-howto-enable-ftdi-driver/2163/1</link>
+        <pubDate>Tue, 27 Nov 2018 09:06:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2163-1</guid>
+        <source url="https://forum.mangoh.io/t/solved-howto-enable-ftdi-driver/2163.rss">[SOLVED] Howto enable FTDI driver</source>
+      </item>
+  </channel>
+</rss>

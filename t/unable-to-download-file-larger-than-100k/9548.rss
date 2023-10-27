@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Unable to download file larger than 100k</title>
+    <link>https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548</link>
+    <description>I am trying to download file via curl, with system()  call:
+`system(&quot;curl ftp://speedtest.tele2.net/1MB.zip --output /home/root/test.file --silent&quot;)`
+
+Every time i try I get:
+`Aug  3 13:40:52 swi-mdm9x28-wp user.err Legato: =ERR= | MyAppName[8254] | File size limit exceeded (core dumped)`
+
+I tried different settings in the .adef
+`sandboxed: false`
+` maxFileSystemBytes: 150000K` &lt;- many different values tested
+ `maxFileBytes: 200K`
+
+But no matter what I set downloading process always stops at 100 KB.
+Also I tried writing `curl ftp://speedtest.tele2.net/1MB.zip --output /home/root/test.file --silent` to a `test.sh` file and running it as executable. It works when I call it from CLI, it doesn&#39;t work when i call it from code.
+I tried to write the file to the `/home/root/` directory, but also to the `/tmp` folder. What am I doing wrong?</description>
+    
+    <lastBuildDate>Wed, 04 Aug 2021 12:35:06 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Unable to download file larger than 100k</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Why does this relate to mangoh shared.sdef?</p>
+          <p><a href="https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548/6</link>
+        <pubDate>Wed, 04 Aug 2021 11:45:55 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9548-6</guid>
+        <source url="https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548.rss">Unable to download file larger than 100k</source>
+      </item>
+      <item>
+        <title>Unable to download file larger than 100k</title>
+        <dc:creator><![CDATA[pawelkaniewski]]></dc:creator>
+        <description><![CDATA[
+            <p>I cannot compile <code>SDK for WP76 (Release 13.3 + Legato 19.02.0)</code>, because:</p>
+<pre><code class="lang-auto">** ERROR:
+/home/pawel/project/redWorkspace/mangOH/shared.sdef:11:48: error: File '/home/pawel/project/redWorkspace/leaf-data/TEST2/wp76-legato/modules/WiFi/wifi.sinc' not found.
+</code></pre>
+<p>But I tried <code>SDK for WP76 (Release 16 + Legato 19.11.2) </code> stable version and it didn’t help.</p>
+          <p><a href="https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548/5</link>
+        <pubDate>Wed, 04 Aug 2021 11:11:47 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9548-5</guid>
+        <source url="https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548.rss">Unable to download file larger than 100k</source>
+      </item>
+      <item>
+        <title>Unable to download file larger than 100k</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>you can try mangOH Red wp76 - FW=R13.3, Legato=19.2.0, I don’t see problem with that.</p>
+          <p><a href="https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548/4</link>
+        <pubDate>Wed, 04 Aug 2021 08:49:06 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9548-4</guid>
+        <source url="https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548.rss">Unable to download file larger than 100k</source>
+      </item>
+      <item>
+        <title>Unable to download file larger than 100k</title>
+        <dc:creator><![CDATA[pawelkaniewski]]></dc:creator>
+        <description><![CDATA[
+            <p>I am running <code>mangOH Red wp76 - FW=R13.3, Legato=20.04.0,</code></p>
+<p>I tried your example:<br>
+hello1.adef</p>
+<pre><code class="lang-auto">sandboxed: false
+
+executables: {
+    hello1 = ( hello1Component )
+}
+processes: {
+    run: {
+        ( hello1 )
+    }
+}
+</code></pre>
+<p>hello1.c</p>
+<pre><code class="lang-auto">#include "legato.h"
+
+COMPONENT_INIT
+{
+system("/tmp/test.sh");
+LE_INFO("Hello, world.");
+}
+</code></pre>
+<p>test.sh</p>
+<pre><code class="lang-auto">curl http://116.66.221.43/500k.bin -o /tmp/data.bin
+</code></pre>
+<p>And I still got:</p>
+<pre><code class="lang-auto">Aug  4 10:30:16 swi-mdm9x28-wp user.err Legato: =ERR= | hello1[4226] | File size limit exceeded (core dumped)
+Aug  4 10:30:16 swi-mdm9x28-wp user.info Legato:  INFO | hello1[4226]/hello1Component T=main | hello1.c _hello1Component_COMPONENT_INIT() 6 | Hello, world.
+</code></pre>
+<p>I tried fresh reinstall of the filesystem. Nothing helps, file is still limited to 100KB.</p>
+          <p><a href="https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548/3</link>
+        <pubDate>Wed, 04 Aug 2021 08:47:06 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9548-3</guid>
+        <source url="https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548.rss">Unable to download file larger than 100k</source>
+      </item>
+      <item>
+        <title>Unable to download file larger than 100k</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>no problem is found for WP76 FW R13.</p>
+<p>I run a unsandboxed legato application “hello1”:</p>
+<pre><code class="lang-auto">
+#include “legato.h”
+
+COMPONENT_INIT
+{
+system("/tmp/test.sh");
+LE_INFO("Hello, world.");
+}
+</code></pre>
+<pre><code class="lang-auto">
+root@swi-mdm9x28-wp:~#
+root@swi-mdm9x28-wp:~# app status
+[running] atAirVantage
+[running] atQmiLinker
+[running] atService
+[running] audioService
+[running] avcService
+[running] cellNetService
+[running] dataConnectionService
+[running] fwupdateService
+[running] gpioService
+[running] modemService
+[running] portService
+[running] positioningService
+[running] powerMgr
+[running] qmiAirVantage
+[running] secStore
+[stopped] smsInboxService
+[stopped] spiService
+[running] tools
+[stopped] voiceCallService
+[stopped] wifi
+[stopped] wifiApTest
+[stopped] wifiClientTest
+[running] wifiService
+[stopped] wifiWebAp
+[stopped] hello1
+root@swi-mdm9x28-wp:~# ls /tmp
+hosts             legato_logs       sdOutput          tmpfdbtable.txt
+ld.so.cache       pkgdwl            sock0
+ld.so.conf        psm_socket        test.sh
+legato            resolv.conf       thermal_engi_ipc
+root@swi-mdm9x28-wp:~# cat /tmp/test.sh
+curl http://116.66.221.43/500k.bin -o /tmp/data.bin
+
+root@swi-mdm9x28-wp:~# app start hello1
+root@swi-mdm9x28-wp:~# ls -l /tmp/data.bin
+-rw-------    1 root     root        512000 Aug  3 23:26 /tmp/data.bin
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548/2</link>
+        <pubDate>Tue, 03 Aug 2021 15:28:53 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9548-2</guid>
+        <source url="https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548.rss">Unable to download file larger than 100k</source>
+      </item>
+      <item>
+        <title>Unable to download file larger than 100k</title>
+        <dc:creator><![CDATA[pawelkaniewski]]></dc:creator>
+        <description><![CDATA[
+            <p>I am trying to download file via curl, with system()  call:<br>
+<code>system("curl ftp://speedtest.tele2.net/1MB.zip --output /home/root/test.file --silent")</code></p>
+<p>Every time i try I get:<br>
+<code>Aug  3 13:40:52 swi-mdm9x28-wp user.err Legato: =ERR= | MyAppName[8254] | File size limit exceeded (core dumped)</code></p>
+<p>I tried different settings in the .adef<br>
+<code>sandboxed: false</code><br>
+<code> maxFileSystemBytes: 150000K</code> ← many different values tested<br>
+<code>maxFileBytes: 200K</code></p>
+<p>But no matter what I set downloading process always stops at 100 KB.<br>
+Also I tried writing <code>curl ftp://speedtest.tele2.net/1MB.zip --output /home/root/test.file --silent</code> to a <code>test.sh</code> file and running it as executable. It works when I call it from CLI, it doesn’t work when i call it from code.<br>
+I tried to write the file to the <code>/home/root/</code> directory, but also to the <code>/tmp</code> folder. What am I doing wrong?</p>
+          <p><a href="https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548/1</link>
+        <pubDate>Tue, 03 Aug 2021 12:32:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9548-1</guid>
+        <source url="https://forum.mangoh.io/t/unable-to-download-file-larger-than-100k/9548.rss">Unable to download file larger than 100k</source>
+      </item>
+  </channel>
+</rss>

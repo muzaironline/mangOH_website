@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>CAN-bus read and filter</title>
+    <link>https://forum.mangoh.io/t/can-bus-read-and-filter/1262</link>
+    <description>I have CAN Bus IoT Module installed and connected to CAN traffic generator. If I enter to the target module (WP7502) over the ssh and type ifconfig then I can see that CAN is working
+&gt; can0      Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  
+&gt;           UP RUNNING NOARP  MTU:16  Metric:1
+&gt;           RX packets:6683 errors:0 dropped:0 overruns:0 frame:0
+&gt;           TX packets:373 errors:0 dropped:0 overruns:0 carrier:0
+&gt;           collisions:0 txqueuelen:10 
+&gt;           RX bytes:53464 (52.2 KiB)  TX bytes:2984 (2.9 KiB)
+
+I need to filter out messages and send them to MQTT server
+What is the simplest way to read and filter CAN messages?</description>
+    
+    <lastBuildDate>Wed, 21 Mar 2018 21:16:34 +0000</lastBuildDate>
+    <category>IoT Cards</category>
+    <atom:link href="https://forum.mangoh.io/t/can-bus-read-and-filter/1262.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>CAN-bus read and filter</title>
+        <dc:creator><![CDATA[Francis.duhaut]]></dc:creator>
+        <description><![CDATA[
+            <p>Look my reply on this topic :</p>
+<aside class="quote quote-modified" data-post="30" data-topic="997">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/r/dbc845/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/can-iot-card-driver/997/30">CAN IoT Card driver</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-red/12"><span class="badge-category-bg" style="background-color: #DF1E2E;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-red">mangOH Red</span></a>
+  </div>
+  <blockquote>
+    Finally, saw the can0 line with ifconfig command after all those steps: 
+echo 2 &gt; /sys/class/gpio/export 
+echo out  &gt; /sys/class/gpio/gpio2/direction 
+echo 1  &gt; /sys/class/gpio/gpio2/value 
+// Enable level shifter on the CAN IoT card 
+echo 13 &gt; /sys/class/gpio/export 
+echo out  &gt; /sys/class/gpio/gpio13/direction 
+echo 1  &gt; /sys/class/gpio/gpio13/value 
+modprobe can 
+modprobe can-dev 
+modprobe can-raw 
+modprobe mcp251x 
+ip link set can0 type can bitrate 125000 triple-sampling on 
+ifconfig can0 up …
+  </blockquote>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/can-bus-read-and-filter/1262/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/can-bus-read-and-filter/1262/3</link>
+        <pubDate>Wed, 21 Mar 2018 21:16:34 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1262-3</guid>
+        <source url="https://forum.mangoh.io/t/can-bus-read-and-filter/1262.rss">CAN-bus read and filter</source>
+      </item>
+      <item>
+        <title>CAN-bus read and filter</title>
+        <dc:creator><![CDATA[Francis.duhaut]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello,</p>
+<p>I use SocketCAN with Linux to manage CANBUS connection with the IoT CARD.<br>
+You can find source code on Google.</p>
+<p>Socket CAN include filtering messaging.</p>
+<p>It’s easy to implement.</p>
+<p>Francis.</p>
+          <p><a href="https://forum.mangoh.io/t/can-bus-read-and-filter/1262/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/can-bus-read-and-filter/1262/2</link>
+        <pubDate>Wed, 21 Mar 2018 16:52:57 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1262-2</guid>
+        <source url="https://forum.mangoh.io/t/can-bus-read-and-filter/1262.rss">CAN-bus read and filter</source>
+      </item>
+      <item>
+        <title>CAN-bus read and filter</title>
+        <dc:creator><![CDATA[raxsix]]></dc:creator>
+        <description><![CDATA[
+            <p>I have CAN Bus IoT Module installed and connected to CAN traffic generator. If I enter to the target module (WP7502) over the ssh and type ifconfig then I can see that CAN is working</p>
+<blockquote>
+<p>can0      Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00<br>
+UP RUNNING NOARP  MTU:16  Metric:1<br>
+RX packets:6683 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:373 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:10<br>
+RX bytes:53464 (52.2 KiB)  TX bytes:2984 (2.9 KiB)</p>
+</blockquote>
+<p>I need to filter out messages and send them to MQTT server<br>
+What is the simplest way to read and filter CAN messages?</p>
+          <p><a href="https://forum.mangoh.io/t/can-bus-read-and-filter/1262/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/can-bus-read-and-filter/1262/1</link>
+        <pubDate>Wed, 21 Mar 2018 13:52:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1262-1</guid>
+        <source url="https://forum.mangoh.io/t/can-bus-read-and-filter/1262.rss">CAN-bus read and filter</source>
+      </item>
+  </channel>
+</rss>

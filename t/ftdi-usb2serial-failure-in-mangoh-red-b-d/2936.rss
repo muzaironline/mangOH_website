@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+    <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936</link>
+    <description>First of all, both FX30 3G and FX30 LTE works well.
+The issue is seen only in MangOH Red b/d. The only issue in MangOH b/d is the USB2Serial data communication. Anything else works well - 1) bring-up, 2) flashing the latest FW, 3) AT command access through /dev/ttyAT, 4) LTE cellular connection with Zipit AT&amp;T test SIM, 5) IP connection and operation over the underlying cellular connection
+
+Let me share more about USB2Serial communication failure issue in MangOH b/d.
+1)	Renfell USB Host IoT Expansion Card isn’t detected or recognized through MangOH IoT b/d slot.
+In FX30 LTE b/d,
+I could see the following kernel log when USB host card is inserted into FX30 LTE b/d
+------------------------------------------------------------
+diag: USB channel diag connected
+msm_otg 78d9000.usb : Avail curr from USB = 500
+….
+QTI : USB tethered modem SMD port opened
+QTI : ECM mode
+QTI : LINK_UP Processed
+QTI : LINK_UP message_posted.
+------------------------------------------------------------
+However no kernel log change when USB host card is inserted into MangOH b/d and doesn’t work at all.
+2)	The FTDI device connection/recognition through USB Host connector in MangOH b/d is OK. However the data communication through USB2Serial driver makes the communication error – TTY_BREAK is seen continuously at ftdi_sio driver level(FTDI_RS_BI). it generates NULL data report to the upper layer. It isn’t seen in FX30 LTE b/d. It is suspected that USB3503 Hub connection on MangOH b/d is different from the USB logic in FX30 LTE b/d. We’d like to compare the USB logic between MangOH b/d and FX30 LTE b/d.
+
+Does anybody have the similar experience?
+I also wonder if MangOH Red b/d specific device tree configuration(dts, dtsi etc.) and kernel configuration to load all the necessary drivers especially the external USB Hub chip(USB3503). I managed to load usb3503 driver by adding dts entry and kernel config but it seems it doesn&#39;t work as well.</description>
+    
+    <lastBuildDate>Fri, 18 Mar 2022 11:09:33 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[kalaivani]]></dc:creator>
+        <description><![CDATA[
+            <p>hi, we have connect usb-Rs485 Iot0 in mangoh baord but failed to recognize ttyUSB0 log is attached for reference, would like to know what am missing</p>
+<p>Jan  1 06:06:56 swi-mdm9x28-wp user.info kernel: [    1.395381] android_usb gadget: android_usb ready<br>
+Jan  1 06:06:56 swi-mdm9x28-wp user.info kernel: [    1.395398] msm_hsusb msm_hsusb: [ci13xxx_start] hw_ep_max = 32<br>
+Jan  1 06:06:56 swi-mdm9x28-wp user.info kernel: [    1.395446] msm_hsusb msm_hsusb: CI13XXX_CONTROLLER_RESET_EVENT received<br>
+Jan  1 06:06:56 swi-mdm9x28-wp user.info kernel: [    1.395463] msm_hsusb msm_hsusb: CI13XXX_CONTROLLER_UDC_STARTED_EVENT received<br>
+Jan  1 06:06:56 swi-mdm9x28-wp user.info kernel: [    1.490173] usb 1-1: new high-speed USB device number 2 using msm_hsic_host<br>
+Jan  1 06:06:56 swi-mdm9x28-wp user.info kernel: [    1.640744] usb 1-1: New USB device found, idVendor=0424, idProduct=3503<br>
+Jan  1 06:06:56 swi-mdm9x28-wp user.info kernel: [    1.640761] usb 1-1: New USB device strings: Mfr=0, Product=0, SerialNumber=0<br>
+Jan  1 06:06:56 swi-mdm9x28-wp user.info kernel: [    1.920125] usb 1-1.1: new full-speed USB device number 3 using msm_hsic_host<br>
+Jan  1 06:06:56 swi-mdm9x28-wp user.info kernel: [    2.032607] usb 1-1.1: New USB device found, idVendor=10c4, idProduct=87a0<br>
+Jan  1 06:06:56 swi-mdm9x28-wp user.info kernel: [    2.032625] usb 1-1.1: New USB device strings: Mfr=1, Product=2, SerialNumber=3<br>
+Jan  1 06:06:56 swi-mdm9x28-wp user.info kernel: [    2.032636] usb 1-1.1: Product: CP2130 USB-to-SPI Bridge<br>
+Jan  1 06:06:56 swi-mdm9x28-wp user.info kernel: [    2.032647] usb 1-1.1: Manufacturer: Silicon Laboratories<br>
+Jan  1 06:06:56 swi-mdm9x28-wp user.info kernel: [    2.032658] usb 1-1.1: SerialNumber: 000EB6DF<br>
+Jan  1 06:06:56 swi-mdm9x28-wp user.debug kernel: [   13.232046] LE_KPI: start initscript /etc/rcS.d/S21usb<br>
+Jan  1 06:06:57 swi-mdm9x28-wp user.err kernel: [   13.961684] enable_store: android_usb: already disabled<br>
+Jan  1 06:06:57 swi-mdm9x28-wp user.info kernel: [   13.984338] msm_hsusb msm_hsusb: CI13XXX_CONTROLLER_CONNECT_EVENT received<br>
+Jan  1 06:06:57 swi-mdm9x28-wp user.info kernel: [   13.987429] msm_otg 78d9000.usb: Avail curr from USB = 2<br>
+Jan  1 06:06:57 swi-mdm9x28-wp user.info kernel: [   13.987468] msm_hsusb msm_hsusb: CI13XXX_CONTROLLER_SUSPEND_EVENT received<br>
+Jan  1 06:06:57 swi-mdm9x28-wp user.debug kernel: [   14.117462] LE_KPI: end initscript /etc/rcS.d/S21usb<br>
+Jan  1 06:06:57 swi-mdm9x28-wp user.info kernel: [   14.128892] msm_hsusb msm_hsusb: CI13XXX_CONTROLLER_RESUME_EVENT received<br>
+Jan  1 06:06:57 swi-mdm9x28-wp user.info kernel: [   14.128973] msm_otg 78d9000.usb: Avail curr from USB = 100<br>
+Jan  1 06:06:57 swi-mdm9x28-wp user.info kernel: [   14.416161] android_usb gadget: high-speed config <span class="hashtag">#1:</span> 86000c8.android_usb<br>
+Jan  1 06:06:57 swi-mdm9x28-wp user.info kernel: [   14.416292] msm_otg 78d9000.usb: Avail curr from USB = 500</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/34">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/34</link>
+        <pubDate>Fri, 18 Mar 2022 11:09:33 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-34</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[tachyon]]></dc:creator>
+        <description><![CDATA[
+            <p>Even with TCA programming, the issue - intermittent but iwith high frequency TTY_BREAK error was still seen. By the way the same FW works OK in MangOH Green too. I suspect the subtle signal integrity error on the USB data path though TCA to WP7702 HSIC_DATA. Anyway we will design the custom PCB by referencing MangOH Green instead.</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/33">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/33</link>
+        <pubDate>Wed, 23 Oct 2019 18:10:32 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-33</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[bteeter]]></dc:creator>
+        <description><![CDATA[
+            <p>It is good you can program the TCA…  Is this now resolving your issue?</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/32">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/32</link>
+        <pubDate>Tue, 15 Oct 2019 13:18:29 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-32</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[tachyon]]></dc:creator>
+        <description><![CDATA[
+            <p>I could manage to program TCA9546A I2C mux/USB3503 register by writing I2C driver and the proper device tree change and disable the port 1-2 and enable download streaming charging etc. However the issue was still seen.<br>
+I’ve got MangOH Green b/d and tested it with both DC adapter power and USB power source. The USB2Serial communication work perfectly with our wearable device!<br>
+Definitely the issue only exists in MangOH Red but we don’t know the root cause…</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/31">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/31</link>
+        <pubDate>Thu, 03 Oct 2019 19:08:07 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-31</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[tachyon]]></dc:creator>
+        <description><![CDATA[
+            <p>Then can you let me know what I2C port of mdm9607 is mapped to I2C1 of wp7702?<br>
+In mdm9607 device tree, only I2C4 is configured <span class="mention">@78b8000</span> IO address. Assuming it is mapped to I2C1 of wp7702, I tried to register TCA9546A I2C mux/USB3503 device as I2C4 devices and programmed it through that IO address. However it seems the assumption is wrong.</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/30">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/30</link>
+        <pubDate>Wed, 02 Oct 2019 18:15:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-30</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>we havent tried that part.</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/29">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/29</link>
+        <pubDate>Wed, 02 Oct 2019 17:50:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-29</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[tachyon]]></dc:creator>
+        <description><![CDATA[
+            <p>Asyal,<br>
+can you let me know how to program USB3503 register? The preferred way is by I2C port(I2C1 on the schematic) configuration  via device tree and programming it in the device driver.</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/28">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/28</link>
+        <pubDate>Wed, 02 Oct 2019 17:36:51 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-28</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[tachyon]]></dc:creator>
+        <description><![CDATA[
+            <p>Unfortunately I think so.</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/27">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/27</link>
+        <pubDate>Tue, 01 Oct 2019 21:58:05 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-27</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>so there is no way for us to replicate the issue</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/26">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/26</link>
+        <pubDate>Tue, 01 Oct 2019 21:57:33 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-26</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[tachyon]]></dc:creator>
+        <description><![CDATA[
+            <p>It’s not seen in the normal kernel log. It’s seen as the unexpected Null data sequence in the upper application layer.</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/25">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/25</link>
+        <pubDate>Tue, 01 Oct 2019 21:57:07 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-25</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Can you post the failing log message? Would like to see the messages</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/24">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/24</link>
+        <pubDate>Tue, 01 Oct 2019 21:55:42 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-24</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[tachyon]]></dc:creator>
+        <description><![CDATA[
+            <p>No issue seen with console FTDI</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/23">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/23</link>
+        <pubDate>Tue, 01 Oct 2019 21:49:43 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-23</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>OK…so issue is only seen with your  wearable FTDI part now.<br>
+Do you see any issue with onboard console?</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/22">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/22</link>
+        <pubDate>Tue, 01 Oct 2019 21:45:08 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-22</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[tachyon]]></dc:creator>
+        <description><![CDATA[
+            <p>My meaning was the USB2Serial communication between Renfell USB host IoT card and our wearable FTDI still showed the frequent TTY break error in ftdi_sio driver level.<br>
+In summary,</p>
+<ol>
+<li>Renfell IoT card recognition issue : solved by GPIO2 control</li>
+<li>USB2Serial communication error between our wearable and MangOH b/d USB( USB Host connector or Renfell USB host IoT card) still exists.</li>
+</ol>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/21">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/21</link>
+        <pubDate>Tue, 01 Oct 2019 21:37:57 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-21</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Also what happens when you connect your proprietary hardware to the USB host of Renfell card on mangoh red?</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/20">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/20</link>
+        <pubDate>Tue, 01 Oct 2019 21:32:14 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-20</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <pre><code class="lang-auto">However I could see the same issue in reading data from ftdi_sio driver like as USB host connector on the MangOH b/d…
+</code></pre>
+<p>Is it causing issues?</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/19">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/19</link>
+        <pubDate>Tue, 01 Oct 2019 21:19:57 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-19</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[tachyon]]></dc:creator>
+        <description><![CDATA[
+            <p>It works! Now Renfell USB host card is recognized and announced correctly.<br>
+However I could see the same issue in reading data from ftdi_sio driver like as USB host connector on the MangOH b/d…</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/18">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/18</link>
+        <pubDate>Tue, 01 Oct 2019 21:13:38 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-18</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>try this<br>
+echo 2 &gt; /sys/class/gpio/export<br>
+echo out &gt; /sys/class/gpio/gpio2/direction<br>
+echo 1  &gt; /sys/class/gpio/gpio2/value</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/17">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/17</link>
+        <pubDate>Tue, 01 Oct 2019 20:46:19 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-17</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[tachyon]]></dc:creator>
+        <description><![CDATA[
+            <p>About IoT card recognition by MangOH Red, can you test Renfell USB Host IoT card with FTDI device  instead of FTDI IoT card?</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/16">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/16</link>
+        <pubDate>Tue, 01 Oct 2019 16:12:53 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-16</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[tachyon]]></dc:creator>
+        <description><![CDATA[
+            <p>We’ve already tested the different power source but it also showed the same result.</p>
+<p>I’m now working on the programming ext. USB Hub IC - USB3503 by I2C through some kernel driver hack.</p>
+<p>Weird enough, the loop back test of USB console that has FTDI chip and USB host port of the MangOH b/d and the same test with two MangOH b/d didn’t show the issue. The issue only happens between USB host port of the MangOH b/d and our wearable device FTDI USB. But the communication between FX30 with USB Host IoT card and our wearable device FTDI USB is OK. The only difference is 3 ports are connected to USB3503 IC in MangOH b/d and in FX30, only one port is connected to USB3503 IC. The other issue is, in MangOH b/d, Renfell USB host IoT card isn’t recognized.</p>
+<p>It’s really not understandable yet and all the assumptions about the root cause have been verified false…</p>
+<p>By the way, can you let me know how to program USB3503 Hub IC via I2C? what’s the compatible register address of mdm9607 of I2C1 of wp7702? Can you let me know to do it by the proper dts configuration and I2C mux - TCA9536A control?</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/15">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/15</link>
+        <pubDate>Tue, 01 Oct 2019 15:58:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-15</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-username="tachyon" data-post="13" data-topic="2936">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/t/50afbb/40.png" class="avatar"> tachyon:</div>
+<blockquote>
+<p>tween the console USB and USB host on MangOH b/d and try to use the battery power source instead.</p>
+</blockquote>
+</aside>
+<p>Any updates on this?</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/14">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/14</link>
+        <pubDate>Tue, 01 Oct 2019 00:06:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-14</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[tachyon]]></dc:creator>
+        <description><![CDATA[
+            <p>In the first description of the issue, I already told the recognition of FTDI device via USB host port of MangOH b/d is OK. Again the data reading from ftdi_sio driver makes the continuous TTY break error. The data are being sent from the connected FTDI device through USB signal and USB driver of MangOH b/d packetized the USB signal and forward them to usbserial/ftdi_sio driver. Eventually usbserial/ftdi_sio driver copy the data to the user space buffer of the user space application who access TTYUSB# port.<br>
+Anyway based on our discussion over the call, I will investigate the different behavior of the loop between the console USB and USB host on MangOH b/d and try to use the battery power source instead.<br>
+Thanks!</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/13">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/13</link>
+        <pubDate>Fri, 27 Sep 2019 22:15:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-13</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-username="tachyon" data-post="11" data-topic="2936">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/t/50afbb/40.png" class="avatar"> tachyon:</div>
+<blockquote>
+<p>t0<br>
+ff0<br>
+-isig -icanon -iexten -echo -echoe -echok -echonl -noflsh -xcase -tostop<br>
+-echoprt -echoctl -echoke<br>
+root@fx30:~#</p>
+</blockquote>
+</aside>
+<p>Ok. I connected a FTDI converter to the USB host. Red can detect the FTDI chipset. What command are you running next and what is the failure?</p>
+<pre><code class="lang-auto">Jan  6 00:09:38 swi-mdm9x28-wp user.info kernel: [  575.220326] usb 1-1.3: USB disconnect, device number 5
+Jan  6 00:09:40 swi-mdm9x28-wp user.info kernel: [  577.760130] usb 1-1.3: new full-speed USB device number 7 using msm_hsic_host
+Jan  6 00:09:40 swi-mdm9x28-wp user.info kernel: [  577.871694] usb 1-1.3: New USB device found, idVendor=067b, idProduct=2303
+Jan  6 00:09:40 swi-mdm9x28-wp user.info kernel: [  577.871712] usb 1-1.3: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+Jan  6 00:09:40 swi-mdm9x28-wp user.info kernel: [  577.871724] usb 1-1.3: Product: USB-Serial Controller D
+Jan  6 00:09:40 swi-mdm9x28-wp user.info kernel: [  577.871736] usb 1-1.3: Manufacturer: Prolific Technology Inc.
+</code></pre>
+<p>Also on the IOT car, I inserted a FTDI IoT card and it was detected right away:</p>
+<pre><code class="lang-auto">Jan  6 00:08:39 swi-mdm9x28-wp user.info kernel: [  516.321010] usb 1-1.2: new full-speed USB device number 6 using msm_hsic_host
+Jan  6 00:08:39 swi-mdm9x28-wp user.info kernel: [  516.448415] usb 1-1.2: New USB device found, idVendor=0403, idProduct=6015
+Jan  6 00:08:39 swi-mdm9x28-wp user.info kernel: [  516.448436] usb 1-1.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+Jan  6 00:08:39 swi-mdm9x28-wp user.info kernel: [  516.448447] usb 1-1.2: Product: FT231X USB UART
+Jan  6 00:08:39 swi-mdm9x28-wp user.info kernel: [  516.448458] usb 1-1.2: Manufacturer: FTDI
+Jan  6 00:08:39 swi-mdm9x28-wp user.info kernel: [  516.448469] usb 1-1.2: SerialNumber: D306DV3B
+
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/12</link>
+        <pubDate>Fri, 27 Sep 2019 19:37:00 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-12</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[tachyon]]></dc:creator>
+        <description><![CDATA[
+            <p>My problem is not on ttyHSL1 but the newly attached FTDI device to USB as ttyUSB#</p>
+<p>Here is the log on that port.</p>
+<p>root@fx30:~# stty -F /dev/ttyUSB0 -a<br>
+speed 115200 baud;stty: /dev/ttyUSB0<br>
+line = 0;<br>
+intr = ^C; quit = ^; erase = ^?; kill = ^U; eof = ^D; eol = ;<br>
+eol2 = ; swtch = ; start = ^Q; stop = ^S; susp = ^Z; rprnt = ^R;<br>
+werase = ^W; lnext = ^V; flush = ^O; min = 0; time = 0;<br>
+-parenb -parodd cs8 hupcl -cstopb cread clocal crtscts<br>
+-ignbrk -brkint -ignpar -parmrk -inpck -istrip -inlcr -igncr -icrnl -ixon<br>
+-ixoff -iuclc -ixany -imaxbel -iutf8<br>
+-opost -olcuc -ocrnl -onlcr -onocr -onlret -ofill -ofdel nl0 cr0 tab0 bs0 vt0<br>
+ff0<br>
+-isig -icanon -iexten -echo -echoe -echok -echonl -noflsh -xcase -tostop<br>
+-echoprt -echoctl -echoke<br>
+root@fx30:~# stty -F /dev/ttyUSB0 crtscts<br>
+root@fx30:~# stty -F /dev/ttyUSB0 -a<br>
+speed 115200 baud;stty: /dev/ttyUSB0<br>
+line = 0;<br>
+intr = ^C; quit = ^; erase = ^?; kill = ^U; eof = ^D; eol = ;<br>
+eol2 = ; swtch = ; start = ^Q; stop = ^S; susp = ^Z; rprnt = ^R;<br>
+werase = ^W; lnext = ^V; flush = ^O; min = 0; time = 0;<br>
+-parenb -parodd cs8 hupcl -cstopb cread clocal crtscts<br>
+-ignbrk -brkint -ignpar -parmrk -inpck -istrip -inlcr -igncr -icrnl -ixon<br>
+-ixoff -iuclc -ixany -imaxbel -iutf8<br>
+-opost -olcuc -ocrnl -onlcr -onocr -onlret -ofill -ofdel nl0 cr0 tab0 bs0 vt0<br>
+ff0<br>
+-isig -icanon -iexten -echo -echoe -echok -echonl -noflsh -xcase -tostop<br>
+-echoprt -echoctl -echoke<br>
+root@fx30:~#</p>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/11</link>
+        <pubDate>Fri, 27 Sep 2019 18:43:15 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-11</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+      <item>
+        <title>FTDI USB2Serial failure in MangOH Red b/d</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Could check the following:</p>
+<ol>
+<li>check status: stty –F /dev/ttyHSL1 –a</li>
+<li>Enable crtscts: Stty –F /dev/ttyHSL1 crtscts</li>
+<li>check status again: stty –F /dev/ttyHSL1 –a</li>
+</ol>
+          <p><a href="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936/10</link>
+        <pubDate>Fri, 27 Sep 2019 18:23:33 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2936-10</guid>
+        <source url="https://forum.mangoh.io/t/ftdi-usb2serial-failure-in-mangoh-red-b-d/2936.rss">FTDI USB2Serial failure in MangOH Red b/d</source>
+      </item>
+  </channel>
+</rss>

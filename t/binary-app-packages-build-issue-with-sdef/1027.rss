@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Binary app packages build issue with sdef</title>
+    <link>https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027</link>
+    <description>I am facing this issue with client - server application. I am trying to add my server app and client app in sdef like below
+
+in default.sdef
+
+apps:
+{
+    myserver.wp85.app
+    myclient.wp85.app
+}
+
+bindings:
+{
+    myclient.mydata -&gt; myserver.mydata
+}
+
+but not able to build getting below error
+
+** ERROR:
+/home/mangoh/legato-17.11.0/build/wp85/system/binApps/myclient/myclient.adef:12:4: error: Executable &#39;myclient&#39; not defined in application.
+Makefile:414: recipe for target &#39;system_wp85&#39; failed
+make: *** [system_wp85] Error 1
+
+But if I add only the server app in sdef that means no ipc  binding defined in sdef then there is no error. it throwing error only when i add client app with the ipc binding.
+
+tried with legato 16.10.03 and 17.11 but both the cases i am getting similar error.
+
+ 
+Thanks</description>
+    
+    <lastBuildDate>Thu, 11 Jan 2018 09:27:39 +0000</lastBuildDate>
+    <category>Services</category>
+    <atom:link href="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Binary app packages build issue with sdef</title>
+        <dc:creator><![CDATA[niladridm]]></dc:creator>
+        <description><![CDATA[
+            <p>yes, all our apps rebuild using 17.11<br>
+We can install / remove apps using update /app tool manually without any issue but we are facing this issue, when we used our existing SOTA Service app(based on update api <a href="http://legato.io/legato-docs/latest/c_update.html" rel="nofollow noopener">http://legato.io/legato-docs/latest/c_update.html</a>) to install any app from our ftp.  After this we are now not able to install or remove any app manually using UPDATE and APP tools also because of earlier mentioned error .<br>
+May be our SOTA Service app needs some modification to work good with 17.11</p>
+<p>Thanks<br>
+Niladri</p>
+          <p><a href="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/17">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/17</link>
+        <pubDate>Thu, 11 Jan 2018 08:25:23 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1027-17</guid>
+        <source url="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027.rss">Binary app packages build issue with sdef</source>
+      </item>
+      <item>
+        <title>Binary app packages build issue with sdef</title>
+        <dc:creator><![CDATA[daav]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/niladridm">@niladridm</a></p>
+<p>are you sure that the apps you try to install are now built with 17.11?<br>
+Otherwise my guess is that apps built with 16.10.3 won’t install over 17.11…</p>
+          <p><a href="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/16">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/16</link>
+        <pubDate>Thu, 11 Jan 2018 06:37:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1027-16</guid>
+        <source url="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027.rss">Binary app packages build issue with sdef</source>
+      </item>
+      <item>
+        <title>Binary app packages build issue with sdef</title>
+        <dc:creator><![CDATA[niladridm]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi daav,<br>
+now we have app update issue after up-gradation of the legato from 16.10.3 to 17.11<br>
+I am Getting below error message</p>
+<p>Jan 11 04:57:00 | updateDaemon[495]/framework T=main | LE_FILENAME file_CopyRecursive() 807 | No such path : ‘/tmp/legato_logs/syslog-myapp1-1515644251’<br>
+Jan 11 04:57:00 | updateDaemon[495]/updateDaemon T=main | updateDaemon.c ApplyAppUpdate() 724 | Failed to install app myapp2&lt;3e70d6422d3bd9aa3e25513fc26ff995&gt;’.<br>
+Jan 11 04:57:00 | updateDaemon[495]/updateDaemon T=main | updateDaemon.c UpdateFailed() 417 | Update failed!!</p>
+<p>Thanks</p>
+          <p><a href="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/15">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/15</link>
+        <pubDate>Thu, 11 Jan 2018 05:01:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1027-15</guid>
+        <source url="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027.rss">Binary app packages build issue with sdef</source>
+      </item>
+      <item>
+        <title>Binary app packages build issue with sdef</title>
+        <dc:creator><![CDATA[niladridm]]></dc:creator>
+        <description><![CDATA[
+            <p>Thank you Daav. yes I have upgraded to 17.11 and as of now do not have any problem.</p>
+          <p><a href="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/14">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/14</link>
+        <pubDate>Wed, 10 Jan 2018 04:00:03 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1027-14</guid>
+        <source url="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027.rss">Binary app packages build issue with sdef</source>
+      </item>
+      <item>
+        <title>Binary app packages build issue with sdef</title>
+        <dc:creator><![CDATA[daav]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/niladridm">@niladridm</a></p>
+<p>We’re working at providing preliminary packages more systematically (when waiting for products to be upgraded to more recent Legato versions).</p>
+<p>In the meantime, I guess you successfully built the Legato framework in version 17.11<br>
+The build folder will contain the <strong>legato.cwe</strong> file for your module. You just need to install it on the device (with fwupdate or swiflash) to get it upgraded.</p>
+          <p><a href="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/13">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/13</link>
+        <pubDate>Tue, 09 Jan 2018 07:03:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1027-13</guid>
+        <source url="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027.rss">Binary app packages build issue with sdef</source>
+      </item>
+      <item>
+        <title>Binary app packages build issue with sdef</title>
+        <dc:creator><![CDATA[niladridm]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi davv want to know how do i update Legato 16.10.3 package to recent version.</p>
+<p>thanks</p>
+          <p><a href="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/12</link>
+        <pubDate>Mon, 08 Jan 2018 17:38:19 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1027-12</guid>
+        <source url="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027.rss">Binary app packages build issue with sdef</source>
+      </item>
+      <item>
+        <title>Binary app packages build issue with sdef</title>
+        <dc:creator><![CDATA[niladridm]]></dc:creator>
+        <description><![CDATA[
+            <p>Yes Daav thanks, you are right. No problem if i build my apps using 17.11</p>
+          <p><a href="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/11</link>
+        <pubDate>Mon, 08 Jan 2018 15:48:47 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1027-11</guid>
+        <source url="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027.rss">Binary app packages build issue with sdef</source>
+      </item>
+      <item>
+        <title>Binary app packages build issue with sdef</title>
+        <dc:creator><![CDATA[daav]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/niladridm">@niladridm</a></p>
+<p>The file doesn’t look good indeed.<br>
+Are your binary apps built with Legato 17.11 as well?<br>
+There were bugs on binary apps generation in Legato 16.10.3 which are fixed on recent versions…</p>
+          <p><a href="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/9</link>
+        <pubDate>Mon, 08 Jan 2018 13:13:46 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1027-9</guid>
+        <source url="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027.rss">Binary app packages build issue with sdef</source>
+      </item>
+      <item>
+        <title>Binary app packages build issue with sdef</title>
+        <dc:creator><![CDATA[niladridm]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Daav,<br>
+here the adef file <a class="attachment" href="https://forum.mangoh.io/uploads/short-url/uf9XTkCTtuzjpmGJRXW4i1qWtqe.adef">printClient.adef</a> (606 Bytes)</p>
+<p>Please look into this.</p>
+<p>Thanks</p>
+          <p><a href="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/8</link>
+        <pubDate>Mon, 08 Jan 2018 10:00:34 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1027-8</guid>
+        <source url="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027.rss">Binary app packages build issue with sdef</source>
+      </item>
+      <item>
+        <title>Binary app packages build issue with sdef</title>
+        <dc:creator><![CDATA[daav]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/niladridm">@niladridm</a></p>
+<p>This file:</p>
+<pre><code>/home/mangoh/legato-17.11.0/_build_test/wp750x/binApps/printClient/printClient.adef
+</code></pre>
+<p>is extracted from the .app file, and is the one used by mksys to figure out what is the packed app content. Please can you share it so that we can see what is the issue?</p>
+          <p><a href="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/7</link>
+        <pubDate>Mon, 08 Jan 2018 08:18:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1027-7</guid>
+        <source url="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027.rss">Binary app packages build issue with sdef</source>
+      </item>
+      <item>
+        <title>Binary app packages build issue with sdef</title>
+        <dc:creator><![CDATA[niladridm]]></dc:creator>
+        <description><![CDATA[
+            <p>thank you daav.<br>
+I am trying to follow all the steps shared by you but still having same issue. may be i am doing something wrong.<br>
+my steps are</p>
+<ol>
+<li>build helloipc for binary apps</li>
+<li>copy both the .app files to /tmp/helloIpc/apps/</li>
+<li>create test.sdef file inside legato-17.11.0 directory have<br>
+<span class="hashtag">#include</span> $LEGATO_ROOT/default.sdef</li>
+</ol>
+<p>apps:<br>
+{<br>
+printServer<br>
+printClient<br>
+}<br>
+4. run . bin/configlegatoenv<br>
+5. mksys -t wp750x -s /tmp/helloIpc/apps/ test.sdef</p>
+<p>but getting same error</p>
+<p>…<br>
+…</p>
+<p>md5=${md5%% *} &amp;&amp; <br>
+echo “$md5” &gt; /home/mangoh/legato-17.11.0/build/wp750x/framework/md5<br>
+make[1]: Leaving directory '/home/mangoh/legato-17.11.0’<br>
+mksys -t wp750x -s /tmp/helloIpc/apps/ test.sdef<br>
+** ERROR:<br>
+/home/mangoh/legato-17.11.0/_build_test/wp750x/binApps/printClient/printClient.adef:43:4: error: Executable ‘client’ not defined in application.<br>
+Makefile:414: recipe for target ‘system_wp750x’ failed<br>
+make: *** [system_wp750x] Error 1</p>
+<p>Thanks</p>
+          <p><a href="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/6</link>
+        <pubDate>Sat, 06 Jan 2018 05:21:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1027-6</guid>
+        <source url="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027.rss">Binary app packages build issue with sdef</source>
+      </item>
+      <item>
+        <title>Binary app packages build issue with sdef</title>
+        <dc:creator><![CDATA[daav]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/niladridm">@niladridm</a></p>
+<p>First thing to do is to make sure that the pointed .app files in the sdef file are not located in the same directory that the .adef file (to avoid confusion)<br>
+That said, as soon as your adef file is correctly defined at the bindings level, you don’t need to specify it again in the sdef file.<br>
+The bindings section of the sdef file is used only if you want to override the client app binding in order to bind it to something different (another implementation of the interface)</p>
+<p>As soon as you have apps correctly defined, just pointing at them without overriding the binding should just work:</p>
+<pre><code>#include $LEGATO_ROOT/default.sdef
+
+apps:
+{
+  printServer
+  printClient
+}
+</code></pre>
+<p>Build this with:</p>
+<pre><code>mksys -t wp750x -s /tmp/helloIpc/apps/ test.sdef
+</code></pre>
+<p>where /tmp/helloIpc/apps/ is the folder where your .app are stored, and you’re done.</p>
+          <p><a href="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/5</link>
+        <pubDate>Fri, 05 Jan 2018 15:57:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1027-5</guid>
+        <source url="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027.rss">Binary app packages build issue with sdef</source>
+      </item>
+      <item>
+        <title>Binary app packages build issue with sdef</title>
+        <dc:creator><![CDATA[niladridm]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks for your response.</p>
+<p>I have tried with helloipc example code attached here <a class="attachment" href="https://forum.mangoh.io/uploads/short-url/zJambhssT58nL9KbKgl4mzLVL59.zip">helloIpc.zip</a> (25.3 KB)</p>
+<p>and have the same issue (see below)</p>
+<p>/home/mangoh/legato-16.10.3/build/wp750x/system/binApps/printClient/printClient.adef:43:4: error: Executable ‘client’ not defined in application.<br>
+Makefile:382: recipe for target ‘system_wp750x’ failed<br>
+make: *** [system_wp750x] Error 1</p>
+<p>in my sdef i have these 2 apps along with other platform services</p>
+<p>apps:<br>
+{<br>
+…<br>
+$LEGATO_ROOT/apps/myapps/printServer.wp750x.app<br>
+$LEGATO_ROOT/apps/myapps/printClient.wp750x.app</p>
+<p>}</p>
+<p>Thanks</p>
+          <p><a href="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/4</link>
+        <pubDate>Wed, 03 Jan 2018 11:01:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1027-4</guid>
+        <source url="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027.rss">Binary app packages build issue with sdef</source>
+      </item>
+      <item>
+        <title>Binary app packages build issue with sdef</title>
+        <dc:creator><![CDATA[daav]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/niladridm">@niladridm</a><br>
+Please can you share you adef files as well?<br>
+The build error suggests a mistake there (rather than in the sdef file…)</p>
+          <p><a href="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/3</link>
+        <pubDate>Wed, 03 Jan 2018 08:53:43 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1027-3</guid>
+        <source url="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027.rss">Binary app packages build issue with sdef</source>
+      </item>
+      <item>
+        <title>Binary app packages build issue with sdef</title>
+        <dc:creator><![CDATA[niladridm]]></dc:creator>
+        <description><![CDATA[
+            <p>is anybody facing this issue or am I doing something wrong?</p>
+          <p><a href="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/2</link>
+        <pubDate>Wed, 27 Dec 2017 07:51:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1027-2</guid>
+        <source url="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027.rss">Binary app packages build issue with sdef</source>
+      </item>
+      <item>
+        <title>Binary app packages build issue with sdef</title>
+        <dc:creator><![CDATA[niladridm]]></dc:creator>
+        <description><![CDATA[
+            <p>I am facing this issue with client - server application. I am trying to add my server app and client app in sdef like below</p>
+<p>in default.sdef</p>
+<p>apps:<br>
+{<br>
+myserver.wp85.app<br>
+myclient.wp85.app<br>
+}</p>
+<p>bindings:<br>
+{<br>
+myclient.mydata -&gt; myserver.mydata<br>
+}</p>
+<p>but not able to build getting below error</p>
+<p>** ERROR:<br>
+/home/mangoh/legato-17.11.0/build/wp85/system/binApps/myclient/myclient.adef:12:4: error: Executable ‘myclient’ not defined in application.<br>
+Makefile:414: recipe for target ‘system_wp85’ failed<br>
+make: *** [system_wp85] Error 1</p>
+<p>But if I add only the server app in sdef that means no ipc  binding defined in sdef then there is no error. it throwing error only when i add client app with the ipc binding.</p>
+<p>tried with legato 16.10.03 and 17.11 but both the cases i am getting similar error.</p>
+<p>Thanks</p>
+          <p><a href="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027/1</link>
+        <pubDate>Tue, 26 Dec 2017 05:30:35 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1027-1</guid>
+        <source url="https://forum.mangoh.io/t/binary-app-packages-build-issue-with-sdef/1027.rss">Binary app packages build issue with sdef</source>
+      </item>
+  </channel>
+</rss>

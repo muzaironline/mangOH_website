@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Using mdev to assign names to USB network interfaces</title>
+    <link>https://forum.mangoh.io/t/using-mdev-to-assign-names-to-usb-network-interfaces/2237</link>
+    <description>I have made a custom board with a WP7607. The board has a USB3503 HSIC USB hub to which two LAN9500 ethernet interfaces are connected. Now when the board is started, eth0 and eth1 are assigned to the ports in a random fashion. I want to statically assign eth0 to the left port and eth1 to the right port.
+
+The left port is connected to USB port 3 and the right one to USB port 2. When I take a look in /sys/class/net I see the following:
+
+eth0 -&gt; ../../devices/7c00000.hsic_host/usb1/1-1/1-1.2/1-1.2:1.0/net/eth0
+eth1 -&gt; ../../devices/7c00000.hsic_host/usb1/1-1/1-1.3/1-1.3:1.0/net/eth1
+
+I believe it should be possible to assign them the other way around. I can&#39;t find any clear documentation on this unfortunately. Does anyone know how to get this working?</description>
+    
+    <lastBuildDate>Thu, 07 Mar 2019 09:39:36 +0000</lastBuildDate>
+    <category>Build your own</category>
+    <atom:link href="https://forum.mangoh.io/t/using-mdev-to-assign-names-to-usb-network-interfaces/2237.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Using mdev to assign names to USB network interfaces</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>I think the original purpose of nameif was to do it based on mac addr, but in my example above, the rule is based on a bus identifier.  I’m not sure what the expected bus identifier would be for your devices though.</p>
+          <p><a href="https://forum.mangoh.io/t/using-mdev-to-assign-names-to-usb-network-interfaces/2237/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/using-mdev-to-assign-names-to-usb-network-interfaces/2237/4</link>
+        <pubDate>Thu, 13 Dec 2018 17:20:21 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2237-4</guid>
+        <source url="https://forum.mangoh.io/t/using-mdev-to-assign-names-to-usb-network-interfaces/2237.rss">Using mdev to assign names to USB network interfaces</source>
+      </item>
+      <item>
+        <title>Using mdev to assign names to USB network interfaces</title>
+        <dc:creator><![CDATA[jeroenl]]></dc:creator>
+        <description><![CDATA[
+            <p>I’ve found that, too. However this mactab/nameif method seems to name the interfaces by mac address. I’m working the other way around: I read the mac-addresses from two MAC-eeprom chips and write them to the /etc/network/interfaces file (hwaddress ether xx:xx:xx:xx:xx:xx line). So this won’t work for me I guess.</p>
+          <p><a href="https://forum.mangoh.io/t/using-mdev-to-assign-names-to-usb-network-interfaces/2237/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/using-mdev-to-assign-names-to-usb-network-interfaces/2237/3</link>
+        <pubDate>Thu, 13 Dec 2018 10:56:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2237-3</guid>
+        <source url="https://forum.mangoh.io/t/using-mdev-to-assign-names-to-usb-network-interfaces/2237.rss">Using mdev to assign names to USB network interfaces</source>
+      </item>
+      <item>
+        <title>Using mdev to assign names to USB network interfaces</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>I found a <a href="https://gist.github.com/jirutka/9496300" rel="nofollow noopener">gist on github</a> which seems like it could be helpful.  It shows an <code>mdev.conf</code> file which includes a line for renaming interfaces.</p>
+<pre><code class="lang-auto">-net/.* root:root 600 @/sbin/nameif -s
+</code></pre>
+<p>Unfortunately, <code>nameif</code> is not part of busybox that is enabled in the regular WP images.  You would need to rebuild yocto and enable <code>CONFIG_NAMEIF</code> and <code>CONFIG_FEATURE_NAMEIF_EXTENDED</code>.  Once you have done that, I think you need to put a <code>/etc/mactab</code> file into the root filesystem with the content:</p>
+<pre><code class="lang-auto">eth0 bus=usb-0000:00:08.2-0
+eth1 bus=usb-0000:00:08.3-0
+</code></pre>
+<p>I’m not really sure about the format of the data after <code>bus=</code>.</p>
+          <p><a href="https://forum.mangoh.io/t/using-mdev-to-assign-names-to-usb-network-interfaces/2237/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/using-mdev-to-assign-names-to-usb-network-interfaces/2237/2</link>
+        <pubDate>Wed, 12 Dec 2018 23:16:51 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2237-2</guid>
+        <source url="https://forum.mangoh.io/t/using-mdev-to-assign-names-to-usb-network-interfaces/2237.rss">Using mdev to assign names to USB network interfaces</source>
+      </item>
+      <item>
+        <title>Using mdev to assign names to USB network interfaces</title>
+        <dc:creator><![CDATA[jeroenl]]></dc:creator>
+        <description><![CDATA[
+            <p>I have made a custom board with a WP7607. The board has a USB3503 HSIC USB hub to which two LAN9500 ethernet interfaces are connected. Now when the board is started, eth0 and eth1 are assigned to the ports in a random fashion. I want to statically assign eth0 to the left port and eth1 to the right port.</p>
+<p>The left port is connected to USB port 3 and the right one to USB port 2. When I take a look in /sys/class/net I see the following:</p>
+<p>eth0 -&gt; …/…/devices/7c00000.hsic_host/usb1/1-1/1-1.2/1-1.2:1.0/net/eth0<br>
+eth1 -&gt; …/…/devices/7c00000.hsic_host/usb1/1-1/1-1.3/1-1.3:1.0/net/eth1</p>
+<p>I believe it should be possible to assign them the other way around. I can’t find any clear documentation on this unfortunately. Does anyone know how to get this working?</p>
+          <p><a href="https://forum.mangoh.io/t/using-mdev-to-assign-names-to-usb-network-interfaces/2237/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/using-mdev-to-assign-names-to-usb-network-interfaces/2237/1</link>
+        <pubDate>Tue, 11 Dec 2018 13:23:30 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2237-1</guid>
+        <source url="https://forum.mangoh.io/t/using-mdev-to-assign-names-to-usb-network-interfaces/2237.rss">Using mdev to assign names to USB network interfaces</source>
+      </item>
+  </channel>
+</rss>

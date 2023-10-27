@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>GNSS Constellations</title>
+    <link>https://forum.mangoh.io/t/gnss-constellations/1668</link>
+    <description>Hello, 
+
+I would like to use other constellations than GPS but they aren&#39;t supported for now. I tried this in France.
+Do you know when it will be enable?</description>
+    
+    <lastBuildDate>Fri, 13 Jul 2018 20:15:11 +0000</lastBuildDate>
+    <category>Cloud &amp; Connectivity</category>
+    <atom:link href="https://forum.mangoh.io/t/gnss-constellations/1668.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>GNSS Constellations</title>
+        <dc:creator><![CDATA[alex1]]></dc:creator>
+        <description><![CDATA[
+            <p>Thank you for your help, I understand more now.<br>
+I thought it was weird that were so much available Galileo satellites. ^^</p>
+          <p><a href="https://forum.mangoh.io/t/gnss-constellations/1668/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/gnss-constellations/1668/6</link>
+        <pubDate>Fri, 13 Jul 2018 20:15:11 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1668-6</guid>
+        <source url="https://forum.mangoh.io/t/gnss-constellations/1668.rss">GNSS Constellations</source>
+      </item>
+      <item>
+        <title>GNSS Constellations</title>
+        <dc:creator><![CDATA[oabid]]></dc:creator>
+        <description><![CDATA[
+            <p>It’s a little bit tricky actually:  GPS constellation needs to be activated all the time. So, you cannot activate GLONASS only for instance (platform constraint). It’s documented I think in the platform documentation.</p>
+<p>Having this in mind, you can add new constellations on top of GPS like this :<br>
+gnss set constellation 3 =&gt; GPS + GLONASS<br>
+gnss set constellation 9 =&gt; GPS + GALILEO<br>
+gnss set constellation 47 =&gt; GPS + GLONASS + BEIDOU + GALILEO + QZSS</p>
+<p>Also, It may require a reboot for the setting to be effective.</p>
+          <p><a href="https://forum.mangoh.io/t/gnss-constellations/1668/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/gnss-constellations/1668/5</link>
+        <pubDate>Mon, 09 Jul 2018 13:57:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1668-5</guid>
+        <source url="https://forum.mangoh.io/t/gnss-constellations/1668.rss">GNSS Constellations</source>
+      </item>
+      <item>
+        <title>GNSS Constellations</title>
+        <dc:creator><![CDATA[alex1]]></dc:creator>
+        <description><![CDATA[
+            <p>Sorry @oabid , I forgot to mention my settings : Legato 18.5.1, SWI9X07Y_02.16.02.00.<br>
+Finally I could set GNSS to get all current available service with command gnss set constArea   , like you. <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=5" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+<p>root@swi-mdm9x28:~# gnss get constellation<br>
+ConstellationType 15<br>
+GPS activated<br>
+GLONASS activated<br>
+BEIDOU activated<br>
+GALILEO activated<br>
+QZSS not activated</p>
+<p>But I would report that even with that the command gnss set constellation shows us that the constellation aren’t supported. Don’t understand…</p>
+<p>root@swi-mdm9x28:~# gnss get constellation<br>
+ConstellationType 15<br>
+GPS activated<br>
+GLONASS activated<br>
+BEIDOU activated<br>
+GALILEO activated<br>
+QZSS not activated<br>
+root@swi-mdm9x28:~# gnss set constellation 1<br>
+Success!<br>
+root@swi-mdm9x28:~# gnss set constellation 2<br>
+Setting constellation [GLONASS ] is not supported<br>
+root@swi-mdm9x28:~# gnss set constellation 4<br>
+Setting constellation [BEIDOU ] is not supported<br>
+root@swi-mdm9x28:~# gnss set constellation 8<br>
+Setting constellation [GALILEO ] is not supported<br>
+root@swi-mdm9x28:~# gnss set constellation 16<br>
+Bad constellation parameter: 16<br>
+root@swi-mdm9x28:~# gnss set constellation 32<br>
+Setting constellation [QZSS ] is not supported</p>
+          <p><a href="https://forum.mangoh.io/t/gnss-constellations/1668/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/gnss-constellations/1668/4</link>
+        <pubDate>Mon, 09 Jul 2018 08:38:57 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1668-4</guid>
+        <source url="https://forum.mangoh.io/t/gnss-constellations/1668.rss">GNSS Constellations</source>
+      </item>
+      <item>
+        <title>GNSS Constellations</title>
+        <dc:creator><![CDATA[alex1]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi oabid,</p>
+<p>I will try this and I will let you know what happened, normally should work.</p>
+          <p><a href="https://forum.mangoh.io/t/gnss-constellations/1668/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/gnss-constellations/1668/3</link>
+        <pubDate>Fri, 06 Jul 2018 20:49:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1668-3</guid>
+        <source url="https://forum.mangoh.io/t/gnss-constellations/1668.rss">GNSS Constellations</source>
+      </item>
+      <item>
+        <title>GNSS Constellations</title>
+        <dc:creator><![CDATA[oabid]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello Alex,</p>
+<p>What type of product do you have? Which version of Legato and Firmware? Giving these information, I’ll be able to investigate further.</p>
+<p>In the meantime, in order to check which constellations are supported by your target, you can run the following command. It should indicates you which constellations are supported/activated/disabled and so on.</p>
+<pre><code>root@swi-mdm9x28-wp:~# gnss get constellation
+GPS activated
+GLONASS activated
+BEIDOU activated
+GALILEO activated
+QZSS not activated
+</code></pre>
+<p>Best regards,</p>
+          <p><a href="https://forum.mangoh.io/t/gnss-constellations/1668/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/gnss-constellations/1668/2</link>
+        <pubDate>Fri, 06 Jul 2018 15:10:23 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1668-2</guid>
+        <source url="https://forum.mangoh.io/t/gnss-constellations/1668.rss">GNSS Constellations</source>
+      </item>
+      <item>
+        <title>GNSS Constellations</title>
+        <dc:creator><![CDATA[alex1]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello,</p>
+<p>I would like to use other constellations than GPS but they aren’t supported for now. I tried this in France.<br>
+Do you know when it will be enable?</p>
+          <p><a href="https://forum.mangoh.io/t/gnss-constellations/1668/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/gnss-constellations/1668/1</link>
+        <pubDate>Thu, 05 Jul 2018 12:27:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1668-1</guid>
+        <source url="https://forum.mangoh.io/t/gnss-constellations/1668.rss">GNSS Constellations</source>
+      </item>
+  </channel>
+</rss>

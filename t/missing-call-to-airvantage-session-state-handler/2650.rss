@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Missing Call to AirVantage Session State Handler</title>
+    <link>https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650</link>
+    <description>I have been working with @jchitty and @Prush on these questions https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646 and https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/
+
+Based on a discussion with @jchitty yesterday I have added AirVantage session state handlers to all (3) apps that request sessions.   I have one test unit the I popped the antenna off and then back on after a few minutes (yes I know not recommended but I don&#39;t have attunators at the moment) and this resulted in only 2 of the 3 handlers being called before the app is restarted.  See logs below. 
+
+If you search for `AV Session State Handler` you will see two calls to the handler before the third app terminates due to a failed record push @ 22:32:10.  Then you see three calls to the handler after app restarts and the system is trying to connect to AirVantage @ 22:34:15 and then another three calls to the handler once the system is again connected to AirVantage @ 22:37:38
+
+The other interesting thing is I have a PushRecord callback handler that also doesn&#39;t seem to be called as there are no log printouts. 
+
+Thoughts, why are all 3 apps receiving the state change.
+
+Running Legato 18.09.0.
+
+ [Missing Handler Call Log May 17th.log|attachment](upload://xr8L1LxilsK2Chmhg2L7C7NtPyx.log) (51.3 KB)</description>
+    
+    <lastBuildDate>Fri, 24 May 2019 15:45:24 +0000</lastBuildDate>
+    <category>Build your own</category>
+    <atom:link href="https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Missing Call to AirVantage Session State Handler</title>
+        <dc:creator><![CDATA[Prush]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/dbeckwith">@dbeckwith</a> The avPublisher app is the one not receiving the status. It is impossible for me to comment why your app didn’t receive the status only at that particular instance. Can you try a simple test with three apps simply receiving status when you plug in and plug out antennas. This can help isolate the problem? If that works then that implies avPublisher app is blocked on something.</p>
+          <p><a href="https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650/5</link>
+        <pubDate>Fri, 24 May 2019 15:45:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2650-5</guid>
+        <source url="https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650.rss">Missing Call to AirVantage Session State Handler</source>
+      </item>
+      <item>
+        <title>Missing Call to AirVantage Session State Handler</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/jchitty">@jchitty</a> Thanks for the empathy <img src="https://emoji.discourse-cdn.com/twitter/+1.png?v=9" title=":+1:" class="emoji" alt=":+1:"> I will cross post on the Legato forum since this seems to be a serious issue.</p>
+          <p><a href="https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650/4</link>
+        <pubDate>Wed, 22 May 2019 23:17:43 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2650-4</guid>
+        <source url="https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650.rss">Missing Call to AirVantage Session State Handler</source>
+      </item>
+      <item>
+        <title>Missing Call to AirVantage Session State Handler</title>
+        <dc:creator><![CDATA[jchitty]]></dc:creator>
+        <description><![CDATA[
+            <p>Yeah, that seems strange (incorrect) to me too.  Sorry I don’t have much more than empathy to offer on this topic, though.  Hopefully someone responsible for maintaining this stuff will get some time to reproduce this without you having to share all of your code, so they can get to the bottom of this.</p>
+          <p><a href="https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650/3</link>
+        <pubDate>Wed, 22 May 2019 22:54:33 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2650-3</guid>
+        <source url="https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650.rss">Missing Call to AirVantage Session State Handler</source>
+      </item>
+      <item>
+        <title>Missing Call to AirVantage Session State Handler</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/jchitty">@jchitty</a>, <a class="mention" href="https://forum.mangoh.io/u/prush">@Prush</a> Any thoughts on this.  It seems strange that one of the 3 handlers isn’t called.</p>
+          <p><a href="https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650/2</link>
+        <pubDate>Wed, 22 May 2019 19:41:10 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2650-2</guid>
+        <source url="https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650.rss">Missing Call to AirVantage Session State Handler</source>
+      </item>
+      <item>
+        <title>Missing Call to AirVantage Session State Handler</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p>I have been working with <a class="mention" href="https://forum.mangoh.io/u/jchitty">@jchitty</a> and <a class="mention" href="https://forum.mangoh.io/u/prush">@Prush</a> on these questions <a href="https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646" class="inline-onebox">Multiple Apps Calling `le_avdata_RequestSession`</a> and <a href="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/" class="inline-onebox">Poor Signal Quality and Air Vantage Data Costs</a></p>
+<p>Based on a discussion with <a class="mention" href="https://forum.mangoh.io/u/jchitty">@jchitty</a> yesterday I have added AirVantage session state handlers to all (3) apps that request sessions.   I have one test unit the I popped the antenna off and then back on after a few minutes (yes I know not recommended but I don’t have attunators at the moment) and this resulted in only 2 of the 3 handlers being called before the app is restarted.  See logs below.</p>
+<p>If you search for <code>AV Session State Handler</code> you will see two calls to the handler before the third app terminates due to a failed record push @ 22:32:10.  Then you see three calls to the handler after app restarts and the system is trying to connect to AirVantage @ 22:34:15 and then another three calls to the handler once the system is again connected to AirVantage @ 22:37:38</p>
+<p>The other interesting thing is I have a PushRecord callback handler that also doesn’t seem to be called as there are no log printouts.</p>
+<p>Thoughts, why are all 3 apps receiving the state change.</p>
+<p>Running Legato 18.09.0.</p>
+<p><a class="attachment" href="https://forum.mangoh.io/uploads/short-url/xr8L1LxilsK2Chmhg2L7C7NtPyx.log">Missing Handler Call Log May 17th.log</a> (51.3 KB)</p>
+          <p><a href="https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650/1</link>
+        <pubDate>Fri, 17 May 2019 23:19:31 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2650-1</guid>
+        <source url="https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650.rss">Missing Call to AirVantage Session State Handler</source>
+      </item>
+  </channel>
+</rss>

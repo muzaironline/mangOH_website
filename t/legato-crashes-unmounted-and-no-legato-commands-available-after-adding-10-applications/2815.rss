@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Legato crashes / Unmounted and No legato commands available after adding 10 applications</title>
+    <link>https://forum.mangoh.io/t/legato-crashes-unmounted-and-no-legato-commands-available-after-adding-10-applications/2815</link>
+    <description>Hi There ,
+I was trying to add around **10** applications (GPS,GSM,CAN,WIFi,tracker etc ) to my legato framework using **default.sdef** file . But unfortunately when i flash the compiled image the legato crashes and i wont be able to pass any legato commands . On the other end if i randomly mute any one of the application and flash the compiled image the legato framework as well as the applications run seamlessly . So can anyone let me know if there is any limit to the number of apps that can be added in sdef file or the issue is related to the memory/CPU usage of applications . Any pointers are appreciated .
+
+**Legato framework version used : 18.06.3**
+**Module Used : WP7608**
+
+Also attaching the logs from console [legato_crashed.txt|attachment](upload://2ge88rqfy3HqkZci40L96Bd72Tw.txt) (20.5 KB)  this could help in analyzing the issue .
+
+More importantly below lines from the logs could help in analyzing the issue .
+
+&lt;strong&gt;S02mount_early: Executing mount_early_legato_start **
+**sh: 200: unknown operand**
+**mount Legato from partition lefwkro**
+**S02mount_early: Non-secure.**
+**[ 6.833567] ubi2 error: ubi_wl_init: no enough physical eraseblocks (0, need 1)**
+**[ 6.840190] ubi2 error: ubi_attach_mtd_dev: failed to attach mtd14, error -28**
+**ubiattach: error!: cannot attach mtd14**
+** error 28 (No space left on device)&lt;/strong&gt;
+**S02mount_early: Unable to attach mtd partition lefwkro to UBI logical device 2**
+**It is not dual system logic**
+**S02mount_early: Unable to find a way to mount lefwkro to /mnt/legato**
+**S02mount_early: Executing mount_early_userrw_start**
+**S02mount_early: Mounting swirw file system as UBIFS**
+
+On the other end when i add less than 9 apps and both legato + application run seamlessly i have the below logs .
+
+**S02mount_early: Executing mount_early_legato_start **
+**sh: 200: unknown operand**
+**mount Legato from partition lefwkro**
+**S02mount_early: Non-secure.**
+**UBI device number 2, total 35 LEBs (8888320 bytes, 8.5 MiB), available 0 LEBs (0 bytes), LEB size 253952 bytes (248.0 KiB)**
+**S02mount_early: SQUASHFS successfully mounted on /mnt/legato**
+**S02mount_early: Executing mount_early_userrw_start**
+**S02mount_early: Mounting swirw file system as UBIFS**
+
+In the above logs we have **available LEB’s =0** . As i am new to this part can some one let me know that i am running out of free space / this is a different kind of issue ?
+Please let me know if any details required for further analysis
+
+Thanks &amp; Regards
+
+* Akshay</description>
+    
+    <lastBuildDate>Fri, 04 Nov 2022 04:49:23 +0000</lastBuildDate>
+    <category>Uncategorized</category>
+    <atom:link href="https://forum.mangoh.io/t/legato-crashes-unmounted-and-no-legato-commands-available-after-adding-10-applications/2815.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Legato crashes / Unmounted and No legato commands available after adding 10 applications</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>you mean even for a simple hello world application?<br>
+how about changing FW?<br>
+e.g. now you are in R13, you can upgrade to R16 and see if it helps</p>
+<p>You can also downgrade to R12 and erase the userapp to default:</p>
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.sierrawireless.com/t/wp76-root-password/17645/4">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/1fc275dea17943ec40a824dc4b7ad3839eb8d72d.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.sierrawireless.com/t/wp76-root-password/17645/4" target="_blank" rel="noopener nofollow ugc" title="09:27AM - 25 September 2019">Sierra Wireless Forum – 25 Sep 19</a>
+  </header>
+
+  <article class="onebox-body">
+    <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png" class="thumbnail onebox-avatar" width="500" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 2x" data-dominant-color="F04223">
+
+<h3><a href="https://forum.sierrawireless.com/t/wp76-root-password/17645/4" target="_blank" rel="noopener nofollow ugc">Wp76 root password</a></h3>
+
+  <p>First of all, the command should be “swiflash -m wp76xx -r” instead of “swiflash -m WP76xx -r”.  Next, I found that it is not working on R13.  But in case you first downgrade to R12, it works!</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/legato-crashes-unmounted-and-no-legato-commands-available-after-adding-10-applications/2815/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/legato-crashes-unmounted-and-no-legato-commands-available-after-adding-10-applications/2815/5</link>
+        <pubDate>Fri, 04 Nov 2022 04:43:15 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2815-5</guid>
+        <source url="https://forum.mangoh.io/t/legato-crashes-unmounted-and-no-legato-commands-available-after-adding-10-applications/2815.rss">Legato crashes / Unmounted and No legato commands available after adding 10 applications</source>
+      </item>
+      <item>
+        <title>Legato crashes / Unmounted and No legato commands available after adding 10 applications</title>
+        <dc:creator><![CDATA[kalaivani]]></dc:creator>
+        <description><![CDATA[
+            <p>hi, am unable to install the new updated file, am geeting the following error</p>
+<p>Nov  4 09:48:08 swi-mdm9x28-wp user.info Legato:  INFO | updateDaemon[11245]/updateDaemon T=main | updateDaemon.c le_update_Start() 2086 | Update request accepted.<br>
+Nov  4 09:48:08 swi-mdm9x28-wp user.crit Legato: <em>CRT</em> | updateDaemon[3127]/framework T=main | user.c MakeBackup() 363 | Error while copying file ‘/etc/group.bak’ from ‘/etc/group’. (No space left on device)<br>
+Nov  4 09:48:08 swi-mdm9x28-wp user.emerg Legato: <em>EMR</em> | updateDaemon[3127]/updateDaemon T=main | updateDaemon.c SecurityUnpack() 305 | Can’t create user: SecurityUnpack<br>
+Nov  4 09:48:08 swi-mdm9x28-wp user.err Legato: =ERR= | updateDaemon[11245]/updateDaemon T=main | updateUnpack.c JsonErrorHandler() 321 | Error reading update pack (Read error flags set: POLLHUP (at line 1))<br>
+Nov  4 09:48:08 swi-mdm9x28-wp user.err Legato: =ERR= | updateDaemon[11245]/updateDaemon T=main | updateDaemon.c UpdateFailed() 415 | Update failed!!<br>
+Nov  4 09:48:08 swi-mdm9x28-wp user.crit Legato: <em>CRT</em> | updateDaemon[11245]/updateDaemon T=main | updateDaemon.c PipelineDone() 1928 | security-unpack reported a security violation.</p>
+<p>how to resolve the issue</p>
+          <p><a href="https://forum.mangoh.io/t/legato-crashes-unmounted-and-no-legato-commands-available-after-adding-10-applications/2815/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/legato-crashes-unmounted-and-no-legato-commands-available-after-adding-10-applications/2815/4</link>
+        <pubDate>Fri, 04 Nov 2022 04:28:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2815-4</guid>
+        <source url="https://forum.mangoh.io/t/legato-crashes-unmounted-and-no-legato-commands-available-after-adding-10-applications/2815.rss">Legato crashes / Unmounted and No legato commands available after adding 10 applications</source>
+      </item>
+      <item>
+        <title>Legato crashes / Unmounted and No legato commands available after adding 10 applications</title>
+        <dc:creator><![CDATA[Akshaysk]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/dfrey">@dfrey</a> ,<br>
+Thanks for the response .<br>
+Basically that was an issue with the legato.cwe file which was more than 9MB because of which i ran out of flash space .</p>
+          <p><a href="https://forum.mangoh.io/t/legato-crashes-unmounted-and-no-legato-commands-available-after-adding-10-applications/2815/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/legato-crashes-unmounted-and-no-legato-commands-available-after-adding-10-applications/2815/3</link>
+        <pubDate>Fri, 03 Jan 2020 05:04:18 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2815-3</guid>
+        <source url="https://forum.mangoh.io/t/legato-crashes-unmounted-and-no-legato-commands-available-after-adding-10-applications/2815.rss">Legato crashes / Unmounted and No legato commands available after adding 10 applications</source>
+      </item>
+      <item>
+        <title>Legato crashes / Unmounted and No legato commands available after adding 10 applications</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/akshaysk">@Akshaysk</a>,</p>
+<p>Can you confirm that you created a <code>.cwe</code> or <code>.spk</code> file and programmed that onto the device?  I think if that’s the case, then you likely ran out of flash space.  If you programmed using a <code>.update</code> file, then this is an issue that I haven’t seen before.</p>
+          <p><a href="https://forum.mangoh.io/t/legato-crashes-unmounted-and-no-legato-commands-available-after-adding-10-applications/2815/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/legato-crashes-unmounted-and-no-legato-commands-available-after-adding-10-applications/2815/2</link>
+        <pubDate>Wed, 18 Sep 2019 21:31:10 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2815-2</guid>
+        <source url="https://forum.mangoh.io/t/legato-crashes-unmounted-and-no-legato-commands-available-after-adding-10-applications/2815.rss">Legato crashes / Unmounted and No legato commands available after adding 10 applications</source>
+      </item>
+      <item>
+        <title>Legato crashes / Unmounted and No legato commands available after adding 10 applications</title>
+        <dc:creator><![CDATA[Akshaysk]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi There ,<br>
+I was trying to add around <strong>10</strong> applications (GPS,GSM,CAN,WIFi,tracker etc ) to my legato framework using <strong>default.sdef</strong> file . But unfortunately when i flash the compiled image the legato crashes and i wont be able to pass any legato commands . On the other end if i randomly mute any one of the application and flash the compiled image the legato framework as well as the applications run seamlessly . So can anyone let me know if there is any limit to the number of apps that can be added in sdef file or the issue is related to the memory/CPU usage of applications . Any pointers are appreciated .</p>
+<p><strong>Legato framework version used : 18.06.3</strong><br>
+<strong>Module Used : WP7608</strong></p>
+<p>Also attaching the logs from console <a class="attachment" href="https://forum.mangoh.io/uploads/short-url/2ge88rqfy3HqkZci40L96Bd72Tw.txt">legato_crashed.txt</a> (20.5 KB)  this could help in analyzing the issue .</p>
+<p>More importantly below lines from the logs could help in analyzing the issue .</p>
+<p><strong>S02mount_early: Executing mount_early_legato_start **<br>
+<strong>sh: 200: unknown operand</strong><br>
+<strong>mount Legato from partition lefwkro</strong><br>
+<strong>S02mount_early: Non-secure.</strong><br>
+<strong>[ 6.833567] ubi2 error: ubi_wl_init: no enough physical eraseblocks (0, need 1)</strong><br>
+<strong>[ 6.840190] ubi2 error: ubi_attach_mtd_dev: failed to attach mtd14, error -28</strong><br>
+<strong>ubiattach: error!: cannot attach mtd14</strong><br>
+** error 28 (No space left on device)</strong><br>
+<strong>S02mount_early: Unable to attach mtd partition lefwkro to UBI logical device 2</strong><br>
+<strong>It is not dual system logic</strong><br>
+<strong>S02mount_early: Unable to find a way to mount lefwkro to /mnt/legato</strong><br>
+<strong>S02mount_early: Executing mount_early_userrw_start</strong><br>
+<strong>S02mount_early: Mounting swirw file system as UBIFS</strong></p>
+<p>On the other end when i add less than 9 apps and both legato + application run seamlessly i have the below logs .</p>
+<p>**S02mount_early: Executing mount_early_legato_start **<br>
+<strong>sh: 200: unknown operand</strong><br>
+<strong>mount Legato from partition lefwkro</strong><br>
+<strong>S02mount_early: Non-secure.</strong><br>
+<strong>UBI device number 2, total 35 LEBs (8888320 bytes, 8.5 MiB), available 0 LEBs (0 bytes), LEB size 253952 bytes (248.0 KiB)</strong><br>
+<strong>S02mount_early: SQUASHFS successfully mounted on /mnt/legato</strong><br>
+<strong>S02mount_early: Executing mount_early_userrw_start</strong><br>
+<strong>S02mount_early: Mounting swirw file system as UBIFS</strong></p>
+<p>In the above logs we have <strong>available LEB’s =0</strong> . As i am new to this part can some one let me know that i am running out of free space / this is a different kind of issue ?<br>
+Please let me know if any details required for further analysis</p>
+<p>Thanks &amp; Regards</p>
+<ul>
+<li>Akshay</li>
+</ul>
+          <p><a href="https://forum.mangoh.io/t/legato-crashes-unmounted-and-no-legato-commands-available-after-adding-10-applications/2815/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/legato-crashes-unmounted-and-no-legato-commands-available-after-adding-10-applications/2815/1</link>
+        <pubDate>Thu, 25 Jul 2019 07:28:18 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2815-1</guid>
+        <source url="https://forum.mangoh.io/t/legato-crashes-unmounted-and-no-legato-commands-available-after-adding-10-applications/2815.rss">Legato crashes / Unmounted and No legato commands available after adding 10 applications</source>
+      </item>
+  </channel>
+</rss>

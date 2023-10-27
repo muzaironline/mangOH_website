@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Add Driver to yocto</title>
+    <link>https://forum.mangoh.io/t/add-driver-to-yocto/1204</link>
+    <description>Hello,
+
+Is there any guidelines  on how to build a driver out of the tree for the mangoh project. Otherwise I have seen under the mangoh directory a Linux_kernel_modules can I integrate the driver under that directory ? Thank you.</description>
+    
+    <lastBuildDate>Mon, 05 Mar 2018 16:26:38 +0000</lastBuildDate>
+    <category>Tutorials</category>
+    <atom:link href="https://forum.mangoh.io/t/add-driver-to-yocto/1204.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Add Driver to yocto</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>I think I was a bit unclear. If you have a wp85/wp75 and you have <code>/dev/spidev0.0</code> or a wp76/wp77 and have <code>/dev/spidev1.0</code>, then that means that the spidev driver is loaded for the SPI device provided by the WP module.  Check if you system is registering the spisvc module which creates the spidev device.  You will need to make sure that doesn’t load so that you can create a device of the appropriate type.</p>
+          <p><a href="https://forum.mangoh.io/t/add-driver-to-yocto/1204/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/add-driver-to-yocto/1204/7</link>
+        <pubDate>Mon, 05 Mar 2018 16:26:38 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1204-7</guid>
+        <source url="https://forum.mangoh.io/t/add-driver-to-yocto/1204.rss">Add Driver to yocto</source>
+      </item>
+      <item>
+        <title>Add Driver to yocto</title>
+        <dc:creator><![CDATA[Souhail]]></dc:creator>
+        <description><![CDATA[
+            <p>By running the following commands I got the following response :<br>
+root@swi-mdm9x15:~# modprobe spidev<br>
+root@swi-mdm9x15:~# ls /dev/spidev0.0<br>
+/dev/spidev0.0</p>
+<p>Is that confirms that spidev is not bounded to spi1.0 ?</p>
+          <p><a href="https://forum.mangoh.io/t/add-driver-to-yocto/1204/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/add-driver-to-yocto/1204/6</link>
+        <pubDate>Mon, 05 Mar 2018 08:44:22 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1204-6</guid>
+        <source url="https://forum.mangoh.io/t/add-driver-to-yocto/1204.rss">Add Driver to yocto</source>
+      </item>
+      <item>
+        <title>Add Driver to yocto</title>
+        <dc:creator><![CDATA[Souhail]]></dc:creator>
+        <description><![CDATA[
+            <p>How could I know if the spidev is bounded to the spi1.0 or not knowing that I am using mangOH Red whcih contain only one spi interface ?</p>
+          <p><a href="https://forum.mangoh.io/t/add-driver-to-yocto/1204/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/add-driver-to-yocto/1204/5</link>
+        <pubDate>Mon, 05 Mar 2018 08:13:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1204-5</guid>
+        <source url="https://forum.mangoh.io/t/add-driver-to-yocto/1204.rss">Add Driver to yocto</source>
+      </item>
+      <item>
+        <title>Add Driver to yocto</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>I don’t have much experience with device tree, but what I can tell you is that if your device has a kernel driver and it requires SPI, then you will want to make sure that the spidev driver isn’t bound to <code>spi1.0</code></p>
+          <p><a href="https://forum.mangoh.io/t/add-driver-to-yocto/1204/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/add-driver-to-yocto/1204/4</link>
+        <pubDate>Thu, 01 Mar 2018 14:25:37 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1204-4</guid>
+        <source url="https://forum.mangoh.io/t/add-driver-to-yocto/1204.rss">Add Driver to yocto</source>
+      </item>
+      <item>
+        <title>Add Driver to yocto</title>
+        <dc:creator><![CDATA[Souhail]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello dfrey,</p>
+<p>Thank you for your quick response, I will go with the firest solution that you have proposed, however since I am newer with the yocto project I need to define a driver that uses the SPI1 interface. So am I in need to define a new interface in the Device tree or I can simplu use the existing one. One more thing please what are the device tree used for the WP7607 chip in the yocto project. Thank you</p>
+          <p><a href="https://forum.mangoh.io/t/add-driver-to-yocto/1204/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/add-driver-to-yocto/1204/3</link>
+        <pubDate>Thu, 01 Mar 2018 11:19:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1204-3</guid>
+        <source url="https://forum.mangoh.io/t/add-driver-to-yocto/1204.rss">Add Driver to yocto</source>
+      </item>
+      <item>
+        <title>Add Driver to yocto</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>There are two ways to do it.  You either get the Yocto Linux source tarball from <a href="http://source.sierrawireless.com" rel="nofollow noopener">source.sierrawireless.com</a> and build a new Linux image with the kernel options you want enabled or you create <code>.mdef</code> files that you reference from your <code>.sdef</code> in the <code>kernelModules</code> section.  There are certain things that can’t be achieved with the latter approach.  Sometimes there are kernel options that can’t be built as modules so you must rebuild the kernel.</p>
+          <p><a href="https://forum.mangoh.io/t/add-driver-to-yocto/1204/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/add-driver-to-yocto/1204/2</link>
+        <pubDate>Wed, 28 Feb 2018 15:30:13 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1204-2</guid>
+        <source url="https://forum.mangoh.io/t/add-driver-to-yocto/1204.rss">Add Driver to yocto</source>
+      </item>
+      <item>
+        <title>Add Driver to yocto</title>
+        <dc:creator><![CDATA[Souhail]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello,</p>
+<p>Is there any guidelines  on how to build a driver out of the tree for the mangoh project. Otherwise I have seen under the mangoh directory a Linux_kernel_modules can I integrate the driver under that directory ? Thank you.</p>
+          <p><a href="https://forum.mangoh.io/t/add-driver-to-yocto/1204/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/add-driver-to-yocto/1204/1</link>
+        <pubDate>Wed, 28 Feb 2018 13:04:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1204-1</guid>
+        <source url="https://forum.mangoh.io/t/add-driver-to-yocto/1204.rss">Add Driver to yocto</source>
+      </item>
+  </channel>
+</rss>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>assetData and GPIO - Cloud &amp; Connectivity - mangOH forum</title>
+    <meta name="description" content="Hello, 
+I want to activate the GPIO 21 from wp8548 via command in airvantage. 
+In order to do that, I want to use the gpioService, juts like this app does: https://github.com/legatoproject/legato-af/tree/master/apps/samp&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/assetdata-and-gpio/1455" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;assetData and GPIO&#39;" href="https://forum.mangoh.io/t/assetdata-and-gpio/1455.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/a4f6c041ef6672093d5e24d9425422e55ea8f551.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/a4f6c041ef6672093d5e24d9425422e55ea8f551.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/assetdata-and-gpio/1455" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/assetdata-and-gpio/1455" />
+<meta property="og:title" content="assetData and GPIO" />
+<meta name="twitter:title" content="assetData and GPIO" />
+<meta property="og:description" content="Hello,  I want to activate the GPIO 21 from wp8548 via command in airvantage.  In order to do that, I want to use the gpioService, juts like this app does: https://github.com/legatoproject/legato-af/tree/master/apps/sample/gpioCf3Demo  I’m writing my code based on this app: https://github.com/nhonchu/Legato16.10-AssetData  I want to use GPIOService in the AssetData sample.  I tried this:    changed assetDataTutorial.adef to:       changed the component.cdef to:       then I wrote this function i..." />
+<meta name="twitter:description" content="Hello,  I want to activate the GPIO 21 from wp8548 via command in airvantage.  In order to do that, I want to use the gpioService, juts like this app does: https://github.com/legatoproject/legato-af/tree/master/apps/sample/gpioCf3Demo  I’m writing my code based on this app: https://github.com/nhonchu/Legato16.10-AssetData  I want to use GPIOService in the AssetData sample.  I tried this:    changed assetDataTutorial.adef to:       changed the component.cdef to:       then I wrote this function i..." />
+<meta property="og:article:section" content="Cloud &amp; Connectivity" />
+<meta property="og:article:section:color" content="ED207B" />
+<meta property="article:published_time" content="2018-05-22T18:34:24+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"assetData and GPIO","mainEntity":{"@type":"Question","name":"assetData and GPIO","text":"Hello,\n\nI want to activate the GPIO 21 from wp8548 via command in airvantage.\n\nIn order to do that, I want to use the gpioService, juts like this app does: <a href=\"https://github.com/legatoproject/legato-af/tree/master/apps/sample/gpioCf3Demo\" rel=\"nofollow noopener\">https://github.com/legatoproject/legato-af/tree/master/apps/sample/gpioCf3Demo<\/a>\n\nI’m writing my code based on this app: <a href=\"https://github.com/nhonchu/Legato16.10-AssetData\" rel=\"nofollow noopener\">https://github.com/nhonch&hellip;<\/a>","upvoteCount":0,"answerCount":0,"dateCreated":"2018-05-22T18:34:24.652Z","author":{"@type":"Person","name":"Renato Zapata"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/assetdata-and-gpio/1455">assetData and GPIO</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/connectivity/14" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #ED207B'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>Cloud &amp; Connectivity</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='assetData and GPIO'>
+        <meta itemprop='articleSection' content='Cloud &amp; Connectivity'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/rzapata'><span itemprop='name'>rzapata</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/assetdata-and-gpio/1455">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/a4f6c041ef6672093d5e24d9425422e55ea8f551.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-05-22T18:34:24Z' class='post-time'>
+                    May 22, 2018,  6:34pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-05-22T18:34:24Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hello,</p>
+<p>I want to activate the GPIO 21 from wp8548 via command in airvantage.</p>
+<p>In order to do that, I want to use the gpioService, juts like this app does: <a href="https://github.com/legatoproject/legato-af/tree/master/apps/sample/gpioCf3Demo" rel="nofollow noopener">https://github.com/legatoproject/legato-af/tree/master/apps/sample/gpioCf3Demo</a></p>
+<p>I’m writing my code based on this app: <a href="https://github.com/nhonchu/Legato16.10-AssetData" rel="nofollow noopener">https://github.com/nhonchu/Legato16.10-AssetData</a></p>
+<p>I want to use GPIOService in the AssetData sample.</p>
+<p>I tried this:</p>
+<ol>
+<li>
+<p>changed assetDataTutorial.adef to:<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/a4f6c041ef6672093d5e24d9425422e55ea8f551.png" data-download-href="/uploads/short-url/nxkXWaEcQtiy83QiFoWfZMcun9T.png?dl=1" title="image.png" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/a4f6c041ef6672093d5e24d9425422e55ea8f551_2_690x369.png" alt="image" data-base62-sha1="nxkXWaEcQtiy83QiFoWfZMcun9T" width="690" height="369" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/a4f6c041ef6672093d5e24d9425422e55ea8f551_2_690x369.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/a4f6c041ef6672093d5e24d9425422e55ea8f551.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/a4f6c041ef6672093d5e24d9425422e55ea8f551.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/a4f6c041ef6672093d5e24d9425422e55ea8f551_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image.png</span><span class="informations">771×413 24.5 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+</li>
+<li>
+<p>changed the component.cdef to:<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/6f6265aa1fdc59b01e59e7b78f015019bbbc1a9e.png" data-download-href="/uploads/short-url/fTlOtn22ubIjb7HQCIuNLgxFNwi.png?dl=1" title="image.png" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/6f6265aa1fdc59b01e59e7b78f015019bbbc1a9e_2_690x419.png" alt="image" data-base62-sha1="fTlOtn22ubIjb7HQCIuNLgxFNwi" width="690" height="419" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/6f6265aa1fdc59b01e59e7b78f015019bbbc1a9e_2_690x419.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/6f6265aa1fdc59b01e59e7b78f015019bbbc1a9e.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/6f6265aa1fdc59b01e59e7b78f015019bbbc1a9e.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/6f6265aa1fdc59b01e59e7b78f015019bbbc1a9e_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image.png</span><span class="informations">772×469 20.9 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+</li>
+</ol>
+<p>then I wrote this function in the assetDataMain.c:</p>
+<p>static void toggleGPIO()<br>
+{<br>
+bool active;<br>
+active = le_gpioPin21_Read();</p>
+<pre><code>if(active)
+{
+	LE_INFO("Pin is active, its gonna be deactivated");
+	le_gpioPin21_Deactivate();
+}
+
+else
+
+{
+	LE_INFO("Pin is inactive, its gonna be activated");
+	le_gpioPin21_Activate();
+}
+</code></pre>
+<p>}</p>
+<p>I couldn’t run the app, the log gives me:</p>
+<p>info Legato:  INFO | assetDataTutorial[16925]/componentAssetData T=main | assetDataMain.c _componentAssetData_COMPONENT_INIT() 212 | Legato AssetData: Start Legato AssetDataApp<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.SigMonitor’ overflowed. Expanded to 1 blocks.<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.SigHandler’ overflowed. Expanded to 1 blocks.<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_avc_ClientData’ overflowed. Expanded to 1 blocks.<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avc_client.c le_avc_AddStatusEventHandler() 618 | Sending message to server and waiting for response : 4 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avc_client.c le_avc_StartSession() 942 | Sending message to server and waiting for response : 0 bytes sent<br>
+info Legato:  INFO | assetDataTutorial[16925]/componentAssetData T=main | assetDataMain.c _componentAssetData_COMPONENT_INIT() 227 | Legato AssetData: Started LWM2M session with AirVantage<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_timer_Start() 982 | threadRecPtr-&gt;timerFD=11<br>
+info Legato:  INFO | assetDataTutorial[16925]/componentAssetData T=main | assetDataMain.c _componentAssetData_COMPONENT_INIT() 245 | Legato AssetData: Create 2 instances AssetData<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_Create() 756 | Sending message to server and waiting for response : 8 bytes sent<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceByName() 3113 | Creating asset instance for assetDataTutorial/Room<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2982 | Creating asset instance for assetDataTutorial/1000<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 3079 | Finished creating instance 0 for assetDataTutorial/1000<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_Create() 756 | Sending message to server and waiting for response : 8 bytes sent<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceByName() 3113 | Creating asset instance for assetDataTutorial/Room<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2982 | Creating asset instance for assetDataTutorial/1000<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 3079 | Finished creating instance 1 for assetDataTutorial/1000<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetString() 1376 | Sending message to server and waiting for response : 23 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetFloat() 1091 | Sending message to server and waiting for response : 27 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetBool() 1231 | Sending message to server and waiting for response : 16 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetInt() 951 | Sending message to server and waiting for response : 29 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_avdata_ClientData’ overflowed. Expanded to 1 blocks.<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_AddFieldEventHandler() 624 | Sending message to server and waiting for response : 29 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_avdata_ClientData’ overflowed. Expanded to 2 blocks.<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_AddFieldEventHandler() 624 | Sending message to server and waiting for response : 21 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetString() 1376 | Sending message to server and waiting for response : 27 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetFloat() 1091 | Sending message to server and waiting for response : 27 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetBool() 1231 | Sending message to server and waiting for response : 16 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetInt() 951 | Sending message to server and waiting for response : 29 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_avdata_ClientData’ overflowed. Expanded to 3 blocks.<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_AddFieldEventHandler() 624 | Sending message to server and waiting for response : 29 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_avdata_ClientData’ overflowed. Expanded to 4 blocks.<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_AddFieldEventHandler() 624 | Sending message to server and waiting for response : 21 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.Default Timer Pool’ overflowed. Expanded to 2 blocks.<br>
+emerg Legato: <em>EMR</em> | assetDataTutorial[16925]/framework T=main | LE_FILENAME ClientSocketHangUp() 852 | Session closed by server (assetDataTutorial.componentAssetData.le_gpioPin21:53b428577c18e3558699d57262acfc23).<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | avData.c ClientCloseSessionHandler() 188 | Client 0x694ac closed, remove allocated resources<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_DeleteInstance() 3160 | Deleting instance assetDataTutorial/1000/1<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_DeleteInstance() 3160 | Deleting instance assetDataTutorial/1000/0<br>
+info Legato:  INFO | supervisor[421]/supervisor T=main | proc.c proc_SigChildHandler() 1942 | Process ‘assetDataTutorial’ (PID: 16925) has exited with exit code 1.<br>
+info Legato:  INFO | supervisor[421]/supervisor T=main | proc.c GetFaultAction() 1744 | No fault action specified for process ‘assetDataTutorial’. Assuming ‘ignore’.<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | avcServer.c ClientCloseSessionHandler() 566 | Client 0x692b4 closed, remove allocated resources<br>
+warn Legato: -WRN- | supervisor[421]/supervisor T=main | app.c app_SigChildHandler() 3221 | Process ‘assetDataTutorial’ in app ‘assetDataTutorial’ faulted: Ignored.<br>
+warn Legato: -WRN- | _appStopClient[16926]/framework T=main | LE_FILENAME CreateSocket() 550 | Socket opened as standard i/o file descriptor 2!<br>
+info Legato:  INFO | supervisor[421]/supervisor T=main | apps.c DeactivateAppContainer() 340 | Application ‘assetDataTutorial’ has stopped.<br>
+info Legato:  INFO | updateDaemon[450]/updateDaemon T=main | updateDaemon.c updateDaemon_MarkGood() 203 | System passed probation. Marking ‘good’.</p>
+<p>I don’t know much of communication between apps, I’m sure that’s where I’m getting it wrong.</p>
+<p>Can anybody help me?</p>
+<p>Regards</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

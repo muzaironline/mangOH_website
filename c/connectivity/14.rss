@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:discourse="http://www.discourse.org/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Cloud &amp; Connectivity - mangOH forum</title>
+    <link>https://forum.mangoh.io/c/connectivity/14</link>
+    <description>Topics in the &#39;Cloud &amp; Connectivity&#39; category </description>
+    
+      <lastBuildDate>Tue, 25 Oct 2022 11:15:48 +0000</lastBuildDate>
+      <atom:link href="https://forum.mangoh.io/c/connectivity/14.rss" rel="self" type="application/rss+xml" />
+        <item>
+          <title>App sync after wake-up from ULPM</title>
+          <dc:creator><![CDATA[clementfumey]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hello,</p>
+<p>In my system I have a mangOH yellow that is most of the time in ULPM and is woken up by an other sensor over a GPIO. I have made a custom application that communicate with the sensor over UART and then send sensor value to Octave through DataHub app. The corresponding resource have an observations that should trigger the sending of the value to Octave cloud.</p>
+<p>However, since I have configured the ULPM, the data is not forwarded to the cloud. When I check the log with logread, I can see that my application is communicating over uart and sending data to DataHub before CloudInterface / Router apps configure the observation for my resource. I thus suspect the observation not to be triggered.</p>
+<p>As a provisonal solution I have delayed my stuff in my app but this is not a great solution as I want to be sure the observation is triggered no matter how long CloudInterface app take to configure itself and even more important I don’t want to spend time waiting if everything is ready and consume battery battery for nothing.</p>
+<p>Is there a way to sync apps to wait for example that CloudInterface and cellular network is ready before performing my tasks ?</p>
+            <p><small>2 posts - 1 participant</small></p>
+            <p><a href="https://forum.mangoh.io/t/app-sync-after-wake-up-from-ulpm/10158">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/app-sync-after-wake-up-from-ulpm/10158</link>
+          <pubDate>Tue, 25 Oct 2022 11:15:48 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-10158</guid>
+          <source url="https://forum.mangoh.io/t/app-sync-after-wake-up-from-ulpm/10158.rss">App sync after wake-up from ULPM</source>
+        </item>
+        <item>
+          <title>How to connect to cloud using mangoh red</title>
+          <dc:creator><![CDATA[babangparhusip]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>I am using mangoh red, I would like to connect to AWS IoT Core using MQTT protocol. How should I do this?</p>
+            <p><small>2 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/how-to-connect-to-cloud-using-mangoh-red/10137">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/how-to-connect-to-cloud-using-mangoh-red/10137</link>
+          <pubDate>Tue, 04 Oct 2022 09:46:21 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-10137</guid>
+          <source url="https://forum.mangoh.io/t/how-to-connect-to-cloud-using-mangoh-red/10137.rss">How to connect to cloud using mangoh red</source>
+        </item>
+        <item>
+          <title>SOTA from Airvantage</title>
+          <dc:creator><![CDATA[nilsarve]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hello</p>
+<p>Beginning a few days ago SOTA updates from airvantage stopped working. Have tested several god and tried bundles and applications but they will not install on any of my WP modules any more. Am I the only one with this experience?</p>
+<p>Logs from my WP7607:</p>
+<pre><code class="lang-auto">May 13 12:28:34 swi-mdm9x28-wp user.info Legato:  INFO | avcDaemon[1090]/httpClientLibrary T=main | le_httpClientLib.c le_httpClient_CreateOnSrcAddr() 1196 | Allocated: 0xb6a51614, referenced by: 0x2f
+May 13 12:28:34 swi-mdm9x28-wp user.info Legato:  INFO | avcDaemon[1090]/socketLibrary T=main | secSocket_openssl.c secSocket_AddCertificate() 219 | Certificate: 0xb6e8f85c Len:1153
+May 13 12:28:34 swi-mdm9x28-wp user.info Legato:  INFO | avcDaemon[1090]/socketLibrary T=main | secSocket_openssl.c secSocket_Connect() 323 | Connecting to 0/m2mop.net:443 - m2mop.net:443...
+May 13 12:28:35 swi-mdm9x28-wp user.err Legato: =ERR= | avcDaemon[1090]/socketLibrary T=main | secSocket_openssl.c secSocket_Connect() 354 | Unable to connect BIO to m2mop.net:443
+May 13 12:28:35 swi-mdm9x28-wp user.err Legato: =ERR= | avcDaemon[1090]/socketLibrary T=main | le_socketLib.c le_socket_Connect() 497 | Unable to connect
+May 13 12:28:35 swi-mdm9x28-wp user.err Legato: =ERR= | avcDaemon[1090]/avcDaemon T=main | downloader.c StartHttpClient() 709 | Unable to connect HTTP client
+May 13 12:28:35 swi-mdm9x28-wp user.err Legato: =ERR= | avcDaemon[1090]/avcDaemon T=main | downloader.c downloader_GetPackageSize() 786 | Unable to start HTTP client, status -6
+May 13 12:28:35 swi-mdm9x28-wp user.warn Legato: -WRN- | avcDaemon[1090]/avcDaemon T=main | tpfServer.c tpfServer_GetTpfState() 79 | FW update install pending not found
+May 13 12:28:35 swi-mdm9x28-wp user.info Legato:  INFO | avcDaemon[1090]/avcDaemon T=main | avcServer.c ProcessUpdateStatus() 1902 | Current session state: Download Pending
+May 13 12:28:35 swi-mdm9x28-wp user.info Legato:  INFO | avcDaemon[1090]/avcDaemon T=main | avcServer.c RespondToDownloadPending() 1353 | Stopping activity timer during download pending.
+May 13 12:28:35 swi-mdm9x28-wp user.info Legato:  INFO | avcDaemon[1090]/avcDaemon T=main | avcServer.c StartDeferTimer() 820 | Deferring download for 30 minutes
+May 13 12:28:35 swi-mdm9x28-wp user.err Legato: =ERR= | avcDaemon[1090]/avcDaemon T=main | avcServer.c le_avc_AcceptDownload() 3424 | Expected DOWNLOAD_PENDING state; current state is 'Idle'
+</code></pre>
+            <p><small>7 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/sota-from-airvantage/9981">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/sota-from-airvantage/9981</link>
+          <pubDate>Mon, 16 May 2022 05:45:57 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9981</guid>
+          <source url="https://forum.mangoh.io/t/sota-from-airvantage/9981.rss">SOTA from Airvantage</source>
+        </item>
+        <item>
+          <title>How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</title>
+          <dc:creator><![CDATA[babangparhusip]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>I am trying to integrate MQTT stack of AWS IoT Device SDK into my mangOH red board.</p>
+<p>I downloaded latest SDK here:</p><aside class="onebox allowlistedgeneric" data-onebox-src="https://github.com/aws/aws-iot-device-sdk-embedded-C/releases/tag/202108.00">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/bad3e5f9ad67c1ddf145107ce7032ac1d7b22563.svg" class="site-icon" width="32" height="32">
+
+      <a href="https://github.com/aws/aws-iot-device-sdk-embedded-C/releases/tag/202108.00" target="_blank" rel="noopener nofollow ugc">GitHub</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:690/345;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2_2_690x345.png" class="thumbnail" width="690" height="345" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2_2_690x345.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2_2_1035x517.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2_2_10x10.png"></div>
+
+<h3><a href="https://github.com/aws/aws-iot-device-sdk-embedded-C/releases/tag/202108.00" target="_blank" rel="noopener nofollow ugc">Release 202108.00 · aws/aws-iot-device-sdk-embedded-C</a></h3>
+
+  <p>Release version 202108.00 of the AWS IoT Device SDK for Embedded C.</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+<p>and manage to make it work on local PC (Ubuntu 18.04 ) i.e. it can do mutual TLS authentication and simple MQTT publish to AWS IoT core cloud.</p>
+<p>However when I tried to port over to mangOH platform, I made some progress but was stuck at compilation error which seemed from openssl library integration, it could not find function which was defined in this inclusion:</p>
+<p><span class="hashtag">#include</span> &lt;openssl/ssl.h&gt;</p>
+<p>This mean, this library was recognized locally by my local PC OS but not by legato (release 16 ver 19.11.2). This is the snippet of compilation error:</p>
+<p>&lt;project_base&gt;/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:247:17: error: implicit declaration of function ‘SSL_set1_host’; did you mean ‘SSL_set_trust’? [-Werror=implicit-function-declaration]<br>
+sslStatus = SSL_set1_host( pOpensslParams-&gt;pSsl, pServerInfo-&gt;pHostName );<br>
+^~~~~~~~~~~~~<br>
+SSL_set_trust<br>
+&lt;project_base&gt;/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c: In function ‘setOptionalConfigurations’:<br>
+/home/iotlab0035x1804/repo/gatewayx/src/gateway/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:533:13: error: implicit declaration of function ‘SSL_set_default_read_buffer_len’; did you mean ‘SSL_CTX_set_default_read_ahead’? [-Werror=implicit-function-declaration]<br>
+SSL_set_default_read_buffer_len( pSsl, ( size_t ) readBufferLength );<br>
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+SSL_CTX_set_default_read_ahead<br>
+&lt;project_base&gt;/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c: In function ‘Openssl_Connect’:<br>
+&lt;project_base&gt;/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:625:36: error: implicit declaration of function ‘TLS_client_method’; did you mean ‘DTLS_client_method’? [-Werror=implicit-function-declaration]<br>
+pSslContext = SSL_CTX_new( TLS_client_method() );<br>
+^~~~~~~~~~~~~~~~~<br>
+DTLS_client_method<br>
+&lt;project_base&gt;/src/gateway/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:625:36: error: passing argument 1 of ‘SSL_CTX_new’ makes pointer from integer without a cast [-Werror=int-conversion]<br>
+In file included from &lt;project_base&gt;/src/gateway/cloud/aws/sdk/platform/posix/transport/include/openssl_posix.h:59:0,<br>
+from &lt;project_base&gt;/gatewayx/src/gateway/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:35:<br>
+&lt;project_base&gt;/gatewayx/leaf-data/r16/wp76-toolchain/sysroots/armv7a-neon-poky-linux-gnueabi/usr/include/openssl/ssl.h:2131:10: note: expected ‘const SSL_METHOD * {aka const struct ssl_method_st *}’ but argument is of type ‘int’<br>
+SSL_CTX *SSL_CTX_new(const SSL_METHOD *meth);<br>
+^~~~~~~~~~~</p>
+<p>This is snippet of my .cdef<br>
+cxxflags: {<br>
+-std=c++1z<br>
+-DMQTT_DO_NOT_USE_CUSTOM_CONFIG<br>
+-DDISABLE_LOGGING<br>
+-DLIBRARY_LOG_LEVEL=LOG_NONE<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/include<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/interface<br>
+-I$CURDIR/cloud/aws/sdk/platform/posix/transport/include<br>
+-I$CURDIR/cloud/aws/logging-stack<br>
+-I$CURDIR/cloud/aws/sdk/platform/include<br>
+-I$CURDIR/cloud/aws/sdk/platform/posix/transport/include<br>
+}</p>
+<p>cflags: {<br>
+-std=c99<br>
+-DMQTT_DO_NOT_USE_CUSTOM_CONFIG<br>
+-DDISABLE_LOGGING<br>
+-DLIBRARY_LOG_LEVEL=LOG_NONE<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/include<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/interface<br>
+-I$CURDIR/cloud/aws/sdk/platform/posix/transport/include<br>
+-I$CURDIR/cloud/aws/logging-stack<br>
+-I$CURDIR/cloud/aws/sdk/platform/include<br>
+-I$CURDIR/cloud/aws/sdk/platform/posix/transport/include<br>
+}</p>
+<p>provides: {<br>
+api: {<br>
+ipcGateway = $CURDIR/…/leipc/ipcGateway.api<br>
+}<br>
+}</p>
+<p>sources: {<br>
+…</p>
+<pre><code>// AWS MQTT library
+$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/core_mqtt.c
+$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/core_mqtt_state.c
+$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/core_mqtt_serializer.c
+
+$CURDIR/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c
+</code></pre>
+<p>}</p>
+            <p><small>9 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926</link>
+          <pubDate>Mon, 18 Apr 2022 02:01:55 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9926</guid>
+          <source url="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926.rss">How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</source>
+        </item>
+        <item>
+          <title>Air Vantage connection front pannel?</title>
+          <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hi! I’m trying to register my device to air Vantage. I’m following this tutorial:<br>
+<a href="https://mangoh.io/uploaded-documents/Reference/mangOH%20Red/Discover/Getting%20Started/mangOH%20Red%20GSG%20-%20Windows%20R5/41112261_mangOH_Red_GSG_-_HTML5/41112261_AirVan/41112261_AirVan.htm" class="onebox" target="_blank" rel="noopener nofollow ugc">https://mangoh.io/uploaded-documents/Reference/mangOH%20Red/Discover/Getting%20Started/mangOH%20Red%20GSG%20-%20Windows%20R5/41112261_mangOH_Red_GSG_-_HTML5/41112261_AirVan/41112261_AirVan.htm</a></p>
+<p>Can someone explain me why I see this pannel:<br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/c372dd786b3143c36d62c7c6bf919f380fa5a4c5.png" alt="image" data-base62-sha1="rT1cEDmvMEWtKgzzn9QwOrrxWtf" width="644" height="88"></p>
+<p>and not this pannel?<br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/bf85d7d4f987ccc738401f1db60f648784e0f0a5.png" alt="image" data-base62-sha1="rkhXayXzGV7GM8HYO6qWrST0HY1" width="492" height="115"></p>
+<p>When I login into AirVantage I don’t see develop and configure options…</p>
+            <p><small>6 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/air-vantage-connection-front-pannel/7279">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/air-vantage-connection-front-pannel/7279</link>
+          <pubDate>Mon, 29 Mar 2021 14:03:15 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-7279</guid>
+          <source url="https://forum.mangoh.io/t/air-vantage-connection-front-pannel/7279.rss">Air Vantage connection front pannel?</source>
+        </item>
+        <item>
+          <title>Airvantage export data</title>
+          <dc:creator><![CDATA[acek]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Is it possible to export all the communication packets received from the MangoH Red shown in the timeline using the RedCloud application as a CSV file?</p>
+<p>I have tried the export data functionality but that only provides system status data and not the communication packets.</p>
+<p>Thanks</p>
+            <p><small>3 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/airvantage-export-data/6369">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/airvantage-export-data/6369</link>
+          <pubDate>Wed, 17 Mar 2021 15:14:09 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-6369</guid>
+          <source url="https://forum.mangoh.io/t/airvantage-export-data/6369.rss">Airvantage export data</source>
+        </item>
+        <item>
+          <title>AirVantage Navigation bar is difference</title>
+          <dc:creator><![CDATA[alberthuang]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hi all,</p>
+<p>I registered a new account in Airvantage but the navigation bar area only shows like figure 1, not  figure 2. How can I add this function?</p>
+<p>Thanks.<br>
+Albert</p>
+<p>figure1<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/c419cd1ea8aead1ce7f8b8c7d1eaa24d53c15975.png" data-download-href="/uploads/short-url/rYMRvRR3dAWhqe0RJ4E1EOChFnD.png?dl=1" title="image" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c419cd1ea8aead1ce7f8b8c7d1eaa24d53c15975_2_690x138.png" alt="image" data-base62-sha1="rYMRvRR3dAWhqe0RJ4E1EOChFnD" width="690" height="138" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c419cd1ea8aead1ce7f8b8c7d1eaa24d53c15975_2_690x138.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c419cd1ea8aead1ce7f8b8c7d1eaa24d53c15975_2_1035x207.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/c419cd1ea8aead1ce7f8b8c7d1eaa24d53c15975.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c419cd1ea8aead1ce7f8b8c7d1eaa24d53c15975_2_10x10.png"></a></div><p></p>
+<p>figure2<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/0d1618e9e2bb0e519d9bfbe969923bea24b1857f.png" data-download-href="/uploads/short-url/1RLy7KsmKFmjpEQW2mUlT7pwBZR.png?dl=1" title="image" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/0d1618e9e2bb0e519d9bfbe969923bea24b1857f_2_690x141.png" alt="image" data-base62-sha1="1RLy7KsmKFmjpEQW2mUlT7pwBZR" width="690" height="141" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/0d1618e9e2bb0e519d9bfbe969923bea24b1857f_2_690x141.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/0d1618e9e2bb0e519d9bfbe969923bea24b1857f_2_1035x211.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/0d1618e9e2bb0e519d9bfbe969923bea24b1857f.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/0d1618e9e2bb0e519d9bfbe969923bea24b1857f_2_10x10.png"></a></div><p></p>
+            <p><small>4 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/airvantage-navigation-bar-is-difference/3435">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/airvantage-navigation-bar-is-difference/3435</link>
+          <pubDate>Wed, 15 Jan 2020 03:22:22 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-3435</guid>
+          <source url="https://forum.mangoh.io/t/airvantage-navigation-bar-is-difference/3435.rss">AirVantage Navigation bar is difference</source>
+        </item>
+        <item>
+          <title>mangOH Yellow LTE doesn&#39;t work?</title>
+          <dc:creator><![CDATA[dougbrown]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hi there,</p>
+<p>I’ve been experimenting with the mangOH Yellow over the past several weeks, and I simply can’t get it to connect on LTE. It always connects to T-Mobile’s 2G network. I’ve tried everything. I’m using the 3-month Octave trial, and I’ve also tried a Hologram SIM card.</p>
+<p>Various relevant info:</p>
+<pre><code>Firmware Version:              SWI9X06Y_02.32.02.00 c2e98c jenkins 2019/08/30 07:28:21
+Bootloader Version:            SWI9X06Y_02.32.02.00 c2e98c jenkins 2019/08/30 07:28:21
+MCU Version:                   002.013
+PRI Part Number (PN):          9909138
+PRI Revision:                  001.001 
+Carrier PRI Name:              SIERRA
+Carrier PRI Revision:          001.027_000
+</code></pre>
+<p>If I prevent GSM fallback by doing:</p>
+<p><code>cm radio rat LTE</code></p>
+<p>…then it just never registers on the network. I end up seeing stuff like this:</p>
+<pre><code>root@swi-mdm9x28-wp:~# cm radio
+Power:                         ON
+Current Network Operator:      AT&amp;T
+Current RAT:                   Module not registered on network, RAT not available
+Status:                        Registration was denied, usually because of invalid access credentials (LE_MRC_REG_DENIED)
+Signal:                        Strong signal strength (4)
+PS:                            Packet Switched Not registered (LE_MRC_REG_NONE)
+</code></pre>
+<p>(It also sometimes shows Verizon instead of AT&amp;T)</p>
+<p>As soon as I allow GSM fallback:</p>
+<p><code>cm radio rat GSM LTE</code></p>
+<p>Then it eventually connects to T-Mobile:</p>
+<pre><code>root@swi-mdm9x28-wp:~# cm radio
+Power:                         ON
+Current Network Operator:      T-Mobile
+Current RAT:                   GSM network (LE_MRC_RAT_GSM)
+Status:                        Registered to a roaming network (LE_MRC_REG_ROAMING)
+Signal:                        Strong signal strength (4)
+PS:                            Packet Switched Not registered (LE_MRC_REG_NONE)
+</code></pre>
+<p>I’m in a pretty rural area, so I suppose that poor coverage is a possibility, but I read that AT&amp;T has nationwide LTE-M coverage. AT&amp;T definitely has LTE coverage here, so wouldn’t that mean that LTE-M should work too? I can’t get the Hologram card to work with AT&amp;T or Verizon’s LTE networks either, and I believe it is supposed to be compatible with both carriers. Same thing – LE_MRC_REG_DENIED. I tried the AT&amp;T firmware as well…didn’t seem to matter.</p>
+<p>Here’s the output of AT+COPS=?:</p>
+<p><code>+COPS: (1,"T-Mobile","T-Mobile","310260",0),(1,"AT&amp;T","AT&amp;T","310410",7),(1,"313 100","313 100","313100",7),(1,"Verizon","Verizon","311480",7),,(0,1,2,3,4),(0,1,2)</code></p>
+<p>Am I going crazy? Am I missing something simple?</p>
+<p>Thanks for any advice!</p>
+            <p><small>19 posts - 4 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332</link>
+          <pubDate>Fri, 03 Jan 2020 19:56:58 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-3332</guid>
+          <source url="https://forum.mangoh.io/t/mangoh-yellow-lte-doesnt-work/3332.rss">mangOH Yellow LTE doesn&#39;t work?</source>
+        </item>
+        <item>
+          <title>Sync status on airvantage</title>
+          <dc:creator><![CDATA[nilsarve]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hello</p>
+<p>I have a question regarding the sync status on airvantage. I get a sync warning stating:</p>
+<blockquote>
+<p>Application or firmware returned by this system is unknown from AirVantage [WP7607-1_LE,19.04.0]</p>
+</blockquote>
+<p>I have deployed my system as a bundle but I guess this is related to the firmware name/revision/type in my apps? Can someone explain or point me to the right documentation as I have not found it.</p>
+            <p><small>1 post - 1 participant</small></p>
+            <p><a href="https://forum.mangoh.io/t/sync-status-on-airvantage/3226">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/sync-status-on-airvantage/3226</link>
+          <pubDate>Wed, 18 Dec 2019 10:20:00 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-3226</guid>
+          <source url="https://forum.mangoh.io/t/sync-status-on-airvantage/3226.rss">Sync status on airvantage</source>
+        </item>
+        <item>
+          <title>Unable to register mangOH Yellow with WP7702 on Airvantage</title>
+          <dc:creator><![CDATA[Larumbe2019]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hello</p>
+<p>I can´t register my new  Mango Yellow in Airvantage.<br>
+<a href="https://eu.airvantage.net/start?company=9c480b0ef469448f8ef378171827f633" class="onebox" target="_blank" rel="nofollow noopener">https://eu.airvantage.net/start?company=9c480b0ef469448f8ef378171827f633</a></p>
+<p>I register the device with<br>
+Iccd: 89332401000013667452<br>
+IMEI: 352653090153388<br>
+wp/sn ; VU911670271210</p>
+<p>And I receive the message that “Context is not valid for the user”</p>
+<p>Thanks</p>
+            <p><small>8 posts - 5 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/unable-to-register-mangoh-yellow-with-wp7702-on-airvantage/2955">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/unable-to-register-mangoh-yellow-with-wp7702-on-airvantage/2955</link>
+          <pubDate>Wed, 02 Oct 2019 15:41:58 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2955</guid>
+          <source url="https://forum.mangoh.io/t/unable-to-register-mangoh-yellow-with-wp7702-on-airvantage/2955.rss">Unable to register mangOH Yellow with WP7702 on Airvantage</source>
+        </item>
+        <item>
+          <title>Poor Signal Quality and Air Vantage Data Costs</title>
+          <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>I have a modified version of <code>RedSensorToCloud</code> which retries a data connection every 5 minutes if  <code>LE_AVDATA_SESSION_STOPPED</code> occurs.  This seems to be generating a lot of connection device registrations on Air Vantage when the cellular connection is poor (IE 1 bar).</p>
+<p>What is the best way to avoid this additional cost?  I’m thinking it would be better to check the cell signal level and only attempt a session if the signal level is above a threshold after some number of attempts but I’m not sure if this makes sense.</p>
+<p>Thoughts?</p>
+<p>Thanks,<br>
+Darren</p>
+            <p><small>8 posts - 3 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636</link>
+          <pubDate>Tue, 14 May 2019 05:37:20 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2636</guid>
+          <source url="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636.rss">Poor Signal Quality and Air Vantage Data Costs</source>
+        </item>
+        <item>
+          <title>WP7702 with LTE-enabled SIM issues</title>
+          <dc:creator><![CDATA[andreasw]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hi</p>
+<p>When I use WP7702 with an LTE and GSM-enabled SIM but <em>not</em> LTE-M1/LTE-NB enabled, the WP module does not use the GSM fallback. And even if I get it to use the GSM fallback it does not maintain a stable connection.</p>
+<p>The only way for me to get a stable connection is by disabling LTE RAT completely using <code>at+ksrat=1</code>.</p>
+<p>Is this a known issue, any known workarounds or fixes that doesn’t involve completely disabling LTE?</p>
+            <p><small>2 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/wp7702-with-lte-enabled-sim-issues/2616">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/wp7702-with-lte-enabled-sim-issues/2616</link>
+          <pubDate>Tue, 07 May 2019 06:14:04 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2616</guid>
+          <source url="https://forum.mangoh.io/t/wp7702-with-lte-enabled-sim-issues/2616.rss">WP7702 with LTE-enabled SIM issues</source>
+        </item>
+        <item>
+          <title>How to register WP7607-1 (on MangOH-red) on Airvantage</title>
+          <dc:creator><![CDATA[felixdonkers]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>I tried to register a MangOH-red with WP7607-1 (EU version, CAT1) to Airvantage, without success <img src="https://emoji.discourse-cdn.com/twitter/frowning.png?v=9" title=":frowning:" class="emoji" alt=":frowning:"> . After filling in “ICC-ID”, “IMEI” and “WP S/N”, I get “Subscription cannot be found”.</p>
+<p>Any suggestions?</p>
+            <p><small>3 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/how-to-register-wp7607-1-on-mangoh-red-on-airvantage/2548">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/how-to-register-wp7607-1-on-mangoh-red-on-airvantage/2548</link>
+          <pubDate>Fri, 12 Apr 2019 12:24:34 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2548</guid>
+          <source url="https://forum.mangoh.io/t/how-to-register-wp7607-1-on-mangoh-red-on-airvantage/2548.rss">How to register WP7607-1 (on MangOH-red) on Airvantage</source>
+        </item>
+        <item>
+          <title>Kinesis Datastream Layer</title>
+          <dc:creator><![CDATA[sdas1419]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hi All,</p>
+<p>I have a small doubt.</p>
+<p>Do we need S3 layer while connecting kinesis datastream between two non aws systems.</p>
+            <p><small>1 post - 1 participant</small></p>
+            <p><a href="https://forum.mangoh.io/t/kinesis-datastream-layer/2403">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/kinesis-datastream-layer/2403</link>
+          <pubDate>Mon, 25 Feb 2019 07:27:37 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2403</guid>
+          <source url="https://forum.mangoh.io/t/kinesis-datastream-layer/2403.rss">Kinesis Datastream Layer</source>
+        </item>
+        <item>
+          <title>MQTT client that works with Google IOT cloud</title>
+          <dc:creator><![CDATA[nilsarve]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hello</p>
+<p>We are today using paho and this MQTT wrapper: <a href="https://github.com/mangOH/MqttClient/tree/use_paho_linux_version" rel="nofollow noopener">https://github.com/mangOH/MqttClient/tree/use_paho_linux_version</a>  developed by <a class="mention" href="https://forum.mangoh.io/u/dfrey">@dfrey</a> and others to connect to our own mosquitto broker with TLS encryption.</p>
+<p>But I’m now trying to connect to google’s mqtt bridge with TLS and JWT. But I get a socket error when trying to connect. Not sure how to investigate this further but I think this may be a clue?<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/282c2cc2fefd1a32ceb7646a39770885ad0511fd.png" data-download-href="/uploads/short-url/5JnK45kR3ZgKdWie9GsylBuwtVX.png?dl=1" title="image.png" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/282c2cc2fefd1a32ceb7646a39770885ad0511fd_2_690x112.png" alt="image" data-base62-sha1="5JnK45kR3ZgKdWie9GsylBuwtVX" width="690" height="112" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/282c2cc2fefd1a32ceb7646a39770885ad0511fd_2_690x112.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/282c2cc2fefd1a32ceb7646a39770885ad0511fd_2_1035x168.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/282c2cc2fefd1a32ceb7646a39770885ad0511fd.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/282c2cc2fefd1a32ceb7646a39770885ad0511fd_2_10x10.png"></a></div><p></p>
+<p>Is there a known issue connecting to gcloud with sierra (WP85) and this wrapper or have someone made it work?</p>
+            <p><small>20 posts - 4 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/mqtt-client-that-works-with-google-iot-cloud/2286">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/mqtt-client-that-works-with-google-iot-cloud/2286</link>
+          <pubDate>Mon, 07 Jan 2019 12:44:28 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2286</guid>
+          <source url="https://forum.mangoh.io/t/mqtt-client-that-works-with-google-iot-cloud/2286.rss">MQTT client that works with Google IOT cloud</source>
+        </item>
+        <item>
+          <title>Certificate verification failed</title>
+          <dc:creator><![CDATA[MilanVidic]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hello, I am trying to create new Poco HTTPSClientSession as follows:</p>
+<blockquote>
+<pre><code>const Poco::Net::Context::Ptr context(new Poco::Net::Context(Poco::Net::Context::CLIENT_USE, "", "/etc/ssl/certs/LetsEncryptCertificate.crt", "", Poco::Net::Context::VERIFY_RELAXED));
+m_pSession = new Poco::Net::HTTPSClientSession(host, port, context);
+</code></pre>
+</blockquote>
+<p>and when I send GET request to server I get:</p>
+<blockquote>
+<p>WARNING: Certificate verification failed<br>
+Issuer Name: /O=Digital Signature Trust Co./CN=DST ROOT CA X3<br>
+Subject Name: /C=US /O=Let’s Encrypt/CN=Let’s Encrypt Authority X3<br>
+The certificate yielded the error: unable to get local issuer certificate<br>
+The error occurred in the certificate chain at position 1<br>
+Accept the certificate (y,n)?</p>
+</blockquote>
+<p>I am reading this from syslog so I can’t press Y to accept the certificate. When I use context with</p>
+<p><code>Poco::Net::Context::VERIFY_NONE</code> I am able to send the request and get the response because there is no certificate verification. I was trying to add these <a href="https://letsencrypt.org/certificates/" rel="nofollow noopener">certificates</a> to my /etc/ssl/certs folder with .pem and .crt extensions still got the same error. So my question is how do I install these certificates on my mangOH Red board? I am using Legato 18.09 with wp76xx chip. Also my app is sandboxed and my adef looks like this requires:</p>
+<blockquote>
+<pre><code>requires:
+ {   dir:
+    {
+     /etc/ssl/certs /etc/ssl/certs
+    }
+}</code></pre>
+</blockquote>
+            <p><small>4 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/certificate-verification-failed/2052">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/certificate-verification-failed/2052</link>
+          <pubDate>Thu, 25 Oct 2018 08:53:17 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2052</guid>
+          <source url="https://forum.mangoh.io/t/certificate-verification-failed/2052.rss">Certificate verification failed</source>
+        </item>
+        <item>
+          <title>Support Verizon and AT&amp;T with roaming SIM</title>
+          <dc:creator><![CDATA[cbrake]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hi,</p>
+<p>We have been using Hologram Sims (supports roaming on AT&amp;T and Verizon in US) and I was wondering if the WP7700 can support Verizon and AT&amp;T with the same part/firmware? This way the modem can simply choose the strongest signal.</p>
+<p>Thanks,<br>
+Cliff</p>
+            <p><small>3 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/support-verizon-and-at-t-with-roaming-sim/2020">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/support-verizon-and-at-t-with-roaming-sim/2020</link>
+          <pubDate>Tue, 16 Oct 2018 19:34:14 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2020</guid>
+          <source url="https://forum.mangoh.io/t/support-verizon-and-at-t-with-roaming-sim/2020.rss">Support Verizon and AT&amp;T with roaming SIM</source>
+        </item>
+        <item>
+          <title>eUICC SIM inside WP7702</title>
+          <dc:creator><![CDATA[mirekther]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Is there some way how to exploit “integrated SIM” at WP 7702 module? Command "cm sim select EMBEDDED " is working and IMSI and ICCID is readable from it. ¨<br>
+Can AirVantage somehow manage provisioning for this embedded SIM?<br>
+Thanks!<br>
+Mirek</p>
+            <p><small>4 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/euicc-sim-inside-wp7702/1979">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/euicc-sim-inside-wp7702/1979</link>
+          <pubDate>Fri, 05 Oct 2018 10:06:17 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-1979</guid>
+          <source url="https://forum.mangoh.io/t/euicc-sim-inside-wp7702/1979.rss">eUICC SIM inside WP7702</source>
+        </item>
+        <item>
+          <title>MangOH Red Without Airvantage Portal Communication</title>
+          <dc:creator><![CDATA[MelvinWiegman]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hey there everybody,</p>
+<p>I’m using the mangOH Red board With the WP7702 module and the SierraWireless SIM.<br>
+At this moment i have a self made application that communicates with the Airvantage portal through HTTP requests to control the MangOH Red light and get the same data as the RedSensorToCloud app example.</p>
+<p>Now i’m wondering is there a way to not use the Airvantage Portal and talk directly to a private server from the MangOH red board?</p>
+<p>My questions:</p>
+<p>-Are there any example applications to accomplish this?<br>
+-What are the different communication technologies i could use next to HTTP?<br>
+-Is it even possible with the Legato framework?<br>
+-And is there a way to do this with the new LPWA technologies of the WP7702 module?</p>
+            <p><small>4 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/mangoh-red-without-airvantage-portal-communication/1967">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/mangoh-red-without-airvantage-portal-communication/1967</link>
+          <pubDate>Tue, 02 Oct 2018 07:10:34 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-1967</guid>
+          <source url="https://forum.mangoh.io/t/mangoh-red-without-airvantage-portal-communication/1967.rss">MangOH Red Without Airvantage Portal Communication</source>
+        </item>
+        <item>
+          <title>Sierra SIM Cards Moving from North America To Europe</title>
+          <dc:creator><![CDATA[coastalbrandon]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hey All,</p>
+<p>We have shipped one of our units with a Sierra Wireless SIM card to Portugal and the unit does not seem to be able to connect to cellular out there. The Sierra Wireless SIM card was purchased in Canada and the unit connected fine to Canadian cellular networks prior to shipping. Is there any restriction on the SIM cards based on where you order them from? I’m under the impression that they’re ‘global’, but would like to confirm.</p>
+<p>Thanks!</p>
+<p>Brandon</p>
+<p>CC: <a class="mention" href="https://forum.mangoh.io/u/nick">@nick</a></p>
+            <p><small>11 posts - 3 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/sierra-sim-cards-moving-from-north-america-to-europe/1963">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/sierra-sim-cards-moving-from-north-america-to-europe/1963</link>
+          <pubDate>Mon, 01 Oct 2018 15:21:46 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-1963</guid>
+          <source url="https://forum.mangoh.io/t/sierra-sim-cards-moving-from-north-america-to-europe/1963.rss">Sierra SIM Cards Moving from North America To Europe</source>
+        </item>
+        <item>
+          <title>WP7608/WP7608-1 usage in India</title>
+          <dc:creator><![CDATA[Madan]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hi,</p>
+<p>Has this been tried by anyone in India? What are the 3G/LTE AP configuration details?<br>
+Other question on the third party SIMs - who are the service providers in India suited for this? Can we use any data SIM from the providers like Airtel, Vodafone, Reliance JIO, etc.</p>
+<p>Please share your experience if someone happened to go through this use-case.</p>
+<p>I believe this works with mangOH on-board Wi-Fi module in STA+AP mode</p>
+<p>Thanks<br>
+Madan</p>
+            <p><small>5 posts - 4 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/wp7608-wp7608-1-usage-in-india/1713">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/wp7608-wp7608-1-usage-in-india/1713</link>
+          <pubDate>Fri, 13 Jul 2018 12:32:35 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-1713</guid>
+          <source url="https://forum.mangoh.io/t/wp7608-wp7608-1-usage-in-india/1713.rss">WP7608/WP7608-1 usage in India</source>
+        </item>
+        <item>
+          <title>Data transmission from India</title>
+          <dc:creator><![CDATA[Bobby]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hello:<br>
+We are working on deploying MangOH Red to capture some sensor data at a customer site in India.</p>
+<p>My question is how would this data be transmitted from Sierra cloud?<br>
+What would be approximate costs involved in sending data all the way from India?</p>
+<p>If this is going to be really expensive, what other options are available to bring data back to the Sierra cloud?</p>
+<p>Any documents or links to case studies for international customer etc would be very helpful.</p>
+<p>Thank you very much for an expeditious response.</p>
+<p>Regards,<br>
+Bobby.</p>
+            <p><small>8 posts - 3 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/data-transmission-from-india/1699">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/data-transmission-from-india/1699</link>
+          <pubDate>Wed, 11 Jul 2018 13:20:19 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-1699</guid>
+          <source url="https://forum.mangoh.io/t/data-transmission-from-india/1699.rss">Data transmission from India</source>
+        </item>
+        <item>
+          <title>GNSS Constellations</title>
+          <dc:creator><![CDATA[alex1]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hello,</p>
+<p>I would like to use other constellations than GPS but they aren’t supported for now. I tried this in France.<br>
+Do you know when it will be enable?</p>
+            <p><small>6 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/gnss-constellations/1668">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/gnss-constellations/1668</link>
+          <pubDate>Thu, 05 Jul 2018 12:27:01 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-1668</guid>
+          <source url="https://forum.mangoh.io/t/gnss-constellations/1668.rss">GNSS Constellations</source>
+        </item>
+        <item>
+          <title>mangOH Red vs. &#39;X&#39; Operator SIM</title>
+          <dc:creator><![CDATA[gmilano]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hi guys,</p>
+<p>We’ve purchased a brand new mangOH red with WP7702, so we’re still in the “struggling phase”. We’re trying to connect it to the AirVantage platform using a SIM that’s not the one included in the kit (and it’s not from Sierra Wireless, it’s from a local MNO). The problem is that the ICCID doesn’t get recognized by AirVantage, which would make sense if a Sierra Wireless SIM was mandatory for this. However, we didn’t find this in the “getting started” guide.</p>
+<p>So, the question is: do we have to use a Sierra Wireless SIM card for AirVantage? Sorry if this is a noob question!</p>
+<p>Thanks in advance!</p>
+<p>Regards,<br>
+GM</p>
+            <p><small>21 posts - 4 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/mangoh-red-vs-x-operator-sim/1663">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/mangoh-red-vs-x-operator-sim/1663</link>
+          <pubDate>Wed, 04 Jul 2018 20:08:33 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-1663</guid>
+          <source url="https://forum.mangoh.io/t/mangoh-red-vs-x-operator-sim/1663.rss">mangOH Red vs. &#39;X&#39; Operator SIM</source>
+        </item>
+        <item>
+          <title>Mesh I2C communication with mangOH Platform</title>
+          <dc:creator><![CDATA[Denny78]]></dc:creator>
+          <category>Cloud &amp; Connectivity</category>
+          <description><![CDATA[
+            <p>Hey  I newbie to cloud &amp; Connectivity era,<br>
+I have mesh based Wireless <a href="https://store.ncd.io/product/industrial-long-range-wireless-temperature-humidity-sensor/" rel="nofollow noopener">sensor</a> which  I am able to connect successfully with Raspberry pi but I wanted to give it a try with mangoH Platform in which I wanted to send the readings of Sensor to server’s database which is received by raspberry pi from wireless sensor,<br>
+Monitor the data through Web application which display the sensors data in smartphones and enables the Mqtt services which binds with sensors output as well as application and send the warning update whenever temperature range go up or down from defined range via SMS in user’s smartphones</p>
+<p>Your leads on to create this function will be very helpful</p>
+            <p><small>6 posts - 3 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/mesh-i2c-communication-with-mangoh-platform/1595">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/mesh-i2c-communication-with-mangoh-platform/1595</link>
+          <pubDate>Thu, 21 Jun 2018 11:49:05 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-1595</guid>
+          <source url="https://forum.mangoh.io/t/mesh-i2c-communication-with-mangoh-platform/1595.rss">Mesh I2C communication with mangOH Platform</source>
+        </item>
+  </channel>
+</rss>

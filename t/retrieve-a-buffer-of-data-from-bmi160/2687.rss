@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Retrieve a Buffer of Data from BMI160</title>
+    <link>https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687</link>
+    <description>I would like to retrieve a buffer of data from the BMI160 instead of just single samples.  Is this possible?  If so how would I go about doing it from user space?
+
+Thanks</description>
+    
+    <lastBuildDate>Tue, 21 Apr 2020 15:16:07 +0000</lastBuildDate>
+    <category>Build your own</category>
+    <atom:link href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Retrieve a Buffer of Data from BMI160</title>
+        <dc:creator><![CDATA[Redferne]]></dc:creator>
+        <description><![CDATA[
+            <p>Very late to the party… Having issues with a WP77xx and the fifo branch.<br>
+It bombs out here:</p>
+<pre><code>	if (devm_gpio_request_one(&amp;pdev-&gt;dev, CF3_GPIO32, GPIOF_DIR_IN,
+				  "gpio expander")) {
+		dev_err(&amp;pdev-&gt;dev, "Couldn't request GPIO expander interrupt GPIO");
+		ret = -ENODEV;
+		goto cleanup;
+	}
+
+root@swi-mdm9x28-wp:~# [  130.757302] mangoh red mangoh red: Couldn't request GPIO expander interrupt GPIO
+[  130.764558] Unable to handle kernel NULL pointer dereference at virtual address 0000007c
+[  130.771828] pgd = c8318000
+[  130.774424] [0000007c] *pgd=00000000
+[  130.777984] Internal error: Oops: 5 [#1] PREEMPT ARM
+[  130.782926] Modules linked in: mangoh_red(O+) tem32j(O) ltc294x(O) led(O) bq27xxx_battery(O) bq24296(O) bmi160_i2c(O) bmi160(O) [last unloaded: bmi160]
+</code></pre>
+<p>Yes. It was caused by the GpioExpanderService trying to claim the same IRQ <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=9" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+<p>Now I’m seeing this:</p>
+<p>Jan  6 04:19:29 swi-mdm9x28-wp user.info Legato:  INFO | imu[1912]/imuComponent T=main | main.c ReadImu() 65 | Got channels (anglvel_x, anglvel_y, anglvel_z, accel_x, accel_y, accel_z, timestamp)<br>
+Jan  6 04:19:34 swi-mdm9x28-wp user.emerg Legato: <em>EMR</em> | imu[1912]/imuComponent T=main | main.c ReadImu() 90 | Failed to refill buffer: Invalid argument</p>
+<p>Any pointers?</p>
+          <p><a href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/10</link>
+        <pubDate>Tue, 21 Apr 2020 13:51:26 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2687-10</guid>
+        <source url="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687.rss">Retrieve a Buffer of Data from BMI160</source>
+      </item>
+      <item>
+        <title>Retrieve a Buffer of Data from BMI160</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>The bmi160_fifo branch uses both an IIO kernel FIFO and the bmi160’s hardware FIFO.  The idea was to sample continuously and service the buffers quickly enough such that they would never overflow.</p>
+          <p><a href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/9</link>
+        <pubDate>Mon, 17 Jun 2019 22:57:34 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2687-9</guid>
+        <source url="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687.rss">Retrieve a Buffer of Data from BMI160</source>
+      </item>
+      <item>
+        <title>Retrieve a Buffer of Data from BMI160</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/ktanikel">@ktanikel</a> Better late than never, right <img src="https://emoji.discourse-cdn.com/twitter/wink.png?v=9" title=":wink:" class="emoji" alt=":wink:"> Thanks for the tip I will consider doing that instead.</p>
+          <p><a href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/8</link>
+        <pubDate>Fri, 14 Jun 2019 16:14:58 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2687-8</guid>
+        <source url="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687.rss">Retrieve a Buffer of Data from BMI160</source>
+      </item>
+      <item>
+        <title>Retrieve a Buffer of Data from BMI160</title>
+        <dc:creator><![CDATA[ktanikel]]></dc:creator>
+        <description><![CDATA[
+            <p>Sorry if I’m late to the party, but we had pretty much the same requirement of needing chunks of data from the accelerometer instead of single samples.</p>
+<p>I tried David’s bmi160_fifo branch, but wasn’t very familiar with IIO so ended up ditching that effort. Instead I switched to using the BMI160’s onboard FIFO to get a thousand samples every 250ms. You can tie the FIFO interrupt to your application so you know exactly when the FIFO’s full. I switched out the kernel module for BMI160 and instead used a user space driver from Bosch <a href="https://github.com/BoschSensortec/BMI160_driver" rel="nofollow noopener">https://github.com/BoschSensortec/BMI160_driver</a> to achieve this.</p>
+          <p><a href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/7</link>
+        <pubDate>Thu, 13 Jun 2019 23:18:38 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2687-7</guid>
+        <source url="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687.rss">Retrieve a Buffer of Data from BMI160</source>
+      </item>
+      <item>
+        <title>Retrieve a Buffer of Data from BMI160</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>Unfortunately, I have forgotten what I was referring to.  Let me know if you find that something is missing when you try to put this together.  It may jog my memory.</p>
+          <p><a href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/6</link>
+        <pubDate>Thu, 06 Jun 2019 20:33:03 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2687-6</guid>
+        <source url="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687.rss">Retrieve a Buffer of Data from BMI160</source>
+      </item>
+      <item>
+        <title>Retrieve a Buffer of Data from BMI160</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/dfrey">@dfrey</a> Thanks will dive in and give it a try.  You mentioned here the <a href="https://forum.mangoh.io/t/using-accelerometer-on-mangoh-red/1716/8" class="inline-onebox">Using Accelerometer on MangOH Red</a> the the bmi160_fifo requires an unpublished kernel change.  Can you elaborate further?</p>
+          <p><a href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/5</link>
+        <pubDate>Thu, 06 Jun 2019 20:28:40 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2687-5</guid>
+        <source url="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687.rss">Retrieve a Buffer of Data from BMI160</source>
+      </item>
+      <item>
+        <title>Retrieve a Buffer of Data from BMI160</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>The bmi160 driver sits on top of the IIO kernel framework.  On wp85/75, IIO wasn’t built with the kernel.  As a result, we pulled some of that code out of tree and built it as modules and bundled those modules with the Legato system.</p>
+<p>libiio is a userspace library for accessing IIO devices.  It provides convenience over manually traversing <code>/dev</code> and <code>/sys/bus/iio</code>.  It’s not “magic” though, so anything you do with libiio <em>can</em> be achieved without it.</p>
+<p>When I worked on the buffered reading for bmi160 I was focusing exclusively on the wp76.  I don’t recall if all the necessary IIO kernel modules are provided for wp85/75.</p>
+          <p><a href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/4</link>
+        <pubDate>Thu, 06 Jun 2019 20:18:42 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2687-4</guid>
+        <source url="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687.rss">Retrieve a Buffer of Data from BMI160</source>
+      </item>
+      <item>
+        <title>Retrieve a Buffer of Data from BMI160</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/dfrey">@dfrey</a> Thanks for pointing that out.  I quickly reviewed it and I have some followup questions.</p>
+<p>First, context.  I’m trying to access, from user space, the trigger buffer of data that was captured when the interrupt fires.  This should have the significant motion event.  Once I have this buffer then I plan on performing some analysis in the user space.</p>
+<ol>
+<li>
+<p>Is libiio the only way to access the trigger buffer from user space?</p>
+</li>
+<li>
+<p>The branch you pointed me to requires LIBIIO. I’m working with the WP85 module which doesn’t have the IIO builtin by default.  Is LIBIIO compatible the WP85 as long as I am building in IIO?</p>
+</li>
+<li>
+<p>Currently our BMI160 driver is set to generate interrupts on significant motion.  When this happens a buffer is captured in IIO.  Can’t I just call fscanf in a loop and read the contents of the buffer?</p>
+</li>
+</ol>
+<p>Thanks</p>
+          <p><a href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/3</link>
+        <pubDate>Thu, 06 Jun 2019 18:44:44 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2687-3</guid>
+        <source url="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687.rss">Retrieve a Buffer of Data from BMI160</source>
+      </item>
+      <item>
+        <title>Retrieve a Buffer of Data from BMI160</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>There’s a <code>bmi160_fifo</code> branch in the mangOH repository that takes a stab at this.  There is also this corresponding app which performs a read.  <a href="https://github.com/mangOH/mangOH/tree/bmi160_fifo/samples/BufferedImuRead" rel="nofollow noopener">https://github.com/mangOH/mangOH/tree/bmi160_fifo/samples/BufferedImuRead</a></p>
+<p>I haven’t looked at this stuff in a little while, so I don’t remember the exact status of it all.</p>
+          <p><a href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/2</link>
+        <pubDate>Thu, 06 Jun 2019 17:07:59 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2687-2</guid>
+        <source url="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687.rss">Retrieve a Buffer of Data from BMI160</source>
+      </item>
+      <item>
+        <title>Retrieve a Buffer of Data from BMI160</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p>I would like to retrieve a buffer of data from the BMI160 instead of just single samples.  Is this possible?  If so how would I go about doing it from user space?</p>
+<p>Thanks</p>
+          <p><a href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/1</link>
+        <pubDate>Wed, 05 Jun 2019 18:32:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2687-1</guid>
+        <source url="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687.rss">Retrieve a Buffer of Data from BMI160</source>
+      </item>
+  </channel>
+</rss>

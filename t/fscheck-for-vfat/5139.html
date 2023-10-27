@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Fscheck for vfat - mangOH Red - mangOH forum</title>
+    <meta name="description" content="Hello, 
+Our SD card in a mangoh red gets corrupted from time to time. 
+We would like to run fsck, but the system reports that fsck.vfat is missing. 
+Since fsck is within busybox, I guess that we need to update busybox by&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Fscheck for vfat&#39;" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/fscheck-for-vfat/5139" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/fscheck-for-vfat/5139" />
+<meta property="og:title" content="Fscheck for vfat" />
+<meta name="twitter:title" content="Fscheck for vfat" />
+<meta property="og:description" content="Hello,  Our SD card in a mangoh red gets corrupted from time to time.  We would like to run fsck, but the system reports that fsck.vfat is missing.  Since fsck is within busybox, I guess that we need to update busybox by updating yocto??  Any idea?  Thanks" />
+<meta name="twitter:description" content="Hello,  Our SD card in a mangoh red gets corrupted from time to time.  We would like to run fsck, but the system reports that fsck.vfat is missing.  Since fsck is within busybox, I guess that we need to update busybox by updating yocto??  Any idea?  Thanks" />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta property="article:published_time" content="2020-09-02T14:45:59+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="next" href="/t/fscheck-for-vfat/5139?page=2">
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Fscheck for vfat","mainEntity":{"@type":"Question","name":"Fscheck for vfat","text":"Hello,\n\nOur SD card in a mangoh red gets corrupted from time to time.\n\nWe would like to run fsck, but the system reports that fsck.vfat is missing.\n\nSince fsck is within busybox, I guess that we need to update busybox by updating yocto??\n\nAny idea?\n\nThanks","upvoteCount":0,"answerCount":0,"dateCreated":"2020-09-02T14:45:59.206Z","author":{"@type":"Person","name":"Enric Pastor"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/fscheck-for-vfat/5139">Fscheck for vfat</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Fscheck for vfat'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/epastor'><span itemprop='name'>epastor</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-02T14:45:59Z' class='post-time'>
+                    September 2, 2020,  2:45pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-02T14:45:59Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hello,</p>
+<p>Our SD card in a mangoh red gets corrupted from time to time.<br>
+We would like to run fsck, but the system reports that fsck.vfat is missing.<br>
+Since fsck is within busybox, I guess that we need to update busybox by updating yocto??</p>
+<p>Any idea?<br>
+Thanks</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/2">Corrupt SD - how to use fsck correctly?</a>
+                        <meta itemprop='position' content='1'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-02T16:36:46Z' class='post-time'>
+                    September 2, 2020,  4:36pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-03T00:11:51Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <ol>
+<li>download the yocto source code</li>
+<li>open ./meta-swi/meta-swi-mdm9x28/recipes-core/images/mdm9x28-image.inc and add the following line:</li>
+</ol>
+<p>IMAGE_INSTALL_append = " dosfstools"</p>
+<ol start="3">
+<li>make the yocto image</li>
+</ol>
+<p>4.download and upgrade the yocto image of module</p>
+<p>root@fx30:~# find / -name “fsck*”<br>
+find: /proc/1721: No such file or directory<br>
+/sbin/fsck<br>
+/sbin/fsck.minix<br>
+/usr/lib/opkg/alternatives/fsck<br>
+/usr/lib/opkg/alternatives/fsck.minix<br>
+/usr/sbin/fsck.fat<br>
+/usr/sbin/fsck.msdos<br>
+/usr/sbin/fsck.vfat</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/epastor'><span itemprop='name'>epastor</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-02T21:43:36Z' class='post-time'>
+                    September 2, 2020,  9:43pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-02T21:43:36Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks a lot for the tip.<br>
+I was expecting this as yocto cannot be upgraded in a modular way.</p>
+<p>If you allow the question, how does the leaf environment incorporate that modified yocto?<br>
+We are running a mangoh red wp76xx with version 0.6.0.</p>
+<p>Thanks a lot.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-02T22:39:41Z' class='post-time'>
+                    September 2, 2020, 10:39pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-03T02:26:07Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>For me,  leaf environment is more for legato app.<br>
+You can download yocto.cwe without incorporate with leaf.</p>
+<p>If you don’t want to upgrade yocto.cwe,  you might take another method to run the fsck.vfat in RAM.</p>
+<p>The fsck.vfat binary is as follows on the linux PC:</p>
+<blockquote>
+<pre><code>owner@owner-ThinkPad-X220:~/Yocto/WP77/R9.1/yocto$ ls ./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/dosfstools/4.0-r0/image/usr/sbin/* 
+./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/dosfstools/4.0-r0/image/usr/sbin/dosfsck
+./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/dosfstools/4.0-r0/image/usr/sbin/dosfslabel
+./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/dosfstools/4.0-r0/image/usr/sbin/fatlabel
+./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/dosfstools/4.0-r0/image/usr/sbin/fsck.fat
+./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/dosfstools/4.0-r0/image/usr/sbin/fsck.msdos
+./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/dosfstools/4.0-r0/image/usr/sbin/fsck.vfat
+./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/dosfstools/4.0-r0/image/usr/sbin/mkdosfs
+./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/dosfstools/4.0-r0/image/usr/sbin/mkfs.fat
+./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/dosfstools/4.0-r0/image/usr/sbin/mkfs.msdos
+./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/dosfstools/4.0-r0/image/usr/sbin/mkfs.vfat
+</code></pre>
+</blockquote>
+<p>Create a folder by “mkdir /tmp/fsck.vfat”.<br>
+You can transfer those fsck files to this /tmp/fsck.vfat folder via WINSCP, after that you can directly run it:</p>
+<pre><code>root@fx30:~# chmod -R 777 /tmp/fsck.vfat/*
+root@fx30:~#
+root@fx30:~# /tmp/fsck.vfat/fsck.vfat
+CP437: Invalid argument
+usage: /tmp/fsck.vfat/fsck.vfat [-aAbflrtvVwy] [-d path -d ...] [-u path -u ...]
+               device
+  -a       automatically repair the filesystem
+  -A       toggle Atari filesystem format
+  -b       make read-only boot sector check
+  -c N     use DOS codepage N to decode short file names (default: 437)
+  -d path  drop that file
+  -f       salvage unused chains to files
+  -l       list path names
+  -n       no-op, check non-interactively without changing
+  -p       same as -a, for compat with other *fsck
+  -r       interactively repair the filesystem (default)
+  -t       test for bad clusters
+  -u path  try to undelete that (non-directory) file
+  -v       verbose mode
+  -V       perform a verification pass
+  -w       write changes to disk immediately
+  -y       same as -a, for compat with other *fsck</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-04T14:06:17Z' class='post-time'>
+                    September 4, 2020,  2:06pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-04T14:06:17Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <blockquote>
+<p>download the yocto source code<br>
+make the yocto image</p>
+</blockquote>
+<p>Could somebody elaborate on this step. The  <a href="https://source.sierrawireless.com/resources/airprime/software/wp77xx/wp77xx-firmware-latest-release-components/#sthash.fAxl5cMJ.dpbs" rel="nofollow noopener">web page for the download</a> links to the yocto web page and their instructions are not adequate for generating a WPxxxx system. Thank you.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-04T14:20:46Z' class='post-time'>
+                    September 4, 2020,  2:20pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-04T14:20:46Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Didn’t there is a link below?</p>
+<p><a href="http://downloads.sierrawireless.com/AirPrime/WP77xx/Release13/Legato-Dist-Source-mdm9x06-SWI9X06Y_02.35.02.00.tar.bz2" class="onebox" target="_blank" rel="nofollow noopener">http://downloads.sierrawireless.com/AirPrime/WP77xx/Release13/Legato-Dist-Source-mdm9x06-SWI9X06Y_02.35.02.00.tar.bz2</a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-04T16:55:11Z' class='post-time'>
+                    September 4, 2020,  4:55pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-04T16:55:11Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Sorry if I was not clear, I already have the download OK, the problem is making the image for the WP77xx. For example, following the instructions on the <a href="https://www.yoctoproject.org/documentation/archived?term_node_tid_depth=120" rel="nofollow noopener">yocto web page</a> “quick build” link on a fresh download, I get:</p>
+<pre><code class="lang-auto">paul@paul-ThinkCentre-M72e:~/yocto$ cd poky
+paul@paul-ThinkCentre-M72e:~/yocto/poky$ source oe-init-build-env
+Error: The build directory (BUILDDIR) must be set!
+paul@paul-ThinkCentre-M72e:~/yocto/poky$ bitbake core-image-minimal
+ERROR: Unable to find conf/bblayers.conf or conf/bitbake.conf. BBAPTH is unset and/or not in a build directory?
+paul@paul-ThinkCentre-M72e:~/yocto/poky$ 
+</code></pre>
+<p>As well this defaults to qemu, it’s not clear what changes are needed for a WP77xx build.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/epastor'><span itemprop='name'>epastor</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-04T17:29:51Z' class='post-time'>
+                    September 4, 2020,  5:29pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-04T17:29:51Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Paul,<br>
+We did not got time to go into this yet. We will try to follow your path early next week.<br>
+We will trylly appreciate if you could share your results and we will do the same.<br>
+Are you depolying a WP77 on a mangoh red? In our case we are using a wp76 on red.<br>
+We will post here our results.<br>
+Regards,<br>
+Enric</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-04T19:03:38Z' class='post-time'>
+                    September 4, 2020,  7:03pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-04T19:03:38Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks for your help, have a nice weekend. <img src="https://emoji.discourse-cdn.com/twitter/biking_man.png?v=9" title=":biking_man:" class="emoji" alt=":biking_man:"></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-04T22:27:37Z' class='post-time'>
+                    September 4, 2020, 10:27pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-04T22:27:37Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>How about a full build by typing “make” in yocto folder?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-07T07:10:35Z' class='post-time'>
+                    September 7, 2020,  7:10am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-07T09:39:38Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>FYI, I don’t see problem to compile the yocto source with “make” command:</p>
+<p>owner@owner-ThinkPad-X220:~/Yocto/WP77/R13/yocto$ ls ./build_bin/tmp/deploy/images/swi-mdm9x28-wp/yocto_wp77xx.4k.cwe -l<br>
+-rw-r–r-- 1 owner owner 34126368 Sep  7 14:18 ./build_bin/tmp/deploy/images/swi-mdm9x28-wp/yocto_wp77xx.4k.cwe</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/epastor'><span itemprop='name'>epastor</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-08T07:33:16Z' class='post-time'>
+                    September 8, 2020,  7:33am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-08T07:33:16Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello,<br>
+I’ve been able to reproduce the process you suggested.<br>
+It worked. I got the binaries which I copied to the mangoh red.<br>
+Thanks a lot for your support.</p>
+<p>We will now see if the fsck solves our problems with the SD.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-08T14:13:04Z' class='post-time'>
+                    September 8, 2020,  2:13pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-08T14:13:04Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Here is what I did:</p>
+<pre><code class="lang-auto">(did fresh extract of yocto from Legato-Dist-Source-mdm9x06-SWI9X06Y_02.35.02.00.tar.bz2)
+
+paul@paul-ThinkCentre-M72e:~$ cd yocto
+paul@paul-ThinkCentre-M72e:~/yocto$ make
+Makefile:71: "Legato: build disabled since '/home/paul/yocto/legato/' does not exist"
+"meta-swi/build.sh" -p poky/ -o meta-openembedded/ -l meta-swi -x "kernel" -j 9 -t 9           -a LK_REPO_DIR="/home/paul/yocto" -a LK_REPO_NAME="lk" -a LK_REPO="file://lk" -m swi-mdm9x28 -P wp  -b build_bin -q
+Poky dir: /home/paul/yocto/poky
+OE meta: /home/paul/yocto/meta-openembedded
+SWI meta dir: /home/paul/yocto/meta-swi
+Linux repo dir: /home/paul/yocto/kernel
+Number of make threads 9
+Number of bitbake tasks 9
+Extra options added -  LK_REPO_DIR=/home/paul/yocto
+Extra options added -  LK_REPO_NAME=lk
+Extra options added -  LK_REPO=file://lk
+SWI machine: swi-mdm9x28
+SWI product: wp
+Build dir: /home/paul/yocto/build_bin
+Enable Qualcomm Proprietary bin
+Error: The build directory (BUILDDIR) must be set!
++ layer: meta-oe
+grep: /home/paul/yocto/build_bin/conf/bblayers.conf: No such file or directory
+         -&gt; /home/paul/yocto/meta-openembedded/meta-oe
+sed: can't read /home/paul/yocto/build_bin/conf/bblayers.conf: No such file or directory
+  error inserting layer meta-oe
+Makefile:300: recipe for target 'image_bin' failed
+make: *** [image_bin] Error 1
+paul@paul-ThinkCentre-M72e:~/yocto$ 
+</code></pre>
+<p>Maybe there are some bash variables that you have defined, but I don’t have?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-08T14:23:57Z' class='post-time'>
+                    September 8, 2020,  2:23pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-08T14:23:57Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Have you done a “make clean” before make???</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/epastor'><span itemprop='name'>epastor</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-08T14:47:23Z' class='post-time'>
+                    September 8, 2020,  2:47pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-08T14:47:23Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello,<br>
+In our case it worked perfectly.<br>
+Which version are you trying to compile? wp77xx?<br>
+If you let me know I can compile it for you and post the result here with a link to the stuff you need.<br>
+Let me know.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-08T17:01:12Z' class='post-time'>
+                    September 8, 2020,  5:01pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-08T17:01:12Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>“make clean” makes no difference.</p>
+<p>As I said I am using<br>
+Legato-Dist-Source-mdm9x06-SWI9X06Y_02.35.02.00.tar.bz2<br>
+which is the download from<br>
+<a href="https://source.sierrawireless.com/resources/airprime/software/wp77xx/wp77xx-firmware-latest-release-components/#sthash.s1hOaslR.dpbs" class="onebox" target="_blank" rel="nofollow noopener">https://source.sierrawireless.com/resources/airprime/software/wp77xx/wp77xx-firmware-latest-release-components/#sthash.s1hOaslR.dpbs</a></p>
+<p>Both before and after build attempt:</p>
+<pre><code class="lang-auto">paul@paul-ThinkCentre-M72e:~/yocto$ ls
+kernel  lk  Makefile  meta-gplv2  meta-openembedded  meta-swi  meta-swi-extras  poky  sierra
+</code></pre>
+<p>Note that build_bin was not created. It still looks like missing environment variables to me, but there are no instructions as to what is needed.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_17' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/epastor'><span itemprop='name'>epastor</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-08T19:09:24Z' class='post-time'>
+                    September 8, 2020,  7:09pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-08T19:09:24Z'>
+              <span itemprop='position'>17</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I’m compiling and it seems it works… Will let you know when ends up.<br>
+Maybe you have something wrong in the compiler setup…</p>
+<pre><code>icarus@icarusMSI:~/Sources/yocto$ make
+Makefile:71: "Legato: build disabled since '/home/icarus/Sources/yocto/legato/' does not exist"
+"meta-swi/build.sh" -p poky/ -o meta-openembedded/ -l meta-swi -x "kernel" -j 9 -t 9           -a LK_REPO_DIR="/home/icarus/Sources/yocto" -a LK_REPO_NAME="lk" -a LK_REPO="file://lk" -m swi-mdm9x28 -P wp  -b build_bin -q
+Poky dir: /home/icarus/Sources/yocto/poky
+OE meta: /home/icarus/Sources/yocto/meta-openembedded
+SWI meta dir: /home/icarus/Sources/yocto/meta-swi
+Linux repo dir: /home/icarus/Sources/yocto/kernel
+Number of make threads 9
+Number of bitbake tasks 9
+Extra options added -  LK_REPO_DIR=/home/icarus/Sources/yocto
+Extra options added -  LK_REPO_NAME=lk
+Extra options added -  LK_REPO=file://lk
+SWI machine: swi-mdm9x28
+SWI product: wp
+Build dir: /home/icarus/Sources/yocto/build_bin
+Enable Qualcomm Proprietary bin
+You had no conf/local.conf file. This configuration file has therefore been
+created for you with some default values. You may wish to edit it to, for
+example, select a different MACHINE (target hardware). See conf/local.conf
+for more information as common configuration options are commented.
+
+You had no conf/bblayers.conf file. This configuration file has therefore been
+created for you with some default values. To add additional metadata layers
+into your configuration please add entries to conf/bblayers.conf.
+
+The Yocto Project has extensive documentation about OE including a reference
+manual which can be found at:
+    http://yoctoproject.org/documentation
+
+For more information about OpenEmbedded see their website:
+    http://www.openembedded.org/
+
+
+### Shell environment set up for builds. ###
+
+You can now run 'bitbake &lt;target&gt;'
+
+Common targets are:
+    core-image-minimal
+    core-image-sato
+    meta-toolchain
+    meta-ide-support</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_18' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-08T19:21:31Z' class='post-time'>
+                    September 8, 2020,  7:21pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-08T19:21:31Z'>
+              <span itemprop='position'>18</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>The following seems to be working. Note the error message which appears to be bogus. This threw me off previously. Your environment must have been set up in a similar way somehow.</p>
+<pre><code class="lang-auto">paul@paul-ThinkCentre-M72e:~/yocto$ cd poky
+paul@paul-ThinkCentre-M72e:~/yocto/poky$ source oe-init-build-env
+Error: The build directory (BUILDDIR) must be set!
+paul@paul-ThinkCentre-M72e:~/yocto/poky$ cd ..
+paul@paul-ThinkCentre-M72e:~/yocto$ make
+Makefile:71: "Legato: build disabled since '/home/paul/yocto/legato/' does not exist"
+"meta-swi/build.sh" -p poky/ -o meta-openembedded/ -l meta-swi -x "kernel" -j 9 -t 9           -a LK_REPO_DIR="/home/paul/yocto" -a LK_REPO_NAME="lk" -a LK_REPO="file://lk" -m swi-mdm9x28 -P wp  -b build_bin -q
+Poky dir: /home/paul/yocto/poky
+OE meta: /home/paul/yocto/meta-openembedded
+SWI meta dir: /home/paul/yocto/meta-swi
+Linux repo dir: /home/paul/yocto/kernel
+Number of make threads 9
+Number of bitbake tasks 9
+Extra options added -  LK_REPO_DIR=/home/paul/yocto
+Extra options added -  LK_REPO_NAME=lk
+Extra options added -  LK_REPO=file://lk
+SWI machine: swi-mdm9x28
+SWI product: wp
+Build dir: /home/paul/yocto/build_bin
+.... more ....
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_19' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/epastor'><span itemprop='name'>epastor</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-08T22:16:47Z' class='post-time'>
+                    September 8, 2020, 10:16pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-08T22:16:47Z'>
+              <span itemprop='position'>19</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Good. just let me know. I have the compiled stuff here in case you need it.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_20' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-09T13:23:08Z' class='post-time'>
+                    September 9, 2020,  1:23pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-09T13:23:08Z'>
+              <span itemprop='position'>20</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks for the help. interestingly the “~/yocto/poky$ source oe-init-build-env” step only has to be done the first time. After that it will build exactly the way you do it. But that first time was tricky. <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=9" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/fscheck-for-vfat/5139?page=2">next page →</a></b></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

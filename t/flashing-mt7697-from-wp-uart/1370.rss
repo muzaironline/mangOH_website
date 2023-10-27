@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Flashing MT7697 from WP UART</title>
+    <link>https://forum.mangoh.io/t/flashing-mt7697-from-wp-uart/1370</link>
+    <description>Hello all,
+
+We&#39;ve been playing around with the MediaTek MT7697 on a LinkIt evaluation board. We&#39;ve been able to build firmware/apps for it and flash it using this Python tool supplied by MediaTek: https://github.com/MediaTek-Labs/mt76x7-uploader
+
+I spoke briefly with @dfrey about how to update the MT chip in the field and he said MediaTek was not very co-operative since their main tool is closed source. I was pleased to find this script since it automatically puts the MT7697 into &quot;flashing&quot; mode by driving the connected UART high/low using DTR and RTS flow control. Additionally, the tool runs on Python 2.7 on Linux, so running it on the target (WP85 based) seems feasible. The LinkIt evaluation board supplies a UART over USB, and my Linux host computer was able to initialize &quot;flashing&quot; mode using the flow control as seen here: https://github.com/MediaTek-Labs/mt76x7-uploader/blob/7d1f1ae53164170fea4b4943a0287a640f998e6a/upload.py#L62.
+
+Our boards have UART1 from the WP85 connected to a UART (the one that supports flashing) on the MT7697. In theory, if UART1 from the WP85 supports DTR/RTS, this should allow us to update the MT7697 in the field. Does this seem like a fair assessment? I understand this is _not_ how the MangOH Red&#39;s are currently configured, but I believe exploring this topic is valuable since updating the MT7697 is critical for certain use cases.
+
+A final question about the MT7697 setup: It seems the MT7697 is connected to flash memory over SPI on the MangOH Red design. Is this required, or does it simply serve as additional optional memory?
+
+Cheers!</description>
+    
+    <lastBuildDate>Tue, 01 May 2018 16:10:26 +0000</lastBuildDate>
+    <category>Build your own</category>
+    <atom:link href="https://forum.mangoh.io/t/flashing-mt7697-from-wp-uart/1370.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Flashing MT7697 from WP UART</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>we have not tried MT7697-f</p>
+          <p><a href="https://forum.mangoh.io/t/flashing-mt7697-from-wp-uart/1370/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/flashing-mt7697-from-wp-uart/1370/4</link>
+        <pubDate>Tue, 01 May 2018 16:10:26 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1370-4</guid>
+        <source url="https://forum.mangoh.io/t/flashing-mt7697-from-wp-uart/1370.rss">Flashing MT7697 from WP UART</source>
+      </item>
+      <item>
+        <title>Flashing MT7697 from WP UART</title>
+        <dc:creator><![CDATA[coastalbrandon]]></dc:creator>
+        <description><![CDATA[
+            <p>Hey <a class="mention" href="https://forum.mangoh.io/u/asyal">@asyal</a>, Nick’s question missed one part - the MT7697f offers a version that has internal flash… Have you guys experimented with  the MT7697-f before? If not we’ll just stick with the standard MT7697</p>
+          <p><a href="https://forum.mangoh.io/t/flashing-mt7697-from-wp-uart/1370/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/flashing-mt7697-from-wp-uart/1370/3</link>
+        <pubDate>Tue, 01 May 2018 16:09:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1370-3</guid>
+        <source url="https://forum.mangoh.io/t/flashing-mt7697-from-wp-uart/1370.rss">Flashing MT7697 from WP UART</source>
+      </item>
+      <item>
+        <title>Flashing MT7697 from WP UART</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-post="1" data-topic="1370">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/nick/40/278_1.png" class="avatar"> nick:</div>
+<blockquote>
+<p>A final question about the MT7697 setup: It seems the MT7697 is connected to flash memory over SPI on the MangOH Red design. Is this required, or does it simply serve as additional optional memory?</p>
+</blockquote>
+</aside>
+<p><a class="mention" href="https://forum.mangoh.io/u/nick">@nick</a> For the flash, if you use the WiFi and Bluetooth stack you need it. If you are just using WiFi, then you dont. In that case, you might as well get the MT7687.</p>
+<p>By DTR, you mean CTS? I dont see why you will need the DTR pin and not use CTS. Would be interesting to try out the solution you suggest.</p>
+          <p><a href="https://forum.mangoh.io/t/flashing-mt7697-from-wp-uart/1370/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/flashing-mt7697-from-wp-uart/1370/2</link>
+        <pubDate>Tue, 01 May 2018 03:51:02 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1370-2</guid>
+        <source url="https://forum.mangoh.io/t/flashing-mt7697-from-wp-uart/1370.rss">Flashing MT7697 from WP UART</source>
+      </item>
+      <item>
+        <title>Flashing MT7697 from WP UART</title>
+        <dc:creator><![CDATA[nick]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello all,</p>
+<p>We’ve been playing around with the MediaTek MT7697 on a LinkIt evaluation board. We’ve been able to build firmware/apps for it and flash it using this Python tool supplied by MediaTek: <a href="https://github.com/MediaTek-Labs/mt76x7-uploader" rel="nofollow noopener">https://github.com/MediaTek-Labs/mt76x7-uploader</a></p>
+<p>I spoke briefly with <a class="mention" href="https://forum.mangoh.io/u/dfrey">@dfrey</a> about how to update the MT chip in the field and he said MediaTek was not very co-operative since their main tool is closed source. I was pleased to find this script since it automatically puts the MT7697 into “flashing” mode by driving the connected UART high/low using DTR and RTS flow control. Additionally, the tool runs on Python 2.7 on Linux, so running it on the target (WP85 based) seems feasible. The LinkIt evaluation board supplies a UART over USB, and my Linux host computer was able to initialize “flashing” mode using the flow control as seen here: <a href="https://github.com/MediaTek-Labs/mt76x7-uploader/blob/7d1f1ae53164170fea4b4943a0287a640f998e6a/upload.py#L62" rel="nofollow noopener">https://github.com/MediaTek-Labs/mt76x7-uploader/blob/7d1f1ae53164170fea4b4943a0287a640f998e6a/upload.py#L62</a>.</p>
+<p>Our boards have UART1 from the WP85 connected to a UART (the one that supports flashing) on the MT7697. In theory, if UART1 from the WP85 supports DTR/RTS, this should allow us to update the MT7697 in the field. Does this seem like a fair assessment? I understand this is <em>not</em> how the MangOH Red’s are currently configured, but I believe exploring this topic is valuable since updating the MT7697 is critical for certain use cases.</p>
+<p>A final question about the MT7697 setup: It seems the MT7697 is connected to flash memory over SPI on the MangOH Red design. Is this required, or does it simply serve as additional optional memory?</p>
+<p>Cheers!</p>
+          <p><a href="https://forum.mangoh.io/t/flashing-mt7697-from-wp-uart/1370/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/flashing-mt7697-from-wp-uart/1370/1</link>
+        <pubDate>Mon, 30 Apr 2018 18:01:00 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1370-1</guid>
+        <source url="https://forum.mangoh.io/t/flashing-mt7697-from-wp-uart/1370.rss">Flashing MT7697 from WP UART</source>
+      </item>
+  </channel>
+</rss>

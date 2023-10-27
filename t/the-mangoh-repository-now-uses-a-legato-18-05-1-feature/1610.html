@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The mangOH repository now uses a Legato 18.05.1 feature - mangOH forum</title>
+    <meta name="description" content="Legato 18.05.0 introduced a feature enabling an MDEF file (defining a kernel module) to depend on another MDEF.  What this means is that it’s now possible for us to accurately describe our kernel module dependencies in L&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;The mangOH repository now uses a Legato 18.05.1 feature&#39;" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610" />
+<meta property="og:title" content="The mangOH repository now uses a Legato 18.05.1 feature" />
+<meta name="twitter:title" content="The mangOH repository now uses a Legato 18.05.1 feature" />
+<meta property="og:description" content="Legato 18.05.0 introduced a feature enabling an MDEF file (defining a kernel module) to depend on another MDEF.  What this means is that it’s now possible for us to accurately describe our kernel module dependencies in Legato instead of resorting to ugly naming hacks for our MDEF files.  Previously we named the MDEF files with a numeric prefix to control the order that the modules were loaded in.  18.05.0 had a fairly critical defect that meant that the new kernel module dependency scheme wasn’t..." />
+<meta name="twitter:description" content="Legato 18.05.0 introduced a feature enabling an MDEF file (defining a kernel module) to depend on another MDEF.  What this means is that it’s now possible for us to accurately describe our kernel module dependencies in Legato instead of resorting to ugly naming hacks for our MDEF files.  Previously we named the MDEF files with a numeric prefix to control the order that the modules were loaded in.  18.05.0 had a fairly critical defect that meant that the new kernel module dependency scheme wasn’t..." />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="2 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="1 ❤" />
+<meta property="article:published_time" content="2018-06-22T22:00:17+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="next" href="/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610?page=2">
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"The mangOH repository now uses a Legato 18.05.1 feature","mainEntity":{"@type":"Question","name":"The mangOH repository now uses a Legato 18.05.1 feature","text":"Legato 18.05.0 introduced a feature enabling an MDEF file (defining a kernel module) to depend on another MDEF.  What this means is that it’s now possible for us to accurately describe our kernel module dependencies in Legato instead of resorting to ugly naming hacks for our MDEF files.  Previously &hellip;","upvoteCount":1,"answerCount":0,"dateCreated":"2018-06-22T22:00:17.444Z","author":{"@type":"Person","name":"David Frey"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">The mangOH repository now uses a Legato 18.05.1 feature</a>
+    </h1>
+
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='The mangOH repository now uses a Legato 18.05.1 feature'>
+        <meta itemprop='articleSection' content='Uncategorized'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-22T22:00:17Z' class='post-time'>
+                    June 22, 2018, 10:00pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-22T22:00:17Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Legato 18.05.0 introduced a feature enabling an MDEF file (defining a kernel module) to depend on another MDEF.  What this means is that it’s now possible for us to accurately describe our kernel module dependencies in Legato instead of resorting to ugly naming hacks for our MDEF files.  Previously we named the MDEF files with a numeric prefix to control the order that the modules were loaded in.</p>
+<p>18.05.0 had a fairly critical defect that meant that the new kernel module dependency scheme wasn’t usable for us.  The MDEF <code>load: manual</code> feature resulted in infinite loops.  As a result, I held off until 18.05.1 until making use of the kernel module dependency feature.</p>
+<p>What all this means for users of the mangOH repository is that you will now either need to build against 18.05.1 or newer or use a previous revision from the mangOH repository.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/kernel-module-load-order/2673">Kernel Module Load Order</a>
+                        <meta itemprop='position' content='1'>
+                      </div>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/git-repository-structure/1969">Git repository structure</a>
+                        <meta itemprop='position' content='2'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-22T22:23:38Z' class='post-time'>
+                    June 22, 2018, 10:23pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-22T22:23:38Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thank I understand now why I can’t build 15mn ago <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=5" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+<p>I have update to legato 18.05.1 and now ‘make red_wp76xx’ compile without error.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-22T22:29:36Z' class='post-time'>
+                    June 22, 2018, 10:29pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-22T22:29:36Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/dfrey">@dfrey</a></p>
+<p>On wp7607 and MangOH red, I have boot loop and legato roll back after flashing the new update…</p>
+<p>Legato 18.5.1 and new mangOH build.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-22T22:36:27Z' class='post-time'>
+                    June 22, 2018, 10:36pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-22T22:36:27Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I have try to reflash the WP76 with original firmware and clean legato</p>
+<p>legato stop<br>
+rm -rf /mnt/flash/legato/*<br>
+reboot</p>
+<p>reflash the new update but same result (bootloop and rollback)</p>
+<p><img src="https://emoji.discourse-cdn.com/twitter/frowning.png?v=5" title=":frowning:" class="emoji" alt=":frowning:"></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-22T22:56:40Z' class='post-time'>
+                    June 22, 2018, 10:56pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-22T22:56:40Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Have the same issue when I flash only the legato build…<br>
+Strange no ?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/devaiah'><span itemprop='name'>devaiah</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-23T07:22:36Z' class='post-time'>
+                    June 23, 2018,  7:22am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-23T07:22:36Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I am very new to Legato platform.<br>
+After updating to the latest commit I get the below compile error:</p>
+<p>mksys -t wp76xx --object-dir=build/red_wp76xx --output-dir=build/update_files/red mangOH.sdef<br>
+** Warning: Ignoring empty app specification<br>
+** Warning: Ignoring empty app specification<br>
+** Warning: Ignoring empty app specification<br>
+** ERROR:<br>
+/home/mangoh/mangOH/linux_kernel_modules/mangoh/mangoh_red_dv5.mdef:23:8: error: Unrecognized keyword ‘requires’.<br>
+Makefile:82: recipe for target ‘red_wp76xx’ failed<br>
+make: *** [red_wp76xx] Error 1</p>
+<p>Kindly help.</p>
+<p>Regards,<br>
+Devaiah</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-23T07:33:08Z' class='post-time'>
+                    June 23, 2018,  7:33am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-23T07:33:08Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/devaiah">@devaiah</a></p>
+<p>You must update legato. See user guides.</p>
+<p>Take the version 18.05.1 and the mangOH  build will work.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/918463991b6217154960375e4ad6655f5b2e805b.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-23T08:24:11Z' class='post-time'>
+                    June 23, 2018,  8:24am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-23T08:24:11Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>This is a message that I have reported in the legato Forum about “Legato” problems.</p>
+<aside class="onebox whitelistedgeneric">
+  <header class="source">
+      <img src="https://discourse-cdn-sjc1.com/business5/uploads/legato1/original/1X/918463991b6217154960375e4ad6655f5b2e805b.png" class="site-icon" width="16" height="16">
+      <a href="https://forum.legato.io/t/legato-18-05-0-and-18-05-1-not-work-on-wp7607/3361" target="_blank" title="08:18AM - 23 June 2018" rel="nofollow noopener">Legato Forum – 23 Jun 18</a>
+  </header>
+  <article class="onebox-body">
+    <img src="https://forum.legato.io/images/default-apple-touch-icon.png" class="thumbnail onebox-avatar" width="144" height="144">
+
+<h3><a href="https://forum.legato.io/t/legato-18-05-0-and-18-05-1-not-work-on-wp7607/3361" target="_blank" rel="nofollow noopener">Legato 18.05.0 and 18.05.1 not work on WP7607</a></h3>
+
+<p>Hello,  I have issue with WP7607 and Legato.  I use the orginial firmawre R9 without modification (Legato 18.03).  When I build and flash legato 18.05.0 or 18.05.1 the mangOH red reboot after 5s and bootloot and finally rollback to legato 18.03.  Not...</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/devaiah'><span itemprop='name'>devaiah</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-23T09:31:49Z' class='post-time'>
+                    June 23, 2018,  9:31am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-23T09:31:49Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/francis.duhaut">@Francis.duhaut</a> Thanks a lot. It worked after updating Legato to the latest one.</p>
+<p>My next task is to get MQTT up and running with a generic MQTT broker. Looks like it is a bit of work as current MQTT is designed to only work with Airwantage cloud.  Not sure where to start.<br>
+Any pointers to help get started is much appreciated.</p>
+<p>Thank you again for helping me resolve build issue!!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-23T10:05:11Z' class='post-time'>
+                    June 23, 2018, 10:05am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-23T10:05:11Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Did you try to flash the image in your device ?<br>
+With my wp7607 it doesn’t work.</p>
+<p>Sorry I have no experience with MQTT I use AirVantage assetData but you will find information on this forum.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/devaiah'><span itemprop='name'>devaiah</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-23T13:22:15Z' class='post-time'>
+                    June 23, 2018,  1:22pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-23T13:22:15Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Yes I was able to flash it on my WP7608 mangOH red board.</p>
+<p>I am using MQTT Client from <strong><em>use_paho_linux_version</em></strong>  branch now. Still trying to understand how the system works <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=5" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-23T14:23:51Z' class='post-time'>
+                    June 23, 2018,  2:23pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-23T14:23:51Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Good what firmware do you use in your WP7608?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/devaiah'><span itemprop='name'>devaiah</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-23T16:19:55Z' class='post-time'>
+                    June 23, 2018,  4:19pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-23T16:19:55Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>My  Firmware version is: SWI9X07Y_02.16.02.00</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-23T20:02:44Z' class='post-time'>
+                    June 23, 2018,  8:02pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-23T20:02:44Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I have the same firmware for a WP7607. I have try to reflash it but legato 18.05 don’t work with it.<br>
+It’s  a first sample of WP76 I don’t if this the problem. I wait new sample next week.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-23T20:43:32Z' class='post-time'>
+                    June 23, 2018,  8:43pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-23T20:43:32Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>When I reflash R8 firmware it works… I think my WP7607 is strange…</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-24T09:22:13Z' class='post-time'>
+                    June 24, 2018,  9:22am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-24T09:22:13Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>What software is using to flash the wp ? Swiflash or the .exe (windows</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_17' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-25T22:22:34Z' class='post-time'>
+                    June 25, 2018, 10:22pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-25T22:22:34Z'>
+              <span itemprop='position'>17</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>It looks like I botched the toolchains in the <em>mangOH Dev using Legato 18.04.0 on Ubuntu 18.04 - r1</em> version of the VM and that may have started causing problems with Legato 18.05.0.</p>
+<p>Look at the <code>/opt/swi</code> contents in the 18.04.0 VM:</p>
+<pre><code class="lang-auto">mangoh@mangoh-vm:~$ ls -l /opt/swi/
+total 12
+drwxr-xr-x 3 root root 4096 May  9 18:46 y17-ext-SWI9X15Y_07.12.14.00
+lrwxrwxrwx 1 root root   28 May  9 18:47 y17-ext-wp750x -&gt; y17-ext-SWI9X15Y_07.12.14.00
+lrwxrwxrwx 1 root root   28 May  9 18:46 y17-ext-wp85 -&gt; y17-ext-SWI9X15Y_07.12.14.00
+drwxr-xr-x 3 root root 4096 May  9 18:37 y22-ext-SWI9X06Y_02.14.04.00
+drwxr-xr-x 3 root root 4096 May  9 18:33 y22-ext-SWI9X07Y_02.16.02.00
+lrwxrwxrwx 1 root root   28 May  9 18:46 y22-ext-wp76xx -&gt; y22-ext-SWI9X06Y_02.14.04.00
+lrwxrwxrwx 1 root root   28 May  9 18:48 y22-ext-wp77xx -&gt; y22-ext-SWI9X07Y_02.16.02.00
+</code></pre>
+<p>Now look at the <code>/opt/swi</code> contents in the 18.05.1 VM:</p>
+<pre><code class="lang-auto">mangoh@mangoh-vm:~$ ls -l /opt/swi/
+total 12
+drwxr-xr-x 3 root root 4096 May  9 18:46 y17-ext-SWI9X15Y_07.12.14.00
+lrwxrwxrwx 1 root root   28 May  9 18:47 y17-ext-wp750x -&gt; y17-ext-SWI9X15Y_07.12.14.00
+lrwxrwxrwx 1 root root   28 May  9 18:46 y17-ext-wp85 -&gt; y17-ext-SWI9X15Y_07.12.14.00
+drwxr-xr-x 3 root root 4096 Jun 25 18:36 y22-ext-SWI9X06Y_02.16.02.00
+drwxr-xr-x 3 root root 4096 Jun 25 18:37 y22-ext-SWI9X07Y_02.16.02.00
+lrwxrwxrwx 1 root root   28 Jun 25 18:28 y22-ext-wp76xx -&gt; y22-ext-SWI9X07Y_02.16.02.00
+lrwxrwxrwx 1 root root   28 Jun 25 18:37 y22-ext-wp77xx -&gt; y22-ext-SWI9X06Y_02.16.02.00
+</code></pre>
+<p>I just updated the VM for 18.05.1 today.  The <a href="http://mangoh.io" rel="nofollow noopener">mangoh.io</a> website hasn’t been updated, but the <a href="http://download.sierrawireless.com/mangOH/mangOH%20Dev%20using%20Legato%2018.05.1%20on%20Ubuntu%2018.04%20-%20r0.ova" rel="nofollow noopener">direct link</a> should work.  The sha256 checksum for this download is <code>2017c93b4f37823ceafd8d70c1bb2ecd3a3a0995d324894d380d566fc4bedfbd</code>.</p>
+<p>Going back to the comparison of the two directories, the problem is that the y22-ext-wp76xx symlink points at a toolchain that was distributed with WP77 release 8 and the y22-ext-wp77xx symlink points at a toolchain that was distributed with WP76 release 9.  Sorry about the mixup.  You can either download the new VM or you can update the existing VM by doing the following:</p>
+<ol>
+<li>Delete the wp77 release 8 toolchain</li>
+<li>Install the wp77 release 9 toolchain</li>
+<li>
+<code>sudo apt-get install libwebkitgtk-1.0-0</code> (this was a missing dependency of Developer Studio)</li>
+<li>Use <code>repo</code> to update Legato to 18.05.1</li>
+<li>Apply the patches for Legato 18.05.1 from <code>~/Legato_patches</code>
+</li>
+</ol>
+<p>If this sounds too complicated, just get the new VM  <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=5" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_18' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-26T04:39:16Z' class='post-time'>
+                    June 26, 2018,  4:39am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-26T04:39:16Z'>
+              <span itemprop='position'>18</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/dfrey">@dfrey</a> thank a lot for this update. I will try it this morning.</p>
+<p>Francis.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_19' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Francis.duhaut'><span itemprop='name'>Francis.duhaut</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-06-26T09:02:21Z' class='post-time'>
+                    June 26, 2018,  9:02am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-06-26T09:02:21Z'>
+              <span itemprop='position'>19</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/dfrey">@dfrey</a> it work fine with my WP7607 !</p>
+<p>Thank for the support.<br>
+Cheers</p>
+<p>Francis</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_20' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hardikaghara1012'><span itemprop='name'>hardikaghara1012</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-09-22T05:24:21Z' class='post-time'>
+                    September 22, 2018,  5:24am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-09-22T05:24:21Z'>
+              <span itemprop='position'>20</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>How can i update 18.05.1  legato version</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610?page=2">next page →</a></b></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

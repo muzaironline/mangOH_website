@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Diagnosing IoT Wifi Card</title>
+    <link>https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684</link>
+    <description>Hello,
+
+Hoping someone will have a suggestion for me in regards to the WL18xx on Legato/Yocto.
+
+This is my current version info 
+
+Legato Version: 17.06.0_f83005aa5145d934e8e282fffc8f7f25_modified
+Firmware Version: SWI9X15Y_07.11.22.00 r33729 CARMD-EV-FRMWR1 2017/01/11 18:04:06
+Bootloader Version: SWI9X15Y_07.11.22.00 r33729 CARMD-EV-FRMWR1 2017/01/11 18:04:06
+Linux Version: 3.14.29ltsi-a00e464379_3f15cd39ad #2 PREEMPT Mon Feb 20 11:11:17 PST 2017
+
+
+Following the mangoh docs, I should have high enough versions to support the wl18xx module.
+
+dmesg tells me:
+
+&gt; [    0.395299] wl18xx board initialization done
+
+however, if I try wifi client scan I get:
+
+&gt; root@fx30:~# wifi client start
+&gt; successfully called start.
+&gt; root@fx30:~# wifi client scan
+&gt; starting scan
+&gt; DEBUG: le_wifiClient_GetFirstAccessPoint ERROR
+
+
+logread gives me:
+[quote]
+Jan 6 01:20:13 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c le_wifiClient_Start() 560 | Client starts
+Jan 6 01:20:13 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiClient_server.c Handle_le_wifiClient_Start() 512 | Sending response to client session 0x27d6c : 4 bytes sent
+Jan 6 01:20:14 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c CloseSessionEventHandler() 414 | sessionRef 0x27d6c GetFirstSessionRef (nil)
+Jan 6 01:20:14 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiClient_server.c CleanupClientData() 126 | Client 0x27d6c is closed !!!
+Jan 6 01:20:14 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiAp_server.c CleanupClientData() 126 | Client 0x27cdc is closed !!!
+Jan 6 01:21:47 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | LE_FILENAME ExtractFileDescriptor() 34 | Received fd (11).
+Jan 6 01:21:47 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | LE_FILENAME ExtractFileDescriptor() 34 | Received fd (15).
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool &#39;.le_wifiClient_ServerData&#39; overflowed. Expanded to 1 blocks.
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c le_wifiClient_AddNewEventHandler() 508 | Add new event handler
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiClient_server.c Handle_le_wifiClient_AddNewEventHandler() 401 | Sending response to client session 0x27cdc : 4 bytes sent
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c IsScanRunning() 430 | IsScanRunning .0
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c le_wifiClient_Scan() 639 | Scan started
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiClient_server.c Handle_le_wifiClient_Scan() 598 | Sending response to client session 0x27cdc : 4 bytes sent
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=WiFi Client Scan Thread | LE_FILENAME PThreadStartRoutine() 362 | Set nice level to 0.
+Jan 6 01:21:48 fx30 user.info Legato: INFO | wifiService[580]/daemon T=WiFi Client Scan Thread | pa_wifi_client_ti.c pa_wifiClient_Scan() 419 | Scanning
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=WiFi Client Scan Thread | le_wifiClient.c MarkAllAccessPointsOld() 317 | Mark all AP as old
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=WiFi Client Scan Thread | le_wifiClient.c MarkAllAccessPointsOld() 346 | Marked: 0
+Jan 6 01:21:48 fx30 user.info Legato: INFO | wifiService[580]/daemon T=WiFi Client Scan Thread | pa_wifi_client_ti.c pa_wifiClient_GetScanResult() 484 | Scan results
+Jan 6 01:21:48 fx30 user.info Legato: INFO | wifiService[580]/daemon T=WiFi Client Scan Thread | pa_wifi_client_ti.c pa_wifiClient_GetScanResult() 504 | PARSING:WIFICLIENT_START_SCAN : len:22
+Jan 6 01:21:48 fx30 user.err Legato: =ERR= | wifiService[580] | command failed: No such device (-19)
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=WiFi Client Scan Thread | le_wifiClient.c ScanThreadDestructor() 395 | Scan thread exited.
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=WiFi Client Scan Thread | le_wifiClient.c PaEventHandler() 118 | Event: 2
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c FirstLayerWifiClientEventHandler() 452 | Event: 2
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiClient_server.c AsyncResponse_le_wifiClient_AddNewEventHandler() 326 | Sending message to client session 0x27cdc : 8 bytes sent
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c IsScanRunning() 430 | IsScanRunning .0
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c le_wifiClient_GetFirstAccessPoint() 681 | Get first AP
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c le_wifiClient_GetFirstAccessPoint() 700 | AP not found
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiClient_server.c Handle_le_wifiClient_GetFirstAccessPoint() 641 | Sending response to client session 0x27cdc : 4 bytes sent
+Jan 6 01:21:48 fx30 user.err Legato: =ERR= | wifi[5022]/wifi T=main | wifi_client.c WifiReadScanResults() 123 | le_wifiClient_GetFirstAccessPoint ERROR
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c le_wifiClient_RemoveNewEventHandler() 538 | Remove event handler
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiClient_server.c Handle_le_wifiClient_RemoveNewEventHandler() 466 | Sending response to client session 0x27cdc : 0 bytes sent
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c CloseSessionEventHandler() 414 | sessionRef 0x27cdc GetFirstSessionRef 0x27cdc
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiClient_server.c CleanupClientData() 126 | Client 0x27cdc is closed !!!
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiAp_server.c CleanupClientData() 126 | Client 0x27d6c is closed !!!
+[/quote]
+
+similar logread output if I try to use the legato wifi client api.
+
+Anywhere I can look?</description>
+    
+    <lastBuildDate>Thu, 09 May 2019 06:17:18 +0000</lastBuildDate>
+    <category>IoT Cards</category>
+    <atom:link href="https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Diagnosing IoT Wifi Card</title>
+        <dc:creator><![CDATA[aelkhabli]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello ,</p>
+<p>I also use the FX30, when I update the framework I receive an error to download<br>
+Any ideas as to what’s going on? Thanks you</p>
+<p>Best regards,</p>
+          <p><a href="https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684/8</link>
+        <pubDate>Tue, 22 Aug 2017 11:40:29 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-684-8</guid>
+        <source url="https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684.rss">Diagnosing IoT Wifi Card</source>
+      </item>
+      <item>
+        <title>Diagnosing IoT Wifi Card</title>
+        <dc:creator><![CDATA[ollie]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks for all your help.</p>
+<p>Looks like the last released firmware per <a href="https://source.sierrawireless.com/resources/airlink/software_downloads/fx30-firmware/fx30-firmware/" rel="nofollow noopener">https://source.sierrawireless.com/resources/airlink/software_downloads/fx30-firmware/fx30-firmware/</a> is</p>
+<blockquote>
+<p>Firmware Version: SWI9X15Y_07.11.22.00 r33729 CARMD-EV-FRMWR1 2017/01/11 18:04:06<br>
+Bootloader Version: SWI9X15Y_07.11.22.00 r33729 CARMD-EV-FRMWR1 2017/01/11 18:04:06<br>
+Linux Version: 3.14.29ltsi-a00e464379_3f15cd39ad <span class="hashtag">#2</span> PREEMPT Mon Feb 20 11:11:17 PST 2017<br>
+FX30 Version: R13.1.2.004</p>
+</blockquote>
+<p>Which is odd considering that per the FX30 datasheet it uses a  WP8548-G radio module</p>
+<p>Guess its not cross compatible.</p>
+          <p><a href="https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684/7</link>
+        <pubDate>Thu, 17 Aug 2017 02:09:45 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-684-7</guid>
+        <source url="https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684.rss">Diagnosing IoT Wifi Card</source>
+      </item>
+      <item>
+        <title>Diagnosing IoT Wifi Card</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>you need to get the proper firmware for FX30 then. I am not sure whether you can simply drop in the standard sierra WP firmware or not.</p>
+          <p><a href="https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684/6</link>
+        <pubDate>Thu, 17 Aug 2017 00:30:59 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-684-6</guid>
+        <source url="https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684.rss">Diagnosing IoT Wifi Card</source>
+      </item>
+      <item>
+        <title>Diagnosing IoT Wifi Card</title>
+        <dc:creator><![CDATA[ollie]]></dc:creator>
+        <description><![CDATA[
+            <p>Sierra Wireless fx30</p>
+          <p><a href="https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684/5</link>
+        <pubDate>Thu, 17 Aug 2017 00:30:07 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-684-5</guid>
+        <source url="https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684.rss">Diagnosing IoT Wifi Card</source>
+      </item>
+      <item>
+        <title>Diagnosing IoT Wifi Card</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-username="ollie" data-post="3" data-topic="684">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/o/a87d85/40.png" class="avatar"> ollie:</div>
+<blockquote>
+<p>Attempting to update (Tried 2 different downloads, didnt look like they had a hash publicly avililbe to reference against)</p>
+</blockquote>
+</aside>
+<p>what hardware are you using?</p>
+          <p><a href="https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684/4</link>
+        <pubDate>Thu, 17 Aug 2017 00:26:34 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-684-4</guid>
+        <source url="https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684.rss">Diagnosing IoT Wifi Card</source>
+      </item>
+      <item>
+        <title>Diagnosing IoT Wifi Card</title>
+        <dc:creator><![CDATA[ollie]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks for the reply!</p>
+<p>Using the spk from <a href="https://source.sierrawireless.com/resources/legato/wpx5xxfirmwarerelease14/" rel="nofollow noopener">https://source.sierrawireless.com/resources/legato/wpx5xxfirmwarerelease14/</a></p>
+<p>Attempting to update (Tried 2 different downloads, didnt look like they had a hash publicly avililbe to reference against)</p>
+<blockquote>
+<p>fwupdate download WPx5xx_Release14_GENERIC_SPK.spk 192.168.2.2<br>
+<a href="mailto:root@192.168.2.2">root@192.168.2.2</a>’s password:<br>
+Connecting to service …<br>
+Connecting to service …<br>
+Download started …<br>
+Error in download</p>
+</blockquote>
+<p>I’ve tried rolling back my legato version to 16.10, didn’t work with that either.</p>
+          <p><a href="https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684/3</link>
+        <pubDate>Wed, 16 Aug 2017 23:58:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-684-3</guid>
+        <source url="https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684.rss">Diagnosing IoT Wifi Card</source>
+      </item>
+      <item>
+        <title>Diagnosing IoT Wifi Card</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>There is a mismatch on the legato version and firmware. Can you move to release 14 firmware?</p>
+          <p><a href="https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684/2</link>
+        <pubDate>Wed, 16 Aug 2017 23:40:22 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-684-2</guid>
+        <source url="https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684.rss">Diagnosing IoT Wifi Card</source>
+      </item>
+      <item>
+        <title>Diagnosing IoT Wifi Card</title>
+        <dc:creator><![CDATA[ollie]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello,</p>
+<p>Hoping someone will have a suggestion for me in regards to the WL18xx on Legato/Yocto.</p>
+<p>This is my current version info</p>
+<p>Legato Version: 17.06.0_f83005aa5145d934e8e282fffc8f7f25_modified<br>
+Firmware Version: SWI9X15Y_07.11.22.00 r33729 CARMD-EV-FRMWR1 2017/01/11 18:04:06<br>
+Bootloader Version: SWI9X15Y_07.11.22.00 r33729 CARMD-EV-FRMWR1 2017/01/11 18:04:06<br>
+Linux Version: 3.14.29ltsi-a00e464379_3f15cd39ad <span class="hashtag">#2</span> PREEMPT Mon Feb 20 11:11:17 PST 2017</p>
+<p>Following the mangoh docs, I should have high enough versions to support the wl18xx module.</p>
+<p>dmesg tells me:</p>
+<blockquote>
+<p>[    0.395299] wl18xx board initialization done</p>
+</blockquote>
+<p>however, if I try wifi client scan I get:</p>
+<blockquote>
+<p>root@fx30:~# wifi client start<br>
+successfully called start.<br>
+root@fx30:~# wifi client scan<br>
+starting scan<br>
+DEBUG: le_wifiClient_GetFirstAccessPoint ERROR</p>
+</blockquote>
+<p>logread gives me:</p>
+<aside class="quote">
+<blockquote>
+<p>Jan 6 01:20:13 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c le_wifiClient_Start() 560 | Client starts<br>
+Jan 6 01:20:13 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiClient_server.c Handle_le_wifiClient_Start() 512 | Sending response to client session 0x27d6c : 4 bytes sent<br>
+Jan 6 01:20:14 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c CloseSessionEventHandler() 414 | sessionRef 0x27d6c GetFirstSessionRef (nil)<br>
+Jan 6 01:20:14 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiClient_server.c CleanupClientData() 126 | Client 0x27d6c is closed !!!<br>
+Jan 6 01:20:14 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiAp_server.c CleanupClientData() 126 | Client 0x27cdc is closed !!!<br>
+Jan 6 01:21:47 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | LE_FILENAME ExtractFileDescriptor() 34 | Received fd (11).<br>
+Jan 6 01:21:47 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | LE_FILENAME ExtractFileDescriptor() 34 | Received fd (15).<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_wifiClient_ServerData’ overflowed. Expanded to 1 blocks.<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c le_wifiClient_AddNewEventHandler() 508 | Add new event handler<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiClient_server.c Handle_le_wifiClient_AddNewEventHandler() 401 | Sending response to client session 0x27cdc : 4 bytes sent<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c IsScanRunning() 430 | IsScanRunning .0<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c le_wifiClient_Scan() 639 | Scan started<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiClient_server.c Handle_le_wifiClient_Scan() 598 | Sending response to client session 0x27cdc : 4 bytes sent<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=WiFi Client Scan Thread | LE_FILENAME PThreadStartRoutine() 362 | Set nice level to 0.<br>
+Jan 6 01:21:48 fx30 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato: INFO | wifiService[580]/daemon T=WiFi Client Scan Thread | pa_wifi_client_ti.c pa_wifiClient_Scan() 419 | Scanning<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=WiFi Client Scan Thread | le_wifiClient.c MarkAllAccessPointsOld() 317 | Mark all AP as old<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=WiFi Client Scan Thread | le_wifiClient.c MarkAllAccessPointsOld() 346 | Marked: 0<br>
+Jan 6 01:21:48 fx30 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato: INFO | wifiService[580]/daemon T=WiFi Client Scan Thread | pa_wifi_client_ti.c pa_wifiClient_GetScanResult() 484 | Scan results<br>
+Jan 6 01:21:48 fx30 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato: INFO | wifiService[580]/daemon T=WiFi Client Scan Thread | pa_wifi_client_ti.c pa_wifiClient_GetScanResult() 504 | PARSING:WIFICLIENT_START_SCAN : len:22<br>
+Jan 6 01:21:48 fx30 user.err Legato: =ERR= | wifiService[580] | command failed: No such device (-19)<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=WiFi Client Scan Thread | le_wifiClient.c ScanThreadDestructor() 395 | Scan thread exited.<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=WiFi Client Scan Thread | le_wifiClient.c PaEventHandler() 118 | Event: 2<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c FirstLayerWifiClientEventHandler() 452 | Event: 2<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiClient_server.c AsyncResponse_le_wifiClient_AddNewEventHandler() 326 | Sending message to client session 0x27cdc : 8 bytes sent<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c IsScanRunning() 430 | IsScanRunning .0<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c le_wifiClient_GetFirstAccessPoint() 681 | Get first AP<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c le_wifiClient_GetFirstAccessPoint() 700 | AP not found<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiClient_server.c Handle_le_wifiClient_GetFirstAccessPoint() 641 | Sending response to client session 0x27cdc : 4 bytes sent<br>
+Jan 6 01:21:48 fx30 user.err Legato: =ERR= | wifi[5022]/wifi T=main | wifi_client.c WifiReadScanResults() 123 | le_wifiClient_GetFirstAccessPoint ERROR<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c le_wifiClient_RemoveNewEventHandler() 538 | Remove event handler<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiClient_server.c Handle_le_wifiClient_RemoveNewEventHandler() 466 | Sending response to client session 0x27cdc : 0 bytes sent<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/daemon T=main | le_wifiClient.c CloseSessionEventHandler() 414 | sessionRef 0x27cdc GetFirstSessionRef 0x27cdc<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiClient_server.c CleanupClientData() 126 | Client 0x27cdc is closed !!!<br>
+Jan 6 01:21:48 fx30 user.debug Legato: DBUG | wifiService[580]/framework T=main | le_wifiAp_server.c CleanupClientData() 126 | Client 0x27d6c is closed !!!</p>
+</blockquote>
+</aside>
+<p>similar logread output if I try to use the legato wifi client api.</p>
+<p>Anywhere I can look?</p>
+          <p><a href="https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684/1</link>
+        <pubDate>Wed, 16 Aug 2017 23:39:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-684-1</guid>
+        <source url="https://forum.mangoh.io/t/diagnosing-iot-wifi-card/684.rss">Diagnosing IoT Wifi Card</source>
+      </item>
+  </channel>
+</rss>

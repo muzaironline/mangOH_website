@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Building Custom Yocto Image for Mangoh Red WP76 - mangOH Red - mangOH forum</title>
+    <meta name="description" content="Hello! 
+I would like to build a custom yocto image however I am having trouble. Here is what I have so far: 
+
+installed Ubuntu 16.04 on VM
+downloaded WP76 source image from following link: 
+https://source.sierrawireless.&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Building Custom Yocto Image for Mangoh Red WP76&#39;" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374" />
+<meta property="og:title" content="Building Custom Yocto Image for Mangoh Red WP76" />
+<meta name="twitter:title" content="Building Custom Yocto Image for Mangoh Red WP76" />
+<meta property="og:description" content="Hello!  I would like to build a custom yocto image however I am having trouble. Here is what I have so far:   installed Ubuntu 16.04 on VM downloaded WP76 source image from following link:  https://source.sierrawireless.com/resources/airprime/software/wp76xx/wp76xx-firmware-latest-release-components/#sthash.jhaYxLzU.rPi8Mpml.dpbs  then went to the following location: 1. ./meta-swi/meta-swi-mdm9x28/recipes-core/images/mdm9x28-image.inc added the following line:  IMAGE_INSTALL_append = &quot; python-pi..." />
+<meta name="twitter:description" content="Hello!  I would like to build a custom yocto image however I am having trouble. Here is what I have so far:   installed Ubuntu 16.04 on VM downloaded WP76 source image from following link:  https://source.sierrawireless.com/resources/airprime/software/wp76xx/wp76xx-firmware-latest-release-components/#sthash.jhaYxLzU.rPi8Mpml.dpbs  then went to the following location: 1. ./meta-swi/meta-swi-mdm9x28/recipes-core/images/mdm9x28-image.inc added the following line:  IMAGE_INSTALL_append = &quot; python-pi..." />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="17 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="1 ❤" />
+<meta property="article:published_time" content="2020-10-07T21:59:38+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="next" href="/t/building-custom-yocto-image-for-mangoh-red-wp76/5374?page=2">
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Building Custom Yocto Image for Mangoh Red WP76","mainEntity":{"@type":"Question","name":"Building Custom Yocto Image for Mangoh Red WP76","text":"Hello!\n\nI would like to build a custom yocto image however I am having trouble. Here is what I have so far:\n\ninstalled Ubuntu 16.04 on VM\n\ndownloaded WP76 source image from following link:\n\n<a href=\"https://source.sierrawireless.com/resources/airprime/software/wp76xx/wp76xx-firmware-latest-release-components/#sthash.jhaYxLzU.rPi8Mpml.dpbs\" rel=\"noopener nofollow ugc\">https://source.sierrawireless.com/resources/airprime/software/wp76xx/wp76xx-firmware-latest-release-components&hellip;<\/a>","upvoteCount":0,"answerCount":0,"dateCreated":"2020-10-07T21:59:38.749Z","author":{"@type":"Person","name":"prabjot dhillon"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">Building Custom Yocto Image for Mangoh Red WP76</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Building Custom Yocto Image for Mangoh Red WP76'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/prabjotdhillon'><span itemprop='name'>prabjotdhillon</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-07T21:59:38Z' class='post-time'>
+                    October 7, 2020,  9:59pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-07T21:59:38Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hello!</p>
+<p>I would like to build a custom yocto image however I am having trouble. Here is what I have so far:</p>
+<ul>
+<li>installed Ubuntu 16.04 on VM</li>
+<li>downloaded WP76 source image from following link:<br>
+<strong><a href="https://source.sierrawireless.com/resources/airprime/software/wp76xx/wp76xx-firmware-latest-release-components/#sthash.jhaYxLzU.rPi8Mpml.dpbs" rel="noopener nofollow ugc">https://source.sierrawireless.com/resources/airprime/software/wp76xx/wp76xx-firmware-latest-release-components/#sthash.jhaYxLzU.rPi8Mpml.dpbs</a></strong>
+</li>
+<li>then went to the following location: 1. ./meta-swi/meta-swi-mdm9x28/recipes-core/images/mdm9x28-image.inc</li>
+<li>added the following line:<br>
+<strong>IMAGE_INSTALL_append = " python-pip"</strong>
+</li>
+<li>and then went to:<br>
+<strong>./meta-swi/meta-swi-mdm9x28/conf/machine/swi-mdm9x28.conf</strong>
+</li>
+<li>and made the following change<br>
+<strong>UBI_ROOTFS_SIZE ?= “48MiB”</strong>
+</li>
+<li>and then to make the yocto image, typed make image_bin</li>
+<li>the following is the error I got:<br>
+prab@prab-VirtualBox:~/yocto$ make image_bin<br>
+Makefile:71: “Legato: build disabled since ‘/home/prab/yocto/legato/’ does not exist”<br>
+“meta-swi/build.sh” -p poky/ -o meta-openembedded/ -l meta-swi -x “kernel” -j 9 -t 9           -a LK_REPO_DIR="/home/prab/yocto" -a LK_REPO_NAME=“lk” -a LK_REPO=“file://lk” -m swi-mdm9x28 -P wp  -b build_bin -q<br>
+Poky dir: /home/prab/yocto/poky<br>
+OE meta: /home/prab/yocto/meta-openembedded<br>
+SWI meta dir: /home/prab/yocto/meta-swi<br>
+Linux repo dir: /home/prab/yocto/kernel<br>
+Number of make threads 9<br>
+Number of bitbake tasks 9<br>
+Extra options added -  LK_REPO_DIR=/home/prab/yocto<br>
+Extra options added -  LK_REPO_NAME=lk<br>
+Extra options added -  LK_REPO=file://lk<br>
+SWI machine: swi-mdm9x28<br>
+SWI product: wp<br>
+Build dir: /home/prab/yocto/build_bin<br>
+Enable Qualcomm Proprietary bin</li>
+</ul>
+<h3>Shell environment set up for builds.</h3>
+<p>You can now run 'bitbake ’</p>
+<p>Common targets are:<br>
+core-image-minimal<br>
+core-image-sato<br>
+meta-toolchain<br>
+meta-ide-support</p>
+<p>You can also run generated qemu images with a command like ‘runqemu qemux86’</p>
+<ul>
+<li>layer: meta-oe</li>
+<li>layer: meta-networking</li>
+<li>layer: meta-python</li>
+<li>layer: meta-gplv2</li>
+<li>layer: meta-swi/common</li>
+<li>layer: meta-swi/meta-swi-mdm9xxx</li>
+<li>layer: meta-swi/meta-swi-mdm9x28</li>
+<li>layer: meta-swi-extras/common</li>
+<li>layer: meta-swi-extras/meta-swi-mdm9x28</li>
+<li>layer: meta-swi-extras/meta-swi-mdm9xxx-bin</li>
+<li>layer: meta-swi-extras/meta-swi-mdm9x28-bin</li>
+<li>layer: meta-swi-extras/meta-swi-mdm9x28-wp-bin<br>
+Yocto machine: swi-mdm9x28-wp<br>
+Updating LEGATO_BUILD to false<br>
+Updating IMA_BUILD to false<br>
+Updating IMA_CONFIG to<br>
+Updating IMA_LOCAL_CA_X509 to<br>
+Updating IMA_PRIV_KEY to<br>
+Updating IMA_PUB_CERT to<br>
+Updating IMA_KERNEL_CMDLINE_OPTIONS to<br>
+Updating ENABLE_IMA to 0<br>
+Updating IMA_PUBLIC_CERT to<br>
+Updating IMA_PRIVATE_KEY to<br>
+Updating IMA_SMACK to<br>
+Updating ENABLE_FX30 to<br>
+Updating ROOTFS_VERSION to<br>
+Updating LK_REPO_DIR to /home/prab/yocto<br>
+Updating LK_REPO_NAME to lk<br>
+Updating LK_REPO to file://lk<br>
+Updating EXT_SWI_IMG to false<br>
+Updating INITRAMFS_IMAGE_BUNDLE to 1<br>
+Updating INITRAMFS_IMAGE to mdm9x28-image-initramfs<br>
+Updating FIRMWARE_PATH to<br>
+Updating PACKAGECONFIG_remove to gnutls<br>
+Build image of minimal rootfs (for swi-mdm9x28).<br>
+Unable to create ‘/home/prab/yocto/poky/bitbake/lib/bb/pysh/pyshtables.py’<br>
+[Errno 13] Permission denied: ‘/home/prab/yocto/poky/bitbake/lib/bb/pysh/pyshtables.py’<br>
+NOTE: Bitbake server didn’t start within 5 seconds, waiting for 90<br>
+ERROR: Unable to start bitbake server<br>
+ERROR: Server didn’t start, last 60 loglines (/home/prab/yocto/build_bin/bitbake-cookerdaemon.log):<br>
+Entering server connection loop<br>
+Accepting [&lt;socket.socket fd=7, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock&gt;] (<span class="chcklst-box fa fa-square-o fa-fw"></span>)<br>
+Processing Client<br>
+Connecting Client<br>
+Running command [‘setFeatures’, [2]]<br>
+Running command [‘updateConfig’, {‘profile’: False, ‘prefile’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘invalidate_stamp’: None, ‘dump_signatures’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘postfile’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘dry_run’: False, ‘verbose’: False, ‘debug_domains’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘debug’: 0, ‘server_timeout’: None, ‘extra_assume_provided’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘abort’: True, ‘force’: False}, {‘MAKELEVEL’: ‘1’, ‘USER’: ‘root’, ‘USERNAME’: ‘root’, ‘LC_ALL’: ‘en_US.UTF-8’, ‘SUDO_COMMAND’: ‘/usr/bin/make image’, ‘BUILDDIR’: ‘/home/prab/yocto/build_bin’, ‘LOGNAME’: ‘root’, ‘MFLAGS’: ‘’, ‘TERM’: ‘xterm-256color’, ‘PWD’: ‘/home/prab/yocto/build_bin’, ‘LANG’: ‘en_US.UTF-8’, ‘LS_COLORS’: ‘rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:<em>.tar=01;31:</em>.tgz=01;31:<em>.arc=01;31:</em>.arj=01;31:<em>.taz=01;31:</em>.lha=01;31:<em>.lz4=01;31:</em>.lzh=01;31:<em>.lzma=01;31:</em>.tlz=01;31:<em>.txz=01;31:</em>.tzo=01;31:<em>.t7z=01;31:</em>.zip=01;31:<em>.z=01;31:</em>.Z=01;31:<em>.dz=01;31:</em>.gz=01;31:<em>.lrz=01;31:</em>.lz=01;31:<em>.lzo=01;31:</em>.xz=01;31:<em>.bz2=01;31:</em>.bz=01;31:<em>.tbz=01;31:</em>.tbz2=01;31:<em>.tz=01;31:</em>.deb=01;31:<em>.rpm=01;31:</em>.jar=01;31:<em>.war=01;31:</em>.ear=01;31:<em>.sar=01;31:</em>.rar=01;31:<em>.alz=01;31:</em>.ace=01;31:<em>.zoo=01;31:</em>.cpio=01;31:<em>.7z=01;31:</em>.rz=01;31:<em>.cab=01;31:</em>.jpg=01;35:<em>.jpeg=01;35:</em>.gif=01;35:<em>.bmp=01;35:</em>.pbm=01;35:<em>.pgm=01;35:</em>.ppm=01;35:<em>.tga=01;35:</em>.xbm=01;35:<em>.xpm=01;35:</em>.tif=01;35:<em>.tiff=01;35:</em>.png=01;35:<em>.svg=01;35:</em>.svgz=01;35:<em>.mng=01;35:</em>.pcx=01;35:<em>.mov=01;35:</em>.mpg=01;35:<em>.mpeg=01;35:</em>.m2v=01;35:<em>.mkv=01;35:</em>.webm=01;35:<em>.ogm=01;35:</em>.mp4=01;35:<em>.m4v=01;35:</em>.mp4v=01;35:<em>.vob=01;35:</em>.qt=01;35:<em>.nuv=01;35:</em>.wmv=01;35:<em>.asf=01;35:</em>.rm=01;35:<em>.rmvb=01;35:</em>.flc=01;35:<em>.avi=01;35:</em>.fli=01;35:<em>.flv=01;35:</em>.gl=01;35:<em>.dl=01;35:</em>.xcf=01;35:<em>.xwd=01;35:</em>.yuv=01;35:<em>.cgm=01;35:</em>.emf=01;35:<em>.ogv=01;35:</em>.ogx=01;35:<em>.aac=00;36:</em>.au=00;36:<em>.flac=00;36:</em>.m4a=00;36:<em>.mid=00;36:</em>.midi=00;36:<em>.mka=00;36:</em>.mp3=00;36:<em>.mpc=00;36:</em>.ogg=00;36:<em>.ra=00;36:</em>.wav=00;36:<em>.oga=00;36:</em>.opus=00;36:<em>.spx=00;36:</em>.xspf=00;36:’, ‘MAIL’: ‘/var/mail/root’, ‘BB_ENV_EXTRAWHITE’: 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO DL_DIR FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy ', ‘PATH’: ‘/home/prab/yocto/poky/scripts:/home/prab/yocto/poky/bitbake/bin:/usr/local/bin:/bin:/usr/bin’, ‘SHELL’: ‘/bin/bash’, ‘DISPLAY’: ‘:0’, ‘<em>’: ‘/home/prab/yocto/poky/bitbake/bin/bitbake’, ‘MAKEFLAGS’: ‘’, ‘SUDO_GID’: ‘1000’, ‘LANGUAGE’: ‘en_US’, ‘MAKE_TERMOUT’: ‘/dev/pts/17’, ‘HOME’: ‘/home/prab’, ‘SUDO_USER’: ‘prab’, ‘BBPATH’: ‘/home/prab/yocto/build_bin’, ‘SUDO_UID’: ‘1000’, ‘SHLVL’: ‘2’, ‘OLDPWD’: ‘/home/prab/yocto/build_bin’, ‘MAKE_TERMERR’: ‘/dev/pts/17’, ‘XAUTHORITY’: ‘/home/prab/.Xauthority’}, [’/home/prab/yocto/poky/bitbake/bin/bitbake’, ‘mdm9x28-image-minimal’]]<br>
+Running command [‘getVariable’, ‘BBINCLUDELOGS’]<br>
+Running command [‘getVariable’, ‘BBINCLUDELOGS_LINES’]<br>
+Running command [‘getSetVariable’, ‘BB_CONSOLELOG’]<br>
+Running command [‘getUIHandlerNum’]<br>
+Running command [‘setEventMask’, 1, 20, {}, [‘bb.runqueue.runQueueExitWait’, ‘bb.event.LogExecTTY’, ‘logging.LogRecord’, ‘bb.build.TaskFailed’, ‘bb.build.TaskBase’, ‘bb.event.ParseStarted’, ‘bb.event.ParseProgress’, ‘bb.event.ParseCompleted’, ‘bb.event.CacheLoadStarted’, ‘bb.event.CacheLoadProgress’, ‘bb.event.CacheLoadCompleted’, ‘bb.command.CommandFailed’, ‘bb.command.CommandExit’, ‘bb.command.CommandCompleted’, ‘bb.cooker.CookerExit’, ‘bb.event.MultipleProviders’, ‘bb.event.NoProvider’, ‘bb.runqueue.sceneQueueTaskStarted’, ‘bb.runqueue.runQueueTaskStarted’, ‘bb.runqueue.runQueueTaskFailed’, ‘bb.runqueue.sceneQueueTaskFailed’, ‘bb.event.BuildBase’, ‘bb.build.TaskStarted’, ‘bb.build.TaskSucceeded’, ‘bb.build.TaskFailedSilent’, ‘bb.build.TaskProgress’, ‘bb.event.ProcessStarted’, ‘bb.event.ProcessProgress’, ‘bb.event.ProcessFinished’]]<br>
+Running command [‘getVariable’, ‘BB_DEFAULT_TASK’]<br>
+Running command [‘setConfig’, ‘cmd’, ‘build’]<br>
+Running command [‘buildTargets’, [‘mdm9x28-image-minimal’], ‘build’]<br>
+Processing Client<br>
+Disconnecting Client<br>
+No timeout, exiting.<br>
+Exiting<br>
+— Starting bitbake server pid 7281 at 2020-10-07 13:45:51.263502 —<br>
+Started bitbake server pid 7281<br>
+WARNING: Layer swi-wp-bin should set LAYERSERIES_COMPAT_swi-wp-bin in its conf/layer.conf file to list the core layer names it is compatible with.<br>
+Entering server connection loop<br>
+Accepting [&lt;socket.socket fd=7, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock&gt;] ([])<br>
+Processing Client<br>
+Connecting Client<br>
+Running command [‘setFeatures’, [2]]<br>
+Running command [‘updateConfig’, {‘dry_run’: False, ‘profile’: False, ‘postfile’: [], ‘debug_domains’: [], ‘server_timeout’: None, ‘dump_signatures’: [], ‘debug’: 0, ‘verbose’: False, ‘extra_assume_provided’: [], ‘force’: False, ‘prefile’: [], ‘abort’: True, ‘invalidate_stamp’: None}, {‘LESSOPEN’: ‘| /usr/bin/lesspipe %s’, ‘PWD’: ‘/home/prab/yocto/build_bin’, ‘SUDO_UID’: ‘1000’, ‘DISPLAY’: ‘:0’, ‘LESSCLOSE’: ‘/usr/bin/lesspipe %s %s’, ‘LOGNAME’: ‘root’, ‘SHLVL’: ‘3’, ‘PATH’: ‘/home/prab/yocto/poky/scripts:/home/prab/yocto/poky/bitbake/bin:/usr/local/bin:/bin:/usr/bin’, ‘BBPATH’: ‘/home/prab/yocto/build_bin’, ‘XAUTHORITY’: ‘/home/prab/.Xauthority’, ‘BUILDDIR’: ‘/home/prab/yocto/build_bin’, ‘LS_COLORS’: ‘rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:<em>.tar=01;31:</em>.tgz=01;31:<em>.arc=01;31:</em>.arj=01;31:<em>.taz=01;31:</em>.lha=01;31:<em>.lz4=01;31:</em>.lzh=01;31:<em>.lzma=01;31:</em>.tlz=01;31:<em>.txz=01;31:</em>.tzo=01;31:<em>.t7z=01;31:</em>.zip=01;31:<em>.z=01;31:</em>.Z=01;31:<em>.dz=01;31:</em>.gz=01;31:<em>.lrz=01;31:</em>.lz=01;31:<em>.lzo=01;31:</em>.xz=01;31:<em>.bz2=01;31:</em>.bz=01;31:<em>.tbz=01;31:</em>.tbz2=01;31:<em>.tz=01;31:</em>.deb=01;31:<em>.rpm=01;31:</em>.jar=01;31:<em>.war=01;31:</em>.ear=01;31:<em>.sar=01;31:</em>.rar=01;31:<em>.alz=01;31:</em>.ace=01;31:<em>.zoo=01;31:</em>.cpio=01;31:<em>.7z=01;31:</em>.rz=01;31:<em>.cab=01;31:</em>.jpg=01;35:<em>.jpeg=01;35:</em>.gif=01;35:<em>.bmp=01;35:</em>.pbm=01;35:<em>.pgm=01;35:</em>.ppm=01;35:<em>.tga=01;35:</em>.xbm=01;35:<em>.xpm=01;35:</em>.tif=01;35:<em>.tiff=01;35:</em>.png=01;35:<em>.svg=01;35:</em>.svgz=01;35:<em>.mng=01;35:</em>.pcx=01;35:<em>.mov=01;35:</em>.mpg=01;35:<em>.mpeg=01;35:</em>.m2v=01;35:<em>.mkv=01;35:</em>.webm=01;35:<em>.ogm=01;35:</em>.mp4=01;35:<em>.m4v=01;35:</em>.mp4v=01;35:<em>.vob=01;35:</em>.qt=01;35:<em>.nuv=01;35:</em>.wmv=01;35:<em>.asf=01;35:</em>.rm=01;35:<em>.rmvb=01;35:</em>.flc=01;35:<em>.avi=01;35:</em>.fli=01;35:<em>.flv=01;35:</em>.gl=01;35:<em>.dl=01;35:</em>.xcf=01;35:<em>.xwd=01;35:</em>.yuv=01;35:<em>.cgm=01;35:</em>.emf=01;35:<em>.ogv=01;35:</em>.ogx=01;35:<em>.aac=00;36:</em>.au=00;36:<em>.flac=00;36:</em>.m4a=00;36:<em>.mid=00;36:</em>.midi=00;36:<em>.mka=00;36:</em>.mp3=00;36:<em>.mpc=00;36:</em>.ogg=00;36:<em>.ra=00;36:</em>.wav=00;36:<em>.oga=00;36:</em>.opus=00;36:<em>.spx=00;36:</em>.xspf=00;36:’, ‘SUDO_GID’: ‘1000’, ‘MAKE_TERMOUT’: ‘/dev/pts/17’, ‘USER’: ‘root’, ‘TERM’: ‘xterm-256color’, ‘MAIL’: ‘/var/mail/root’, '</em>’: ‘/home/prab/yocto/poky/bitbake/bin/bitbake’, ‘USERNAME’: ‘root’, ‘MAKEFLAGS’: ‘’, ‘SUDO_COMMAND’: ‘/bin/su’, ‘HOME’: ‘/root’, ‘LC_ALL’: ‘en_US.UTF-8’, ‘LANGUAGE’: ‘en_US’, ‘LANG’: ‘en_US.UTF-8’, ‘SUDO_USER’: ‘prab’, ‘SHELL’: ‘/bin/bash’, ‘MAKE_TERMERR’: ‘/dev/pts/17’, ‘MAKELEVEL’: ‘1’, ‘BB_ENV_EXTRAWHITE’: ‘ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO DL_DIR FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy ‘, ‘MFLAGS’: ‘’, ‘OLDPWD’: ‘/home/prab/yocto/build_bin’}, [’/home/prab/yocto/poky/bitbake/bin/bitbake’, ‘mdm9x28-image-minimal’]]<br>
+Running command [‘getVariable’, ‘BBINCLUDELOGS’]<br>
+Running command [‘getVariable’, ‘BBINCLUDELOGS_LINES’]<br>
+Running command [‘getSetVariable’, ‘BB_CONSOLELOG’]<br>
+Running command [‘getUIHandlerNum’]<br>
+Running command [‘setEventMask’, 1, 20, {}, [‘bb.runqueue.runQueueExitWait’, ‘bb.event.LogExecTTY’, ‘logging.LogRecord’, ‘bb.build.TaskFailed’, ‘bb.build.TaskBase’, ‘bb.event.ParseStarted’, ‘bb.event.ParseProgress’, ‘bb.event.ParseCompleted’, ‘bb.event.CacheLoadStarted’, ‘bb.event.CacheLoadProgress’, ‘bb.event.CacheLoadCompleted’, ‘bb.command.CommandFailed’, ‘bb.command.CommandExit’, ‘bb.command.CommandCompleted’, ‘bb.cooker.CookerExit’, ‘bb.event.MultipleProviders’, ‘bb.event.NoProvider’, ‘bb.runqueue.sceneQueueTaskStarted’, ‘bb.runqueue.runQueueTaskStarted’, ‘bb.runqueue.runQueueTaskFailed’, ‘bb.runqueue.sceneQueueTaskFailed’, ‘bb.event.BuildBase’, ‘bb.build.TaskStarted’, ‘bb.build.TaskSucceeded’, ‘bb.build.TaskFailedSilent’, ‘bb.build.TaskProgress’, ‘bb.event.ProcessStarted’, ‘bb.event.ProcessProgress’, ‘bb.event.ProcessFinished’]]<br>
+Running command [‘getVariable’, ‘BB_DEFAULT_TASK’]<br>
+Running command [‘setConfig’, ‘cmd’, ‘build’]<br>
+Running command [‘buildTargets’, [‘mdm9x28-image-minimal’], ‘build’]<br>
+Processing Client<br>
+Disconnecting Client<br>
+No timeout, exiting.<br>
+Exiting<br>
+— Starting bitbake server pid 18086 at 2020-10-07 13:57:29.864731 —<br>
+Started bitbake server pid 18086<br>
+WARNING: Layer swi-wp-bin should set LAYERSERIES_COMPAT_swi-wp-bin in its conf/layer.conf file to list the core layer names it is compatible with.<br>
+Entering server connection loop<br>
+Accepting [&lt;socket.socket fd=7, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock&gt;] (<span class="chcklst-box fa fa-square-o fa-fw"></span>)<br>
+Processing Client<br>
+Connecting Client<br>
+Running command [‘setFeatures’, [2]]<br>
+Running command [‘updateConfig’, {‘debug_domains’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘dump_signatures’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘postfile’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘prefile’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘extra_assume_provided’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘server_timeout’: None, ‘debug’: 0, ‘verbose’: False, ‘abort’: True, ‘profile’: False, ‘force’: False, ‘invalidate_stamp’: None, ‘dry_run’: False}, {‘TERM’: ‘xterm-256color’, ‘OLDPWD’: ‘/home/prab/yocto/build_bin’, ‘XAUTHORITY’: ‘/home/prab/.Xauthority’, ‘_’: ‘/home/prab/yocto/poky/bitbake/bin/bitbake’, ‘PATH’: ‘/home/prab/yocto/poky/scripts:/home/prab/yocto/poky/bitbake/bin:/usr/local/bin:/bin:/usr/bin’, ‘DISPLAY’: ‘:0’, ‘MAKE_TERMOUT’: ‘/dev/pts/17’, ‘BB_ENV_EXTRAWHITE’: ‘ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO DL_DIR FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy ‘, ‘MAKE_TERMERR’: ‘/dev/pts/17’, ‘USER’: ‘root’, ‘SUDO_USER’: ‘prab’, ‘SHELL’: ‘/bin/bash’, ‘BBPATH’: ‘/home/prab/yocto/build_bin’, ‘LESSOPEN’: ‘| /usr/bin/lesspipe %s’, ‘HOME’: ‘/root’, ‘SHLVL’: ‘3’, ‘BUILDDIR’: ‘/home/prab/yocto/build_bin’, ‘LANG’: ‘en_US.UTF-8’, ‘USERNAME’: ‘root’, ‘SUDO_GID’: ‘1000’, ‘MAKELEVEL’: ‘1’, ‘LS_COLORS’: ‘rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:<em>.tar=01;31:</em>.tgz=01;31:<em>.arc=01;31:</em>.arj=01;31:<em>.taz=01;31:</em>.lha=01;31:<em>.lz4=01;31:</em>.lzh=01;31:<em>.lzma=01;31:</em>.tlz=01;31:<em>.txz=01;31:</em>.tzo=01;31:<em>.t7z=01;31:</em>.zip=01;31:<em>.z=01;31:</em>.Z=01;31:<em>.dz=01;31:</em>.gz=01;31:<em>.lrz=01;31:</em>.lz=01;31:<em>.lzo=01;31:</em>.xz=01;31:<em>.bz2=01;31:</em>.bz=01;31:<em>.tbz=01;31:</em>.tbz2=01;31:<em>.tz=01;31:</em>.deb=01;31:<em>.rpm=01;31:</em>.jar=01;31:<em>.war=01;31:</em>.ear=01;31:<em>.sar=01;31:</em>.rar=01;31:<em>.alz=01;31:</em>.ace=01;31:<em>.zoo=01;31:</em>.cpio=01;31:<em>.7z=01;31:</em>.rz=01;31:<em>.cab=01;31:</em>.jpg=01;35:<em>.jpeg=01;35:</em>.gif=01;35:<em>.bmp=01;35:</em>.pbm=01;35:<em>.pgm=01;35:</em>.ppm=01;35:<em>.tga=01;35:</em>.xbm=01;35:<em>.xpm=01;35:</em>.tif=01;35:<em>.tiff=01;35:</em>.png=01;35:<em>.svg=01;35:</em>.svgz=01;35:<em>.mng=01;35:</em>.pcx=01;35:<em>.mov=01;35:</em>.mpg=01;35:<em>.mpeg=01;35:</em>.m2v=01;35:<em>.mkv=01;35:</em>.webm=01;35:<em>.ogm=01;35:</em>.mp4=01;35:<em>.m4v=01;35:</em>.mp4v=01;35:<em>.vob=01;35:</em>.qt=01;35:<em>.nuv=01;35:</em>.wmv=01;35:<em>.asf=01;35:</em>.rm=01;35:<em>.rmvb=01;35:</em>.flc=01;35:<em>.avi=01;35:</em>.fli=01;35:<em>.flv=01;35:</em>.gl=01;35:<em>.dl=01;35:</em>.xcf=01;35:<em>.xwd=01;35:</em>.yuv=01;35:<em>.cgm=01;35:</em>.emf=01;35:<em>.ogv=01;35:</em>.ogx=01;35:<em>.aac=00;36:</em>.au=00;36:<em>.flac=00;36:</em>.m4a=00;36:<em>.mid=00;36:</em>.midi=00;36:<em>.mka=00;36:</em>.mp3=00;36:<em>.mpc=00;36:</em>.ogg=00;36:<em>.ra=00;36:</em>.wav=00;36:<em>.oga=00;36:</em>.opus=00;36:<em>.spx=00;36:</em>.xspf=00;36:’, ‘SUDO_COMMAND’: ‘/bin/su’, ‘MAIL’: ‘/var/mail/root’, ‘LESSCLOSE’: ‘/usr/bin/lesspipe %s %s’, ‘LOGNAME’: ‘root’, ‘MAKEFLAGS’: ‘’, ‘MFLAGS’: ‘’, ‘LANGUAGE’: ‘en_US’, ‘LC_ALL’: ‘en_US.UTF-8’, ‘PWD’: ‘/home/prab/yocto/build_bin’, ‘SUDO_UID’: ‘1000’}, [’/home/prab/yocto/poky/bitbake/bin/bitbake’, ‘mdm9x28-image-minimal’]]<br>
+Running command [‘getVariable’, ‘BBINCLUDELOGS’]<br>
+Running command [‘getVariable’, ‘BBINCLUDELOGS_LINES’]<br>
+Running command [‘getSetVariable’, ‘BB_CONSOLELOG’]<br>
+Running command [‘getUIHandlerNum’]<br>
+Running command [‘setEventMask’, 1, 20, {}, [‘bb.runqueue.runQueueExitWait’, ‘bb.event.LogExecTTY’, ‘logging.LogRecord’, ‘bb.build.TaskFailed’, ‘bb.build.TaskBase’, ‘bb.event.ParseStarted’, ‘bb.event.ParseProgress’, ‘bb.event.ParseCompleted’, ‘bb.event.CacheLoadStarted’, ‘bb.event.CacheLoadProgress’, ‘bb.event.CacheLoadCompleted’, ‘bb.command.CommandFailed’, ‘bb.command.CommandExit’, ‘bb.command.CommandCompleted’, ‘bb.cooker.CookerExit’, ‘bb.event.MultipleProviders’, ‘bb.event.NoProvider’, ‘bb.runqueue.sceneQueueTaskStarted’, ‘bb.runqueue.runQueueTaskStarted’, ‘bb.runqueue.runQueueTaskFailed’, ‘bb.runqueue.sceneQueueTaskFailed’, ‘bb.event.BuildBase’, ‘bb.build.TaskStarted’, ‘bb.build.TaskSucceeded’, ‘bb.build.TaskFailedSilent’, ‘bb.build.TaskProgress’, ‘bb.event.ProcessStarted’, ‘bb.event.ProcessProgress’, ‘bb.event.ProcessFinished’]]<br>
+Running command [‘getVariable’, ‘BB_DEFAULT_TASK’]<br>
+Running command [‘setConfig’, ‘cmd’, ‘build’]<br>
+Running command [‘buildTargets’, [‘mdm9x28-image-minimal’], ‘build’]<br>
+Processing Client<br>
+Disconnecting Client<br>
+No timeout, exiting.<br>
+Exiting</li>
+</ul>
+<p>NOTE: Bitbake server didn’t start within 5 seconds, waiting for 90<br>
+ERROR: Unable to start bitbake server<br>
+ERROR: Server didn’t start, last 60 loglines (/home/prab/yocto/build_bin/bitbake-cookerdaemon.log):<br>
+Entering server connection loop<br>
+Accepting [&lt;socket.socket fd=7, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock&gt;] (<span class="chcklst-box fa fa-square-o fa-fw"></span>)<br>
+Processing Client<br>
+Connecting Client<br>
+Running command [‘setFeatures’, [2]]<br>
+Running command [‘updateConfig’, {‘profile’: False, ‘prefile’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘invalidate_stamp’: None, ‘dump_signatures’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘postfile’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘dry_run’: False, ‘verbose’: False, ‘debug_domains’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘debug’: 0, ‘server_timeout’: None, ‘extra_assume_provided’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘abort’: True, ‘force’: False}, {‘MAKELEVEL’: ‘1’, ‘USER’: ‘root’, ‘USERNAME’: ‘root’, ‘LC_ALL’: ‘en_US.UTF-8’, ‘SUDO_COMMAND’: ‘/usr/bin/make image’, ‘BUILDDIR’: ‘/home/prab/yocto/build_bin’, ‘LOGNAME’: ‘root’, ‘MFLAGS’: ‘’, ‘TERM’: ‘xterm-256color’, ‘PWD’: ‘/home/prab/yocto/build_bin’, ‘LANG’: ‘en_US.UTF-8’, ‘LS_COLORS’: ‘rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:<em>.tar=01;31:</em>.tgz=01;31:<em>.arc=01;31:</em>.arj=01;31:<em>.taz=01;31:</em>.lha=01;31:<em>.lz4=01;31:</em>.lzh=01;31:<em>.lzma=01;31:</em>.tlz=01;31:<em>.txz=01;31:</em>.tzo=01;31:<em>.t7z=01;31:</em>.zip=01;31:<em>.z=01;31:</em>.Z=01;31:<em>.dz=01;31:</em>.gz=01;31:<em>.lrz=01;31:</em>.lz=01;31:<em>.lzo=01;31:</em>.xz=01;31:<em>.bz2=01;31:</em>.bz=01;31:<em>.tbz=01;31:</em>.tbz2=01;31:<em>.tz=01;31:</em>.deb=01;31:<em>.rpm=01;31:</em>.jar=01;31:<em>.war=01;31:</em>.ear=01;31:<em>.sar=01;31:</em>.rar=01;31:<em>.alz=01;31:</em>.ace=01;31:<em>.zoo=01;31:</em>.cpio=01;31:<em>.7z=01;31:</em>.rz=01;31:<em>.cab=01;31:</em>.jpg=01;35:<em>.jpeg=01;35:</em>.gif=01;35:<em>.bmp=01;35:</em>.pbm=01;35:<em>.pgm=01;35:</em>.ppm=01;35:<em>.tga=01;35:</em>.xbm=01;35:<em>.xpm=01;35:</em>.tif=01;35:<em>.tiff=01;35:</em>.png=01;35:<em>.svg=01;35:</em>.svgz=01;35:<em>.mng=01;35:</em>.pcx=01;35:<em>.mov=01;35:</em>.mpg=01;35:<em>.mpeg=01;35:</em>.m2v=01;35:<em>.mkv=01;35:</em>.webm=01;35:<em>.ogm=01;35:</em>.mp4=01;35:<em>.m4v=01;35:</em>.mp4v=01;35:<em>.vob=01;35:</em>.qt=01;35:<em>.nuv=01;35:</em>.wmv=01;35:<em>.asf=01;35:</em>.rm=01;35:<em>.rmvb=01;35:</em>.flc=01;35:<em>.avi=01;35:</em>.fli=01;35:<em>.flv=01;35:</em>.gl=01;35:<em>.dl=01;35:</em>.xcf=01;35:<em>.xwd=01;35:</em>.yuv=01;35:<em>.cgm=01;35:</em>.emf=01;35:<em>.ogv=01;35:</em>.ogx=01;35:<em>.aac=00;36:</em>.au=00;36:<em>.flac=00;36:</em>.m4a=00;36:<em>.mid=00;36:</em>.midi=00;36:<em>.mka=00;36:</em>.mp3=00;36:<em>.mpc=00;36:</em>.ogg=00;36:<em>.ra=00;36:</em>.wav=00;36:<em>.oga=00;36:</em>.opus=00;36:<em>.spx=00;36:</em>.xspf=00;36:’, ‘MAIL’: ‘/var/mail/root’, ‘BB_ENV_EXTRAWHITE’: 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO DL_DIR FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy ', ‘PATH’: ‘/home/prab/yocto/poky/scripts:/home/prab/yocto/poky/bitbake/bin:/usr/local/bin:/bin:/usr/bin’, ‘SHELL’: ‘/bin/bash’, ‘DISPLAY’: ‘:0’, ‘<em>’: ‘/home/prab/yocto/poky/bitbake/bin/bitbake’, ‘MAKEFLAGS’: ‘’, ‘SUDO_GID’: ‘1000’, ‘LANGUAGE’: ‘en_US’, ‘MAKE_TERMOUT’: ‘/dev/pts/17’, ‘HOME’: ‘/home/prab’, ‘SUDO_USER’: ‘prab’, ‘BBPATH’: ‘/home/prab/yocto/build_bin’, ‘SUDO_UID’: ‘1000’, ‘SHLVL’: ‘2’, ‘OLDPWD’: ‘/home/prab/yocto/build_bin’, ‘MAKE_TERMERR’: ‘/dev/pts/17’, ‘XAUTHORITY’: ‘/home/prab/.Xauthority’}, [’/home/prab/yocto/poky/bitbake/bin/bitbake’, ‘mdm9x28-image-minimal’]]<br>
+Running command [‘getVariable’, ‘BBINCLUDELOGS’]<br>
+Running command [‘getVariable’, ‘BBINCLUDELOGS_LINES’]<br>
+Running command [‘getSetVariable’, ‘BB_CONSOLELOG’]<br>
+Running command [‘getUIHandlerNum’]<br>
+Running command [‘setEventMask’, 1, 20, {}, [‘bb.runqueue.runQueueExitWait’, ‘bb.event.LogExecTTY’, ‘logging.LogRecord’, ‘bb.build.TaskFailed’, ‘bb.build.TaskBase’, ‘bb.event.ParseStarted’, ‘bb.event.ParseProgress’, ‘bb.event.ParseCompleted’, ‘bb.event.CacheLoadStarted’, ‘bb.event.CacheLoadProgress’, ‘bb.event.CacheLoadCompleted’, ‘bb.command.CommandFailed’, ‘bb.command.CommandExit’, ‘bb.command.CommandCompleted’, ‘bb.cooker.CookerExit’, ‘bb.event.MultipleProviders’, ‘bb.event.NoProvider’, ‘bb.runqueue.sceneQueueTaskStarted’, ‘bb.runqueue.runQueueTaskStarted’, ‘bb.runqueue.runQueueTaskFailed’, ‘bb.runqueue.sceneQueueTaskFailed’, ‘bb.event.BuildBase’, ‘bb.build.TaskStarted’, ‘bb.build.TaskSucceeded’, ‘bb.build.TaskFailedSilent’, ‘bb.build.TaskProgress’, ‘bb.event.ProcessStarted’, ‘bb.event.ProcessProgress’, ‘bb.event.ProcessFinished’]]<br>
+Running command [‘getVariable’, ‘BB_DEFAULT_TASK’]<br>
+Running command [‘setConfig’, ‘cmd’, ‘build’]<br>
+Running command [‘buildTargets’, [‘mdm9x28-image-minimal’], ‘build’]<br>
+Processing Client<br>
+Disconnecting Client<br>
+No timeout, exiting.<br>
+Exiting<br>
+— Starting bitbake server pid 7281 at 2020-10-07 13:45:51.263502 —<br>
+Started bitbake server pid 7281<br>
+WARNING: Layer swi-wp-bin should set LAYERSERIES_COMPAT_swi-wp-bin in its conf/layer.conf file to list the core layer names it is compatible with.<br>
+Entering server connection loop<br>
+Accepting [&lt;socket.socket fd=7, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock&gt;] ([])<br>
+Processing Client<br>
+Connecting Client<br>
+Running command [‘setFeatures’, [2]]<br>
+Running command [‘updateConfig’, {‘dry_run’: False, ‘profile’: False, ‘postfile’: [], ‘debug_domains’: [], ‘server_timeout’: None, ‘dump_signatures’: [], ‘debug’: 0, ‘verbose’: False, ‘extra_assume_provided’: [], ‘force’: False, ‘prefile’: [], ‘abort’: True, ‘invalidate_stamp’: None}, {‘LESSOPEN’: ‘| /usr/bin/lesspipe %s’, ‘PWD’: ‘/home/prab/yocto/build_bin’, ‘SUDO_UID’: ‘1000’, ‘DISPLAY’: ‘:0’, ‘LESSCLOSE’: ‘/usr/bin/lesspipe %s %s’, ‘LOGNAME’: ‘root’, ‘SHLVL’: ‘3’, ‘PATH’: ‘/home/prab/yocto/poky/scripts:/home/prab/yocto/poky/bitbake/bin:/usr/local/bin:/bin:/usr/bin’, ‘BBPATH’: ‘/home/prab/yocto/build_bin’, ‘XAUTHORITY’: ‘/home/prab/.Xauthority’, ‘BUILDDIR’: ‘/home/prab/yocto/build_bin’, ‘LS_COLORS’: ‘rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:<em>.tar=01;31:</em>.tgz=01;31:<em>.arc=01;31:</em>.arj=01;31:<em>.taz=01;31:</em>.lha=01;31:<em>.lz4=01;31:</em>.lzh=01;31:<em>.lzma=01;31:</em>.tlz=01;31:<em>.txz=01;31:</em>.tzo=01;31:<em>.t7z=01;31:</em>.zip=01;31:<em>.z=01;31:</em>.Z=01;31:<em>.dz=01;31:</em>.gz=01;31:<em>.lrz=01;31:</em>.lz=01;31:<em>.lzo=01;31:</em>.xz=01;31:<em>.bz2=01;31:</em>.bz=01;31:<em>.tbz=01;31:</em>.tbz2=01;31:<em>.tz=01;31:</em>.deb=01;31:<em>.rpm=01;31:</em>.jar=01;31:<em>.war=01;31:</em>.ear=01;31:<em>.sar=01;31:</em>.rar=01;31:<em>.alz=01;31:</em>.ace=01;31:<em>.zoo=01;31:</em>.cpio=01;31:<em>.7z=01;31:</em>.rz=01;31:<em>.cab=01;31:</em>.jpg=01;35:<em>.jpeg=01;35:</em>.gif=01;35:<em>.bmp=01;35:</em>.pbm=01;35:<em>.pgm=01;35:</em>.ppm=01;35:<em>.tga=01;35:</em>.xbm=01;35:<em>.xpm=01;35:</em>.tif=01;35:<em>.tiff=01;35:</em>.png=01;35:<em>.svg=01;35:</em>.svgz=01;35:<em>.mng=01;35:</em>.pcx=01;35:<em>.mov=01;35:</em>.mpg=01;35:<em>.mpeg=01;35:</em>.m2v=01;35:<em>.mkv=01;35:</em>.webm=01;35:<em>.ogm=01;35:</em>.mp4=01;35:<em>.m4v=01;35:</em>.mp4v=01;35:<em>.vob=01;35:</em>.qt=01;35:<em>.nuv=01;35:</em>.wmv=01;35:<em>.asf=01;35:</em>.rm=01;35:<em>.rmvb=01;35:</em>.flc=01;35:<em>.avi=01;35:</em>.fli=01;35:<em>.flv=01;35:</em>.gl=01;35:<em>.dl=01;35:</em>.xcf=01;35:<em>.xwd=01;35:</em>.yuv=01;35:<em>.cgm=01;35:</em>.emf=01;35:<em>.ogv=01;35:</em>.ogx=01;35:<em>.aac=00;36:</em>.au=00;36:<em>.flac=00;36:</em>.m4a=00;36:<em>.mid=00;36:</em>.midi=00;36:<em>.mka=00;36:</em>.mp3=00;36:<em>.mpc=00;36:</em>.ogg=00;36:<em>.ra=00;36:</em>.wav=00;36:<em>.oga=00;36:</em>.opus=00;36:<em>.spx=00;36:</em>.xspf=00;36:’, ‘SUDO_GID’: ‘1000’, ‘MAKE_TERMOUT’: ‘/dev/pts/17’, ‘USER’: ‘root’, ‘TERM’: ‘xterm-256color’, ‘MAIL’: ‘/var/mail/root’, '</em>’: ‘/home/prab/yocto/poky/bitbake/bin/bitbake’, ‘USERNAME’: ‘root’, ‘MAKEFLAGS’: ‘’, ‘SUDO_COMMAND’: ‘/bin/su’, ‘HOME’: ‘/root’, ‘LC_ALL’: ‘en_US.UTF-8’, ‘LANGUAGE’: ‘en_US’, ‘LANG’: ‘en_US.UTF-8’, ‘SUDO_USER’: ‘prab’, ‘SHELL’: ‘/bin/bash’, ‘MAKE_TERMERR’: ‘/dev/pts/17’, ‘MAKELEVEL’: ‘1’, ‘BB_ENV_EXTRAWHITE’: ‘ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO DL_DIR FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy ‘, ‘MFLAGS’: ‘’, ‘OLDPWD’: ‘/home/prab/yocto/build_bin’}, [’/home/prab/yocto/poky/bitbake/bin/bitbake’, ‘mdm9x28-image-minimal’]]<br>
+Running command [‘getVariable’, ‘BBINCLUDELOGS’]<br>
+Running command [‘getVariable’, ‘BBINCLUDELOGS_LINES’]<br>
+Running command [‘getSetVariable’, ‘BB_CONSOLELOG’]<br>
+Running command [‘getUIHandlerNum’]<br>
+Running command [‘setEventMask’, 1, 20, {}, [‘bb.runqueue.runQueueExitWait’, ‘bb.event.LogExecTTY’, ‘logging.LogRecord’, ‘bb.build.TaskFailed’, ‘bb.build.TaskBase’, ‘bb.event.ParseStarted’, ‘bb.event.ParseProgress’, ‘bb.event.ParseCompleted’, ‘bb.event.CacheLoadStarted’, ‘bb.event.CacheLoadProgress’, ‘bb.event.CacheLoadCompleted’, ‘bb.command.CommandFailed’, ‘bb.command.CommandExit’, ‘bb.command.CommandCompleted’, ‘bb.cooker.CookerExit’, ‘bb.event.MultipleProviders’, ‘bb.event.NoProvider’, ‘bb.runqueue.sceneQueueTaskStarted’, ‘bb.runqueue.runQueueTaskStarted’, ‘bb.runqueue.runQueueTaskFailed’, ‘bb.runqueue.sceneQueueTaskFailed’, ‘bb.event.BuildBase’, ‘bb.build.TaskStarted’, ‘bb.build.TaskSucceeded’, ‘bb.build.TaskFailedSilent’, ‘bb.build.TaskProgress’, ‘bb.event.ProcessStarted’, ‘bb.event.ProcessProgress’, ‘bb.event.ProcessFinished’]]<br>
+Running command [‘getVariable’, ‘BB_DEFAULT_TASK’]<br>
+Running command [‘setConfig’, ‘cmd’, ‘build’]<br>
+Running command [‘buildTargets’, [‘mdm9x28-image-minimal’], ‘build’]<br>
+Processing Client<br>
+Disconnecting Client<br>
+No timeout, exiting.<br>
+Exiting<br>
+— Starting bitbake server pid 18086 at 2020-10-07 13:57:29.864731 —<br>
+Started bitbake server pid 18086<br>
+WARNING: Layer swi-wp-bin should set LAYERSERIES_COMPAT_swi-wp-bin in its conf/layer.conf file to list the core layer names it is compatible with.<br>
+Entering server connection loop<br>
+Accepting [&lt;socket.socket fd=7, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock&gt;] (<span class="chcklst-box fa fa-square-o fa-fw"></span>)<br>
+Processing Client<br>
+Connecting Client<br>
+Running command [‘setFeatures’, [2]]<br>
+Running command [‘updateConfig’, {‘debug_domains’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘dump_signatures’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘postfile’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘prefile’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘extra_assume_provided’: <span class="chcklst-box fa fa-square-o fa-fw"></span>, ‘server_timeout’: None, ‘debug’: 0, ‘verbose’: False, ‘abort’: True, ‘profile’: False, ‘force’: False, ‘invalidate_stamp’: None, ‘dry_run’: False}, {‘TERM’: ‘xterm-256color’, ‘OLDPWD’: ‘/home/prab/yocto/build_bin’, ‘XAUTHORITY’: ‘/home/prab/.Xauthority’, ‘_’: ‘/home/prab/yocto/poky/bitbake/bin/bitbake’, ‘PATH’: ‘/home/prab/yocto/poky/scripts:/home/prab/yocto/poky/bitbake/bin:/usr/local/bin:/bin:/usr/bin’, ‘DISPLAY’: ‘:0’, ‘MAKE_TERMOUT’: ‘/dev/pts/17’, ‘BB_ENV_EXTRAWHITE’: ‘ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO DL_DIR FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy ‘, ‘MAKE_TERMERR’: ‘/dev/pts/17’, ‘USER’: ‘root’, ‘SUDO_USER’: ‘prab’, ‘SHELL’: ‘/bin/bash’, ‘BBPATH’: ‘/home/prab/yocto/build_bin’, ‘LESSOPEN’: ‘| /usr/bin/lesspipe %s’, ‘HOME’: ‘/root’, ‘SHLVL’: ‘3’, ‘BUILDDIR’: ‘/home/prab/yocto/build_bin’, ‘LANG’: ‘en_US.UTF-8’, ‘USERNAME’: ‘root’, ‘SUDO_GID’: ‘1000’, ‘MAKELEVEL’: ‘1’, ‘LS_COLORS’: ‘rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:<em>.tar=01;31:</em>.tgz=01;31:<em>.arc=01;31:</em>.arj=01;31:<em>.taz=01;31:</em>.lha=01;31:<em>.lz4=01;31:</em>.lzh=01;31:<em>.lzma=01;31:</em>.tlz=01;31:<em>.txz=01;31:</em>.tzo=01;31:<em>.t7z=01;31:</em>.zip=01;31:<em>.z=01;31:</em>.Z=01;31:<em>.dz=01;31:</em>.gz=01;31:<em>.lrz=01;31:</em>.lz=01;31:<em>.lzo=01;31:</em>.xz=01;31:<em>.bz2=01;31:</em>.bz=01;31:<em>.tbz=01;31:</em>.tbz2=01;31:<em>.tz=01;31:</em>.deb=01;31:<em>.rpm=01;31:</em>.jar=01;31:<em>.war=01;31:</em>.ear=01;31:<em>.sar=01;31:</em>.rar=01;31:<em>.alz=01;31:</em>.ace=01;31:<em>.zoo=01;31:</em>.cpio=01;31:<em>.7z=01;31:</em>.rz=01;31:<em>.cab=01;31:</em>.jpg=01;35:<em>.jpeg=01;35:</em>.gif=01;35:<em>.bmp=01;35:</em>.pbm=01;35:<em>.pgm=01;35:</em>.ppm=01;35:<em>.tga=01;35:</em>.xbm=01;35:<em>.xpm=01;35:</em>.tif=01;35:<em>.tiff=01;35:</em>.png=01;35:<em>.svg=01;35:</em>.svgz=01;35:<em>.mng=01;35:</em>.pcx=01;35:<em>.mov=01;35:</em>.mpg=01;35:<em>.mpeg=01;35:</em>.m2v=01;35:<em>.mkv=01;35:</em>.webm=01;35:<em>.ogm=01;35:</em>.mp4=01;35:<em>.m4v=01;35:</em>.mp4v=01;35:<em>.vob=01;35:</em>.qt=01;35:<em>.nuv=01;35:</em>.wmv=01;35:<em>.asf=01;35:</em>.rm=01;35:<em>.rmvb=01;35:</em>.flc=01;35:<em>.avi=01;35:</em>.fli=01;35:<em>.flv=01;35:</em>.gl=01;35:<em>.dl=01;35:</em>.xcf=01;35:<em>.xwd=01;35:</em>.yuv=01;35:<em>.cgm=01;35:</em>.emf=01;35:<em>.ogv=01;35:</em>.ogx=01;35:<em>.aac=00;36:</em>.au=00;36:<em>.flac=00;36:</em>.m4a=00;36:<em>.mid=00;36:</em>.midi=00;36:<em>.mka=00;36:</em>.mp3=00;36:<em>.mpc=00;36:</em>.ogg=00;36:<em>.ra=00;36:</em>.wav=00;36:<em>.oga=00;36:</em>.opus=00;36:<em>.spx=00;36:</em>.xspf=00;36:’, ‘SUDO_COMMAND’: ‘/bin/su’, ‘MAIL’: ‘/var/mail/root’, ‘LESSCLOSE’: ‘/usr/bin/lesspipe %s %s’, ‘LOGNAME’: ‘root’, ‘MAKEFLAGS’: ‘’, ‘MFLAGS’: ‘’, ‘LANGUAGE’: ‘en_US’, ‘LC_ALL’: ‘en_US.UTF-8’, ‘PWD’: ‘/home/prab/yocto/build_bin’, ‘SUDO_UID’: ‘1000’}, [’/home/prab/yocto/poky/bitbake/bin/bitbake’, ‘mdm9x28-image-minimal’]]<br>
+Running command [‘getVariable’, ‘BBINCLUDELOGS’]<br>
+Running command [‘getVariable’, ‘BBINCLUDELOGS_LINES’]<br>
+Running command [‘getSetVariable’, ‘BB_CONSOLELOG’]<br>
+Running command [‘getUIHandlerNum’]<br>
+Running command [‘setEventMask’, 1, 20, {}, [‘bb.runqueue.runQueueExitWait’, ‘bb.event.LogExecTTY’, ‘logging.LogRecord’, ‘bb.build.TaskFailed’, ‘bb.build.TaskBase’, ‘bb.event.ParseStarted’, ‘bb.event.ParseProgress’, ‘bb.event.ParseCompleted’, ‘bb.event.CacheLoadStarted’, ‘bb.event.CacheLoadProgress’, ‘bb.event.CacheLoadCompleted’, ‘bb.command.CommandFailed’, ‘bb.command.CommandExit’, ‘bb.command.CommandCompleted’, ‘bb.cooker.CookerExit’, ‘bb.event.MultipleProviders’, ‘bb.event.NoProvider’, ‘bb.runqueue.sceneQueueTaskStarted’, ‘bb.runqueue.runQueueTaskStarted’, ‘bb.runqueue.runQueueTaskFailed’, ‘bb.runqueue.sceneQueueTaskFailed’, ‘bb.event.BuildBase’, ‘bb.build.TaskStarted’, ‘bb.build.TaskSucceeded’, ‘bb.build.TaskFailedSilent’, ‘bb.build.TaskProgress’, ‘bb.event.ProcessStarted’, ‘bb.event.ProcessProgress’, ‘bb.event.ProcessFinished’]]<br>
+Running command [‘getVariable’, ‘BB_DEFAULT_TASK’]<br>
+Running command [‘setConfig’, ‘cmd’, ‘build’]<br>
+Running command [‘buildTargets’, [‘mdm9x28-image-minimal’], ‘build’]<br>
+Processing Client<br>
+Disconnecting Client<br>
+No timeout, exiting.<br>
+Exiting</p>
+<p>Makefile:300: recipe for target ‘image_bin’ failed<br>
+make: *** [image_bin] Error 1</p>
+<p>Does anyone have a solution to this error?<br>
+Also, whether I am taking the correct steps in creating a custom image containing python.</p>
+<p>Thank you,<br>
+Prabjot</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-07T23:04:14Z' class='post-time'>
+                    October 7, 2020, 11:04pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-07T23:04:14Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>How about just type “make” in yocto folder?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/prabjotdhillon'><span itemprop='name'>prabjotdhillon</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-07T23:26:09Z' class='post-time'>
+                    October 7, 2020, 11:26pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-07T23:26:09Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>still fails… says unable to create pyshtables.py … permission denied</p>
+<p>Also, the error: unable to start bitbake server</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-07T23:57:12Z' class='post-time'>
+                    October 7, 2020, 11:57pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-07T23:57:12Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Have you tried to revert back to original code and see if you can build the source code first?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/prabjotdhillon'><span itemprop='name'>prabjotdhillon</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-08T00:18:46Z' class='post-time'>
+                    October 8, 2020, 12:18am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-08T00:18:46Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Yes errors above are from the original code with no changes made</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-08T00:28:38Z' class='post-time'>
+                    October 8, 2020, 12:28am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-08T00:28:38Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>See if this is related:<br>
+</p><aside class="onebox allowlistedgeneric">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d38483e797e34930775d7be1393f853a05ef46bc.png" class="site-icon" width="192" height="192">
+      <a href="https://lists.yoctoproject.org/g/meta-intel/topic/unable_to_build_yocto_for/61294344?p=" target="_blank" rel="noopener nofollow ugc">lists.yoctoproject.org</a>
+  </header>
+  <article class="onebox-body">
+    <img src="" class="thumbnail" width="" height="">
+
+<h3><a href="https://lists.yoctoproject.org/g/meta-intel/topic/unable_to_build_yocto_for/61294344?p=" target="_blank" rel="noopener nofollow ugc">meta-intel@lists.yoctoproject.org | Unable to build yocto for Intel Mohon...</a></h3>
+
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/prabjotdhillon'><span itemprop='name'>prabjotdhillon</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-08T02:33:26Z' class='post-time'>
+                    October 8, 2020,  2:33am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-08T02:33:26Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>He had the permissions issue in Fedora and then fixed it by switching to Ubuntu.</p>
+<p>I have the permissions issue in Ubuntu <img src="https://emoji.discourse-cdn.com/twitter/confused.png?v=9" title=":confused:" class="emoji" alt=":confused:"></p>
+<p>Also did:<br>
+sudo chmod a+rwx /directory<br>
+but still have the same issue</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-08T02:45:11Z' class='post-time'>
+                    October 8, 2020,  2:45am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-08T02:45:11Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Do not use sudo.<br>
+Also you can have a look on this<br>
+</p><aside class="onebox allowlistedgeneric">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/cfc06740ca4915449317b9b05c4981d19b61450b.png" class="site-icon" width="32" height="32">
+      <a href="https://hub.mender.io/t/issues-with-technexion-pico-pi-imx7-yocto-environment/938/7" target="_blank" rel="noopener nofollow ugc" title="01:27PM - 24 January 2019">Mender Hub – 24 Jan 19</a>
+  </header>
+  <article class="onebox-body">
+    <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/f/f27dbf46346bdd164c11a34eacf534a77946e458.png" class="thumbnail onebox-avatar" width="500" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/f/f27dbf46346bdd164c11a34eacf534a77946e458_2_10x10.png">
+
+<h3><a href="https://hub.mender.io/t/issues-with-technexion-pico-pi-imx7-yocto-environment/938/7" target="_blank" rel="noopener nofollow ugc">Issues with Technexion PICO-PI-IMX7 Yocto environment</a></h3>
+
+<p>What do the following commands show?  $ id $ ls -l /home/sprinter/Dev /home/sprinter/Dev/IMX \       /home/sprinter/Dev/IMX/Picoboard \       /home/sprinter/Dev/IMX/Picoboard/nxp</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/prabjotdhillon'><span itemprop='name'>prabjotdhillon</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-09T22:30:17Z' class='post-time'>
+                    October 9, 2020, 10:30pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-09T22:30:17Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>fixed the user permissions, now when I run make gets stuck at:<br>
+build image of minimal rootfs</p>
+<p>When I cancel shows the following error:<br>
+BlockingIOError: resource temporarily unavailable</p>
+<p>something about a server connection error</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-10T00:41:35Z' class='post-time'>
+                    October 10, 2020, 12:41am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-10T00:41:35Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Suggest trying with real pc ubuntu.</p>
+<aside class="quote quote-modified" data-post="27" data-topic="1084">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/b/a9a28c/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/build-linux-for-wp76/1084/27">Build Linux for wp76</a> 
+  </div>
+  <blockquote>
+    I am hitting the following errors while doing “make image”. 
+Is there anyone having this problem? 
+
+ERROR: glibc-2.24-r0 do_package: debugedit failed with exit code 1 (cmd was ‘/home/mangoh/Downloads/Legato-Dist-Source-mdm9x28-SWI9X07Y_02.18.06.00/yocto/build_bin/tmp/sysroots/x86_64-linux/usr/lib/rpm/bin/debugedit’ -i -l ‘/home/mangoh/Downloads/Legato-Dist-Source-mdm9x28-SWI9X07Y_02.18.06.00/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/glibc/2.24-r0/debugsources.list’ ‘/home/mangoh/Do…
+  </blockquote>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/prabjotdhillon'><span itemprop='name'>prabjotdhillon</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-17T21:41:22Z' class='post-time'>
+                    October 17, 2020,  9:41pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-17T21:41:22Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>HI!</p>
+<p>Just setup Ubuntu on my computer instead of using VM.<br>
+This is the error when I run make:</p>
+<p>uild image of minimal rootfs (for swi-mdm9x28).<br>
+Traceback (most recent call last):<br>
+File “/home/asw/yocto/poky/bitbake/bin/bitbake”, line 47, in <br>
+sys.exit(bitbake_main(BitBakeConfigParameters(sys.argv),<br>
+File “/home/asw/yocto/poky/bitbake/lib/bb/main.py”, line 392, in bitbake_main<br>
+return ui_module.main(server_connection.connection, server_connection.events,<br>
+File “/home/asw/yocto/poky/bitbake/lib/bb/ui/knotty.py”, line 413, in main<br>
+consolelog = logging.FileHandler(consolelogfile)<br>
+File “/usr/lib/python3.8/logging/<strong>init</strong>.py”, line 1143, in <strong>init</strong><br>
+StreamHandler.<strong>init</strong>(self, self._open())<br>
+File “/usr/lib/python3.8/logging/<strong>init</strong>.py”, line 1172, in _open<br>
+return open(self.baseFilename, self.mode, encoding=self.encoding)<br>
+PermissionError: [Errno 13] Permission denied: ‘/home/asw/yocto/build_bin/tmp/log/cooker/swi-mdm9x28-wp/20201017213310.log’<br>
+make: *** [Makefile:300: image_bin] Error 1</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-18T00:47:17Z' class='post-time'>
+                    October 18, 2020, 12:47am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-18T00:47:17Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>How did you fix the permission problem before?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/prabjotdhillon'><span itemprop='name'>prabjotdhillon</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-19T06:14:08Z' class='post-time'>
+                    October 19, 2020,  6:14am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-19T06:14:08Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Oh yes! Thanks!</p>
+<p>Now I receive the following warnings and make error:</p>
+<p>WARNING: Layer swi-wp-bin should set LAYERSERIES_COMPAT_swi-wp-bin in its conf/layer.conf file to list the core layer names it is compatible with.<br>
+WARNING: Layer swi-wp-bin should set LAYERSERIES_COMPAT_swi-wp-bin in its conf/layer.conf file to list the core layer names it is compatible with.<br>
+WARNING: Host distribution “ubuntu-20.04” has not been validated with this version of the build system; you may possibly experience unexpected failures. It is recommended that you use a tested distribution.<br>
+WARNING: /home/asw/yocto/meta-swi-extras/meta-swi-mdm9x28-bin/recipes/swimtd/swimtd_git.bb: Unable to get checksum for swimtd SRC_URI entry swimtd-bin.tar.bz2: file could not be found<br>
+Parsing recipes: 100% |###########################################################| Time: 1 day, 8:30:11Parsing of 2164 .bb files complete (0 cached, 2164 parsed). 3083 targets, 343 skipped, 0 masked, 0 errors.1<br>
+NOTE: Resolving any missing task queue dependencies<br>
+NOTE: Multiple providers are available for runtime gps-utils (gps-utils, gpsd)<br>
+Consider defining a PREFERRED_RPROVIDER entry to match gps-utils</p>
+<p>Build Configuration:<br>
+BB_VERSION           = “1.38.0”<br>
+BUILD_SYS            = “aarch64-linux”<br>
+NATIVELSBSTRING      = “ubuntu-20.04”<br>
+TARGET_SYS           = “arm-poky-linux-gnueabi”<br>
+MACHINE              = “swi-mdm9x28-wp”<br>
+DISTRO               = “poky-swi-ext”<br>
+DISTRO_VERSION       = “2.5.3”<br>
+TUNE_FEATURES        = “arm armv7a vfp neon”<br>
+TARGET_FPU           = “softfp”<br>
+meta<br>
+meta-poky<br>
+meta-yocto-bsp       = “HEAD:cbb677e9a09d5dad34404a851f7c23aeb5122465”<br>
+meta-oe<br>
+meta-networking<br>
+meta-python          = “HEAD:8760facba1bceb299b3613b8955621ddaa3d4c3f”<br>
+meta-gplv2           = “HEAD:813b7d2b5573d8591c6cd8087b326f0a0703d6b9”<br>
+common<br>
+meta-swi-mdm9xxx<br>
+meta-swi-mdm9x28     = “HEAD:62a9465b731f6866cf159e11ceb037ba3242203d”<br>
+common<br>
+meta-swi-mdm9x28<br>
+meta-swi-mdm9xxx-bin<br>
+meta-swi-mdm9x28-bin<br>
+meta-swi-mdm9x28-wp-bin = “HEAD:c0aad6c6bc29e4953e26a418824c4d55c3a73b74”</p>
+<p>ERROR: Uninative selected but not configured correctly, please set UNINATIVE_CHECKSUM[aarch64]</p>
+<p>Summary: There were 4 WARNING messages shown.<br>
+Summary: There was 1 ERROR message shown, returning a non-zero exit code.<br>
+make: *** [Makefile:300: image_bin] Error 1</p>
+<p>How can I set the UNINATIVE_CHECKSUM?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-19T06:23:42Z' class='post-time'>
+                    October 19, 2020,  6:23am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-19T06:23:42Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Never see such issue.<br>
+I used x86 64 bit machine instead of aarch64 ARM machine to compile:</p>
+<p>Build Configuration:<br>
+BB_VERSION           = “1.38.0”<br>
+BUILD_SYS            = “x86_64-linux”<br>
+NATIVELSBSTRING      = “universal-4.8”<br>
+TARGET_SYS           = “arm-poky-linux-gnueabi”<br>
+MACHINE              = “swi-mdm9x28-wp”<br>
+DISTRO               = “poky-swi-ext”<br>
+DISTRO_VERSION       = “2.5.2”<br>
+TUNE_FEATURES        = “arm armv7a vfp neon”<br>
+TARGET_FPU           = “softfp”</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/prabjotdhillon'><span itemprop='name'>prabjotdhillon</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-19T17:48:28Z' class='post-time'>
+                    October 19, 2020,  5:48pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-19T17:48:28Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I added the following to the file conf/local.conf:<br>
+INHERIT_remove =  “uninative”</p>
+<p>After that I ran make and get the following<br>
+| ERROR: Function failed: do_compile (log file is located at /home/asw/yocto/build_bin/tmp/work/aarch64-linux/bison-native/3.0.4-r0/temp/log.do_compile.86955)<br>
+ERROR: Task (virtual:native:/home/asw/yocto/poky/meta/recipes-devtools/bison/bison_3.0.4.bb:do_compile) failed with exit code ‘1’<br>
+NOTE: Tasks Summary: Attempted 143 tasks of which 0 didn’t need to be rerun and 1 failed.</p>
+<p>Summary: 1 task failed:<br>
+virtual:native:/home/asw/yocto/poky/meta/recipes-devtools/bison/bison_3.0.4.bb:do_compile<br>
+Summary: There were 5 WARNING messages shown.<br>
+Summary: There were 2 ERROR messages shown, returning a non-zero exit code.<br>
+make: *** [Makefile:300: image_bin] Error 1</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/prabjotdhillon'><span itemprop='name'>prabjotdhillon</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-19T17:48:53Z' class='post-time'>
+                    October 19, 2020,  5:48pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-19T19:44:57Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Result when running make on x86 64 bit machine with Ubuntu 18:<br>
+<a class="attachment" href="/uploads/short-url/gbMP1LK6H8GBzncBKmoVuUGFfq6">error</a> (15.5 KB)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_17' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-19T23:05:41Z' class='post-time'>
+                    October 19, 2020, 11:05pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-19T23:05:41Z'>
+              <span itemprop='position'>17</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Seems need to install java</p>
+<p>/home/aswsim/Downloads/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/recipe-sysroot-native/usr/share/android-signing/verity/boot_signer: line 8: java: command not found</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_18' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/prabjotdhillon'><span itemprop='name'>prabjotdhillon</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/c6f8bc11673c8d6240db1279cfa0bcda26586c5b.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-20T17:15:53Z' class='post-time'>
+                    October 20, 2020,  5:15pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-20T17:15:53Z'>
+              <span itemprop='position'>18</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>So I ran <em>bitbake core-image-minimal</em> and got no error. Is there a difference building the image using bitbake versus using make?<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/c6f8bc11673c8d6240db1279cfa0bcda26586c5b.png" data-download-href="/uploads/short-url/sobrWkxWdO3VSNOaD21BkFLmPwL.png?dl=1" title="Screenshot from 2020-10-19 16-15-24" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c6f8bc11673c8d6240db1279cfa0bcda26586c5b_2_690x392.png" alt="Screenshot from 2020-10-19 16-15-24" data-base62-sha1="sobrWkxWdO3VSNOaD21BkFLmPwL" width="690" height="392" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c6f8bc11673c8d6240db1279cfa0bcda26586c5b_2_690x392.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c6f8bc11673c8d6240db1279cfa0bcda26586c5b_2_1035x588.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c6f8bc11673c8d6240db1279cfa0bcda26586c5b_2_1380x784.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c6f8bc11673c8d6240db1279cfa0bcda26586c5b_2_10x10.png"><div class="meta"><svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">Screenshot from 2020-10-19 16-15-24</span><span class="informations">1853×1053 200 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg></div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_19' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/prabjotdhillon'><span itemprop='name'>prabjotdhillon</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-20T17:34:40Z' class='post-time'>
+                    October 20, 2020,  5:34pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-20T17:34:40Z'>
+              <span itemprop='position'>19</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Also, after installing java and running the make command I got no errors and just a couple of warnings:<br>
+aswsim@aswsim-Precision-Tower-3620:~<span class="math"> cd '/home/aswsim/Downloads/yocto' 
+aswsim@aswsim-Precision-Tower-3620:~/Downloads/yocto</span> make<br>
+Makefile:71: “Legato: build disabled since ‘/home/aswsim/Downloads/yocto/legato/’ does not exist”<br>
+“meta-swi/build.sh” -p poky/ -o meta-openembedded/ -l meta-swi -x “kernel” -j 9 -t 9           -a LK_REPO_DIR="/home/aswsim/Downloads/yocto" -a LK_REPO_NAME=“lk” -a LK_REPO=“file://lk” -m swi-mdm9x28 -P wp  -b build_bin -q<br>
+Poky dir: /home/aswsim/Downloads/yocto/poky<br>
+OE meta: /home/aswsim/Downloads/yocto/meta-openembedded<br>
+SWI meta dir: /home/aswsim/Downloads/yocto/meta-swi<br>
+Linux repo dir: /home/aswsim/Downloads/yocto/kernel<br>
+Number of make threads 9<br>
+Number of bitbake tasks 9<br>
+Extra options added -  LK_REPO_DIR=/home/aswsim/Downloads/yocto<br>
+Extra options added -  LK_REPO_NAME=lk<br>
+Extra options added -  LK_REPO=file://lk<br>
+SWI machine: swi-mdm9x28<br>
+SWI product: wp<br>
+Build dir: /home/aswsim/Downloads/yocto/build_bin<br>
+Enable Qualcomm Proprietary bin</p>
+<h3>Shell environment set up for builds.</h3>
+<p>You can now run 'bitbake ’</p>
+<p>Common targets are:<br>
+core-image-minimal<br>
+core-image-sato<br>
+meta-toolchain<br>
+meta-ide-support</p>
+<p>You can also run generated qemu images with a command like ‘runqemu qemux86’</p>
+<ul>
+<li>layer: meta-oe</li>
+<li>layer: meta-networking</li>
+<li>layer: meta-python</li>
+<li>layer: meta-gplv2</li>
+<li>layer: meta-swi/common</li>
+<li>layer: meta-swi/meta-swi-mdm9xxx</li>
+<li>layer: meta-swi/meta-swi-mdm9x28</li>
+<li>layer: meta-swi-extras/common</li>
+<li>layer: meta-swi-extras/meta-swi-mdm9x28</li>
+<li>layer: meta-swi-extras/meta-swi-mdm9xxx-bin</li>
+<li>layer: meta-swi-extras/meta-swi-mdm9x28-bin</li>
+<li>layer: meta-swi-extras/meta-swi-mdm9x28-wp-bin<br>
+Yocto machine: swi-mdm9x28-wp<br>
+Updating LEGATO_BUILD to false<br>
+Updating IMA_BUILD to false<br>
+Updating IMA_CONFIG to<br>
+Updating IMA_LOCAL_CA_X509 to<br>
+Updating IMA_PRIV_KEY to<br>
+Updating IMA_PUB_CERT to<br>
+Updating IMA_KERNEL_CMDLINE_OPTIONS to<br>
+Updating ENABLE_IMA to 0<br>
+Updating IMA_PUBLIC_CERT to<br>
+Updating IMA_PRIVATE_KEY to<br>
+Updating IMA_SMACK to<br>
+Updating ENABLE_FX30 to<br>
+Updating ROOTFS_VERSION to<br>
+Updating LK_REPO_DIR to /home/aswsim/Downloads/yocto<br>
+Updating LK_REPO_NAME to lk<br>
+Updating LK_REPO to file://lk<br>
+Updating EXT_SWI_IMG to false<br>
+Updating INITRAMFS_IMAGE_BUNDLE to 1<br>
+Updating INITRAMFS_IMAGE to mdm9x28-image-initramfs<br>
+Updating FIRMWARE_PATH to<br>
+Updating PACKAGECONFIG_remove to gnutls<br>
+Build image of minimal rootfs (for swi-mdm9x28).<br>
+WARNING: Layer swi-wp-bin should set LAYERSERIES_COMPAT_swi-wp-bin in its conf/layer.conf file to list the core layer names it is compatible with.<br>
+WARNING: Layer swi-wp-bin should set LAYERSERIES_COMPAT_swi-wp-bin in its conf/layer.conf file to list the core layer names it is compatible with.<br>
+Loading cache: 100% |############################################| Time: 0:00:00<br>
+Loaded 3082 entries from dependency cache.<br>
+Parsing recipes: 100% |##########################################| Time: 0:00:01<br>
+Parsing of 2164 .bb files complete (2163 cached, 1 parsed). 3083 targets, 339 skipped, 0 masked, 0 errors.<br>
+NOTE: Resolving any missing task queue dependencies<br>
+NOTE: Multiple providers are available for runtime gps-utils (gps-utils, gpsd)<br>
+Consider defining a PREFERRED_RPROVIDER entry to match gps-utils</li>
+</ul>
+<p>Build Configuration:<br>
+BB_VERSION           = “1.38.0”<br>
+BUILD_SYS            = “x86_64-linux”<br>
+NATIVELSBSTRING      = “universal”<br>
+TARGET_SYS           = “arm-poky-linux-gnueabi”<br>
+MACHINE              = “swi-mdm9x28-wp”<br>
+DISTRO               = “poky-swi-ext”<br>
+DISTRO_VERSION       = “2.5.3”<br>
+TUNE_FEATURES        = “arm armv7a vfp neon”<br>
+TARGET_FPU           = “softfp”<br>
+meta<br>
+meta-poky<br>
+meta-yocto-bsp       = “HEAD:cbb677e9a09d5dad34404a851f7c23aeb5122465”<br>
+meta-oe<br>
+meta-networking<br>
+meta-python          = “HEAD:8760facba1bceb299b3613b8955621ddaa3d4c3f”<br>
+meta-gplv2           = “HEAD:813b7d2b5573d8591c6cd8087b326f0a0703d6b9”<br>
+common<br>
+meta-swi-mdm9xxx<br>
+meta-swi-mdm9x28     = “HEAD:62a9465b731f6866cf159e11ceb037ba3242203d”<br>
+common<br>
+meta-swi-mdm9x28<br>
+meta-swi-mdm9xxx-bin<br>
+meta-swi-mdm9x28-bin<br>
+meta-swi-mdm9x28-wp-bin = “HEAD:c0aad6c6bc29e4953e26a418824c4d55c3a73b74”</p>
+<p>WARNING: Unable to get checksum for linux-quic SRC_URI entry sierra: [Errno 2] No such file or directory: ‘/home/aswsim/Downloads/yocto/kernel/arch/arm/mach-msm/sierra/sierra’<br>
+Initialising tasks: 100% |#######################################| Time: 0:00:02<br>
+NOTE: Executing SetScene Tasks<br>
+NOTE: Executing RunQueue Tasks<br>
+WARNING: ima-policy-1.0-r1 do_install: IMA: Immutable files will not be protected.<br>
+WARNING: mdm9x28-image-minimal-1.0-r0.0 do_rootfs: The license listed QCA-TSPA was not in the licenses collected for recipe qca9377-bt-firmware<br>
+WARNING: mdm9x28-image-minimal-1.0-r0.0 do_rootfs: The license listed TI-TSPA was not in the licenses collected for recipe wl18xx-firmware<br>
+NOTE: Tasks Summary: Attempted 3867 tasks of which 2716 didn’t need to be rerun and all succeeded.</p>
+<p>Summary: There were 6 WARNING messages shown.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_20' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-20T23:05:50Z' class='post-time'>
+                    October 20, 2020, 11:05pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-20T23:05:50Z'>
+              <span itemprop='position'>20</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Normally i use make command</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/building-custom-yocto-image-for-mangoh-red-wp76/5374?page=2">next page →</a></b></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

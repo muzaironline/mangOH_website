@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Add ENC28J60 to custom WP7607 board - #3 by wsialex - mangOH forum</title>
+    <meta name="description" content="I’m trying to add a ENC28J60 to a wp7607 custom board connected over SPI. I have added the driver to the defcon. 
+I have also added a sub-node for the enc28j60 to the mdm9607-wp76xx.dtsi starting on row 272 
+before 
+&amp;amp;spi&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/add-enc28j60-to-custom-wp7607-board/2316" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Add ENC28J60 to custom WP7607 board&#39;" href="https://forum.mangoh.io/t/add-enc28j60-to-custom-wp7607-board/2316.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/add-enc28j60-to-custom-wp7607-board/2316/3" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/add-enc28j60-to-custom-wp7607-board/2316/3" />
+<meta property="og:title" content="Add ENC28J60 to custom WP7607 board" />
+<meta name="twitter:title" content="Add ENC28J60 to custom WP7607 board" />
+<meta property="og:description" content="hi,  I solved it. I used the driver included in the kernel. Mostly i had HW issues. I added a subnode in the tlmm_pinmux node for interrupt and reset pin:  &amp;soc{  	tlmm_pinmux: pinctrl@1000000 { 		enc28j60_int_default: enc28j60_int_default { 			mux { 				pins = &quot;gpio76&quot;; 				function = &quot;gpio&quot;; 			}; 			config { 				pins = &quot;gpio76&quot;; 				drive-strength = &lt;16&gt;; /* in mA */ 				bias-pull-up; 			}; 		};  		enc28j60_rst_default: enc28j60_rst_default { 			mux { 				pins = &quot;gpio58&quot;; 				function = &quot;gpio..." />
+<meta name="twitter:description" content="hi,  I solved it. I used the driver included in the kernel. Mostly i had HW issues. I added a subnode in the tlmm_pinmux node for interrupt and reset pin:  &amp;soc{  	tlmm_pinmux: pinctrl@1000000 { 		enc28j60_int_default: enc28j60_int_default { 			mux { 				pins = &quot;gpio76&quot;; 				function = &quot;gpio&quot;; 			}; 			config { 				pins = &quot;gpio76&quot;; 				drive-strength = &lt;16&gt;; /* in mA */ 				bias-pull-up; 			}; 		};  		enc28j60_rst_default: enc28j60_rst_default { 			mux { 				pins = &quot;gpio58&quot;; 				function = &quot;gpio..." />
+<meta property="article:published_time" content="2019-01-31T10:23:04+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Add ENC28J60 to custom WP7607 board","mainEntity":{"@type":"Question","name":"Add ENC28J60 to custom WP7607 board","text":"I’m trying to add a ENC28J60 to a wp7607 custom board connected over SPI. I have added the driver to the defcon.\n\nI have also added a sub-node for the enc28j60 to the mdm9607-wp76xx.dtsi starting on row 272\n\nbefore\n\n&amp;spi_1 {\n\nstatus = &quot;ok&quot;;\n\n};\n\nAfter\n\n&amp;spi_1 {\n\nstatus = &quot;ok&quot;;\n\nenc28j60: ethernet@&hellip;","upvoteCount":0,"answerCount":1,"dateCreated":"2019-01-18T10:30:13.379Z","author":{"@type":"Person","name":"Alexander Bergslilja"},"acceptedAnswer":{"@type":"Answer","text":"hi,\n\nI solved it. I used the driver included in the kernel. Mostly i had HW issues. I added a subnode in the tlmm_pinmux node for interrupt and reset pin:\n\n&amp;soc{\n\ntlmm_pinmux: pinctrl@1000000 {\n\nenc28j60_int_default: enc28j60_int_default {\n\nmux {\n\npins = &quot;gpio76&quot;;\n\nfunction = &quot;gpio&quot;;\n\n};&hellip;","upvoteCount":0,"dateCreated":"2019-01-31T10:23:04.758Z","url":"https://forum.mangoh.io/t/add-enc28j60-to-custom-wp7607-board/2316/3","author":{"@type":"Person","name":"wsialex"}}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/add-enc28j60-to-custom-wp7607-board/2316">Add ENC28J60 to custom WP7607 board</a>
+    </h1>
+
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Add ENC28J60 to custom WP7607 board'>
+        <meta itemprop='articleSection' content='Uncategorized'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/wsialex'><span itemprop='name'>wsialex</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/add-enc28j60-to-custom-wp7607-board/2316">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-01-18T10:30:13Z' class='post-time'>
+                    January 18, 2019, 10:30am
+                  </time>
+                  <meta itemprop='dateModified' content='2019-01-18T10:30:13Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>I’m trying to add a ENC28J60 to a wp7607 custom board connected over SPI. I have added the driver to the defcon.</p>
+<p>I have also added a sub-node for the enc28j60 to the <code>mdm9607-wp76xx.dtsi</code> starting on row 272</p>
+<p><strong>before</strong></p>
+<pre><code class="lang-auto">&amp;spi_1 {
+	status = "ok";
+};
+</code></pre>
+<p><strong>After</strong></p>
+<pre><code class="lang-auto">&amp;spi_1 {
+	status = "ok";
+	
+
+	enc28j60: ethernet@0 {
+		#address-cells = &lt;1&gt;;
+		#size-cells = &lt;1&gt;;
+		compatible = "microchip,enc28j60";
+		spi-max-frequency = &lt;20000000&gt;;
+		reg = &lt;0&gt;;
+		interrupt-parent = &lt;&amp;WHAT_SHOULD_BE_HERE?&gt;;
+		interrupts = &lt;AND_HERE?&gt;;
+	};
+};
+</code></pre>
+<p>When building and flashing without <code>interrupt-parent</code> and <code>interrupt</code> my dmesg contains</p>
+<pre><code class="lang-auto">[    1.008694] enc28j60 spi1.0: enc28j60 Ethernet driver 1.01 loaded
+[    1.010180] modprobe (121) used greatest stack depth: 6424 bytes left
+[    1.012350] enc28j60 spi1.0: enc28j60 chip not found
+[    1.012385] enc28j60: probe of spi1.0 failed with error -5
+</code></pre>
+<p>Found this on google <a href="https://www.kernel.org/doc/Documentation/devicetree/bindings/net/microchip%2Cenc28j60.txt" rel="nofollow noopener">https://www.kernel.org/doc/Documentation/devicetree/bindings/net/microchip%2Cenc28j60.txt</a> where it says I need <code>interrupt-parent</code> and <code>interrupt</code> for the driver to get interrupts properly.</p>
+<p>I can’t find any examples or documentation on how to specify this. Any help is appreciated.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Jay'><span itemprop='name'>Jay</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/add-enc28j60-to-custom-wp7607-board/2316">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-01-25T18:27:38Z' class='post-time'>
+                    January 25, 2019,  6:27pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-01-25T18:27:38Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi,</p>
+<p>How is ENC28J60 is powered and wired to WP7607?</p>
+<ul>
+<li>Which WP7607 pin do you have selected for the interrupt?</li>
+<li>Are you powering the ENC28J60 via a regulator controlled by one WP7606 GPIO pin?</li>
+<li>Are you managing the reset pin of ENC28J60 via a GPIO?</li>
+<li>…</li>
+</ul>
+<p>Could you share schematics (only the parts related to WP76 and ENC28J60 should be enough)?</p>
+<p>Also, ENC28J60 driver in kernel 3.18 is not compatible with device tree (required match table for device tree support is missing).<br>
+Support has been added with the following commit:<br>
+<a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=2dd355a007e44960ec049c75920ddb6778fec9ee" class="onebox" target="_blank" rel="nofollow noopener">https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=2dd355a007e44960ec049c75920ddb6778fec9ee</a><br>
+Do you have backported kernel driver code (enc28j60.c) from a newer kernel?</p>
+<p>BR<br>
+Jay</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/wsialex'><span itemprop='name'>wsialex</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/add-enc28j60-to-custom-wp7607-board/2316">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-01-31T10:23:04Z' class='post-time'>
+                    January 31, 2019, 10:23am
+                  </time>
+                  <meta itemprop='dateModified' content='2019-01-31T10:23:04Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>hi,</p>
+<p>I solved it. I used the driver included in the kernel. Mostly i had HW issues. I added a subnode in the tlmm_pinmux node for interrupt and reset pin:</p>
+<pre><code class="lang-auto">&amp;soc{ 
+	tlmm_pinmux: pinctrl@1000000 {
+		enc28j60_int_default: enc28j60_int_default {
+			mux {
+				pins = "gpio76";
+				function = "gpio";
+			};
+			config {
+				pins = "gpio76";
+				drive-strength = &lt;16&gt;; /* in mA */
+				bias-pull-up;
+			};
+		};
+
+		enc28j60_rst_default: enc28j60_rst_default {
+			mux {
+				pins = "gpio58";
+				function = "gpio";
+			};
+			config {
+				pins = "gpio58";
+				drive-strength = &lt;16&gt;; /* in mA */
+				output-high;
+			};
+		};
+	};
+};	
+
+</code></pre>
+<p>Then added to spi_1 node:</p>
+<pre><code class="lang-auto">&amp;spi_1 {
+ 	status = "ok";
+	eth0: enc28j60@0 {
+		#address-cells = &lt;1&gt;;
+		#size-cells = &lt;1&gt;;
+		compatible = "microchip,enc28j60";
+		spi-max-frequency = &lt;5000000&gt;;
+		reg = &lt;0&gt;;
+		interrupt-parent = &lt;&amp;tlmm_pinmux&gt;;
+		interrupts = &lt;76 2&gt;; /*IRQ_TYPE_EDGE_FALLING*/
+		pinctrl-names = "enc28j60_int_default";
+		pinctrl-0 = &lt;&amp;enc28j60_int_default&gt;;
+		enc28j60,duplex_mode=&lt;1&gt;;
+	};
+ };
+
+</code></pre>
+<p>Added my own flag for full_duplex mode in the driver (<code>enc28j60,duplex_mode</code>) as the driver starts in half_duplex and there is no way to configure this (wierd?).</p>
+<p>I however had troubles with the boot configuration of the reset pin. It should be set to output high but at boot it was set low which made the enc28j60 be in constant reset. I think i have it configured now to boot as output high, but I needed to configure it with <code>at+wiocfg=8,4,1,1 i think</code>. I don’t understand this, maybe the at configuration overrides DTS config at boot or something?</p>
+<p>The gpio numberings are the qualcomm pin numbers which don’t corresponds to wp7607 pin numbers. found it in this forum post <a href="https://forum.mangoh.io/t/gpio-interrupts-on-wp7702-module/1616" class="inline-onebox">GPIO Interrupts on WP7702 Module</a></p>
+<p>This should at least be documented somewhere more clearly.</p>
+<p>the device tree incompatibility you mentioned does not seem to matter.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Jay'><span itemprop='name'>Jay</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/add-enc28j60-to-custom-wp7607-board/2316">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-02-01T14:35:01Z' class='post-time'>
+                    February 1, 2019,  2:35pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-02-01T14:35:01Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi,</p>
+<p>You’re right, the documentation for Linux customization (especially MDM kernel/BSP details) is quite poor.</p>
+<p>For GPIO numbers matching (Sierra WP7xxx versus Qualcomm MDM9xxx), you can extract the structure from source code by using this command line at the root of your “<code>yocto</code>” folder:</p>
+<pre><code class="lang-auto">awk 'BEGIN { in_struct=0; } /^.*ext_gpio_wp\[\]=.*/ { in_struct=1; } /^};/ &amp;&amp; in_struct { print; in_struct=0; } in_struct == 1 { print; }' kernel/drivers/gpio/gpiolib-sysfs.c</code></pre>
+<p>Result obtained from WP76xx release 10.1.1 (SWI9X07Y_02.18.06.00):</p>
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">WP76xx</th>
+<th style="text-align:center">MDM9607</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">38</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">30</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">16</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">58</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td style="text-align:center">76</td>
+</tr>
+<tr>
+<td style="text-align:center">21</td>
+<td style="text-align:center">8</td>
+</tr>
+<tr>
+<td style="text-align:center">22</td>
+<td style="text-align:center">9</td>
+</tr>
+<tr>
+<td style="text-align:center">23</td>
+<td style="text-align:center">10</td>
+</tr>
+<tr>
+<td style="text-align:center">24</td>
+<td style="text-align:center">11</td>
+</tr>
+<tr>
+<td style="text-align:center">25</td>
+<td style="text-align:center">51</td>
+</tr>
+<tr>
+<td style="text-align:center">28</td>
+<td style="text-align:center">45</td>
+</tr>
+<tr>
+<td style="text-align:center">29</td>
+<td style="text-align:center">46</td>
+</tr>
+<tr>
+<td style="text-align:center">30</td>
+<td style="text-align:center">47</td>
+</tr>
+<tr>
+<td style="text-align:center">31</td>
+<td style="text-align:center">48</td>
+</tr>
+<tr>
+<td style="text-align:center">32</td>
+<td style="text-align:center">77</td>
+</tr>
+<tr>
+<td style="text-align:center">33</td>
+<td style="text-align:center">78</td>
+</tr>
+<tr>
+<td style="text-align:center">35</td>
+<td style="text-align:center">37</td>
+</tr>
+<tr>
+<td style="text-align:center">42</td>
+<td style="text-align:center">79</td>
+</tr>
+</tbody>
+</table>
+</div><p>BR<br>
+Jay</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/set-default-state-of-gpio-at-boot-wp76/2353">Set default state of gpio at boot WP76</a>
+                        <meta itemprop='position' content='1'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Gokulnath'><span itemprop='name'>Gokulnath</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/add-enc28j60-to-custom-wp7607-board/2316">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-02T12:40:05Z' class='post-time'>
+                    March 2, 2020, 12:40pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-02T12:40:05Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi. I am trying to add ENCX24j600 driver to WP7702. Could you help me out?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Jay'><span itemprop='name'>Jay</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/add-enc28j60-to-custom-wp7607-board/2316">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-05T13:06:02Z' class='post-time'>
+                    March 5, 2020,  1:06pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-05T13:06:02Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>As encx24j600 driver is not provided with kernel 3.18 then you need first to backport it from a newer kernel version (e.g. 4.14 or newer).<br>
+Regarding platform settings in device tree, it should be very similar to what has been done here for ENC28J60.<br>
+Just replace the word “enc28j60” by “encx24j600”.<br>
+Example:<br>
+<code>compatible = "microchip,encx24j600";</code></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Gokulnath'><span itemprop='name'>Gokulnath</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/add-enc28j60-to-custom-wp7607-board/2316">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-07T07:11:15Z' class='post-time'>
+                    March 7, 2020,  7:11am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-07T07:12:40Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Jay ,<br>
+We have built the driver and flashed to WP 7702. Now we are able to see eth0 under when ifconfig issued, but it is always down.</p>
+<p>Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.290863] encx24j600 spi1.0 (unnamed net_device) (uninitialized): link down<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.309781] encx24j600: Hw is initialized<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.309956] encx24j600 ECON1:   0000<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.310719] encx24j600 ECON2:   CB00<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.310736] encx24j600 ERXFCON: 0049<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.310908] encx24j600 ESTAT:   5A00<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.311075] encx24j600 EIR:     0700<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.311086] encx24j600 EIDLED:  CB21<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.311096] encx24j600 MACON1:  0009<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.311105] encx24j600 MACON2:  40B2<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.311114] encx24j600 MAIPG:   0C12<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.311375] encx24j600 MACLCON: 370F<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.311540] encx24j600 MABBIPG: 0012<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.311552] encx24j600 PHCON1:  1200<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.314624] encx24j600 PHCON2:  0002<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.314637] encx24j600 PHANA:   05E1<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.315964] encx24j600 PHANLPA: 0001<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.317277] encx24j600 PHANE:   0000<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.318588] encx24j600 PHSTAT1: 7809<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.319902] encx24j600 PHSTAT2: 0000<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.322651] encx24j600 PHSTAT3: 0000<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.324594] encx24j600 spi1.0 eth0: Silicon rev ID: 0x01<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.324612] encx24j600 spi1.0 eth0: MAC address 00:00:ec:c7:aa:a2<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.427889] encx24j600 spi1.0 eth0: link down<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.433488] encx24j600: Hw is initialized<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.433671] encx24j600 ECON1:   0000<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.433931] encx24j600 ECON2:   CB00<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.433942] encx24j600 ERXFCON: 0049<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.434106] encx24j600 ESTAT:   5A00<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.434270] encx24j600 EIR:     0700<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.434281] encx24j600 EIDLED:  CB21<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.434291] encx24j600 MACON1:  0009<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.434300] encx24j600 MACON2:  40B2<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.434308] encx24j600 MAIPG:   0C12<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.434317] encx24j600 MACLCON: 370F<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.434326] encx24j600 MABBIPG: 0012<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.434337] encx24j600 PHCON1:  1200<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.441426] encx24j600 PHCON2:  0002<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.441446] encx24j600 PHANA:   05E1<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.442879] encx24j600 PHANLPA: 0001<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.444271] encx24j600 PHANE:   0000<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.445600] encx24j600 PHSTAT1: 7809<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.451750] encx24j600 PHSTAT2: 0000<br>
+Jan  6 06:42:13 swi-mdm9x28-wp user.info kernel: [   52.453159] encx24j600 PHSTAT3: 0040</p>
+<p>What has to be done next to make it alive and start the communication?<br>
+root@swi-mdm9x28-wp:~# /sbin/udhcpc -R -b -i eth0<br>
+udhcpc: started, v1.27.2<br>
+udhcpc: sending discover<br>
+udhcpc: sending discover<br>
+udhcpc: sending discover<br>
+udhcpc: no lease, forking to background</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Jay'><span itemprop='name'>Jay</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/add-enc28j60-to-custom-wp7607-board/2316">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-09T09:16:19Z' class='post-time'>
+                    March 9, 2020,  9:16am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-09T09:51:40Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Which GPIO pin on WP7702 module is connected to the interrupt pin of encx24j600 chip?<br>
+<span class="bbcode-s">How the reset pin of encx24j600 chip is controlled?</span> (update: there is no reset pin on encx24j600 )<br>
+Also, could you show us your devicetree node for encx24j600?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Gokulnath'><span itemprop='name'>Gokulnath</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/add-enc28j60-to-custom-wp7607-board/2316">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-12T05:25:17Z' class='post-time'>
+                    March 12, 2020,  5:25am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-12T05:25:17Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>We are using the this device tree node.</p>
+<p>&amp;spi_1 {<br>
+status = “ok”;<br>
+eth0: encx24j600@0 {<br>
+<span class="hashtag">#address-cells</span> = &lt;1&gt;;<br>
+<span class="hashtag">#size-cells</span> = &lt;1&gt;;<br>
+compatible = “microchip,encx24j600”;<br>
+spi-max-frequency = &lt;5000000&gt;;<br>
+reg = &lt;0&gt;;<br>
+interrupt-parent = &lt;&amp;tlmm_pinmux&gt;;<br>
+interrupts = &lt;79 2&gt;;<br>
+pinctrl-names = “encx24j600_int_default”;<br>
+pinctrl-0 = &lt;&amp;encx24j600_int_default&gt;;<br>
+encx24j600,duplex_mode=&lt;1&gt;;<br>
+};<br>
+};</p>
+<p>encx24j600_int_default: encx24j600_int_default {<br>
+mux {<br>
+pins = “gpio79”;<br>
+function = “gpio”;<br>
+};<br>
+config {<br>
+pins = “gpio79”;<br>
+drive-strength = &lt;16&gt;;<br>
+bias-pull-up;<br>
+};<br>
+};</p>
+<p>We are using GPIO 42 on the WP module which is equivalent to GPIO 79 on MDM?</p>
+<p>Whenever we issue udchp command we are getting  TX timed out and RX error.</p>
+<p>[  116.178911] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.183708] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.188596] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.194230] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.198886] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.205887] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.211026] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.215676] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.223810] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.228535] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.234039] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.238698] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.244161] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.249581] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.258695] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.263569] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.269919] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.275238] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.279897] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.288186] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.293026] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  116.297880] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  121.441008] sierra_startup_monitor<br>
+[  129.050978] encx24j600 spi1.0 eth0: TX timeout at -17095, latency 989<br>
+[  135.599320] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  135.604106] encx24j600 spi1.0 eth0: RX Error 736f480a<br>
+[  159.050150] encx24j600 spi1.0 eth0: TX timeout at -14095, latency 965<br>
+[A [  169.050969] encx24j600 spi1.0 eth0: TX timeout at -13095, latency 1000<br>
+[  179.050968] encx24j600 spi1.0 eth0: TX timeout at -12095, latency 1000<br>
+[  189.051003] encx24j600 spi1.0 eth0: TX timeout at -11095, latency 1000<br>
+[  199.050967] encx24j600 spi1.0 eth0: TX timeout at -10095, latency 624<br>
+[  219.050302] encx24j600 spi1.0 eth0: TX timeout at -8095, latency 741<br>
+[  234.050975] encx24j600 spi1.0 eth0: TX timeout at -6595, latency 603<br>
+[  269.050985] encx24j600 spi1.0 eth0: TX timeout at -3095, latency 765<br>
+[  294.050969] encx24j600 spi1.0 eth0: TX timeout at -595, latency 760<br>
+[  324.010979] encx24j600 spi1.0 eth0: TX timeout at 2401, latency 834<br>
+[  334.010984] encx24j600 spi1.0 eth0: TX timeout at 3401, latency 1000<br>
+[  354.010995] encx24j600 spi1.0 eth0: TX timeout at 5401, latency 914<br>
+[  364.010978] encx24j600 spi1.0 eth0: TX timeout at 6401, latency 648<br>
+[  384.011002] encx24j600 spi1.0 eth0: TX timeout at 8401, latency 993<br>
+[  394.011000] encx24j600 spi1.0 eth0: TX timeout at 9401, latency 1000<br>
+[  409.010302] encx24j600 spi1.0 eth0: TX timeout at 10901, latency 572<br>
+[  419.010984] encx24j600 spi1.0 eth0: TX timeout at 11901, latency 696<br>
+[  439.010978] encx24j600 spi1.0 eth0: TX timeout at 13901, latency 652<br>
+[  449.010978] encx24j600 spi1.0 eth0: TX timeout at 14901, latency 1000</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Jay'><span itemprop='name'>Jay</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/add-enc28j60-to-custom-wp7607-board/2316">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-06-09T15:53:55Z' class='post-time'>
+                    June 9, 2020,  3:53pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-06-09T15:53:55Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi,</p>
+<p>Did you succeed to run encx24j600 with WP7702?</p>
+<p>If not then please share your schematics (showing pull-up resistor(s) and level shifters).</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

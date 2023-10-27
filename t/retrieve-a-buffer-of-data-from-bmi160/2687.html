@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Retrieve a Buffer of Data from BMI160 - Build your own - mangOH forum</title>
+    <meta name="description" content="I would like to retrieve a buffer of data from the BMI160 instead of just single samples.  Is this possible?  If so how would I go about doing it from user space? 
+Thanks">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Retrieve a Buffer of Data from BMI160&#39;" href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687" />
+<meta property="og:title" content="Retrieve a Buffer of Data from BMI160" />
+<meta name="twitter:title" content="Retrieve a Buffer of Data from BMI160" />
+<meta property="og:description" content="I would like to retrieve a buffer of data from the BMI160 instead of just single samples.  Is this possible?  If so how would I go about doing it from user space?  Thanks" />
+<meta name="twitter:description" content="I would like to retrieve a buffer of data from the BMI160 instead of just single samples.  Is this possible?  If so how would I go about doing it from user space?  Thanks" />
+<meta property="og:article:section" content="Build your own" />
+<meta property="og:article:section:color" content="25AAE2" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="1 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="1 ❤" />
+<meta property="article:published_time" content="2019-06-05T18:32:01+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Retrieve a Buffer of Data from BMI160","mainEntity":{"@type":"Question","name":"Retrieve a Buffer of Data from BMI160","text":"I would like to retrieve a buffer of data from the BMI160 instead of just single samples.  Is this possible?  If so how would I go about doing it from user space?\n\nThanks","upvoteCount":0,"answerCount":1,"dateCreated":"2019-06-05T18:32:00.993Z","author":{"@type":"Person","name":"Darren Beckwith"},"acceptedAnswer":{"@type":"Answer","text":"<a class=\"mention\" href=\"/u/ktanikel\">@ktanikel<\/a> Better late than never, right :wink: Thanks for the tip I will consider doing that instead.","upvoteCount":0,"dateCreated":"2019-06-14T16:14:58.658Z","url":"https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687/8","author":{"@type":"Person","name":"dbeckwith"}}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/retrieve-a-buffer-of-data-from-bmi160/2687">Retrieve a Buffer of Data from BMI160</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/build-your-own/7" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #25AAE2'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>Build your own</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Retrieve a Buffer of Data from BMI160'>
+        <meta itemprop='articleSection' content='Build your own'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dbeckwith'><span itemprop='name'>dbeckwith</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-06-05T18:32:01Z' class='post-time'>
+                    June 5, 2019,  6:32pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-06-05T18:32:01Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>I would like to retrieve a buffer of data from the BMI160 instead of just single samples.  Is this possible?  If so how would I go about doing it from user space?</p>
+<p>Thanks</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-06-06T17:07:59Z' class='post-time'>
+                    June 6, 2019,  5:07pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-06-06T17:07:59Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>There’s a <code>bmi160_fifo</code> branch in the mangOH repository that takes a stab at this.  There is also this corresponding app which performs a read.  <a href="https://github.com/mangOH/mangOH/tree/bmi160_fifo/samples/BufferedImuRead" rel="nofollow noopener">https://github.com/mangOH/mangOH/tree/bmi160_fifo/samples/BufferedImuRead</a></p>
+<p>I haven’t looked at this stuff in a little while, so I don’t remember the exact status of it all.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dbeckwith'><span itemprop='name'>dbeckwith</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-06-06T18:44:44Z' class='post-time'>
+                    June 6, 2019,  6:44pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-06-06T19:56:21Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/dfrey">@dfrey</a> Thanks for pointing that out.  I quickly reviewed it and I have some followup questions.</p>
+<p>First, context.  I’m trying to access, from user space, the trigger buffer of data that was captured when the interrupt fires.  This should have the significant motion event.  Once I have this buffer then I plan on performing some analysis in the user space.</p>
+<ol>
+<li>
+<p>Is libiio the only way to access the trigger buffer from user space?</p>
+</li>
+<li>
+<p>The branch you pointed me to requires LIBIIO. I’m working with the WP85 module which doesn’t have the IIO builtin by default.  Is LIBIIO compatible the WP85 as long as I am building in IIO?</p>
+</li>
+<li>
+<p>Currently our BMI160 driver is set to generate interrupts on significant motion.  When this happens a buffer is captured in IIO.  Can’t I just call fscanf in a loop and read the contents of the buffer?</p>
+</li>
+</ol>
+<p>Thanks</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-06-06T20:18:42Z' class='post-time'>
+                    June 6, 2019,  8:18pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-06-06T20:18:42Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>The bmi160 driver sits on top of the IIO kernel framework.  On wp85/75, IIO wasn’t built with the kernel.  As a result, we pulled some of that code out of tree and built it as modules and bundled those modules with the Legato system.</p>
+<p>libiio is a userspace library for accessing IIO devices.  It provides convenience over manually traversing <code>/dev</code> and <code>/sys/bus/iio</code>.  It’s not “magic” though, so anything you do with libiio <em>can</em> be achieved without it.</p>
+<p>When I worked on the buffered reading for bmi160 I was focusing exclusively on the wp76.  I don’t recall if all the necessary IIO kernel modules are provided for wp85/75.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dbeckwith'><span itemprop='name'>dbeckwith</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-06-06T20:28:40Z' class='post-time'>
+                    June 6, 2019,  8:28pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-06-06T20:28:40Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/dfrey">@dfrey</a> Thanks will dive in and give it a try.  You mentioned here the <a href="https://forum.mangoh.io/t/using-accelerometer-on-mangoh-red/1716/8" class="inline-onebox">Using Accelerometer on MangOH Red</a> the the bmi160_fifo requires an unpublished kernel change.  Can you elaborate further?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-06-06T20:33:03Z' class='post-time'>
+                    June 6, 2019,  8:33pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-06-06T20:33:03Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Unfortunately, I have forgotten what I was referring to.  Let me know if you find that something is missing when you try to put this together.  It may jog my memory.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/ktanikel'><span itemprop='name'>ktanikel</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-06-13T23:18:38Z' class='post-time'>
+                    June 13, 2019, 11:18pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-06-13T23:18:38Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Sorry if I’m late to the party, but we had pretty much the same requirement of needing chunks of data from the accelerometer instead of single samples.</p>
+<p>I tried David’s bmi160_fifo branch, but wasn’t very familiar with IIO so ended up ditching that effort. Instead I switched to using the BMI160’s onboard FIFO to get a thousand samples every 250ms. You can tie the FIFO interrupt to your application so you know exactly when the FIFO’s full. I switched out the kernel module for BMI160 and instead used a user space driver from Bosch <a href="https://github.com/BoschSensortec/BMI160_driver" rel="nofollow noopener">https://github.com/BoschSensortec/BMI160_driver</a> to achieve this.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/access-bmi160-via-i2c-switch-from-userspace/2836">Access BMI160 via I2C Switch From Userspace</a>
+                        <meta itemprop='position' content='2'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dbeckwith'><span itemprop='name'>dbeckwith</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-06-14T16:14:58Z' class='post-time'>
+                    June 14, 2019,  4:14pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-06-14T16:14:58Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/ktanikel">@ktanikel</a> Better late than never, right <img src="https://emoji.discourse-cdn.com/twitter/wink.png?v=9" title=":wink:" class="emoji" alt=":wink:"> Thanks for the tip I will consider doing that instead.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-06-17T22:57:34Z' class='post-time'>
+                    June 17, 2019, 10:57pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-06-17T22:57:34Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>The bmi160_fifo branch uses both an IIO kernel FIFO and the bmi160’s hardware FIFO.  The idea was to sample continuously and service the buffers quickly enough such that they would never overflow.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Redferne'><span itemprop='name'>Redferne</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-04-21T13:51:26Z' class='post-time'>
+                    April 21, 2020,  1:51pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-04-21T15:16:07Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Very late to the party… Having issues with a WP77xx and the fifo branch.<br>
+It bombs out here:</p>
+<pre><code>	if (devm_gpio_request_one(&amp;pdev-&gt;dev, CF3_GPIO32, GPIOF_DIR_IN,
+				  "gpio expander")) {
+		dev_err(&amp;pdev-&gt;dev, "Couldn't request GPIO expander interrupt GPIO");
+		ret = -ENODEV;
+		goto cleanup;
+	}
+
+root@swi-mdm9x28-wp:~# [  130.757302] mangoh red mangoh red: Couldn't request GPIO expander interrupt GPIO
+[  130.764558] Unable to handle kernel NULL pointer dereference at virtual address 0000007c
+[  130.771828] pgd = c8318000
+[  130.774424] [0000007c] *pgd=00000000
+[  130.777984] Internal error: Oops: 5 [#1] PREEMPT ARM
+[  130.782926] Modules linked in: mangoh_red(O+) tem32j(O) ltc294x(O) led(O) bq27xxx_battery(O) bq24296(O) bmi160_i2c(O) bmi160(O) [last unloaded: bmi160]
+</code></pre>
+<p>Yes. It was caused by the GpioExpanderService trying to claim the same IRQ <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=9" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+<p>Now I’m seeing this:</p>
+<p>Jan  6 04:19:29 swi-mdm9x28-wp user.info Legato:  INFO | imu[1912]/imuComponent T=main | main.c ReadImu() 65 | Got channels (anglvel_x, anglvel_y, anglvel_z, accel_x, accel_y, accel_z, timestamp)<br>
+Jan  6 04:19:34 swi-mdm9x28-wp user.emerg Legato: <em>EMR</em> | imu[1912]/imuComponent T=main | main.c ReadImu() 90 | Failed to refill buffer: Invalid argument</p>
+<p>Any pointers?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

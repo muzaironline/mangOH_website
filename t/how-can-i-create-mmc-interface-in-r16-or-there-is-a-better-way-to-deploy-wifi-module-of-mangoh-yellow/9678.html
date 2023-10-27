@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>How can I create mmc interface in R16 ? (Or there is a better way to deploy wifi module of mangOH-yellow ) - mangOH Yellow - mangOH forum</title>
+    <meta name="description" content="We can use the wifi function successfully on Mangoh Yellow (with fw: mangOH-yellow-wp76xx_0.7.0.spk) 
+we use instruction: 
+wifi client start 
+then we can create a wifi devide node on system. 
+but we found some problem af&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/how-can-i-create-mmc-interface-in-r16-or-there-is-a-better-way-to-deploy-wifi-module-of-mangoh-yellow/9678" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;How can I create mmc interface in R16 ? (Or there is a better way to deploy wifi module of mangOH-yellow )&#39;" href="https://forum.mangoh.io/t/how-can-i-create-mmc-interface-in-r16-or-there-is-a-better-way-to-deploy-wifi-module-of-mangoh-yellow/9678.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d43890baa4bd818c669fe1162da912db1d844950.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d43890baa4bd818c669fe1162da912db1d844950.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/how-can-i-create-mmc-interface-in-r16-or-there-is-a-better-way-to-deploy-wifi-module-of-mangoh-yellow/9678" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/how-can-i-create-mmc-interface-in-r16-or-there-is-a-better-way-to-deploy-wifi-module-of-mangoh-yellow/9678" />
+<meta property="og:title" content="How can I create mmc interface in R16 ? (Or there is a better way to deploy wifi module of mangOH-yellow )" />
+<meta name="twitter:title" content="How can I create mmc interface in R16 ? (Or there is a better way to deploy wifi module of mangOH-yellow )" />
+<meta property="og:description" content="We can use the wifi function successfully on Mangoh Yellow (with fw: mangOH-yellow-wp76xx_0.7.0.spk)  we use instruction:  wifi client start  then we can create a wifi devide node on system.  but we found some problem after used the Yocto re-build kernel image of R16 and updated it  the “wifi client start” became unavailable    My guess is that the wifi driver is not deployed in the R16 kernel  Therefore, I copy the wifi driver in mangOH-yellow-wp76xx_0.7.0.spk to the current system, and plan to..." />
+<meta name="twitter:description" content="We can use the wifi function successfully on Mangoh Yellow (with fw: mangOH-yellow-wp76xx_0.7.0.spk)  we use instruction:  wifi client start  then we can create a wifi devide node on system.  but we found some problem after used the Yocto re-build kernel image of R16 and updated it  the “wifi client start” became unavailable    My guess is that the wifi driver is not deployed in the R16 kernel  Therefore, I copy the wifi driver in mangOH-yellow-wp76xx_0.7.0.spk to the current system, and plan to..." />
+<meta property="og:article:section" content="mangOH Yellow" />
+<meta property="og:article:section:color" content="F1C900" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="1 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="4 ❤" />
+<meta property="article:published_time" content="2021-09-27T09:07:07+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"How can I create mmc interface in R16 ? (Or there is a better way to deploy wifi module of mangOH-yellow )","mainEntity":{"@type":"Question","name":"How can I create mmc interface in R16 ? (Or there is a better way to deploy wifi module of mangOH-yellow )","text":"We can use the wifi function successfully on Mangoh Yellow (with fw: mangOH-yellow-wp76xx_0.7.0.spk)\n\nwe use instruction:\n\nwifi client start\n\nthen we can create a wifi devide node on system.\n\nbut we found some problem after used the Yocto re-build kernel image of R16 and updated it\n\nthe “wifi client&hellip;","upvoteCount":0,"answerCount":1,"dateCreated":"2021-09-27T09:07:07.750Z","author":{"@type":"Person","name":"Bruce KE"},"acceptedAnswer":{"@type":"Answer","text":"you might need to shut down firewall by\n\niptables -I INPUT -j ACCEPT","upvoteCount":1,"dateCreated":"2021-09-28T09:58:16.298Z","url":"https://forum.mangoh.io/t/how-can-i-create-mmc-interface-in-r16-or-there-is-a-better-way-to-deploy-wifi-module-of-mangoh-yellow/9678/5","author":{"@type":"Person","name":"jyijyi"}}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/how-can-i-create-mmc-interface-in-r16-or-there-is-a-better-way-to-deploy-wifi-module-of-mangoh-yellow/9678">How can I create mmc interface in R16 ? (Or there is a better way to deploy wifi module of mangOH-yellow )</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-yellow/15" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #F1C900'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Yellow</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='How can I create mmc interface in R16 ? (Or there is a better way to deploy wifi module of mangOH-yellow )'>
+        <meta itemprop='articleSection' content='mangOH Yellow'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/bruceke'><span itemprop='name'>bruceke</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-can-i-create-mmc-interface-in-r16-or-there-is-a-better-way-to-deploy-wifi-module-of-mangoh-yellow/9678">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d43890baa4bd818c669fe1162da912db1d844950.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-09-27T09:07:07Z' class='post-time'>
+                    September 27, 2021,  9:07am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-09-27T09:07:07Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>We can use the wifi function successfully on Mangoh Yellow (with fw: mangOH-yellow-wp76xx_0.7.0.spk)<br>
+we use instruction:<br>
+wifi client start<br>
+then we can create a wifi devide node on system.</p>
+<p>but we found some problem after used the Yocto re-build kernel image of R16 and updated it<br>
+the “wifi client start” became unavailable<br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d43890baa4bd818c669fe1162da912db1d844950.png" alt="image" data-base62-sha1="uhopH5hX6s7RMOC2XKmhJ2trZIY" width="253" height="28"></p>
+<p>My guess is that the wifi driver is not deployed in the R16 kernel<br>
+Therefore, I copy the wifi driver in mangOH-yellow-wp76xx_0.7.0.spk to the current system, and plan to use the insert module to build the wifi device node</p>
+<p>But I can’t find mmc interfcae even I’m insert sdhci-msm.ko.<br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/14eecf8808f60ed5ecc1df5bf3a4f704c5e95f9b.png" alt="image" data-base62-sha1="2ZbckBuSntjPArHFdOY3WqWFXrd" width="476" height="305"></p>
+<p>how can I create mmc interface in R16 ? (Or there is a better way to deploy wifi module of mangOH-yellow )</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-can-i-create-mmc-interface-in-r16-or-there-is-a-better-way-to-deploy-wifi-module-of-mangoh-yellow/9678">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-09-27T10:01:21Z' class='post-time'>
+                    September 27, 2021, 10:01am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-09-27T10:01:21Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>does this help?</p><aside class="quote quote-modified" data-post="1" data-topic="3432">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/dougbrown/40/2006_2.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/yocto-for-firmware-0-4-0/3432">Yocto for firmware 0.4.0?</a> <a class="badge-wrapper  bullet" href="/c/mangoh-yellow/15"><span class="badge-category-bg" style="background-color: #F1C900;"></span><span style="" data-drop-close="true" class="badge-category clear-badge">mangOH Yellow</span></a>
+  </div>
+  <blockquote>
+    Hi, 
+I noticed that the new firmware 0.4.0 has some stuff that is now bundled inside the Yocto Linux distribution, e.g. the cywifi driver. Where can I obtain the Yocto distribution for building this? (I need to add a few custom packages). I’m currently using the “Linux Distribution” download from release 12 of the WP77xx firmware components: 
+<a href="https://source.sierrawireless.com/resources/airprime/software/wp77xx/wp77xx-firmware-latest-release-components/" class="onebox" target="_blank" rel="noopener nofollow ugc">https://source.sierrawireless.com/resources/airprime/software/wp77xx/wp77xx-firmware-latest-release-components/</a> 
+Is there an additional layer being added o…
+  </blockquote>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/bruceke'><span itemprop='name'>bruceke</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-can-i-create-mmc-interface-in-r16-or-there-is-a-better-way-to-deploy-wifi-module-of-mangoh-yellow/9678">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-09-27T14:29:55Z' class='post-time'>
+                    September 27, 2021,  2:29pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-09-27T14:29:55Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>it is working for me!<br>
+you are the lighthouse in the miserable!!!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/bruceke'><span itemprop='name'>bruceke</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-can-i-create-mmc-interface-in-r16-or-there-is-a-better-way-to-deploy-wifi-module-of-mangoh-yellow/9678">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/e62e3f14910e181b8f8b5dabffadda96a9cc57bb.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-09-28T09:17:01Z' class='post-time'>
+                    September 28, 2021,  9:17am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-09-28T09:44:22Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I found the ecm cannot connect to pc after I update fw tha build with R16(adding the meta-mangoh layer &amp; add a new directory under the root directory).</p>
+<p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/e62e3f14910e181b8f8b5dabffadda96a9cc57bb.png" data-download-href="/uploads/short-url/wQgTQbXE5Nt9AC533MCBKfneRMD.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/e62e3f14910e181b8f8b5dabffadda96a9cc57bb.png" alt="image" data-base62-sha1="wQgTQbXE5Nt9AC533MCBKfneRMD" width="500" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/e/e62e3f14910e181b8f8b5dabffadda96a9cc57bb_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">601×601 42.7 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>Even if I manually set the ip of mangoh(192.168.2.2) &amp; PC(192.168.2.3),   it still unable to connect to each other.</p>
+<p>I try to test on other boards ,  if I upgrade from mangOH-yellow-wp76xx_0.7.0 to this version of FW(I test ), ecm functions ais work.</p>
+<p>But if I upgrade from the previously FW (built by myself , add a directory under the root directory) to the current FW (add the meta-mangoh layer), ecm will not be able to connect after the update.<br>
+I tried to re-flash to mangOH-yellow-wp76xx_0.7.0 , the ecm can be connected after the re-flash .<br>
+But if I update to the FW that I built by myself , the ecm cannot work again.</p>
+<p>Are there any good suggestions to make the ecm function work on the new FW that I built? I’m worried that the same problem will happen again after updating FW</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-can-i-create-mmc-interface-in-r16-or-there-is-a-better-way-to-deploy-wifi-module-of-mangoh-yellow/9678">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-09-28T09:58:16Z' class='post-time'>
+                    September 28, 2021,  9:58am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-09-28T09:58:16Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>you might need to shut down firewall by<br>
+iptables -I INPUT -j ACCEPT</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/bruceke'><span itemprop='name'>bruceke</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-can-i-create-mmc-interface-in-r16-or-there-is-a-better-way-to-deploy-wifi-module-of-mangoh-yellow/9678">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/e44b513a339cc39cd2089fece3eda9ecf2fcb745.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-09-28T10:05:23Z' class='post-time'>
+                    September 28, 2021, 10:05am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-09-28T10:05:23Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/e44b513a339cc39cd2089fece3eda9ecf2fcb745.png" alt="image" data-base62-sha1="wzAefqQwhFarfCKTrSn1N0qPpNX" width="406" height="62"></p>
+<p>Thanks again !</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/bruceke'><span itemprop='name'>bruceke</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-can-i-create-mmc-interface-in-r16-or-there-is-a-better-way-to-deploy-wifi-module-of-mangoh-yellow/9678">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/b29485878a462c1262e26e847d192794569379a3.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-17T08:32:40Z' class='post-time'>
+                    October 17, 2021,  8:32am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-17T08:32:40Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I can successfully clone meta-mangoh.git in the R16 and compile successfully.</p>
+<p>but I got error when  I tried to add meta-mangoh.git in the R13(Legato-Dist-Source-mdm9x28-SWI9X07Y_02.28.03.01.tar.bz2 ) and recompile(Compilation was successful before adding meta-mangoh)<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/b29485878a462c1262e26e847d192794569379a3.png" data-download-href="/uploads/short-url/ptNc8Eq7fd0QG3iAqfgntptm1AD.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b29485878a462c1262e26e847d192794569379a3_2_690x253.png" alt="image" data-base62-sha1="ptNc8Eq7fd0QG3iAqfgntptm1AD" width="690" height="253" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b29485878a462c1262e26e847d192794569379a3_2_690x253.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b29485878a462c1262e26e847d192794569379a3_2_1035x379.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b29485878a462c1262e26e847d192794569379a3_2_1380x506.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b29485878a462c1262e26e847d192794569379a3_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">1914×704 171 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>May I ask what is the reason for this? How to fix it?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-can-i-create-mmc-interface-in-r16-or-there-is-a-better-way-to-deploy-wifi-module-of-mangoh-yellow/9678">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-17T09:47:15Z' class='post-time'>
+                    October 17, 2021,  9:47am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-17T09:47:15Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You need to use r16 then</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jameswollaeger'><span itemprop='name'>jameswollaeger</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-can-i-create-mmc-interface-in-r16-or-there-is-a-better-way-to-deploy-wifi-module-of-mangoh-yellow/9678">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-21T13:51:21Z' class='post-time'>
+                    October 21, 2021,  1:51pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-21T13:51:21Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>To get the dev configs loaded to connect for your own FW, you need to apply the one commit from this branch on meta mangoh: <a href="https://github.com/mangOH/meta-mangoh/tree/mdev_update_for_ecm" class="inline-onebox" rel="noopener nofollow ugc">GitHub - mangOH/meta-mangoh at mdev_update_for_ecm</a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/bruceke'><span itemprop='name'>bruceke</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-can-i-create-mmc-interface-in-r16-or-there-is-a-better-way-to-deploy-wifi-module-of-mangoh-yellow/9678">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/04d6951ca6a913337c1b6fe00b12664a2481a182.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-22T03:31:36Z' class='post-time'>
+                    October 22, 2021,  3:31am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-22T03:31:36Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi jameswollaeger,<br>
+Thanks for your information.<br>
+I’ve tried to clone this branch to R13.3 yocto folder and make again , but it still get some error as below:</p>
+<p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/04d6951ca6a913337c1b6fe00b12664a2481a182.png" data-download-href="/uploads/short-url/GNEli3obgkg6gzTVuBXd4j3Oqm.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/04d6951ca6a913337c1b6fe00b12664a2481a182_2_690x306.png" alt="image" data-base62-sha1="GNEli3obgkg6gzTVuBXd4j3Oqm" width="690" height="306" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/04d6951ca6a913337c1b6fe00b12664a2481a182_2_690x306.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/04d6951ca6a913337c1b6fe00b12664a2481a182_2_1035x459.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/04d6951ca6a913337c1b6fe00b12664a2481a182_2_1380x612.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/04d6951ca6a913337c1b6fe00b12664a2481a182_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">1894×841 78 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>Does it need some patch or code change?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jameswollaeger'><span itemprop='name'>jameswollaeger</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-can-i-create-mmc-interface-in-r16-or-there-is-a-better-way-to-deploy-wifi-module-of-mangoh-yellow/9678">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-25T14:03:51Z' class='post-time'>
+                    October 25, 2021,  2:03pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-25T14:03:51Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I’m using the R16 Yocto release, I’ve never tried the R13.3. I can say I’ve never seen that error before.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

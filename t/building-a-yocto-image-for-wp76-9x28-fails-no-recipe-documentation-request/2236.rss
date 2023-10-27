@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Building a Yocto image for wp76/9x28 fails no recipe - Documentation Request</title>
+    <link>https://forum.mangoh.io/t/building-a-yocto-image-for-wp76-9x28-fails-no-recipe-documentation-request/2236</link>
+    <description>Hi,
+
+I am having a difficult time finding documentation for the steps to build a new yocto image for any MangoH boards. The documentation here : https://forum.mangoh.io/t/building-custom-yocto-image/1299 is all that I can find, however, the repositories that are linked to are inaccessible. 
+
+
+[details=&quot;Attempt to follow Wiki Directions&quot;]
+For example, these commands give an error because this is an internal git server to Sierra. 
+&gt;     **WP85** :
+&gt;     repo init -u git://gerrit-legato/manifest -m lxswi/branches/master/systems/wp85xx.xml -g “default,amss”
+&gt; 
+&gt;     **WP76** :
+&gt;     repo init -u git://gerrit-legato/manifest -m lxswi/branches/master/systems/wp76xx.xml
+
+So I downloaded the file that @nick suggested, http://downloads.sierrawireless.com/AirPrime/WPx5xx/Release15/Legato-Dist-Source-mdm9x15-SWI9X15Y_07.12.14.00.tar.bz2
+
+and did my best to make it up along the way.
+
+First off here, step 2 is impossible because there is 1) no repo and 2) no rule to make image_src:
+&gt; 2. Synchronize repo and build yocto
+&gt; 
+&gt; repo sync
+&gt; make image_src
+**make: *** No rule to make target `image_src&#39;.  Stop.**
+
+Next we have :
+&gt; WP76:
+&gt; bitbake -c compile -f linux-quic
+&gt; bitbake -c build -f linux-quic
+&gt; bitbake -c build -f mdm9x28-image-minimal
+**bitbake: command not found**
+
+So i went into poky and sourced the build environment...:
+&gt; . poky/oe-init-build-env
+
+Then tried to build with the commands from the other post...
+&gt; rauger@M2MD-Ubuntu-Dev:~/repos/yocto/Legato-Dist-Source-mdm9x15-SWI9X15Y_07_13_05_yocto$ . poky/oe-init-build-env
+&gt; 
+&gt; You had no conf/local.conf file. This configuration file has therefore been
+&gt; 
+&gt; created for you with some default values. You may wish to edit it to, for
+&gt; 
+&gt; example, select a different MACHINE (target hardware). See conf/local.conf
+&gt; 
+&gt; for more information as common configuration options are commented.
+&gt; 
+&gt; You had no conf/bblayers.conf file. This configuration file has therefore been
+&gt; 
+&gt; created for you with some default values. To add additional metadata layers
+&gt; 
+&gt; into your configuration please add entries to conf/bblayers.conf.
+&gt; 
+&gt; ─────
+&gt; 
+&gt; The Yocto Project has extensive documentation about OE including a reference
+&gt; 
+&gt; manual which can be found at:
+&gt; 
+&gt; http://yoctoproject.org/documentation
+&gt; 
+&gt; For more information about OpenEmbedded see their website:
+&gt; 
+&gt; http://www.openembedded.org/
+&gt; 
+&gt; ### Shell environment set up for builds. ###
+&gt; 
+&gt; You can now run &#39;bitbake &amp;lt;target&amp;gt;&#39;
+&gt; 
+&gt; Common targets are:
+&gt; 
+&gt; core-image-minimal
+&gt; 
+&gt; core-image-sato
+&gt; 
+&gt; meta-toolchain
+&gt; 
+&gt; meta-ide-support
+&gt; 
+&gt; You can also run generated qemu images with a command like &#39;runqemu qemux86&#39;
+
+&gt; rauger@M2MD-Ubuntu-Dev:~/repos/yocto/Legato-Dist-Source-mdm9x15-SWI9X15Y_07_13_05_yocto/build$ ls
+&gt; conf
+
+&gt; rauger@M2MD-Ubuntu-Dev:~/repos/yocto/Legato-Dist-Source-mdm9x15-SWI9X15Y_07_13_05_yocto/build$ bitbake -c compile -f linux-quic
+&gt; Parsing recipes: 100% |#######################################################################################################################| Time: 0:00:16
+&gt; 
+&gt; Parsing of 864 .bb files complete (0 cached, 864 parsed). 1318 targets, 50 skipped, 0 masked, 0 errors.
+&gt; 
+&gt; **ERROR: Nothing PROVIDES &#39;linux-quic&#39;**
+&gt; 
+&gt; Summary: There was 1 ERROR message shown, returning a non-zero exit code.
+[/details]
+
+
+
+EDIT: I found a readme file in meta-swi-extras/readme/README.build.wp76.md. In it, it says to build, run make. This took about 45 minutes, but only the mdm9x15 was built(wp85) rather than the 9x28(wp76).
+
+Further in the docs, to build wp76:
+make dev
+bitbake -c cleansstate busybox
+bitbake busybox 
+bitbake mdm9x28-image-minimal
+
+-- The last command, mdm9x28 fails with:
+&gt; rauger@M2MD-Ubuntu-Dev:~/repos/yocto/Legato-Dist-Source-mdm9x15-SWI9X15Y_07_13_05_yocto/build_bin$ bitbake mdm9x28-image-minimal
+&gt; Loading cache: 100% |#########################################################################################################################| Time: 0:00:00
+&gt; Loaded 2612 entries from dependency cache.
+&gt; Parsing recipes: 100% |#######################################################################################################################| Time: 0:00:00
+&gt; Parsing of 1906 .bb files complete (1904 cached, 2 parsed). 2614 targets, 372 skipped, 0 masked, 0 errors.
+&gt; WARNING: No bb files matched BBFILE_PATTERN_swi-mdm9xxx-bin &#39;^/home/rauger/repos/yocto/Legato-Dist-Source-mdm9x15-SWI9X15Y_07_13_05_yocto/meta-swi/../meta-swi-extras/meta-swi-mdm9xxx-bin/&#39;
+&gt; WARNING: No bb files matched BBFILE_PATTERN_swi-mdm9xxx-bin &#39;^/home/rauger/repos/yocto/Legato-Dist-Source-mdm9x15-SWI9X15Y_07_13_05_yocto/meta-swi/../meta-swi-extras/meta-swi-mdm9xxx-bin/&#39;
+&gt; ERROR: Nothing PROVIDES &#39;mdm9x28-image-minimal&#39;. Close matches:
+&gt;   mdm9x15-image-minimal
+&gt;   mdm9x15-image-initramfs
+&gt;   core-image-minimal
+&gt; 
+&gt; Summary: There were 2 WARNING messages shown.
+&gt; Summary: There was 1 ERROR message shown, returning a non-zero exit code.
+
+
+There isn&#39;t a recipe for 9x28.. so how are we supposed to build it?</description>
+    
+    <lastBuildDate>Wed, 12 Dec 2018 23:18:58 +0000</lastBuildDate>
+    <category>Wiki</category>
+    <atom:link href="https://forum.mangoh.io/t/building-a-yocto-image-for-wp76-9x28-fails-no-recipe-documentation-request/2236.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Building a Yocto image for wp76/9x28 fails no recipe - Documentation Request</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>It seems that you downloaded the 9x15 (wp75, wp85) tarball rather than the 9x28/9x06/9x07 (wp76, wp77) one.</p>
+          <p><a href="https://forum.mangoh.io/t/building-a-yocto-image-for-wp76-9x28-fails-no-recipe-documentation-request/2236/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-a-yocto-image-for-wp76-9x28-fails-no-recipe-documentation-request/2236/2</link>
+        <pubDate>Wed, 12 Dec 2018 23:18:58 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2236-2</guid>
+        <source url="https://forum.mangoh.io/t/building-a-yocto-image-for-wp76-9x28-fails-no-recipe-documentation-request/2236.rss">Building a Yocto image for wp76/9x28 fails no recipe - Documentation Request</source>
+      </item>
+      <item>
+        <title>Building a Yocto image for wp76/9x28 fails no recipe - Documentation Request</title>
+        <dc:creator><![CDATA[rauger1]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi,</p>
+<p>I am having a difficult time finding documentation for the steps to build a new yocto image for any MangoH boards. The documentation here : <a href="https://forum.mangoh.io/t/building-custom-yocto-image/1299" class="inline-onebox">Building Custom Yocto Image</a> is all that I can find, however, the repositories that are linked to are inaccessible.</p>
+
+Attempt to follow Wiki Directions <a href="https://forum.mangoh.io/t/building-a-yocto-image-for-wp76-9x28-fails-no-recipe-documentation-request/2236/1">(click for more details)</a>
+<p>EDIT: I found a readme file in meta-swi-extras/readme/README.build.wp76.md. In it, it says to build, run make. This took about 45 minutes, but only the mdm9x15 was built(wp85) rather than the 9x28(wp76).</p>
+<p>Further in the docs, to build wp76:<br>
+make dev<br>
+bitbake -c cleansstate busybox<br>
+bitbake busybox<br>
+bitbake mdm9x28-image-minimal</p>
+<p>– The last command, mdm9x28 fails with:</p>
+<blockquote>
+<p>rauger@M2MD-Ubuntu-Dev:~/repos/yocto/Legato-Dist-Source-mdm9x15-SWI9X15Y_07_13_05_yocto/build_bin$ bitbake mdm9x28-image-minimal<br>
+Loading cache: 100% |#########################################################################################################################| Time: 0:00:00<br>
+Loaded 2612 entries from dependency cache.<br>
+Parsing recipes: 100% |#######################################################################################################################| Time: 0:00:00<br>
+Parsing of 1906 .bb files complete (1904 cached, 2 parsed). 2614 targets, 372 skipped, 0 masked, 0 errors.<br>
+WARNING: No bb files matched BBFILE_PATTERN_swi-mdm9xxx-bin ‘^/home/rauger/repos/yocto/Legato-Dist-Source-mdm9x15-SWI9X15Y_07_13_05_yocto/meta-swi/…/meta-swi-extras/meta-swi-mdm9xxx-bin/’<br>
+WARNING: No bb files matched BBFILE_PATTERN_swi-mdm9xxx-bin ‘^/home/rauger/repos/yocto/Legato-Dist-Source-mdm9x15-SWI9X15Y_07_13_05_yocto/meta-swi/…/meta-swi-extras/meta-swi-mdm9xxx-bin/’<br>
+ERROR: Nothing PROVIDES ‘mdm9x28-image-minimal’. Close matches:<br>
+mdm9x15-image-minimal<br>
+mdm9x15-image-initramfs<br>
+core-image-minimal</p>
+<p>Summary: There were 2 WARNING messages shown.<br>
+Summary: There was 1 ERROR message shown, returning a non-zero exit code.</p>
+</blockquote>
+<p>There isn’t a recipe for 9x28… so how are we supposed to build it?</p>
+          <p><a href="https://forum.mangoh.io/t/building-a-yocto-image-for-wp76-9x28-fails-no-recipe-documentation-request/2236/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-a-yocto-image-for-wp76-9x28-fails-no-recipe-documentation-request/2236/1</link>
+        <pubDate>Tue, 11 Dec 2018 01:44:46 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2236-1</guid>
+        <source url="https://forum.mangoh.io/t/building-a-yocto-image-for-wp76-9x28-fails-no-recipe-documentation-request/2236.rss">Building a Yocto image for wp76/9x28 fails no recipe - Documentation Request</source>
+      </item>
+  </channel>
+</rss>

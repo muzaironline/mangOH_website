@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Ethernet device deregistered when the legato framework starts up</title>
+    <link>https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320</link>
+    <description>I&#39;m using a mangOH Yellow board with WP7607 module and a Talon ethernet daughter board. When the mangOH boots, if I disable the legato startup, the ethernet port is registered as eth0, it gets an IP address via dhcp etc., and it works fine. But then if I start legato, the eth0  device gets deregistered. Same on both R16 and R17 software. I&#39;m not sure why this is happening, and is there anything I can do to stop it?
+
+Here is dmesg before starting legato, and you can see eth0 comes up : 
+
+dmesg:
+[   25.945887] QTI:start
+[   26.007291] done
+[   26.037476] LE_KPI: end initscript /etc/rcS.d/S99start_qti_le
+[   26.076692] QCMAP:Start DHCP server
+[   26.083355] QCMAP:DHCP server started
+[   26.209007] USB QCMAP NL IOCTL Snd GETNEIGH Succ
+[   30.991475] gpio_check_and_wake: wake-n_gpio26 STATE=WAKEUP
+[   30.999032] swimcu_calibrate_event_handle: MCU calibrate completed with remaining time 0
+[   30.999059] swimcu_lpo_calibrate_calc: MCU time=30000 vs MDM time=30143 
+[   30.999087] gpio_check_and_wake: wake-n_gpio26 STATE=SLEEP
+[   34.640533] apr_register: Modem is not Up
+[   34.640582] adm_memory_map_regions: Unable to register ADM
+[   34.643541] adm_map_cal_data: map did not work! cal_type 0 ret -19
+[   34.648924] map_memory: map_cal failed, cal type 10, ret = -19!
+[   34.656013] adm_alloc_cal: cal_utils_alloc_block failed, ret = -19, cal type = 10!
+[   34.660982] call_allocs: alloc failed!
+[   90.345424] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+[   90.348464] smsc95xx 1-1.1:1.0 eth0: link up, 100Mbps, full-duplex, lpa 0xC5E1
+[   90.405774] QTI:ETH mode
+[   90.414648] QTI:LINK_UP message posted
+[   90.851589] nf_conntrack: default automatic helper assignment has been turned off for security reasons and CT-based  firewall rule not found. Use the iptables CT target to attach helpers in.
+[  105.966379] 50default (1730) used greatest stack depth: 4492 bytes left
+[  116.223420] QTI:LINK_UP Processed
+
+And this is dmesg later when legato is started, and eth0 gets deregistered : 
+
+[  116.223420] QTI:LINK_UP Processed  &lt;======= Last dmesg before running legato startup script.
+[  857.392959] sps:BAM 0x07884000 (va:0xdbae92bb) enabled: ver:0x18, number of pipes:24
+[  863.755213] gpio_map_name_to_num: find GPIO 76
+[  863.761450] gpio_map_name_to_num: find GPIO 38
+[  864.005398] smsc95xx 1-1.1:1.0 eth0: Failed to read reg index 0x00000114: -71
+[  864.005413] smsc95xx 1-1.1:1.0 eth0: Error reading MII_ACCESS
+[  864.005422] smsc95xx 1-1.1:1.0 eth0: MII is busy in smsc95xx_mdio_read
+[  864.005430] smsc95xx 1-1.1:1.0 eth0: Failed to read MII_BMSR
+[  864.018932] usb 1-1.1: USB disconnect, device number 3
+[  864.021475] smsc95xx 1-1.1:1.0 eth0: unregister &#39;smsc95xx&#39; usb-7c00000.hsic_host-1.1, smsc95xx USB 2.0 Ethernet
+[  864.021597] smsc95xx 1-1.1:1.0 eth0: usbnet_stop
+[  864.023418] [RMNET:HI] rmnet_config_notify_cb(): Kernel is trying to unregister eth0
+[  864.040379] [RMNET:HI] rmnet_config_notify_cb(): Kernel is trying to unregister eth0
+[  864.141753] USB QCMAP NL IOCTL Snd GETNEIGH Succ
+[  864.146045] QTI:LINK_DOWN message posted
+[  864.149874] QTI:LINK_DOWN Processed
+[  864.280252] usb 1-1.1: new high-speed USB device number 6 using msm_hsic_host
+[  864.391486] usb 1-1.1: New USB device found, idVendor=0424, idProduct=9e00
+[  864.391500] usb 1-1.1: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+[  864.394993] smsc95xx v1.0.6
+[  864.491114] smsc95xx 1-1.1:1.0 eth0: register &#39;smsc95xx&#39; at usb-7c00000.hsic_host-1.1, smsc95xx USB 2.0 Ethernet, 0a:5d:07:9a:d4:31
+[  864.501575] mdm9607-asoc-snd soc:sound-wm8944: Defering mdm_asoc_machine_probe, q6_state 0
+[  864.650932] smsc95xx 1-1.1:1.0 eth0: usbnet_open
+[  864.651654] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready
+[  864.664363] USB QCMAP NL IOCTL Snd GETNEIGH Succ
+[  866.185309] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+[  866.187313] smsc95xx 1-1.1:1.0 eth0: link up, 100Mbps, full-duplex, lpa 0xC5E1
+[  866.239710] QTI:ETH mode
+[  866.244728] QTI:LINK_UP Processed
+[  866.249149] QTI:LINK_UP message posted
+[  869.445782] gpio_map_name_to_num: find GPIO 76
+[  869.447878] gpio_map_name_to_num: find GPIO 38
+[  869.650924] usb 1-1.1: USB disconnect, device number 6
+[  869.653446] smsc95xx 1-1.1:1.0 eth0: unregister &#39;smsc95xx&#39; usb-7c00000.hsic_host-1.1, smsc95xx USB 2.0 Ethernet
+[  869.653562] smsc95xx 1-1.1:1.0 eth0: usbnet_stop
+[  869.654989] [RMNET:HI] rmnet_config_notify_cb(): Kernel is trying to unregister eth0
+[  869.670397] [RMNET:HI] rmnet_config_notify_cb(): Kernel is trying to unregister eth0
+[  869.763373] USB QCMAP NL IOCTL Snd GETNEIGH Succ
+[  869.782761] QTI:LINK_DOWN message posted
+[  869.786633] QTI:LINK_DOWN Processed</description>
+    
+    <lastBuildDate>Thu, 10 Aug 2023 10:22:48 +0000</lastBuildDate>
+    <category>mangOH Yellow</category>
+    <atom:link href="https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Ethernet device deregistered when the legato framework starts up</title>
+        <dc:creator><![CDATA[philipboucherat]]></dc:creator>
+        <description><![CDATA[
+            <p>Yes, seems like legato framework is setting GPIO2 to 0. Anyway, thanks for your help.</p>
+          <p><a href="https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320/7</link>
+        <pubDate>Thu, 10 Aug 2023 10:22:48 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10320-7</guid>
+        <source url="https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320.rss">Ethernet device deregistered when the legato framework starts up</source>
+      </item>
+      <item>
+        <title>Ethernet device deregistered when the legato framework starts up</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>maybe the legato framework will change the GPIO2 state.<br>
+You can double check</p>
+          <p><a href="https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320/6</link>
+        <pubDate>Thu, 10 Aug 2023 09:16:11 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10320-6</guid>
+        <source url="https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320.rss">Ethernet device deregistered when the legato framework starts up</source>
+      </item>
+      <item>
+        <title>Ethernet device deregistered when the legato framework starts up</title>
+        <dc:creator><![CDATA[philipboucherat]]></dc:creator>
+        <description><![CDATA[
+            <p>Ah, thanks, that works so I can get eth0 back now. So before starting the legato framework, eth0 works ok, then on starting the legato framework it gets deregistered - I still don’t know why. But if I set the GPIO pin I can get it back with ‘ifconfig eth0 up’ :</p>
+<p>root@swi-mdm9x28-wp:~# echo 2 &gt; /sys/class/gpio/export<br>
+[ 2114.032751] gpio_map_name_to_num: find GPIO 38<br>
+root@swi-mdm9x28-wp:~# echo out &gt; /sys/class/gpio/gpio2/direction<br>
+root@swi-mdm9x28-wp:~# echo 1 &gt; /sys/class/gpio/gpio2/value<br>
+root@swi-mdm9x28-wp:~# [ 2167.040380] usb 1-1.1: new high-speed USB device number 7 using msm_hsic_host<br>
+[ 2167.152106] usb 1-1.1: New USB device found, idVendor=0424, idProduct=9e00<br>
+[ 2167.152166] usb 1-1.1: New USB device strings: Mfr=0, Product=0, SerialNumber=0<br>
+[ 2167.165804] smsc95xx v1.0.6<br>
+[ 2167.269648] smsc95xx 1-1.1:1.0 eth0: register ‘smsc95xx’ at usb-7c00000.hsic_host-1.1, smsc95xx USB 2.0 Ethernet, 46:aa:14:8a:e1:65<br>
+[ 2167.278006] mdm9607-asoc-snd soc:sound-wm8944: Defering mdm_asoc_machine_probe, q6_state 0</p>
+<p>root@swi-mdm9x28-wp:~# ifconfig<br>
+ecm0      Link encap:Ethernet  HWaddr 16:EA:A5:7C:D6:8C<br>
+inet addr:192.168.2.2  Bcast:192.168.2.255  Mask:255.255.255.0<br>
+inet6 addr: fe80::14ea:a5ff:fe7c:d68c/64 Scope:Link<br>
+UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:15 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:0 (0.0 B)  TX bytes:1146 (1.1 KiB)</p>
+<p>lo        Link encap:Local Loopback<br>
+inet addr:127.0.0.1  Mask:255.0.0.0<br>
+inet6 addr: ::1/128 Scope:Host<br>
+UP LOOPBACK RUNNING  MTU:65536  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)</p>
+<p>rmnet0    Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00<br>
+UP RUNNING  MTU:2000  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)</p>
+<p>root@swi-mdm9x28-wp:~# lsusb -t<br>
+/:  Bus 01.Port 1: Dev 1, Class=root_hub, Driver=msm_hsic_host/1p, 480M<br>
+|__ Port 1: Dev 2, If 0, Class=Hub, Driver=hub/3p, 480M<br>
+|__ Port 1: Dev 7, If 0, Class=Vendor Specific Class, Driver=smsc95xx, 480M<br>
+|__ Port 2: Dev 4, If 0, Class=Vendor Specific Class, Driver=ftdi_sio, 12M<br>
+|__ Port 3: Dev 5, If 0, Class=Vendor Specific Class, Driver=, 12M</p>
+<p>root@swi-mdm9x28-wp:~# ifconfig eth0 up<br>
+[ 2226.299249] smsc95xx 1-1.1:1.0 eth0: usbnet_open<br>
+root@swi-mdm9x28-wp:~# [ 2227.941263] smsc95xx 1-1.1:1.0 eth0: link up, 100Mbps, full-duplex, lpa 0xC5E1</p>
+<p>root@swi-mdm9x28-wp:~# ifconfig<br>
+ecm0      Link encap:Ethernet  HWaddr 16:EA:A5:7C:D6:8C<br>
+inet addr:192.168.2.2  Bcast:192.168.2.255  Mask:255.255.255.0<br>
+inet6 addr: fe80::14ea:a5ff:fe7c:d68c/64 Scope:Link<br>
+UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:15 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:0 (0.0 B)  TX bytes:1146 (1.1 KiB)</p>
+<p>eth0      Link encap:Ethernet  HWaddr 46:AA:14:8A:E1:65<br>
+inet addr:10.42.0.46  Bcast:10.42.0.255  Mask:255.255.255.0<br>
+UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1<br>
+RX packets:16 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:16 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:2432 (2.3 KiB)  TX bytes:3480 (3.3 KiB)</p>
+<p>lo        Link encap:Local Loopback<br>
+inet addr:127.0.0.1  Mask:255.0.0.0<br>
+inet6 addr: ::1/128 Scope:Host<br>
+UP LOOPBACK RUNNING  MTU:65536  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)</p>
+<p>rmnet0    Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00<br>
+UP RUNNING  MTU:2000  Metric:1<br>
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)</p>
+<p>root@swi-mdm9x28-wp:~#</p>
+<p>Do you have any idea why eth0 might be being deregistered in the first place?</p>
+          <p><a href="https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320/5</link>
+        <pubDate>Thu, 10 Aug 2023 09:14:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10320-5</guid>
+        <source url="https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320.rss">Ethernet device deregistered when the legato framework starts up</source>
+      </item>
+      <item>
+        <title>Ethernet device deregistered when the legato framework starts up</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I don’t see problem with WP76 R16 with mangoh red board, please note that you need to change the state of GPIO2 to initilize the eth0 interface:</p>
+<aside class="quote quote-modified" data-post="2" data-topic="5001">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="24" height="24" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/48/997_2.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/wp7702-how-to-enable-ethernet-iot-card/5001/2">WP7702 how to enable ethernet IoT card?</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-red/12"><span class="badge-category-bg" style="background-color: #DF1E2E;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-red">mangOH Red</span></a>
+  </div>
+  <blockquote>
+    please see here: 
+
+You might also add the following to start the card: 
+echo 2 &gt; /sys/class/gpio/export 
+echo out &gt; /sys/class/gpio/gpio2/direction 
+echo 1 &gt; /sys/class/gpio/gpio2/value
+  </blockquote>
+</aside>
+
+<pre><code class="lang-auto">
+root@fx30:~# ifconfig eth0
+ifconfig: eth0: error fetching interface information: Device not found
+
+root@fx30:~# echo 2 &gt; /sys/class/gpio/export
+root@fx30:~# echo out &gt; /sys/class/gpio/gpio2/direction
+root@fx30:~# echo 1 &gt; /sys/class/gpio/gpio2/value
+root@fx30:~#
+root@fx30:~# ifconfig eth0
+eth0      Link encap:Ethernet  HWaddr 6A:EF:D0:EE:03:36
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+root@fx30:~# cm info
+Device:                        WP7609
+IMEI:                          359782080112345
+IMEISV:                        E
+FSN:                           WA803370312345
+Firmware Version:              SWI9X07Y_02.37.03.00 73df45 jenkins 2020/04/08 10:59:14
+Bootloader Version:            SWI9X07Y_02.37.03.00 73df45 jenkins 2020/04/08 10:59:14
+MCU Version:                   002.015
+PRI Part Number (PN):          9908102
+PRI Revision:                  001.000
+Carrier PRI Name:              GENERIC
+Carrier PRI Revision:          002.095_003
+SKU:                           1103843
+Last Reset Cause:              Power Down
+Resets Count:                  Expected: 122    Unexpected: 0
+root@fx30:~# legato version
+19.11.2_4ad011d85a76309438be40fc19e7153a
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320/4</link>
+        <pubDate>Thu, 10 Aug 2023 08:47:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10320-4</guid>
+        <source url="https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320.rss">Ethernet device deregistered when the legato framework starts up</source>
+      </item>
+      <item>
+        <title>Ethernet device deregistered when the legato framework starts up</title>
+        <dc:creator><![CDATA[philipboucherat]]></dc:creator>
+        <description><![CDATA[
+            <p>Same thing happens when you start the framework at power on.</p>
+          <p><a href="https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320/3</link>
+        <pubDate>Thu, 10 Aug 2023 08:40:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10320-3</guid>
+        <source url="https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320.rss">Ethernet device deregistered when the legato framework starts up</source>
+      </item>
+      <item>
+        <title>Ethernet device deregistered when the legato framework starts up</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>how about using the default setting to enable legato framework at power on?</p>
+          <p><a href="https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320/2</link>
+        <pubDate>Thu, 10 Aug 2023 01:18:48 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10320-2</guid>
+        <source url="https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320.rss">Ethernet device deregistered when the legato framework starts up</source>
+      </item>
+      <item>
+        <title>Ethernet device deregistered when the legato framework starts up</title>
+        <dc:creator><![CDATA[philipboucherat]]></dc:creator>
+        <description><![CDATA[
+            <p>I’m using a mangOH Yellow board with WP7607 module and a Talon ethernet daughter board. When the mangOH boots, if I disable the legato startup, the ethernet port is registered as eth0, it gets an IP address via dhcp etc., and it works fine. But then if I start legato, the eth0  device gets deregistered. Same on both R16 and R17 software. I’m not sure why this is happening, and is there anything I can do to stop it?</p>
+<p>Here is dmesg before starting legato, and you can see eth0 comes up :</p>
+<p>dmesg:<br>
+[   25.945887] QTI:start<br>
+[   26.007291] done<br>
+[   26.037476] LE_KPI: end initscript /etc/rcS.d/S99start_qti_le<br>
+[   26.076692] QCMAP:Start DHCP server<br>
+[   26.083355] QCMAP:DHCP server started<br>
+[   26.209007] USB QCMAP NL IOCTL Snd GETNEIGH Succ<br>
+[   30.991475] gpio_check_and_wake: wake-n_gpio26 STATE=WAKEUP<br>
+[   30.999032] swimcu_calibrate_event_handle: MCU calibrate completed with remaining time 0<br>
+[   30.999059] swimcu_lpo_calibrate_calc: MCU time=30000 vs MDM time=30143<br>
+[   30.999087] gpio_check_and_wake: wake-n_gpio26 STATE=SLEEP<br>
+[   34.640533] apr_register: Modem is not Up<br>
+[   34.640582] adm_memory_map_regions: Unable to register ADM<br>
+[   34.643541] adm_map_cal_data: map did not work! cal_type 0 ret -19<br>
+[   34.648924] map_memory: map_cal failed, cal type 10, ret = -19!<br>
+[   34.656013] adm_alloc_cal: cal_utils_alloc_block failed, ret = -19, cal type = 10!<br>
+[   34.660982] call_allocs: alloc failed!<br>
+[   90.345424] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready<br>
+[   90.348464] smsc95xx 1-1.1:1.0 eth0: link up, 100Mbps, full-duplex, lpa 0xC5E1<br>
+[   90.405774] QTI:ETH mode<br>
+[   90.414648] QTI:LINK_UP message posted<br>
+[   90.851589] nf_conntrack: default automatic helper assignment has been turned off for security reasons and CT-based  firewall rule not found. Use the iptables CT target to attach helpers in.<br>
+[  105.966379] 50default (1730) used greatest stack depth: 4492 bytes left<br>
+[  116.223420] QTI:LINK_UP Processed</p>
+<p>And this is dmesg later when legato is started, and eth0 gets deregistered :</p>
+<p>[  116.223420] QTI:LINK_UP Processed  &lt;======= Last dmesg before running legato startup script.<br>
+[  857.392959] sps:BAM 0x07884000 (va:0xdbae92bb) enabled: ver:0x18, number of pipes:24<br>
+[  863.755213] gpio_map_name_to_num: find GPIO 76<br>
+[  863.761450] gpio_map_name_to_num: find GPIO 38<br>
+[  864.005398] smsc95xx 1-1.1:1.0 eth0: Failed to read reg index 0x00000114: -71<br>
+[  864.005413] smsc95xx 1-1.1:1.0 eth0: Error reading MII_ACCESS<br>
+[  864.005422] smsc95xx 1-1.1:1.0 eth0: MII is busy in smsc95xx_mdio_read<br>
+[  864.005430] smsc95xx 1-1.1:1.0 eth0: Failed to read MII_BMSR<br>
+[  864.018932] usb 1-1.1: USB disconnect, device number 3<br>
+[  864.021475] smsc95xx 1-1.1:1.0 eth0: unregister ‘smsc95xx’ usb-7c00000.hsic_host-1.1, smsc95xx USB 2.0 Ethernet<br>
+[  864.021597] smsc95xx 1-1.1:1.0 eth0: usbnet_stop<br>
+[  864.023418] [RMNET:HI] rmnet_config_notify_cb(): Kernel is trying to unregister eth0<br>
+[  864.040379] [RMNET:HI] rmnet_config_notify_cb(): Kernel is trying to unregister eth0<br>
+[  864.141753] USB QCMAP NL IOCTL Snd GETNEIGH Succ<br>
+[  864.146045] QTI:LINK_DOWN message posted<br>
+[  864.149874] QTI:LINK_DOWN Processed<br>
+[  864.280252] usb 1-1.1: new high-speed USB device number 6 using msm_hsic_host<br>
+[  864.391486] usb 1-1.1: New USB device found, idVendor=0424, idProduct=9e00<br>
+[  864.391500] usb 1-1.1: New USB device strings: Mfr=0, Product=0, SerialNumber=0<br>
+[  864.394993] smsc95xx v1.0.6<br>
+[  864.491114] smsc95xx 1-1.1:1.0 eth0: register ‘smsc95xx’ at usb-7c00000.hsic_host-1.1, smsc95xx USB 2.0 Ethernet, 0a:5d:07:9a:d4:31<br>
+[  864.501575] mdm9607-asoc-snd soc:sound-wm8944: Defering mdm_asoc_machine_probe, q6_state 0<br>
+[  864.650932] smsc95xx 1-1.1:1.0 eth0: usbnet_open<br>
+[  864.651654] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready<br>
+[  864.664363] USB QCMAP NL IOCTL Snd GETNEIGH Succ<br>
+[  866.185309] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready<br>
+[  866.187313] smsc95xx 1-1.1:1.0 eth0: link up, 100Mbps, full-duplex, lpa 0xC5E1<br>
+[  866.239710] QTI:ETH mode<br>
+[  866.244728] QTI:LINK_UP Processed<br>
+[  866.249149] QTI:LINK_UP message posted<br>
+[  869.445782] gpio_map_name_to_num: find GPIO 76<br>
+[  869.447878] gpio_map_name_to_num: find GPIO 38<br>
+[  869.650924] usb 1-1.1: USB disconnect, device number 6<br>
+[  869.653446] smsc95xx 1-1.1:1.0 eth0: unregister ‘smsc95xx’ usb-7c00000.hsic_host-1.1, smsc95xx USB 2.0 Ethernet<br>
+[  869.653562] smsc95xx 1-1.1:1.0 eth0: usbnet_stop<br>
+[  869.654989] [RMNET:HI] rmnet_config_notify_cb(): Kernel is trying to unregister eth0<br>
+[  869.670397] [RMNET:HI] rmnet_config_notify_cb(): Kernel is trying to unregister eth0<br>
+[  869.763373] USB QCMAP NL IOCTL Snd GETNEIGH Succ<br>
+[  869.782761] QTI:LINK_DOWN message posted<br>
+[  869.786633] QTI:LINK_DOWN Processed</p>
+          <p><a href="https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320/1</link>
+        <pubDate>Wed, 09 Aug 2023 16:00:47 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10320-1</guid>
+        <source url="https://forum.mangoh.io/t/ethernet-device-deregistered-when-the-legato-framework-starts-up/10320.rss">Ethernet device deregistered when the legato framework starts up</source>
+      </item>
+  </channel>
+</rss>

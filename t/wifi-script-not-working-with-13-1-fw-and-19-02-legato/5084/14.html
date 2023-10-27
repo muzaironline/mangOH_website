@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WIFI Script Not working with 13.1 FW and 19.02 Legato - #14 by jyijyi - mangOH forum</title>
+    <meta name="description" content="Hi, 
+We are developing a product based on WP7608 and we have a wifi module form TI (WL1831MOD). when we try to test WIFI module on FW release 10.1 and 9 it works fine but when we try to test the same Hardware on FW13.1 w&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;WIFI Script Not working with 13.1 FW and 19.02 Legato&#39;" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084/14" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084/14" />
+<meta property="og:title" content="WIFI Script Not working with 13.1 FW and 19.02 Legato" />
+<meta name="twitter:title" content="WIFI Script Not working with 13.1 FW and 19.02 Legato" />
+<meta property="og:description" content="I have no idea what arc4 module is.  I don’t even know if this is related to wifi command.  Also it is hard to explain why hardware change will have arc4 difference.  Have you compared the dmesg ?  You might also have a look on this thread which is similar to your case:" />
+<meta name="twitter:description" content="I have no idea what arc4 module is.  I don’t even know if this is related to wifi command.  Also it is hard to explain why hardware change will have arc4 difference.  Have you compared the dmesg ?  You might also have a look on this thread which is similar to your case:" />
+<meta property="article:published_time" content="2020-08-24T10:17:17+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="next" href="/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084?page=2">
+
+    
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">WIFI Script Not working with 13.1 FW and 19.02 Legato</a>
+    </h1>
+
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='WIFI Script Not working with 13.1 FW and 19.02 Legato'>
+        <meta itemprop='articleSection' content='Uncategorized'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-24T10:03:25Z' class='post-time'>
+                    August 24, 2020, 10:03am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-24T10:03:25Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>do you mean the hardware change will make the difference in arc4?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-24T10:04:06Z' class='post-time'>
+                    August 24, 2020, 10:04am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-24T10:04:06Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I think you should contact distributor for hardware review.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gopalagowda'><span itemprop='name'>gopalagowda</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-24T10:05:25Z' class='post-time'>
+                    August 24, 2020, 10:05am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-24T10:05:25Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>we already got it reviewed from them. they said all looks fine. due to lack of local support, i am writing here in forum.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-24T10:06:53Z' class='post-time'>
+                    August 24, 2020, 10:06am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-24T10:07:23Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>as you say toggle GPIOs from terminal commands is ok but GPIOs are not even toggling when running the TIWIFI Script , i think this is a good start point for you to debug why the script is not running the GPIO command.</p>
+<p>Another method is that you migrate the FW one by one , so that you can understand why it works on R10.1 but not working on R12:</p>
+<p>swi-wp76_2.0.1 │ SDK for WP76 (Release 10.1 + Legato 18.06.3)<br>
+│ swi-wp76_2.3.0 │ SDK for WP76 (Release 10.1 + Legato 18.09.0)<br>
+│ swi-wp76_2.4.0 │ SDK for WP76 (Release 10.1 + Legato 18.10.0)<br>
+│ swi-wp76_2.4.4 │ SDK for WP76 (Release 10.1 + Legato 18.10.1)<br>
+│ swi-wp76_2.4.8 │ SDK for WP76 (Release 10.1 + Legato 18.10.2)<br>
+│ swi-wp76_2.4.10 │ SDK for WP76 (Release 10.1 + Legato 18.10.3)<br>
+│ swi-wp76_2.6.0 │ SDK for WP76 (Release 10.1 + Legato 19.01.0)<br>
+│ swi-wp76_3.0.0 │ SDK for WP76 (Release 12 + Legato 18.10.3)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gopalagowda'><span itemprop='name'>gopalagowda</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-24T10:14:06Z' class='post-time'>
+                    August 24, 2020, 10:14am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-24T10:14:06Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>HI jyi,</p>
+<p>i have another question. the module “arc4 1636 2 - Live 0xbf110000” should be automatically running on the module right? why is it not running on our device?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-24T10:17:17Z' class='post-time'>
+                    August 24, 2020, 10:17am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-24T14:05:21Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I have no idea what arc4 module is.<br>
+I don’t even know if this is related to wifi command.<br>
+Also it is hard to explain why hardware change will have arc4 difference.<br>
+Have you compared the dmesg ?</p>
+<p>You might also have a look on this thread which is similar to your case:</p><aside class="quote" data-post="16" data-topic="5003">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003/16">Bringup of TI Talon [wl18xx] wifi IOT module on WP7607 Custom Board</a> <a class="badge-wrapper  bullet" href="/c/iot-cards/8"><span class="badge-category-bg" style="background-color: #621B4B;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/iot-cards">IoT Cards</span></a>
+  </div>
+  <blockquote>
+    If you confirmed the mangoh red board is using 3V SDIO bus, you might try the same at your custom board.
+  </blockquote>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gopalagowda'><span itemprop='name'>gopalagowda</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/88828396035ffbca9200a6f894b6e1aa3114e398.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-27T16:15:21Z' class='post-time'>
+                    August 27, 2020,  4:15pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-27T16:15:21Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Jyi,</p>
+<p>when i tried to test wifi with 13.1 and legato 19.02 i get this error from dmesg.<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/88828396035ffbca9200a6f894b6e1aa3114e398.png" data-download-href="/uploads/short-url/jtCyMiPuUfUaiQs6fvs2qVPq9vO.png?dl=1" title="image" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/88828396035ffbca9200a6f894b6e1aa3114e398.png" alt="image" data-base62-sha1="jtCyMiPuUfUaiQs6fvs2qVPq9vO" width="690" height="116" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/8/88828396035ffbca9200a6f894b6e1aa3114e398_2_10x10.png"><div class="meta"><svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">959×162 8.77 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg></div></a></div></p>
+<p>its not even able to assign GPIO but it works fine when i tired with 10.1 and legato 18.06<br>
+attaching the dmesg log for 18.06<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/22549415e9402d4dad654498fd440f92797930ab.png" data-download-href="/uploads/short-url/4THrr0cQd6yLKKOeN8xjrjVhjD5.png?dl=1" title="image" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/22549415e9402d4dad654498fd440f92797930ab.png" alt="image" data-base62-sha1="4THrr0cQd6yLKKOeN8xjrjVhjD5" width="690" height="112" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/22549415e9402d4dad654498fd440f92797930ab_2_10x10.png"><div class="meta"><svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">888×145 7.17 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg></div></a></div></p>
+<p>what could be the issue. if i suspect the hardware issue, the device should not work with even 18.06 but its working fine. doesn’t it look like some bug on your firmware.</p>
+<p>please let us know if we need to do any modifications on the firmware or the wifi script?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-27T20:41:28Z' class='post-time'>
+                    August 27, 2020,  8:41pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-27T21:02:30Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>What is the value of at+wiocfg?<br>
+Fyi,. mdm gpio 58 = WP76 GPIO 8 = IOT0_GPIO4 = external IOT wifi enable,  you can try on linux console amd see if you can control gpio8</p>
+<p>You need to investigate why mangoh red board can control GPIO8 but your board cannot do so in R13.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_17' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gopalagowda'><span itemprop='name'>gopalagowda</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-29T11:35:28Z' class='post-time'>
+                    August 29, 2020, 11:35am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-29T11:48:07Z'>
+              <span itemprop='position'>17</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi,<br>
+please find the below response for at+wiocfg?</p>
+<p>29-08-2020 17:17:08.713 [TX] - at+wiocfg?</p>
+<p>29-08-2020 17:17:14.468 [RX] - <br>
++WIOCFG: 2,16,0,0,1,0,0<br>
++WIOCFG: 4,16,0,0,1,0,0<br>
++WIOCFG: 6,0,0,0,1,0,0<br>
++WIOCFG: 7,16,0,0,1,0,0<br>
++WIOCFG: 8,16,0,0,1,0,0<br>
++WIOCFG: 13,16,0,0,1,0,0<br>
++WIOCFG: 21,16,0,0,1,0,0<br>
++WIOCFG: 22,16,0,0,1,0,0<br>
++WIOCFG: 23,16,0,0,1,0,0<br>
++WIOCFG: 24,16,0,0,1,0,0<br>
++WIOCFG: 25,16,0,0,1,0,0<br>
++WIOCFG: 28,16,0,0,1,0,0<br>
++WIOCFG: 29,16,0,0,1,0,0<br>
++WIOCFG: 30,16,0,0,1,0,0<br>
++WIOCFG: 31,16,0,0,1,0,0<br>
++WIOCFG: 32,16,0,0,1,0,0<br>
++WIOCFG: 33,16,0,0,1,0,0<br>
++WIOCFG: 35,16,0,0,1,0,0<br>
++WIOCFG: 42,16,0,0,1,0,0<br>
+<br>
+OK</p>
+<p>when we try  to use the command from terminal we could see the GPIO toggle properly but its not working from the script.<br>
+we are using below commands to check on terminal<br>
+echo 8 &gt; /sys/class/gpio/export<br>
+echo out &gt; /sys/class/gpio/gpio8/direction<br>
+echo 0 &gt; /sys/class/gpio/gpio8/value<br>
+echo 1 &gt; /sys/class/gpio/gpio8/value</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_18' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gopalagowda'><span itemprop='name'>gopalagowda</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-29T11:42:40Z' class='post-time'>
+                    August 29, 2020, 11:42am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-29T11:42:40Z'>
+              <span itemprop='position'>18</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>All we are asking is we could able to see the pins are toggling properly on FW 10.1 and legato 18.06 but when we use legato 19.02, why the same GPIOs are not toggling. we are keeping all the factors (Hardware, tiwifi script, power) unchanged other than Firmware version and legato version. if the device works fine on one version of the Firmware and does not work on other version of the firmware. what could be the issue.?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_19' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-29T15:34:16Z' class='post-time'>
+                    August 29, 2020,  3:34pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-29T15:35:14Z'>
+              <span itemprop='position'>19</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Have you investigated why the script is not working but command line is ok?</p>
+<p>Another method is that you migrate the FW one by one , so that you can understand why it works on R10.1 but not working on R12:</p>
+<p>swi-wp76_2.0.1 │ SDK for WP76 (Release 10.1 + Legato 18.06.3)<br>
+│ swi-wp76_2.3.0 │ SDK for WP76 (Release 10.1 + Legato 18.09.0)<br>
+│ swi-wp76_2.4.0 │ SDK for WP76 (Release 10.1 + Legato 18.10.0)<br>
+│ swi-wp76_2.4.4 │ SDK for WP76 (Release 10.1 + Legato 18.10.1)<br>
+│ swi-wp76_2.4.8 │ SDK for WP76 (Release 10.1 + Legato 18.10.2)<br>
+│ swi-wp76_2.4.10 │ SDK for WP76 (Release 10.1 + Legato 18.10.3)<br>
+│ swi-wp76_2.6.0 │ SDK for WP76 (Release 10.1 + Legato 19.01.0)<br>
+│ swi-wp76_3.0.0 │ SDK for WP76 (Release 12 + Legato 18.10.3)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_20' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Bobby'><span itemprop='name'>Bobby</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-31T18:00:29Z' class='post-time'>
+                    August 31, 2020,  6:00pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-31T18:00:29Z'>
+              <span itemprop='position'>20</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Sierra Tech Support team:<br>
+can you please look into this issue for us. Our application works fine on one FW version but not on the other version. checking one FW version at a time, as suggested above, is not a practical way to troubleshoot. We have tried to involve local team to help but not much luck.<br>
+Please advise if anyone else has faced this issue and if so, what was the resolution? I don’t believe the application we are trying to implement is anything ‘special’?<br>
+we can get on a call to demo the problem if there is a Sierra Wireless resource willing to help.<br>
+I look forward to hearing back.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_21' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-31T23:10:07Z' class='post-time'>
+                    August 31, 2020, 11:10pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-01T04:52:34Z'>
+              <span itemprop='position'>21</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>What is the reason that “above is not a practical way to troubleshoot”?<br>
+" Migrate the FW one by one" can let you know why it works on mangoh board but not in your board.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_22' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gopalagowda'><span itemprop='name'>gopalagowda</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-01T09:08:48Z' class='post-time'>
+                    September 1, 2020,  9:08am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-01T09:08:48Z'>
+              <span itemprop='position'>22</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Jyi,</p>
+<p>I tried with multiple FWs and legato versions. the WIFI script works fine with 9/10.1 FW with any legato version from 18.06 till 19.02 but it does not work on 12/13.1 FW with all the legato version. looks like some bug on 12/13.1 firmware.<br>
+FW tested     Legato Version           WIFI Script status<br>
+Release 9         18.03                              Working<br>
+Release 9         18.06                              Working<br>
+Release 9         18.10                              Working<br>
+Release 9         19.02                              Working<br>
+Release 10.1    18.03                              Working<br>
+Release 10.1    18.06                              Working<br>
+Release 10.1    18.10                              Working<br>
+Release 10.1    19.02                              Working<br>
+Release 12       18.03                              Not Working<br>
+Release 12       18.06                              Not Working<br>
+Release 12       18.10                              Not Working<br>
+Release 12       19.02                              Not Working<br>
+Release 13.1    18.03                              Not Working<br>
+Release 13.1    18.06                              Not Working<br>
+Release 13.1    18.10                              Not Working<br>
+Release 13.1    19.02                              Not Working</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_23' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-01T10:01:56Z' class='post-time'>
+                    September 1, 2020, 10:01am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-02T04:23:42Z'>
+              <span itemprop='position'>23</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>It is hard to conclude there is some bug on 12/13.1 firmware as you already said no problem is found on mangOH board, right?</p>
+<p>Take these two cases as example:</p>
+<ol>
+<li>Release 10.1 19.02 Working</li>
+<li>Release 12 19.02 Not Working</li>
+</ol>
+<p>Suppose you are in case 1 environment which is working fine, just update the yocto.cwe of R12, if there is problem, that means there is some change in yocto linux which not compatible with your board.</p>
+<p>By the way, can you start your development on “Release 10.1 19.02 Working”?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_24' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gopalagowda'><span itemprop='name'>gopalagowda</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-01T10:17:40Z' class='post-time'>
+                    September 1, 2020, 10:17am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-01T10:17:40Z'>
+              <span itemprop='position'>24</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Earlier we were using 10.1 only, we had some issues related to network connectivity and cellular. so, as per local support teams suggestion we moved to 13.1. in 13.1 we are facing these issues related to WIFI script.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_25' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-01T10:22:16Z' class='post-time'>
+                    September 1, 2020, 10:22am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-01T10:40:00Z'>
+              <span itemprop='position'>25</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>If the yocto cwe not compatible to your board,  you can try to use r10.1 yocto +r12/r13 modem.cwe +legato 19.2 or higher.</p>
+<p>Honestly,  i never tried such combination and not sure if there is any potential issue,   but if it works for you,  might be a good choice.</p>
+<p>Btw,  if this is yocto problem,  you can diff the file /etc/init.d/tiwifi im both Fw r10 amd r12, and see if there is any clue.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_26' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pawelkaniewski'><span itemprop='name'>pawelkaniewski</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-07T13:05:58Z' class='post-time'>
+                    September 7, 2020,  1:05pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-07T13:06:24Z'>
+              <span itemprop='position'>26</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I tried to use wifi script on mangOH red board, with newest FW 13.X and it does not work.  I have already mentioned this issue on forums, but there were no solution for that problem. <a href="https://forum.mangoh.io/t/mangoh-red-77-wifi-client-config/4881">MangOH RED 77 - Wifi Client config</a><br>
+Considering that, I believe that <code>gopalagowda's</code> problem is not related with bad PCB design.<br>
+The real problem is that Sierra doesn’t really care about problems with their software…</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_27' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-07T13:19:19Z' class='post-time'>
+                    September 7, 2020,  1:19pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-08T00:49:38Z'>
+              <span itemprop='position'>27</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I think your problem is totally different one.<br>
+You are using MTK wifi chipset on mangoh red board, Gopalagowda is using TI IOT WIFI card on the expension slot.<br>
+And he does not find problem on mangoh red board with theb TI IOT WIFI card with FW R13 on WP76 module!!!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_28' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pawelkaniewski'><span itemprop='name'>pawelkaniewski</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-09-07T13:40:45Z' class='post-time'>
+                    September 7, 2020,  1:40pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-09-07T13:40:45Z'>
+              <span itemprop='position'>28</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>OK, so there are two problems with two different devices.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084?page=2">next page →</a></b></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

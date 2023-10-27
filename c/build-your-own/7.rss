@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:discourse="http://www.discourse.org/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Build your own - mangOH forum</title>
+    <link>https://forum.mangoh.io/c/build-your-own/7</link>
+    <description>Topics in the &#39;Build your own&#39; category Build your own hardware based on mangOH designs.</description>
+    
+      <lastBuildDate>Mon, 17 Oct 2022 19:00:24 +0000</lastBuildDate>
+      <atom:link href="https://forum.mangoh.io/c/build-your-own/7.rss" rel="self" type="application/rss+xml" />
+        <item>
+          <title>Spi clock interruption</title>
+          <dc:creator><![CDATA[FransKanters]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>Hi,</p>
+<p>I’m using a custom WP7702 board and have strange behavior on the SPI bus. When sending 16 bytes in one write command, I see short bursts of 8-bits and then the clock pauses for 25us before sending the next 8 bits. I am expecting a continuous clock while sending all 16 bytes.</p>
+<p>Firmware 14.1, legato 19.11.5</p>
+<p>The code i used:</p>
+<pre><code class="lang-auto">COMPONENT_INIT
+{
+    LE_INFO("===========&gt; SPI application has started");
+
+    le_result_t res;
+
+    le_spi_DeviceHandleRef_t spiHandle;
+    res = le_spi_Open("spidev1.0", &amp;spiHandle);
+    LE_FATAL_IF(res != LE_OK, "spi_Open failed with result=%d", res);
+
+    LE_INFO("Configuring SPI");
+    le_spi_Configure(spiHandle, 0, 8, 960000, 0);
+
+    LE_INFO("Performing a SPI write of 16 bytes");
+    {
+        const uint8_t writeData[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+        LE_ASSERT_OK(le_spi_WriteHD(spiHandle, writeData, NUM_ARRAY_MEMBERS(writeData)));
+    }
+    LE_INFO("SPI write completed successfully");
+
+    le_spi_Close(spiHandle);
+}
+</code></pre>
+<p>This is the result from the scope:</p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/34b8f1c08924265cae3a6f42e74a0e0c817a8a01.png" data-download-href="/uploads/short-url/7wp4kFuSyVFUUc0zhyCD6tTrnzP.png?dl=1" title="SPI_probleem" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/34b8f1c08924265cae3a6f42e74a0e0c817a8a01.png" alt="SPI_probleem" data-base62-sha1="7wp4kFuSyVFUUc0zhyCD6tTrnzP" width="690" height="444" data-dominant-color="11100F"></a></div><p></p>
+<p>C3 (orange) is the SPI clock signal<br>
+C4 (purple) is the SPI data signal</p>
+<p>Does anyone know what causes this? The speed is cut by a factor 4 and I have a slave that does not like the interruption.</p>
+<p>Best regards,<br>
+Frans.</p>
+            <p><small>3 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/spi-clock-interruption/10147">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/spi-clock-interruption/10147</link>
+          <pubDate>Mon, 17 Oct 2022 19:00:24 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-10147</guid>
+          <source url="https://forum.mangoh.io/t/spi-clock-interruption/10147.rss">Spi clock interruption</source>
+        </item>
+        <item>
+          <title>USB disconnection sleep mode</title>
+          <dc:creator><![CDATA[FransKanters]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>Hi All,</p>
+<p>We have a custom WP7702 board that we are currently building test firmware for. The radio is not yet used, but we have several IO peripherals connected. All is working fine when the USB is connected (logging via ssh connection confirms this). We also have two SPI displays connected which show some information and a few buttons for a GUI.</p>
+<p>However, when the USB cable is disconnected, the module seems to go to some sleep state or low power state. The device still works, but key handling and peripheral communication seems slow and irregular. As if the module is going in and out of sleep modes.</p>
+<p>Is there a simple way to disable sleep mode of the WP7702 to check if this is the problem?</p>
+<p>Best regards,<br>
+Frans.</p>
+            <p><small>8 posts - 3 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/usb-disconnection-sleep-mode/9902">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/usb-disconnection-sleep-mode/9902</link>
+          <pubDate>Thu, 31 Mar 2022 14:06:27 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-9902</guid>
+          <source url="https://forum.mangoh.io/t/usb-disconnection-sleep-mode/9902.rss">USB disconnection sleep mode</source>
+        </item>
+        <item>
+          <title>How to generate 32KHz sleep clock</title>
+          <dc:creator><![CDATA[markfisher]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>I’m looking for instructions how to generate 32.768Khz sleep clock from WP7607/WP7611 modules. We need it as part of our Bluetooth companion module power up process. By default it does not exist and I cannot find any API for it in AT commands or Legato. Also once generated , will it be available while in USB_SS mode or only in active mode?</p>
+            <p><small>6 posts - 4 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755</link>
+          <pubDate>Tue, 01 Dec 2020 10:44:02 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-5755</guid>
+          <source url="https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755.rss">How to generate 32KHz sleep clock</source>
+        </item>
+        <item>
+          <title>WiFi Access point+cellular</title>
+          <dc:creator><![CDATA[robweaver]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>Today we use Raspberry Pi in our facilities as an edge server.  It communicates with our devices on WiFi and aggregates/processes data and forwards to our AWS cloud.</p>
+<p>I want to add cellular support to this edge device, but I’m not locked into continuing to use the Pi.</p>
+<p>I’m wondering if the Mangoh platform could be used to build a device that can function as a WiFi access point and cellular modem?</p>
+            <p><small>2 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/wifi-access-point-cellular/5457">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/wifi-access-point-cellular/5457</link>
+          <pubDate>Wed, 21 Oct 2020 16:23:54 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-5457</guid>
+          <source url="https://forum.mangoh.io/t/wifi-access-point-cellular/5457.rss">WiFi Access point+cellular</source>
+        </item>
+        <item>
+          <title>Problem: Installing Legato and mangOH on Device</title>
+          <dc:creator><![CDATA[chaipattanasaisa-ard]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>I think I have the same problem with some posts in here.<br>
+I follow every step of installations the YouTube from the begining ( <a href="https://www.youtube.com/watch?v=rUqzkDaQNa4&amp;feature=youtu.be" rel="noopener nofollow ugc">https://www.youtube.com/watch?v=rUqzkDaQNa4&amp;feature=youtu.be</a>). I am trying to “make wp85” in red mangoH. But it found out about compiling problem as below.</p>
+<blockquote>
+<p>Module: WiFi<br>
+********************* VERSION ********************<br>
+Legato WiFi version: 18.05.0</p>
+<hr>
+<p>Module: Dualsys<br>
+make -f Makefile.hostTools<br>
+make[1]: Entering directory ‘/home/bonsai/workspace/legatoAF/legato’<br>
+mkdir -p bin<br>
+Using ninja installed at: /usr/bin/ninja<br>
+mkdir -p /home/bonsai/workspace/legatoAF/legato/build/tools<br>
+export TOOLS_ARCH=x86_64 &amp;&amp; <br>
+framework/tools/mkTools/ninja-generator<br>
+Tools arch: x86_64<br>
+ln -sf …/build/tools/mk bin/mk<br>
+ln -sf mk bin/mkcomp<br>
+ln -sf mk bin/mkexe<br>
+ln -sf mk bin/mkapp<br>
+ln -sf mk bin/mksys<br>
+ln -sf …/framework/tools/scripts/splitdebug …/framework/tools/scripts/instsys …/framework/tools/scripts/settime …/framework/tools/scripts/mkinfo …/framework/tools/scripts/instlegato …/framework/tools/scripts/stoplegato …/framework/tools/scripts/cextgenerator.py …/framework/tools/scripts/settz …/framework/tools/scripts/createsdk …/framework/tools/scripts/systoimg …/framework/tools/scripts/legato-qemu …/framework/tools/scripts/checkpa …/framework/tools/scripts/legato-install …/framework/tools/scripts/update-pack …/framework/tools/scripts/security-pack …/framework/tools/scripts/instapp …/framework/tools/scripts/mklegatoimg …/framework/tools/scripts/app …/framework/tools/scripts/av-pack …/framework/tools/scripts/releaselegato …/framework/tools/scripts/findtoolchain …/framework/tools/scripts/remoteDebug …/framework/tools/scripts/systocwe …/framework/tools/scripts/configlegatoenv …/framework/tools/scripts/update …/framework/tools/scripts/sbhelper …/framework/tools/scripts/configtargetssh …/framework/tools/scripts/legs …/framework/tools/scripts/gettargettype …/framework/tools/scripts/update-util …/framework/tools/scripts/configToolchainDirEnvVars …/framework/tools/scripts/simu …/framework/tools/scripts/fwupdate …/framework/tools/scripts/setname …/framework/tools/scripts/mkdoc …/framework/tools/scripts/startlegato …/framework/tools/scripts/shlib …/framework/tools/scripts/mklegatotreero bin/<br>
+ln -sf /home/bonsai/workspace/legatoAF/legato/framework/tools/ifgen/ifgen bin/<br>
+ln -sf /home/bonsai/workspace/legatoAF/legato/3rdParty/ima-support-tools/ima-sign.sh bin/<br>
+ln -sf /home/bonsai/workspace/legatoAF/legato/3rdParty/ima-support-tools/ima-gen-keys.sh bin/<br>
+make -C framework/tools/mkPatch mkPatch<br>
+make[2]: Entering directory ‘/home/bonsai/workspace/legatoAF/legato/framework/tools/mkPatch’<br>
+/usr/bin/gcc -Wall -Werror -o /home/bonsai/workspace/legatoAF/legato/bin/mkPatch <br>
+mkPatch.c /home/bonsai/workspace/legatoAF/legato/framework/liblegato/crc.c <br>
+-I/home/bonsai/workspace/legatoAF/legato/framework/include <br>
+-I/home/bonsai/workspace/legatoAF/legato/3rdParty/include<br>
+mkPatch.c: In function ‘main’:<br>
+mkPatch.c:1412:55: error: ‘%s’ directive output may be truncated writing up to 4095 bytes into a region of size between 4045 and 4063 [-Werror=format-truncation=]<br>
+1412 |                   “cat patch.%u.cwe.hdr patch.%u.cwe &gt;%s/patch-%s.cwe”,<br>
+|                                                       ^~<br>
+1413 |                   pid, pid, CurrentWorkDir, targetPtr );<br>
+|                             ~~~~~~~~~~~~~~<br>
+mkPatch.c:1411:9: note: ‘snprintf’ output 45 or more bytes (assuming 4140) into a destination of size 4096<br>
+1411 |         snprintf( CmdBuf, sizeof(CmdBuf),<br>
+|         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+1412 |                   “cat patch.%u.cwe.hdr patch.%u.cwe &gt;%s/patch-%s.cwe”,<br>
+|                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+1413 |                   pid, pid, CurrentWorkDir, targetPtr );<br>
+|                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+mkPatch.c:1147:60: error: ‘snprintf’ output may be truncated before the last format character [-Werror=format-truncation=]<br>
+1147 |                 snprintf(OrigName, sizeof(OrigName), “%s/%s”, CurrentWorkDir, OrigPtr);<br>
+|                                                            ^<br>
+mkPatch.c:1147:17: note: ‘snprintf’ output 2 or more bytes (assuming 4097) into a destination of size 4096<br>
+1147 |                 snprintf(OrigName, sizeof(OrigName), “%s/%s”, CurrentWorkDir, OrigPtr);<br>
+|                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+mkPatch.c:1170:60: error: ‘snprintf’ output may be truncated before the last format character [-Werror=format-truncation=]<br>
+1170 |                 snprintf(DestName, sizeof(DestName), “%s/%s”, CurrentWorkDir, DestPtr);<br>
+|                                                            ^<br>
+mkPatch.c:1170:17: note: ‘snprintf’ output 2 or more bytes (assuming 4097) into a destination of size 4096<br>
+1170 |                 snprintf(DestName, sizeof(DestName), “%s/%s”, CurrentWorkDir, DestPtr);<br>
+|                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+mkPatch.c:1223:60: error: ‘snprintf’ output may be truncated before the last format character [-Werror=format-truncation=]<br>
+1223 |                 snprintf(OrigName, sizeof(OrigName), “%s/%s”, CurrentWorkDir, OrigPtr);<br>
+|                                                            ^<br>
+mkPatch.c:1223:17: note: ‘snprintf’ output 2 or more bytes (assuming 4097) into a destination of size 4096<br>
+1223 |                 snprintf(OrigName, sizeof(OrigName), “%s/%s”, CurrentWorkDir, OrigPtr);<br>
+|                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+mkPatch.c:1253:60: error: ‘snprintf’ output may be truncated before the last format character [-Werror=format-truncation=]<br>
+1253 |                 snprintf(DestName, sizeof(DestName), “%s/%s”, CurrentWorkDir, DestPtr);<br>
+|                                                            ^<br>
+mkPatch.c:1253:17: note: ‘snprintf’ output 2 or more bytes (assuming 4097) into a destination of size 4096<br>
+1253 |                 snprintf(DestName, sizeof(DestName), “%s/%s”, CurrentWorkDir, DestPtr);<br>
+|                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+mkPatch.c:1389:60: error: ‘%s’ directive output may be truncated writing up to 4095 bytes into a region of size between 4048 and 4066 [-Werror=format-truncation=]<br>
+1389 |                           “cat patch.%u.hdr patch.%u.bin &gt;&gt;%s/patch-%s.cwe”,<br>
+|                                                            ^~<br>
+1390 |                           pid, pid, CurrentWorkDir, productPtr );<br>
+|                                     ~~~~~~~~~~~~~~<br>
+mkPatch.c:1388:17: note: ‘snprintf’ output 42 or more bytes (assuming 4137) into a destination of size 4096<br>
+1388 |                 snprintf( CmdBuf, sizeof(CmdBuf),<br>
+|                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+1389 |                           “cat patch.%u.hdr patch.%u.bin &gt;&gt;%s/patch-%s.cwe”,<br>
+|                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+1390 |                           pid, pid, CurrentWorkDir, productPtr );<br>
+|                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+mkPatch.c:20:16: error: ‘%s’ directive output may be truncated writing up to 4095 bytes into a region of size 4089 [-Werror=format-truncation=]<br>
+20 | <span class="hashtag">#define</span> BSDIFF “bsdiff”<br>
+|                ^~~~~~~~<br>
+mkPatch.c:1298:27: note: in expansion of macro ‘BSDIFF’<br>
+1298 |                           BSDIFF " %s %s patched.%u.bin.%d",<br>
+|                           ^~~~~~<br>
+mkPatch.c:1298:36: note: format string is defined here<br>
+1298 |                           BSDIFF " %s %s patched.%u.bin.%d",<br>
+|                                    ^~<br>
+mkPatch.c:20:16: note: using the range [0, 4294967295] for directive argument<br>
+20 | <span class="hashtag">#define</span> BSDIFF “bsdiff”<br>
+|                ^~~~~~~~<br>
+mkPatch.c:1298:27: note: in expansion of macro ‘BSDIFF’<br>
+1298 |                           BSDIFF " %s %s patched.%u.bin.%d",<br>
+|                           ^~~~~~<br>
+mkPatch.c:1297:17: note: ‘snprintf’ output between 25 and 8234 bytes into a destination of size 4096<br>
+1297 |                 snprintf( CmdBuf, sizeof(CmdBuf),<br>
+|                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+1298 |                           BSDIFF " %s %s patched.%u.bin.%d",<br>
+|                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+1299 |                           OrigName, tmpName, pid, patchNum );<br>
+|                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+cc1: all warnings being treated as errors<br>
+make[2]: *** [Makefile:25: mkPatch] Error 1<br>
+make[2]: Leaving directory ‘/home/bonsai/workspace/legatoAF/legato/framework/tools/mkPatch’<br>
+make[1]: *** [Makefile.hostTools:89: mkPatch] Error 2<br>
+make[1]: Leaving directory ‘/home/bonsai/workspace/legatoAF/legato’<br>
+make: *** [Makefile:298: tools] Error 2</p>
+</blockquote>
+<p>What’s wrong with this? About ‘environment variable’? or missing package compiler? I using MINT Linux OS.</p>
+            <p><small>5 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213</link>
+          <pubDate>Tue, 15 Sep 2020 11:53:48 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-5213</guid>
+          <source url="https://forum.mangoh.io/t/problem-installing-legato-and-mangoh-on-device/5213.rss">Problem: Installing Legato and mangOH on Device</source>
+        </item>
+        <item>
+          <title>Has anybody successfully used a MAX9867 CODEC?</title>
+          <dc:creator><![CDATA[sciscitatio]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>I plan to use the WP module in a product, loosely based on MangOH Red. But for a number of reasons I don’t want to use the Red’s CODEC instead I would like to use MAX9867.</p>
+<p>Unfortunately though we have a hole in the skill sets of our organisation when it comes to drivers &amp; kernel modules. Our software people are applications guys and I’m a hardware engineer with a basic working knowledge of Linux.</p>
+<p>I see there is driver code at <a href="https://github.com/torvalds/linux/blob/master/sound/soc/codecs/max9867.c" rel="nofollow noopener">https://github.com/torvalds/linux/blob/master/sound/soc/codecs/max9867.c</a> but our s/w guys don’t know if it’s suitable for the mangoh/legato platform ( think the comment was that it was for a later kernel), and I can’t commit to a hardware design not knowing if it will work. So I’m in a bit of a catch-22 <img src="https://emoji.discourse-cdn.com/twitter/slightly_frowning_face.png?v=9" title=":slightly_frowning_face:" class="emoji" alt=":slightly_frowning_face:"></p>
+<p>So, has anybody tried this device and got it working on either the Magngoh boards or their own device based on the WP modules? We’ll be using the WP7607.</p>
+<p>Or, is anyone willing to help and/or do the work for us on a contract basis? I have a couple of contacts for Linux engineers but they won’t be familiar with the target platform so would probably take just as long getting toolchains or build environments set up than they would doing the actual work.</p>
+<p>Thanks,</p>
+            <p><small>1 post - 1 participant</small></p>
+            <p><a href="https://forum.mangoh.io/t/has-anybody-successfully-used-a-max9867-codec/3734">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/has-anybody-successfully-used-a-max9867-codec/3734</link>
+          <pubDate>Wed, 12 Feb 2020 17:33:34 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-3734</guid>
+          <source url="https://forum.mangoh.io/t/has-anybody-successfully-used-a-max9867-codec/3734.rss">Has anybody successfully used a MAX9867 CODEC?</source>
+        </item>
+        <item>
+          <title>How To Know If AVSession Is Open On App Restart</title>
+          <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>Cross post from <a href="https://forum.legato.io/t/how-to-know-if-avsession-is-open-on-app-restart/" rel="nofollow noopener">How to Know if AVsession is Open on App Restart</a> the Legato forum as I hoping the Mangoh community has some additional thoughts.</p>
+<p>Thanks</p>
+            <p><small>1 post - 1 participant</small></p>
+            <p><a href="https://forum.mangoh.io/t/how-to-know-if-avsession-is-open-on-app-restart/3061">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/how-to-know-if-avsession-is-open-on-app-restart/3061</link>
+          <pubDate>Wed, 13 Nov 2019 20:05:58 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-3061</guid>
+          <source url="https://forum.mangoh.io/t/how-to-know-if-avsession-is-open-on-app-restart/3061.rss">How To Know If AVSession Is Open On App Restart</source>
+        </item>
+        <item>
+          <title>LTC2942 Battery Gas Gauge I2C Issue</title>
+          <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>I felt this might be helpful to the community as I know the LTC2942 Battery Gas Gauge was used in the Mangoh Red DV5 release.</p>
+<p>I have found, in our design at least, that the SDA pin of the LTC2942 is held low on an initial boot.  This was causing the following issue <a href="https://forum.legato.io/t/legato-stuck-in-reboot-loop-due-to-stuck-i2c" rel="nofollow noopener">https://forum.legato.io/t/legato-stuck-in-reboot-loop-due-to-stuck-i2c</a></p>
+<p>I have also contacted Analog Devices support, the own Linear Technologies, and tried several of there suggestions but none of them were able to resolve the issue completely.</p>
+<p>If any one has experienced this issue before or has thoughts on how to solve it I would greatly appreciate you sharing.</p>
+            <p><small>3 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/ltc2942-battery-gas-gauge-i2c-issue/3028">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/ltc2942-battery-gas-gauge-i2c-issue/3028</link>
+          <pubDate>Mon, 04 Nov 2019 17:19:26 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-3028</guid>
+          <source url="https://forum.mangoh.io/t/ltc2942-battery-gas-gauge-i2c-issue/3028.rss">LTC2942 Battery Gas Gauge I2C Issue</source>
+        </item>
+        <item>
+          <title>Legato/Linux-init /dev/ttyAT availability issue</title>
+          <dc:creator><![CDATA[Ian]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>Hello there,</p>
+<p>I am using Linux and Legato R12 for wp76xx.</p>
+<p>I have seen an odd issue when writing to /dev/ttyAT via the Linux init scripts.<br>
+ttyAT <em>always</em> exists when my init script (at S20 or S99) redirects the usual commands to /dev/tty<br>
+e.g. <code>echo "AT!CUSTOM?" &gt; /dev/tty</code><br>
+<em>But</em> occasionally I would get odd errors:</p>
+<ul>
+<li>
+<code>cat: can't open '/dev/ttyAT': Resource temporarily unavailable</code> or</li>
+<li>
+<code>can't create /dev/ttyAT: Resource temporarily unavailable</code> or</li>
+<li>
+<code>can't create /dev/ttyAT: No such device</code> etc.</li>
+</ul>
+<p>There were never lock file errors reported. Interestingly in the Legato firmware src/CellularNetwork.cpp /dev/ttyAT is accessed by CellularNetwork::setAMSConfig()</p>
+<p>Legato firmware is started by init script S32startlegato.sh.</p>
+<p>So my questions are:</p>
+<ul>
+<li>Can /dev/ttyAT be guaranteed to be accessible by the Linux init scripts  - somehow ?</li>
+<li>If not/regardless is accessing /dev/ttyAT by the legato firmware to only recommended way ?</li>
+</ul>
+<p>Best Regards,<br>
+Ian</p>
+            <p><small>3 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/legato-linux-init-dev-ttyat-availability-issue/2998">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/legato-linux-init-dev-ttyat-availability-issue/2998</link>
+          <pubDate>Thu, 24 Oct 2019 11:57:15 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2998</guid>
+          <source url="https://forum.mangoh.io/t/legato-linux-init-dev-ttyat-availability-issue/2998.rss">Legato/Linux-init /dev/ttyAT availability issue</source>
+        </item>
+        <item>
+          <title>How to take ownership of GPIO 6</title>
+          <dc:creator><![CDATA[Ian]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>My board is loosely based on the mangOH green, it is using Legato for wp76xx R12,<br>
+Linux kernel 3.18.122.</p>
+<p>I want to take control of GPIO6 (Pin 46) but It looks like something else has control of it, via pinctrl.</p>
+<p>Both  gpio_request(6, “Special Reset”)  and gpio_direction_output(6,1) return 0 - indicating success</p>
+<p>but “cat /sys/kernel/debug/gpio”  shows  " gpio6   : out 2 2mA pull down" with no label and the pin output is not affected.</p>
+<p>I would have that the call to would have given me an error, though reading the documentation it could be interpreted that I only get an error for repeated calls to gpio_request() for the same gpio.</p>
+<p>I’m very new to pinctrl on this , or any other platform.  Any Ideas in my best course of action ?</p>
+<p>Regards,<br>
+Ian</p>
+            <p><small>6 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/how-to-take-ownership-of-gpio-6/2933">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/how-to-take-ownership-of-gpio-6/2933</link>
+          <pubDate>Tue, 24 Sep 2019 21:01:28 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2933</guid>
+          <source url="https://forum.mangoh.io/t/how-to-take-ownership-of-gpio-6/2933.rss">How to take ownership of GPIO 6</source>
+        </item>
+        <item>
+          <title>How to Handle le_avdata_PushRecord Handler Failure</title>
+          <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>I posted here in the Legato forum <a href="https://forum.legato.io/t/le-avdata-pushrecord-handler-failure/4440/5" rel="nofollow noopener">https://forum.legato.io/t/le-avdata-pushrecord-handler-failure/4440/5</a> and I’m still ocasionally getting a le_avdata_PushRecord handler with a value of <code>LE_AVDATA_PUSH_FAILED</code>.</p>
+<p>The Legato documentation doesn’t really talk about how a le_avdata_PushRecord handler failure should be dealt with.   What should be done in this situation?</p>
+<p>Thanks,</p>
+            <p><small>5 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900</link>
+          <pubDate>Mon, 09 Sep 2019 22:04:25 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2900</guid>
+          <source url="https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900.rss">How to Handle le_avdata_PushRecord Handler Failure</source>
+        </item>
+        <item>
+          <title>Kernel Cold-plug USB power issues, where to start looking</title>
+          <dc:creator><![CDATA[Ian]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>Hi there,</p>
+<p>I’m new to debugging USB power issues in the Kernel, so I am looking for help in<br>
+understanding the sequence of events / where to continue looking:</p>
+<p>My board is loosely based on the mangOH green, it is using Legato for wp76xx R12,<br>
+Linux kernel 3.18.122.</p>
+<p>My issue is that on powering up the board, 2 devices directly connected to the HSIC host,<br>
+are not enumerated. The 2 devices are Ethernet (on HSIC) and an SD card reader.</p>
+<p>I have 2 boards: one which exhibits the issue and one that does not.</p>
+<p>The only differences that I can see from dmesg/logread are:</p>
+<pre><code>swi-mdm9x28-wp user.info kernel: [    1.141708] msm_hsic_host 7c00000.hsic_host: HSIC-USB in low power mode
+swi-mdm9x28-wp user.info kernel: [    1.141916] msm_hsic_host 7c00000.hsic_host: HSIC-USB exited from low power mode
+.
+.
+swi-mdm9x28-wp user.err kernel: [    6.530202] usb 1-1: device descriptor read/64, error -110
+</code></pre>
+<p>So with a bit of digging I see that  msm_hsic_runtime_suspend() from ehci-msm-hsic.c is being called,<br>
+bu I know of no reason why msm_hsic_runtime_suspend(0 is getting called -<br>
+the USB controller or system should not be entering into suspend.</p>
+<p>I suppose disabling USB sleep might help, but I still don’t understand why/how it’s being told to go to sleep.</p>
+<p>Any pointers on where to look greatly received.</p>
+            <p><small>5 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883</link>
+          <pubDate>Tue, 27 Aug 2019 16:59:20 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2883</guid>
+          <source url="https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883.rss">Kernel Cold-plug USB power issues, where to start looking</source>
+        </item>
+        <item>
+          <title>How to Tell a Baseline Image vs an Overlay Image</title>
+          <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>Is there a way to tell from the command line if the Legato system is running from a Baseline image vs an Overlay image after the Overlay image has been marked good?</p>
+<p>Ultimately I’m trying to determine if the image running on a module is running out of R/O or the R/W space, see below.</p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/1d90df550d740812fb0d5eb813c01d2fc2c89ec8.png" data-download-href="/uploads/short-url/4dyewGJxVKOxNLDpEwLWm0Quwac.png?dl=1" title="image.png" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/1d90df550d740812fb0d5eb813c01d2fc2c89ec8.png" alt="image" data-base62-sha1="4dyewGJxVKOxNLDpEwLWm0Quwac" width="520" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/1d90df550d740812fb0d5eb813c01d2fc2c89ec8_2_10x10.png"></a></div><p></p>
+            <p><small>3 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/how-to-tell-a-baseline-image-vs-an-overlay-image/2740">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/how-to-tell-a-baseline-image-vs-an-overlay-image/2740</link>
+          <pubDate>Wed, 26 Jun 2019 16:44:31 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2740</guid>
+          <source url="https://forum.mangoh.io/t/how-to-tell-a-baseline-image-vs-an-overlay-image/2740.rss">How to Tell a Baseline Image vs an Overlay Image</source>
+        </item>
+        <item>
+          <title>Retrieve a Buffer of Data from BMI160</title>
+          <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>I would like to retrieve a buffer of data from the BMI160 instead of just single samples.  Is this possible?  If so how would I go about doing it from user space?</p>
+<p>Thanks</p>
+            <p><small>10 posts - 4 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687</link>
+          <pubDate>Wed, 05 Jun 2019 18:32:00 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2687</guid>
+          <source url="https://forum.mangoh.io/t/retrieve-a-buffer-of-data-from-bmi160/2687.rss">Retrieve a Buffer of Data from BMI160</source>
+        </item>
+        <item>
+          <title>Kernel Module Load Order</title>
+          <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>I’m cleaning up our kernel modules by adding the required kernel modules to my MDEF files the same as Mangoh <a href="https://forum.mangoh.io/t/the-mangoh-repository-now-uses-a-legato-18-05-1-feature/1610" class="inline-onebox">The mangOH repository now uses a Legato 18.05.1 feature</a></p>
+<p>I changed the order my kernel modules load (specifically the BMI160 and IIO) to match the Mango Red .mdef file and then they won’t load.  I change the order back and then it works.</p>
+<p><strong>Old way that works in SDEF</strong><br>
+// BMI160 accelerometer, NOTE: Order id important here<br>
+$PROJ_ROOT/drivers/bmi160/bmi160<br>
+$PROJ_ROOT/drivers/bmi160/bmi160-i2c</p>
+<p>// battery charger<br>
+$PROJ_ROOT/drivers/bq24296/bq24296</p>
+<p>// Required for BMI160 NOTE: Order is important here<br>
+$PROJ_ROOT/drivers/iio/iio<br>
+$PROJ_ROOT/drivers/iio/iio-kfifo-buf<br>
+$PROJ_ROOT/drivers/iio/iio-triggered-buffer</p>
+<p><strong>Mangoh Red way that doesn’t work in SDEF</strong><br>
+// BMI160 accelerometer, NOTE: Order id important here<br>
+$PROJ_ROOT/drivers/bmi160/bmi160-i2c<br>
+$PROJ_ROOT/drivers/bmi160/bmi160</p>
+<p>// battery charger<br>
+$BRNKL_ROOT/drivers/bq24296/bq24296</p>
+<p>// Required for BMI160 NOTE: Order is important here<br>
+$BRNKL_ROOT/drivers/iio/iio-triggered-buffer<br>
+$BRNKL_ROOT/drivers/iio/iio-kfifo-buf<br>
+$BRNKL_ROOT/drivers/iio/iio</p>
+<p>Thoughts?  Is there something I’m missing with the new method.  I’m running Legato 18.09.0 on a WP85.</p>
+            <p><small>8 posts - 3 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/kernel-module-load-order/2673">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/kernel-module-load-order/2673</link>
+          <pubDate>Thu, 30 May 2019 17:15:20 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2673</guid>
+          <source url="https://forum.mangoh.io/t/kernel-module-load-order/2673.rss">Kernel Module Load Order</source>
+        </item>
+        <item>
+          <title>Unable to Connect To AirVantage Consistently When Current Operator Set to Telus</title>
+          <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>I am working on making our data connection to AirVantage robust by automatically reconnecting if it drops out without rebooting or restarting the app.</p>
+<p>Today I can’t seem to get a connection to AirVantage.  My logs keeping saying the following:</p>
+<p><code>May 24 17:53:46 swi-mdm9x15 user.info Legato: INFO | sensorToCloud[29484]/avPublisher T=main | avPublisher.c sessionTimerHandler() 1128 | AirVantage Connection Controller started. May 24 17:53:47 swi-mdm9x15 user.err Legato: =ERR= | avcDaemon[1195]/avcDaemon T=main | osUdp.c ResolveIpAddress() 188 | IP bs.airvantage.net not resolved: Temporary failure in name resolution May 24 17:53:48 swi-mdm9x15 user.err Legato: =ERR= | avcDaemon[1195]/avcDaemon T=main | osUdp.c ResolveIpAddress() 188 | IP bs.airvantage.net not resolved: Temporary failure in name resolution ^FMay 24 17:54:46 swi-mdm9x15 user.err Legato: =ERR= | modemDaemon[1066]/modemDaemon T=main | le_sms.c CloseSessionEventHandler() 2181 | SessionRef (0xb70723cc) has been closed May 24 17:54:48 swi-mdm9x15 user.err Legato: =ERR= | avcDaemon[1195]/avcDaemon T=main | avcClient.c EventHandler() 544 | Session failure May 24 17:54:48 swi-mdm9x15 user.err Legato: =ERR= | avcDaemon[1195]/avcDaemon T=main | avcClient.c EventHandler() 552 | Session failure on bootstrap server May 24 17:54:48 swi-mdm9x15 user.info Legato: INFO | avcDaemon[1195]/avcDaemon T=main | avcServer.c ProcessUserAgreement() 1472 | Broadcast notification to applications May 24 17:54:48 swi-mdm9x15 user.err Legato: =ERR= | avcDaemon[1195]/avcDaemon T=main | osTimer.c lwm2mcore_TimerStop() 173 | Unable to stop the timer May 24 17:54:48 swi-mdm9x15 user.err Legato: =ERR= | avcControl[1014]/avcControl T=main | avcControl.c StatusHandler() 165 | Air Vantage agent reported unexpected update status: 16</code></p>
+<p>Then after a few minutes it’s fine and the session is restored.  I did notice that when a session couldn’t be established the results of <code>cm data</code> had different IP and Gateway addresses than when it was able to establish a session, see below.  The after a few successful data pushes the connection dropped again and was unable to establish a new connection for 3 hours at which time I reset the unit.</p>
+<p><strong>Not Able to Establish a Session</strong><br>
+<code>cm radio Power: ON Current Network Operator: TELUS Current RAT: UMTS network (LE_MRC_RAT_UMTS) Status: Registered to a roaming network (LE_MRC_REG_ROAMING) Signal: Strong signal strength (4) PS: Packet Switched Registered to a roaming network (LE_MRC_REG_ROAMING)</code></p>
+<p><code>cm data Index: 1 APN: internet.sierrawireless.com PDP Type: IPV4 Connected: yes Interface: rmnet0 Family[IPv4]: inet IP[IPv4]: 100.71.156.120 Gateway[IPv4]: 100.71.156.121 Dns1[IPv4]: 8.8.8.8 Dns2[IPv4]: 4.2.2.2</code></p>
+<p><strong>Able to Establish a Session</strong><br>
+<code>cm radio Power: ON Current Network Operator: TELUS Current RAT: UMTS network (LE_MRC_RAT_UMTS) Status: Registered to a roaming network (LE_MRC_REG_ROAMING) Signal: Strong signal strength (4) PS: Packet Switched Registered to a roaming network (LE_MRC_REG_ROAMING)</code></p>
+<p><code>cm data Index: 1 APN: internet.sierrawireless.com PDP Type: IPV4 Connected: yes Interface: rmnet0 Family[IPv4]: inet IP[IPv4]: 100.71.177.17 Gateway[IPv4]: 100.71.177.18 Dns1[IPv4]: 8.8.8.8 Dns2[IPv4]: 4.2.2.2</code></p>
+            <p><small>6 posts - 3 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665</link>
+          <pubDate>Fri, 24 May 2019 18:12:58 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2665</guid>
+          <source url="https://forum.mangoh.io/t/unable-to-connect-to-airvantage-consistently-when-current-operator-set-to-telus/2665.rss">Unable to Connect To AirVantage Consistently When Current Operator Set to Telus</source>
+        </item>
+        <item>
+          <title>Missing Call to AirVantage Session State Handler</title>
+          <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>I have been working with <a class="mention" href="https://forum.mangoh.io/u/jchitty">@jchitty</a> and <a class="mention" href="https://forum.mangoh.io/u/prush">@Prush</a> on these questions <a href="https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646" class="inline-onebox">Multiple Apps Calling `le_avdata_RequestSession`</a> and <a href="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/" class="inline-onebox">Poor Signal Quality and Air Vantage Data Costs</a></p>
+<p>Based on a discussion with <a class="mention" href="https://forum.mangoh.io/u/jchitty">@jchitty</a> yesterday I have added AirVantage session state handlers to all (3) apps that request sessions.   I have one test unit the I popped the antenna off and then back on after a few minutes (yes I know not recommended but I don’t have attunators at the moment) and this resulted in only 2 of the 3 handlers being called before the app is restarted.  See logs below.</p>
+<p>If you search for <code>AV Session State Handler</code> you will see two calls to the handler before the third app terminates due to a failed record push @ 22:32:10.  Then you see three calls to the handler after app restarts and the system is trying to connect to AirVantage @ 22:34:15 and then another three calls to the handler once the system is again connected to AirVantage @ 22:37:38</p>
+<p>The other interesting thing is I have a PushRecord callback handler that also doesn’t seem to be called as there are no log printouts.</p>
+<p>Thoughts, why are all 3 apps receiving the state change.</p>
+<p>Running Legato 18.09.0.</p>
+<p><a class="attachment" href="https://forum.mangoh.io/uploads/short-url/xr8L1LxilsK2Chmhg2L7C7NtPyx.log">Missing Handler Call Log May 17th.log</a> (51.3 KB)</p>
+            <p><small>5 posts - 3 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650</link>
+          <pubDate>Fri, 17 May 2019 23:19:31 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2650</guid>
+          <source url="https://forum.mangoh.io/t/missing-call-to-airvantage-session-state-handler/2650.rss">Missing Call to AirVantage Session State Handler</source>
+        </item>
+        <item>
+          <title>Simulate Network Drop Out to Force Calls AirVantage to Session Handler</title>
+          <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>Is there a method to simulate poor network connectivity or no network availability without removing the SIM card or removing the antenna (as the latter would likely damage the radio front end).</p>
+<p>I’d like to see how my apps behave under these conditions.</p>
+<p>Thanks,<br>
+Darren</p>
+            <p><small>4 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/simulate-network-drop-out-to-force-calls-airvantage-to-session-handler/2647">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/simulate-network-drop-out-to-force-calls-airvantage-to-session-handler/2647</link>
+          <pubDate>Thu, 16 May 2019 23:36:09 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2647</guid>
+          <source url="https://forum.mangoh.io/t/simulate-network-drop-out-to-force-calls-airvantage-to-session-handler/2647.rss">Simulate Network Drop Out to Force Calls AirVantage to Session Handler</source>
+        </item>
+        <item>
+          <title>Multiple Apps Calling `le_avdata_RequestSession`</title>
+          <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>Our current product implementation has multiple apps making calls to <code>le_avdata_RequestSessoin</code>.  Is this recommended or is it considered best practice to have one app manage and push data to AIrVantage?</p>
+<p>Thanks</p>
+            <p><small>6 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646</link>
+          <pubDate>Thu, 16 May 2019 18:19:03 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2646</guid>
+          <source url="https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646.rss">Multiple Apps Calling `le_avdata_RequestSession`</source>
+        </item>
+        <item>
+          <title>AV-PACK Fails To Find System Directory</title>
+          <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>I am trying to build a package to upload to AirVantage using the command <code>av-pack -u xxxx.wp85.update -b _build_xxxx/wp85 -t xxxx.system.3.0.1</code> and I get the error<br>
+<code>ls: cannot access '_build_xxxx/wp85/system/app/*/staging/info.properties': No such file or directory</code></p>
+<p>When I look at the build directory I don’t see a <code>system</code> directory under the <code>_build_xxxx/wp85</code> directory.</p>
+<p>I am building using <code>mksys -t wp85 -s &lt;COMPONENT PATHS&gt; -i &lt;INTERFACE PATHS&gt; xxxx.sdef</code></p>
+<p>I’m using Legato AF 18.09.0 and I have tired with both the manual build system and Leaf. Both have the same problem.</p>
+<p>Thanks,</p>
+            <p><small>4 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/av-pack-fails-to-find-system-directory/2633">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/av-pack-fails-to-find-system-directory/2633</link>
+          <pubDate>Mon, 13 May 2019 16:23:55 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2633</guid>
+          <source url="https://forum.mangoh.io/t/av-pack-fails-to-find-system-directory/2633.rss">AV-PACK Fails To Find System Directory</source>
+        </item>
+        <item>
+          <title>Alternative audio CODECs?</title>
+          <dc:creator><![CDATA[sciscitatio]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>[Also posted on Sierra Wireless forum]</p>
+<p>Hi</p>
+<p>I was wondering what experience or advice others may have about audio CODECs for use with the WP7600-series devices? I’m looking for alternatives to the WM8944 used on the mangOH boards to reduce my BoM cost… in fact I don’t really need a full blown codec, just mono analog audio out will suffice for audio playback from Legato or Linux applications. I don’t need voice call ability.</p>
+<p>Obviously will need to be either supported or be able to be compiled into the Linux build.</p>
+<p>Thanks</p>
+            <p><small>1 post - 1 participant</small></p>
+            <p><a href="https://forum.mangoh.io/t/alternative-audio-codecs/2609">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/alternative-audio-codecs/2609</link>
+          <pubDate>Fri, 03 May 2019 16:44:29 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2609</guid>
+          <source url="https://forum.mangoh.io/t/alternative-audio-codecs/2609.rss">Alternative audio CODECs?</source>
+        </item>
+        <item>
+          <title>WP7608 Restarts continuously</title>
+          <dc:creator><![CDATA[jebin]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>Hi,<br>
+I am getting below error. can anyone pls help me understand the issue?</p>
+<p>Jan  6 00:20:45 | QMUXD: WARNING qmi_qmux_if_pwr_up_init failed! rc=-6<br>
+Jan  6 00:20:45 | uartMode[2728]/swiQmi T=main | swiQmi.c StartService() 113 | qmi_client_get_service_list rc=0, numServices=1</p>
+<p>Jebin</p>
+            <p><small>2 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/wp7608-restarts-continuously/2247">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/wp7608-restarts-continuously/2247</link>
+          <pubDate>Fri, 14 Dec 2018 06:20:57 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2247</guid>
+          <source url="https://forum.mangoh.io/t/wp7608-restarts-continuously/2247.rss">WP7608 Restarts continuously</source>
+        </item>
+        <item>
+          <title>Using mdev to assign names to USB network interfaces</title>
+          <dc:creator><![CDATA[jeroenl]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>I have made a custom board with a WP7607. The board has a USB3503 HSIC USB hub to which two LAN9500 ethernet interfaces are connected. Now when the board is started, eth0 and eth1 are assigned to the ports in a random fashion. I want to statically assign eth0 to the left port and eth1 to the right port.</p>
+<p>The left port is connected to USB port 3 and the right one to USB port 2. When I take a look in /sys/class/net I see the following:</p>
+<p>eth0 -&gt; …/…/devices/7c00000.hsic_host/usb1/1-1/1-1.2/1-1.2:1.0/net/eth0<br>
+eth1 -&gt; …/…/devices/7c00000.hsic_host/usb1/1-1/1-1.3/1-1.3:1.0/net/eth1</p>
+<p>I believe it should be possible to assign them the other way around. I can’t find any clear documentation on this unfortunately. Does anyone know how to get this working?</p>
+            <p><small>4 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/using-mdev-to-assign-names-to-usb-network-interfaces/2237">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/using-mdev-to-assign-names-to-usb-network-interfaces/2237</link>
+          <pubDate>Tue, 11 Dec 2018 13:23:30 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-2237</guid>
+          <source url="https://forum.mangoh.io/t/using-mdev-to-assign-names-to-usb-network-interfaces/2237.rss">Using mdev to assign names to USB network interfaces</source>
+        </item>
+        <item>
+          <title>WP7700 cellular certifications for custom product</title>
+          <dc:creator><![CDATA[cbrake]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>Hi,</p>
+<p>The WP7700 lists AT&amp;T and planned Verizon certifications. Is that end device certification (like Digi or Nimbelink), or would we still need to end-device certify a custom product using the WP7700?</p>
+<p>If we need to end-device certify our product, does anyone know what the process looks like with Verizon, and how much it might cost?</p>
+<p>Thanks,<br>
+Cliff</p>
+            <p><small>2 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/wp7700-cellular-certifications-for-custom-product/1929">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/wp7700-cellular-certifications-for-custom-product/1929</link>
+          <pubDate>Wed, 19 Sep 2018 14:11:13 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-1929</guid>
+          <source url="https://forum.mangoh.io/t/wp7700-cellular-certifications-for-custom-product/1929.rss">WP7700 cellular certifications for custom product</source>
+        </item>
+        <item>
+          <title>LAN9730 over HSIC on WP7607</title>
+          <dc:creator><![CDATA[csaab]]></dc:creator>
+          <category>Build your own</category>
+          <description><![CDATA[
+            <p>Hello all,</p>
+<p>I am trying to make LAN9730 working thru HSIC interface.<br>
+I have made my own board. Both lines have same length of 55mm.</p>
+<p>I installed the toolchain and compiled the driver.<br>
+I load the driver on the WP7607:<br>
+insmod smscusbnet.ko<br>
+insmod smsc9500.ko</p>
+<p>The modules are successfully loaded.<br>
+But I see no Ethernet interface appearing.</p>
+<p>With dmesg I see:</p>
+<p>[ 2191.965712] usb usb1-port1: unable to enumerate USB device<br>
+[ 2192.090192] usb 1-1: new high-speed USB device number 70 using msm_hsic_host<br>
+[ 2192.220184] usb 1-1: device descriptor read/64, error -71<br>
+[ 2192.460173] usb 1-1: device descriptor read/64, error -71<br>
+[ 2192.690243] usb 1-1: new high-speed USB device number 71 using msm_hsic_host<br>
+[ 2192.820188] usb 1-1: device descriptor read/64, error -71<br>
+[ 2193.060367] usb 1-1: device descriptor read/64, error -71<br>
+[ 2193.290185] usb 1-1: new high-speed USB device number 72 using msm_hsic_host<br>
+[ 2193.710195] usb 1-1: device not accepting address 72, error -71<br>
+[ 2193.830194] usb 1-1: new high-speed USB device number 73 using msm_hsic_host<br>
+[ 2194.250141] usb 1-1: device not accepting address 73, error -71<br>
+[ 2194.255151] usb usb1-port1: unable to enumerate USB device<br>
+[ 2194.380192] usb 1-1: new high-speed USB device number 74 using msm_hsic_host<br>
+[ 2194.510214] usb 1-1: device descriptor read/64, error -71<br>
+[ 2194.750201] usb 1-1: device descriptor read/64, error -71<br>
+[ 2194.981152] usb 1-1: new high-speed USB device number 75 using msm_hsic_host<br>
+[ 2195.151046] usb 1-1: device descriptor read/64, error -71<br>
+[ 2195.431033] usb 1-1: device descriptor read/64, error -71<br>
+[ 2195.661057] usb 1-1: new high-speed USB device number 76 using msm_hsic_host</p>
+<p>Any idea to make it works?<br>
+Did I miss something?</p>
+<p>Thank you for your support,</p>
+<p>CS</p>
+            <p><small>4 posts - 2 participants</small></p>
+            <p><a href="https://forum.mangoh.io/t/lan9730-over-hsic-on-wp7607/1593">Read full topic</a></p>
+          ]]></description>
+          <link>https://forum.mangoh.io/t/lan9730-over-hsic-on-wp7607/1593</link>
+          <pubDate>Thu, 21 Jun 2018 08:51:21 +0000</pubDate>
+          <discourse:topicPinned>No</discourse:topicPinned>
+          <discourse:topicClosed>No</discourse:topicClosed>
+          <discourse:topicArchived>No</discourse:topicArchived>
+          <guid isPermaLink="false">forum.mangoh.io-topic-1593</guid>
+          <source url="https://forum.mangoh.io/t/lan9730-over-hsic-on-wp7607/1593.rss">LAN9730 over HSIC on WP7607</source>
+        </item>
+  </channel>
+</rss>

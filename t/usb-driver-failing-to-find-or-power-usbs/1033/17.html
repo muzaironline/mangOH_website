@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>USB driver failing to find or power USBs - #17 by asyal - mangOH Red - mangOH forum</title>
+    <meta name="description" content="Hello, 
+We have purchased ~10 mangoh reds for building IoT devices, and have been trying to enable a wifi access point. We tried to use the out of the box wifi, but it seems like development is not yet complete on those &amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;USB driver failing to find or power USBs&#39;" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033/17" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033/17" />
+<meta property="og:title" content="USB driver failing to find or power USBs" />
+<meta name="twitter:title" content="USB driver failing to find or power USBs" />
+<meta property="og:description" content="Here is a bit more detail on this, again from @davidc ,  &quot;The second problem   The above was working for devices that were ‘hotplugged’ (i.e. plugged into the USB host port on the mangOH after it had booted). I still wasn’t seeing the onboard devices appear in the /dev/bus/usb directory. Interestingly, once one device had appeared in the directory, lsusb was happy and could see the rest of the onboard devices. Why? No idea.  Not having device nodes for devices that appear early in the boot seque..." />
+<meta name="twitter:description" content="Here is a bit more detail on this, again from @davidc ,  &quot;The second problem   The above was working for devices that were ‘hotplugged’ (i.e. plugged into the USB host port on the mangOH after it had booted). I still wasn’t seeing the onboard devices appear in the /dev/bus/usb directory. Interestingly, once one device had appeared in the directory, lsusb was happy and could see the rest of the onboard devices. Why? No idea.  Not having device nodes for devices that appear early in the boot seque..." />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta property="article:published_time" content="2018-02-13T05:18:29+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"USB driver failing to find or power USBs","mainEntity":{"@type":"Question","name":"USB driver failing to find or power USBs","text":"Hello,\n\nWe have purchased ~10 mangoh reds for building IoT devices, and have been trying to enable a wifi access point. We tried to use the out of the box wifi, but it seems like development is not yet complete on those drivers: <a href=\"http://forum.mangoh.io/t/mangoh-red-wifi-client-start-failed/767\">MangOH Red , wifi client start failed<\/a> and the executable fails:\n\nroot@s&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2017-12-27T21:51:59.565Z","author":{"@type":"Person","name":"Ryan"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/usb-driver-failing-to-find-or-power-usbs/1033">USB driver failing to find or power USBs</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='USB driver failing to find or power USBs'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/rauger1'><span itemprop='name'>rauger1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-12-27T21:51:59Z' class='post-time'>
+                    December 27, 2017,  9:51pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-12-27T21:51:59Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hello,</p>
+<p>We have purchased ~10 mangoh reds for building IoT devices, and have been trying to enable a wifi access point. We tried to use the out of the box wifi, but it seems like development is not yet complete on those drivers: <a href="http://forum.mangoh.io/t/mangoh-red-wifi-client-start-failed/767">MangOH Red , wifi client start failed</a> and the executable fails:</p>
+<p>root@swi-mdm9x15:~# wifi client start<br>
+ERROR: le_wifiClient_Start returns ERROR.</p>
+<p>To work around this, we purchased some 300M Wireless USB adapters, but whenever we run lsusb, we get an error. We have tried lsub with at least 10 types of USBs, ranging from smart card readers to storage, all receive this error:</p>
+<p>root@swi-mdm9x15:~# lsusb<br>
+unable to initialize libusb: -99</p>
+<p>Those USBs with LEDs that light up when plugged into a traditional computer do not light up when connected to the mangoh. We checked the USB pins and they are receiving power. It seems as if the USB driver is not working.</p>
+<p>Unfortunately, unlike this post here: <a href="http://forum.mangoh.io/t/lsusb-does-not-work-on-a-brand-new-mangoh-red-from-a-box/855">Lsusb does not work on a brand-new mangOH Red from a box</a> our device does not start working after plugging in any special USB dongles.</p>
+<p>Is this a known issue? Are there any other mangoh red owner’s who have experienced this problem?</p>
+<p>Thank you for the help in advance!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-12-28T21:19:12Z' class='post-time'>
+                    December 28, 2017,  9:19pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-12-28T21:19:12Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>We will be releasing tutorial for WP76 and mangOH Red WiFi in mid-Feb.<br>
+In meantime you can use the IoT WiFi card that has built in support .<br>
+<a href="https://www.digikey.com/product-detail/en/talon-communications-inc/MIRAGE-PIFA/1788-1008-ND/7243279" class="onebox" target="_blank">https://www.digikey.com/product-detail/en/talon-communications-inc/MIRAGE-PIFA/1788-1008-ND/7243279</a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/rauger1'><span itemprop='name'>rauger1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-12-29T15:44:28Z' class='post-time'>
+                    December 29, 2017,  3:44pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-12-29T15:44:28Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Asyal,</p>
+<p>Thank you for that suggestion. We have ordered that, but we still would like to use our USB slot for other purposes. Is the lsusb issue a known issue or is there a solution you have come across?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-12-29T20:09:14Z' class='post-time'>
+                    December 29, 2017,  8:09pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-12-29T20:09:14Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>The lsusb problem is known. I am not sure why it hasn’t been resolved yet as it has existed for a long time.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/rauger1'><span itemprop='name'>rauger1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-01-02T17:31:12Z' class='post-time'>
+                    January 2, 2018,  5:31pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-01-05T22:33:15Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/asyal">@asyal</a> and <a class="mention" href="/u/dfrey">@dfrey</a>,</p>
+<p>I went with your suggestion and purchased the IoT WiFi Card. Unfortunately, the board is failing to start and the LED is not powering on:</p>
+<p>The issue is that the wifi board is simply not being found/powered. This is happening on all of our Reds. It DOES work on the Green. But it is very important that it works on the red. What could be the issue?</p>
+<blockquote>
+<p>root@swi-mdm9x15:~# wifi client start<br>
+successfully called start.                            //Not actually starting<br>
+root@swi-mdm9x15:~# app status<br>
+[running] atClient<br>
+[running] atServer<br>
+[running] audioService<br>
+[running] avcService<br>
+[running] cellNetService<br>
+[running] dataConnectionService<br>
+[running] fwupdateService<br>
+[running] gpioService<br>
+[running] modemService<br>
+[running] positioningService<br>
+[running] powerMgr<br>
+[running] secStore<br>
+[stopped] smsInboxService<br>
+[stopped] spiService<br>
+[stopped] tools<br>
+[stopped] voiceCallService<br>
+[stopped] wifi .              //Not running<br>
+[stopped] wifiApTest<br>
+[stopped] wifiClientTest<br>
+[running] wifiService<br>
+[stopped] wifiWebAp</p>
+</blockquote>
+<p>According the wifi driver tutorial here: <a href="http://mangoh.io/wifi-expansion-card" rel="nofollow noopener">http://mangoh.io/wifi-expansion-card</a> states “The Wi-Fi LED on the Wi-Fi expansion card turns ON” - This is not the case. There is no indication that the command worked, as the app is off and the light is not on.</p>
+<p>Passing this, I perform the next step “wifi client scan” and get the following result:</p>
+<p>starting scan.<br>
+DEBUG: le_wifiClient_GetFirstAccessPoint ERROR</p>
+<p>Here are the logs for both commands repeated one after the other:</p>
+<p>wifi client start:</p>
+<blockquote>
+<p>Jan  2 16:49:10 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/framework T=main | LE_FILENAME ExtractFileDescriptor() 33 | Received fd (10).<br>
+Jan  2 16:49:10 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/framework T=main | LE_FILENAME ExtractFileDescriptor() 33 | Received fd (11).<br>
+Jan  2 16:49:10 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/daemon T=main | le_wifiClient.c le_wifiClient_Start() 560 | Client starts<br>
+Jan  2 16:49:10 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/framework T=main | le_wifiClient_server.c Handle_le_wifiClient_Start() 557 | Sending response to client session 0x27d3c : 4 bytes sent<br>
+Jan  2 16:49:11 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/daemon T=main | le_wifiClient.c CloseSessionEventHandler() 414 | sessionRef 0x27d3c GetFirstSessionRef (nil)<br>
+Jan  2 16:49:11 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/framework T=main | le_wifiClient_server.c CleanupClientData() 195 | Client 0x27d3c is closed !!!<br>
+Jan  2 16:49:11 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/framework T=main | le_wifiAp_server.c CleanupClientData() 195 | Client 0x27cac is closed !!!</p>
+</blockquote>
+<p>wifi client scan:</p>
+<blockquote>
+<p>Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/framework T=main | LE_FILENAME ExtractFileDescriptor() 33 | Received fd (10).<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/framework T=main | LE_FILENAME ExtractFileDescriptor() 33 | Received fd (11).<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/daemon T=main | le_wifiClient.c le_wifiClient_AddNewEventHandler() 508 | Add new event handler<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/framework T=main | le_wifiClient_server.c Handle_le_wifiClient_AddNewEventHandler() 461 | Sending response to client session 0x27cac : 4 bytes sent<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/daemon T=main | le_wifiClient.c IsScanRunning() 430 | IsScanRunning .0<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/daemon T=main | le_wifiClient.c le_wifiClient_Scan() 639 | Scan started<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/framework T=main | le_wifiClient_server.c Handle_le_wifiClient_Scan() 641 | Sending response to client session 0x27cac : 4 bytes sent<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/framework T=WiFi Client Scan Thread | LE_FILENAME PThreadStartRoutine() 362 | Set nice level to 0.<br>
+Jan  2 16:50:00 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | wifiService[522]/daemon T=WiFi Client Scan Thread | pa_wifi_client_ti.c pa_wifiClient_Scan() 419 | Scanning<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/daemon T=WiFi Client Scan Thread | le_wifiClient.c MarkAllAccessPointsOld() 317 | Mark all AP as old<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/daemon T=WiFi Client Scan Thread | le_wifiClient.c MarkAllAccessPointsOld() 346 | Marked: 0<br>
+Jan  2 16:50:00 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | wifiService[522]/daemon T=WiFi Client Scan Thread | pa_wifi_client_ti.c pa_wifiClient_GetScanResult() 484 | Scan results<br>
+Jan  2 16:50:00 swi-mdm9x15 <a href="http://user.info" rel="nofollow noopener">user.info</a> Legato:  INFO | wifiService[522]/daemon T=WiFi Client Scan Thread | pa_wifi_client_ti.c pa_wifiClient_GetScanResult() 504 | PARSING:WIFICLIENT_START_SCAN : len:22<br>
+Jan  2 16:50:00 swi-mdm9x15 user.err Legato: =ERR= | wifiService[522] | command failed: No such device (-19)<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/daemon T=WiFi Client Scan Thread | le_wifiClient.c ScanThreadDestructor() 395 | Scan thread exited.<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/daemon T=WiFi Client Scan Thread | le_wifiClient.c PaEventHandler() 118 | Event: 2<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/daemon T=main | le_wifiClient.c FirstLayerWifiClientEventHandler() 452 | Event: 2<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/framework T=main | le_wifiClient_server.c AsyncResponse_le_wifiClient_AddNewEventHandler() 398 | Sending message to client session 0x27cac : 8 bytes sent<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/daemon T=main | le_wifiClient.c IsScanRunning() 430 | IsScanRunning .0<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/daemon T=main | le_wifiClient.c le_wifiClient_GetFirstAccessPoint() 681 | Get first AP<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/daemon T=main | le_wifiClient.c le_wifiClient_GetFirstAccessPoint() 700 | AP not found<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/framework T=main | le_wifiClient_server.c Handle_le_wifiClient_GetFirstAccessPoint() 683 | Sending response to client session 0x27cac : 4 bytes sent<br>
+Jan  2 16:50:00 swi-mdm9x15 user.err Legato: =ERR= | wifi[7459]/wifi T=main | wifi_client.c WifiReadScanResults() 123 | le_wifiClient_GetFirstAccessPoint ERROR<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/daemon T=main | le_wifiClient.c le_wifiClient_RemoveNewEventHandler() 538 | Remove event handler<br>
+Jan  2 16:50:00 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/framework T=main | le_wifiClient_server.c Handle_le_wifiClient_RemoveNewEventHandler() 515 | Sending response to client session 0x27cac : 0 bytes sent<br>
+Jan  2 16:50:01 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/daemon T=main | le_wifiClient.c CloseSessionEventHandler() 414 | sessionRef 0x27cac GetFirstSessionRef 0x27cac<br>
+Jan  2 16:50:01 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/framework T=main | le_wifiClient_server.c CleanupClientData() 195 | Client 0x27cac is closed !!!<br>
+Jan  2 16:50:01 swi-mdm9x15 user.debug Legato:  DBUG | wifiService[522]/framework T=main | le_wifiAp_server.c CleanupClientData() 195 | Client 0x27d3c is closed !!!</p>
+</blockquote>
+<p>Do you have any idea why the IoT expansion card is not starting properly on the MangohRed?</p>
+<p>Just for clarification, the Versions are up to date according to the tutorial(although it is a mangoh Green tutorial):</p>
+<blockquote>
+<p>root@swi-mdm9x15:~# fwupdate query<br>
+Connecting to service …<br>
+Firmware Version: SWI9X15Y_07.12.09.00 r34123 CARMD-EV-FRMWR1 2017/04/26 23:34:19<br>
+Bootloader Version: SWI9X15Y_07.12.09.00 r34123 CARMD-EV-FRMWR1 2017/04/26 23:34:19<br>
+Linux Version: 3.14.29ltsi-961ca71325_ab5094eade <span class="hashtag">#2</span> PREEMPT Thu Apr 27 02:17:10 PDT 2017<br>
+root@swi-mdm9x15:~# legato version<br>
+16.10.3_7776bb75a488e0db67b0d24975b46dd0</p>
+</blockquote>
+<p>I believe it comes down to the wifi board not being recognized on the Red. Any suggestions? Thanks!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="http://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059">All wifi commands failing with Mirage board</a>
+                        <meta itemprop='position' content='3'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/rauger1'><span itemprop='name'>rauger1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-01-05T22:18:01Z' class='post-time'>
+                    January 5, 2018, 10:18pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-01-05T22:18:01Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/asyal">@asyal</a> , is this a known bug?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/coastalbrandon'><span itemprop='name'>coastalbrandon</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-01-05T22:28:45Z' class='post-time'>
+                    January 5, 2018, 10:28pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-01-05T22:28:45Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey Rauger1, is there any play on the IOT board in the amphenol connector? We had some IoT boards made and we found we weren’t getting a very good connection inside of the amphenol connector. As a result I had to add nylon washers under the board to prop the IOT board up slightly when it’s screwed on… This would force some contact.</p>
+<p>I’m assuming this is likely not your problem, but it may be worth a quick test to check.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/rauger1'><span itemprop='name'>rauger1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-01-06T22:00:00Z' class='post-time'>
+                    January 6, 2018, 10:00pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-01-06T22:00:00Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/coastalbrandon">@coastalbrandon</a>,</p>
+<p>We took your suggestion and set the board to the left and right of the amphenol connector to no luck. Then we tried with a small piece of rubber underneath the board like your nylon washers and that did not help. We have a board that plugs into the amphenol which contains LEDs and small speakers that we can power from the board that does work, so the amphenol connector is not the issue.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/rauger1'><span itemprop='name'>rauger1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-01-31T15:07:46Z' class='post-time'>
+                    January 31, 2018,  3:07pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-01-31T15:07:46Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/asyal">@asyal</a>,<br>
+Is the wifi for the mirage board supposed to be supported for the mangoh red? Is there any update on usability of the usb port for the red?</p>
+<p>Thanks.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-01-31T20:08:03Z' class='post-time'>
+                    January 31, 2018,  8:08pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-01-31T20:08:03Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>USB port on Red is usable. Could you let me know what the problem is?</p>
+<p>For the mirage board, we will investigate what issue you are having next week.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/rauger1'><span itemprop='name'>rauger1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-01-31T20:59:17Z' class='post-time'>
+                    January 31, 2018,  8:59pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-01-31T20:59:17Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/asyal">@asyal</a>,</p>
+<p>lsusb does not work, and we don’t have any way of interfacing with the USBs. The USBs we have with LEDs that light up when plugged into a traditional computer do not light up when connected to the mangoh. We checked the USB pins and they are receiving power. It seems as if the USB driver is not working.</p>
+<p>As for the mirage board, I posted the error above. I am not quite sure what to make of it.</p>
+<p>Thanks for your help</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-01-31T23:05:51Z' class='post-time'>
+                    January 31, 2018, 11:05pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-01-31T23:05:51Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi ,<br>
+I have opened a ticket on the lsusb with the modem team. For mirage board, <a class="mention" href="/u/dclark75">@dclark75</a> can help.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dingo'><span itemprop='name'>dingo</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-02-10T07:52:23Z' class='post-time'>
+                    February 10, 2018,  7:52am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-02-10T07:52:23Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>any further work or updates on this, we are facing a similar issue with an iot card, and its seriously holding us up in development and testing</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-02-10T16:50:24Z' class='post-time'>
+                    February 10, 2018,  4:50pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-02-10T16:50:24Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Here is apossible fix that was suggested to us by  <a class="mention" href="/u/davidc">@davidc</a></p>
+<p>"we need to add the following line to the end of the existing /etc/mdev.conf file</p>
+<p>$DEVNAME=bus/usb/([0-9]+)/(0-9]+) 0:0 0666 =bus/usb/%1/%2<br>
+This will create the appropriate device nodes for USB devices (assuming that the device hasn’t matched a previous rule) as they are plugged into the WP into /dev/bus/usb, and remove them if the device is removed.</p>
+<p>This will make lsusb/libusb work<br>
+"</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dingo'><span itemprop='name'>dingo</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-02-10T22:51:20Z' class='post-time'>
+                    February 10, 2018, 10:51pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-02-10T22:51:20Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>well i happened to come across usb-devices on the mangoh board also, which pretty much works</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dingo'><span itemprop='name'>dingo</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-02-12T19:41:39Z' class='post-time'>
+                    February 12, 2018,  7:41pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-02-12T19:52:38Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>i tried adding this rule to mdev.conf and i still get lsusb<br>
+root@swi-mdm9x15:~# lsusb<br>
+unable to initialize libusb: -99</p>
+<p>so i pulled the usb device, and plugged it back in… now libusb works our code loaded… however we have a dilemma</p>
+<p>the usb device is actually an iot card, this would mean having to pull / push the iot device every time… and its not feasible in the business model of deployed systems… ideas ??</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_17' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-02-13T05:18:29Z' class='post-time'>
+                    February 13, 2018,  5:18am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-02-13T05:18:29Z'>
+              <span itemprop='position'>17</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Here is a bit more detail on this, again from <a class="mention" href="/u/davidc">@davidc</a> ,<br>
+"The second problem</p>
+<hr>
+<p>The above was working for devices that were ‘hotplugged’ (i.e. plugged into the USB host port on the mangOH after it had booted). I still wasn’t seeing the onboard devices appear in the /dev/bus/usb directory. Interestingly, once <em>one</em> device had appeared in the directory, lsusb was happy and could see the rest of the onboard devices. Why? No idea.</p>
+<p>Not having device nodes for devices that appear early in the boot sequence is a known problem - it’s called ‘coldplugging’ - and essentially it means that the kernel has recognised the device/loaded module etc before the hotplug manager is alive. So to get around this, mdev has an option ‘-s’ (scan) that forces a manual rescan of  /sys/class and re-evaluates all devices found there according to the rules in /etc/mdev.conf. It is intended that ‘mdev -s’ is called during the startup sequence to enumerate any devices that the kernel knowns about, but haven’t been configured yet.</p>
+<p>But I found that ‘mdev -s’ was NOT enumerating the USB devices - even after adding the correct rule to mdev.conf. After a lot of head scratching, debugging and looking through the mdev source code, I found that mdev was only scanning /sys/class for device families - and somewhere between kernel 3.6 and 3.18, the kernel was no longer putting usb device descriptors into /sys/class/usb - but only into /sys/bus/usb - so mdev -s could not see the ‘coldplugged’ USB devices.</p>
+<p>I found a hint on a forum that you could ‘force’ a hotplug event by echoing data to a file in /sys/bus/usb/devices/xxx/uevent, so I’ve hacked up a script that forces a ‘hotplug’ add event to all devices in /sys/bus/usb/devices - which then trips mdev and evaluates the correct mdev rule - which puts the correct device nodes /dev/bus/usb/</p>
+<p>I’m not sure just where to put the re-scan script yet - probably edit the init script that calls mdev -s<br>
+"<br>
+In the short term , see if  the following script helps:</p>
+<p>#!/bin/sh</p>
+<h1></h1>
+<h1><a href="http://scanusb.sh">scanusb.sh</a></h1>
+<h1>2018.02.09 D. Clement/Renfell Engineering</h1>
+<h1></h1>
+<h1></h1>
+<h1>Force a hotplug add event of usb devices in /sys/bus/usb</h1>
+<h1>This is required because linux kernels newer than</h1>
+<h1>about 3.10 have moved the USB devices out of /sys/class/usb</h1>
+<h1>and into /sys/bus/usb. This breaks the mdev -s coldplug</h1>
+<h1>operation</h1>
+<h1></h1>
+<h1>/etc/mdev.conf ALSO needs modification to map the USB devices</h1>
+<h1>into the /dev/bus/usb directory to support libusb</h1>
+<h1></h1>
+<h1>Add the following line to the end of /etc/mdev.conf</h1>
+<h1></h1>
+<h1>$DEVNAME=bus/usb/([0-9]+)/(0-9]+) 0:0 0666 =bus/usb/%1/%2</h1>
+<h1></h1>
+<p>for I in <code>find /sys/bus/usb/devices -maxdepth 1 -type l</code> ; do</p>
+<pre><code>if [ -e $I/uevent ]; then
+    echo add &gt; $I/uevent
+fi
+</code></pre>
+<p>done</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/libusb-partly-working-on-red-cannot-find-usbfs/1372">Libusb partly working on red - cannot find usbfs</a>
+                        <meta itemprop='position' content='2'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_18' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dingo'><span itemprop='name'>dingo</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-02-20T21:01:47Z' class='post-time'>
+                    February 20, 2018,  9:01pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-02-20T21:01:47Z'>
+              <span itemprop='position'>18</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>thanks for that, unfortunatley it hasnt helped, still need to unplug/plug the usb device before its seen</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_19' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dingo'><span itemprop='name'>dingo</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-driver-failing-to-find-or-power-usbs/1033">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-03-13T12:00:50Z' class='post-time'>
+                    March 13, 2018, 12:00pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-03-13T12:00:50Z'>
+              <span itemprop='position'>19</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>so… just to update everyone on this subject… after adding the magic udev rule to our build it seems that running i2cgpioctl enter “100” load setup defaults, enter “0” to exit does bring up the usb iot cards without having to reslot them, then simply running the pasted enableIoT2.sh<br>
+which is specific to IOT2 with notes on the others slots, might just get you there</p>
+<p>cat enableIoT2.sh<br>
+#!/bin/sh</p>
+<h1>I2C bus switch on address 0x71</h1>
+<h1>0xFC - expander <span class="hashtag">#3</span>, this has the IoT card reset lines</h1>
+<h1></h1>
+<h1>Expander <span class="hashtag">#3</span> address 0x70 (after selecting expander 3 bus above)</h1>
+<h1>Port A Pin I/O 2 = IoT port 2 Reset (low = reset, high = run)</h1>
+<h1>Port A Pin I/O 3 = IoT port 1 Reset (low = reset, high = run)</h1>
+<h1>Port A Pin I/O 4 = IoT port 0 Reset (low = reset, high = run)</h1>
+<h1></h1>
+<h1>NOTE:</h1>
+<h1>The default programming loaded by the OS to this expander sees</h1>
+<h1>port “a”, which contains these reset lines (which are “active low”)</h1>
+<h1>configured in “inverted polarity”. (Reg 0x0d = 0xFF).</h1>
+<h1></h1>
+<h1>This means that to remove reset, we need to write a 0 to the appropriate</h1>
+<h1>bit.</h1>
+<h1></h1>
+<h1>Relevent chip registers for expander:</h1>
+<h1>0x0E Port B direction (0=out, 1=in)</h1>
+<h1>0x0F Port A direction (0=out, 1=in)</h1>
+<h1>0x0C Port B polarity (0=normal, 1=inverted)</h1>
+<h1>0x0D Port A polarity (0=normal, 1=inverted)</h1>
+<h1>0x10 Port B data</h1>
+<h1>0x11 Port A data</h1>
+<p>echo ‘Switching bus to GPIO expander <span class="hashtag">#3</span>’<br>
+i2cset -y 0 0x71 0xFC<br>
+echo ‘Release IoT2 Reset line’<br>
+i2cset -y 0 0x70 0x11 0xFB</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

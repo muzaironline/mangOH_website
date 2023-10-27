@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>How to Handle le_avdata_PushRecord Handler Failure</title>
+    <link>https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900</link>
+    <description>I posted here in the Legato forum https://forum.legato.io/t/le-avdata-pushrecord-handler-failure/4440/5 and I&#39;m still ocasionally getting a le_avdata_PushRecord handler with a value of `LE_AVDATA_PUSH_FAILED`.
+
+The Legato documentation doesn&#39;t really talk about how a le_avdata_PushRecord handler failure should be dealt with.   What should be done in this situation?
+
+Thanks,</description>
+    
+    <lastBuildDate>Wed, 18 Sep 2019 21:12:39 +0000</lastBuildDate>
+    <category>Build your own</category>
+    <atom:link href="https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>How to Handle le_avdata_PushRecord Handler Failure</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/dfrey">@dfrey</a></p>
+<p>The Legato team seems to know what’s causing the handler failure but nobody has been able to comment on the fact the records are deleted.  You can see some of the details in the link in my initial post.</p>
+<p>I like your idea and totally agree on the non-trival amount of work which is why I was hoping this would be handled by the Legato platform services.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900/5</link>
+        <pubDate>Wed, 18 Sep 2019 21:12:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2900-5</guid>
+        <source url="https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900.rss">How to Handle le_avdata_PushRecord Handler Failure</source>
+      </item>
+      <item>
+        <title>How to Handle le_avdata_PushRecord Handler Failure</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>Assuming you’re correct about the behavior described above, then that seems like a design flaw.  I guess you could create you own parallel data structure to record data points into and keep your data until you get a <code>LE_AVDATA_PUSH_SUCCESS</code>.  If you get a <code>LE_AVDATA_PUSH_FAILED</code>, then you could construct a new record and try to push again.  This seems like a non-trivial amount of work and a huge hack though.  I suggest trying to escalate the issue with the Legato team.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900/4</link>
+        <pubDate>Wed, 18 Sep 2019 20:56:19 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2900-4</guid>
+        <source url="https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900.rss">How to Handle le_avdata_PushRecord Handler Failure</source>
+      </item>
+      <item>
+        <title>How to Handle le_avdata_PushRecord Handler Failure</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/dfrey">@dfrey</a></p>
+<p>Thanks for looking into this but I too have looked at the code and I don’t think works as you initially thought. Please see below:</p>
+<ol>
+<li>Once a record has successfully pushed or queued then the record is reset. See  <code>avcDaemon/timeseriesData.c</code>  line <span class="hashtag">#1597</span>
+</li>
+<li>It doesn’t matter if a push handler is called with a status of  <code>LE_AVDATA_PUSH_SUCCESS</code>  or  <code>LE_AVDATA_PUSH_FAILED</code>  the item on the push linked list is removed from the list and the data is lost at that point. See  <code>avcDaemon/push.c</code>  lines <span class="hashtag">#105</span> to <span class="hashtag">#122</span>.</li>
+</ol>
+<p>The initial call to le_avdata_PushRecord doesn’t fail, it’s the callback handler that reports the fail.  My interpretation of the code is in this situation the record will be lost.</p>
+<p>I would really appreciate your thoughts on this.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900/3</link>
+        <pubDate>Wed, 18 Sep 2019 20:44:25 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2900-3</guid>
+        <source url="https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900.rss">How to Handle le_avdata_PushRecord Handler Failure</source>
+      </item>
+      <item>
+        <title>How to Handle le_avdata_PushRecord Handler Failure</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>Have you attempted to retry the call to<code>le_avdata_PushRecord()</code> with the same record reference?  I have only skimmed the code, but it seems that the reference is only cleared when the data is successfully pushed.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900/2</link>
+        <pubDate>Wed, 18 Sep 2019 17:32:05 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2900-2</guid>
+        <source url="https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900.rss">How to Handle le_avdata_PushRecord Handler Failure</source>
+      </item>
+      <item>
+        <title>How to Handle le_avdata_PushRecord Handler Failure</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p>I posted here in the Legato forum <a href="https://forum.legato.io/t/le-avdata-pushrecord-handler-failure/4440/5" rel="nofollow noopener">https://forum.legato.io/t/le-avdata-pushrecord-handler-failure/4440/5</a> and I’m still ocasionally getting a le_avdata_PushRecord handler with a value of <code>LE_AVDATA_PUSH_FAILED</code>.</p>
+<p>The Legato documentation doesn’t really talk about how a le_avdata_PushRecord handler failure should be dealt with.   What should be done in this situation?</p>
+<p>Thanks,</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900/1</link>
+        <pubDate>Mon, 09 Sep 2019 22:04:25 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2900-1</guid>
+        <source url="https://forum.mangoh.io/t/how-to-handle-le-avdata-pushrecord-handler-failure/2900.rss">How to Handle le_avdata_PushRecord Handler Failure</source>
+      </item>
+  </channel>
+</rss>

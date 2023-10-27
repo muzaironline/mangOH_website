@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bringup of TI Talon [wl18xx] wifi IOT module on WP7607 Custom Board - #5 by tejaswisj - IoT Cards - mangOH forum</title>
+    <meta name="description" content="We have a custom board based on WP7607 which has Talon TI wifi module [wl18xx] connect to it through SDIO lines. We have also connected the WIFI Enable (GPIO 8), Wifi Reset (GPIO 2) and SDIO interrupt enable (GPIO 42). 
+T&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Bringup of TI Talon [wl18xx] wifi IOT module on WP7607 Custom Board&#39;" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003/5" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003/5" />
+<meta property="og:title" content="Bringup of TI Talon [wl18xx] wifi IOT module on WP7607 Custom Board" />
+<meta name="twitter:title" content="Bringup of TI Talon [wl18xx] wifi IOT module on WP7607 Custom Board" />
+<meta property="og:description" content="Ok will check the MangoH board voltages and get back for any questions.  As for the msm_sdcc, in the link : All wifi commands failing with Mirage board,  The tiwifi script was modified to incorporate msm_sdcc, disable the i2cset values.  Followed the same as in link.  If the msm_sdcc is intended for mangoH Green board, then i would probably skip it.  Please confirm." />
+<meta name="twitter:description" content="Ok will check the MangoH board voltages and get back for any questions.  As for the msm_sdcc, in the link : All wifi commands failing with Mirage board,  The tiwifi script was modified to incorporate msm_sdcc, disable the i2cset values.  Followed the same as in link.  If the msm_sdcc is intended for mangoH Green board, then i would probably skip it.  Please confirm." />
+<meta property="og:article:section" content="IoT Cards" />
+<meta property="og:article:section:color" content="621B4B" />
+<meta property="article:published_time" content="2020-08-11T09:21:28+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="next" href="/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003?page=2">
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Bringup of TI Talon [wl18xx] wifi IOT module on WP7607 Custom Board","mainEntity":{"@type":"Question","name":"Bringup of TI Talon [wl18xx] wifi IOT module on WP7607 Custom Board","text":"We have a custom board based on WP7607 which has Talon TI wifi module [wl18xx] connect to it through SDIO lines. We have also connected the WIFI Enable (GPIO 8), Wifi Reset (GPIO 2) and SDIO interrupt enable (GPIO 42).\n\nThere are direct connections with no I2C switches PCA9548A in the path, or SDIO &hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2020-08-11T07:17:18.055Z","author":{"@type":"Person","name":"tejaswi sj"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">Bringup of TI Talon [wl18xx] wifi IOT module on WP7607 Custom Board</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/iot-cards/8" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #621B4B'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>IoT Cards</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Bringup of TI Talon [wl18xx] wifi IOT module on WP7607 Custom Board'>
+        <meta itemprop='articleSection' content='IoT Cards'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-11T07:17:18Z' class='post-time'>
+                    August 11, 2020,  7:17am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-11T07:27:57Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>We have a custom board based on WP7607 which has Talon TI wifi module [wl18xx] connect to it through SDIO lines. We have also connected the WIFI Enable (GPIO 8), Wifi Reset (GPIO 2) and SDIO interrupt enable (GPIO 42).</p>
+<p>There are direct connections with no I2C switches PCA9548A in the path, or SDIO switch TXS02612. There is no CAT24C32 Eeprom connected on the TI Talon wifi card.<br>
+The Pin number 160 of WP7607 is floating. We have not connected it to 2.95 V as done in the MangoH Red EVK.</p>
+<p>We have also modified the /etc/init.d/tiwifi script not to enable the I2C based setting.<br>
+Attaching the script for reference.</p>
+<p>Image used is :<br>
+Connecting to service …<br>
+Firmware Version: SWI9X07Y_02.28.03.03 000000 jenkins 2019/05/21 03:33:04<br>
+Bootloader Version: SWI9X07Y_02.28.03.03 000000 jenkins 2019/05/21 03:33:04<br>
+Linux Version: 3.18.131 <span class="hashtag">#1</span> PREEMPT Tue May 21 06:09:42 UTC 2019</p>
+<p>We want to enabled TI Talon wl18xx module with WP7607.<br>
+Request your inputs here.</p>
+<p>Few questions :</p>
+<ol>
+<li>
+<p>When booting up the WP7607, we hit this error and is continuous.<br>
+275.577422] mmc0: error -84 whilst initialising SDIO card<br>
+[  276.618893] sdhci_msm 7864900.sdhci: card claims to support voltages below defined range<br>
+[  276.618944] sdhci_msm 7864900.sdhci: exceeding card’s volts<br>
+[  276.622266] mmc0: error -84 whilst initialising SDIO card<br>
+[  277.668810] sdhci_msm 7864900.sdhci: card claims to support voltages below defined range<br>
+[  277.668858] sdhci_msm 7864900.sdhci: exceeding card’s volts<br>
+[  277.678219] mmc0: error -84 whilst initialising SDIO card<br>
+[  278.719159] sdhci_msm 7864900.sdhci: card claims to support voltages below defined range</p>
+</li>
+<li>
+<p>With the attached tiwifi script, below is the failure when running wifi command “wifi client start”<br>
+<span class="math"> wifi client start
+ERROR: le_wifiClient_Start returns ERROR.
+</span></p>
+</li>
+</ol>
+<p>root@swi-mdm9x28-wp:~# logread -f<br>
+[ 1411.765981] mmc0: error -84 whilst initialising SDIO card<br>
+Jan  6 00:27:42 swi-mdm9x28-wp user.info kernel: [ 1411.703194] mmc0: card 0001 removed<br>
+Jan  6 00:27:42 swi-mdm9x28-wp user.warn kernel: [ 1411.756655] sdhci_msm 7864900.sdhci: card claims to support voltages below defined range<br>
+Jan  6 00:27:42 swi-mdm9x28-wp user.err kernel: [ 1411.765981] mmc0: error -84 whilst initialising SDIO card<br>
+Jan  6 00:27:43 swi-mdm9x28-wp user.warn kernel: [ 1412.833309] sdhci_msm 7864900.sdhci: card claims to support voltages below defined range<br>
+Jan  6 00:27:43 swi-mdm9x28-wp user.warn kernel: [ 1412.889917] mmc0: queuing unknown CIS tuple 0x91 (3 bytes)<br>
+Jan  6 00:27:43 swi-mdm9x28-wp user.info kernel: [ 1412.893534] mmc0: new high speed SDIO card at address 0001<br>
+Jan  6 00:27:46 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c app_Create() 3207 | Creating app ‘wifi’<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[833]/supervisor T=main | proc.c GetWatchdogAction() 359 | wifi@0 watchdogAn<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c app_Start() 3420 | Starting app ‘wifi’<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link t<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link s<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting r.<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting r.<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting r.<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting r.<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting r.<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting r.<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting r.<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | proc.c proc_Start() 1390 | Starting process 'wifi7<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[4667]/supervisor T=main | proc.c proc_Start() 1355 | Execing ‘bin/wifi’<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiService[876]/framework T=main | LE_FILENAME ExtractFileDescriptor() 34 | Receive.<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiService[876]/framework T=main | LE_FILENAME ExtractFileDescriptor() 34 | Receive.<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiService[876]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory poo.<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiService[876]/framework T=WifiClientPaThread | LE_FILENAME PThreadStartRoutine() .<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | wifiService[876]/daemon T=WifiClientPaThread | pa_wifi_client_ti.c WifiClientPaThread!<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | wifiService[876] | WIFI_START<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | wifiService[876]/daemon T=WifiClientPaThread | pa_wifi_client_ti.c WifiClientPaThread5<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.debug kernel: [ 1416.569236] gpio_sync_ri: RI owner is Modem<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.debug kernel: [ 1416.569264] gpio_map_name_to_num: find GPIO 79<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.debug kernel: [ 1416.569275] export_store: Export GPIO: 79<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.debug kernel: [ 1416.569300] gpio_sync_ri: RI owner is Modem<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.debug kernel: [ 1416.569315] gpiod_export: sierra–find GPIO,chipdev = -824015856,chipngpio = 80,chipbase 0<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.err Legato: =ERR= | wifiService[876] | modprobe: module msm_sdcc not found in modules.dep<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.err Legato: =ERR= | wifiService[876]/daemon T=main | pa_wifi_client_ti.c pa_wifiClient_Start() 349 | WiFi T<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | supervisor.c SigChildHandler() 792 | Reaping unco.<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.err Legato: =ERR= | wifiService[876]/daemon T=WifiClientPaThread | pa_wifi_client_ti.c ThreadDestructor() t<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.err Legato: =ERR= | wifiService[876]/daemon T=main | le_wifiClient.c le_wifiClient_Start() 657 | Unable to6<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiService[876]/framework T=main | le_wifiClient_server.c CleanupClientData() 148 |!<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | proc.c proc_SigChildHandler() 2051 | Process 'wif.<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiService[876]/framework T=main | le_wifiClient_server.c CleanupClientData() 169 |h<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.debug Legato:  DBUG | wifiService[876]/framework T=main | le_wifiAp_server.c CleanupClientData() 148 | Cli!<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[833]/supervisor T=main | app.c app_SigChildHandler() 4015 | Process 'wifi@.<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | app.c app_StopComplete() 4686 | app ‘wifi’ has st.<br>
+Jan  6 00:27:47 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[833]/supervisor T=main | apps.c DeactivateAppContainer() 374 | Application.<br>
+Jan  6 00:27:50 swi-mdm9x28-wp user.info kernel: [ 1420.336094] mmc0: card 0001 removed<br>
+Jan  6 00:27:50 swi-mdm9x28-wp user.warn kernel: [ 1420.380982] sdhci_msm 7864900.sdhci: card claims to support voltages below defined range<br>
+Jan  6 00:27:50 swi-mdm9x28-wp user.warn kernel: [ 1420.381018] sdhci_msm 7864900.sdhci: exceeding card’s volts<br>
+[ 1420.466714] mmc0: bad CIS tuple 0x20 (0 bytes)<br>
+[ 1420.470563] mmc0: error -22 whilst initialising SDIO card<br>
+Jan  6 00:27:51 swi-mdm9x28-wp user.warn kernel: [ 1420.447273] mmc0: queuing unknown CIS tuple 0x91 (3 bytes)<br>
+Jan  6 00:27:51 swi-mdm9x28-wp user.warn kernel: [ 1420.451331] mmc0: queuing unknown CIS tuple 0x43 (3 bytes)<br>
+Jan  6 00:27:51 swi-mdm9x28-wp user.warn kernel: [ 1420.452611] mmc0: queuing unknown CIS tuple 0x82 (18 bytes)<br>
+Jan  6 00:27:51 swi-mdm9x28-wp user.warn kernel: [ 1420.454912] mmc0: queuing unknown CIS tuple 0x01 (0 bytes)<br>
+Jan  6 00:27:51 swi-mdm9x28-wp user.warn kernel: [ 1420.458535] mmc0: queuing unknown CIS tuple 0x01 (63 bytes)<br>
+Jan  6 00:27:51 swi-mdm9x28-wp user.warn kernel: [ 1420.465882] mmc0: queuing unknown CIS tuple 0x0a (0 bytes)<br>
+Jan  6 00:27:51 swi-mdm9x28-wp user.warn kernel: [ 1420.466133] mmc0: queuing unknown CIS tuple 0x02 (0 bytes)<br>
+Jan  6 00:27:51 swi-mdm9x28-wp user.err kernel: [ 1420.466714] mmc0: bad CIS tuple 0x20 (0 bytes)<br>
+Jan  6 00:27:51 swi-mdm9x28-wp user.err kernel: [ 1420.470563] mmc0: error -22 whilst initialising SDIO card<br>
+[ 1421.540871] mmc0: error -84 whilst initialising SDIO card<br>
+Jan  6 00:27:52 swi-mdm9x28-wp user.warn kernel: [ 1421.535382] sdhci_msm 7864900.sdhci: card claims to support voltages below defined range<br>
+Jan  6 00:27:52 swi-mdm9x28-wp user.err kernel: [ 1421.540871] mmc0: er<a class="attachment" href="/uploads/short-url/AdXQm64hbpj5QcBU5yERcRZ0hcM">tiwifi</a> (5.7 KB)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-11T07:45:34Z' class='post-time'>
+                    August 11, 2020,  7:45am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-11T07:45:34Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>your logread pasted above is not complete… (some message is missing)<br>
+I guess the voltage of the SDIO pin has some problem:</p>
+<p>Jan 6 00:27:50 swi-mdm9x28-wp user.warn kernel: [ 1420.381018] sdhci_msm 7864900.sdhci: exceeding card’s volts</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-11T08:34:35Z' class='post-time'>
+                    August 11, 2020,  8:34am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-11T08:34:35Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>What is the expected voltage of the SDIO interface ?<br>
+SDIO interface logic is 1.8V in our setup.</p>
+<p>Are you talking about the 2.95V which is connected to pin number 160 of WP7607 on the EVK ? Is it mandatory to connect 2.95V to the 160 pin ?</p>
+<p>Also, in the modified tiwifi script we have included modprobe msm_sdcc , which is not present in modules.dep. Should a new yocto image with msm_sdcc enabled be flashed ?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-11T08:51:26Z' class='post-time'>
+                    August 11, 2020,  8:51am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-11T08:54:09Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>As you already make it working in MangOH board, you can measure the voltage on those pins on the working setup.</p>
+<p>what is the reason for “modprobe msm_sdcc”? does it still work fine in case you put this in your mangoh board?</p>
+<p>As this is related to hardware problem, probably you need to compare all the hardware difference with your working setup.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-11T09:21:28Z' class='post-time'>
+                    August 11, 2020,  9:21am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-11T09:21:28Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Ok will check the MangoH board voltages and get back for any questions.</p>
+<p>As for the msm_sdcc, in the link : <a href="https://forum.mangoh.io/t/all-wifi-commands-failing-with-mirage-board/1059" class="inline-onebox">All wifi commands failing with Mirage board</a>,<br>
+The tiwifi script was modified to incorporate msm_sdcc, disable the i2cset values.<br>
+Followed the same as in link.</p>
+<p>If the msm_sdcc is intended for mangoH Green board, then i would probably skip it.</p>
+<p>Please confirm.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-11T09:50:54Z' class='post-time'>
+                    August 11, 2020,  9:50am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-11T09:50:54Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>you can remove msm_sdcc in your working setup and see if it still works.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-11T11:11:04Z' class='post-time'>
+                    August 11, 2020, 11:11am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-11T11:11:04Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>thanks, removed the msm_sdcc in the tiwifi script, but still does not work.<br>
+I was checking the dmesg of the MangoH Red board and our custom board. Both has same fw image.</p>
+<p>On the custom hw, wlcore fails to assign WLAN_EN GPIO 58. Logs attached.<br>
+But on MangoH red board, GPIOS 38 and 76 are enabled. AFter that wlcore is loaded, checked for the phy firmware.</p>
+<p>Can you please let us know what is 76, 38 and 58  GPIOs.</p>
+<p>Why does it fail for GPIO 58 in custom board and does it need to be changed ?</p>
+<p>MangoH Red board logs  :-<br>
+29.702185] gpio_check_and_wake: wake-n_gpio26 STATE=WAKEUP<br>
+[   29.707536] swimcu_calibrate_event_handle: MCU calibrate completed with remaining time 0<br>
+[   29.707560] swimcu_lpo_calibrate_calc: MCU time=30000 vs MDM time=29271<br>
+[   29.707578] gpio_check_and_wake: wake-n_gpio26 STATE=SLEEP<br>
+[   29.908304] cfg80211: Calling CRDA to update world regulatory domain<br>
+[   29.908433] cfg80211: World regulatory domain updated:<br>
+[   29.908444] cfg80211:  DFS Master region: unset<br>
+[   29.908454] cfg80211:   (start_freq - end_freq @ bandwidth), (max_antenna_gain, max_eirp), (dfs_cac_time)<br>
+[   29.908467] cfg80211:   (2402000 KHz - 2472000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.908478] cfg80211:   (2457000 KHz - 2482000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.908489] cfg80211:   (2474000 KHz - 2494000 KHz @ 20000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.908499] cfg80211:   (5170000 KHz - 5250000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.908510] cfg80211:   (5250000 KHz - 5330000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.908521] cfg80211:   (5490000 KHz - 5710000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.908532] cfg80211:   (5735000 KHz - 5835000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.908542] cfg80211:   (57240000 KHz - 63720000 KHz @ 2160000 KHz), (N/A, 0 mBm), (N/A)<br>
+[   30.002197] QTI:USB tethered modem SMD port opened<br>
+[   30.006163] msm_hsusb msm_hsusb: [ep_queue] request already in queue<br>
+[   30.011596] ctrl resp queue empty  reqa1.01 v0000 i0008 l4096<br>
+[   30.911715] i2c-msm-v2 78b8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:2 cur:0 tx) bc(rx:1 tx:1) mode:FIFO slv_addr:0x70 MSTR_STS:0x0d1300c8 OPER:0x00000010<br>
+[   30.927041] i2c-msm-v2 78b8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:2 cur:0 tx) bc(rx:1 tx:1) mode:FIFO slv_addr:0x70 MSTR_STS:0x0d1300c8 OPER:0x00000010<br>
+[   30.944009] i2c-msm-v2 78b8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:2 cur:0 tx) bc(rx:1 tx:1) mode:FIFO slv_addr:0x70 MSTR_STS:0x0d1300c8 OPER:0x00000010<br>
+[   30.962194] i2c-msm-v2 78b8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:2 cur:0 tx) bc(rx:1 tx:1) mode:FIFO slv_addr:0x70 MSTR_STS:0x0d1300c8 OPER:0x00000010<br>
+[   30.978069] i2c-msm-v2 78b8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:2 cur:0 tx) bc(rx:1 tx:1) mode:FIFO slv_addr:0x70 MSTR_STS:0x0d1300c8 OPER:0x00000010<br>
+[   30.994224] i2c-msm-v2 78b8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:2 cur:0 tx) bc(rx:1 tx:1) mode:FIFO slv_addr:0x70 MSTR_STS:0x0d1300c8 OPER:0x00000010<br>
+[   31.012135] gpio_sync_ri: RI owner is Modem<br>
+[   31.012159] gpio_map_name_to_num: find GPIO 76<br>
+[   31.012170] export_store: Export GPIO: 76<br>
+[   31.012274] gpio_sync_ri: RI owner is Modem<br>
+[   31.012289] gpiod_export: sierra–find GPIO,chipdev = -824015856,chipngpio = 80,chipbase = 0<br>
+[   31.013772] gpio_sync_ri: RI owner is Modem<br>
+[   31.013793] gpio_map_name_to_num: find GPIO 38<br>
+[   31.013804] export_store: Export GPIO: 38<br>
+[   31.013827] gpio_sync_ri: RI owner is Modem<br>
+[   31.013841] gpiod_export: sierra–find GPIO,chipdev = -824015856,chipngpio = 80,chipbase = 0<br>
+[   31.099828] sdhci_msm 7864900.sdhci: card claims to support voltages below defined range<br>
+[   31.117545] mmc0: queuing unknown CIS tuple 0x91 (3 bytes)<br>
+[   31.120881] mmc0: new high speed SDIO card at address 0001<br>
+[   31.683364] wlcore: wl18xx HW: 183x or 180x, PG 2.2 (ROM 0x11)<br>
+[   31.771345] wlcore: loaded<br>
+[   36.876279] wlcore: PHY firmware version: Rev 8.2.0.0.212<br>
+[   36.917008] wlcore: firmware booted (Rev 8.9.0.0.17)<br>
+[   36.939390] IPv6: ADDRCONF(NETDEV_UP): wlan0: link is not ready<br>
+[   36.941265] ifconfig (1744) used greatest stack depth: 4376 bytes left<br>
+[   36.942194] tiwifi (1673) used greatest stack depth: 4272 bytes left<br>
+[   37.997096] wlcore: down</p>
+<p>Custom Board logs :-</p>
+<p>[   29.142763] QTI:USB tethered modem SMD port opened<br>
+[   29.144968] msm_hsusb msm_hsusb: [ep_queue] request already in queue<br>
+[   29.150508] ctrl resp queue empty  reqa1.01 v0000 i0008 l4096<br>
+[   29.576118] gpio_sync_ri: RI owner is Modem<br>
+[   29.576142] gpio_map_name_to_num: find GPIO 38<br>
+[   29.576153] export_store: Export GPIO: 38<br>
+[   29.576178] gpio_sync_ri: RI owner is Modem<br>
+[   29.620610] cfg80211: Calling CRDA to update world regulatory domain<br>
+[   29.620732] cfg80211: World regulatory domain updated:<br>
+[   29.620744] cfg80211:  DFS Master region: unset<br>
+[   29.620753] cfg80211:   (start_freq - end_freq @ bandwidth), (max_antenna_gain, max_eirp), (dfs_cac_time)<br>
+[   29.620766] cfg80211:   (2402000 KHz - 2472000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.620777] cfg80211:   (2457000 KHz - 2482000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.620788] cfg80211:   (2474000 KHz - 2494000 KHz @ 20000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.620799] cfg80211:   (5170000 KHz - 5250000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.620809] cfg80211:   (5250000 KHz - 5330000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.620820] cfg80211:   (5490000 KHz - 5710000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.620831] cfg80211:   (5735000 KHz - 5835000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.620842] cfg80211:   (57240000 KHz - 63720000 KHz @ 2160000 KHz), (N/A, 0 mBm), (N/A)<br>
+[   30.167132] sdhci_msm 7864900.sdhci: card claims to support voltages below defined range<br>
+[   30.167171] sdhci_msm 7864900.sdhci: no support for card’s volts<br>
+[   30.167191] mmc0: error -22 whilst initialising SDIO card<br>
+[   30.504282] gpio_check_and_wake: wake-n_gpio26 STATE=WAKEUP<br>
+[   30.513715] swimcu_calibrate_event_handle: MCU calibrate completed with remaining time 0<br>
+[   30.513758] swimcu_lpo_calibrate_calc: MCU time=30000 vs MDM time=30077<br>
+[   30.513790] gpio_check_and_wake: wake-n_gpio26 STATE=SLEEP<br>
+[   31.216859] sdhci_msm 7864900.sdhci: card claims to support voltages below defined range<br>
+[   31.219699] mmc0: error -110 whilst initialising SDIO card<br>
+[   31.598152] gpio_sync_ri: RI owner is Modem<br>
+[   31.598193] gpio_map_name_to_num: find GPIO 58<br>
+[   31.598207] export_store: Export GPIO: 58<br>
+[   31.598253] gpio_sync_ri: RI owner is Modem<br>
+[   31.598274] gpiod_export: sierra–find GPIO,chipdev = -824015856,chipngpio = 80,chipbase = 0<br>
+[   33.308227] sdhci_msm 7864900.sdhci: card claims to support voltages below defined range<br>
+[   33.313658] mmc0: error -84 whilst initialising SDIO card<br>
+[   34.357367] sdhci_msm 7864900.sdhci: card claims to support voltages below defined range<br>
+[   34.361899] mmc0: error -84 whilst initialising SDIO card<br>
+21339] usb usb1-port1: attempt power cycle<br>
+[   42.778655] sdhci_msm 7864900.sdhci: card claims to support voltages below defined range<br>
+[   42.836076] mmc0: queuing unknown CIS tuple 0x91 (3 bytes)<br>
+[   42.838606] mmc0: new high speed SDIO card at address 0001<br>
+[   43.023952] gpio-58 (sysfs): gpiod_request: status -16<br>
+[   43.023981] wlcore: ERROR cannot assign WLAN_EN GPIO58.<br>
+[   43.023981]<br>
+[   43.040465] wl18xx_driver: probe of wl18xx.0.auto failed with error -16<br>
+[   43.060960] usb 1-1: new high-speed USB device number 4 using msm_hsic_host<br>
+[   53.521175] usb 1-1: device not accepting address 4, error -110<br>
+[   53.641232] usb 1-1: new high-speed USB device number 5 using msm_hsic_host<br>
+[   64.100157] usb 1-1: device not accepting address 5, error -110<br>
+[   64.105224] usb usb1-port1: unable to enumerate USB device<br>
+[   64.112180] msm_hsic_host 7c00000.hsic_host: HSIC-USB in low power mode</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-11T12:43:00Z' class='post-time'>
+                    August 11, 2020, 12:43pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-11T12:43:00Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>mdm gpio 38= WP76 GPIO 2<br>
+mdm gpio 58= WP76 GPIO 8<br>
+mdm gpio 76= WP76 GPIO 13</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-11T13:08:39Z' class='post-time'>
+                    August 11, 2020,  1:08pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-11T13:49:52Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>As per your inputs,</p>
+<p>mdm gpio 38 = WP76 GPIO 2 = IOT0_RESET = reset to external IOT WIFI module<br>
+mdm gpio 58 = WP76 GPIO 8 = IOT0_GPIO4 = external IOT wifi enable<br>
+mdm gpio 76 = WP76 GPIO 13 =  ZIGBEE Enable</p>
+<p>Above we obtained from the MangoH Red board schematic.</p>
+<p>In our custom board, we have used WP76 GPIO 2 and WP76 GPIO 8. We are not using WP76 GPIO 13.</p>
+<p>Can you help us identify what can be the cause for this CRASH @ request_firmware_work_fun  ?</p>
+<p>Logs :</p>
+<pre><code>29.548653] cfg80211: Calling CRDA to update world regulatory domain
+</code></pre>
+<p>[   29.548782] cfg80211: World regulatory domain updated:<br>
+[   29.548795] cfg80211:  DFS Master region: unset<br>
+[   29.548805] cfg80211:   (start_freq - end_freq @ bandwidth), (max_antenna_gain, max_eirp), (dfs_cac_time)<br>
+[   29.548818] cfg80211:   (2402000 KHz - 2472000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.548831] cfg80211:   (2457000 KHz - 2482000 KHz @ 40000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.548842] cfg80211:   (2474000 KHz - 2494000 KHz @ 20000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.548854] cfg80211:   (5170000 KHz - 5250000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.548865] cfg80211:   (5250000 KHz - 5330000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.548877] cfg80211:   (5490000 KHz - 5710000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.548889] cfg80211:   (5735000 KHz - 5835000 KHz @ 80000 KHz), (N/A, 2000 mBm), (N/A)<br>
+[   29.548901] cfg80211:   (57240000 KHz - 63720000 KHz @ 2160000 KHz), (N/A, 0 mBm), (N/A)<br>
+[   30.499932] gpio_check_and_wake: wake-n_gpio26 STATE=WAKEUP<br>
+[   30.511692] swimcu_calibrate_event_handle: MCU calibrate completed with remaining time 0<br>
+[   30.511736] swimcu_lpo_calibrate_calc: MCU time=30000 vs MDM time=30084<br>
+[   30.511768] gpio_check_and_wake: wake-n_gpio26 STATE=SLEEP<br>
+[   30.551215] gpio_sync_ri: RI owner is Modem<br>
+[   30.551252] gpio_map_name_to_num: find GPIO 38<br>
+[   30.551268] export_store: Export GPIO: 38<br>
+[   30.551309] gpio_sync_ri: RI owner is Modem<br>
+[   30.551331] gpiod_export: sierra–find GPIO,chipdev = -824015856,chipngpio = 80,chipbase = 0<br>
+[   32.098114] sdhci_msm 7864900.sdhci: card claims to support voltages below defined range<br>
+[   32.118635] mmc0: queuing unknown CIS tuple 0x91 (3 bytes)<br>
+[   32.122243] mmc0: new high speed SDIO card at address 0001<br>
+[   34.536856] mmc0: data txfr (0x00100000) error: -110 after 1342 ms<br>
+[   34.542044] sdhci: =========== REGISTER DUMP (mmc0)===========<br>
+[   34.542070] sdhci: Sys addr: 0x00000000 | Version:  0x00002e02<br>
+[   34.542095] sdhci: Blk size: 0x00000004 | Blk cnt:  0x00000001<br>
+[   34.542121] sdhci: Argument: 0xa7ff8804 | Trn mode: 0x00000003<br>
+[   34.542145] sdhci: Present:  0x01f80100 | Host ctl: 0x00000017<br>
+[   34.542169] sdhci: Power:    0x0000000d | Blk gap:  0x00000000<br>
+[   34.542194] sdhci: Wake-up:  0x00000000 | Clock:    0x00000007<br>
+[   34.542218] sdhci: Timeout:  0x0000000b | Int stat: 0x00000000<br>
+[   34.542243] sdhci: Int enab: 0x03ff800b | Sig enab: 0x03ff000b<br>
+[   34.542266] sdhci: AC12 err: 0x00000000 | Slot int: 0x00000000<br>
+[   34.542292] sdhci: Caps:     0x262dc8b2 | Caps_1:   0x00008007<br>
+[   34.542316] sdhci: Cmd:      0x0000353a | Max curr: 0x00000000<br>
+[   34.542340] sdhci: Resp 1:   0x00000000 | Resp 0:   0x00001000<br>
+[   34.542364] sdhci: Resp 3:   0x00000000 | Resp 2:   0x00000000<br>
+[   34.542385] sdhci: Host ctl2: 0x00000000<br>
+[   34.542410] sdhci: ADMA Err: 0x00000000 | ADMA Ptr: 0x8f46c008<br>
+[   34.542432] ----------- VENDOR REGISTER DUMP -----------<br>
+[   34.542461] Data cnt: 0x00000000 | Fifo cnt: 0x00000000 | Int sts: 0x000c0000<br>
+[   34.542489] DLL cfg:  0x60086400 | DLL sts:  0x00000000 | SDCC ver: 0x1000002e<br>
+[   34.542516] Vndr func: 0x00008a1e | Vndr adma err : addr0: 0x00000000 addr1: 0x00000000<br>
+[   34.542538] Vndr func2: 0xfa8018a8<br>
+[   34.542641]  Test bus[0 to 3]: 0x0000c846 0x000020ce 0x00007018 0x01c001ff<br>
+[   34.542671]  Test bus[4 to 7]: 0x00463fd8 0x0004c038 0x40000000 0x0003ffff<br>
+[   34.542700]  Test bus[8 to 11]: 0x47fc0604 0x40800002 0x201be089 0x000004c0<br>
+[   34.542729]  Test bus[12 to 15]: 0x034f0408 0x843f1180 0x0d000018 0x00800a80<br>
+[   34.542757]  Test bus[16 to 19]: 0x00012000 0x000f800c 0x00000000 0x00000c91<br>
+[   34.542785]  Test bus[20 to 23]: 0x0240ff01 0x00050021 0x00000000 0x00000000<br>
+[   34.542811]  Test bus[24 to 27]: 0x00000000 0x00000000 0x00000000 0x00000000<br>
+[   34.542838]  Test bus[28 to 31]: 0x00000000 0x00000000 0x00000000 0x00000000<br>
+[   34.542864]  Test bus[32 to 35]: 0x00000000 0x00000000 0x00000000 0x00000000<br>
+[   34.542891]  Test bus[36 to 39]: 0x00000000 0x00000000 0x00000000 0x00000000<br>
+[   34.542917]  Test bus[40 to 43]: 0x00000000 0x00000000 0x00000000 0x00000000<br>
+[   34.542943]  Test bus[44 to 47]: 0x00000000 0x00000000 0x00000000 0x00000000<br>
+[   34.542970]  Test bus[48 to 51]: 0x00000000 0x00000000 0x00000000 0x00000000<br>
+[   34.542997]  Test bus[52 to 55]: 0x00000000 0x00000000 0x00000000 0x00000000<br>
+[   34.543023]  Test bus[56 to 59]: 0x00000000 0x00000000 0x00000000 0x00000000<br>
+[   34.543053] mmc0: clk: 50000000 clk-gated: 0 claimer: kworker/0:15 pwr: 12 host-&gt;irq = 8192<br>
+[   34.543080] mmc0: rpmstatus<a>pltfm</a>(0:1:0)<br>
+[   34.543100] sdhci: ===========================================<br>
+[   34.543311] ------------[ cut here ]------------<br>
+[   34.543382] WARNING: CPU: 0 PID: 857 at /usr/src/kernel/drivers/net/wireless/ti/wlcore/sdio.c:146 wl12xx_sdio_raw_write+0xe0/0x178 <a>wlcore_sdio</a><br>
+[   34.543405] Modules linked in: wl18xx wlcore_sdio wlcore mac80211 cfg80211<br>
+[   34.543485] CPU: 0 PID: 857 Comm: kworker/0:15 Not tainted 3.18.131 <span class="hashtag">#1</span><br>
+[   34.543537] Workqueue: events request_firmware_work_func<br>
+[   34.543619] [] (unwind_backtrace) from [] (show_stack+0x10/0x14)<br>
+[   34.543670] [] (show_stack) from [] (warn_slowpath_common+0x60/0x80)<br>
+[   34.543715] [] (warn_slowpath_common) from [] (warn_slowpath_null+0x18/0x20)<br>
+[   34.543766] [] (warn_slowpath_null) from [] (wl12xx_sdio_raw_write+0xe0/0x178 [wlcore_sdio])<br>
+[   34.544191] [] (wl12xx_sdio_raw_write [wlcore_sdio]) from [] (wlcore_set_partition+0x14c/0x49c [wlcore])<br>
+[   34.544639] [] (wlcore_set_partition [wlcore]) from [] (wl12xx_set_power_on+0x70/0x14c [wlcore])<br>
+[   34.545067] [] (wl12xx_set_power_on [wlcore]) from [] (wlcore_nvs_cb+0x250/0x908 [wlcore])<br>
+[   34.545312] [] (wlcore_nvs_cb [wlcore]) from [] (request_firmware_work_func+0x24/0x44)<br>
+[   34.545362] [] (request_firmware_work_func) from [] (process_one_work+0x1bc/0x2e0)<br>
+[   34.545405] [] (process_one_work) from [] (worker_thread+0x2dc/0x3b8)<br>
+[   34.545449] [] (worker_thread) from [] (kthread+0xc8/0xd4)<br>
+[   34.545494] [] (kthread) from [] (ret_from_fork+0x14/0x3c)<br>
+[   34.545522] —[ end trace 64d61770a2f5276f ]—<br>
+[   34.545562] wl1271_sdio mmc0:0001:2: sdio write failed (-110)<br>
+[   34.561668] wlcore: ERROR couldn’t get hw info</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-11T14:44:05Z' class='post-time'>
+                    August 11, 2020,  2:44pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-11T15:14:46Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Why this time has crash but previous time does not?<br>
+have you checked if the voltage on SDIO bus is the same as Mangoh board?</p>
+<p>Your observation on mangoh board is wrong, please see tiwifi script:</p>
+<pre><code>&gt;        echo "mangOH red board"
+&gt; 
+&gt;                # Set IOT0_GPIO2 = 1 (WP GPIO13)
+&gt;                [ -d /sys/class/gpio/gpio13 ] || echo 13 &gt;/sys/class/gpio/export
+&gt;                echo out &gt;/sys/class/gpio/gpio13/direction
+&gt;                echo 1 &gt;/sys/class/gpio/gpio13/value
+&gt; 
+&gt;                # Set IOT0_RESET = 1 (WP GPIO2)
+&gt;                [ -d /sys/class/gpio/gpio2 ] || echo 2 &gt;/sys/class/gpio/export
+&gt;                echo out &gt;/sys/class/gpio/gpio2/direction
+&gt;                echo 1 &gt;/sys/class/gpio/gpio2/value</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/sg001'><span itemprop='name'>sg001</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-12T04:07:06Z' class='post-time'>
+                    August 12, 2020,  4:07am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-12T04:10:44Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi,</p>
+<p>I am  Tejaswisj’s   team mate  and belongs to Hardware .</p>
+<p>The SDIO voltage level in our custom board is 1.8V  . In our custom board , Talon WL1831 IOT board  is directly connected to WP7607 module.</p>
+<p>But we noted that , in WP7607 MangOH RED EVK ,  they used  a 1.8V  to 2.95V  SDIO voltage translator  (TXS02612) .</p>
+<p>So the SDIO voltage level at MangOH RED  EVK is 2.95V and in custom board voltage level is 1.8V .</p>
+<p>One more information is ,in MangoH Red schematic ,  IOT0_GPIO2 = 1 (WP GPIO13)  is connected to only to   IOT  connector .</p>
+<p>Let us know  , what is the functionality of singal  IOT0_GPIO2 .Right now this GPIO signal is not used  any where .</p>
+<p>Regards<br>
+Sg001</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-12T04:38:52Z' class='post-time'>
+                    August 12, 2020,  4:38am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-12T04:38:52Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I guess it is for enabling the wifi chipset.<br>
+I don’t have the schematic either for the WIFI card…</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-12T08:03:18Z' class='post-time'>
+                    August 12, 2020,  8:03am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-12T08:03:18Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>WP76 GPIO 8 was used in the tiwifi file.<br>
+This caused that WIFI_ENABLE was not accessible.</p>
+<p>Removed GPIO8 in the file, and then proceeded to crash at write</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-12T08:15:05Z' class='post-time'>
+                    August 12, 2020,  8:15am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-12T08:15:05Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I don’t see my tiwifi script in mangoh red board is using GPIO8</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-12T08:33:25Z' class='post-time'>
+                    August 12, 2020,  8:33am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-12T08:33:25Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>yes original file does not have this, my bad i did a mistake and added that.<br>
+Removed it and then the WIFI_ENABLE error was gone.</p>
+<p>Now getting the sdio write failed (-110) crash.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-12T08:42:45Z' class='post-time'>
+                    August 12, 2020,  8:42am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-12T08:42:45Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>If you confirmed the mangoh red board is using 3V SDIO bus, you might try the same at your custom board.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/wifi-script-not-working-with-13-1-fw-and-19-02-legato/5084/14">WIFI Script Not working with 13.1 FW and 19.02 Legato</a>
+                        <meta itemprop='position' content='1'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_17' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tejaswisj'><span itemprop='name'>tejaswisj</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-12T09:12:31Z' class='post-time'>
+                    August 12, 2020,  9:12am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-12T09:12:31Z'>
+              <span itemprop='position'>17</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Currently in our custom board, we dont have any 3V SDIO level translator.<br>
+Since, the Talon Wifi module spec mentions 1.8V is supported, we thought it might work.<br>
+This might be a lame questions, but<br>
+Is there a way in the dtsi file of the yocto image, to change this voltage support for SDIO lines to 1.8V ?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_18' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-12T09:21:13Z' class='post-time'>
+                    August 12, 2020,  9:21am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-12T09:23:02Z'>
+              <span itemprop='position'>18</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>you can ask in this thread:<br>
+</p><aside class="onebox allowlistedgeneric">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/252837692301bb53b7d4b8041901ad6486ced526.png" class="site-icon" width="32" height="32">
+      <a href="https://forum.legato.io/t/wp7607-sdio-voltage-levels/5206" target="_blank" rel="nofollow noopener" title="09:52PM - 22 May 2020">Legato Forum – 22 May 20</a>
+  </header>
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/wp7607-sdio-voltage-levels/5206" target="_blank" rel="nofollow noopener">WP7607 SDIO voltage levels</a></h3>
+
+<p>The SDIO data lines voltage is specified in the datasheet to have two levels 1.8V/2.85V  Is there a way to tell the WP7607 to use SDIO data signals at 1.8V and if yes how?</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+<p>BTW, do you really confirm  the mangoh red board is using 3V SDIO bus when communicating with WIFI IOT card? (I remember it should use 1.8 V bus)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_19' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Scott'><span itemprop='name'>Scott</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-25T17:25:08Z' class='post-time'>
+                    August 25, 2020,  5:25pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-25T17:25:08Z'>
+              <span itemprop='position'>19</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>The Mirage WiFi WL18 card uses 1.8v for all interface lines.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_20' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-25T23:47:31Z' class='post-time'>
+                    August 25, 2020, 11:47pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-25T23:47:31Z'>
+              <span itemprop='position'>20</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I agree with you,  I remember it should use 1.8 V bus</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/bringup-of-ti-talon-wl18xx-wifi-iot-module-on-wp7607-custom-board/5003?page=2">next page →</a></b></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

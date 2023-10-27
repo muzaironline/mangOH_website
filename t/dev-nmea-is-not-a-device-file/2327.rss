@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>&#39;/dev/nmea&#39; is not a device file</title>
+    <link>https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327</link>
+    <description>Hi there ,
+I had written a legato application which would read gps data from **/dev/nmea** the code was working fine in **wp7502** but the same code when tried with **wp7607** gives out following errors
+--&gt; **supervisor[658]/supervisor T=main | app.c GetDevID() 650 | &#39;/dev/nmea&#39; is not a device file. Success.**
+
+--&gt; **supervisor[658]/supervisor T=main | app.c SetCfgDevicePermissions() 754 | Failed to set permissions (rw) for app &#39;GNSS&#39; on device &#39;/dev/nmea&#39;** .
+
+It could be good if somebody provides me some pointers to over come this issue</description>
+    
+    <lastBuildDate>Sat, 26 Dec 2020 10:31:25 +0000</lastBuildDate>
+    <category>mangOH Green</category>
+    <atom:link href="https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>&#39;/dev/nmea&#39; is not a device file</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Here has an example to open /dev/ttyAT, you can make modification based on that:</p>
+<aside class="onebox allowlistedgeneric">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/252837692301bb53b7d4b8041901ad6486ced526.png" class="site-icon" width="32" height="32">
+      <a href="https://forum.legato.io/t/uart-flow-control-with-wp7608/4597/47" target="_blank" rel="noopener nofollow ugc" title="08:51AM - 03 September 2019">Legato Forum – 3 Sep 19</a>
+  </header>
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/uart-flow-control-with-wp7608/4597/47" target="_blank" rel="noopener nofollow ugc">UART flow control with WP7608</a></h3>
+
+<p>I cannot find another way to access RTS and CTS other than my previous suggestion.  I think using ioctl() to set CTS is the most proper way and standard way.  Currently I have no idea why RTS cannot be read by ioctl().  Below is the code to read the...</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327/7</link>
+        <pubDate>Sat, 26 Dec 2020 10:31:25 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2327-7</guid>
+        <source url="https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327.rss">&#39;/dev/nmea&#39; is not a device file</source>
+      </item>
+      <item>
+        <title>&#39;/dev/nmea&#39; is not a device file</title>
+        <dc:creator><![CDATA[kalaivani]]></dc:creator>
+        <description><![CDATA[
+            <p>thanks for reply. can i have a source code to get the Nmea values in the terminal</p>
+          <p><a href="https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327/6</link>
+        <pubDate>Sat, 26 Dec 2020 09:44:45 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2327-6</guid>
+        <source url="https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327.rss">&#39;/dev/nmea&#39; is not a device file</source>
+      </item>
+      <item>
+        <title>&#39;/dev/nmea&#39; is not a device file</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>If NMEA is added to the definition file as a device, it cannot be accessed by the sandbox app:</p>
+<p>requires:<br>
+{<br>
+device:<br>
+{<br>
+/dev/nmea /dev/<br>
+}<br>
+}</p>
+<p>But, if adding it as a file, it works:</p>
+<p>requires:<br>
+{<br>
+file:<br>
+{<br>
+/dev/nmea /dev/<br>
+}<br>
+}</p>
+<aside class="onebox allowlistedgeneric">
+  <header class="source">
+      
+      <a href="https://docs.legato.io/latest/defFilesCdef.html" target="_blank" rel="noopener nofollow ugc">docs.legato.io</a>
+  </header>
+  <article class="onebox-body">
+    <img src="" class="thumbnail" width="" height="">
+
+<h3><a href="https://docs.legato.io/latest/defFilesCdef.html" target="_blank" rel="noopener nofollow ugc">Component Definition .cdef  - Legato Docs</a></h3>
+
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327/5</link>
+        <pubDate>Fri, 25 Dec 2020 12:32:53 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2327-5</guid>
+        <source url="https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327.rss">&#39;/dev/nmea&#39; is not a device file</source>
+      </item>
+      <item>
+        <title>&#39;/dev/nmea&#39; is not a device file</title>
+        <dc:creator><![CDATA[kalaivani]]></dc:creator>
+        <description><![CDATA[
+            <p>hi can i have ur sample project to read the nmea format</p>
+          <p><a href="https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327/4</link>
+        <pubDate>Fri, 25 Dec 2020 10:47:08 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2327-4</guid>
+        <source url="https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327.rss">&#39;/dev/nmea&#39; is not a device file</source>
+      </item>
+      <item>
+        <title>&#39;/dev/nmea&#39; is not a device file</title>
+        <dc:creator><![CDATA[gazedbro]]></dc:creator>
+        <description><![CDATA[
+            <p>Some more detail:<br>
+I managed to get the application up and “running” as a “sand boxed” application.  The first connection to the outside world that I need is to the /dev/nmea port.</p>
+<p>To do this, according to this page: <a href="https://docs.legato.io/17_07/defFilesAdef.html" rel="nofollow noopener">https://docs.legato.io/17_07/defFilesAdef.html<br>
+</a></p>
+<p>(I have double checked for the version of legato that I have (18_10) and there was no change to this page.)</p>
+<p>all I need to do is put the following in the adef file:</p>
+<p>requires:</p>
+<p>{</p>
+<p>device:</p>
+<p>{</p>
+<p>[r] /dev/nmea /dev/nmea }</p>
+<p>}</p>
+<p>having done this I get the error:</p>
+<p>Jan  6 20:04:04 swi-mdm9x28-wp user.err Legato: =ERR= | supervisor[835]/supervisor T=main | app.c GetDevID() 676 | ‘/dev/nmea’ is not a device file.  Resource temporarily unavailable.<br>
+Jan  6 20:04:04 swi-mdm9x28-wp user.err Legato: =ERR= | supervisor[835]/supervisor T=main | app.c SetCfgDevicePermissions() 775 | Failed to set permissions ® for app ‘processPosition’ on device ‘/dev/nmea’.</p>
+<p>(if I “cat /dev/nmea” I get nmea sentences as expected.)</p>
+          <p><a href="https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327/3</link>
+        <pubDate>Thu, 16 Jan 2020 13:08:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2327-3</guid>
+        <source url="https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327.rss">&#39;/dev/nmea&#39; is not a device file</source>
+      </item>
+      <item>
+        <title>&#39;/dev/nmea&#39; is not a device file</title>
+        <dc:creator><![CDATA[gazedbro]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello, did you get a reply to this?  I have exactly the same problem, but it looks like no one else does!</p>
+          <p><a href="https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327/2</link>
+        <pubDate>Thu, 16 Jan 2020 13:07:02 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2327-2</guid>
+        <source url="https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327.rss">&#39;/dev/nmea&#39; is not a device file</source>
+      </item>
+      <item>
+        <title>&#39;/dev/nmea&#39; is not a device file</title>
+        <dc:creator><![CDATA[AkshayKulkarni]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi there ,<br>
+I had written a legato application which would read gps data from <strong>/dev/nmea</strong> the code was working fine in <strong>wp7502</strong> but the same code when tried with <strong>wp7607</strong> gives out following errors<br>
+–&gt; <strong>supervisor[658]/supervisor T=main | app.c GetDevID() 650 | ‘/dev/nmea’ is not a device file. Success.</strong></p>
+<p>–&gt; <strong>supervisor[658]/supervisor T=main | app.c SetCfgDevicePermissions() 754 | Failed to set permissions (rw) for app ‘GNSS’ on device ‘/dev/nmea’</strong> .</p>
+<p>It could be good if somebody provides me some pointers to over come this issue</p>
+          <p><a href="https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327/1</link>
+        <pubDate>Wed, 23 Jan 2019 10:11:23 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2327-1</guid>
+        <source url="https://forum.mangoh.io/t/dev-nmea-is-not-a-device-file/2327.rss">&#39;/dev/nmea&#39; is not a device file</source>
+      </item>
+  </channel>
+</rss>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Recording MdmTxAudio</title>
+    <link>https://forum.mangoh.io/t/recording-mdmtxaudio/10058</link>
+    <description>Hello, I posted a while back and learned that there is a limitation whereby a legato audio recorder cannot be connected to a legato audio player. I&#39;m using mangoh Yellow and WP7611 modem. I thought about trying a different approach whereby I try to record/stream via HTTP the audio leaving the modem TX channel. 
+To do this I use the following API&#39;s: 
+
+MdmTxAudioRef = le_audio_OpenModemVoiceTx();
+AudioOutputConnectorRef = le_audio_CreateConnector();
+AudioOutputConnectorRef2 = le_audio_CreateConnector();
+res = le_audio_Connect(AudioOutputConnectorRef , MdmTxAudioRef );
+res = le_audio_Connect(AudioOutputConnectorRef2,MdmTxAudioRef);
+
+In the above example, I create a new audio reference for file play, and connect it with AudioOutputConnectorRef. So my wav audio files should play over this connector. 
+
+I recently added the AudioOutputConnectorRef2 and connect it to MdmTxAudioRef. I don&#39;t get any errors when connecting everything up. But I believe I see a kernal exception thrown in the logs: 
+
+[ 3559.890380]  MDM Media1: ASoC: no backend DAIs enabled for MDM Media1
+[ 3559.896481] q6asm_callback: cmd = 0x10bcd returned error = 0x1
+[ 3559.901769] __q6asm_cmd: DSP returned error[ADSP_EFAILED] opcode 68557
+
+```
+
+=ERR= | audioDaemon[1784] | buffer_bytes = (2560,2560) omin=0 omax=0 int=1 empty=0 period_bytes = (320,320) omin=0 omax=0 int=1 empty=0
+Jul 21 12:14:49 swi-mdm9x28-wp user.debug Legato:  DBUG | audioCompExe[2029]/framework T=TransmitSamples | thread.c PThreadStartRoutine() 478 | Set nice level to 0.
+Jul 21 12:14:49 swi-mdm9x28-wp user.info Legato:  INFO | audioCompExe[2029]/audioComponent T=TransmitSamples | audio.c TransmitAudioSamplesThread() 263 | Tx Thread starting for audiostream with ref: 0x80f.
+Jul 21 12:14:49 swi-mdm9x28-wp user.debug Legato:  DBUG | audioCompExe[2029]/audioComponent T=TransmitSamples | perfTestLog.h LogPerfString() 9 | Perftest: TransmitSamplesThread Starting Transmit thread.: 2022-07-21 17:14:49.766
+Jul 21 12:14:49 swi-mdm9x28-wp user.err Legato: =ERR= | audioDaemon[1784]/alsa_intf T=main | pa_pcm_alsa.c InitPcmPlaybackCapture() 455 | Failed in pcm_prepare
+Jul 21 12:14:49 swi-mdm9x28-wp user.err Legato: =ERR= | audioDaemon[1784] | cannot prepare channel: errno =-22
+Jul 21 12:14:49 swi-mdm9x28-wp user.err kernel: [ 3559.890380]  MDM Media1: ASoC: no backend DAIs enabled for MDM Media1
+Jul 21 12:14:49 swi-mdm9x28-wp user.err kernel: [ 3559.896481] q6asm_callback: cmd = 0x10bcd returned error = 0x1
+Jul 21 12:14:49 swi-mdm9x28-wp user.err kernel: [ 3559.901769] __q6asm_cmd: DSP returned error[ADSP_EFAILED] opcode 68557
+Jul 21 12:14:49 swi-mdm9x28-wp user.err Legato: =ERR= | audioDaemon[1784]/audio T=main | le_media.c le_media_Capture() 2204 | PCM cannot be open
+Jul 21 12:14:49 swi-mdm9x28-wp user.debug Legato:  DBUG | audioDaemon[1784]/audio T=main | le_media.c le_media_Stop() 2117 | Close pa_pcm
+Jul 21 12:14:49 swi-mdm9x28-wp user.debug Legato:  DBUG | audioDaemon[1784]/audio T=main | le_media.c le_media_Stop() 2134 | Interface 11 Stopped
+```
+
+Does anyone have any recommendations in trying to tap into the MdmTx channel and record the output?</description>
+    
+    <lastBuildDate>Sat, 23 Jul 2022 02:00:44 +0000</lastBuildDate>
+    <category>mangOH Yellow</category>
+    <atom:link href="https://forum.mangoh.io/t/recording-mdmtxaudio/10058.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Recording MdmTxAudio</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>have you tried the AT!AVAUDIO command first?</p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/9/9a3a7184c6beca752517dd5743de9277a7cefe9e.png" data-download-href="/uploads/short-url/m0mKbuyeF4tx1Fadt7DAQXaGeHc.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/9/9a3a7184c6beca752517dd5743de9277a7cefe9e_2_690x231.png" alt="image" data-base62-sha1="m0mKbuyeF4tx1Fadt7DAQXaGeHc" width="690" height="231" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/9/9a3a7184c6beca752517dd5743de9277a7cefe9e_2_690x231.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/9/9a3a7184c6beca752517dd5743de9277a7cefe9e.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/9/9a3a7184c6beca752517dd5743de9277a7cefe9e.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/9/9a3a7184c6beca752517dd5743de9277a7cefe9e_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/recording-mdmtxaudio/10058/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/recording-mdmtxaudio/10058/4</link>
+        <pubDate>Sat, 23 Jul 2022 02:00:44 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10058-4</guid>
+        <source url="https://forum.mangoh.io/t/recording-mdmtxaudio/10058.rss">Recording MdmTxAudio</source>
+      </item>
+      <item>
+        <title>Recording MdmTxAudio</title>
+        <dc:creator><![CDATA[jameswollaeger]]></dc:creator>
+        <description><![CDATA[
+            <p>I’m playing audio in one thread and then recording the call in another.</p>
+          <p><a href="https://forum.mangoh.io/t/recording-mdmtxaudio/10058/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/recording-mdmtxaudio/10058/3</link>
+        <pubDate>Fri, 22 Jul 2022 18:29:55 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10058-3</guid>
+        <source url="https://forum.mangoh.io/t/recording-mdmtxaudio/10058.rss">Recording MdmTxAudio</source>
+      </item>
+      <item>
+        <title>Recording MdmTxAudio</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>are you trying to play audio or record audio during the voice call?</p>
+          <p><a href="https://forum.mangoh.io/t/recording-mdmtxaudio/10058/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/recording-mdmtxaudio/10058/2</link>
+        <pubDate>Thu, 21 Jul 2022 23:25:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10058-2</guid>
+        <source url="https://forum.mangoh.io/t/recording-mdmtxaudio/10058.rss">Recording MdmTxAudio</source>
+      </item>
+      <item>
+        <title>Recording MdmTxAudio</title>
+        <dc:creator><![CDATA[jameswollaeger]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello, I posted a while back and learned that there is a limitation whereby a legato audio recorder cannot be connected to a legato audio player. I’m using mangoh Yellow and WP7611 modem. I thought about trying a different approach whereby I try to record/stream via HTTP the audio leaving the modem TX channel.<br>
+To do this I use the following API’s:</p>
+<p>MdmTxAudioRef = le_audio_OpenModemVoiceTx();<br>
+AudioOutputConnectorRef = le_audio_CreateConnector();<br>
+AudioOutputConnectorRef2 = le_audio_CreateConnector();<br>
+res = le_audio_Connect(AudioOutputConnectorRef , MdmTxAudioRef );<br>
+res = le_audio_Connect(AudioOutputConnectorRef2,MdmTxAudioRef);</p>
+<p>In the above example, I create a new audio reference for file play, and connect it with AudioOutputConnectorRef. So my wav audio files should play over this connector.</p>
+<p>I recently added the AudioOutputConnectorRef2 and connect it to MdmTxAudioRef. I don’t get any errors when connecting everything up. But I believe I see a kernal exception thrown in the logs:</p>
+<p>[ 3559.890380]  MDM Media1: ASoC: no backend DAIs enabled for MDM Media1<br>
+[ 3559.896481] q6asm_callback: cmd = 0x10bcd returned error = 0x1<br>
+[ 3559.901769] __q6asm_cmd: DSP returned error[ADSP_EFAILED] opcode 68557</p>
+<pre><code class="lang-auto">
+=ERR= | audioDaemon[1784] | buffer_bytes = (2560,2560) omin=0 omax=0 int=1 empty=0 period_bytes = (320,320) omin=0 omax=0 int=1 empty=0
+Jul 21 12:14:49 swi-mdm9x28-wp user.debug Legato:  DBUG | audioCompExe[2029]/framework T=TransmitSamples | thread.c PThreadStartRoutine() 478 | Set nice level to 0.
+Jul 21 12:14:49 swi-mdm9x28-wp user.info Legato:  INFO | audioCompExe[2029]/audioComponent T=TransmitSamples | audio.c TransmitAudioSamplesThread() 263 | Tx Thread starting for audiostream with ref: 0x80f.
+Jul 21 12:14:49 swi-mdm9x28-wp user.debug Legato:  DBUG | audioCompExe[2029]/audioComponent T=TransmitSamples | perfTestLog.h LogPerfString() 9 | Perftest: TransmitSamplesThread Starting Transmit thread.: 2022-07-21 17:14:49.766
+Jul 21 12:14:49 swi-mdm9x28-wp user.err Legato: =ERR= | audioDaemon[1784]/alsa_intf T=main | pa_pcm_alsa.c InitPcmPlaybackCapture() 455 | Failed in pcm_prepare
+Jul 21 12:14:49 swi-mdm9x28-wp user.err Legato: =ERR= | audioDaemon[1784] | cannot prepare channel: errno =-22
+Jul 21 12:14:49 swi-mdm9x28-wp user.err kernel: [ 3559.890380]  MDM Media1: ASoC: no backend DAIs enabled for MDM Media1
+Jul 21 12:14:49 swi-mdm9x28-wp user.err kernel: [ 3559.896481] q6asm_callback: cmd = 0x10bcd returned error = 0x1
+Jul 21 12:14:49 swi-mdm9x28-wp user.err kernel: [ 3559.901769] __q6asm_cmd: DSP returned error[ADSP_EFAILED] opcode 68557
+Jul 21 12:14:49 swi-mdm9x28-wp user.err Legato: =ERR= | audioDaemon[1784]/audio T=main | le_media.c le_media_Capture() 2204 | PCM cannot be open
+Jul 21 12:14:49 swi-mdm9x28-wp user.debug Legato:  DBUG | audioDaemon[1784]/audio T=main | le_media.c le_media_Stop() 2117 | Close pa_pcm
+Jul 21 12:14:49 swi-mdm9x28-wp user.debug Legato:  DBUG | audioDaemon[1784]/audio T=main | le_media.c le_media_Stop() 2134 | Interface 11 Stopped
+</code></pre>
+<p>Does anyone have any recommendations in trying to tap into the MdmTx channel and record the output?</p>
+          <p><a href="https://forum.mangoh.io/t/recording-mdmtxaudio/10058/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/recording-mdmtxaudio/10058/1</link>
+        <pubDate>Thu, 21 Jul 2022 17:20:23 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10058-1</guid>
+        <source url="https://forum.mangoh.io/t/recording-mdmtxaudio/10058.rss">Recording MdmTxAudio</source>
+      </item>
+  </channel>
+</rss>

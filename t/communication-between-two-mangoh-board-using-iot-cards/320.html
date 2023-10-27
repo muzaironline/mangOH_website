@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Communication between two mangOH board using IoT Cards - IoT Cards - mangOH forum</title>
+    <meta name="description" content="Hi every, 
+
+I&amp;#39;m tring to use two mangOH boards to communicate with each other, I also have two IoT Cards(Wifi/Bluetooth). 
+
+First of all I have followed the instruction from WiFi Service Plugin to set up the WiFi Service&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/communication-between-two-mangoh-board-using-iot-cards/320" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Communication between two mangOH board using IoT Cards&#39;" href="https://forum.mangoh.io/t/communication-between-two-mangoh-board-using-iot-cards/320.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/communication-between-two-mangoh-board-using-iot-cards/320" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/communication-between-two-mangoh-board-using-iot-cards/320" />
+<meta property="og:title" content="Communication between two mangOH board using IoT Cards" />
+<meta name="twitter:title" content="Communication between two mangOH board using IoT Cards" />
+<meta property="og:description" content="Hi every,  I’m tring to use two mangOH boards to communicate with each other, I also have two IoT Cards(Wifi/Bluetooth).  First of all I have followed the instruction from WiFi Service Plugin to set up the WiFi Service.  http://legato.io/legato-docs/latest/external_proj_mainpage.html  I have successfully used all of the Sample Apps including WiFi Client, WiFi Access Point, WiFi Access Point Web. Basiclly I know now how to establish the Wifi connection between two devices(for me two boards). But ..." />
+<meta name="twitter:description" content="Hi every,  I’m tring to use two mangOH boards to communicate with each other, I also have two IoT Cards(Wifi/Bluetooth).  First of all I have followed the instruction from WiFi Service Plugin to set up the WiFi Service.  http://legato.io/legato-docs/latest/external_proj_mainpage.html  I have successfully used all of the Sample Apps including WiFi Client, WiFi Access Point, WiFi Access Point Web. Basiclly I know now how to establish the Wifi connection between two devices(for me two boards). But ..." />
+<meta property="og:article:section" content="IoT Cards" />
+<meta property="og:article:section:color" content="621B4B" />
+<meta property="article:published_time" content="2016-12-13T08:53:13+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Communication between two mangOH board using IoT Cards","mainEntity":{"@type":"Question","name":"Communication between two mangOH board using IoT Cards","text":"Hi every,\n\nI’m tring to use two mangOH boards to communicate with each other, I also have two IoT Cards(Wifi/Bluetooth).\n\nFirst of all I have followed the instruction from WiFi Service Plugin to set up the WiFi Service.\n\n<a href=\"http://legato.io/legato-docs/latest/external_proj_mainpage.html\" class=\"onebox\" target=\"_blank\" rel=\"nofollow noopener\">http://legato.io/legato-docs/latest/external_proj_mainpage.html<\/a>\n\nI have success&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2016-12-13T08:53:13.169Z","author":{"@type":"Person","name":null}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/communication-between-two-mangoh-board-using-iot-cards/320">Communication between two mangOH board using IoT Cards</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/iot-cards/8" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #621B4B'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>IoT Cards</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Communication between two mangOH board using IoT Cards'>
+        <meta itemprop='articleSection' content='IoT Cards'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/genfory'><span itemprop='name'>genfory</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/communication-between-two-mangoh-board-using-iot-cards/320">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-12-13T08:53:13Z' class='post-time'>
+                    December 13, 2016,  8:53am
+                  </time>
+                  <meta itemprop='dateModified' content='2016-12-13T08:53:13Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hi every,</p>
+<p>I’m tring to use two mangOH boards to communicate with each other, I also have two IoT Cards(Wifi/Bluetooth).</p>
+<p>First of all I have followed the instruction from WiFi Service Plugin to set up the WiFi Service.<br>
+<a href="http://legato.io/legato-docs/latest/external_proj_mainpage.html" class="onebox" target="_blank" rel="nofollow noopener">http://legato.io/legato-docs/latest/external_proj_mainpage.html</a></p>
+<p>I have successfully used all of the Sample Apps including WiFi Client, WiFi Access Point, WiFi Access Point Web. Basiclly I know now how to establish the Wifi connection between two devices(for me two boards). But all of those apps didn’t mention how to customize the serial port to send the data from one IoT wifi card to the other one.</p>
+<p>If I want to send a message like “Hi” to the other board, is that possible to wirte this sentence in the programmfile and use some API to send it or receive it? Are there any API that I can use to support this app?</p>
+<p>Or can I use the AT command to communicate in the console arfter connecting those two board?</p>
+<p>Need more Information.</p>
+<p>Thx at first</p>
+<p>Genfory</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jloM2M'><span itemprop='name'>jloM2M</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/communication-between-two-mangoh-board-using-iot-cards/320">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-12-20T10:51:32Z' class='post-time'>
+                    December 20, 2016, 10:51am
+                  </time>
+                  <meta itemprop='dateModified' content='2016-12-20T10:51:32Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Genfory,</p>
+<p>What do you mean by “how to customize the <strong>serial port</strong> to send the data …”? In fact, if you want to communicate via WiFi from one board to another one, you need to setup one board in WiFi client mode and the other board in WiFi Access Point mode. Then, when the WiFi connection is established you can use the linux netcat tool (nc) to communicate between the 2 boards via a TCP or an UDP socket.</p>
+<p><em>For example:</em><br>
+On WiFi client side, you can send a file “file.txt” using a TCP socket on port 1337 using the following command:</p>
+<p><em>cat file.txt | nc -l 1337</em></p>
+<p>and on WiFi Access Point side, you can listen the TCP socket on port 1337 and save the received content in file.log file using the following command:</p>
+<p><em>nc -l -p 1337 &gt; file.log</em></p>
+<p>Hope it helps.<br>
+Best Regards,</p>
+<p>José</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/genfory'><span itemprop='name'>genfory</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/communication-between-two-mangoh-board-using-iot-cards/320">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-12-20T11:27:28Z' class='post-time'>
+                    December 20, 2016, 11:27am
+                  </time>
+                  <meta itemprop='dateModified' content='2016-12-20T11:27:28Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi</p>
+<p>Thanke for ur support.</p>
+<p>So far my problem is connection between two mangOH boards. First of all I need to set up the different mode for two board, but I showed alwalys “no address range available for DHCP request via eth0”. The details u can check the other post.<br>
+<a href="http://forum.mangoh.io/t/no-address-range-available-for-dhcp-request/325">http://forum.mangoh.io/t/no-address-range-available-for-dhcp-request/325</a></p>
+<p>Ur suggest helps a lot, I will try it later. But If I want to establish a talk between two board, is that also possible? It’s like writing sentences directly in the code files, also including the WiFi set up, communicate content and then make a app. I just need to run the app, the two boards will automaticly talk. I can use those apps to simulate the temperature control or deal with other data from sensor.</p>
+<p>Thx in advance</p>
+<p>Genfory</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/genfory'><span itemprop='name'>genfory</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/communication-between-two-mangoh-board-using-iot-cards/320">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/eccbc646a9d95b96d0f57c701fe63d6a730a26f9.JPG">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-01-03T08:49:13Z' class='post-time'>
+                    January 3, 2017,  8:49am
+                  </time>
+                  <meta itemprop='dateModified' content='2019-07-30T03:51:44Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi<br>
+I have tried it again the other day, dont know why it could works. Now I can connect the two boards with WiFi.</p>
+<p>I also have used the nc tool like u said to send a file using the TCP socket,the problem is about finding the file.<br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/eccbc646a9d95b96d0f57c701fe63d6a730a26f9.JPG" alt data-base62-sha1="xMNgBR2dSLOFC26LTaeWJlYyN3H" width="526" height="386"></p>
+<p>I just create a file in the desktopin Linux system. Is it the problem about the path or address by creating the file, How can I create the file with the right path or how should I change the address?</p>
+<p>And I also have a question about socket API. Is there any socket API in Legato supporting communication between two boards?</p>
+<p>If U have the further information,please let me know.<br>
+Thx</p>
+<p>Genfory</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jloM2M'><span itemprop='name'>jloM2M</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/communication-between-two-mangoh-board-using-iot-cards/320">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-01-04T08:52:43Z' class='post-time'>
+                    January 4, 2017,  8:52am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-01-04T08:52:43Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Genfory,</p>
+<p>When you have successfully connected your 2 boards with a WiFi connection, could you please perform the following steps/commands:</p>
+<ol>
+<li>From mangOH1 board, ping <em><code>@IP-address-of-mangOH2-board</code></em>
+</li>
+<li>From mangOH2 board, ping <em><code>@IP-address-of-mangOH1-board</code></em>
+</li>
+</ol>
+<p>If ping commands are successful:</p>
+<ol start="3">
+<li>On mangOH1 board: perform the following command:</li>
+</ol>
+<p><strong>nc –l 1234 &gt; filename.out</strong></p>
+<ol start="4">
+<li>On mangOH2 board: perform the following command:</li>
+</ol>
+<p><strong>Echo “Hello MangOH” &gt; <a href="http://filename.in">filename.in</a></strong><br>
+<strong>nc <em><code>@IP-address-of-mangOH1-board</code></em> 1234 &lt; <a href="http://filename.in">filename.in</a></strong></p>
+<p>At that level, you should have received (on mangOH1 board) in <strong>filename.out</strong> file the content of <a href="http://filename.in">filename.in</a> (from mangOH2 board)</p>
+<p>Regarding Legato API for sockets, as far as know it doesn’t exist…<br>
+Regards,</p>
+<p>José</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/genfory'><span itemprop='name'>genfory</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/communication-between-two-mangoh-board-using-iot-cards/320">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-01-05T16:00:02Z' class='post-time'>
+                    January 5, 2017,  4:00pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-01-05T16:00:02Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi José,</p>
+<p>According to step 1 and 2 I’m tring to ping the two board. I’m not quite sure which ip address should I ping for the client and server side, because the address for two board is default 192.168.2.2,so I test a lot.</p>
+<p><strong>The following is the code from client side.</strong></p>
+<p>I use mangOH1 board as client side and mangOH2 board as server side. At first establish the connection and mangOH1 get a IP address from  mangOH2:</p>
+<p>root@swi-mdm9x15:~# /sbin/udhcpc -R -b -i wlan0<br>
+udhcpc (v1.22.1) started<br>
+Sending discover…<br>
+Sending select for 192.168.10.78…<br>
+Lease of 192.168.10.78 obtained, lease time 86400<br>
+/etc/udhcpc.d/50default: Adding DNS 192.168.10.1</p>
+<p>ping mangoh io successfully:<br>
+root@swi-mdm9x15:~# ping <a href="http://mangoh.io" rel="nofollow noopener">mangoh.io</a><br>
+PING <a href="http://mangoh.io" rel="nofollow noopener">mangoh.io</a> (185.31.17.133): 56 data bytes<br>
+64 bytes from 185.31.17.133: seq=0 ttl=51 time=24.019 ms<br>
+64 bytes from 185.31.17.133: seq=1 ttl=51 time=35.403 ms</p>
+<p>I use the USB0 port im Laptop to connect the mangOH board,check the configuration:<br>
+root@swi-mdm9x15:~# ifconfig usb0<br>
+usb0      Link encap:Ethernet  HWaddr C6:46:2D:C7:9D:3E<br>
+inet addr:192.168.2.2  Bcast:192.168.2.255  Mask:255.255.255.0<br>
+inet6 addr: fe80::c446:2dff:fec7:9d3e/64 Scope:Link<br>
+UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1<br>
+RX packets:2974 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:1195 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:330953 (323.1 KiB)  TX bytes:222604 (217.3 KiB)</p>
+<p>It shows the inet addr ist 192.168.2.2 so I try to ping this address successfully:<br>
+root@swi-mdm9x15:~# ping 192.168.2.2<br>
+PING 192.168.2.2 (192.168.2.2): 56 data bytes<br>
+64 bytes from 192.168.2.2: seq=0 ttl=64 time=0.611 ms<br>
+64 bytes from 192.168.2.2: seq=1 ttl=64 time=0.366 ms</p>
+<p><strong>From the server side I got the following code.</strong></p>
+<p>The select ip address from DHCP by client side is 192.168.10.78,so I try to ping the client side using this address successfully:<br>
+PING 192.168.10.78 (192.168.10.78): 56 data bytes<br>
+64 bytes from 192.168.10.78: seq=0 ttl=64 time=130.841 ms<br>
+64 bytes from 192.168.10.78: seq=1 ttl=64 time=150.862 ms<br>
+64 bytes from 192.168.10.78: seq=2 ttl=64 time=174.272 ms</p>
+<p>I also use the USB0 port in second Laptop to connect the mangOH board,check the configuration:<br>
+root@swi-mdm9x15:~# ifconfig usb0<br>
+usb0      Link encap:Ethernet  HWaddr FA:01:53:CD:F1:53<br>
+inet addr:192.168.2.2  Bcast:192.168.2.255  Mask:255.255.255.0<br>
+inet6 addr: fe80::f801:53ff:fecd:f153/64 Scope:Link<br>
+UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1<br>
+RX packets:5277 errors:0 dropped:0 overruns:0 frame:0<br>
+TX packets:4043 errors:0 dropped:0 overruns:0 carrier:0<br>
+collisions:0 txqueuelen:1000<br>
+RX bytes:448058 (437.5 KiB)  TX bytes:1117101 (1.0 MiB)</p>
+<p>It shows the inet addr ist also 192.168.2.2 so I try to ping this address successfully:<br>
+root@swi-mdm9x15:~# ping 192.168.2.2<br>
+PING 192.168.2.2 (192.168.2.2): 56 data bytes<br>
+64 bytes from 192.168.2.2: seq=0 ttl=64 time=0.763 ms<br>
+64 bytes from 192.168.2.2: seq=1 ttl=64 time=0.519 ms</p>
+<p>I also check the connected network with this device:<br>
+root@swi-mdm9x15:~# netstat -an<br>
+Active Internet connections (servers and established)<br>
+Proto Recv-Q Send-Q Local Address           Foreign Address         State<br>
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN<br>
+tcp        0      0 0.0.0.0:1534            0.0.0.0:*               LISTEN<br>
+tcp        0      0 127.0.0.1:5037          0.0.0.0:*               LISTEN<br>
+tcp        0      0 0.0.0.0:53              0.0.0.0:*               LISTEN<br>
+tcp        0    128 192.168.2.2:22          192.168.2.3:49218       ESTABLISHED<br>
+tcp        0      0 :::22                   :::*                    LISTEN<br>
+tcp        0      0 :::53                   :::*                    LISTEN<br>
+udp        0      0 0.0.0.0:1534            0.0.0.0:*<br>
+udp        0      0 0.0.0.0:53              0.0.0.0:*<br>
+udp        0      0 0.0.0.0:67              0.0.0.0:*<br>
+udp        0      0 :::53                   :::*<br>
+target=“1”&gt;</p>
+<p>It seems that I can ping from both side, then I try the step 3 by client side,but the same problem comes back:<br>
+root@swi-mdm9x15:~# nc -l 1234 &gt; filename.out<br>
+nc: bad address ‘-l’</p>
+<p>Can u tell me which ip address should I ping and if my steps are right?</p>
+<p>Regards,<br>
+Genfory</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jloM2M'><span itemprop='name'>jloM2M</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/communication-between-two-mangoh-board-using-iot-cards/320">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-01-06T10:04:59Z' class='post-time'>
+                    January 6, 2017, 10:04am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-01-06T10:04:59Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Genfory,</p>
+<p>You have to use the IP addresses on WiFi network interfaces (and not on USB interface). Thus, please use command “ifconfig -a” to list the configuration of all network interfaces.<br>
+Then use the IP addresses related to <strong>wlan0</strong> network interfaces for the ping test.</p>
+<p>Regards,</p>
+<p>José</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/genfory'><span itemprop='name'>genfory</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/communication-between-two-mangoh-board-using-iot-cards/320">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-01-06T14:39:35Z' class='post-time'>
+                    January 6, 2017,  2:39pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-01-06T14:39:35Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi José</p>
+<p>Thx for ur quick response.</p>
+<p>I use the command “ifconfig -a” and get the wlan0 network interfaces from both sides.<br>
+The mangOH1 board inet addr:192.168.10.78<br>
+The mangOH2 board inet addr:192.168.10.1<br>
+And then I successfully ping from one side to the other side, I have tried in the each terminal, it means the connection is established.</p>
+<p>The next is step 3, I try the command in the client side(mangOH1 board):<br>
+root@swi-mdm9x15:~# nc -l 1234 &gt; filename.out<br>
+nc: bad address ‘-l’</p>
+<p>The same problem. I try to install the nc tool again:<br>
+legato@legato-VM:~$ sudo apt-get install netcat</p>
+<p>And the step 3 and 4 or the others, In the mangOH root they don’t work, the echo could not be found:<br>
+root@swi-mdm9x15:~# nc -l 1234 &gt; filname.out<br>
+nc: bad address '-l’<br>
+root@swi-mdm9x15:~# nc -help<br>
+BusyBox v1.22.1 (2016-08-11 20:28:21 PDT) multi-call binary.</p>
+<p>Usage: nc [IPADDR PORT]</p>
+<p>root@swi-mdm9x15:~# nc -lp 1234<br>
+nc: bad address '-lp’<br>
+root@swi-mdm9x15:~# nc -l -p 1234<br>
+BusyBox v1.22.1 (2016-08-11 20:28:21 PDT) multi-call binary.</p>
+<p>Usage: nc [IPADDR PORT]</p>
+<p>In the client side localhost I try the following command:<br>
+legato@legato-VM:~$ nc -l 1234 &gt; filename.out<br>
+legato@legato-VM:~$ nc -lp 1234<br>
+1<br>
+2<br>
+legato@legato-VM:~$ nc -l -p 1234<br>
+we can chat</p>
+<p>And from the server side localhost:<br>
+legato@legato-VM:~$ nc 192.168.10.11 1234<br>
+nc localhost 1234</p>
+<p>No matter what I send from one board, the other one just can not receive that, there are no responses.</p>
+<p>I’m confused where should I perform the command, in the localhost or in the SSH <a href="mailto:root@192.168.2.2">root@192.168.2.2</a>??<br>
+When I transport a file should I create it at dektop or somewhere or just perform the command, it would build a new one with the filename?</p>
+<p>Regards,</p>
+<p>Gnefory</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jloM2M'><span itemprop='name'>jloM2M</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/communication-between-two-mangoh-board-using-iot-cards/320">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-01-06T16:05:16Z' class='post-time'>
+                    January 6, 2017,  4:05pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-01-06T16:05:16Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Genfory,</p>
+<p>Perfect for the ping test <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=5" title=":slight_smile:" class="emoji" alt=":slight_smile:"><br>
+Regarding the remaining part, sorry but as I haven’t currently 2 mangOH boards available, I gave you the procedure executed on an Ubuntu Linux computer and I forgot that netcat tool on WP module embedded on mangOH board is the BusyBox release (with limitations). Besides, Busybox could be compiled without nc listening capabilities. Then you might not use the mangoh board in this listening mode without a kernel recompilation.<br>
+If your goal is to communicate between 2 mangoh boards, you can also implement a socket communication in your Legato application.</p>
+<p>Regards,<br>
+José</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/genfory'><span itemprop='name'>genfory</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/communication-between-two-mangoh-board-using-iot-cards/320">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-01-09T10:24:50Z' class='post-time'>
+                    January 9, 2017, 10:24am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-01-09T10:24:50Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi José,</p>
+<p>Thx for ur answer, it helps already a lot~</p>
+<p>I’m tring to programm a new App to establish the soket communication.<br>
+My plan is on the basis of WiFi Client and WiFi Server provided by Legato adding a TCP socket(using other libraries and headers).<br>
+I have found a API by Legato:<br>
+<a href="http://legato.io/legato-docs/latest/c_fdMonitor.html" class="onebox" target="_blank" rel="nofollow noopener">http://legato.io/legato-docs/latest/c_fdMonitor.html</a><br>
+It seems this API supports monitoring an fd. U said there are no API supporting this kind of communication. But can I use this API, or just other fremd libraries are better?</p>
+<p>Besides I have also a question about Socket. I saw a lot of examples metioned that by the Client side I need to set a socket port to establish the communication. I didn’t find any docu describe which port is for TCP socket port, should I use port 1337 or there are any other port? And can you provide me some link so that I can know, which kind of port I’m going to use?</p>
+<p>Regards</p>
+<p>Genfory</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39; - mangOH Red - mangOH forum</title>
+    <meta name="description" content="Hello All, 
+Trying to build my first system for the WP7603 and hitting an issue. It looks like mksys can’t find the wifiService app. I created a simple system to show the problem. It consists of two hello-world-style app&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409?page=2" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;&#39;" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409?page=2" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409?page=2" />
+<meta property="og:title" content="Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;" />
+<meta name="twitter:title" content="Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;" />
+<meta property="og:description" content="Ok, now I can tell you for sure that when I try to compile basic stuff on release 16 I get these errors that I don’t understand what they depend on. When I compile the same things on FW 13 or 13.1 these errors are not there. What could it depend on?" />
+<meta name="twitter:description" content="Ok, now I can tell you for sure that when I try to compile basic stuff on release 16 I get these errors that I don’t understand what they depend on. When I compile the same things on FW 13 or 13.1 these errors are not there. What could it depend on?" />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="6 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="1 ❤" />
+<meta property="article:published_time" content="2021-05-27T13:26:15+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="prev" href="/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+        <link rel="next" href="/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409?page=3">
+
+    
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Mksys can&#39;t bind to non-existent server app &#39;wifiService&#39;'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_21' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/282aaa81720c0c01d91d56b2373c5b27a3ffe899.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-27T13:26:15Z' class='post-time'>
+                    May 27, 2021,  1:26pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-27T13:26:15Z'>
+              <span itemprop='position'>21</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Ok, now I can tell you for sure that when I try to compile basic stuff on release 16 I get these errors that I don’t understand what they depend on. When I compile the same things on FW 13 or 13.1 these errors are not there. What could it depend on?</p>
+<p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/282aaa81720c0c01d91d56b2373c5b27a3ffe899.png" data-download-href="/uploads/short-url/5JkvDUlx4Ew8x42HDcfL1WcRb3r.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/282aaa81720c0c01d91d56b2373c5b27a3ffe899_2_690x308.png" alt="image" data-base62-sha1="5JkvDUlx4Ew8x42HDcfL1WcRb3r" width="690" height="308" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/282aaa81720c0c01d91d56b2373c5b27a3ffe899_2_690x308.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/282aaa81720c0c01d91d56b2373c5b27a3ffe899_2_1035x462.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/282aaa81720c0c01d91d56b2373c5b27a3ffe899.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/282aaa81720c0c01d91d56b2373c5b27a3ffe899_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">1050×470 72.8 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_22' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-27T13:46:21Z' class='post-time'>
+                    May 27, 2021,  1:46pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-27T14:18:03Z'>
+              <span itemprop='position'>22</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Why don’t you use R13?<br>
+I suggest you staying on what is working</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_23' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/7440855b40ecc9007a249d6397bfd48e01a28de1.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-27T14:50:07Z' class='post-time'>
+                    May 27, 2021,  2:50pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-27T14:50:07Z'>
+              <span itemprop='position'>23</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>ok but I have a problem on FW13: to implement the connection I need the two libraries below and it doen’t find them: how can I solve this issue?<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/7440855b40ecc9007a249d6397bfd48e01a28de1.png" data-download-href="/uploads/short-url/gApCz1eJ9pNUPc49OZzZ35uQQpz.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7440855b40ecc9007a249d6397bfd48e01a28de1_2_690x350.png" alt="image" data-base62-sha1="gApCz1eJ9pNUPc49OZzZ35uQQpz" width="690" height="350" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7440855b40ecc9007a249d6397bfd48e01a28de1_2_690x350.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7440855b40ecc9007a249d6397bfd48e01a28de1_2_1035x525.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7440855b40ecc9007a249d6397bfd48e01a28de1_2_1380x700.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7440855b40ecc9007a249d6397bfd48e01a28de1_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">1428×726 137 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_24' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-27T14:57:31Z' class='post-time'>
+                    May 27, 2021,  2:57pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-27T14:57:31Z'>
+              <span itemprop='position'>24</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Are you referring to the wifi sample code on legato 19.2.0?</p>
+<aside class="onebox githubfolder">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/bad3e5f9ad67c1ddf145107ce7032ac1d7b22563.svg" class="site-icon" width="32" height="32">
+
+      <a href="https://github.com/legatoproject/legato-WiFi/tree/19.02.0/apps/sample" target="_blank" rel="noopener nofollow ugc">github.com</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:690/345;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/50b442dd6b7ddcbb41fc9f21b84494291dc95991_2_690x345.png" class="thumbnail" width="690" height="345" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/50b442dd6b7ddcbb41fc9f21b84494291dc95991_2_690x345.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/50b442dd6b7ddcbb41fc9f21b84494291dc95991_2_1035x517.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/50b442dd6b7ddcbb41fc9f21b84494291dc95991.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/50b442dd6b7ddcbb41fc9f21b84494291dc95991_2_10x10.png"></div>
+
+<h3><a href="https://github.com/legatoproject/legato-WiFi/tree/19.02.0/apps/sample" target="_blank" rel="noopener nofollow ugc">legatoproject/legato-WiFi</a></h3>
+
+  <p><a href="https://github.com/legatoproject/legato-WiFi/tree/19.02.0/apps/sample" target="_blank" rel="noopener nofollow ugc">19.02.0/apps/sample</a></p>
+
+  <p><span class="label1">WiFi support for Legato. Contribute to legatoproject/legato-WiFi development by creating an account on GitHub.</span></p>
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_25' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-27T15:00:00Z' class='post-time'>
+                    May 27, 2021,  3:00pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-27T15:00:00Z'>
+              <span itemprop='position'>25</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Yes I am using 19.02.0 Legato that is coherent with FW13</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_26' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-27T15:01:01Z' class='post-time'>
+                    May 27, 2021,  3:01pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-27T15:01:01Z'>
+              <span itemprop='position'>26</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I don’t see the sample is using these .h file</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_27' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-27T15:03:01Z' class='post-time'>
+                    May 27, 2021,  3:03pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-27T15:03:01Z'>
+              <span itemprop='position'>27</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I compiled by myself this simple code. Is there a simil code version for Legato 19.02.0…without the libraries I can’t do anything <img src="https://emoji.discourse-cdn.com/twitter/disappointed_relieved.png?v=9" title=":disappointed_relieved:" class="emoji" alt=":disappointed_relieved:"><br>
+// WiFiAppComponent.c<br>
+//<br>
+// Specifies the main source file of the component. Add initialization and event registrations to<br>
+// the files COMPONENT_INIT functions.</p>
+<p>// Include the core framework C APIs.<br>
+<span class="hashtag">#include</span> “legato.h”</p>
+<p>// Include your component’s API interfaces.<br>
+<span class="hashtag">#include</span> “interfaces.h”<br>
+<span class="hashtag">#include</span> “le_wifiDefs_interface.h”<br>
+<span class="hashtag">#include</span> “le_wifiClient_common.h”</p>
+<p><span class="hashtag">#define</span> MAX_SSID_BYTES 8<br>
+<span class="hashtag">#define</span> NBR_OF_PINGS   “5”<br>
+le_result_t result;<br>
+le_wifiClient_NewEventHandlerRef_t WiFiEventHandlerRef = NULL;<br>
+le_wifiClient_AccessPointRef_t accessPointRef = NULL;</p>
+<p>static void AskForIpAddress<br>
+(<br>
+void<br>
+)<br>
+{<br>
+int16_t systemResult;<br>
+char tmpString[512];</p>
+<pre><code>// DHCP Client
+snprintf( tmpString,
+        sizeof( tmpString ),
+        "PATH=/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin;"
+        "/sbin/udhcpc -R -b -i wlan0"
+        );
+
+systemResult = system( tmpString );
+// Return value of -1 means that the fork() has failed (see man system).
+if ( 0 == WEXITSTATUS( systemResult ) )
+{
+    LE_INFO("le_wifiClient_Connect DHCP client: %s", tmpString);
+}
+else
+{
+    LE_ERROR( "le_wifiClient_Connect DHCP client %s Failed: (%d)", tmpString, systemResult );
+}
+</code></pre>
+<p>}</p>
+<p>static void TestToPingGooglesDNS<br>
+(<br>
+void<br>
+)<br>
+{<br>
+int16_t systemResult;<br>
+char tmpString[512];</p>
+<pre><code>// PING
+snprintf( tmpString,
+        sizeof( tmpString ),
+        "ping -c " NBR_OF_PINGS " 8.8.8.8"
+);
+
+
+LE_INFO("pinging 8.8.8.8 5x times: %s", tmpString);
+systemResult = system( tmpString );
+// Return value of -1 means that the fork() has failed (see man system).
+if ( 0 == WEXITSTATUS( systemResult ) )
+{
+    LE_INFO("le_wifiClient_Connect Ping: %s", tmpString);
+}
+else
+{
+    LE_ERROR( "le_wifiClient_Connect Ping %s Failed: (%d)", tmpString, systemResult );
+}
+</code></pre>
+<p>}</p>
+<p>//static le_wifiClient_AccessPointRef_t MyHandleScanResult<br>
+static void MyHandleScanResult<br>
+(<br>
+void<br>
+)<br>
+{<br>
+LE_INFO(“ECCOCI”);<br>
+uint8_t ssid[MAX_SSID_BYTES];</p>
+<pre><code>size_t ssidNumElements = MAX_SSID_BYTES;
+le_wifiClient_AccessPointRef_t accessPointRef = le_wifiClient_GetFirstAccessPoint();
+
+ 
+while( NULL != accessPointRef )
+{
+    LE_INFO("ECCOCIwhile");
+     result = le_wifiClient_GetSsid( accessPointRef, ssid, &amp;ssidNumElements );
+     if (( result == LE_OK ) &amp;&amp; ( memcmp( ssid, "", ssidNumElements) == 0 ))
+     {
+          LE_INFO("WiFi Client found.");
+           printf("Found:\tSSID:\t\"%.*s\"\tStrength:%d\tRef:%p\n",
+                                (int)ssidNumElements,
+                                (char*) &amp;ssid,
+                                le_wifiClient_GetSignalStrength(accessPointRef),
+                                accessPointRef);
+            
+          break;
+        
+     }
+     else {
+         LE_INFO("WiFiClient not found");
+     }
+     LE_INFO("Scegli un'altra rete!!!");
+     accessPointRef = le_wifiClient_GetNextAccessPoint();
+     
+     //le_wifiClient_Connect ( accessPointRef );
+}
+//return accessPointRef;
+
+result = le_wifiClient_SetSecurityProtocol( accessPointRef, LE_WIFICLIENT_SECURITY_WPA2_PSK_PERSONAL );
+
+result = le_wifiClient_SetPassphrase ( accessPointRef, "");
+if (result != LE_OK){
+    LE_INFO("Controllare i parametri.");
+}
+result = le_wifiClient_Connect ( accessPointRef );
+ if (result == LE_OK)
+{
+    LE_INFO("Mi sto connettendo...");
+}
+else {
+    LE_INFO("Non riesco a connettermi.");
+}
+</code></pre>
+<p>}</p>
+<p>static void EventHandler<br>
+(</p>
+<pre><code>le_wifiClient_Event_t clientEvent,
+void* contextPtr
+</code></pre>
+<p>)<br>
+{</p>
+<pre><code>switch( clientEvent )
+{
+
+     case LE_WIFICLIENT_EVENT_CONNECTED:
+     {
+         LE_INFO("WiFi Client Connected.");
+         AskForIpAddress();
+         TestToPingGooglesDNS();
+     }
+     break;
+     case LE_WIFICLIENT_EVENT_DISCONNECTED:
+     {
+         LE_INFO("WiFi Client Disconnected.");
+     }
+     break;
+     case LE_WIFICLIENT_EVENT_SCAN_DONE:
+     {
+         LE_INFO("WiFi Client Scan is done.");
+          MyHandleScanResult();
+          
+        
+     }
+     break;
+     default:
+        LE_INFO( "ERROR Unknown event");
+    break;
+}
+</code></pre>
+<p>}</p>
+<p>static void MyInit<br>
+(<br>
+void<br>
+)<br>
+{</p>
+<pre><code>le_result_t result = le_wifiClient_Start();
+    if ( LE_OK == result )
+{
+    LE_INFO("WiFi Client started.");
+    
+    WiFiEventHandlerRef = le_wifiClient_AddNewEventHandler( EventHandler, NULL);
+
+    LE_INFO ("prova");
+    
+}
+else if ( LE_BUSY == result )
+{
+    LE_INFO("ERROR: WiFi Client already started.");
+}
+else
+{
+    LE_INFO("ERROR: WiFi Client not started.");
+}
+</code></pre>
+<p>}</p>
+<p>// This function is called only once on startup.  Place your initialization and event registration<br>
+// here.<br>
+COMPONENT_INIT<br>
+{<br>
+// Write in the log that this component has started.<br>
+LE_INFO(“Component WiFiAppComponent started.”);<br>
+le_wifiClient_Scan();<br>
+MyInit();</p>
+<p>/*sleep(5);<br>
+le_wifiClient_Stop();<br>
+*/<br>
+}</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_28' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-27T15:08:37Z' class='post-time'>
+                    May 27, 2021,  3:08pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-28T03:54:32Z'>
+              <span itemprop='position'>28</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>No idea as i don’t see such thing in legato 19.2</p>
+<p>Suggest you using the sample app to do modification.</p>
+<p>Good luck!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_29' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-27T19:00:49Z' class='post-time'>
+                    May 27, 2021,  7:00pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-27T19:00:49Z'>
+              <span itemprop='position'>29</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>sorry <a class="mention" href="/u/jyijyi">@jyijyi</a> I do not want to be controversial, but unfortunately I have to dirlk (and this highlights all the paucity of this HW).  If I am a new Legato user and I go to the Internet, to learn how to program in this environment, I find ONLY the Legato reference manual of version 16, as well as the Legato IO getting started of 16, which explains programming and libraries to use. (I didn’t invent anything).  The manuals of the 13 are not even found on the net.  That is why I have programmed the latest version according to.  At this point, how can you expect to do a port on an old version if there are no manuals to understand how programming takes place in it?  Are we kidding? Where am I wrong?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_30' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-28T02:23:19Z' class='post-time'>
+                    May 28, 2021,  2:23am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-28T02:32:38Z'>
+              <span itemprop='position'>30</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Not sure if you have enough technical skill to upgrade everything to R16…<br>
+e.g. mangoh layer<br>
+MQTT<br>
+CAN interface<br>
+WIFI<br>
+etc…</p>
+<p>That is why I suggest you staying on R13 as everything seems to be quite OK to you.<br>
+Changing your WIFI app is much more easier.</p>
+<p>BTW, I don’t see problem to “make wp76xx” on swi-wp76_4.7.0 inside leaf shell.<br>
+I can compile out the legato.cwe.</p>
+<pre><code>(lsh:swi-wp76_4.7.0) owner@ubuntu:~/leaf/leaf-data/swi-wp76_4.7.0/wp76-legato$ ls ./build/wp76xx/legato.cwe -l
+lrwxrwxrwx 1 owner owner 23 May 28 09:32 ./build/wp76xx/legato.cwe -&gt; legato-squashfs.ubi.cwe
+</code></pre>
+<p>Good luck!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_31' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-28T05:19:22Z' class='post-time'>
+                    May 28, 2021,  5:19am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-28T05:19:22Z'>
+              <span itemprop='position'>31</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Ok <a class="mention" href="/u/jyijyi">@jyijyi</a> but I have already done my project in FW16! I can run correctly wifi, Mqtt, GPS, positioning, etc. So, on FW 16 I have only to make available gpioexpanderservicegreen and mux tools, in order to activate iot2 for can bus (I did It for FW13). That’s all <img src="https://emoji.discourse-cdn.com/twitter/grin.png?v=9" title=":grin:" class="emoji" alt=":grin:">. If I can run gpio and mux on FW16 my project Is completed</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_32' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/3035c4c1affa26520940333d05792d5c630afeac.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-28T07:49:49Z' class='post-time'>
+                    May 28, 2021,  7:49am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-28T07:49:49Z'>
+              <span itemprop='position'>32</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hei <a class="mention" href="/u/jyijyi">@jyijyi</a> Surprisingly I managed to get GPIO, MUX and CAN to work on version 16 (I also tried on the board!), But I still have a problem: when I run these apps the Legato Hierarchy View disappears and this problem occurs (also if on the board all works):<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/3035c4c1affa26520940333d05792d5c630afeac.png" data-download-href="/uploads/short-url/6Su7gE6I3wpjDQncmlPwEoZyOtu.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/3035c4c1affa26520940333d05792d5c630afeac.png" alt="image" data-base62-sha1="6Su7gE6I3wpjDQncmlPwEoZyOtu" width="396" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/3035c4c1affa26520940333d05792d5c630afeac_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">480×605 47.5 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>Do you think this could be a <strong>dependancies problem</strong>? If nothing else, by doing so, I’m limited to adding and removing apps from my Legato, so I don’t have full control over my project. But the good thing is that it even works on the latest version of Legato !!! <img src="https://emoji.discourse-cdn.com/twitter/grin.png?v=9" title=":grin:" class="emoji" alt=":grin:"></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_33' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-05-31T15:11:56Z' class='post-time'>
+                    May 31, 2021,  3:11pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-05-31T15:11:56Z'>
+              <span itemprop='position'>33</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hei <a class="mention" href="/u/jyijyi">@jyijyi</a> I think I solved the problem. CAN drivers start correctly also on the latest legato version, BUT they have to be started before WiFi (I don’t know why) I can run all on FW16. the only problem I have left is the fact that when I generate the CAN drivers in the FW16, even if they work on the board, the dependency tree on VSCode disappears and therefore it becomes difficult to work. I will try to do the same. Thanks for the support</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_34' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/kalaivani'><span itemprop='name'>kalaivani</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-12T05:20:17Z' class='post-time'>
+                    October 12, 2021,  5:20am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-12T05:20:17Z'>
+              <span itemprop='position'>34</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>hi,<br>
+need a calrification i have downloaded the SWI version as wp76-4.7.0 but when i query the legto version it showning response as</p>
+<p>root@swi-mdm9x28-wp:~# legato version<br>
+19.11.2_72a30ed2ee7f18d8029917647e529c3c</p>
+<p>when i query the leaf version its Legato 20.04.0<br>
+│ Included │ swi-vscode-support_200624 │ VS Code features support for legacy SDKs    │<br>
+│                   swi-wp76_4.7.0                          │ SDK for WP76 (Release 13.3 + Legato 20.04.0) │</p>
+<p>why the legato versions are different</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_35' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-12T05:59:47Z' class='post-time'>
+                    October 12, 2021,  5:59am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-12T05:59:47Z'>
+              <span itemprop='position'>35</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Did you download the fw image of wp76-4.7.0 to module?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_36' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/kalaivani'><span itemprop='name'>kalaivani</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-12T06:01:41Z' class='post-time'>
+                    October 12, 2021,  6:01am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-12T06:01:41Z'>
+              <span itemprop='position'>36</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>yes i installed to the module</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_37' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-12T06:03:35Z' class='post-time'>
+                    October 12, 2021,  6:03am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-12T06:03:35Z'>
+              <span itemprop='position'>37</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Then it means you did not install successfully.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_38' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/kalaivani'><span itemprop='name'>kalaivani</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-12T06:05:36Z' class='post-time'>
+                    October 12, 2021,  6:05am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-12T06:05:36Z'>
+              <span itemprop='position'>38</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>let know the steps to install or any reference</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_39' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/kalaivani'><span itemprop='name'>kalaivani</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-12T06:09:00Z' class='post-time'>
+                    October 12, 2021,  6:09am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-12T06:09:00Z'>
+              <span itemprop='position'>39</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>one more this in which legato version wifi is present inbuild in interface, baz in legato version 19.11.2 i was not able to provide bining for wifi services</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_40' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-10-12T06:27:16Z' class='post-time'>
+                    October 12, 2021,  6:27am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-10-12T06:27:16Z'>
+              <span itemprop='position'>40</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>you can scp this file to module and use “fwupdate download xxx.spk” to upgrade FW:</p>
+<p>/home/owner/leaf/leaf-data/swi-wp76_4.7.0/wp76-image/9999999_9907152_SWI9X07Y_02.28.03.05_00_GENERIC_002.073_000-full.spk</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><a rel="prev" itemprop="url" href="/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409">← previous page</a></span>
+        <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/mksys-cant-bind-to-non-existent-server-app-wifiservice/2409?page=3">next page →</a></b></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

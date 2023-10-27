@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Database Support - #15 by Ankita - mangOH forum</title>
+    <meta name="description" content="Hi,  Is it possible to use sqlite or anything similar to sqlite db ?  
+
+Thanks">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/database-support/93" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Database Support&#39;" href="https://forum.mangoh.io/t/database-support/93.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/database-support/93/15" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/database-support/93/15" />
+<meta property="og:title" content="Database Support" />
+<meta name="twitter:title" content="Database Support" />
+<meta property="og:description" content="Hi Nila ,  Please download the Source code present  https://sqlite.org/download.html  i.e sqlite-amalgamation-3190300.zip    Make a folder structure for Sqlite3 as  mkdir third-party  cd third-party  mkdir inc  mkdir src  mkdir lib    Copy sqlite3.h in third-party/inc/  sqlite3.c in third-party/src/    Create a Makefile in path third-party/src/  vi Makefile  add following lines  export TOOLCHAIN_DIR:=/opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi  GCC = ${TOOLCHAIN..." />
+<meta name="twitter:description" content="Hi Nila ,  Please download the Source code present  https://sqlite.org/download.html  i.e sqlite-amalgamation-3190300.zip    Make a folder structure for Sqlite3 as  mkdir third-party  cd third-party  mkdir inc  mkdir src  mkdir lib    Copy sqlite3.h in third-party/inc/  sqlite3.c in third-party/src/    Create a Makefile in path third-party/src/  vi Makefile  add following lines  export TOOLCHAIN_DIR:=/opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi  GCC = ${TOOLCHAIN..." />
+<meta property="article:published_time" content="2017-06-20T13:19:23+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="next" href="/t/database-support/93?page=2">
+
+    
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/database-support/93">Database Support</a>
+    </h1>
+
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Database Support'>
+        <meta itemprop='articleSection' content='Uncategorized'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jchitty'><span itemprop='name'>jchitty</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-10-19T22:34:33Z' class='post-time'>
+                    October 19, 2016, 10:34pm
+                  </time>
+                  <meta itemprop='dateModified' content='2016-10-19T22:34:33Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/niladridm">@niladridm</a>, how often do you want to write these binary data frames?  Be careful of flash wear.  You don’t want to burn out your flash device.</p>
+<p>You can use the regular POSIX file system APIs (open/lseek/read/write/close or fopen/fseek/fread/fwrite/fclose) to store your data frames in a file in your flash file system.  But, remember to set your process’s maximum file size limit (maxFileBytes in the “processes:” section of your .adef file) <a href="http://legato.io/legato-docs/latest/defFilesAdef.html#defFilesAdef_processMaxFileBytes">http://legato.io/legato-docs/latest/defFilesAdef.html#defFilesAdef_processMaxFileBytes</a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/niladridm'><span itemprop='name'>niladridm</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-10-20T04:28:44Z' class='post-time'>
+                    October 20, 2016,  4:28am
+                  </time>
+                  <meta itemprop='dateModified' content='2016-10-20T04:28:44Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Jen,<br>
+Thank you for your input. Yes currently I am using POSIX file system but the problem I am facing is, after power restart my data file is getting deleted. I am creating the file in tmp directory(may be this the reason). May be I should use sandboxed to create the file in app dir.<br>
+And data writing frequency is 1 sec and it should override after 10,000 record.</p>
+<p>Thanks</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jchitty'><span itemprop='name'>jchitty</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-04-17T23:51:49Z' class='post-time'>
+                    April 17, 2017, 11:51pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-04-17T23:51:49Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Yes, /tmp is a RAM file system (tmpfs), so anything in there will be lost if the device is rebooted.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Ankita'><span itemprop='name'>Ankita</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-05-29T10:43:57Z' class='post-time'>
+                    May 29, 2017, 10:43am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-05-29T14:08:23Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi All ,</p>
+<p>This reply explains how to use third party library sqlite for database support<br>
+Here how you can do this.<br>
+We can use config tree to store small chunks of data .<br>
+As mentioned in above posts.<br>
+Whenever , large chunks of data are involved , it is better to create database<br>
+using sqlite3 library.</p>
+<p>Steps to use sqlite3 API’s in legato applications<br>
+1.get the sqlite3 (third party library)<br>
+this will have<br>
+inc  lib  src</p>
+<p>build your legato system update ‘make wp85’</p>
+<p>2.make a folder in your legato root and copy sqlite3 in it<br>
+mkdir third-party<br>
+now , you have following path where sqlite3 is present<br>
+${LEGATO_ROOT}/third-party/sqlite3</p>
+<ol start="3">
+<li>add this path in your application .adef file as<br>
+bundles:<br>
+{<br>
+file:<br>
+{<br>
+[r] third-party/sqlite3/lib/sqlite3.so /lib/<br>
+}</li>
+</ol>
+<p>}</p>
+<p>4.include this in your source<br>
+<span class="hashtag">#include</span> &lt;sqlite3.h&gt;</p>
+<p>5.Either build as<br>
+mkapp -t wp750x testdata.adef -i “${LEGATO_ROOT}/third-party/sqlite3/lib/third-party/sqlite3/inc” -L “${LEGATO_ROOT}/third-party/sqlite3/lib/sqlite3.so”</p>
+<p>or add in your Makefile</p>
+<p>6.Legato Application using sqlite3 (3rd Party Library) Application can be installed on the target.</p>
+<p>Regards<br>
+Ankita</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/niladridm'><span itemprop='name'>niladridm</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-05-30T03:26:14Z' class='post-time'>
+                    May 30, 2017,  3:26am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-05-30T03:26:14Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <aside class="quote no-group" data-username="Ankita" data-post="13" data-topic="93">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/a/91b2a8/40.png" class="avatar"> Ankita:</div>
+<blockquote>
+<p>get the sqlite3 (third party library)</p>
+</blockquote>
+</aside>
+<p>Hi Ankita this is great! I want to follow the steps shared by you but have few doubts below</p>
+<ol>
+<li>where shall i get the sqlite3 (third party library) any link?</li>
+<li>How to build legato system update with sqlite3. (steps are not clear to me)</li>
+<li>any small example source code to write and read data from sqlite db</li>
+</ol>
+<p>Thanks</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Ankita'><span itemprop='name'>Ankita</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-06-20T13:19:23Z' class='post-time'>
+                    June 20, 2017,  1:19pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-07-10T13:13:44Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Nila ,<br>
+Please download the Source code present<br>
+<a href="https://sqlite.org/download.html" class="onebox" target="_blank" rel="nofollow noopener">https://sqlite.org/download.html</a><br>
+i.e sqlite-amalgamation-3190300.zip</p>
+<ol>
+<li>
+<p>Make a folder structure for Sqlite3 as<br>
+mkdir third-party<br>
+cd third-party<br>
+mkdir inc<br>
+mkdir src<br>
+mkdir lib</p>
+</li>
+<li>
+<p>Copy sqlite3.h in third-party/inc/<br>
+sqlite3.c in third-party/src/</p>
+</li>
+<li>
+<p>Create a Makefile in path third-party/src/<br>
+vi Makefile<br>
+add following lines</p>
+<p>export TOOLCHAIN_DIR:=/opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi<br>
+GCC = ${TOOLCHAIN_DIR}/arm-poky-linux-gnueabi-gcc<br>
+all:<br>
+${GCC} -c -Wall -Werror -fpic -lpthread -ldl sqlite3.c -o …/lib/sqlite3.so</p>
+</li>
+<li>
+<p>Check for <a href="http://sqlite3.so" rel="nofollow noopener">sqlite3.so</a> file in the path third-party/lib/</p>
+</li>
+</ol>
+<p>Now you can use the library in your App Bundles.</p>
+<hr>
+<p>CREATING LEGATO APPLICATION USING SQLITE3</p>
+<p>In Path apps/sample<br>
+mkdir testsql</p>
+<p>The directory structure should contain</p>
+<ol>
+<li>
+<p>third-party folder containing sqlite3 lib inc and src.<br>
+2.Application Defination file testsql.adef</p>
+<p>executables:<br>
+{<br>
+testsql = (testsqlComp)<br>
+}<br>
+bundles:<br>
+{<br>
+file:<br>
+{<br>
+[r] third-party/sqlite3/lib/sqlite3.so /lib/<br>
+}<br>
+}<br>
+processes:<br>
+{<br>
+run:<br>
+{<br>
+(testsql)<br>
+}<br>
+}</p>
+</li>
+<li>
+<p>Component directory testsqlComp</p>
+</li>
+</ol>
+<p><a href="http://4.cd" rel="nofollow noopener">4.cd</a> testsqlComp<br>
+a)  Create a Component.cdef file here as shown below<br>
+vi Component.cdef<br>
+sources:<br>
+{<br>
+testsql.c<br>
+}</p>
+<p>b) vi testsql.c</p>
+<p>Dont forget to include<br>
+legato.h and sqlite3.h<br>
+5.<br>
+/**************************************************************************<br>
+*Function:COMPONENT_INIT<br>
+****************************************************************************/<br>
+COMPONENT_INIT<br>
+{<br>
+LE_INFO(“Sample to use Sqlite3 in Legato”);<br>
+//Implement functionalities<br>
+}<br>
+Snippets to read/Write data using sqlite3<br>
+make sure you define macro with path where you want to create database<br>
+NEW_DATABASE “/data/sql.db”</p>
+<pre><code>void createDb()
+{
+		int rc ;
+		rc = sqlite3_open(NEW_DATABASE, &amp;db);
+		if(!rc){
+           		LE_INFO("Successfully Created ");
+       		}
+		else {
+          		LE_INFO("Error in Creating/Opening Db file");
+     		}
+}
+</code></pre>
+<p>//This function is for creating Table<br>
+void initOperation()<br>
+{<br>
+char *sql;<br>
+char *zErrMsg = 0;<br>
+createDb();<br>
+if(db)<br>
+{<br>
+LE_INFO(“InitOperations Command For Table Creation”);<br>
+sql = “create table if not exists test_sqlite(ID int Primary\   key, valuename text , value int)”;<br>
+int rc = sqlite3_exec(db, sql, callback, 0, &amp;zErrMsg);<br>
+if(!rc){<br>
+LE_INFO(“Executed Command For Table Creation”);<br>
+}<br>
+}<br>
+}</p>
+<p>//Inserting Data into sql.db</p>
+<pre><code>	void insertData(sqlite3 *db, int farg, const char *name, int val)
+	{
+			if (!db)
+			return;
+			LE_INFO("Insert Command");
+			const char *zErrMsg ;
+			sqlite3_stmt *stmt;
+			char *SQL;
+		// Insert data item into myTable
+			SQL = "insert into test_sqlite(ID,valuename,value)\
+           		values (?,?,?)";
+			int rc = sqlite3_prepare(db, SQL, strlen(SQL), &amp;stmt, &amp;zErrMsg);
+			if( rc == SQLITE_OK ) 
+		{
+				// bind the value
+  				sqlite3_bind_int(stmt, 1, farg);
+  				sqlite3_bind_text(stmt, 2, name, strlen(name), 0);
+  				sqlite3_bind_int(stmt, 3, val);
+  				// commit
+  				sqlite3_step(stmt);
+  				sqlite3_finalize(stmt);
+ 			}   
+	}
+</code></pre>
+<p>//display data</p>
+<pre><code>	void selectAll()
+	{
+		char *sql;
+		char *zErrMsg = 0;
+  			int rc ;
+  			createDb();
+  			LE_INFO("Display All **************************");
+  			sql = "select * from test_sqlite";
+  			rc = sqlite3_exec(db, sql, callback, 0, &amp;zErrMsg);
+  			if(rc != SQLITE_OK)
+   			 {
+      			LE_INFO("Error Executing Command--No Record to show");
+    		}
+    		else
+    		{
+            		LE_INFO("Select is success");
+    		}
+    		closeDB();
+	}
+</code></pre>
+<p>//Callback required by sqlite3_exec in selectAll</p>
+<p>static int callback(void *NotUsed, int argc, char **argv, char **azColName)<br>
+{<br>
+LE_INFO(“Insert Command”);<br>
+int i;<br>
+for(i=0; i&lt;argc; i++)<br>
+{<br>
+fprintf(stdout,"%s = %s\n", azColName[i], argv[i] ? argv[i] : “NULL”);<br>
+}<br>
+return 0;<br>
+}</p>
+<p>building application is explained in the previous reply.</p>
+<p>Regards<br>
+Ankita</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="3" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/error-while-loading-shared-libraries-internal-error/10286/30">Error while loading shared libraries: Internal Error</a>
+                        <meta itemprop='position' content='4'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-06-21T18:51:25Z' class='post-time'>
+                    June 21, 2017,  6:51pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-06-21T18:51:25Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thats awesome Ankita.</p>
+<p>Can you add this to the mangOH github for others to use?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_17' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Ankita'><span itemprop='name'>Ankita</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-06-28T06:25:46Z' class='post-time'>
+                    June 28, 2017,  6:25am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-06-28T06:25:46Z'>
+              <span itemprop='position'>17</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Ashish ,</p>
+<p>Yes  , I can add that to mangoH github and will share the link.</p>
+<p>Regards<br>
+Ankita</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_18' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/niladridm'><span itemprop='name'>niladridm</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-07-10T11:29:00Z' class='post-time'>
+                    July 10, 2017, 11:29am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-07-10T11:29:00Z'>
+              <span itemprop='position'>18</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>hi David,<br>
+I am testing config tree api using a test application where i am writing a dummy data string of 500 bytes every 1 second but after 6000 records my WP8548 module get restarted and crashed, rebooting continuously. In my hardware i dont have serial so not able to restore the module in working condition using ssh as it is rebooting continuously.  I want to know all the limitations of the config tree api to use this more efficiently. also please let me know is there any other way i can fix my wp module?</p>
+<p>Thanks</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_19' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/niladridm'><span itemprop='name'>niladridm</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-07-13T05:51:43Z' class='post-time'>
+                    July 13, 2017,  5:51am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-07-20T08:09:28Z'>
+              <span itemprop='position'>19</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Ankita<br>
+i have an issue which i am not able to fix. I would be grateful if you could look into my attached code (just to create a db file) and help me on this.<br>
+I am getting below exception:<br>
+=ERR= | testsql[1282] | testsql: error while loading shared libraries: libsqlite3.so.0: cannot open shared object file: No such file or directory</p>
+<p>Thanks</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_20' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/umesh-gp'><span itemprop='name'>umesh-gp</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-07-14T04:41:24Z' class='post-time'>
+                    July 14, 2017,  4:41am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-07-14T04:41:24Z'>
+              <span itemprop='position'>20</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>If it seems difficult one can use TinyDB as data base. it is pure python based DB.<br>
+it gives similar api to mysqldb after using some plugins.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_21' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Ankita'><span itemprop='name'>Ankita</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-07-19T07:51:36Z' class='post-time'>
+                    July 19, 2017,  7:51am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-07-19T07:51:36Z'>
+              <span itemprop='position'>21</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Nila ,</p>
+<p>This is due to the linking error of <a href="http://sqlite3.so" rel="nofollow noopener">sqlite3.so</a> .<br>
+Please make following change and append the below  in your Makefile<br>
+-i sqlite3/inc <br>
+-L “sqlite3/lib/sqlite3.so”<br>
+Also , if you are linking this way , ldflags in .cdef is not required.</p>
+<p>The issue gets resolved by this.</p>
+<p>Regards<br>
+Ankita</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_22' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/niladridm'><span itemprop='name'>niladridm</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-07-19T09:29:12Z' class='post-time'>
+                    July 19, 2017,  9:29am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-07-19T09:29:12Z'>
+              <span itemprop='position'>22</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thank you Ankita.<br>
+yes now it is working good</p>
+<p>Thanks</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_23' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/neobaba'><span itemprop='name'>neobaba</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-10-17T10:12:15Z' class='post-time'>
+                    October 17, 2017, 10:12am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-10-17T10:12:15Z'>
+              <span itemprop='position'>23</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Did anybody face the error<br>
+"unable to open database file" ?</p>
+<p>Have just called the CreateDB function provided by Ankita</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_24' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/neobaba'><span itemprop='name'>neobaba</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-10-17T12:08:37Z' class='post-time'>
+                    October 17, 2017, 12:08pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-10-17T12:08:37Z'>
+              <span itemprop='position'>24</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>So if I change the database file location from “data/test.db” to just “test.db”, then the open statement works fine, but the creating a table statement returns a “disk I/O error”.</p>
+<p>I am sure its something related to permissions but don’t know what do I need to set.</p>
+<p>Also I am running Legato 17.08.1.</p>
+<p>And here is the c code</p>
+<p><span class="hashtag">#include</span> “legato.h”<br>
+// <span class="hashtag">#include</span> “interfaces.h”<br>
+<span class="hashtag">#include</span> “sqlite3.h”</p>
+<p>void initOperation()<br>
+{<br>
+char *sql;<br>
+char *zErrMsg = 0;<br>
+sqlite3 *db;<br>
+// db = null;<br>
+// createDb(db);<br>
+int rc ;<br>
+// sqlite3 *db;<br>
+rc = sqlite3_open(“test.db”, &amp;db);<br>
+if(!rc){<br>
+LE_INFO("Successfully Created ");<br>
+}<br>
+else {<br>
+LE_INFO(“Error in Creating/Opening Db file : %s\n”, sqlite3_errmsg(db));<br>
+}</p>
+<pre><code>if (db)
+{
+    LE_INFO("InitOperations Command For Table Creation");
+    sql = "create table if not exists test_sqlite(ID int Primary key, valuename text , value int)";
+    int rc = sqlite3_exec(db, sql, callback, 0, &amp;zErrMsg);
+    if (!rc)
+    {
+        LE_INFO("Executed Command For Table Creation");
+    }
+    else{
+        LE_INFO("Error creation : %s",sqlite3_errmsg(db));
+    }
+}
+</code></pre>
+<p>}</p>
+<p>COMPONENT_INIT<br>
+{<br>
+LE_INFO(“Sample to use Sqlite3 in Legato”);<br>
+//Implement functionalities<br>
+initOperation();<br>
+}</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_25' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gregnietsky'><span itemprop='name'>gregnietsky</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-11-23T20:13:01Z' class='post-time'>
+                    November 23, 2017,  8:13pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-11-23T20:13:01Z'>
+              <span itemprop='position'>25</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I eventually added it to the rootfs</p>
+<pre><code>diff --git a/common/recipes-core/packagegroups/packagegroup-swi-image-target.bb b/common/recipes-core/packagegroups/packagegroup-swi-image-target.bb
+index 0bde906..2824e19 100644
+--- a/common/recipes-core/packagegroups/packagegroup-swi-image-target.bb
++++ b/common/recipes-core/packagegroups/packagegroup-swi-image-target.bb
+@@ -70,3 +70,8 @@ RDEPENDS_${PN} += "rng-tools"
+ 
+ # Add tinucbor to all targets
+ RDEPENDS_${PN} += "tinycbor"
++
++# Comb Addons
++RDEPENDS_${PN} += "tzdata"
++RDEPENDS_${PN} += "c-ares"
++RDEPENDS_${PN} += "sqlite3"
+diff --git a/common/recipes-legato/legato-af/legato-af_git.bb b/common/recipes-legato/legato-af/legato-af_git.bb
+index d9d7efe..3791b95 100644
+--- a/common/recipes-legato/legato-af/legato-af_git.bb
++++ b/common/recipes-legato/legato-af/legato-af_git.bb
+@@ -16,6 +16,8 @@ DEPENDS += "mtd-utils-native"
+ DEPENDS += "curl"
+ DEPENDS += "zlib"
+ DEPENDS += "tinycbor"
++DEPENDS += "c-ares"
++DEPENDS += "sqlite3"
+ 
+ # Build time dependencies (not in the rootfs image)
+ do_compile[depends]  = "legato-tools:do_populate_sysroot"</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_26' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/muradali'><span itemprop='name'>muradali</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-11-14T10:39:35Z' class='post-time'>
+                    November 14, 2018, 10:39am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-11-14T10:39:35Z'>
+              <span itemprop='position'>26</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>hi Ankita,</p>
+<p>please share the link. i need sqlite3 in my project<br>
+many thanks in advance</p>
+<p>thanks</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_27' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/kalaivani'><span itemprop='name'>kalaivani</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-01-02T11:51:04Z' class='post-time'>
+                    January 2, 2021, 11:51am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-01-02T11:51:04Z'>
+              <span itemprop='position'>27</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>hi i added the SQlite3 through image . Now i need to add the Sqlite3 in my program can any one guide how to add the Sqlite3 in legato program</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_28' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-01-02T12:52:34Z' class='post-time'>
+                    January 2, 2021, 12:52pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-01-02T12:52:34Z'>
+              <span itemprop='position'>28</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Did you follow the above method?</p>
+<aside class="quote quote-modified" data-post="15" data-topic="93">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/a/91b2a8/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/database-support/93/15">Database Support</a> 
+  </div>
+  <blockquote>
+    Hi Nila , 
+Please download the Source code present 
+<a href="https://sqlite.org/download.html" class="onebox" target="_blank" rel="noopener nofollow ugc">https://sqlite.org/download.html</a> 
+i.e sqlite-amalgamation-3190300.zip 
+
+
+Make a folder structure for Sqlite3 as 
+mkdir third-party 
+cd third-party 
+mkdir inc 
+mkdir src 
+mkdir lib 
+
+
+Copy sqlite3.h in third-party/inc/ 
+sqlite3.c in third-party/src/ 
+
+
+Create a Makefile in path third-party/src/ 
+vi Makefile 
+add following lines 
+export TOOLCHAIN_DIR:=/opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi 
+GCC = ${TOOLCHAIN…
+  </blockquote>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_29' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jeremyzhang'><span itemprop='name'>jeremyzhang</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/database-support/93">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/8fb2edba977ca698ae208f069d4eced7bb9ebf2b.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-03-22T21:24:14Z' class='post-time'>
+                    March 22, 2021,  9:24pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-03-22T21:58:32Z'>
+              <span itemprop='position'>29</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Ankita,</p>
+<p>I got the following error while executing makefile:</p>
+<blockquote>
+<p>/opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc -c -Wall -Werror -fpic -lpthread -ldl sqlite3.c -o …/lib/sqlite3.so<br>
+make: /opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc: Command not found<br>
+Makefile:4: recipe for target ‘all’ failed<br>
+make: *** [all] Error 127</p>
+</blockquote>
+<p>this is what /opt/swi has:<br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/8fb2edba977ca698ae208f069d4eced7bb9ebf2b.png" alt="image" data-base62-sha1="kvdD7V27swoSihCAa9to3kizGGf" width="593" height="115"></p>
+<p>------------UPDATE---------------<br>
+I changed</p>
+<blockquote>
+<p>/opt/swi/<em><strong>y17-ext</strong></em>/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/</p>
+</blockquote>
+<p>to</p>
+<blockquote>
+<p>/opt/swi/<strong>y22-ext-wp77xx</strong>/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/</p>
+</blockquote>
+<p>then got the following:<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/54144d89310517a61b572e2ba9bc9fd67263b7bc.png" data-download-href="/uploads/short-url/bZNBAkCXpiuTBeXeo0WMRFlgaHW.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/54144d89310517a61b572e2ba9bc9fd67263b7bc.png" alt="image" data-base62-sha1="bZNBAkCXpiuTBeXeo0WMRFlgaHW" width="690" height="171" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/54144d89310517a61b572e2ba9bc9fd67263b7bc_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">729×181 29.8 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>How could I fix it?<br>
+thanks</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/database-support/93?page=2">next page →</a></b></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

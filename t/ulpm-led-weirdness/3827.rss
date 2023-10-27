@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>ULPM LED weirdness</title>
+    <link>https://forum.mangoh.io/t/ulpm-led-weirdness/3827</link>
+    <description>Hey everyone,
+
+I&#39;ve been playing around with ultra low power mode on the mangOH Yellow and have noticed some strange behaviors. I&#39;m trying to troubleshoot an issue with a custom IoT module and I found these weird symptoms. I was wondering if anyone has any ideas what&#39;s going on here.
+
+Without any IoT card inserted -- if you touch the mangOH Yellow in the area near the power switch when it&#39;s in ULPM, the power light blips on 3 times in approximately 1 second intervals. It looks like VCC_5V0 is trying to turn itself back on?
+
+With the custom IoT card inserted -- sometimes the LEDs on the mangOH Yellow board stay on after it enters ULPM. It looks like maybe VCC_5V0_EN is floating or something? I noticed that enable line ends up going directly to a GPIO pin on the WP7702. Does the WP7702 maintain the GPIO output states when it&#39;s in ULPM? I couldn&#39;t find a good answer to that question in the product specification document.
+
+Thanks for any ideas,
+Doug</description>
+    
+    <lastBuildDate>Thu, 29 Sep 2022 19:14:56 +0000</lastBuildDate>
+    <category>mangOH Yellow</category>
+    <atom:link href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>ULPM LED weirdness</title>
+        <dc:creator><![CDATA[johnofleek]]></dc:creator>
+        <description><![CDATA[
+            <p>Two years later I was experiencing similar more potentially damaging issues whilst attempting to reduce the 200mA Idle current drawn by the mangoh yellow - for interest the WP7702 idle is &gt;3mA</p>
+<p><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/719c660d954107397920c5e071b1cef5e3a99a5d.png" alt="image" data-base62-sha1="gd32h7rgZwfbMXKnOSFlAslvR4V" width="589" height="493"></p>
+<p>Turns out that my mangoh yellow has both R908 (supposed to be a NF) and R907 fitted</p>
+<p>Not a great combo if you also fit R909 - it connects 3V7 to 1v8 via a resistor</p>
+<p>Here’s the cct<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/1583c27335de708707d7e49f8fb30dfb91318fbb.png" data-download-href="/uploads/short-url/34kjRPVS9uv0Tw9ZIqv2mxFcMCT.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/1583c27335de708707d7e49f8fb30dfb91318fbb_2_487x499.png" alt="image" data-base62-sha1="34kjRPVS9uv0Tw9ZIqv2mxFcMCT" width="487" height="499" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/1583c27335de708707d7e49f8fb30dfb91318fbb_2_487x499.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/1583c27335de708707d7e49f8fb30dfb91318fbb.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/1583c27335de708707d7e49f8fb30dfb91318fbb.png 2x" data-dominant-color="FBF8FB"></a></div><p></p>
+<p>Note that VGPIO is off if the WP is off - there is no way to POWER_ON_N the modem if U901 is OFF. and no way to connect something external to the WPs POWER_ON_N.</p>
+          <p><a href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827/16">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ulpm-led-weirdness/3827/16</link>
+        <pubDate>Thu, 29 Sep 2022 18:37:18 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3827-16</guid>
+        <source url="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss">ULPM LED weirdness</source>
+      </item>
+      <item>
+        <title>ULPM LED weirdness</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-username="dougbrown" data-post="14" data-topic="3827">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/dougbrown/40/1020_2.png" class="avatar"> dougbrown:</div>
+<blockquote>
+<p>Here are the pictures to verify that we did the correct mods:</p>
+</blockquote>
+</aside>
+<p>Do you have a fresh board?  Are you running stock firmware?<br>
+Can you measure VGPIO on R200 when its not in ULPM and when it is ULPM?</p>
+          <p><a href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827/15">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ulpm-led-weirdness/3827/15</link>
+        <pubDate>Wed, 18 Mar 2020 15:54:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3827-15</guid>
+        <source url="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss">ULPM LED weirdness</source>
+      </item>
+      <item>
+        <title>ULPM LED weirdness</title>
+        <dc:creator><![CDATA[dougbrown]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/asyal">@asyal</a>, I really appreciate you looking into this. I just don’t know what to do next. I triple checked all of our mods (R601 -&gt; R600, R607 -&gt; R608, remove R904) and took pictures as I checked them. Obviously we also remove the jumper on CN801. Earlier I talked about adding a 1M pulldown that seemed to help, but that was on a different board so I’m working on a fresh one now without that mod.</p>
+<p>Here are the pictures to verify that we did the correct mods:</p>
+<p>R601 -&gt; R600:<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/7a9c8fd847e0fca9e9291f11985e9d2d9eb180c0.jpeg" data-download-href="/uploads/short-url/huFGoaaKVbaujgm1kkZWGp8orxS.jpeg?dl=1" title="R601_R600" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7a9c8fd847e0fca9e9291f11985e9d2d9eb180c0_2_690x388.jpeg" alt="R601_R600" data-base62-sha1="huFGoaaKVbaujgm1kkZWGp8orxS" width="690" height="388" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7a9c8fd847e0fca9e9291f11985e9d2d9eb180c0_2_690x388.jpeg, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7a9c8fd847e0fca9e9291f11985e9d2d9eb180c0_2_1035x582.jpeg 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7a9c8fd847e0fca9e9291f11985e9d2d9eb180c0_2_1380x776.jpeg 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7a9c8fd847e0fca9e9291f11985e9d2d9eb180c0_2_10x10.png"></a></div><p></p>
+<p>R607 -&gt; R608:<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/749689ac9ebfcd939758dd9d9f3fa67500db9295.jpeg" data-download-href="/uploads/short-url/gDnUySFSmhzrVVXlO5UeomcnzUN.jpeg?dl=1" title="R607_R608" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/749689ac9ebfcd939758dd9d9f3fa67500db9295_2_690x388.jpeg" alt="R607_R608" data-base62-sha1="gDnUySFSmhzrVVXlO5UeomcnzUN" width="690" height="388" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/749689ac9ebfcd939758dd9d9f3fa67500db9295_2_690x388.jpeg, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/749689ac9ebfcd939758dd9d9f3fa67500db9295_2_1035x582.jpeg 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/749689ac9ebfcd939758dd9d9f3fa67500db9295_2_1380x776.jpeg 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/749689ac9ebfcd939758dd9d9f3fa67500db9295_2_10x10.png"></a></div><p></p>
+<p>Removal of R904:<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/77c0a5501214dff190346d35a88bed8fa591f53a.jpeg" data-download-href="/uploads/short-url/h5nyKY36mXBUdDP0KcqKDX8zUaC.jpeg?dl=1" title="R904" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/77c0a5501214dff190346d35a88bed8fa591f53a_2_690x388.jpeg" alt="R904" data-base62-sha1="h5nyKY36mXBUdDP0KcqKDX8zUaC" width="690" height="388" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/77c0a5501214dff190346d35a88bed8fa591f53a_2_690x388.jpeg, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/77c0a5501214dff190346d35a88bed8fa591f53a_2_1035x582.jpeg 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/77c0a5501214dff190346d35a88bed8fa591f53a_2_1380x776.jpeg 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/77c0a5501214dff190346d35a88bed8fa591f53a_2_10x10.png"></a></div><p></p>
+<p>Just tested again this morning, and the LEDs all stayed on when it went into ULPM. I can’t remember if I’ve mentioned it, but it’s running from a LiPo battery when this happens, if that’s relevant at all.</p>
+          <p><a href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827/14">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ulpm-led-weirdness/3827/14</link>
+        <pubDate>Wed, 18 Mar 2020 15:18:25 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3827-14</guid>
+        <source url="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss">ULPM LED weirdness</source>
+      </item>
+      <item>
+        <title>ULPM LED weirdness</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-username="dougbrown" data-post="12" data-topic="3827">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/dougbrown/40/1020_2.png" class="avatar"> dougbrown:</div>
+<blockquote>
+<p>The only logical conclusion I can reach is that VCC_5V0 is still turned on</p>
+</blockquote>
+</aside>
+<p>We dont get that on any of our units. It seems the mod you made introduces the problem.<br>
+Can you double/triple check your R600/R601 mod?</p>
+          <p><a href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827/13">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ulpm-led-weirdness/3827/13</link>
+        <pubDate>Wed, 18 Mar 2020 03:21:37 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3827-13</guid>
+        <source url="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss">ULPM LED weirdness</source>
+      </item>
+      <item>
+        <title>ULPM LED weirdness</title>
+        <dc:creator><![CDATA[dougbrown]]></dc:creator>
+        <description><![CDATA[
+            <p>All 3 of the LEDs stay lit up (which is really more than 3 because they are multi-color):</p>
+<ul>
+<li>D401 is yellow I believe</li>
+<li>D402 is on</li>
+<li>D500 is white</li>
+</ul>
+<p>The only logical conclusion I can reach is that VCC_5V0 is still turned on</p>
+          <p><a href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ulpm-led-weirdness/3827/12</link>
+        <pubDate>Tue, 17 Mar 2020 14:43:21 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3827-12</guid>
+        <source url="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss">ULPM LED weirdness</source>
+      </item>
+      <item>
+        <title>ULPM LED weirdness</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>what particular LED is staying on in ULPM? We dont see any LED on in ULPM.</p>
+          <p><a href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ulpm-led-weirdness/3827/11</link>
+        <pubDate>Tue, 17 Mar 2020 05:50:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3827-11</guid>
+        <source url="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss">ULPM LED weirdness</source>
+      </item>
+      <item>
+        <title>ULPM LED weirdness</title>
+        <dc:creator><![CDATA[dougbrown]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/asyal">@asyal</a>,</p>
+<p>Thanks for your response. I just removed R904. The system still works fine, but the LEDs are still staying on when it goes into ULPM. Any other ideas to try?</p>
+          <p><a href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ulpm-led-weirdness/3827/10</link>
+        <pubDate>Tue, 17 Mar 2020 05:38:03 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3827-10</guid>
+        <source url="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss">ULPM LED weirdness</source>
+      </item>
+      <item>
+        <title>ULPM LED weirdness</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>It’s floating.<br>
+Can you  DNI BUCK_CONV_EN  resistor R904? System should work seamlessly without it being present.</p>
+          <p><a href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ulpm-led-weirdness/3827/9</link>
+        <pubDate>Mon, 16 Mar 2020 23:15:59 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3827-9</guid>
+        <source url="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss">ULPM LED weirdness</source>
+      </item>
+      <item>
+        <title>ULPM LED weirdness</title>
+        <dc:creator><![CDATA[dougbrown]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/asyal">@asyal</a> Any updates? This is a pretty big deal for us, I’m kind of scared of putting our stuff in the field knowing that the battery is draining faster than it should</p>
+          <p><a href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ulpm-led-weirdness/3827/8</link>
+        <pubDate>Mon, 16 Mar 2020 22:24:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3827-8</guid>
+        <source url="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss">ULPM LED weirdness</source>
+      </item>
+      <item>
+        <title>ULPM LED weirdness</title>
+        <dc:creator><![CDATA[dougbrown]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/asyal">@asyal</a> Have you had a chance to look at this any more? At first glance it seems like it would have to be a problem caused by my IoT card, but all of my diagnostics point to the 5V rail being allowed to stay on when it shouldn’t</p>
+          <p><a href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ulpm-led-weirdness/3827/7</link>
+        <pubDate>Mon, 09 Mar 2020 23:16:32 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3827-7</guid>
+        <source url="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss">ULPM LED weirdness</source>
+      </item>
+      <item>
+        <title>ULPM LED weirdness</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>sounds like it is floating…I’ll need to check,</p>
+          <p><a href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ulpm-led-weirdness/3827/6</link>
+        <pubDate>Mon, 24 Feb 2020 19:57:58 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3827-6</guid>
+        <source url="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss">ULPM LED weirdness</source>
+      </item>
+      <item>
+        <title>ULPM LED weirdness</title>
+        <dc:creator><![CDATA[dougbrown]]></dc:creator>
+        <description><![CDATA[
+            <p>No, nothing is touching. As far as I know, we completely followed the IoT card spec requirements. We don’t have any components on the bottom of the board.</p>
+<p>Is GPIO41 going to maintain its state keeping BUCK_CONV_EN low when the WP7702 goes into ULPM? It looks like BUCK_CONV_EN is floating in ULPM and allowing the 5V rail to sometimes turn on. Maybe I’m missing something? I can’t find anything in the datasheet saying what the GPIOs do when you enter ULPM.</p>
+          <p><a href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ulpm-led-weirdness/3827/5</link>
+        <pubDate>Mon, 24 Feb 2020 17:56:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3827-5</guid>
+        <source url="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss">ULPM LED weirdness</source>
+      </item>
+      <item>
+        <title>ULPM LED weirdness</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Is any part of your iot card touching the yellow board? Maybe the SIM/SD card connector.</p>
+          <p><a href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ulpm-led-weirdness/3827/4</link>
+        <pubDate>Sat, 22 Feb 2020 22:33:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3827-4</guid>
+        <source url="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss">ULPM LED weirdness</source>
+      </item>
+      <item>
+        <title>ULPM LED weirdness</title>
+        <dc:creator><![CDATA[dougbrown]]></dc:creator>
+        <description><![CDATA[
+            <p>I moved R607 to R608 to enable ADC3 on the IoT connector. I also moved R601 to R600 so I can supply USB_VBUS through the IoT card instead of the USB port.</p>
+<p>Adding an external 1M pulldown on VCC_5V0_EN seems to somewhat help (seems to fix the LEDs staying on in ULPM, but doesn’t completely stop the blips when touching), but I’m not sure if there is a valid reason to be adding that or not…</p>
+          <p><a href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ulpm-led-weirdness/3827/3</link>
+        <pubDate>Fri, 21 Feb 2020 23:34:23 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3827-3</guid>
+        <source url="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss">ULPM LED weirdness</source>
+      </item>
+      <item>
+        <title>ULPM LED weirdness</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Did you modify your board in anyway?</p>
+          <p><a href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ulpm-led-weirdness/3827/2</link>
+        <pubDate>Fri, 21 Feb 2020 23:25:25 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3827-2</guid>
+        <source url="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss">ULPM LED weirdness</source>
+      </item>
+      <item>
+        <title>ULPM LED weirdness</title>
+        <dc:creator><![CDATA[dougbrown]]></dc:creator>
+        <description><![CDATA[
+            <p>Hey everyone,</p>
+<p>I’ve been playing around with ultra low power mode on the mangOH Yellow and have noticed some strange behaviors. I’m trying to troubleshoot an issue with a custom IoT module and I found these weird symptoms. I was wondering if anyone has any ideas what’s going on here.</p>
+<p>Without any IoT card inserted – if you touch the mangOH Yellow in the area near the power switch when it’s in ULPM, the power light blips on 3 times in approximately 1 second intervals. It looks like VCC_5V0 is trying to turn itself back on?</p>
+<p>With the custom IoT card inserted – sometimes the LEDs on the mangOH Yellow board stay on after it enters ULPM. It looks like maybe VCC_5V0_EN is floating or something? I noticed that enable line ends up going directly to a GPIO pin on the WP7702. Does the WP7702 maintain the GPIO output states when it’s in ULPM? I couldn’t find a good answer to that question in the product specification document.</p>
+<p>Thanks for any ideas,<br>
+Doug</p>
+          <p><a href="https://forum.mangoh.io/t/ulpm-led-weirdness/3827/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ulpm-led-weirdness/3827/1</link>
+        <pubDate>Fri, 21 Feb 2020 23:22:22 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3827-1</guid>
+        <source url="https://forum.mangoh.io/t/ulpm-led-weirdness/3827.rss">ULPM LED weirdness</source>
+      </item>
+  </channel>
+</rss>

@@ -1,0 +1,831 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+    <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374</link>
+    <description>Hello!
+
+I would like to build a custom yocto image however I am having trouble. Here is what I have so far:
+- installed Ubuntu 16.04 on VM
+- downloaded WP76 source image from following link:
+**https://source.sierrawireless.com/resources/airprime/software/wp76xx/wp76xx-firmware-latest-release-components/#sthash.jhaYxLzU.rPi8Mpml.dpbs**
+- then went to the following location: 1. ./meta-swi/meta-swi-mdm9x28/recipes-core/images/mdm9x28-image.inc
+- added the following line:
+**IMAGE_INSTALL_append = &quot; python-pip&quot;**
+- and then went to:
+**./meta-swi/meta-swi-mdm9x28/conf/machine/swi-mdm9x28.conf**
+- and made the following change
+**UBI_ROOTFS_SIZE ?= “48MiB”**
+- and then to make the yocto image, typed make image_bin
+- the following is the error I got:
+prab@prab-VirtualBox:~/yocto$ make image_bin
+Makefile:71: &quot;Legato: build disabled since &#39;/home/prab/yocto/legato/&#39; does not exist&quot;
+&quot;meta-swi/build.sh&quot; -p poky/ -o meta-openembedded/ -l meta-swi -x &quot;kernel&quot; -j 9 -t 9           -a LK_REPO_DIR=&quot;/home/prab/yocto&quot; -a LK_REPO_NAME=&quot;lk&quot; -a LK_REPO=&quot;file://lk&quot; -m swi-mdm9x28 -P wp  -b build_bin -q
+Poky dir: /home/prab/yocto/poky
+OE meta: /home/prab/yocto/meta-openembedded
+SWI meta dir: /home/prab/yocto/meta-swi
+Linux repo dir: /home/prab/yocto/kernel
+Number of make threads 9
+Number of bitbake tasks 9
+Extra options added -  LK_REPO_DIR=/home/prab/yocto
+Extra options added -  LK_REPO_NAME=lk
+Extra options added -  LK_REPO=file://lk
+SWI machine: swi-mdm9x28
+SWI product: wp
+Build dir: /home/prab/yocto/build_bin
+Enable Qualcomm Proprietary bin
+
+### Shell environment set up for builds. ###
+
+You can now run &#39;bitbake &lt;target&gt;&#39;
+
+Common targets are:
+    core-image-minimal
+    core-image-sato
+    meta-toolchain
+    meta-ide-support
+
+You can also run generated qemu images with a command like &#39;runqemu qemux86&#39;
++ layer: meta-oe
++ layer: meta-networking
++ layer: meta-python
++ layer: meta-gplv2
++ layer: meta-swi/common
++ layer: meta-swi/meta-swi-mdm9xxx
++ layer: meta-swi/meta-swi-mdm9x28
++ layer: meta-swi-extras/common
++ layer: meta-swi-extras/meta-swi-mdm9x28
++ layer: meta-swi-extras/meta-swi-mdm9xxx-bin
++ layer: meta-swi-extras/meta-swi-mdm9x28-bin
++ layer: meta-swi-extras/meta-swi-mdm9x28-wp-bin
+Yocto machine: swi-mdm9x28-wp
+Updating LEGATO_BUILD to false
+Updating IMA_BUILD to false
+Updating IMA_CONFIG to 
+Updating IMA_LOCAL_CA_X509 to 
+Updating IMA_PRIV_KEY to 
+Updating IMA_PUB_CERT to 
+Updating IMA_KERNEL_CMDLINE_OPTIONS to 
+Updating ENABLE_IMA to 0
+Updating IMA_PUBLIC_CERT to 
+Updating IMA_PRIVATE_KEY to 
+Updating IMA_SMACK to 
+Updating ENABLE_FX30 to 
+Updating ROOTFS_VERSION to 
+Updating LK_REPO_DIR to /home/prab/yocto
+Updating LK_REPO_NAME to lk
+Updating LK_REPO to file://lk
+Updating EXT_SWI_IMG to false
+Updating INITRAMFS_IMAGE_BUNDLE to 1
+Updating INITRAMFS_IMAGE to mdm9x28-image-initramfs
+Updating FIRMWARE_PATH to 
+Updating PACKAGECONFIG_remove to gnutls
+Build image of minimal rootfs (for swi-mdm9x28).
+Unable to create &#39;/home/prab/yocto/poky/bitbake/lib/bb/pysh/pyshtables.py&#39;
+[Errno 13] Permission denied: &#39;/home/prab/yocto/poky/bitbake/lib/bb/pysh/pyshtables.py&#39;
+NOTE: Bitbake server didn&#39;t start within 5 seconds, waiting for 90
+ERROR: Unable to start bitbake server
+ERROR: Server didn&#39;t start, last 60 loglines (/home/prab/yocto/build_bin/bitbake-cookerdaemon.log):
+Entering server connection loop
+Accepting [&lt;socket.socket fd=7, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock&gt;] ([])
+Processing Client
+Connecting Client
+Running command [&#39;setFeatures&#39;, [2]]
+Running command [&#39;updateConfig&#39;, {&#39;profile&#39;: False, &#39;prefile&#39;: [], &#39;invalidate_stamp&#39;: None, &#39;dump_signatures&#39;: [], &#39;postfile&#39;: [], &#39;dry_run&#39;: False, &#39;verbose&#39;: False, &#39;debug_domains&#39;: [], &#39;debug&#39;: 0, &#39;server_timeout&#39;: None, &#39;extra_assume_provided&#39;: [], &#39;abort&#39;: True, &#39;force&#39;: False}, {&#39;MAKELEVEL&#39;: &#39;1&#39;, &#39;USER&#39;: &#39;root&#39;, &#39;USERNAME&#39;: &#39;root&#39;, &#39;LC_ALL&#39;: &#39;en_US.UTF-8&#39;, &#39;SUDO_COMMAND&#39;: &#39;/usr/bin/make image&#39;, &#39;BUILDDIR&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;LOGNAME&#39;: &#39;root&#39;, &#39;MFLAGS&#39;: &#39;&#39;, &#39;TERM&#39;: &#39;xterm-256color&#39;, &#39;PWD&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;LANG&#39;: &#39;en_US.UTF-8&#39;, &#39;LS_COLORS&#39;: &#39;rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:&#39;, &#39;MAIL&#39;: &#39;/var/mail/root&#39;, &#39;BB_ENV_EXTRAWHITE&#39;: &#39;ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO DL_DIR FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy &#39;, &#39;PATH&#39;: &#39;/home/prab/yocto/poky/scripts:/home/prab/yocto/poky/bitbake/bin:/usr/local/bin:/bin:/usr/bin&#39;, &#39;SHELL&#39;: &#39;/bin/bash&#39;, &#39;DISPLAY&#39;: &#39;:0&#39;, &#39;_&#39;: &#39;/home/prab/yocto/poky/bitbake/bin/bitbake&#39;, &#39;MAKEFLAGS&#39;: &#39;&#39;, &#39;SUDO_GID&#39;: &#39;1000&#39;, &#39;LANGUAGE&#39;: &#39;en_US&#39;, &#39;MAKE_TERMOUT&#39;: &#39;/dev/pts/17&#39;, &#39;HOME&#39;: &#39;/home/prab&#39;, &#39;SUDO_USER&#39;: &#39;prab&#39;, &#39;BBPATH&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;SUDO_UID&#39;: &#39;1000&#39;, &#39;SHLVL&#39;: &#39;2&#39;, &#39;OLDPWD&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;MAKE_TERMERR&#39;: &#39;/dev/pts/17&#39;, &#39;XAUTHORITY&#39;: &#39;/home/prab/.Xauthority&#39;}, [&#39;/home/prab/yocto/poky/bitbake/bin/bitbake&#39;, &#39;mdm9x28-image-minimal&#39;]]
+Running command [&#39;getVariable&#39;, &#39;BBINCLUDELOGS&#39;]
+Running command [&#39;getVariable&#39;, &#39;BBINCLUDELOGS_LINES&#39;]
+Running command [&#39;getSetVariable&#39;, &#39;BB_CONSOLELOG&#39;]
+Running command [&#39;getUIHandlerNum&#39;]
+Running command [&#39;setEventMask&#39;, 1, 20, {}, [&#39;bb.runqueue.runQueueExitWait&#39;, &#39;bb.event.LogExecTTY&#39;, &#39;logging.LogRecord&#39;, &#39;bb.build.TaskFailed&#39;, &#39;bb.build.TaskBase&#39;, &#39;bb.event.ParseStarted&#39;, &#39;bb.event.ParseProgress&#39;, &#39;bb.event.ParseCompleted&#39;, &#39;bb.event.CacheLoadStarted&#39;, &#39;bb.event.CacheLoadProgress&#39;, &#39;bb.event.CacheLoadCompleted&#39;, &#39;bb.command.CommandFailed&#39;, &#39;bb.command.CommandExit&#39;, &#39;bb.command.CommandCompleted&#39;, &#39;bb.cooker.CookerExit&#39;, &#39;bb.event.MultipleProviders&#39;, &#39;bb.event.NoProvider&#39;, &#39;bb.runqueue.sceneQueueTaskStarted&#39;, &#39;bb.runqueue.runQueueTaskStarted&#39;, &#39;bb.runqueue.runQueueTaskFailed&#39;, &#39;bb.runqueue.sceneQueueTaskFailed&#39;, &#39;bb.event.BuildBase&#39;, &#39;bb.build.TaskStarted&#39;, &#39;bb.build.TaskSucceeded&#39;, &#39;bb.build.TaskFailedSilent&#39;, &#39;bb.build.TaskProgress&#39;, &#39;bb.event.ProcessStarted&#39;, &#39;bb.event.ProcessProgress&#39;, &#39;bb.event.ProcessFinished&#39;]]
+Running command [&#39;getVariable&#39;, &#39;BB_DEFAULT_TASK&#39;]
+Running command [&#39;setConfig&#39;, &#39;cmd&#39;, &#39;build&#39;]
+Running command [&#39;buildTargets&#39;, [&#39;mdm9x28-image-minimal&#39;], &#39;build&#39;]
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 7281 at 2020-10-07 13:45:51.263502 ---
+Started bitbake server pid 7281
+WARNING: Layer swi-wp-bin should set LAYERSERIES_COMPAT_swi-wp-bin in its conf/layer.conf file to list the core layer names it is compatible with.
+Entering server connection loop
+Accepting [&lt;socket.socket fd=7, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock&gt;] ([])
+Processing Client
+Connecting Client
+Running command [&#39;setFeatures&#39;, [2]]
+Running command [&#39;updateConfig&#39;, {&#39;dry_run&#39;: False, &#39;profile&#39;: False, &#39;postfile&#39;: [], &#39;debug_domains&#39;: [], &#39;server_timeout&#39;: None, &#39;dump_signatures&#39;: [], &#39;debug&#39;: 0, &#39;verbose&#39;: False, &#39;extra_assume_provided&#39;: [], &#39;force&#39;: False, &#39;prefile&#39;: [], &#39;abort&#39;: True, &#39;invalidate_stamp&#39;: None}, {&#39;LESSOPEN&#39;: &#39;| /usr/bin/lesspipe %s&#39;, &#39;PWD&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;SUDO_UID&#39;: &#39;1000&#39;, &#39;DISPLAY&#39;: &#39;:0&#39;, &#39;LESSCLOSE&#39;: &#39;/usr/bin/lesspipe %s %s&#39;, &#39;LOGNAME&#39;: &#39;root&#39;, &#39;SHLVL&#39;: &#39;3&#39;, &#39;PATH&#39;: &#39;/home/prab/yocto/poky/scripts:/home/prab/yocto/poky/bitbake/bin:/usr/local/bin:/bin:/usr/bin&#39;, &#39;BBPATH&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;XAUTHORITY&#39;: &#39;/home/prab/.Xauthority&#39;, &#39;BUILDDIR&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;LS_COLORS&#39;: &#39;rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:&#39;, &#39;SUDO_GID&#39;: &#39;1000&#39;, &#39;MAKE_TERMOUT&#39;: &#39;/dev/pts/17&#39;, &#39;USER&#39;: &#39;root&#39;, &#39;TERM&#39;: &#39;xterm-256color&#39;, &#39;MAIL&#39;: &#39;/var/mail/root&#39;, &#39;_&#39;: &#39;/home/prab/yocto/poky/bitbake/bin/bitbake&#39;, &#39;USERNAME&#39;: &#39;root&#39;, &#39;MAKEFLAGS&#39;: &#39;&#39;, &#39;SUDO_COMMAND&#39;: &#39;/bin/su&#39;, &#39;HOME&#39;: &#39;/root&#39;, &#39;LC_ALL&#39;: &#39;en_US.UTF-8&#39;, &#39;LANGUAGE&#39;: &#39;en_US&#39;, &#39;LANG&#39;: &#39;en_US.UTF-8&#39;, &#39;SUDO_USER&#39;: &#39;prab&#39;, &#39;SHELL&#39;: &#39;/bin/bash&#39;, &#39;MAKE_TERMERR&#39;: &#39;/dev/pts/17&#39;, &#39;MAKELEVEL&#39;: &#39;1&#39;, &#39;BB_ENV_EXTRAWHITE&#39;: &#39;ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO DL_DIR FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy &#39;, &#39;MFLAGS&#39;: &#39;&#39;, &#39;OLDPWD&#39;: &#39;/home/prab/yocto/build_bin&#39;}, [&#39;/home/prab/yocto/poky/bitbake/bin/bitbake&#39;, &#39;mdm9x28-image-minimal&#39;]]
+Running command [&#39;getVariable&#39;, &#39;BBINCLUDELOGS&#39;]
+Running command [&#39;getVariable&#39;, &#39;BBINCLUDELOGS_LINES&#39;]
+Running command [&#39;getSetVariable&#39;, &#39;BB_CONSOLELOG&#39;]
+Running command [&#39;getUIHandlerNum&#39;]
+Running command [&#39;setEventMask&#39;, 1, 20, {}, [&#39;bb.runqueue.runQueueExitWait&#39;, &#39;bb.event.LogExecTTY&#39;, &#39;logging.LogRecord&#39;, &#39;bb.build.TaskFailed&#39;, &#39;bb.build.TaskBase&#39;, &#39;bb.event.ParseStarted&#39;, &#39;bb.event.ParseProgress&#39;, &#39;bb.event.ParseCompleted&#39;, &#39;bb.event.CacheLoadStarted&#39;, &#39;bb.event.CacheLoadProgress&#39;, &#39;bb.event.CacheLoadCompleted&#39;, &#39;bb.command.CommandFailed&#39;, &#39;bb.command.CommandExit&#39;, &#39;bb.command.CommandCompleted&#39;, &#39;bb.cooker.CookerExit&#39;, &#39;bb.event.MultipleProviders&#39;, &#39;bb.event.NoProvider&#39;, &#39;bb.runqueue.sceneQueueTaskStarted&#39;, &#39;bb.runqueue.runQueueTaskStarted&#39;, &#39;bb.runqueue.runQueueTaskFailed&#39;, &#39;bb.runqueue.sceneQueueTaskFailed&#39;, &#39;bb.event.BuildBase&#39;, &#39;bb.build.TaskStarted&#39;, &#39;bb.build.TaskSucceeded&#39;, &#39;bb.build.TaskFailedSilent&#39;, &#39;bb.build.TaskProgress&#39;, &#39;bb.event.ProcessStarted&#39;, &#39;bb.event.ProcessProgress&#39;, &#39;bb.event.ProcessFinished&#39;]]
+Running command [&#39;getVariable&#39;, &#39;BB_DEFAULT_TASK&#39;]
+Running command [&#39;setConfig&#39;, &#39;cmd&#39;, &#39;build&#39;]
+Running command [&#39;buildTargets&#39;, [&#39;mdm9x28-image-minimal&#39;], &#39;build&#39;]
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 18086 at 2020-10-07 13:57:29.864731 ---
+Started bitbake server pid 18086
+WARNING: Layer swi-wp-bin should set LAYERSERIES_COMPAT_swi-wp-bin in its conf/layer.conf file to list the core layer names it is compatible with.
+Entering server connection loop
+Accepting [&lt;socket.socket fd=7, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock&gt;] ([])
+Processing Client
+Connecting Client
+Running command [&#39;setFeatures&#39;, [2]]
+Running command [&#39;updateConfig&#39;, {&#39;debug_domains&#39;: [], &#39;dump_signatures&#39;: [], &#39;postfile&#39;: [], &#39;prefile&#39;: [], &#39;extra_assume_provided&#39;: [], &#39;server_timeout&#39;: None, &#39;debug&#39;: 0, &#39;verbose&#39;: False, &#39;abort&#39;: True, &#39;profile&#39;: False, &#39;force&#39;: False, &#39;invalidate_stamp&#39;: None, &#39;dry_run&#39;: False}, {&#39;TERM&#39;: &#39;xterm-256color&#39;, &#39;OLDPWD&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;XAUTHORITY&#39;: &#39;/home/prab/.Xauthority&#39;, &#39;_&#39;: &#39;/home/prab/yocto/poky/bitbake/bin/bitbake&#39;, &#39;PATH&#39;: &#39;/home/prab/yocto/poky/scripts:/home/prab/yocto/poky/bitbake/bin:/usr/local/bin:/bin:/usr/bin&#39;, &#39;DISPLAY&#39;: &#39;:0&#39;, &#39;MAKE_TERMOUT&#39;: &#39;/dev/pts/17&#39;, &#39;BB_ENV_EXTRAWHITE&#39;: &#39;ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO DL_DIR FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy &#39;, &#39;MAKE_TERMERR&#39;: &#39;/dev/pts/17&#39;, &#39;USER&#39;: &#39;root&#39;, &#39;SUDO_USER&#39;: &#39;prab&#39;, &#39;SHELL&#39;: &#39;/bin/bash&#39;, &#39;BBPATH&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;LESSOPEN&#39;: &#39;| /usr/bin/lesspipe %s&#39;, &#39;HOME&#39;: &#39;/root&#39;, &#39;SHLVL&#39;: &#39;3&#39;, &#39;BUILDDIR&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;LANG&#39;: &#39;en_US.UTF-8&#39;, &#39;USERNAME&#39;: &#39;root&#39;, &#39;SUDO_GID&#39;: &#39;1000&#39;, &#39;MAKELEVEL&#39;: &#39;1&#39;, &#39;LS_COLORS&#39;: &#39;rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:&#39;, &#39;SUDO_COMMAND&#39;: &#39;/bin/su&#39;, &#39;MAIL&#39;: &#39;/var/mail/root&#39;, &#39;LESSCLOSE&#39;: &#39;/usr/bin/lesspipe %s %s&#39;, &#39;LOGNAME&#39;: &#39;root&#39;, &#39;MAKEFLAGS&#39;: &#39;&#39;, &#39;MFLAGS&#39;: &#39;&#39;, &#39;LANGUAGE&#39;: &#39;en_US&#39;, &#39;LC_ALL&#39;: &#39;en_US.UTF-8&#39;, &#39;PWD&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;SUDO_UID&#39;: &#39;1000&#39;}, [&#39;/home/prab/yocto/poky/bitbake/bin/bitbake&#39;, &#39;mdm9x28-image-minimal&#39;]]
+Running command [&#39;getVariable&#39;, &#39;BBINCLUDELOGS&#39;]
+Running command [&#39;getVariable&#39;, &#39;BBINCLUDELOGS_LINES&#39;]
+Running command [&#39;getSetVariable&#39;, &#39;BB_CONSOLELOG&#39;]
+Running command [&#39;getUIHandlerNum&#39;]
+Running command [&#39;setEventMask&#39;, 1, 20, {}, [&#39;bb.runqueue.runQueueExitWait&#39;, &#39;bb.event.LogExecTTY&#39;, &#39;logging.LogRecord&#39;, &#39;bb.build.TaskFailed&#39;, &#39;bb.build.TaskBase&#39;, &#39;bb.event.ParseStarted&#39;, &#39;bb.event.ParseProgress&#39;, &#39;bb.event.ParseCompleted&#39;, &#39;bb.event.CacheLoadStarted&#39;, &#39;bb.event.CacheLoadProgress&#39;, &#39;bb.event.CacheLoadCompleted&#39;, &#39;bb.command.CommandFailed&#39;, &#39;bb.command.CommandExit&#39;, &#39;bb.command.CommandCompleted&#39;, &#39;bb.cooker.CookerExit&#39;, &#39;bb.event.MultipleProviders&#39;, &#39;bb.event.NoProvider&#39;, &#39;bb.runqueue.sceneQueueTaskStarted&#39;, &#39;bb.runqueue.runQueueTaskStarted&#39;, &#39;bb.runqueue.runQueueTaskFailed&#39;, &#39;bb.runqueue.sceneQueueTaskFailed&#39;, &#39;bb.event.BuildBase&#39;, &#39;bb.build.TaskStarted&#39;, &#39;bb.build.TaskSucceeded&#39;, &#39;bb.build.TaskFailedSilent&#39;, &#39;bb.build.TaskProgress&#39;, &#39;bb.event.ProcessStarted&#39;, &#39;bb.event.ProcessProgress&#39;, &#39;bb.event.ProcessFinished&#39;]]
+Running command [&#39;getVariable&#39;, &#39;BB_DEFAULT_TASK&#39;]
+Running command [&#39;setConfig&#39;, &#39;cmd&#39;, &#39;build&#39;]
+Running command [&#39;buildTargets&#39;, [&#39;mdm9x28-image-minimal&#39;], &#39;build&#39;]
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+
+NOTE: Bitbake server didn&#39;t start within 5 seconds, waiting for 90
+ERROR: Unable to start bitbake server
+ERROR: Server didn&#39;t start, last 60 loglines (/home/prab/yocto/build_bin/bitbake-cookerdaemon.log):
+Entering server connection loop
+Accepting [&lt;socket.socket fd=7, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock&gt;] ([])
+Processing Client
+Connecting Client
+Running command [&#39;setFeatures&#39;, [2]]
+Running command [&#39;updateConfig&#39;, {&#39;profile&#39;: False, &#39;prefile&#39;: [], &#39;invalidate_stamp&#39;: None, &#39;dump_signatures&#39;: [], &#39;postfile&#39;: [], &#39;dry_run&#39;: False, &#39;verbose&#39;: False, &#39;debug_domains&#39;: [], &#39;debug&#39;: 0, &#39;server_timeout&#39;: None, &#39;extra_assume_provided&#39;: [], &#39;abort&#39;: True, &#39;force&#39;: False}, {&#39;MAKELEVEL&#39;: &#39;1&#39;, &#39;USER&#39;: &#39;root&#39;, &#39;USERNAME&#39;: &#39;root&#39;, &#39;LC_ALL&#39;: &#39;en_US.UTF-8&#39;, &#39;SUDO_COMMAND&#39;: &#39;/usr/bin/make image&#39;, &#39;BUILDDIR&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;LOGNAME&#39;: &#39;root&#39;, &#39;MFLAGS&#39;: &#39;&#39;, &#39;TERM&#39;: &#39;xterm-256color&#39;, &#39;PWD&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;LANG&#39;: &#39;en_US.UTF-8&#39;, &#39;LS_COLORS&#39;: &#39;rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:&#39;, &#39;MAIL&#39;: &#39;/var/mail/root&#39;, &#39;BB_ENV_EXTRAWHITE&#39;: &#39;ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO DL_DIR FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy &#39;, &#39;PATH&#39;: &#39;/home/prab/yocto/poky/scripts:/home/prab/yocto/poky/bitbake/bin:/usr/local/bin:/bin:/usr/bin&#39;, &#39;SHELL&#39;: &#39;/bin/bash&#39;, &#39;DISPLAY&#39;: &#39;:0&#39;, &#39;_&#39;: &#39;/home/prab/yocto/poky/bitbake/bin/bitbake&#39;, &#39;MAKEFLAGS&#39;: &#39;&#39;, &#39;SUDO_GID&#39;: &#39;1000&#39;, &#39;LANGUAGE&#39;: &#39;en_US&#39;, &#39;MAKE_TERMOUT&#39;: &#39;/dev/pts/17&#39;, &#39;HOME&#39;: &#39;/home/prab&#39;, &#39;SUDO_USER&#39;: &#39;prab&#39;, &#39;BBPATH&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;SUDO_UID&#39;: &#39;1000&#39;, &#39;SHLVL&#39;: &#39;2&#39;, &#39;OLDPWD&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;MAKE_TERMERR&#39;: &#39;/dev/pts/17&#39;, &#39;XAUTHORITY&#39;: &#39;/home/prab/.Xauthority&#39;}, [&#39;/home/prab/yocto/poky/bitbake/bin/bitbake&#39;, &#39;mdm9x28-image-minimal&#39;]]
+Running command [&#39;getVariable&#39;, &#39;BBINCLUDELOGS&#39;]
+Running command [&#39;getVariable&#39;, &#39;BBINCLUDELOGS_LINES&#39;]
+Running command [&#39;getSetVariable&#39;, &#39;BB_CONSOLELOG&#39;]
+Running command [&#39;getUIHandlerNum&#39;]
+Running command [&#39;setEventMask&#39;, 1, 20, {}, [&#39;bb.runqueue.runQueueExitWait&#39;, &#39;bb.event.LogExecTTY&#39;, &#39;logging.LogRecord&#39;, &#39;bb.build.TaskFailed&#39;, &#39;bb.build.TaskBase&#39;, &#39;bb.event.ParseStarted&#39;, &#39;bb.event.ParseProgress&#39;, &#39;bb.event.ParseCompleted&#39;, &#39;bb.event.CacheLoadStarted&#39;, &#39;bb.event.CacheLoadProgress&#39;, &#39;bb.event.CacheLoadCompleted&#39;, &#39;bb.command.CommandFailed&#39;, &#39;bb.command.CommandExit&#39;, &#39;bb.command.CommandCompleted&#39;, &#39;bb.cooker.CookerExit&#39;, &#39;bb.event.MultipleProviders&#39;, &#39;bb.event.NoProvider&#39;, &#39;bb.runqueue.sceneQueueTaskStarted&#39;, &#39;bb.runqueue.runQueueTaskStarted&#39;, &#39;bb.runqueue.runQueueTaskFailed&#39;, &#39;bb.runqueue.sceneQueueTaskFailed&#39;, &#39;bb.event.BuildBase&#39;, &#39;bb.build.TaskStarted&#39;, &#39;bb.build.TaskSucceeded&#39;, &#39;bb.build.TaskFailedSilent&#39;, &#39;bb.build.TaskProgress&#39;, &#39;bb.event.ProcessStarted&#39;, &#39;bb.event.ProcessProgress&#39;, &#39;bb.event.ProcessFinished&#39;]]
+Running command [&#39;getVariable&#39;, &#39;BB_DEFAULT_TASK&#39;]
+Running command [&#39;setConfig&#39;, &#39;cmd&#39;, &#39;build&#39;]
+Running command [&#39;buildTargets&#39;, [&#39;mdm9x28-image-minimal&#39;], &#39;build&#39;]
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 7281 at 2020-10-07 13:45:51.263502 ---
+Started bitbake server pid 7281
+WARNING: Layer swi-wp-bin should set LAYERSERIES_COMPAT_swi-wp-bin in its conf/layer.conf file to list the core layer names it is compatible with.
+Entering server connection loop
+Accepting [&lt;socket.socket fd=7, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock&gt;] ([])
+Processing Client
+Connecting Client
+Running command [&#39;setFeatures&#39;, [2]]
+Running command [&#39;updateConfig&#39;, {&#39;dry_run&#39;: False, &#39;profile&#39;: False, &#39;postfile&#39;: [], &#39;debug_domains&#39;: [], &#39;server_timeout&#39;: None, &#39;dump_signatures&#39;: [], &#39;debug&#39;: 0, &#39;verbose&#39;: False, &#39;extra_assume_provided&#39;: [], &#39;force&#39;: False, &#39;prefile&#39;: [], &#39;abort&#39;: True, &#39;invalidate_stamp&#39;: None}, {&#39;LESSOPEN&#39;: &#39;| /usr/bin/lesspipe %s&#39;, &#39;PWD&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;SUDO_UID&#39;: &#39;1000&#39;, &#39;DISPLAY&#39;: &#39;:0&#39;, &#39;LESSCLOSE&#39;: &#39;/usr/bin/lesspipe %s %s&#39;, &#39;LOGNAME&#39;: &#39;root&#39;, &#39;SHLVL&#39;: &#39;3&#39;, &#39;PATH&#39;: &#39;/home/prab/yocto/poky/scripts:/home/prab/yocto/poky/bitbake/bin:/usr/local/bin:/bin:/usr/bin&#39;, &#39;BBPATH&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;XAUTHORITY&#39;: &#39;/home/prab/.Xauthority&#39;, &#39;BUILDDIR&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;LS_COLORS&#39;: &#39;rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:&#39;, &#39;SUDO_GID&#39;: &#39;1000&#39;, &#39;MAKE_TERMOUT&#39;: &#39;/dev/pts/17&#39;, &#39;USER&#39;: &#39;root&#39;, &#39;TERM&#39;: &#39;xterm-256color&#39;, &#39;MAIL&#39;: &#39;/var/mail/root&#39;, &#39;_&#39;: &#39;/home/prab/yocto/poky/bitbake/bin/bitbake&#39;, &#39;USERNAME&#39;: &#39;root&#39;, &#39;MAKEFLAGS&#39;: &#39;&#39;, &#39;SUDO_COMMAND&#39;: &#39;/bin/su&#39;, &#39;HOME&#39;: &#39;/root&#39;, &#39;LC_ALL&#39;: &#39;en_US.UTF-8&#39;, &#39;LANGUAGE&#39;: &#39;en_US&#39;, &#39;LANG&#39;: &#39;en_US.UTF-8&#39;, &#39;SUDO_USER&#39;: &#39;prab&#39;, &#39;SHELL&#39;: &#39;/bin/bash&#39;, &#39;MAKE_TERMERR&#39;: &#39;/dev/pts/17&#39;, &#39;MAKELEVEL&#39;: &#39;1&#39;, &#39;BB_ENV_EXTRAWHITE&#39;: &#39;ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO DL_DIR FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy &#39;, &#39;MFLAGS&#39;: &#39;&#39;, &#39;OLDPWD&#39;: &#39;/home/prab/yocto/build_bin&#39;}, [&#39;/home/prab/yocto/poky/bitbake/bin/bitbake&#39;, &#39;mdm9x28-image-minimal&#39;]]
+Running command [&#39;getVariable&#39;, &#39;BBINCLUDELOGS&#39;]
+Running command [&#39;getVariable&#39;, &#39;BBINCLUDELOGS_LINES&#39;]
+Running command [&#39;getSetVariable&#39;, &#39;BB_CONSOLELOG&#39;]
+Running command [&#39;getUIHandlerNum&#39;]
+Running command [&#39;setEventMask&#39;, 1, 20, {}, [&#39;bb.runqueue.runQueueExitWait&#39;, &#39;bb.event.LogExecTTY&#39;, &#39;logging.LogRecord&#39;, &#39;bb.build.TaskFailed&#39;, &#39;bb.build.TaskBase&#39;, &#39;bb.event.ParseStarted&#39;, &#39;bb.event.ParseProgress&#39;, &#39;bb.event.ParseCompleted&#39;, &#39;bb.event.CacheLoadStarted&#39;, &#39;bb.event.CacheLoadProgress&#39;, &#39;bb.event.CacheLoadCompleted&#39;, &#39;bb.command.CommandFailed&#39;, &#39;bb.command.CommandExit&#39;, &#39;bb.command.CommandCompleted&#39;, &#39;bb.cooker.CookerExit&#39;, &#39;bb.event.MultipleProviders&#39;, &#39;bb.event.NoProvider&#39;, &#39;bb.runqueue.sceneQueueTaskStarted&#39;, &#39;bb.runqueue.runQueueTaskStarted&#39;, &#39;bb.runqueue.runQueueTaskFailed&#39;, &#39;bb.runqueue.sceneQueueTaskFailed&#39;, &#39;bb.event.BuildBase&#39;, &#39;bb.build.TaskStarted&#39;, &#39;bb.build.TaskSucceeded&#39;, &#39;bb.build.TaskFailedSilent&#39;, &#39;bb.build.TaskProgress&#39;, &#39;bb.event.ProcessStarted&#39;, &#39;bb.event.ProcessProgress&#39;, &#39;bb.event.ProcessFinished&#39;]]
+Running command [&#39;getVariable&#39;, &#39;BB_DEFAULT_TASK&#39;]
+Running command [&#39;setConfig&#39;, &#39;cmd&#39;, &#39;build&#39;]
+Running command [&#39;buildTargets&#39;, [&#39;mdm9x28-image-minimal&#39;], &#39;build&#39;]
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 18086 at 2020-10-07 13:57:29.864731 ---
+Started bitbake server pid 18086
+WARNING: Layer swi-wp-bin should set LAYERSERIES_COMPAT_swi-wp-bin in its conf/layer.conf file to list the core layer names it is compatible with.
+Entering server connection loop
+Accepting [&lt;socket.socket fd=7, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock&gt;] ([])
+Processing Client
+Connecting Client
+Running command [&#39;setFeatures&#39;, [2]]
+Running command [&#39;updateConfig&#39;, {&#39;debug_domains&#39;: [], &#39;dump_signatures&#39;: [], &#39;postfile&#39;: [], &#39;prefile&#39;: [], &#39;extra_assume_provided&#39;: [], &#39;server_timeout&#39;: None, &#39;debug&#39;: 0, &#39;verbose&#39;: False, &#39;abort&#39;: True, &#39;profile&#39;: False, &#39;force&#39;: False, &#39;invalidate_stamp&#39;: None, &#39;dry_run&#39;: False}, {&#39;TERM&#39;: &#39;xterm-256color&#39;, &#39;OLDPWD&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;XAUTHORITY&#39;: &#39;/home/prab/.Xauthority&#39;, &#39;_&#39;: &#39;/home/prab/yocto/poky/bitbake/bin/bitbake&#39;, &#39;PATH&#39;: &#39;/home/prab/yocto/poky/scripts:/home/prab/yocto/poky/bitbake/bin:/usr/local/bin:/bin:/usr/bin&#39;, &#39;DISPLAY&#39;: &#39;:0&#39;, &#39;MAKE_TERMOUT&#39;: &#39;/dev/pts/17&#39;, &#39;BB_ENV_EXTRAWHITE&#39;: &#39;ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO DL_DIR FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy &#39;, &#39;MAKE_TERMERR&#39;: &#39;/dev/pts/17&#39;, &#39;USER&#39;: &#39;root&#39;, &#39;SUDO_USER&#39;: &#39;prab&#39;, &#39;SHELL&#39;: &#39;/bin/bash&#39;, &#39;BBPATH&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;LESSOPEN&#39;: &#39;| /usr/bin/lesspipe %s&#39;, &#39;HOME&#39;: &#39;/root&#39;, &#39;SHLVL&#39;: &#39;3&#39;, &#39;BUILDDIR&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;LANG&#39;: &#39;en_US.UTF-8&#39;, &#39;USERNAME&#39;: &#39;root&#39;, &#39;SUDO_GID&#39;: &#39;1000&#39;, &#39;MAKELEVEL&#39;: &#39;1&#39;, &#39;LS_COLORS&#39;: &#39;rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:&#39;, &#39;SUDO_COMMAND&#39;: &#39;/bin/su&#39;, &#39;MAIL&#39;: &#39;/var/mail/root&#39;, &#39;LESSCLOSE&#39;: &#39;/usr/bin/lesspipe %s %s&#39;, &#39;LOGNAME&#39;: &#39;root&#39;, &#39;MAKEFLAGS&#39;: &#39;&#39;, &#39;MFLAGS&#39;: &#39;&#39;, &#39;LANGUAGE&#39;: &#39;en_US&#39;, &#39;LC_ALL&#39;: &#39;en_US.UTF-8&#39;, &#39;PWD&#39;: &#39;/home/prab/yocto/build_bin&#39;, &#39;SUDO_UID&#39;: &#39;1000&#39;}, [&#39;/home/prab/yocto/poky/bitbake/bin/bitbake&#39;, &#39;mdm9x28-image-minimal&#39;]]
+Running command [&#39;getVariable&#39;, &#39;BBINCLUDELOGS&#39;]
+Running command [&#39;getVariable&#39;, &#39;BBINCLUDELOGS_LINES&#39;]
+Running command [&#39;getSetVariable&#39;, &#39;BB_CONSOLELOG&#39;]
+Running command [&#39;getUIHandlerNum&#39;]
+Running command [&#39;setEventMask&#39;, 1, 20, {}, [&#39;bb.runqueue.runQueueExitWait&#39;, &#39;bb.event.LogExecTTY&#39;, &#39;logging.LogRecord&#39;, &#39;bb.build.TaskFailed&#39;, &#39;bb.build.TaskBase&#39;, &#39;bb.event.ParseStarted&#39;, &#39;bb.event.ParseProgress&#39;, &#39;bb.event.ParseCompleted&#39;, &#39;bb.event.CacheLoadStarted&#39;, &#39;bb.event.CacheLoadProgress&#39;, &#39;bb.event.CacheLoadCompleted&#39;, &#39;bb.command.CommandFailed&#39;, &#39;bb.command.CommandExit&#39;, &#39;bb.command.CommandCompleted&#39;, &#39;bb.cooker.CookerExit&#39;, &#39;bb.event.MultipleProviders&#39;, &#39;bb.event.NoProvider&#39;, &#39;bb.runqueue.sceneQueueTaskStarted&#39;, &#39;bb.runqueue.runQueueTaskStarted&#39;, &#39;bb.runqueue.runQueueTaskFailed&#39;, &#39;bb.runqueue.sceneQueueTaskFailed&#39;, &#39;bb.event.BuildBase&#39;, &#39;bb.build.TaskStarted&#39;, &#39;bb.build.TaskSucceeded&#39;, &#39;bb.build.TaskFailedSilent&#39;, &#39;bb.build.TaskProgress&#39;, &#39;bb.event.ProcessStarted&#39;, &#39;bb.event.ProcessProgress&#39;, &#39;bb.event.ProcessFinished&#39;]]
+Running command [&#39;getVariable&#39;, &#39;BB_DEFAULT_TASK&#39;]
+Running command [&#39;setConfig&#39;, &#39;cmd&#39;, &#39;build&#39;]
+Running command [&#39;buildTargets&#39;, [&#39;mdm9x28-image-minimal&#39;], &#39;build&#39;]
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+
+Makefile:300: recipe for target &#39;image_bin&#39; failed
+make: *** [image_bin] Error 1
+
+Does anyone have a solution to this error?
+Also, whether I am taking the correct steps in creating a custom image containing python.
+
+Thank you,
+Prabjot</description>
+    
+    <lastBuildDate>Tue, 14 Mar 2023 05:49:41 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>normally i used Ubuntu 18 or Ubuntu16:</p>
+<aside class="onebox discoursetopic" data-onebox-src="https://forum.legato.io/t/error-in-installing-leaf/6352/7">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/5f30fea73ea53c61f2aab7ff42a8dcaf587ebcbd.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/error-in-installing-leaf/6352/7" target="_blank" rel="noopener nofollow ugc" title="09:37AM - 25 November 2022">Legato Forum – 25 Nov 22</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-dominant-color="D3CBC3"></div>
+
+<div class="title-wrapper">
+  <h3><a href="https://forum.legato.io/t/error-in-installing-leaf/6352/7" target="_blank" rel="noopener nofollow ugc">Error in Installing leaf</a></h3>
+</div>
+
+  <p>you can see if this helps:</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+<p>Other user also makes it work on Ubuntu 18:</p><aside class="onebox discoursetopic" data-onebox-src="https://forum.legato.io/t/legato-vscode-install-ubuntu-22-04-1/6301/4">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/5f30fea73ea53c61f2aab7ff42a8dcaf587ebcbd.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/legato-vscode-install-ubuntu-22-04-1/6301/4" target="_blank" rel="noopener nofollow ugc" title="08:55AM - 23 September 2022">Legato Forum – 23 Sep 22</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-dominant-color="D3CBC3"></div>
+
+<div class="title-wrapper">
+  <h3><a href="https://forum.legato.io/t/legato-vscode-install-ubuntu-22-04-1/6301/4" target="_blank" rel="noopener nofollow ugc">Legato vscode install Ubuntu 22.04.1</a></h3>
+  <div class="topic-category">
+      <span class="badge-wrapper bullet">
+        <span class="badge-category-bg" style="background-color: #0E76BD;"></span>
+        <span class="badge-category clear-badge">
+          <span class="category-name">VSCode</span>
+        </span>
+      </span>
+  </div>
+</div>
+
+  <p>i don’t know as I have never tried on Ubuntu 22.  You can install VMWare with old Ubuntu and see if it works.</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/50">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/50</link>
+        <pubDate>Tue, 14 Mar 2023 05:41:13 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-50</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[kalaivani]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi jyijyi,</p>
+<p>Which is the recommended version of ubuntu os which is the best fit for development of WP7608 (Rel 16.3)?</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/49">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/49</link>
+        <pubDate>Tue, 14 Mar 2023 05:32:02 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-49</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>You can zip all the file in /home/root and extract it during boot up each time.</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/48">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/48</link>
+        <pubDate>Thu, 03 Dec 2020 13:25:57 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-48</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[sebastienmaviel]]></dc:creator>
+        <description><![CDATA[
+            <p>Is there a way to put python3 in a consistent way on my mangOH ?<br>
+At every reboot I have to re-copy the files.</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/47">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/47</link>
+        <pubDate>Thu, 03 Dec 2020 13:04:42 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-47</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[sebastienmaviel]]></dc:creator>
+        <description><![CDATA[
+            <p>(Edit: I’m missing Java on my actual distri… The issue came from there)</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/46">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/46</link>
+        <pubDate>Thu, 26 Nov 2020 23:04:34 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-46</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Maybe you build without any modification to see if the yocto source can be built or not.</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/45">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/45</link>
+        <pubDate>Thu, 26 Nov 2020 20:11:36 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-45</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[sebastienmaviel]]></dc:creator>
+        <description><![CDATA[
+            <p>Still no folder <strong>images</strong>, the name might have changed, I linked python3 folder.<br>
+Maybe you could share with me the right binaries for python3 ?</p>
+<p>Thanks !</p>
+<p><a href="https://drive.google.com/file/d/1jgM2IaZdHhir73Ahmach8eeNEDRDy88C/view?usp=sharing" rel="noopener nofollow ugc">python folder</a></p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/44">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/44</link>
+        <pubDate>Thu, 26 Nov 2020 17:56:08 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-44</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[sebastienmaviel]]></dc:creator>
+        <description><![CDATA[
+            <p>I rebuild the same folder and removed “… python-pip”.</p>
+<p>Here are the error messages:</p>
+<pre><code>ERROR: lk-1.3.0-r2 do_add_hash: Function failed: do_add_hash (log file is located at /home/maviel/Documents/wp77_device_package/Legato-Dist-Source-mdm9x06-SWI9X06Y_02.35.02.00/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/temp/log.do_add_hash.30167)
+ERROR: Logfile of failure stored in: /home/maviel/Documents/wp77_device_package/Legato-Dist-Source-mdm9x06-SWI9X06Y_02.35.02.00/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/temp/log.do_add_hash.30167
+</code></pre>
+<p><code>ERROR: Task (/home/maviel/Documents/wp77_device_package/Legato-Dist-Source-mdm9x06-SWI9X06Y_02.35.02.00/yocto/meta-swi/meta-swi-mdm9xxx/recipes-bsp/lk/lk_1.3.0.bb:do_add_hash) failed with exit code '1'</code></p>
+<p>I am going to rebuild with a “fresh” source folder</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/43">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/43</link>
+        <pubDate>Thu, 26 Nov 2020 16:57:35 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-43</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Can you post the error message?<br>
+Suggest you trying with only python3 first</p>
+<p>IMAGE_INSTALL_append = " python3"</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/42">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/42</link>
+        <pubDate>Thu, 26 Nov 2020 16:17:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-42</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[sebastienmaviel]]></dc:creator>
+        <description><![CDATA[
+            <p>Hey, this is really, really useful, thanks.</p>
+<p>I am trying to install Python3 on my WP7702xmangOH RED as well.</p>
+<p>I download the ressources from there <a href="https://source.sierrawireless.com/resources/airprime/software/wp77xx/wp77xx-firmware-latest-release-components/#sthash.V0INcb4y.uiFWOByx.dpbs" rel="noopener nofollow ugc">Distri</a> and after modifying as described I added:<br>
+IMAGE_INSTALL_append = " python3 python-pip"</p>
+<p>For finally typing make.</p>
+<p>Is it possible to know why this building failed ?<br>
+Also, it looks like the folder <strong>./image</strong> does not appear in <strong>./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/python3/3.5.5-r1.0</strong></p>
+<p>Do you have any idea why ? How can I export good files anyway ?</p>
+<p>Thanks.</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/41">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/41</link>
+        <pubDate>Thu, 26 Nov 2020 16:00:58 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-41</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>This can only be done by sierra internally,  you need to contact distributor.</p>
+<p>You can also put those python library in sd card</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/40">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/40</link>
+        <pubDate>Sat, 21 Nov 2020 00:46:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-40</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[prabjotdhillon]]></dc:creator>
+        <description><![CDATA[
+            <p>Can I resize the partition size? Ideally we would like to fit the image onto the SD card</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/39">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/39</link>
+        <pubDate>Sat, 21 Nov 2020 00:43:55 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-39</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>This should be one line command which enter in module console,  not your pc:</p>
+<p>mount -t overlay overlay /usr/lib -o lowerdir=/usr/lib,upperdir=/tmp/tmp_usr_lib,workdir=/tmp/tmp_usr_lib_wr;</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/38">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/38</link>
+        <pubDate>Fri, 20 Nov 2020 00:04:42 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-38</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[prabjotdhillon]]></dc:creator>
+        <description><![CDATA[
+            <p>Yes still getting the same error unfortunately<br>
+aswsim@aswsim-Precision-Tower-3620:~<span class="math"> sudo ifconfig enp0s20f0u9i19 192.168.2.3
+[sudo] password for aswsim: 
+aswsim@aswsim-Precision-Tower-3620:~</span> sudo mkdir /tmp/tmp_usr_lib/;<br>
+mkdir: cannot create directory ‘/tmp/tmp_usr_lib/’: File exists<br>
+aswsim@aswsim-Precision-Tower-3620:~<span class="math"> sudo mkdir /tmp/tmp_usr_lib_wr;
+mkdir: cannot create directory ‘/tmp/tmp_usr_lib_wr’: File exists
+aswsim@aswsim-Precision-Tower-3620:~</span> sudo cp -rf /usr/lib/* /tmp/tmp_usr_lib/<br>
+aswsim@aswsim-Precision-Tower-3620:~<span class="math"> sudo mount -t overlay overlay /usr/lib -o
+mount: option requires an argument -- 'o'
+Try 'mount --help' for more information.
+aswsim@aswsim-Precision-Tower-3620:~</span> sudo mount -t overlay overlay /usr/lib – o<br>
+mount: bad usage<br>
+Try ‘mount --help’ for more information.<br>
+aswsim@aswsim-Precision-Tower-3620:~<span class="math"> sudo mount -t overlay overlay /usr/lib o
+mount: bad usage
+Try 'mount --help' for more information.
+aswsim@aswsim-Precision-Tower-3620:~</span> lowerdir=/usr/lib,upperdir=/tmp/tmp_usr_lib,workdir=/tmp/tmp_usr_lib_wr;<br>
+aswsim@aswsim-Precision-Tower-3620:~$ mkdir /usr/lib/python3.5<br>
+mkdir: cannot create directory ‘/usr/lib/python3.5’: File exists</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/37">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/37</link>
+        <pubDate>Thu, 19 Nov 2020 23:01:44 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-37</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I think just new fw with partition size changed.<br>
+You can contact distributor for more information</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/36">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/36</link>
+        <pubDate>Fri, 13 Nov 2020 11:49:37 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-36</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[pawelkaniewski]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-username="jyijyi" data-post="28" data-topic="5374">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar"> jyijyi:</div>
+<blockquote>
+<p>New module with fw R16 freshly come out from sierra factory should have bigger size.</p>
+</blockquote>
+</aside>
+<p>Is there actually a new wp76 module version? Or just a new fw version?</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/35">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/35</link>
+        <pubDate>Fri, 13 Nov 2020 11:29:21 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-35</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Did you do the following?</p>
+<p>mkdir /tmp/tmp_usr_lib/;mkdir /tmp/tmp_usr_lib_wr;<br>
+cp -rf /usr/lib/* /tmp/tmp_usr_lib/<br>
+mount -t overlay overlay /usr/lib -o lowerdir=/usr/lib,upperdir=/tmp/tmp_usr_lib,workdir=/tmp/tmp_usr_lib_wr;</p>
+<p>mkdir /usr/lib/python3.5</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/34">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/34</link>
+        <pubDate>Tue, 10 Nov 2020 23:09:55 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-34</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[prabjotdhillon]]></dc:creator>
+        <description><![CDATA[
+            <p>the command right before step 8 gives an error: scp ./Legato-Dist-Source-mdm9x28-SWI9X07Y_02.37.07.00/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/python3/3.5.5-r1.0/image/usr/lib/python3.5/*.py <a href="mailto:root@192.168.2.2">root@192.168.2.2</a>:/usr/lib/python3.5<br>
+scp: /usr/lib/python3.5: No such file or directory</p>
+<p>dont undertand why because the previous command worked but not the command above:<br>
+aswsim@aswsim-Precision-Tower-3620:~/Desktop$ scp -r ./Legato-Dist-Source-mdm9x28-SWI9X07Y_02.37.07.00/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/python3/3.5.5-r1.0/image/usr/lib/python3.5/encodings <a href="mailto:root@192.168.2.2">root@192.168.2.2</a>:/usr/lib/python3.5<br>
+scp: /usr/lib/python3.5: Read-only file system</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/33">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/33</link>
+        <pubDate>Tue, 10 Nov 2020 19:50:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-33</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>To use dpkg recipe, you can try the following:</p>
+<ol>
+<li>download the yocto source and go to ./meta-swi/meta-swi-mdm9x28/recipes-core/images/mdm9x28-image.inc</li>
+<li>add the following line:<br>
+IMAGE_INSTALL_append = " dpkg"</li>
+<li>type “make” to build the yocto image</li>
+</ol>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/32">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/32</link>
+        <pubDate>Fri, 06 Nov 2020 05:10:57 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-32</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>You can follow the steps below to run python3:</p>
+<ol>
+<li>
+<p>download the yocto source and go to ./meta-swi/meta-swi-mdm9x28/recipes-core/images/mdm9x28-image.inc</p>
+</li>
+<li>
+<p>add the following line:<br>
+IMAGE_INSTALL_append = " python3"</p>
+</li>
+<li>
+<p>go to ./meta-swi/meta-swi-mdm9x28/conf/machine/swi-mdm9x28.conf<br>
+change UBI_ROOTFS_SIZE ?= “48MiB”</p>
+</li>
+<li>
+<p>Make the yocto image ( there will be error to make the image, but we can build the binary of python3)</p>
+</li>
+<li>
+<p>on PC, type :<br>
+sudo ifconfig usb0 192.168.2.3</p>
+</li>
+<li>
+<p>on module, type :</p>
+</li>
+</ol>
+<p>mkdir /tmp/tmp_usr_bin/;mkdir /tmp/tmp_usr_bin_wr;<br>
+mount -t overlay overlay /usr/bin -o lowerdir=/usr/bin,upperdir=/tmp/tmp_usr_bin,workdir=/tmp/tmp_usr_bin_wr;</p>
+<p>mkdir /tmp/tmp_usr_include/;mkdir /tmp/tmp_usr_include_wr;<br>
+mount -t overlay overlay /usr/include -o lowerdir=/usr/include,upperdir=/tmp/tmp_usr_include,workdir=/tmp/tmp_usr_include_wr;</p>
+<p>mkdir /tmp/tmp_usr_lib/;mkdir /tmp/tmp_usr_lib_wr;<br>
+cp -rf /usr/lib/* /tmp/tmp_usr_lib/<br>
+mount -t overlay overlay /usr/lib -o lowerdir=/usr/lib,upperdir=/tmp/tmp_usr_lib,workdir=/tmp/tmp_usr_lib_wr;</p>
+<p>mkdir /usr/lib/python3.5</p>
+<ol start="7">
+<li>
+<p>on PC, type :<br>
+scp -r ./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/python3/3.5.5-r1.0/image/usr/include/* <a href="mailto:root@192.168.2.2">root@192.168.2.2</a>:/usr/include<br>
+scp -r ./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/python3/3.5.5-r1.0/image/usr/bin/* <a href="mailto:root@192.168.2.2">root@192.168.2.2</a>:/usr/bin<br>
+scp ./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/python3/3.5.5-r1.0/image/usr/lib/libpython3.5m.so  ./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/python3/3.5.5-r1.0/image/usr/lib/libpython3.5m.so.1.0  ./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/python3/3.5.5-r1.0/image/usr/lib/libpython3.so <a href="mailto:root@192.168.2.2">root@192.168.2.2</a>:/usr/lib<br>
+scp -r ./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/python3/3.5.5-r1.0/image/usr/lib/pkgconfig <a href="mailto:root@192.168.2.2">root@192.168.2.2</a>:/usr/lib<br>
+scp -r ./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/python3/3.5.5-r1.0/image/usr/lib/python3.5/encodings/ <a href="mailto:root@192.168.2.2">root@192.168.2.2</a>:/usr/lib/python3.5<br>
+scp ./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/python3/3.5.5-r1.0/image/usr/lib/python3.5/*.py <a href="mailto:root@192.168.2.2">root@192.168.2.2</a>:/usr/lib/python3.5</p>
+</li>
+<li>
+<p>now on module, you can use python3:</p>
+</li>
+</ol>
+<p>root@swi-mdm9x28-wp:~# python3<br>
+Could not find platform dependent libraries &lt;exec_prefix&gt;<br>
+Consider setting $PYTHONHOME to [:&lt;exec_prefix&gt;]<br>
+Python 3.5.5 (default, Oct 24 2019, 07:42:55)<br>
+[GCC 7.3.0] on linux<br>
+Type “help”, “copyright”, “credits” or “license” for more information.</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>^C<br>
+KeyboardInterrupt</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>exit()</p>
+</blockquote>
+</blockquote>
+</blockquote>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/31">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/31</link>
+        <pubDate>Fri, 06 Nov 2020 04:58:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-31</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[prabjotdhillon]]></dc:creator>
+        <description><![CDATA[
+            <p>Also can i rebuild yocto kernel to enable etx4, that way I can setup debian environment on a SD card that would include python, dpkg packages …</p>
+<aside class="quote" data-post="1" data-topic="1582">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/a/ccd318/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/how-to-install-pip-on-the-mangoh-red/1582">How to install pip on the mangOH-red</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangOH-red/12"><span class="badge-category-bg" style="background-color: #DF1E2E;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-red">mangOH Red</span></a>
+  </div>
+  <blockquote>
+    Hello, 
+I would like to install pip on the mango red so that I can add python packages on the mangOH. 
+I can’t modify anything into the root, the system prints the following message : “read-only file system” even if I am super administrator. I can’t either realize a chmod for the same reasons. This prevents me from installing anything directly in the /usr/lib/python2.7 
+Do you have any tips to change that or install pip? 
+Thank you
+  </blockquote>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/30">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/30</link>
+        <pubDate>Thu, 05 Nov 2020 22:14:27 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-30</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[prabjotdhillon]]></dc:creator>
+        <description><![CDATA[
+            <p>So I downloaded and added python3 and dpkg .bb files and made the required changes in the other 2 files.</p>
+<p>When I run make I receive the following error:<br>
+aswsim@aswsim-Precision-Tower-3620:~/Desktop/yocto$ make<br>
+Makefile:71: “Legato: build disabled since ‘/home/aswsim/Desktop/yocto/legato/’ does not exist”<br>
+“meta-swi/build.sh” -p poky/ -o meta-openembedded/ -l meta-swi -x “kernel” -j 9 -t 9           -a LK_REPO_DIR="/home/aswsim/Desktop/yocto" -a LK_REPO_NAME=“lk” -a LK_REPO=“file://lk” -m swi-mdm9x28 -P wp  -b build_bin -q<br>
+Poky dir: /home/aswsim/Desktop/yocto/poky<br>
+OE meta: /home/aswsim/Desktop/yocto/meta-openembedded<br>
+SWI meta dir: /home/aswsim/Desktop/yocto/meta-swi<br>
+Linux repo dir: /home/aswsim/Desktop/yocto/kernel<br>
+Number of make threads 9<br>
+Number of bitbake tasks 9<br>
+Extra options added -  LK_REPO_DIR=/home/aswsim/Desktop/yocto<br>
+Extra options added -  LK_REPO_NAME=lk<br>
+Extra options added -  LK_REPO=file://lk<br>
+SWI machine: swi-mdm9x28<br>
+SWI product: wp<br>
+Build dir: /home/aswsim/Desktop/yocto/build_bin<br>
+Enable Qualcomm Proprietary bin</p>
+<h3>Shell environment set up for builds.</h3>
+<p>You can now run 'bitbake ’</p>
+<p>Common targets are:<br>
+core-image-minimal<br>
+core-image-sato<br>
+meta-toolchain<br>
+meta-ide-support</p>
+<p>You can also run generated qemu images with a command like ‘runqemu qemux86’</p>
+<ul>
+<li>layer: meta-oe</li>
+<li>layer: meta-networking</li>
+<li>layer: meta-python</li>
+<li>layer: meta-gplv2</li>
+<li>layer: meta-swi/common</li>
+<li>layer: meta-swi/meta-swi-mdm9xxx</li>
+<li>layer: meta-swi/meta-swi-mdm9x28</li>
+<li>layer: meta-swi-extras/common</li>
+<li>layer: meta-swi-extras/meta-swi-mdm9x28</li>
+<li>layer: meta-swi-extras/meta-swi-mdm9xxx-bin</li>
+<li>layer: meta-swi-extras/meta-swi-mdm9x28-bin</li>
+<li>layer: meta-swi-extras/meta-swi-mdm9x28-wp-bin<br>
+Yocto machine: swi-mdm9x28-wp<br>
+Updating LEGATO_BUILD to false<br>
+Updating IMA_BUILD to false<br>
+Updating IMA_CONFIG to<br>
+Updating IMA_LOCAL_CA_X509 to<br>
+Updating IMA_PRIV_KEY to<br>
+Updating IMA_PUB_CERT to<br>
+Updating IMA_KERNEL_CMDLINE_OPTIONS to<br>
+Updating ENABLE_IMA to 0<br>
+Updating IMA_PUBLIC_CERT to<br>
+Updating IMA_PRIVATE_KEY to<br>
+Updating IMA_SMACK to<br>
+Updating ENABLE_FX30 to<br>
+Updating ROOTFS_VERSION to<br>
+Updating LK_REPO_DIR to /home/aswsim/Desktop/yocto<br>
+Updating LK_REPO_NAME to lk<br>
+Updating LK_REPO to file://lk<br>
+Updating EXT_SWI_IMG to false<br>
+Updating INITRAMFS_IMAGE_BUNDLE to 1<br>
+Updating INITRAMFS_IMAGE to mdm9x28-image-initramfs<br>
+Updating FIRMWARE_PATH to<br>
+Updating PACKAGECONFIG_remove to gnutls<br>
+Build image of minimal rootfs (for swi-mdm9x28).<br>
+WARNING: Layer swi-wp-bin should set LAYERSERIES_COMPAT_swi-wp-bin in its conf/layer.conf file to list the core layer names it is compatible with.<br>
+WARNING: Layer swi-wp-bin should set LAYERSERIES_COMPAT_swi-wp-bin in its conf/layer.conf file to list the core layer names it is compatible with.<br>
+WARNING: /home/aswsim/Desktop/yocto/meta-swi-extras/meta-swi-mdm9x28-bin/recipes/swimtd/swimtd_git.bb: Unable to get checksum for swimtd SRC_URI entry swimtd-bin.tar.bz2: file could not be found<br>
+ERROR: ParseError at /home/aswsim/Desktop/yocto/meta-openembedded/meta-python/recipes-devtools/python/python3_debian.bb:11: Could not inherit file classes/debian-package.bbclass</li>
+</ul>
+<p>Summary: There were 3 WARNING messages shown.<br>
+Summary: There was 1 ERROR message shown, returning a non-zero exit code.<br>
+Makefile:300: recipe for target ‘image_bin’ failed<br>
+make: *** [image_bin] Error 1</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/29">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/29</link>
+        <pubDate>Thu, 05 Nov 2020 22:10:37 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-29</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>New module with fw R16 freshly come out from sierra factory should have bigger size.</p>
+<p>You can also see this doc and see if you can run the python in ram area instead of building to the image.</p>
+<aside class="onebox allowlistedgeneric">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/252837692301bb53b7d4b8041901ad6486ced526.png" class="site-icon" width="32" height="32">
+      <a href="https://forum.legato.io/t/example-on-running-additional-python-library-in-ram/4946/2" target="_blank" rel="noopener nofollow ugc" title="07:44AM - 16 January 2020">Legato Forum – 16 Jan 20</a>
+  </header>
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:690/361;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/a/a098a30734f4038f56c5439b6016e88c23fafb86_2_690x361.png" class="thumbnail" width="690" height="361" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/a/a098a30734f4038f56c5439b6016e88c23fafb86_2_690x361.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/a/a098a30734f4038f56c5439b6016e88c23fafb86.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/a/a098a30734f4038f56c5439b6016e88c23fafb86.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/a/a098a30734f4038f56c5439b6016e88c23fafb86_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/example-on-running-additional-python-library-in-ram/4946/2" target="_blank" rel="noopener nofollow ugc">Example on running additional python library in RAM</a></h3>
+
+<p>If you cannot access google drive, you can download the document here:  Example on running additional python library in RAM.part1.rar (3 MB) Example on running additional python library in RAM.part2.rar (3 MB) Example on running additional python...</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/28">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/28</link>
+        <pubDate>Sat, 31 Oct 2020 00:15:19 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-28</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[prabjotdhillon]]></dc:creator>
+        <description><![CDATA[
+            <p>So I reduced the amount of packages added to the image to just python3 and dpkg but still exceeds the limit … is there a way to increase the volume size? Thanks!</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/27">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/27</link>
+        <pubDate>Fri, 30 Oct 2020 17:02:28 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-27</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+      <item>
+        <title>Building Custom Yocto Image for Mangoh Red WP76</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Seems you have put too much recipes to the image…</p>
+          <p><a href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/26">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374/26</link>
+        <pubDate>Fri, 30 Oct 2020 00:07:37 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5374-26</guid>
+        <source url="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss">Building Custom Yocto Image for Mangoh Red WP76</source>
+      </item>
+  </channel>
+</rss>

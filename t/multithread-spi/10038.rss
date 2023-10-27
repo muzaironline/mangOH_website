@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Multithread SPI</title>
+    <link>https://forum.mangoh.io/t/multithread-spi/10038</link>
+    <description>Hi All,
+
+We are trying to get SPI working in multiple threads. We connect to the API in the thread with tryConnectService, which results in LE_OK.
+
+But if we try to open the spi with le_spi_Open it returns LE_DUPLICATE (the file is already opened by the main thread) and if we try to write using the handle from the main thread the app crashes (in the log we get the error that the handle cannot be written to since it is not owned by the thread).
+
+Is it possible to use the same spi port in multiple threads? 
+
+Best regards,
+Frans.</description>
+    
+    <lastBuildDate>Thu, 14 Jul 2022 07:11:45 +0000</lastBuildDate>
+    <category>Services</category>
+    <atom:link href="https://forum.mangoh.io/t/multithread-spi/10038.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Multithread SPI</title>
+        <dc:creator><![CDATA[FransKanters]]></dc:creator>
+        <description><![CDATA[
+            <p>Thank you for your reply! I will try your solution to use a single thread for all SPI communication.</p>
+<p>Best regards,<br>
+Frans.</p>
+          <p><a href="https://forum.mangoh.io/t/multithread-spi/10038/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/multithread-spi/10038/4</link>
+        <pubDate>Thu, 14 Jul 2022 07:11:45 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10038-4</guid>
+        <source url="https://forum.mangoh.io/t/multithread-spi/10038.rss">Multithread SPI</source>
+      </item>
+      <item>
+        <title>Multithread SPI</title>
+        <dc:creator><![CDATA[babangparhusip]]></dc:creator>
+        <description><![CDATA[
+            <p>“Is it possible to use the same spi port in multiple threads?”</p>
+<p>Short answer is yes, but user need to implement its own synchronization. This is nothing to do with Legato API, it is Unix (hence Linux) basic concept. A device like SPI would have a specific device file which user can open to read or write to by calling system call API. In return, kernel returns the file descriptor (which you call handler). In fact, this file descriptor can be shared across linux processes .</p>
+<p>Having said so, why do you want to operate this SPI from multi thread? What are you trying to achieve? Why not create a thread to solely operate on this port. Then you may create other thread which send request to the other thread for any SPI operation. This way, you only have one thread solely responsible for SPI operation and you don’t have to worry about the synchronization anymore. Is this feasible for your project?</p>
+          <p><a href="https://forum.mangoh.io/t/multithread-spi/10038/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/multithread-spi/10038/3</link>
+        <pubDate>Tue, 12 Jul 2022 05:05:57 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10038-3</guid>
+        <source url="https://forum.mangoh.io/t/multithread-spi/10038.rss">Multithread SPI</source>
+      </item>
+      <item>
+        <title>Multithread SPI</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>how about use the standard linux api to open() and ioctl()?</p>
+<aside class="onebox githubgist" data-onebox-src="https://gist.github.com/priyank/3759616">
+  <header class="source">
+
+      <a href="https://gist.github.com/priyank/3759616" target="_blank" rel="noopener nofollow ugc">gist.github.com</a>
+  </header>
+
+  <article class="onebox-body">
+    <h4><a href="https://gist.github.com/priyank/3759616" target="_blank" rel="noopener nofollow ugc">https://gist.github.com/priyank/3759616</a></h4>
+
+  <h5>spidev_test.c</h5>
+  <pre><code class="C">/*
+ * SPI testing utility (using spidev driver)
+ *
+ * Copyright (c) 2007  MontaVista Software, Inc.
+ * Copyright (c) 2007  Anton Vorontsov &lt;avorontsov@ru.mvista.com&gt;
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License.
+ *</code></pre>
+    This file has been truncated. <a href="https://gist.github.com/priyank/3759616" target="_blank" rel="noopener nofollow ugc">show original</a>
+
+<p>
+</p>
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.sierrawireless.com/t/how-to-use-spi/8135">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/1fc275dea17943ec40a824dc4b7ad3839eb8d72d.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.sierrawireless.com/t/how-to-use-spi/8135" target="_blank" rel="noopener nofollow ugc" title="10:52AM - 24 August 2015">Sierra Wireless Forum – 24 Aug 15</a>
+  </header>
+
+  <article class="onebox-body">
+    <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png" class="thumbnail onebox-avatar" width="500" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_10x10.png">
+
+<h3><a href="https://forum.sierrawireless.com/t/how-to-use-spi/8135" target="_blank" rel="noopener nofollow ugc">How to use SPI ?</a></h3>
+
+  <p>Hi,  I’m trying to use SPI on my Airprime DK.  I found that I had to remove jumpers J306 to J308 to be able to use SPI on port J200.  But on software side I found no information.  I tried to port a legacy C app, but I got some “Inappropriate ioctl...</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/multithread-spi/10038/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/multithread-spi/10038/2</link>
+        <pubDate>Wed, 06 Jul 2022 10:46:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10038-2</guid>
+        <source url="https://forum.mangoh.io/t/multithread-spi/10038.rss">Multithread SPI</source>
+      </item>
+      <item>
+        <title>Multithread SPI</title>
+        <dc:creator><![CDATA[FransKanters]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi All,</p>
+<p>We are trying to get SPI working in multiple threads. We connect to the API in the thread with tryConnectService, which results in LE_OK.</p>
+<p>But if we try to open the spi with le_spi_Open it returns LE_DUPLICATE (the file is already opened by the main thread) and if we try to write using the handle from the main thread the app crashes (in the log we get the error that the handle cannot be written to since it is not owned by the thread).</p>
+<p>Is it possible to use the same spi port in multiple threads?</p>
+<p>Best regards,<br>
+Frans.</p>
+          <p><a href="https://forum.mangoh.io/t/multithread-spi/10038/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/multithread-spi/10038/1</link>
+        <pubDate>Wed, 06 Jul 2022 10:12:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10038-1</guid>
+        <source url="https://forum.mangoh.io/t/multithread-spi/10038.rss">Multithread SPI</source>
+      </item>
+  </channel>
+</rss>

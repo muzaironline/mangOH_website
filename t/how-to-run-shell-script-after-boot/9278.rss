@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>How to run shell script after boot</title>
+    <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278</link>
+    <description>Customer would like to run shell script after WP76 module boot.
+
+Customer put as following code in the /etc/init.d/legatostart.sh. Then, WP76 module can run shell script automatically. But customer saw that WP76 module sometimes delete their application after modifying legatstart.sh file.
+
+Please advise how to run shell script after module boot.
+===============
+umount /legato 2&gt;/dev/null
+mount -o bind $LEGATO_MNT /legato
+test -x $LEGATO_START &amp;&amp; $LEGATO_START
+
+sh /home/root/test1.sh &amp;    // customer shell
+;;</description>
+    
+    <lastBuildDate>Thu, 24 Aug 2023 01:00:31 +0000</lastBuildDate>
+    <category>Uncategorized</category>
+    <atom:link href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[mikebrearton]]></dc:creator>
+        <description><![CDATA[
+            <p>Did you solve this?  We achieved running script(s) at boot up by deploying an “autoexec” application.   The ADEF says to autostart; there are multiple processes (one per sh script); they all run in parallel.  When they have all finished the application “stops”.  This way, you don’t need to alter Legato.  We even achieved crontab entries by having one of the scripts load a file (from the application) into crontab.  Again… without altering Legato (or Linux).</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/47">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/47</link>
+        <pubDate>Thu, 24 Aug 2023 01:00:31 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-47</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>when I download and install the SDK in VSCode, it will install everything including toolchain for me.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/46">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/46</link>
+        <pubDate>Mon, 05 Jul 2021 02:41:11 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-46</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[takashishiina]]></dc:creator>
+        <description><![CDATA[
+            <p>Currently, customer and I can compile it on ubuntu20 with SDK swi_wp76_4.0.3.</p>
+<p>For my environment, I sent “export | grep WP76XX_TOOLCHAIN”. There is no return. Should I install tool chain?<br>
+Note: I think that leaf shell is including tool chain for target module.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/45">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/45</link>
+        <pubDate>Mon, 05 Jul 2021 02:39:40 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-45</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I don’t see problem to “make wp76xx” with SDK swi_wp76_4.0.3.<br>
+I can compile out the legato.cwe.</p>
+<p>BTW, it seems your environment cannot find the toolchain, what is the return on this ?</p>
+<pre><code class="lang-auto">(lsh:WP76_stable) owner@CNHKG-EX-001367:~/LEAF/WP76/leaf-data/WP76_stable/wp76-legato$ export | grep WP76XX_TOOLCHAIN
+declare -x WP76XX_TOOLCHAIN_DIR="/home/owner/LEAF/WP76/leaf-data/WP76_stable/wp76-toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi"
+declare -x WP76XX_TOOLCHAIN_PREFIX="arm-poky-linux-gnueabi-"
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/44">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/44</link>
+        <pubDate>Mon, 05 Jul 2021 02:10:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-44</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[takashishiina]]></dc:creator>
+        <description><![CDATA[
+            <p>The following is my result on ubuntu 18.</p>
+<p>(lsh) mangoh@mangoh-FMVWXU1N1:~/.leaf/wp76-legato_19.02.0-201903211732$ make clean<br>
+modules/WiFi/moduleDefs:12: Legato WiFi version is undefined…<br>
+Cleaning…<br>
+CLEAN<br>
+(lsh) mangoh@mangoh-FMVWXU1N1:~/.leaf/wp76-legato_19.02.0-201903211732$ make wp76xx<br>
+Building Legato for target ‘wp76xx’<br>
+Makefile:126: build/wp76xx/.config.mk: No such file or directory<br>
+modules/WiFi/moduleDefs:12: Legato WiFi version is undefined…<br>
+Makefile:238: *** Unable to find toolchain for target ‘wp76xx’.  Stop.</p>
+<p>When I used swi-wp76_4.7.0, I can succeed mkapp correctly.<br>
+But our customer environment is wp76_4.0.3 because customer is using WP7605 module.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/43">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/43</link>
+        <pubDate>Mon, 05 Jul 2021 01:26:50 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-43</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>For ubuntu 18, can you " make clean" and “make wp76xx”?</p>
+<p>In ubuntu 18, is there any mkapp problem on swi-wp76_4.7.0?</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/42">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/42</link>
+        <pubDate>Fri, 02 Jul 2021 09:43:30 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-42</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[takashishiina]]></dc:creator>
+        <description><![CDATA[
+            <p>I re-install ubuntu 18 and 20 but not resolve this issue yet.<br>
+For ubuntu 18, I saw “mkapp: command not found” issue.<br>
+For ubuntu 20, I saw above error by “make wp76xx”.<br>
+For ubuntu 14/16, I cannot install leaf tool.<br>
+Which is better solution for these behavior. I cannot explain this solution to our customer.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/41">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/41</link>
+        <pubDate>Fri, 02 Jul 2021 09:42:15 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-41</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I don’t see problem on Ubuntu 18:</p>
+<pre><code class="lang-auto">Leaf Shell /bin/bash started in Leaf environment.
+
+(lsh:swi-wp76_4.7.0) owner@ubuntu:~/leaf$ mkapp
+** ERROR:
+Bad configuration environment file path '/home/owner/leaf/leaf-data/swi-wp76_4.7.0/wp76-legato/build/localhost/config.sh'.
+(lsh:swi-wp76_4.7.0) owner@ubuntu:~/leaf$ mkapp -h
+
+Command line parameters
+  -C, --cflags, &lt;string&gt;
+        (Multiple, optional) Specify extra flags to be passed to the C compiler.
+
+  -K, --key, &lt;string&gt;
+        (Optional) Specify the private key path which should be used to sign update package. Once specified, corresponding public certificate path must be specified to verify update package on target.
+
+  -L, --ldflags, &lt;string&gt;
+        (Multiple, optional) Specify extra flags to be passed to the linker when linking executables.
+
+  -P, --pub-cert, &lt;string&gt;
+        (Optional) Specify the public certificate path which should be used to verify update package on target. Once specified, corresponding private key path must be specified to sign update package on host.
+
+  -S, --ima-sign
+        (Optional) Sign the package with IMA key. If this option specified, it will first look for IMA private key and public certificatein command line parameter. If nothing specified in command line it will look for environment variable LE_CONFIG_IMA_PRIVATE_KEY (private key path) and LE_CONFIG_IMA_PUBLIC_CERT (public certificate signed by system private key).
+
+  -X, --cxxflags, &lt;string&gt;
+        (Multiple, optional) Specify extra flags to be passed to the C++ compiler.
+
+  -a, --append-to-version, &lt;string&gt;
+        (Multiple, optional) Specify a suffix to append to the application version specified in the .adef file.  Will automatically insert a '.' between the .adef's version string and any version strings specified on the command-line.  Multiple occurences of this argument will be combined into a single string.
+
+  -b, --bin-pack
+        (Optional) Generate a binary-app package instead of a .update file. Binary-app packages can be used to distribute an application without its original source code.  This binary app package file is intended to be included in a system definition (.sdef)  file's 'apps:' section in place of a .adef file.
+
+  -c, --component-search, &lt;string&gt;
+        (Multiple, optional) (DEPRECATED) Add a directory to the source search path (same as -s).
+
+  -d, --debug-dir, &lt;string&gt;
+        (Optional) Generate debug symbols and place them in the specified directory.  Debug symbol files will be named with build-id
+
+  -g, --generate-code
+        (Optional) Only generate code, but don't compile, link, or bundle anything. The interface definition (include) files will be generated, along with component and executable main files and configuration files. This is useful for supporting context-sensitive auto-complete and related features in source code editors, for example.
+
+  -i, --interface-search, &lt;string&gt;
+        (Multiple, optional) Add a directory to the interface search path.
+
+  -j, --jobs, &lt;integer&gt;
+        (Optional) Run N jobs in parallel (default derived from CPUs available)
+
+  -n, --dont-run-ninja
+        (Optional) Even if a build.ninja file exists, ignore it, delete the staging area, parse all inputs, and generate all output files, including a new copy of the build.ninja, then exit without running ninja.  This is used by the build.ninja to to regenerate itself and any other files that need to be regenerated when the build.ninja finds itself out of date.
+
+  -o, --output-dir, &lt;string&gt;
+        (Optional) Specify the directory into which the final, built application file (ready to be installed on the target) should be put.
+
+  -p, --no-pie
+        (Optional) Do not build application executable as a position independent executable.
+
+  -s, --source-search, &lt;string&gt;
+        (Multiple, optional) Add a directory to the source search path.
+
+  -t, --target, &lt;string&gt;
+        (Optional) Set the compile target (localhost|ar7).
+
+  -v, --verbose
+        (Optional) Set into verbose mode for extra diagnostic information.
+
+  -w, --object-dir, &lt;string&gt;
+        (Optional) Specify the directory into which any intermediate build artifacts (such as .o files and generated source code files) should be put.
+
+(lsh:swi-wp76_4.7.0) owner@ubuntu:~/leaf$
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/40">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/40</link>
+        <pubDate>Fri, 02 Jul 2021 03:07:36 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-40</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[takashishiina]]></dc:creator>
+        <description><![CDATA[
+            <p>I tried ubuntu 14 and 16. But I cannot install leaf correctly.<br>
+I install ubuntu 18 and can install leaf correctly. But my environment returned “mkapp: command not found”. My procedure is below, please advise it. ubuntu 20 is no issue at this stage.</p>
+<ol>
+<li>Install ubuntu 18</li>
+<li>apt-get update</li>
+<li>apt-get upgrade</li>
+<li>wget <a href="https://downloads.sierrawireless.com/tools/leaf/leaf_latest.deb" rel="noopener nofollow ugc">https://downloads.sierrawireless.com/tools/leaf/leaf_latest.deb</a> -O /tmp/leaf_latest.deb &amp;&amp; sudo apt install /tmp/leaf_latest.deb</li>
+<li>mkdir ~/myWorkspace; cd ~/myWorkspace</li>
+<li>leaf search -t wp76xx</li>
+<li>leaf setup wp76stable -p swi-wp76_4.0.3</li>
+<li>leaf status</li>
+<li>leaf shell</li>
+<li>mkapp -t wp76xx helloword.adef<br>
+mkapp: command not found</li>
+</ol>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/39">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/39</link>
+        <pubDate>Fri, 02 Jul 2021 02:58:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-39</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I don’t see such problem in ubuntu 14,16 or 18.<br>
+Here is my compilation log for swi_wp76_4.0.3 (legato 19.2.0) in Ubuntu 14:<br>
+<a class="attachment" href="https://forum.mangoh.io/uploads/short-url/uMuvlyEK71ukxfVJ1QC3Y2W4WU0.txt">log.txt</a> (185.9 KB)</p>
+<p>Maybe you can give a try on those Ubuntu version.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/38">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/38</link>
+        <pubDate>Wed, 30 Jun 2021 08:46:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-38</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[takashishiina]]></dc:creator>
+        <description><![CDATA[
+            <p>I put the all log for make wp76xx. Can you find root cause?<br>
+<a class="attachment" href="https://forum.mangoh.io/uploads/short-url/g43jMhixs38Go7MmwtZdiE01AiC.txt">log_make.txt</a> (13.7 KB)</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/37">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/37</link>
+        <pubDate>Wed, 30 Jun 2021 08:09:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-37</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>for the default package, it should be OK to make legato.cwe without any modification.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/36">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/36</link>
+        <pubDate>Wed, 30 Jun 2021 07:10:48 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-36</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[takashishiina]]></dc:creator>
+        <description><![CDATA[
+            <p>I see.<br>
+But the original step was below. But I saw the “c1: all warnings being treated as errors” and stop it.<br>
+Note: I did not add any adef file to wifi.sdef yet. Should I add it?</p>
+<ol>
+<li>leaf shell</li>
+<li>Go to working folder</li>
+<li>make clean</li>
+<li>make wp76xx</li>
+</ol>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/35">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/35</link>
+        <pubDate>Wed, 30 Jun 2021 06:52:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-35</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>if you use “leaf shell” , there is no need to  " . bin/configlegatoenv"</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/34">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/34</link>
+        <pubDate>Wed, 30 Jun 2021 06:39:17 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-34</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[takashishiina]]></dc:creator>
+        <description><![CDATA[
+            <p>Yes, I sent the following step</p>
+<ol>
+<li>leaf shell</li>
+<li>Go to working folder</li>
+<li>. bin/configlegatoenv</li>
+<li>make clean</li>
+<li>make wp76xx</li>
+</ol>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/33">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/33</link>
+        <pubDate>Wed, 30 Jun 2021 06:27:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-33</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Have you entered  “make clean” before “make wp76xx”?</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/32">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/32</link>
+        <pubDate>Wed, 30 Jun 2021 06:13:28 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-32</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[takashishiina]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks. To explain it to my customer, I sent “make wp76xx”. But I saw the following error.<br>
+c1: all warnings being treated as errors<br>
+make[2]: *** [Makefile:14: /home/nexty/.leaf/wp76-legato_19.02.0-201903211732/bin/mkPatch] Error 1<br>
+make[2]: Leaving directory ‘/home/nexty/.leaf/wp76-legato_19.02.0-201903211732/framework/tools/mkPatch’<br>
+make[1]: *** [Makefile.hostTools:89: mkPatch] Error 2<br>
+make[1]: Leaving directry ‘/home/nexty/.leaf/wp76-legato_19.02.0-201903211732’<br>
+make: *** [Makefile:506: tools] Error 2</p>
+<p>I sent the following and try it. But the result is same.</p>
+<p>(lsh) root:~/.leaf/wp76-legato_19.02.0-201903211732$ . bin/configlegatoenv<br>
+[wp76xx] Toolchain dir = /opt/swi/SWI9X07Y_02.28.03.05/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi<br>
+prefix = arm-poky-linux-gnueabi-<br>
+sysroot = /opt/swi/SWI9X07Y_02.28.03.05/sysroots/armv7a-neon-poky-linux-gnueabi<br>
+kernelroot = /opt/swi/SWI9X07Y_02.28.03.05/sysroots/armv7a-neon-poky-linux-gnueabi/usr/src/kernel<br>
+[wp77xx] Toolchain dir = /opt/swi/SWI9X07Y_02.28.03.05/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi<br>
+prefix = arm-poky-linux-gnueabi-<br>
+sysroot = /opt/swi/SWI9X07Y_02.28.03.05/sysroots/armv7a-neon-poky-linux-gnueabi<br>
+kernelroot = /opt/swi/SWI9X07Y_02.28.03.05/sysroots/armv7a-neon-poky-linux-gnueabi/usr/src/kernel</p>
+<p>I am using Ubuntu 20.04 now, is it working?</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/31">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/31</link>
+        <pubDate>Wed, 30 Jun 2021 06:11:26 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-31</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Q4. it depends where you build the legato image.</p>
+<p>If you are building the legato (make wp76xx) in<br>
+/home/root/.leaf/wp76-legato_19.02.0-201903211732/.<br>
+Then you should modify<br>
+home/root/.leaf/wp76-legato_19.02.0-201903211732/modules/WiFi/wifi.sdef</p>
+<p>Q5: correct</p>
+<p>Q6: you do “leaf shell” first, and then it will set the path for you.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/30">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/30</link>
+        <pubDate>Mon, 28 Jun 2021 04:00:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-30</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[takashishiina]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks. I can image final goal to build legato.cwe.<br>
+Please advise the following.</p>
+<p>Q4. Customer said that there is 2 wifi.sdef. Which is better to use it.<br>
+-/home/root/workspace/legatoAF/legato/modules/WiFi/wifi.sdef<br>
+-/home/root/.leaf/wp76-legato_19.02.0-201903211732/modules/WiFi/wifi.sdef</p>
+<p>Q5. To add their application, should customer add their application to wifi.sdef as below.<br>
+Apps:<br>
+{<br>
+//WiFi services<br>
+$LEGATO_WIFI_ROOT/service/wifiService.adef<br>
+$LEGATO_WIFI_ROOT/apps/sample/wifiClientTest/wifiClientTest.adef<br>
+$LEGATO_WIFI_ROOT/apps/sample/wifiApTest/wifiApTest.adef<br>
+$LEGATO_WIFI_ROOT/apps/sample/wifiWebAp/wifiWebAp.adef<br>
+$LEGATO_WIFI_ROOT/apps/too;s/wifi.adef</p>
+<p>$LEGATO_WIFI_ROOT/customer/HelloWord.adef<br>
+}</p>
+<p>Q6. Which folder should customer set Path and send “make wp76xx” command.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/29">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/29</link>
+        <pubDate>Mon, 28 Jun 2021 02:56:29 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-29</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>First of all, can they build the legato.cwe ?</p>
+<p>Q1:<br>
+There is no such thing:<br>
+Customer application: custom-firmware.spk</p>
+<p>If you want to build your application as default application, you need to build to legato.cwe</p>
+<p>Q2: No, there is no such thing called “custom-firmware.spk”<br>
+As said before, you need to first successfully build the legato.cwe, and then add your application to wifi.sdef as default application.</p>
+<p>Q3: “make wp76xx” is to build the legato.cwe in “build” folder, not generating the spk file.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/28">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/28</link>
+        <pubDate>Mon, 28 Jun 2021 01:53:22 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-28</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[takashishiina]]></dc:creator>
+        <description><![CDATA[
+            <p>Customer cannot succeed to create any file with their application as default application.</p>
+<p>Maybe, I think that we cannot work it because we did not understand final goal.</p>
+<p>Please advise the following question.</p>
+<p>Q1. WP76xx module is configured as follows. Is my understand correct?</p>
+<p>Modem Firmware: modemFW.spk</p>
+<p>Linux Distribution: boot-yocto.cwe</p>
+<p>Base Legato System: legatoz.cwe</p>
+<p>Customer application: custom-firmware.spk</p>
+<p>Q2. To add custom application as default application, should customer create .spk file. Is my understanding correct?</p>
+<p>If not, please let us know which file should customer add their application.</p>
+<p>Q3. Customer sent “make wp76xx”. But there is not selection menu for their application and created spk file. How do customer add their application in this process?</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/27">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/27</link>
+        <pubDate>Mon, 28 Jun 2021 01:40:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-27</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>This is how you make legato.cwe</p>
+<p>Leaf shell<br>
+Go to the corresponding legato framweork folder<br>
+make clean<br>
+make wp76xx</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/26">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/26</link>
+        <pubDate>Thu, 24 Jun 2021 06:05:30 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-26</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>What do you mean by timing</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/25">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/25</link>
+        <pubDate>Thu, 24 Jun 2021 06:03:35 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-25</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[takashishiina]]></dc:creator>
+        <description><![CDATA[
+            <p>Customer is using leaf tool and build their application by .adef file.<br>
+To create their application as default application, customer need to create sdef or other to kernel. I need to explain these procedure to customer but I am not the expert for Linux. Could you please prepare sample procedure for Hello world or anything?</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/24">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/24</link>
+        <pubDate>Thu, 24 Jun 2021 05:22:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-24</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+      <item>
+        <title>How to run shell script after boot</title>
+        <dc:creator><![CDATA[takashishiina]]></dc:creator>
+        <description><![CDATA[
+            <p>What timing and how should customer add their application to cwe file?</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/23">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278/23</link>
+        <pubDate>Thu, 24 Jun 2021 04:23:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9278-23</guid>
+        <source url="https://forum.mangoh.io/t/how-to-run-shell-script-after-boot/9278.rss">How to run shell script after boot</source>
+      </item>
+  </channel>
+</rss>

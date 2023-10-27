@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>UART communication issue - mangOH Green - mangOH forum</title>
+    <meta name="description" content="Hi I am trying to use MangOH Serial console port to communicate with my serial device. I have fired AT!MAPUART=17,1 to disabled Linux console and enabled application console . In my application I am writing data to the s&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/uart-communication-issue/83?page=2" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;UART communication issue&#39;" href="https://forum.mangoh.io/t/uart-communication-issue/83.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/uart-communication-issue/83?page=2" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/uart-communication-issue/83?page=2" />
+<meta property="og:title" content="UART communication issue" />
+<meta name="twitter:title" content="UART communication issue" />
+<meta property="og:description" content="I just tried to get it running but I get the following error:   Oct 15 12:46:20 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c app_Start() 3420 | Starting app ‘UART’  Oct 15 12:46:20 swi-mdm9x28-wp user.err Legato: =ERR= | supervisor[842]/supervisor T=main | app.c GetDevID() 670 | Could not get file info for ‘/dev/ttyHSL0’.  No such file or directory.  Oct 15 12:46:20 swi-mdm9x28-wp user.err Legato: =ERR= | supervisor[842]/supervisor T=main | app.c SetCfgDevic..." />
+<meta name="twitter:description" content="I just tried to get it running but I get the following error:   Oct 15 12:46:20 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c app_Start() 3420 | Starting app ‘UART’  Oct 15 12:46:20 swi-mdm9x28-wp user.err Legato: =ERR= | supervisor[842]/supervisor T=main | app.c GetDevID() 670 | Could not get file info for ‘/dev/ttyHSL0’.  No such file or directory.  Oct 15 12:46:20 swi-mdm9x28-wp user.err Legato: =ERR= | supervisor[842]/supervisor T=main | app.c SetCfgDevic..." />
+<meta property="og:article:section" content="mangOH Green" />
+<meta property="og:article:section:color" content="9EB83B" />
+<meta property="article:published_time" content="2020-10-15T11:02:20+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="prev" href="/t/uart-communication-issue/83">
+
+    
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/uart-communication-issue/83">UART communication issue</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-green/6" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #9EB83B'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Green</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='UART communication issue'>
+        <meta itemprop='articleSection' content='mangOH Green'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_21' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-communication-issue/83">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-15T11:02:20Z' class='post-time'>
+                    October 15, 2020, 11:02am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-15T11:02:20Z'>
+              <span itemprop='position'>21</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I just tried to get it running but I get the following error:</p>
+<blockquote>
+<p>Oct 15 12:46:20 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c app_Start() 3420 | Starting app ‘UART’<br>
+Oct 15 12:46:20 swi-mdm9x28-wp user.err Legato: =ERR= | supervisor[842]/supervisor T=main | app.c GetDevID() 670 | Could not get file info for ‘/dev/ttyHSL0’.  No such file or directory.<br>
+Oct 15 12:46:20 swi-mdm9x28-wp user.err Legato: =ERR= | supervisor[842]/supervisor T=main | app.c SetCfgDevicePermissions() 775 | Failed to set permissions (rw) for app ‘UART’ on device ‘/dev/ttyHSL0’.<br>
+Oct 15 12:46:20 swi-mdm9x28-wp user.err Legato: =ERR= | supervisor[842]/supervisor T=main | app.c app_Start() 3452 | Failed to set Smack rules or set up app area.</p>
+</blockquote>
+<p>The cdef file looks like this:</p>
+<pre><code>sources:
+{
+uart.cpp
+}
+
+
+requires:
+{
+   device:
+{
+    [rw]   /dev/ttyHSL0		
+    [rw]   /dev/ttyHS0      
+}
+}
+</code></pre>
+<p>My setup looks like this:<br>
+I inserted the IoT Breakout Board into the IoT0 slot and connected the Tx/Rx pins of the board to the Rx/Tx pins of a UART USB dongle.</p>
+<p>I want to send a test message from the module to Putty using UART1.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_22' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-communication-issue/83">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-15T12:38:03Z' class='post-time'>
+                    October 15, 2020, 12:38pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-15T12:38:03Z'>
+              <span itemprop='position'>22</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>What is the return of at!mapuart?<br>
+What is the return in console “ls /dev/ttyHS*”</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_23' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-communication-issue/83">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-15T13:15:40Z' class='post-time'>
+                    October 15, 2020,  1:15pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-15T13:15:40Z'>
+              <span itemprop='position'>23</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>root@swi-mdm9x28-wp:~# ls /dev/ttyHS*<br>
+/dev/ttyHS0   /dev/ttyHSL1</p>
+<pre><code>at!mapuart?
+!MAPUART: 1,16
+</code></pre>
+<p>I already removed this line in the cdef file:</p>
+<pre><code>/dev/ttyHSL0
+</code></pre>
+<p>I also ran the following command:</p>
+<pre><code>root@swi-mdm9x28-wp:~# stty -F /dev/ttyHS0 -a
+</code></pre>
+<p>resulting in:</p>
+<pre><code>speed 0 baud;stty: /dev/ttyHS0
+line = 0;
+intr = ^C; quit = ^\; erase = ^?; kill = ^U; eof = ^D; eol = &lt;undef&gt;; 
+eol2 = &lt;undef&gt;; swtch = &lt;undef&gt;; start = ^Q; stop = ^S; susp = ^Z; rprnt = ^R;
+werase = ^W; lnext = ^V; flush = ^O; min = 1; time = 0;
+-parenb -parodd cs8 hupcl -cstopb cread clocal crtscts
+-ignbrk -brkint -ignpar -parmrk -inpck -istrip -inlcr -igncr -icrnl -ixon
+-ixoff -iuclc -ixany -imaxbel -iutf8
+-opost -olcuc -ocrnl onlcr -onocr -onlret -ofill -ofdel nl0 cr0 tab0 bs0 vt0
+ff0
+-isig -icanon -iexten -echo echoe echok -echonl -noflsh -xcase -tostop -echoprt
+echoctl echoke
+</code></pre>
+<blockquote>
+<p>Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c app_Start() 3420 | Starting app ‘UART’<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/dev/log’ to ‘/legato/systems/current/appsWriteable/UART/dev/log’: Already exists<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/dev/null’ to ‘/legato/systems/current/appsWriteable/UART/dev/null’: Already exists<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/dev/zero’ to ‘/legato/systems/current/appsWriteable/UART/dev/zero’: Already exists<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/lib/liblegato.so’ to ‘/legato/systems/current/appsWriteable/UART/lib/liblegato.so’: Already exists<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/lib/ld-linux.so.3’ to ‘/legato/systems/current/appsWriteable/UART/lib/ld-linux.so.3’: Already exists<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/lib/libc.so.6’ to ‘/legato/systems/current/appsWriteable/UART/lib/libc.so.6’: Already exists<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/lib/libpthread.so.0’ to ‘/legato/systems/current/appsWriteable/UART/lib/libpthread.so.0’: Already exists<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/lib/librt.so.1’ to ‘/legato/systems/current/appsWriteable/UART/lib/librt.so.1’: Already exists<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/lib/libdl.so.2’ to ‘/legato/systems/current/appsWriteable/UART/lib/libdl.so.2’: Already exists<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/lib/libgcc_s.so.1’ to ‘/legato/systems/current/appsWriteable/UART/lib/libgcc_s.so.1’: Already exists<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/lib/libm.so.6’ to ‘/legato/systems/current/appsWriteable/UART/lib/libm.so.6’: Already exists<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/usr/lib/libstdc++.so.6’ to ‘/legato/systems/current/appsWriteable/UART/lib/libstdc++.so.6’: Already exists<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/UART/read-only/lib/libComponent_UARTComp.so’ to '/legato/systems/current/appsWriteable/UART/lib/libCompo<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/UART/read-only/bin/UART’ to ‘/legato/systems/current/appsWriteable/UART/bin/UART’: Already exists<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/dev/ttyHS0’ to ‘/legato/systems/current/appsWriteable/UART/dev/ttyHS0’: Already exists<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateTmpFs() 1738 | Mounted tmpfs at /legato/systems/current/appsWriteable/UART/tmp.<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link ‘/tmp/legato/serviceDirectoryServer’ to ‘/legato/systems/current/appsWriteable/UART/tmp/legato/serviceDirectoryServer’.<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link ‘/tmp/legato/serviceDirectoryClient’ to ‘/legato/systems/current/appsWriteable/UART/tmp/legato/serviceDirectoryClient’.<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 102400.<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 102400.<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[842]/supervisor T=main | proc.c proc_Start() 1390 | Starting process ‘UART’ with pid 21296<br>
+Oct 15 15:11:51 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[21296]/supervisor T=main | proc.c proc_Start() 1355 | Execing ‘UART’<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[21296]/framework T=unknown | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.hashMap_refPathIteratorMap’ is truncated to ‘framework.hashMap_refPathIterat’<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[21296]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.hashMap_refEventHandlers’ is truncated to ‘framework.hashMap_refEventHandl’<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[21296]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.hashMap_refDefault Timer SafeRe’ is truncated to ‘framework.hashMap_refDefault Ti’<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[21296]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.MessagingClientInterfaces’ is truncated to ‘framework.MessagingClientInterf’<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[21296]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.hashMap_refHandlersRef’ is truncated to ‘framework.hashMap_refHandlersRe’<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[21296]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.hashMap_MessagingServices’ is truncated to ‘framework.hashMap_MessagingServ’<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[21296]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.hashMap_MessagingClients’ is truncated to ‘framework.hashMap_MessagingClie’<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[21296]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.PipelineSIGCHLD-reports’ is truncated to ‘framework.PipelineSIGCHLD-repor’<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[21296]/framework T=main | LE_FILENAME fs_Init() 840 | FS prefix path “/data/le_fs/”<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[21296]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.hashMap_refFsFileRefMap’ is truncated to ‘framework.hashMap_refFsFileRefM’<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[21296]/framework T=main | LE_FILENAME rand_Init() 71 | getrandom function: 0xb6d58150<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[21296]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool ‘framework.DestructorObjs’ overflowed. Expanded to 1 blocks.<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[21296]/ T=main | _componentMain.c _UARTComp_Init() 26 | Initializing UARTComp component library.<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.debug Legato:  DBUG | UART[21296]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.msgs-LogControlProtocol’ is truncated to ‘framework.msgs-LogControlProtoc’<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.debug Legato:  DBUG | UART[21296]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool ‘framework.SigMonitor’ overflowed. Expanded to 1 blocks.<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.debug Legato:  DBUG | UART[21296]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool ‘framework.SigHandler’ overflowed. Expanded to 1 blocks.<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.debug Legato:  DBUG | UART[21296]/UART_exe T=main | _main.c main() 60 | == Starting Event Processing Loop ==<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.info Legato:  INFO | UART[21296]/UARTComp T=main | uart.cpp _UARTComp_COMPONENT_INIT() 173 | app runProc UART_TCP_Demo1 UART_TCP_Demo1 --exe=uart –    <br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.info Legato:  INFO | UART[21296]/UARTComp T=main | uart.cpp _UARTComp_COMPONENT_INIT() 174 | : /dev/HSL1 /dev/HS0<br>
+Oct 15 13:11:51 swi-mdm9x28-wp user.info Legato:  INFO | UART[21296]/UARTComp T=main | uart.cpp _UARTComp_COMPONENT_INIT() 175 | : 4800, 9600, 19200, 115200</p>
+</blockquote>
+<p>The last couple of lines of the logread tell me that, in the sample you’ve shared here, the condition:</p>
+<pre><code>COMPONENT_INIT{
+   if (le_arg_NumArgs() &gt;= 4){ 
+    ... }
+</code></pre>
+<p>is never met.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_24' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-communication-issue/83">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-15T13:47:19Z' class='post-time'>
+                    October 15, 2020,  1:47pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-15T13:47:19Z'>
+              <span itemprop='position'>24</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You need to set</p>
+<p>At!mapuart=17,1</p>
+<p>And then “at!reset” to  reset the module.</p>
+<p>After reboot,  you should use /dev/ttyHS0 for uart1 as data mode.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_25' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-communication-issue/83">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-15T14:02:13Z' class='post-time'>
+                    October 15, 2020,  2:02pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-15T14:02:13Z'>
+              <span itemprop='position'>25</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>After I did what you supposed this is the output:</p>
+<pre><code>root@swi-mdm9x28-wp:~# microcom /dev/ttyAT
+at!mapuart?
+!MAPUART: 17,16</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_26' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-communication-issue/83">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-15T14:02:51Z' class='post-time'>
+                    October 15, 2020,  2:02pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-15T14:02:51Z'>
+              <span itemprop='position'>26</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Yes,  17 means uart1 in data mode</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_27' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-communication-issue/83">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-15T14:09:31Z' class='post-time'>
+                    October 15, 2020,  2:09pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-15T14:09:31Z'>
+              <span itemprop='position'>27</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>But it’s not the same output as you suggested (17,1)</p>
+<p>The log still looks like the one before.</p>
+<blockquote>
+<p>Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c app_Start() 3420 | Starting app ‘UART’<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/dev/log’ to ‘/legato/systems/current/appsWriteable/UART/dev/log’: Already exists<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/dev/null’ to ‘/legato/systems/current/appsWriteable/UART/dev/null’: Already exists<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/dev/zero’ to ‘/legato/systems/current/appsWriteable/UART/dev/zero’: Already exists<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/lib/liblegato.so’ to ‘/legato/systems/current/appsWriteable/UART/lib/liblegato.so’: Already exists<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/lib/ld-linux.so.3’ to ‘/legato/systems/current/appsWriteable/UART/lib/ld-linux.so.3’: Already exists<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/lib/libc.so.6’ to ‘/legato/systems/current/appsWriteable/UART/lib/libc.so.6’: Already exists<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/lib/libpthread.so.0’ to ‘/legato/systems/current/appsWriteable/UART/lib/libpthread.so.0’: Already exists<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/lib/librt.so.1’ to ‘/legato/systems/current/appsWriteable/UART/lib/librt.so.1’: Already exists<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/lib/libdl.so.2’ to ‘/legato/systems/current/appsWriteable/UART/lib/libdl.so.2’: Already exists<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/lib/libgcc_s.so.1’ to ‘/legato/systems/current/appsWriteable/UART/lib/libgcc_s.so.1’: Already exists<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/lib/libm.so.6’ to ‘/legato/systems/current/appsWriteable/UART/lib/libm.so.6’: Already exists<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/usr/lib/libstdc++.so.6’ to ‘/legato/systems/current/appsWriteable/UART/lib/libstdc++.so.6’: Already exists<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/UART/read-only/lib/libComponent_UARTComp.so’ to '/legato/systems/current/appsWriteable/UART/lib/libCompo<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/UART/read-only/bin/UART’ to ‘/legato/systems/current/appsWriteable/UART/bin/UART’: Already exists<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/dev/ttyHS0’ to ‘/legato/systems/current/appsWriteable/UART/dev/ttyHS0’: Already exists<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateTmpFs() 1738 | Mounted tmpfs at /legato/systems/current/appsWriteable/UART/tmp.<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link ‘/tmp/legato/serviceDirectoryServer’ to ‘/legato/systems/current/appsWriteable/UART/tmp/legato/serviceDirectoryServer’.<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link ‘/tmp/legato/serviceDirectoryClient’ to ‘/legato/systems/current/appsWriteable/UART/tmp/legato/serviceDirectoryClient’.<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 102400.<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 102400.<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[837]/supervisor T=main | proc.c proc_Start() 1390 | Starting process ‘UART’ with pid 2595<br>
+Oct 15 16:07:19 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[2595]/supervisor T=main | proc.c proc_Start() 1355 | Execing ‘UART’<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[2595]/framework T=unknown | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.hashMap_refPathIteratorMap’ is truncated to ‘framework.hashMap_refPathIterat’<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[2595]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.hashMap_refEventHandlers’ is truncated to ‘framework.hashMap_refEventHandl’<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[2595]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.hashMap_refDefault Timer SafeRe’ is truncated to ‘framework.hashMap_refDefault Ti’<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[2595]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.MessagingClientInterfaces’ is truncated to ‘framework.MessagingClientInterf’<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[2595]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.hashMap_refHandlersRef’ is truncated to ‘framework.hashMap_refHandlersRe’<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[2595]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.hashMap_MessagingServices’ is truncated to ‘framework.hashMap_MessagingServ’<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[2595]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.hashMap_MessagingClients’ is truncated to ‘framework.hashMap_MessagingClie’<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[2595]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.PipelineSIGCHLD-reports’ is truncated to ‘framework.PipelineSIGCHLD-repor’<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[2595]/framework T=main | LE_FILENAME fs_Init() 840 | FS prefix path “/data/le_fs/”<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[2595]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.hashMap_refFsFileRefMap’ is truncated to ‘framework.hashMap_refFsFileRefM’<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[2595]/framework T=main | LE_FILENAME rand_Init() 71 | getrandom function: 0xb6c7a150<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[2595]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool ‘framework.DestructorObjs’ overflowed. Expanded to 1 blocks.<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.debug Legato:  DBUG | <em>UNKNOWN</em>[2595]/ T=main | _componentMain.c _UARTComp_Init() 26 | Initializing UARTComp component library.<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.debug Legato:  DBUG | UART[2595]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name ‘framework.msgs-LogControlProtocol’ is truncated to ‘framework.msgs-LogControlProtoc’<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.debug Legato:  DBUG | UART[2595]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool ‘framework.SigMonitor’ overflowed. Expanded to 1 blocks.<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.debug Legato:  DBUG | UART[2595]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool ‘framework.SigHandler’ overflowed. Expanded to 1 blocks.<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.debug Legato:  DBUG | UART[2595]/UART_exe T=main | _main.c main() 60 | == Starting Event Processing Loop ==<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.info Legato:  INFO | UART[2595]/UARTComp T=main | uart.cpp _UARTComp_COMPONENT_INIT() 173 | app runProc UART_TCP_Demo1 UART_TCP_Demo1 --exe=uart –    <br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.info Legato:  INFO | UART[2595]/UARTComp T=main | uart.cpp _UARTComp_COMPONENT_INIT() 174 | : /dev/HSL1 /dev/HS0<br>
+Oct 15 14:07:19 swi-mdm9x28-wp user.info Legato:  INFO | UART[2595]/UARTComp T=main | uart.cpp _UARTComp_COMPONENT_INIT() 175 | : 4800, 9600, 19200, 115200</p>
+</blockquote>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_28' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-communication-issue/83">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-15T14:14:05Z' class='post-time'>
+                    October 15, 2020,  2:14pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-15T14:14:05Z'>
+              <span itemprop='position'>28</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Please download the AT commadlnd user guide and read at!mapuart.</p>
+<p>Btw, how do you start the application?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_29' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-communication-issue/83">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-15T14:18:32Z' class='post-time'>
+                    October 15, 2020,  2:18pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-15T14:18:32Z'>
+              <span itemprop='position'>29</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I already did that.<br>
+Nonetheless, it’s not working.</p>
+<pre><code>Usage:
+• Execution: AT!MAPUART=&lt;service&gt;[,&lt;uart&gt;]
+Response: OK
+Purpose: Map the specified &lt;service&gt; to the specified &lt;uart&gt; (if no &lt;uart&gt; isspecified, UART1 is used).
+• Query: AT!MAPUART?
+Response: !MAPUART: &lt;service (UART1)&gt;[, &lt;service (UART2)&gt;]
+OK
+Purpose: Report the current mappings for both UARTs.
+•Query List: AT!MAPUART=?
+Purpose: Return the command format and the supported parameter values.
+Parameters:
+&lt;service&gt; (Service to map to a UART)
+• 0—UART disabled
+• 1—AT command service (Note: Not available for UART2)
+• 2–3—Reserved
+• 4—NMEA service
+• 5–15—Reserved
+• 16—Linux Console
+• 17—Customer Linux application
+&lt;uart&gt; (Physical UART)
+• 1—UART1 (Default)
+• 2—UART2
+</code></pre>
+<p>How can it be 17,16 when I run</p>
+<pre><code>AT!MAPUART=17,1
+OK
+</code></pre>
+<p>I start the app like this:</p>
+<pre><code>root@swi-mdm9x28-wp:~# app start UART</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_30' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-communication-issue/83">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-15T14:23:54Z' class='post-time'>
+                    October 15, 2020,  2:23pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-15T14:23:54Z'>
+              <span itemprop='position'>30</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>If you want 17,16 for at!mapuart,  you need to type<br>
+At!mapuart=17,1<br>
+At!mapuart=16,2</p>
+<p>Also,  you shoud not use “app start”<br>
+Please read the document in the app note</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_31' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-communication-issue/83">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-15T14:29:17Z' class='post-time'>
+                    October 15, 2020,  2:29pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-15T14:29:17Z'>
+              <span itemprop='position'>31</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I don’t want 17,16.<br>
+I just ran “AT!MAPUART=17,1” on end up with  what you recommended .</p>
+<p>Can you be a little bit more concrete about how to set it to 17.1 and why I should not use app start?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="3" />
+              </div>
+
+          </div>
+          <div id='post_32' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-communication-issue/83">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-15T14:31:13Z' class='post-time'>
+                    October 15, 2020,  2:31pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-15T14:31:13Z'>
+              <span itemprop='position'>32</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Query and execution are different</p>
+<p>• Execution: AT!MAPUART=[,]<br>
+Response: OK<br>
+Purpose: Map the specified  to the specified  (if no  isspecified, UART1 is used).<br>
+• Query: AT!MAPUART?<br>
+Response: !MAPUART: &lt;service (UART1)&gt;[, &lt;service (UART2)&gt;]<br>
+OK</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_33' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-communication-issue/83">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-15T14:33:11Z' class='post-time'>
+                    October 15, 2020,  2:33pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-15T15:29:07Z'>
+              <span itemprop='position'>33</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>If you use app start,  you cannot pass argument to it.</p>
+<p>Did you really read the document inside the app?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_34' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/uart-communication-issue/83">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-10-15T14:35:08Z' class='post-time'>
+                    October 15, 2020,  2:35pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-10-15T14:35:08Z'>
+              <span itemprop='position'>34</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Here is another example on how to use uart</p>
+<aside class="onebox allowlistedgeneric">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/252837692301bb53b7d4b8041901ad6486ced526.png" class="site-icon" width="32" height="32">
+      <a href="https://forum.legato.io/t/legato-serial-communication-fx30s/3287/4" target="_blank" rel="noopener nofollow ugc" title="09:27AM - 18 May 2018">Legato Forum – 18 May 18</a>
+  </header>
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/legato-serial-communication-fx30s/3287/4" target="_blank" rel="noopener nofollow ugc">Legato serial Communication FX30S</a></h3>
+
+<p>I don’t have FX30S, instead I try attached UART echo application on UART2 on my MangOH green board, it is working fine. Maybe you can have a try.UART_Test1.rar (77.2 KB)  I am using legato 16.10.4.</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><a rel="prev" itemprop="url" href="/t/uart-communication-issue/83">← previous page</a></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

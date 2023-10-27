@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>assetData and GPIO</title>
+    <link>https://forum.mangoh.io/t/assetdata-and-gpio/1455</link>
+    <description>Hello,
+
+I want to activate the GPIO 21 from wp8548 via command in airvantage.
+
+In order to do that, I want to use the gpioService, juts like this app does: https://github.com/legatoproject/legato-af/tree/master/apps/sample/gpioCf3Demo
+
+I&#39;m writing my code based on this app: https://github.com/nhonchu/Legato16.10-AssetData
+
+I want to use GPIOService in the AssetData sample.
+
+I tried this:
+
+1) changed assetDataTutorial.adef to:
+![image|690x369](upload://nxkXWaEcQtiy83QiFoWfZMcun9T.png)
+
+2) changed the component.cdef to:
+![image|690x419](upload://fTlOtn22ubIjb7HQCIuNLgxFNwi.png)
+
+then I wrote this function in the assetDataMain.c:
+
+static void toggleGPIO()
+{
+	bool active;
+	active = le_gpioPin21_Read();
+
+	if(active)
+	{
+		LE_INFO(&quot;Pin is active, its gonna be deactivated&quot;);
+		le_gpioPin21_Deactivate();
+	}
+
+	else
+
+	{
+		LE_INFO(&quot;Pin is inactive, its gonna be activated&quot;);
+		le_gpioPin21_Activate();
+	}
+}
+
+I couldn&#39;t run the app, the log gives me:
+
+info Legato:  INFO | assetDataTutorial[16925]/componentAssetData T=main | assetDataMain.c _componentAssetData_COMPONENT_INIT() 212 | Legato AssetData: Start Legato AssetDataApp
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool &#39;framework.SigMonitor&#39; overflowed. Expanded to 1 blocks.
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool &#39;framework.SigHandler&#39; overflowed. Expanded to 1 blocks.
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool &#39;.le_avc_ClientData&#39; overflowed. Expanded to 1 blocks.
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avc_client.c le_avc_AddStatusEventHandler() 618 | Sending message to server and waiting for response : 4 bytes sent
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avc_client.c le_avc_StartSession() 942 | Sending message to server and waiting for response : 0 bytes sent
+info Legato:  INFO | assetDataTutorial[16925]/componentAssetData T=main | assetDataMain.c _componentAssetData_COMPONENT_INIT() 227 | Legato AssetData: Started LWM2M session with AirVantage
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_timer_Start() 982 | threadRecPtr-&gt;timerFD=11
+info Legato:  INFO | assetDataTutorial[16925]/componentAssetData T=main | assetDataMain.c _componentAssetData_COMPONENT_INIT() 245 | Legato AssetData: Create 2 instances AssetData 
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_Create() 756 | Sending message to server and waiting for response : 8 bytes sent
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceByName() 3113 | Creating asset instance for assetDataTutorial/Room
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2982 | Creating asset instance for assetDataTutorial/1000
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 3079 | Finished creating instance 0 for assetDataTutorial/1000
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_Create() 756 | Sending message to server and waiting for response : 8 bytes sent
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceByName() 3113 | Creating asset instance for assetDataTutorial/Room
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2982 | Creating asset instance for assetDataTutorial/1000
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 3079 | Finished creating instance 1 for assetDataTutorial/1000
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetString() 1376 | Sending message to server and waiting for response : 23 bytes sent
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetFloat() 1091 | Sending message to server and waiting for response : 27 bytes sent
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetBool() 1231 | Sending message to server and waiting for response : 16 bytes sent
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetInt() 951 | Sending message to server and waiting for response : 29 bytes sent
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool &#39;.le_avdata_ClientData&#39; overflowed. Expanded to 1 blocks.
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_AddFieldEventHandler() 624 | Sending message to server and waiting for response : 29 bytes sent
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool &#39;.le_avdata_ClientData&#39; overflowed. Expanded to 2 blocks.
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_AddFieldEventHandler() 624 | Sending message to server and waiting for response : 21 bytes sent
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetString() 1376 | Sending message to server and waiting for response : 27 bytes sent
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetFloat() 1091 | Sending message to server and waiting for response : 27 bytes sent
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetBool() 1231 | Sending message to server and waiting for response : 16 bytes sent
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetInt() 951 | Sending message to server and waiting for response : 29 bytes sent
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool &#39;.le_avdata_ClientData&#39; overflowed. Expanded to 3 blocks.
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_AddFieldEventHandler() 624 | Sending message to server and waiting for response : 29 bytes sent
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool &#39;.le_avdata_ClientData&#39; overflowed. Expanded to 4 blocks.
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_AddFieldEventHandler() 624 | Sending message to server and waiting for response : 21 bytes sent
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool &#39;framework.Default Timer Pool&#39; overflowed. Expanded to 2 blocks.
+emerg Legato: *EMR* | assetDataTutorial[16925]/framework T=main | LE_FILENAME ClientSocketHangUp() 852 | Session closed by server (assetDataTutorial.componentAssetData.le_gpioPin21:53b428577c18e3558699d57262acfc23).
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | avData.c ClientCloseSessionHandler() 188 | Client 0x694ac closed, remove allocated resources
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_DeleteInstance() 3160 | Deleting instance assetDataTutorial/1000/1
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_DeleteInstance() 3160 | Deleting instance assetDataTutorial/1000/0
+info Legato:  INFO | supervisor[421]/supervisor T=main | proc.c proc_SigChildHandler() 1942 | Process &#39;assetDataTutorial&#39; (PID: 16925) has exited with exit code 1.
+info Legato:  INFO | supervisor[421]/supervisor T=main | proc.c GetFaultAction() 1744 | No fault action specified for process &#39;assetDataTutorial&#39;. Assuming &#39;ignore&#39;.
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | avcServer.c ClientCloseSessionHandler() 566 | Client 0x692b4 closed, remove allocated resources
+warn Legato: -WRN- | supervisor[421]/supervisor T=main | app.c app_SigChildHandler() 3221 | Process &#39;assetDataTutorial&#39; in app &#39;assetDataTutorial&#39; faulted: Ignored.
+warn Legato: -WRN- | _appStopClient[16926]/framework T=main | LE_FILENAME CreateSocket() 550 | Socket opened as standard i/o file descriptor 2!
+info Legato:  INFO | supervisor[421]/supervisor T=main | apps.c DeactivateAppContainer() 340 | Application &#39;assetDataTutorial&#39; has stopped.
+info Legato:  INFO | updateDaemon[450]/updateDaemon T=main | updateDaemon.c updateDaemon_MarkGood() 203 | System passed probation. Marking &#39;good&#39;.
+
+I don&#39;t know much of communication between apps, I&#39;m sure that&#39;s where I&#39;m getting it wrong.
+
+Can anybody help me?
+
+Regards</description>
+    
+    <lastBuildDate>Tue, 22 May 2018 18:34:24 +0000</lastBuildDate>
+    <category>Cloud &amp; Connectivity</category>
+    <atom:link href="https://forum.mangoh.io/t/assetdata-and-gpio/1455.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>assetData and GPIO</title>
+        <dc:creator><![CDATA[rzapata]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello,</p>
+<p>I want to activate the GPIO 21 from wp8548 via command in airvantage.</p>
+<p>In order to do that, I want to use the gpioService, juts like this app does: <a href="https://github.com/legatoproject/legato-af/tree/master/apps/sample/gpioCf3Demo" rel="nofollow noopener">https://github.com/legatoproject/legato-af/tree/master/apps/sample/gpioCf3Demo</a></p>
+<p>I’m writing my code based on this app: <a href="https://github.com/nhonchu/Legato16.10-AssetData" rel="nofollow noopener">https://github.com/nhonchu/Legato16.10-AssetData</a></p>
+<p>I want to use GPIOService in the AssetData sample.</p>
+<p>I tried this:</p>
+<ol>
+<li>
+<p>changed assetDataTutorial.adef to:<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/a4f6c041ef6672093d5e24d9425422e55ea8f551.png" data-download-href="/uploads/short-url/nxkXWaEcQtiy83QiFoWfZMcun9T.png?dl=1" title="image.png" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/a4f6c041ef6672093d5e24d9425422e55ea8f551_2_690x369.png" alt="image" data-base62-sha1="nxkXWaEcQtiy83QiFoWfZMcun9T" width="690" height="369" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/a4f6c041ef6672093d5e24d9425422e55ea8f551_2_690x369.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/a4f6c041ef6672093d5e24d9425422e55ea8f551.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/a4f6c041ef6672093d5e24d9425422e55ea8f551.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/a4f6c041ef6672093d5e24d9425422e55ea8f551_2_10x10.png"></a></div><p></p>
+</li>
+<li>
+<p>changed the component.cdef to:<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/6f6265aa1fdc59b01e59e7b78f015019bbbc1a9e.png" data-download-href="/uploads/short-url/fTlOtn22ubIjb7HQCIuNLgxFNwi.png?dl=1" title="image.png" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/6f6265aa1fdc59b01e59e7b78f015019bbbc1a9e_2_690x419.png" alt="image" data-base62-sha1="fTlOtn22ubIjb7HQCIuNLgxFNwi" width="690" height="419" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/6f6265aa1fdc59b01e59e7b78f015019bbbc1a9e_2_690x419.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/6f6265aa1fdc59b01e59e7b78f015019bbbc1a9e.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/6f6265aa1fdc59b01e59e7b78f015019bbbc1a9e.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/6f6265aa1fdc59b01e59e7b78f015019bbbc1a9e_2_10x10.png"></a></div><p></p>
+</li>
+</ol>
+<p>then I wrote this function in the assetDataMain.c:</p>
+<p>static void toggleGPIO()<br>
+{<br>
+bool active;<br>
+active = le_gpioPin21_Read();</p>
+<pre><code>if(active)
+{
+	LE_INFO("Pin is active, its gonna be deactivated");
+	le_gpioPin21_Deactivate();
+}
+
+else
+
+{
+	LE_INFO("Pin is inactive, its gonna be activated");
+	le_gpioPin21_Activate();
+}
+</code></pre>
+<p>}</p>
+<p>I couldn’t run the app, the log gives me:</p>
+<p>info Legato:  INFO | assetDataTutorial[16925]/componentAssetData T=main | assetDataMain.c _componentAssetData_COMPONENT_INIT() 212 | Legato AssetData: Start Legato AssetDataApp<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.SigMonitor’ overflowed. Expanded to 1 blocks.<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.SigHandler’ overflowed. Expanded to 1 blocks.<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_avc_ClientData’ overflowed. Expanded to 1 blocks.<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avc_client.c le_avc_AddStatusEventHandler() 618 | Sending message to server and waiting for response : 4 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avc_client.c le_avc_StartSession() 942 | Sending message to server and waiting for response : 0 bytes sent<br>
+info Legato:  INFO | assetDataTutorial[16925]/componentAssetData T=main | assetDataMain.c _componentAssetData_COMPONENT_INIT() 227 | Legato AssetData: Started LWM2M session with AirVantage<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_timer_Start() 982 | threadRecPtr-&gt;timerFD=11<br>
+info Legato:  INFO | assetDataTutorial[16925]/componentAssetData T=main | assetDataMain.c _componentAssetData_COMPONENT_INIT() 245 | Legato AssetData: Create 2 instances AssetData<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_Create() 756 | Sending message to server and waiting for response : 8 bytes sent<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceByName() 3113 | Creating asset instance for assetDataTutorial/Room<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2982 | Creating asset instance for assetDataTutorial/1000<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 3079 | Finished creating instance 0 for assetDataTutorial/1000<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_Create() 756 | Sending message to server and waiting for response : 8 bytes sent<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceByName() 3113 | Creating asset instance for assetDataTutorial/Room<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2982 | Creating asset instance for assetDataTutorial/1000<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 3079 | Finished creating instance 1 for assetDataTutorial/1000<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetString() 1376 | Sending message to server and waiting for response : 23 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetFloat() 1091 | Sending message to server and waiting for response : 27 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetBool() 1231 | Sending message to server and waiting for response : 16 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetInt() 951 | Sending message to server and waiting for response : 29 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_avdata_ClientData’ overflowed. Expanded to 1 blocks.<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_AddFieldEventHandler() 624 | Sending message to server and waiting for response : 29 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_avdata_ClientData’ overflowed. Expanded to 2 blocks.<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_AddFieldEventHandler() 624 | Sending message to server and waiting for response : 21 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetString() 1376 | Sending message to server and waiting for response : 27 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetFloat() 1091 | Sending message to server and waiting for response : 27 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetBool() 1231 | Sending message to server and waiting for response : 16 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_SetInt() 951 | Sending message to server and waiting for response : 29 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_avdata_ClientData’ overflowed. Expanded to 3 blocks.<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_AddFieldEventHandler() 624 | Sending message to server and waiting for response : 29 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘.le_avdata_ClientData’ overflowed. Expanded to 4 blocks.<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | le_avdata_client.c le_avdata_AddFieldEventHandler() 624 | Sending message to server and waiting for response : 21 bytes sent<br>
+debug Legato:  DBUG | assetDataTutorial[16925]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 841 | Memory pool ‘framework.Default Timer Pool’ overflowed. Expanded to 2 blocks.<br>
+emerg Legato: <em>EMR</em> | assetDataTutorial[16925]/framework T=main | LE_FILENAME ClientSocketHangUp() 852 | Session closed by server (assetDataTutorial.componentAssetData.le_gpioPin21:53b428577c18e3558699d57262acfc23).<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | avData.c ClientCloseSessionHandler() 188 | Client 0x694ac closed, remove allocated resources<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_DeleteInstance() 3160 | Deleting instance assetDataTutorial/1000/1<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | assetData.c assetData_DeleteInstance() 3160 | Deleting instance assetDataTutorial/1000/0<br>
+info Legato:  INFO | supervisor[421]/supervisor T=main | proc.c proc_SigChildHandler() 1942 | Process ‘assetDataTutorial’ (PID: 16925) has exited with exit code 1.<br>
+info Legato:  INFO | supervisor[421]/supervisor T=main | proc.c GetFaultAction() 1744 | No fault action specified for process ‘assetDataTutorial’. Assuming ‘ignore’.<br>
+info Legato:  INFO | avcDaemon[477]/avcDaemon T=main | avcServer.c ClientCloseSessionHandler() 566 | Client 0x692b4 closed, remove allocated resources<br>
+warn Legato: -WRN- | supervisor[421]/supervisor T=main | app.c app_SigChildHandler() 3221 | Process ‘assetDataTutorial’ in app ‘assetDataTutorial’ faulted: Ignored.<br>
+warn Legato: -WRN- | _appStopClient[16926]/framework T=main | LE_FILENAME CreateSocket() 550 | Socket opened as standard i/o file descriptor 2!<br>
+info Legato:  INFO | supervisor[421]/supervisor T=main | apps.c DeactivateAppContainer() 340 | Application ‘assetDataTutorial’ has stopped.<br>
+info Legato:  INFO | updateDaemon[450]/updateDaemon T=main | updateDaemon.c updateDaemon_MarkGood() 203 | System passed probation. Marking ‘good’.</p>
+<p>I don’t know much of communication between apps, I’m sure that’s where I’m getting it wrong.</p>
+<p>Can anybody help me?</p>
+<p>Regards</p>
+          <p><a href="https://forum.mangoh.io/t/assetdata-and-gpio/1455/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/assetdata-and-gpio/1455/1</link>
+        <pubDate>Tue, 22 May 2018 18:34:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1455-1</guid>
+        <source url="https://forum.mangoh.io/t/assetdata-and-gpio/1455.rss">assetData and GPIO</source>
+      </item>
+  </channel>
+</rss>

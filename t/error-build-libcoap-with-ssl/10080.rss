@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Error build libcoap with SSL</title>
+    <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080</link>
+    <description>Hi, I&#39;m trying to build libcoap as a git module on the mangOH Yellow, using a Component.cdef file.
+
+So far I am able to build the library and use it without SSL but the problem comes when I try to enable SSL.
+
+**With OpenSSL**
+```
+externalBuild:
+{
+      &quot;cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DTLS_BACKEND=openssl -DCMAKE_BUILD_TYPE=Release ${CURDIR}/libcoap&quot;
+      &quot;cmake --build .&quot;
+}
+```
+
+**I get the following error (same error for gnutls)**
+```
+CMake Error at /home/boi/.leaf/mangOH-yellow-wp77xx-toolchain_0.7.0-linux64/sysroots/x86_64-pokysdk-linux/usr/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake:137 (message):
+  Could NOT find OpenSSL, try to set the path to OpenSSL root folder in the
+  system variable OPENSSL_ROOT_DIR (missing: OPENSSL_CRYPTO_LIBRARY
+  OPENSSL_INCLUDE_DIR)
+Call Stack (most recent call first):
+  /home/boi/.leaf/mangOH-yellow-wp77xx-toolchain_0.7.0-linux64/sysroots/x86_64-pokysdk-linux/usr/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake:378 (_FPHSA_FAILURE_MESSAGE)
+  /home/boi/.leaf/mangOH-yellow-wp77xx-toolchain_0.7.0-linux64/sysroots/x86_64-pokysdk-linux/usr/share/cmake-3.10/Modules/FindOpenSSL.cmake:390 (find_package_handle_standard_args)
+  CMakeLists.txt:320 (find_package)
+```
+
+**With Mbedtls**
+```
+externalBuild:
+{
+      &quot;cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DTLS_BACKEND=mbedtls -DCMAKE_BUILD_TYPE=Release ${CURDIR}/libcoap&quot;
+      &quot;cmake --build .&quot;
+}
+```
+
+**I get the following error**
+```
+/home/boi/workspace/mangOH/components/libcoapComponent/libcoap/src/coap_mbedtls.c:42:10: fatal error: mbedtls/version.h: No such file or directory
+ #include &lt;mbedtls/version.h&gt;
+          ^~~~~~~~~~~~~~~~~~~
+compilation terminated.
+gmake[3]: *** [CMakeFiles/coap-3.dir/build.make:615: CMakeFiles/coap-3.dir/src/coap_mbedtls.c.o] Error 1
+```
+
+**And if I try tinydtls**
+```
+externalBuild:
+{
+      &quot;cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DTLS_BACKEND=tinydtls -DCMAKE_BUILD_TYPE=Release ${CURDIR}/libcoap&quot;
+      &quot;cmake --build .&quot;
+}
+```
+
+**I get the following error**
+```
+[  2%] Performing autoreconf step for &#39;external_tinydtls&#39;
+[  5%] Performing configure step for &#39;external_tinydtls&#39;
+CMake Error at /home/boi/workspace/mangOH/apps/CoAP/_build_coap/wp77xx/component/e778058e3353e3ad686944df67e59779/external_tinydtls-prefix/src/external_tinydtls-stamp/external_tinydtls-configure-Release.cmake:16 (message):
+  Command failed: 1
+
+   &#39;/home/boi/workspace/mangOH/components/libcoapComponent/libcoap/ext/tinydtls/configure&#39; &#39;--disable-manpages&#39; &#39;--prefix=/home/boi/workspace/mangOH/apps/CoAP/_build_coap/wp77xx/component/e778058e3353e3ad686944df67e59779&#39;
+
+  See also
+
+    /home/boi/workspace/mangOH/apps/CoAP/_build_coap/wp77xx/component/e778058e3353e3ad686944df67e59779/external_tinydtls-prefix/src/external_tinydtls-stamp/external_tinydtls-configure-*.log
+```
+
+Has anyone ever come across something similar, while trying to compile with OpenSSL or tinydtls?</description>
+    
+    <lastBuildDate>Thu, 18 Aug 2022 02:56:59 +0000</lastBuildDate>
+    <category>Uncategorized</category>
+    <atom:link href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>From the CMakeLists.txt line 316,  you need to set ENABLE_DTLS=ON</p>
+<pre><code class="lang-auto">    if(DTLS_BACKEND
+       STREQUAL
+       "openssl")
+      # libssl (e.g. debian libssl1.0-dev)
+      find_package(OpenSSL REQUIRED)
+      set(WITH_OPENSSL ON)
+      message(STATUS "compiling with openssl support")
+      set(HAVE_OPENSSL 1)
+    endif()
+</code></pre>
+<p>BTW, you are using the library in /usr/local/opt/openssl, is that complied for x86 machine?</p>
+<p>One more thing, from the following in your log,  seems you are not using the toolchain:<br>
+CMAKE_C_COMPILER:…/usr/bin/cc</p>
+<p>It seems your compiler (/usr/bin/cc for x86) is matching with /usr/local/opt/openssl, but the toolchain is not matched with /usr/local/opt/openssl…<br>
+How do you get /usr/local/opt/openssl?<br>
+Not sure if you need to download the openssl source code to recompile with the toolchain so that you will get something like /usr/local/opt/openssl for module’s toolchain…</p>
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/20">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/20</link>
+        <pubDate>Wed, 17 Aug 2022 11:07:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-20</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[nunogoncalves]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-username="jyijyi" data-post="18" data-topic="10080">
+<div class="title">
+<div class="quote-controls"></div>
+<img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar"> jyijyi:</div>
+<blockquote>
+<p>it seems you said you can compile in terminal, but actually you did not add <code>-DENABLE_DTLS=ON</code></p>
+</blockquote>
+</aside>
+<pre><code class="lang-auto">boi@debian:~/workspace/mangOH/components/libcoapComponent/libcoap/build$ cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DDTLS_BACKEND=openssl -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl -DCMAKE_BUILD_TYPE=Release . -S..
+-- compiling with epoll support
+-- compiling with DTLS support
+-- DTLS_BACKEND: openssl
+-- compiling with openssl support
+-- ENABLE_DTLS:.....................ON
+-- ENABLE_TCP:......................ON
+-- ENABLE_DOCS:.....................OFF
+-- ENABLE_EXAMPLES:.................OFF
+-- DTLS_BACKEND:....................openssl
+-- WITH_GNUTLS:.....................OFF
+-- WITH_TINYDTLS:...................OFF
+-- WITH_OPENSSL:....................ON
+-- WITH_MBEDTLS:....................OFF
+-- HAVE_LIBTINYDTLS:................
+-- HAVE_LIBGNUTLS:..................
+-- HAVE_OPENSSL:....................1
+-- HAVE_MBEDTLS:....................
+-- COAP_EPOLL_SUPPORT:..............1
+-- CMAKE_C_COMPILER:................/usr/bin/cc
+-- BUILD_SHARED_LIBS:...............ON
+-- CMAKE_BUILD_TYPE:................Release
+-- CMAKE_SYSTEM_PROCESSOR:..........x86_64
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/boi/workspace/mangOH/components/libcoapComponent/libcoap/build
+boi@debian:~/workspace/mangOH/components/libcoapComponent/libcoap/build$ cmake --build .
+Scanning dependencies of target coap-3
+[  4%] Building C object CMakeFiles/coap-3.dir/src/address.c.o
+[  8%] Building C object CMakeFiles/coap-3.dir/src/net.c.o
+[ 12%] Building C object CMakeFiles/coap-3.dir/src/coap_debug.c.o
+[ 16%] Building C object CMakeFiles/coap-3.dir/src/encode.c.o
+[ 20%] Building C object CMakeFiles/coap-3.dir/src/uri.c.o
+[ 24%] Building C object CMakeFiles/coap-3.dir/src/subscribe.c.o
+[ 28%] Building C object CMakeFiles/coap-3.dir/src/resource.c.o
+[ 32%] Building C object CMakeFiles/coap-3.dir/src/str.c.o
+[ 36%] Building C object CMakeFiles/coap-3.dir/src/option.c.o
+[ 40%] Building C object CMakeFiles/coap-3.dir/src/async.c.o
+[ 44%] Building C object CMakeFiles/coap-3.dir/src/block.c.o
+[ 48%] Building C object CMakeFiles/coap-3.dir/src/coap_asn1.c.o
+[ 52%] Building C object CMakeFiles/coap-3.dir/src/coap_cache.c.o
+[ 56%] Building C object CMakeFiles/coap-3.dir/src/coap_event.c.o
+[ 60%] Building C object CMakeFiles/coap-3.dir/src/coap_hashkey.c.o
+[ 64%] Building C object CMakeFiles/coap-3.dir/src/coap_io.c.o
+[ 68%] Building C object CMakeFiles/coap-3.dir/src/coap_notls.c.o
+[ 72%] Building C object CMakeFiles/coap-3.dir/src/coap_prng.c.o
+[ 76%] Building C object CMakeFiles/coap-3.dir/src/coap_session.c.o
+[ 80%] Building C object CMakeFiles/coap-3.dir/src/coap_tcp.c.o
+[ 84%] Building C object CMakeFiles/coap-3.dir/src/coap_time.c.o
+[ 88%] Building C object CMakeFiles/coap-3.dir/src/mem.c.o
+[ 92%] Building C object CMakeFiles/coap-3.dir/src/pdu.c.o
+[ 96%] Building C object CMakeFiles/coap-3.dir/src/coap_openssl.c.o
+[100%] Linking C shared library libcoap-3.so
+[100%] Built target coap-3
+boi@debian:~/workspace/mangOH/components/libcoapComponent/libcoap/build$ 
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/19">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/19</link>
+        <pubDate>Wed, 17 Aug 2022 11:01:07 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-19</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>it seems you said you can compile in terminal, but actually you did not add <code>-DENABLE_DTLS=ON</code></p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d79f4bfcf27c52dbdbd3eb76489948d3032d1a34.png" data-download-href="/uploads/short-url/uLtWMdtyLT8a3SIyJA4Afxdd2K0.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d79f4bfcf27c52dbdbd3eb76489948d3032d1a34_2_690x269.png" alt="image" data-base62-sha1="uLtWMdtyLT8a3SIyJA4Afxdd2K0" width="690" height="269" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d79f4bfcf27c52dbdbd3eb76489948d3032d1a34_2_690x269.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d79f4bfcf27c52dbdbd3eb76489948d3032d1a34.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d79f4bfcf27c52dbdbd3eb76489948d3032d1a34.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d79f4bfcf27c52dbdbd3eb76489948d3032d1a34_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/18">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/18</link>
+        <pubDate>Wed, 17 Aug 2022 10:41:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-18</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[nunogoncalves]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-username="jyijyi" data-post="16" data-topic="10080">
+<div class="title">
+<div class="quote-controls"></div>
+<img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar"> jyijyi:</div>
+<blockquote>
+<p>have you seen the file “HOWTO.dual.openssl”?</p>
+</blockquote>
+</aside>
+<p>I will look into it. Tanks</p>
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/17">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/17</link>
+        <pubDate>Wed, 17 Aug 2022 10:39:46 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-17</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>have you seen the file “HOWTO.dual.openssl”?<br>
+Seems you need to add source code to compile according to your openssl version in your module</p>
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/16">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/16</link>
+        <pubDate>Wed, 17 Aug 2022 10:39:06 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-16</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[nunogoncalves]]></dc:creator>
+        <description><![CDATA[
+            <p>I have the same, but it not compiling. Set <code>-DENABLE_DTLS=ON</code></p>
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/15">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/15</link>
+        <pubDate>Wed, 17 Aug 2022 10:37:21 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-15</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>how to make this?<br>
+I am using this in cdef file:</p>
+<p>“cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DDTLS_BACKEND=openssl -DOPENSSL_ROOT_DIR=$LEGATO_SYSROOT/usr/bin/openssl -DOPENSSL_CRYPTO_LIBRARY=$LEGATO_SYSROOT/usr/lib -DCMAKE_BUILD_TYPE=Release ${CURDIR}/libcoap”</p>
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/14">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/14</link>
+        <pubDate>Wed, 17 Aug 2022 10:25:55 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-14</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[nunogoncalves]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group quote-modified" data-username="jyijyi" data-post="12" data-topic="10080">
+<div class="title">
+<div class="quote-controls"></div>
+<img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar"> jyijyi:</div>
+<blockquote>
+<p><code>-- ENABLE_DTLS:.....................OFF</code><br>
+…<br>
+<code>-- WITH_OPENSSL:....................OFF</code></p>
+</blockquote>
+</aside>
+<p>But the dtls option needs to be ON not  OFF</p>
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/13">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/13</link>
+        <pubDate>Wed, 17 Aug 2022 10:20:48 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-13</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I can build it:</p>
+<pre><code class="lang-auto">18:17:57 **** Incremental Build of configuration Target_Legato_Debug for project libcoapComponent ****
+make -C Target_Legato_Debug all 
+make: Entering directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug'
+cd ../..;mkcomp -t wp76xx -l libcoapComponent/Target_Legato_Debug -w libcoapComponent/Target_Legato_Debug -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/atServices" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/airVantage/legacy" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/watchdog" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/portService" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/supervisor" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/logDaemon" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/positioning" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/secureStorage" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/wifi" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/modemServices" -i "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/interfaces/airVantage" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/dataConnectionService/platformAdaptor/default" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/test/watchdogChain" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/apps/platformServices/airVantageConnector" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/airVantage" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/modules/WiFi/apps/tools/wifi" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/positioning" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/secStore" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/uartMode/platformAdaptor/default" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/portService" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/modemServices/platformAdaptor/default" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/audio/platformAdaptor/default" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/apps/tools" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/3rdParty" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/fwupdate/platformAdaptor/default" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/dataConnectionService" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/modules/WiFi/service" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/airVantage/platformAdaptor/default" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/fwupdate" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/positioning/platformAdaptor/default" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/devMode" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/secStore/platformAdaptor/default" -s "." -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/apps/platformServices/mqttClient" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/atServices" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/modemServices" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components" -s "/home/owner/legato/packages/legato.framework.19.2.0.wp76xx-201906171244/resources/legato/components/uartMode" -C -g -X -g -L -g libcoapComponent
+[1/3] Running external build step
+make[1]: Entering directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[2]: Entering directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[3]: Entering directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[3]: Leaving directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[2]: Leaving directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[1]: Leaving directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+[2/3] Running external build step
+You have called ADD_LIBRARY for library coap-3 without any source files. This typically indicates a problem with your CMakeLists.txt file
+-- compiling with epoll support
+-- ENABLE_DTLS:.....................OFF
+-- ENABLE_TCP:......................ON
+-- ENABLE_DOCS:.....................OFF
+-- ENABLE_EXAMPLES:.................OFF
+-- DTLS_BACKEND:....................openssl
+-- WITH_GNUTLS:.....................OFF
+-- WITH_TINYDTLS:...................OFF
+-- WITH_OPENSSL:....................OFF
+-- WITH_MBEDTLS:....................OFF
+-- HAVE_LIBTINYDTLS:................
+-- HAVE_LIBGNUTLS:..................
+-- HAVE_OPENSSL:....................
+-- HAVE_MBEDTLS:....................
+-- COAP_EPOLL_SUPPORT:..............1
+-- CMAKE_C_COMPILER:................/home/owner/legato/packages/legato.toolchain.0.28.3.01.SWI9X07Y_02280301-wp76xx-native-x86_64-201906171237/resources/native/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc
+-- BUILD_SHARED_LIBS:...............ON
+-- CMAKE_BUILD_TYPE:................Release
+-- CMAKE_SYSTEM_PROCESSOR:..........x86_64
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5
+[3/3] Running external build step
+make[1]: Entering directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[2]: Entering directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[3]: Entering directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[3]: Leaving directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[3]: Entering directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+[  4%] Building C object CMakeFiles/coap-3.dir/src/address.c.o
+[  8%] Building C object CMakeFiles/coap-3.dir/src/net.c.o
+[ 12%] Building C object CMakeFiles/coap-3.dir/src/coap_debug.c.o
+[ 16%] Building C object CMakeFiles/coap-3.dir/src/encode.c.o
+[ 20%] Building C object CMakeFiles/coap-3.dir/src/uri.c.o
+[ 25%] Building C object CMakeFiles/coap-3.dir/src/subscribe.c.o
+[ 29%] Building C object CMakeFiles/coap-3.dir/src/resource.c.o
+[ 33%] Building C object CMakeFiles/coap-3.dir/src/str.c.o
+[ 37%] Building C object CMakeFiles/coap-3.dir/src/option.c.o
+[ 41%] Building C object CMakeFiles/coap-3.dir/src/async.c.o
+[ 45%] Building C object CMakeFiles/coap-3.dir/src/block.c.o
+[ 50%] Building C object CMakeFiles/coap-3.dir/src/coap_asn1.c.o
+[ 54%] Building C object CMakeFiles/coap-3.dir/src/coap_cache.c.o
+[ 58%] Building C object CMakeFiles/coap-3.dir/src/coap_event.c.o
+[ 62%] Building C object CMakeFiles/coap-3.dir/src/coap_hashkey.c.o
+[ 66%] Building C object CMakeFiles/coap-3.dir/src/coap_io.c.o
+[ 70%] Building C object CMakeFiles/coap-3.dir/src/coap_notls.c.o
+[ 75%] Building C object CMakeFiles/coap-3.dir/src/coap_prng.c.o
+[ 79%] Building C object CMakeFiles/coap-3.dir/src/coap_session.c.o
+[ 83%] Building C object CMakeFiles/coap-3.dir/src/coap_tcp.c.o
+[ 87%] Building C object CMakeFiles/coap-3.dir/src/coap_time.c.o
+[ 91%] Building C object CMakeFiles/coap-3.dir/src/mem.c.o
+[ 95%] Building C object CMakeFiles/coap-3.dir/src/pdu.c.o
+[100%] Linking C shared library libcoap-3.so
+make[3]: Leaving directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+[100%] Built target coap-3
+make[2]: Leaving directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make[1]: Leaving directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug/component/b1c2cee9102bbc1fdc5004b6e6187ed5'
+make: Leaving directory '/home/owner/legato/workspace2/libcoapComponent/Target_Legato_Debug'
+
+18:18:03 Build Finished (took 5s.981ms)
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/12</link>
+        <pubDate>Wed, 17 Aug 2022 10:19:26 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-12</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[nunogoncalves]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="attachment" href="https://forum.mangoh.io/uploads/short-url/eDtivpmiQhg1a6tPYf7c2HbGbwh.zip">mangoh.zip</a> (6.9 MB)</p>
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/10</link>
+        <pubDate>Wed, 17 Aug 2022 08:56:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-10</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>how come it still cannot find  OPENSSL_INCLUDE_DIR if you have specified?<br>
+Can you attach your whole project here?</p>
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/9</link>
+        <pubDate>Wed, 17 Aug 2022 08:50:31 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-9</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[nunogoncalves]]></dc:creator>
+        <description><![CDATA[
+            <p>None of them works. I get the same error:</p>
+<pre><code class="lang-auto">CMake Error at /home/boi/.leaf/mangOH-yellow-wp77xx-toolchain_0.7.0-linux64/sysroots/x86_64-pokysdk-linux/usr/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake:137 (message):
+  Could NOT find OpenSSL, try to set the path to OpenSSL root folder in the
+  system variable OPENSSL_ROOT_DIR (missing: OPENSSL_CRYPTO_LIBRARY
+  OPENSSL_INCLUDE_DIR)
+Call Stack (most recent call first):
+  /home/boi/.leaf/mangOH-yellow-wp77xx-toolchain_0.7.0-linux64/sysroots/x86_64-pokysdk-linux/usr/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake:378 (_FPHSA_FAILURE_MESSAGE)
+  /home/boi/.leaf/mangOH-yellow-wp77xx-toolchain_0.7.0-linux64/sysroots/x86_64-pokysdk-linux/usr/share/cmake-3.10/Modules/FindOpenSSL.cmake:390 (find_package_handle_standard_args)
+  CMakeLists.txt:320 (find_package)
+
+
+-- Configuring incomplete, errors occurred!
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/8</link>
+        <pubDate>Wed, 17 Aug 2022 08:48:37 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-8</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>how about these?</p>
+<pre><code class="lang-auto">
+owner@ubuntu:~/leaf/leaf-data/wp77/wp77-toolchain$ find ./ -name "openssl"
+./sysroots/x86_64-pokysdk-linux/usr/bin/openssl
+./sysroots/x86_64-pokysdk-linux/usr/lib/arm-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/6.2.0/include-fixed/openssl
+./sysroots/armv7a-neon-poky-linux-gnueabi/usr/bin/openssl
+./sysroots/armv7a-neon-poky-linux-gnueabi/usr/bin/.debug/openssl
+./sysroots/armv7a-neon-poky-linux-gnueabi/usr/include/openssl
+./sysroots/armv7a-neon-poky-linux-gnueabi/usr/src/debug/openssl
+</code></pre>
+<p>$LEGATO_SYSROOT/usr/include/openssl is for OPENSSL_INCLUDE_DIR</p>
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/6</link>
+        <pubDate>Wed, 17 Aug 2022 08:38:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-6</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[nunogoncalves]]></dc:creator>
+        <description><![CDATA[
+            <p>I still haven’t figured out where the OpenSSL folder is in the toolchain.</p>
+<p><strong>EDIT</strong></p>
+<p>The only folder I found in the toolchain is in <code>$LEGATO_SYSROOT/usr/include/openssl</code> but it still does not work.</p>
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/5</link>
+        <pubDate>Wed, 17 Aug 2022 08:29:57 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-5</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Component.adef<br>
+-DOPENSSL_ROOT_DIR=/usr/local/opt/openssl</p>
+<p>Should this point to toolchain openssl folder?</p>
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/4</link>
+        <pubDate>Wed, 17 Aug 2022 08:27:45 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-4</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[nunogoncalves]]></dc:creator>
+        <description><![CDATA[
+            <p>I tried setting <code>-DOPENSSL_ROOT_DIR</code> and it compiled outside of the Component.adef file. But it’s still not compiling while using <strong>externalBuild</strong></p>
+<p>These are the steps I took:</p>
+<ul>
+<li>cd into the libcoap folder</li>
+<li>create a build folder</li>
+<li>cd into the build folder</li>
+<li>run <code>cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DDTLS_BACKEND=openssl -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl -DCMAKE_BUILD_TYPE=Release ..</code>
+</li>
+<li>run <code>cmake --build .</code>
+</li>
+</ul>
+<p>And it was compiled successfully.</p>
+<p>And inside the Component.adef file I have</p>
+<pre><code class="lang-auto">externalBuild:
+{
+    "cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DDTLS_BACKEND=openssl -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl -DCMAKE_BUILD_TYPE=Release ${CURDIR}/libcoap"
+    "cmake --build ."
+}
+</code></pre>
+<p><strong>EDIT</strong></p>
+<p>The error message changed</p>
+<pre><code class="lang-auto">CMake Error at /home/boi/.leaf/mangOH-yellow-wp77xx-toolchain_0.7.0-linux64/sysroots/x86_64-pokysdk-linux/usr/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake:137 (message):
+  Could NOT find OpenSSL, try to set the path to OpenSSL root folder in the
+  system variable OPENSSL_ROOT_DIR (missing: OPENSSL_CRYPTO_LIBRARY) (found
+  version "1.1.1n")
+</code></pre>
+<p><strong>EDIT 2:</strong></p>
+<p>I set the <code>-DOPENSSL_CRYPTO_LIBRARY</code> to <code>/usr/local/opt/openssl/lib/</code> and now I am getting this error:</p>
+<pre><code class="lang-auto">CMake Error at CMakeLists.txt:26 (add_library):
+  Target "coap-3" links to target "OpenSSL::SSL" but the target was not
+  found.  Perhaps a find_package() call is missing for an IMPORTED target, or
+  an ALIAS target is missing?
+
+
+CMake Error at CMakeLists.txt:26 (add_library):
+  Target "coap-3" links to target "OpenSSL::Crypto" but the target was not
+  found.  Perhaps a find_package() call is missing for an IMPORTED target, or
+  an ALIAS target is missing?
+
+
+CMake Error at CMakeLists.txt:26 (add_library):
+  Target "coap-3" links to target "OpenSSL::SSL" but the target was not
+  found.  Perhaps a find_package() call is missing for an IMPORTED target, or
+  an ALIAS target is missing?
+
+
+CMake Error at CMakeLists.txt:26 (add_library):
+  Target "coap-3" links to target "OpenSSL::Crypto" but the target was not
+  found.  Perhaps a find_package() call is missing for an IMPORTED target, or
+  an ALIAS target is missing?
+
+
+-- Generating done
+-- Build files have been written to: /home/boi/workspace/mangOH/apps/CoAP/_build_coap/wp77xx/component/e778058e3353e3ad686944df67e59779
+ninja: build stopped: subcommand failed.
+make: *** [Makefile:13: wp77xx] Error 1
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/3</link>
+        <pubDate>Wed, 17 Aug 2022 08:13:42 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-3</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>have you tried to point out the OPENSSL_CRYPTO_LIBRARY and OPENSSL_INCLUDE_DIR to the toolchain ?</p>
+<aside class="onebox stackexchange" data-onebox-src="https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl-library">
+  <header class="source">
+
+      <a href="https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl-library" target="_blank" rel="noopener nofollow ugc">stackoverflow.com</a>
+  </header>
+
+  <article class="onebox-body">
+      <a href="https://stackoverflow.com/users/1871965/allan" target="_blank" rel="noopener nofollow ugc">
+    <img alt="Allan" src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/a/abca26757f115d0177e588eba918e3deb288a624.png" class="thumbnail onebox-avatar" width="256" height="256">
+  </a>
+
+<h4>
+  <a href="https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl-library" target="_blank" rel="noopener nofollow ugc">CMake not able to find OpenSSL library</a>
+</h4>
+
+<div class="tags">
+  <strong>openssl, cmake</strong>
+</div>
+
+<div class="date">
+  asked by
+  
+  <a href="https://stackoverflow.com/users/1871965/allan" target="_blank" rel="noopener nofollow ugc">
+    Allan
+  </a>
+  on <a href="https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl-library" target="_blank" rel="noopener nofollow ugc">05:41AM - 27 Apr 13 UTC</a>
+</div>
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/2</link>
+        <pubDate>Wed, 17 Aug 2022 02:15:47 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-2</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+      <item>
+        <title>Error build libcoap with SSL</title>
+        <dc:creator><![CDATA[nunogoncalves]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi, I’m trying to build libcoap as a git module on the mangOH Yellow, using a Component.cdef file.</p>
+<p>So far I am able to build the library and use it without SSL but the problem comes when I try to enable SSL.</p>
+<p><strong>With OpenSSL</strong></p>
+<pre><code class="lang-auto">externalBuild:
+{
+      "cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DTLS_BACKEND=openssl -DCMAKE_BUILD_TYPE=Release ${CURDIR}/libcoap"
+      "cmake --build ."
+}
+</code></pre>
+<p><strong>I get the following error (same error for gnutls)</strong></p>
+<pre><code class="lang-auto">CMake Error at /home/boi/.leaf/mangOH-yellow-wp77xx-toolchain_0.7.0-linux64/sysroots/x86_64-pokysdk-linux/usr/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake:137 (message):
+  Could NOT find OpenSSL, try to set the path to OpenSSL root folder in the
+  system variable OPENSSL_ROOT_DIR (missing: OPENSSL_CRYPTO_LIBRARY
+  OPENSSL_INCLUDE_DIR)
+Call Stack (most recent call first):
+  /home/boi/.leaf/mangOH-yellow-wp77xx-toolchain_0.7.0-linux64/sysroots/x86_64-pokysdk-linux/usr/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake:378 (_FPHSA_FAILURE_MESSAGE)
+  /home/boi/.leaf/mangOH-yellow-wp77xx-toolchain_0.7.0-linux64/sysroots/x86_64-pokysdk-linux/usr/share/cmake-3.10/Modules/FindOpenSSL.cmake:390 (find_package_handle_standard_args)
+  CMakeLists.txt:320 (find_package)
+</code></pre>
+<p><strong>With Mbedtls</strong></p>
+<pre><code class="lang-auto">externalBuild:
+{
+      "cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DTLS_BACKEND=mbedtls -DCMAKE_BUILD_TYPE=Release ${CURDIR}/libcoap"
+      "cmake --build ."
+}
+</code></pre>
+<p><strong>I get the following error</strong></p>
+<pre><code class="lang-auto">/home/boi/workspace/mangOH/components/libcoapComponent/libcoap/src/coap_mbedtls.c:42:10: fatal error: mbedtls/version.h: No such file or directory
+ #include &lt;mbedtls/version.h&gt;
+          ^~~~~~~~~~~~~~~~~~~
+compilation terminated.
+gmake[3]: *** [CMakeFiles/coap-3.dir/build.make:615: CMakeFiles/coap-3.dir/src/coap_mbedtls.c.o] Error 1
+</code></pre>
+<p><strong>And if I try tinydtls</strong></p>
+<pre><code class="lang-auto">externalBuild:
+{
+      "cmake -DBUILD_SHARED_LIBS=ON -DENABLE_TESTS=OFF -DENABLE_DOCS=OFF -DENABLE_EXAMPLES=OFF -DTLS_BACKEND=tinydtls -DCMAKE_BUILD_TYPE=Release ${CURDIR}/libcoap"
+      "cmake --build ."
+}
+</code></pre>
+<p><strong>I get the following error</strong></p>
+<pre><code class="lang-auto">[  2%] Performing autoreconf step for 'external_tinydtls'
+[  5%] Performing configure step for 'external_tinydtls'
+CMake Error at /home/boi/workspace/mangOH/apps/CoAP/_build_coap/wp77xx/component/e778058e3353e3ad686944df67e59779/external_tinydtls-prefix/src/external_tinydtls-stamp/external_tinydtls-configure-Release.cmake:16 (message):
+  Command failed: 1
+
+   '/home/boi/workspace/mangOH/components/libcoapComponent/libcoap/ext/tinydtls/configure' '--disable-manpages' '--prefix=/home/boi/workspace/mangOH/apps/CoAP/_build_coap/wp77xx/component/e778058e3353e3ad686944df67e59779'
+
+  See also
+
+    /home/boi/workspace/mangOH/apps/CoAP/_build_coap/wp77xx/component/e778058e3353e3ad686944df67e59779/external_tinydtls-prefix/src/external_tinydtls-stamp/external_tinydtls-configure-*.log
+</code></pre>
+<p>Has anyone ever come across something similar, while trying to compile with OpenSSL or tinydtls?</p>
+          <p><a href="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080/1</link>
+        <pubDate>Tue, 16 Aug 2022 14:56:14 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10080-1</guid>
+        <source url="https://forum.mangoh.io/t/error-build-libcoap-with-ssl/10080.rss">Error build libcoap with SSL</source>
+      </item>
+  </channel>
+</rss>

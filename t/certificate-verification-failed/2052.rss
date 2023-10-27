@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Certificate verification failed</title>
+    <link>https://forum.mangoh.io/t/certificate-verification-failed/2052</link>
+    <description>Hello, I am trying to create new Poco HTTPSClientSession as follows:
+&gt;     const Poco::Net::Context::Ptr context(new Poco::Net::Context(Poco::Net::Context::CLIENT_USE, &quot;&quot;, &quot;/etc/ssl/certs/LetsEncryptCertificate.crt&quot;, &quot;&quot;, Poco::Net::Context::VERIFY_RELAXED));
+&gt;     m_pSession = new Poco::Net::HTTPSClientSession(host, port, context);
+and when I send GET request to server I get:
+
+&gt; WARNING: Certificate verification failed
+Issuer Name: /O=Digital Signature Trust Co./CN=DST ROOT CA X3
+Subject Name: /C=US /O=Let&#39;s Encrypt/CN=Let&#39;s Encrypt Authority X3
+The certificate yielded the error: unable to get local issuer certificate
+The error occurred in the certificate chain at position 1
+Accept the certificate (y,n)?
+
+I am reading this from syslog so I can&#39;t press Y to accept the certificate. When I use context with
+
+`Poco::Net::Context::VERIFY_NONE` I am able to send the request and get the response because there is no certificate verification. I was trying to add these [certificates](https://letsencrypt.org/certificates/) to my /etc/ssl/certs folder with .pem and .crt extensions still got the same error. So my question is how do I install these certificates on my mangOH Red board? I am using Legato 18.09 with wp76xx chip. Also my app is sandboxed and my adef looks like this requires:
+&gt;     requires:
+&gt;      {   dir:
+&gt;         {
+&gt;          /etc/ssl/certs /etc/ssl/certs
+&gt;         }
+&gt;     }</description>
+    
+    <lastBuildDate>Fri, 26 Oct 2018 09:37:13 +0000</lastBuildDate>
+    <category>Cloud &amp; Connectivity</category>
+    <atom:link href="https://forum.mangoh.io/t/certificate-verification-failed/2052.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Certificate verification failed</title>
+        <dc:creator><![CDATA[davidc]]></dc:creator>
+        <description><![CDATA[
+            <p>Hiya <a class="mention" href="https://forum.mangoh.io/u/milanvidic">@MilanVidic</a></p>
+<p>Good to hear.</p>
+<p>Good luck with the rest of your project.</p>
+<p>ciao, Dave</p>
+          <p><a href="https://forum.mangoh.io/t/certificate-verification-failed/2052/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/certificate-verification-failed/2052/4</link>
+        <pubDate>Fri, 26 Oct 2018 09:37:13 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2052-4</guid>
+        <source url="https://forum.mangoh.io/t/certificate-verification-failed/2052.rss">Certificate verification failed</source>
+      </item>
+      <item>
+        <title>Certificate verification failed</title>
+        <dc:creator><![CDATA[MilanVidic]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello <a class="mention" href="https://forum.mangoh.io/u/davidc">@davidc</a>,<br>
+I managed to  establish connection with ca-certificates.crt.<br>
+Thank you</p>
+          <p><a href="https://forum.mangoh.io/t/certificate-verification-failed/2052/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/certificate-verification-failed/2052/3</link>
+        <pubDate>Fri, 26 Oct 2018 08:39:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2052-3</guid>
+        <source url="https://forum.mangoh.io/t/certificate-verification-failed/2052.rss">Certificate verification failed</source>
+      </item>
+      <item>
+        <title>Certificate verification failed</title>
+        <dc:creator><![CDATA[davidc]]></dc:creator>
+        <description><![CDATA[
+            <p>Hiya <a class="mention" href="https://forum.mangoh.io/u/milanvidic">@MilanVidic</a></p>
+<p>How old is the LetsEncrypt certificate? They only have a valid life of 3 months from the date of creation before you have to renew them.</p>
+<p>Additionally, until very recently, for some services you had to also import a particular root trust certificate to finish the ‘trust chain’ for LetsEncrypt certificates.</p>
+<p>Can you use a LetsEncrypt certificate on a desktop linux PC OK?</p>
+<p>To check whether the certificates have been ‘required’ into the correct directory on your 'Red, have a look in the directories underneath <code>/opt/legato</code> for your application and see that the certs are in the appropriate directory.</p>
+<p>ciao, Dave</p>
+          <p><a href="https://forum.mangoh.io/t/certificate-verification-failed/2052/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/certificate-verification-failed/2052/2</link>
+        <pubDate>Thu, 25 Oct 2018 22:50:08 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2052-2</guid>
+        <source url="https://forum.mangoh.io/t/certificate-verification-failed/2052.rss">Certificate verification failed</source>
+      </item>
+      <item>
+        <title>Certificate verification failed</title>
+        <dc:creator><![CDATA[MilanVidic]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello, I am trying to create new Poco HTTPSClientSession as follows:</p>
+<blockquote>
+<pre><code>const Poco::Net::Context::Ptr context(new Poco::Net::Context(Poco::Net::Context::CLIENT_USE, "", "/etc/ssl/certs/LetsEncryptCertificate.crt", "", Poco::Net::Context::VERIFY_RELAXED));
+m_pSession = new Poco::Net::HTTPSClientSession(host, port, context);
+</code></pre>
+</blockquote>
+<p>and when I send GET request to server I get:</p>
+<blockquote>
+<p>WARNING: Certificate verification failed<br>
+Issuer Name: /O=Digital Signature Trust Co./CN=DST ROOT CA X3<br>
+Subject Name: /C=US /O=Let’s Encrypt/CN=Let’s Encrypt Authority X3<br>
+The certificate yielded the error: unable to get local issuer certificate<br>
+The error occurred in the certificate chain at position 1<br>
+Accept the certificate (y,n)?</p>
+</blockquote>
+<p>I am reading this from syslog so I can’t press Y to accept the certificate. When I use context with</p>
+<p><code>Poco::Net::Context::VERIFY_NONE</code> I am able to send the request and get the response because there is no certificate verification. I was trying to add these <a href="https://letsencrypt.org/certificates/" rel="nofollow noopener">certificates</a> to my /etc/ssl/certs folder with .pem and .crt extensions still got the same error. So my question is how do I install these certificates on my mangOH Red board? I am using Legato 18.09 with wp76xx chip. Also my app is sandboxed and my adef looks like this requires:</p>
+<blockquote>
+<pre><code>requires:
+ {   dir:
+    {
+     /etc/ssl/certs /etc/ssl/certs
+    }
+}</code></pre>
+</blockquote>
+          <p><a href="https://forum.mangoh.io/t/certificate-verification-failed/2052/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/certificate-verification-failed/2052/1</link>
+        <pubDate>Thu, 25 Oct 2018 08:53:17 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2052-1</guid>
+        <source url="https://forum.mangoh.io/t/certificate-verification-failed/2052.rss">Certificate verification failed</source>
+      </item>
+  </channel>
+</rss>

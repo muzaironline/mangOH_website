@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>GPIO numbers in kernel code [WP76]</title>
+    <link>https://forum.mangoh.io/t/gpio-numbers-in-kernel-code-wp76/9983</link>
+    <description>Hello everyone,
+
+I&#39;m tring to get the mangoh red card working with a wiegand keyboard and due to the high frequency of the signals coming from the keyboard i&#39;m writing a kernel driver. The problem is i&#39;m trying to request interrupt on falling edge on my gpios 22 and 23 (located on the expander part) and it doesn&#39;t seems to call any interrupt.
+
+I think that writing &#39;22&#39; and &#39;23&#39; as my gpios kernel numbers is the problem but i can&#39;t find the right number (with the offset ?), I saw a similar post talking about drivers/gpio/gpiolib-sysfs.c but i can&#39;t find this file... on my leaf profile i have mangoh-red-wp76xx_0.6.0 and SWI-WP76_5.0.4, Linux version 3.18.140
+
+If anyone would have an idea of where to look / or which cmd to use that would help me a lot.
+
+Thanks !
+
+Clément</description>
+    
+    <lastBuildDate>Tue, 17 May 2022 05:14:10 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/gpio-numbers-in-kernel-code-wp76/9983.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>GPIO numbers in kernel code [WP76]</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>you can see the array ext_gpio_map ext_gpio_wp<span class="chcklst-box fa fa-square-o fa-fw"></span> here in yocto/kernel/driver/gpio/gpiolib-sysfs.c in line 124 where second parameter is the mdm chipset real gpio number:</p>
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.legato.io/t/uart-flow-control-with-wp7608/4597/12">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2f530449ddf3c5969c6d457cc62c7f403f2ae1d3.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/uart-flow-control-with-wp7608/4597/12" target="_blank" rel="noopener nofollow ugc" title="02:21AM - 22 August 2019">Legato Forum – 22 Aug 19</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/uart-flow-control-with-wp7608/4597/12" target="_blank" rel="noopener nofollow ugc">UART flow control with WP7608</a></h3>
+
+  <p>Please see my modification on yocto/kernel/driver/gpio/gpiolib.c.  gpiolib-sysfs.c (36.7 KB)</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+<p>Here is another method to check.<br>
+For example, typing “echo 23 &gt; /sys/class/gpio/export” in console and then see the MDM_GPIO in dmesg kernel log which is GPIO 10.</p>
+<pre><code class="lang-auto">[  172.509405] gpio_sync_ri: RI owner is Modem
+[  172.509432] gpio_map_name_to_num: find GPIO 10
+[  172.509442] export_store: Export GPIO: 10
+</code></pre>
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.legato.io/t/wp7605-sw-how-to-indicate-the-periodic-signal-in-order-to-use-external-window-wdt/5087/2">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2f530449ddf3c5969c6d457cc62c7f403f2ae1d3.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/wp7605-sw-how-to-indicate-the-periodic-signal-in-order-to-use-external-window-wdt/5087/2" target="_blank" rel="noopener nofollow ugc" title="02:05AM - 19 March 2020">Legato Forum – 19 Mar 20</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/wp7605-sw-how-to-indicate-the-periodic-signal-in-order-to-use-external-window-wdt/5087/2" target="_blank" rel="noopener nofollow ugc">[WP7605][SW] How to indicate the periodic signal, in order to use external...</a></h3>
+
+  <p>please see the attached doc on generating PWM signal.Example_on_simulating_pulse_width_modulation(PWM).docx (77.5 KB)</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/gpio-numbers-in-kernel-code-wp76/9983/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/gpio-numbers-in-kernel-code-wp76/9983/2</link>
+        <pubDate>Mon, 16 May 2022 14:48:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9983-2</guid>
+        <source url="https://forum.mangoh.io/t/gpio-numbers-in-kernel-code-wp76/9983.rss">GPIO numbers in kernel code [WP76]</source>
+      </item>
+      <item>
+        <title>GPIO numbers in kernel code [WP76]</title>
+        <dc:creator><![CDATA[clementd]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello everyone,</p>
+<p>I’m tring to get the mangoh red card working with a wiegand keyboard and due to the high frequency of the signals coming from the keyboard i’m writing a kernel driver. The problem is i’m trying to request interrupt on falling edge on my gpios 22 and 23 (located on the expander part) and it doesn’t seems to call any interrupt.</p>
+<p>I think that writing ‘22’ and ‘23’ as my gpios kernel numbers is the problem but i can’t find the right number (with the offset ?), I saw a similar post talking about drivers/gpio/gpiolib-sysfs.c but i can’t find this file… on my leaf profile i have mangoh-red-wp76xx_0.6.0 and SWI-WP76_5.0.4, Linux version 3.18.140</p>
+<p>If anyone would have an idea of where to look / or which cmd to use that would help me a lot.</p>
+<p>Thanks !</p>
+<p>Clément</p>
+          <p><a href="https://forum.mangoh.io/t/gpio-numbers-in-kernel-code-wp76/9983/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/gpio-numbers-in-kernel-code-wp76/9983/1</link>
+        <pubDate>Mon, 16 May 2022 14:22:31 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9983-1</guid>
+        <source url="https://forum.mangoh.io/t/gpio-numbers-in-kernel-code-wp76/9983.rss">GPIO numbers in kernel code [WP76]</source>
+      </item>
+  </channel>
+</rss>

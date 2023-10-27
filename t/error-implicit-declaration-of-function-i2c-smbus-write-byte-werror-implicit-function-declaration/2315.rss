@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Error: implicit declaration of function ‘i2c_smbus_write_byte’ [-Werror=implicit-function-declaration]</title>
+    <link>https://forum.mangoh.io/t/error-implicit-declaration-of-function-i2c-smbus-write-byte-werror-implicit-function-declaration/2315</link>
+    <description>Hi there , 
+I was trying to write an application to read and write data to i2c device .previously i had used **#include &lt;linux/i2c-dev-user.h&gt;** but since i2c-utils was removed from the root filesystem and toolchain for the wp76/77 i am supposed to use  **#include &lt;linux/i2c-dev.h&gt;** but i am stuck with the API&#39;s i am suppose to use as i have used 
+**i2c_smbus_write_byte(i2cdev_fd, enableAllPorts)** because of which i have the following errors
+
+1st)
+**error: implicit declaration of function ‘i2c_smbus_read_byte_data’ [-Werror=implicit-function-declaration]
+  const int readResult = i2c_smbus_read_byte_data(i2cFd, reg);**
+
+**error: implicit declaration of function ‘i2c_smbus_write_byte’ [-Werror=implicit-function-declaration]
+  LE_FATAL_IF(i2c_smbus_write_byte(i2cdev_fd, enableAllPorts) == -1, &quot;failed to write i2c data&quot;);**
+
+
+following are the API&#39;s i have used 
+--&gt; i2c_smbus_read_byte_data(i2cFd, reg);
+--&gt; i2c_smbus_write_byte_data(i2cFd, reg, data);
+
+It would be great if somebody gives me pointers to overcome this issue .</description>
+    
+    <lastBuildDate>Tue, 09 Mar 2021 07:36:52 +0000</lastBuildDate>
+    <category>mangOH Green</category>
+    <atom:link href="https://forum.mangoh.io/t/error-implicit-declaration-of-function-i2c-smbus-write-byte-werror-implicit-function-declaration/2315.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Error: implicit declaration of function ‘i2c_smbus_write_byte’ [-Werror=implicit-function-declaration]</title>
+        <dc:creator><![CDATA[Akshaysk]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/kalaivani">@kalaivani</a> ,<br>
+Please share your error logs and code snippet</p>
+          <p><a href="https://forum.mangoh.io/t/error-implicit-declaration-of-function-i2c-smbus-write-byte-werror-implicit-function-declaration/2315/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-implicit-declaration-of-function-i2c-smbus-write-byte-werror-implicit-function-declaration/2315/5</link>
+        <pubDate>Tue, 09 Mar 2021 07:36:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2315-5</guid>
+        <source url="https://forum.mangoh.io/t/error-implicit-declaration-of-function-i2c-smbus-write-byte-werror-implicit-function-declaration/2315.rss">Error: implicit declaration of function ‘i2c_smbus_write_byte’ [-Werror=implicit-function-declaration]</source>
+      </item>
+      <item>
+        <title>Error: implicit declaration of function ‘i2c_smbus_write_byte’ [-Werror=implicit-function-declaration]</title>
+        <dc:creator><![CDATA[kalaivani]]></dc:creator>
+        <description><![CDATA[
+            <p>how you resolved this issue, am too facing the same issue</p>
+          <p><a href="https://forum.mangoh.io/t/error-implicit-declaration-of-function-i2c-smbus-write-byte-werror-implicit-function-declaration/2315/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-implicit-declaration-of-function-i2c-smbus-write-byte-werror-implicit-function-declaration/2315/4</link>
+        <pubDate>Tue, 09 Mar 2021 05:08:38 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2315-4</guid>
+        <source url="https://forum.mangoh.io/t/error-implicit-declaration-of-function-i2c-smbus-write-byte-werror-implicit-function-declaration/2315.rss">Error: implicit declaration of function ‘i2c_smbus_write_byte’ [-Werror=implicit-function-declaration]</source>
+      </item>
+      <item>
+        <title>Error: implicit declaration of function ‘i2c_smbus_write_byte’ [-Werror=implicit-function-declaration]</title>
+        <dc:creator><![CDATA[AkshayKulkarni]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-post="1" data-topic="2315">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/akshaykulkarni/40/721_2.png" class="avatar"> AkshayKulkarni:</div>
+<blockquote>
+<p>i2c_smbus_read_byte_data</p>
+</blockquote>
+</aside>
+<p>Hi dfrey ,<br>
+Thanks for the pointers i was able to solve this issue but now when i run the application it says<br>
+<strong>Could not open file /dev/i2c-4 or /dev/i2c/4: No such file or directory</strong><br>
+but i can see i2c-4 in /dev node , Any comments or pointers on this ?</p>
+          <p><a href="https://forum.mangoh.io/t/error-implicit-declaration-of-function-i2c-smbus-write-byte-werror-implicit-function-declaration/2315/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-implicit-declaration-of-function-i2c-smbus-write-byte-werror-implicit-function-declaration/2315/3</link>
+        <pubDate>Sat, 19 Jan 2019 06:53:23 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2315-3</guid>
+        <source url="https://forum.mangoh.io/t/error-implicit-declaration-of-function-i2c-smbus-write-byte-werror-implicit-function-declaration/2315.rss">Error: implicit declaration of function ‘i2c_smbus_write_byte’ [-Werror=implicit-function-declaration]</source>
+      </item>
+      <item>
+        <title>Error: implicit declaration of function ‘i2c_smbus_write_byte’ [-Werror=implicit-function-declaration]</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>When the change was made to remove i2c tools from yocto, I ended up copying the relevant .h file into the component where I needed it.  See: <a href="https://github.com/mangOH/GpioExpander/blob/eddfe628188b60efb32a988dfac9c62f50ef6206/gpioExpanderService/gpioExpanderCommon/i2c-utils.h" rel="nofollow noopener">https://github.com/mangOH/GpioExpander/blob/eddfe628188b60efb32a988dfac9c62f50ef6206/gpioExpanderService/gpioExpanderCommon/i2c-utils.h</a></p>
+          <p><a href="https://forum.mangoh.io/t/error-implicit-declaration-of-function-i2c-smbus-write-byte-werror-implicit-function-declaration/2315/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-implicit-declaration-of-function-i2c-smbus-write-byte-werror-implicit-function-declaration/2315/2</link>
+        <pubDate>Fri, 18 Jan 2019 22:17:31 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2315-2</guid>
+        <source url="https://forum.mangoh.io/t/error-implicit-declaration-of-function-i2c-smbus-write-byte-werror-implicit-function-declaration/2315.rss">Error: implicit declaration of function ‘i2c_smbus_write_byte’ [-Werror=implicit-function-declaration]</source>
+      </item>
+      <item>
+        <title>Error: implicit declaration of function ‘i2c_smbus_write_byte’ [-Werror=implicit-function-declaration]</title>
+        <dc:creator><![CDATA[AkshayKulkarni]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi there ,<br>
+I was trying to write an application to read and write data to i2c device .previously i had used <strong><span class="hashtag">#include</span> &lt;linux/i2c-dev-user.h&gt;</strong> but since i2c-utils was removed from the root filesystem and toolchain for the wp76/77 i am supposed to use  <strong><span class="hashtag">#include</span> &lt;linux/i2c-dev.h&gt;</strong> but i am stuck with the API’s i am suppose to use as i have used<br>
+<strong>i2c_smbus_write_byte(i2cdev_fd, enableAllPorts)</strong> because of which i have the following errors</p>
+<p>1st)<br>
+<strong>error: implicit declaration of function ‘i2c_smbus_read_byte_data’ [-Werror=implicit-function-declaration]<br>
+const int readResult = i2c_smbus_read_byte_data(i2cFd, reg);</strong></p>
+<p><strong>error: implicit declaration of function ‘i2c_smbus_write_byte’ [-Werror=implicit-function-declaration]<br>
+LE_FATAL_IF(i2c_smbus_write_byte(i2cdev_fd, enableAllPorts) == -1, “failed to write i2c data”);</strong></p>
+<p>following are the API’s i have used<br>
+–&gt; i2c_smbus_read_byte_data(i2cFd, reg);<br>
+–&gt; i2c_smbus_write_byte_data(i2cFd, reg, data);</p>
+<p>It would be great if somebody gives me pointers to overcome this issue .</p>
+          <p><a href="https://forum.mangoh.io/t/error-implicit-declaration-of-function-i2c-smbus-write-byte-werror-implicit-function-declaration/2315/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/error-implicit-declaration-of-function-i2c-smbus-write-byte-werror-implicit-function-declaration/2315/1</link>
+        <pubDate>Fri, 18 Jan 2019 07:46:50 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2315-1</guid>
+        <source url="https://forum.mangoh.io/t/error-implicit-declaration-of-function-i2c-smbus-write-byte-werror-implicit-function-declaration/2315.rss">Error: implicit declaration of function ‘i2c_smbus_write_byte’ [-Werror=implicit-function-declaration]</source>
+      </item>
+  </channel>
+</rss>

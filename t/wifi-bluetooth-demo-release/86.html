@@ -1,0 +1,1901 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WiFi/Bluetooth Demo release - IoT Cards - mangOH forum</title>
+    <meta name="description" content="All, 
+We will have the WiFi/BT IoT connector available on E14 by end of June. We will also release a complete working demo for container tracking by then as well. Attached is an early draft document of what the demo will&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;WiFi/Bluetooth Demo release&#39;" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/bdbd18e0c9cbdb2b647d6b269c78493b41dfb10b_2_1024x531.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/bdbd18e0c9cbdb2b647d6b269c78493b41dfb10b_2_1024x531.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86" />
+<meta property="og:title" content="WiFi/Bluetooth Demo release" />
+<meta name="twitter:title" content="WiFi/Bluetooth Demo release" />
+<meta property="og:description" content="All,  We will have the WiFi/BT IoT connector available on E14 by end of June. We will also release a complete working demo for container tracking by then as well. Attached is an early draft document of what the demo will look like. We will release all code, .driver files for the demo as well by end of June.  cheers.  Ashish" />
+<meta name="twitter:description" content="All,  We will have the WiFi/BT IoT connector available on E14 by end of June. We will also release a complete working demo for container tracking by then as well. Attached is an early draft document of what the demo will look like. We will release all code, .driver files for the demo as well by end of June.  cheers.  Ashish" />
+<meta property="og:article:section" content="IoT Cards" />
+<meta property="og:article:section:color" content="621B4B" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="29 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="6 ❤" />
+<meta property="article:published_time" content="2016-05-29T04:46:54+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="next" href="/t/wifi-bluetooth-demo-release/86?page=2">
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"WiFi/Bluetooth Demo release","mainEntity":{"@type":"Question","name":"WiFi/Bluetooth Demo release","text":"All,\n\nWe will have the WiFi/BT IoT connector available on E14 by end of June. We will also release a complete working demo for container tracking by then as well. Attached is an early draft document of what the demo will look like. We will release all code, .driver files for the demo as well by end &hellip;","upvoteCount":3,"answerCount":0,"dateCreated":"2016-05-29T04:46:54.822Z","author":{"@type":"Person","name":"ashish syal"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/wifi-bluetooth-demo-release/86">WiFi/Bluetooth Demo release</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/iot-cards/8" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #621B4B'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>IoT Cards</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='WiFi/Bluetooth Demo release'>
+        <meta itemprop='articleSection' content='IoT Cards'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/bdbd18e0c9cbdb2b647d6b269c78493b41dfb10b.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-05-29T04:46:54Z' class='post-time'>
+                    May 29, 2016,  4:46am
+                  </time>
+                  <meta itemprop='dateModified' content='2019-07-30T03:51:39Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>All,</p>
+<p>We will have the WiFi/BT IoT connector available on E14 by end of June. We will also release a complete working demo for container tracking by then as well. Attached is an early draft document of what the demo will look like. We will release all code, .driver files for the demo as well by end of June.</p>
+<p>cheers.<br>
+Ashish</p>
+<p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/bdbd18e0c9cbdb2b647d6b269c78493b41dfb10b.png" data-download-href="/uploads/short-url/r4vnBCsVir1T2H3idC6FI5GrzAv.png?dl=1" title="Pasted image" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/bdbd18e0c9cbdb2b647d6b269c78493b41dfb10b_2_690x357.png" alt data-base62-sha1="r4vnBCsVir1T2H3idC6FI5GrzAv" width="690" height="357" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/bdbd18e0c9cbdb2b647d6b269c78493b41dfb10b_2_690x357.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/bdbd18e0c9cbdb2b647d6b269c78493b41dfb10b_2_1035x535.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/bdbd18e0c9cbdb2b647d6b269c78493b41dfb10b.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/bdbd18e0c9cbdb2b647d6b269c78493b41dfb10b_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">Pasted image</span><span class="informations">1103×572 226 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="3" />
+              <span class='post-likes'>3 Likes</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/rifo'><span itemprop='name'>rifo</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-05-29T06:33:51Z' class='post-time'>
+                    May 29, 2016,  6:33am
+                  </time>
+                  <meta itemprop='dateModified' content='2016-05-29T06:33:51Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>hello Ashish,</p>
+<p>This looks great! looking forward to getting the Wifi/BT Iot connector</p>
+<p>thanks a lot</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dongle_boy'><span itemprop='name'>dongle_boy</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-06-16T20:38:20Z' class='post-time'>
+                    June 16, 2016,  8:38pm
+                  </time>
+                  <meta itemprop='dateModified' content='2016-06-16T20:38:20Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Ashish,</p>
+<p>Are there any updates to this?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-06-17T14:14:24Z' class='post-time'>
+                    June 17, 2016,  2:14pm
+                  </time>
+                  <meta itemprop='dateModified' content='2016-06-17T14:14:24Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>The demo code will be released by mid July. We did the demo and showed it our innovation summit btw.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Jason.vanaardt'><span itemprop='name'>Jason.vanaardt</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-09-13T15:56:56Z' class='post-time'>
+                    September 13, 2016,  3:56pm
+                  </time>
+                  <meta itemprop='dateModified' content='2016-09-13T15:56:56Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Ashish,<br>
+Is there perhaps any Bluetooth example/demo code available?<br>
+I have had a look at <a href="https://github.com/mangOH/Demos/tree/master/BleSensorInterface" rel="nofollow noopener">https://github.com/mangOH/Demos/tree/master/BleSensorInterface</a></p>
+<p>but could not find any code that uses the bluetooth driver as compiled into a new Yocto Distribution build following these instructions<br>
+<aside class="onebox whitelistedgeneric">
+  <header class="source">
+      <img src="https://github.githubassets.com/favicons/favicon.svg" class="site-icon" width="32" height="32">
+      <a href="https://github.com/mangOH/mangOH/wiki/Bluetooth-WL18xx-driver-for-mangOH" target="_blank" rel="nofollow noopener">GitHub</a>
+  </header>
+  <article class="onebox-body">
+    <img src="https://avatars1.githubusercontent.com/u/14057398?s=400&amp;v=4" class="thumbnail onebox-avatar" width="100" height="100">
+
+<h3><a href="https://github.com/mangOH/mangOH/wiki/Bluetooth-WL18xx-driver-for-mangOH" target="_blank" rel="nofollow noopener">mangOH/mangOH</a></h3>
+
+<p>Primary mangOH git repository. Contribute to mangOH/mangOH development by creating an account on GitHub.</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+</p>
+<p>Any pointers would be most appreciated.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-09-13T17:07:13Z' class='post-time'>
+                    September 13, 2016,  5:07pm
+                  </time>
+                  <meta itemprop='dateModified' content='2016-09-13T17:28:35Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Jason,</p>
+<p>The BleSensorInterface code uses Bluetooth, by using the gatttool command line program.  The gatttool program is bundled as a binary into the BluetoothUtil app.  Does that make sense or am I misunderstanding the question?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Jason.vanaardt'><span itemprop='name'>Jason.vanaardt</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-09-14T16:25:28Z' class='post-time'>
+                    September 14, 2016,  4:25pm
+                  </time>
+                  <meta itemprop='dateModified' content='2016-09-14T16:25:28Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi David,<br>
+Thank you very much for your pointers.<br>
+I have followed your instructions at <a href="https://github.com/mangOH/mangOH/wiki/Bluetooth-WL18xx-driver-for-mangOH" rel="nofollow noopener">https://github.com/mangOH/mangOH/wiki/Bluetooth-WL18xx-driver-for-mangOH</a><br>
+and have a yocto_wp85.cde that I have uploaded onto a Manhoh plaform running Release 12 using<br>
+swiflash -m WP85XX -i yocto_wp85</p>
+<p>How can I check that this self compiled version is now actually running on the target?</p>
+<p>when I make bluetoothUtils using make all<br>
+and instapp bluetoothUtils.wp85.update<br>
+I get the following in the log window using logread -f , it seems as if the bluetooth modules are not available on the platform?<br>
+Any pointers would be most appreciated.</p>
+<pre><code>Jan  7 07:19:41 swi-mdm9x15 authpriv.info dropbear[2961]: Child connection from 10.0.0.9:40890
+Jan  7 07:19:41 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | lwm2m.c RegUpdateTimerHandler() 671 | RegUpdate timer expired; reporting REG_UPDATE
+Jan  7 07:19:42 swi-mdm9x15 authpriv.notice dropbear[2961]: Auth succeeded with blank password for 'root' from 10.0.0.9:40890
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateDaemon.c le_update_Start() 1370 | Update request accepted.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum cd46bf93ba4cebdae5ae6c888c36af40 is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 9be3c15faf896c1e2e1f3f24e893a007 is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum e5038c3a55b418aa37dfa667e6b9d09c is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 43d25d813b1d90dc2bfa9e439ffbe67a is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 3a648f61e4459f029728d1111ef53fcd is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 2efd76d8ddda4140b7349fb77da65eb8 is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 68a95a5e93e341505ec93f3464f0d093 is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 8585c428116657cf931d1d9cedbcc03b is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum ae47bad71d944a4354c6ca22f742f2f4 is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum bf464103f7c2b381e4ff46db000c12d2 is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 7f98a8a0420a1e83257e15bcacc4c310 is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum f49369d9ba0ea6c3ddaf576f5c89c959 is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 109c4ee65681dccab3d2971cf0111984 is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 5575211fe1497c43c89c74fd7de1387c is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 168e19708740cad417030557616cf1af is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum bb0e170a80795ea47219c7fd6fe89534 is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 3f7e6ceb57b085146bd2fb4aecee7240 is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 81db874155b7352480ffabaae6079848 is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 8b171c3e33882eeadda2795b115cd20a is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 92b498fec966af743949b8af1c08a1ea is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum f31ae03a01d97483318755efc93c29cf is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 1c86e01145007929cb8cd95ffc410323 is still needed.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c JsonDone() 899 | App with MD5 sum cd46bf93ba4cebdae5ae6c888c36af40 already exists on target. Skipping.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 69509/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 122757/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 139141/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 147333/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 171909/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 180101/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 196485/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 204677/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 221061/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 245637/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 262021/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 270213/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 286597/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 294789/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 319365/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 327557/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 343941/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 360325/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 368517/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 376709/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 384901/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 393093/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 409477/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 417669/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 434053/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 442245/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 466821/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 475013/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 491397/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 499589/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 507781/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 515973/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 524165/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 540549/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 548741/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 565125/578810
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 578810/578810
+Jan  7 07:19:42 swi-mdm9x15 user.warn Legato: -WRN- | updateDaemon[1164]/updateDaemon T=main | system.c system_Snapshot() 707 | System has not yet passed probation, no snapshot taken.
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_SymlinkApp() 547 | Creating symlink /legato/systems/current/apps/bluetoothUtil -&gt; /legato/apps/cd46bf93ba4cebdae5ae6c888c36af40
+Jan  7 07:19:42 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/appUser T=main | appUser.c appUser_Add() 43 | Creating user 'appbluetoothUtil' for application 'bluetoothUtil'.
+Jan  7 07:19:43 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/framework T=main | LE_FILENAME user_Create() 1119 | Created user 'appbluetoothUtil' with uid 1022 and gid 1022.
+Jan  7 07:19:43 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/framework T=main | LE_FILENAME sysStatus_MarkTried() 261 | Current system has been marked "tried 1".
+Jan  7 07:19:43 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | supCtrl.c supCtrl_StartApp() 59 | Starting app 'bluetoothUtil'.
+Jan  7 07:19:43 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2105 | Creating asset instance for lwm2m/9
+Jan  7 07:19:43 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | lwm2m.c AssetActionHandler() 708 | /lwm2m/9/8 created.
+Jan  7 07:19:43 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2207 | Finished creating instance 8 for lwm2m/9
+Jan  7 07:19:43 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | app.c CreateFileLink() 1457 | Created file link '/legato/systems/current/apps/bluetoothUtil/read-only/bin/gatttool' to '/legato/systems/current/appsWriteable/bluetoothUtil/bin/gattto
+Jan  7 07:19:43 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | app.c CreateFileLink() 1457 | Created file link '/legato/systems/current/apps/bluetoothUtil/read-only/bin/bt-init.sh' to '/legato/systems/current/appsWriteable/bluetoothUtil/bin/bt-i
+Jan  7 07:19:43 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | app.c CreateFileLink() 1457 | Created file link '/legato/systems/current/apps/bluetoothUtil/read-only/bin/TIInit_11.8.32.bts' to '/legato/systems/current/appsWriteable/bluetoothUtil/
+Jan  7 07:19:43 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | app.c CreateFileLink() 1457 | Created file link '/legato/systems/current/apps/bluetoothUtil/read-only/bin/hciattach' to '/legato/systems/current/appsWriteable/bluetoothUtil/bin/hciat
+Jan  7 07:19:43 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | app.c CreateFileLink() 1457 | Created file link '/legato/systems/current/apps/bluetoothUtil/read-only/bin/hciconfig' to '/legato/systems/current/appsWriteable/bluetoothUtil/bin/hcico
+Jan  7 07:19:43 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | app.c CreateFileLink() 1457 | Created file link '/legato/systems/current/apps/bluetoothUtil/read-only/bin/hcitool' to '/legato/systems/current/appsWriteable/bluetoothUtil/bin/hcitool
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2105 | Creating asset instance for bluetoothUtil/0
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 102400.
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 102400.
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | proc.c proc_Start() 1133 | Starting process 'bt-init.sh' with pid 2976
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | app.c app_InstallIndividual() 662 | App bluetoothUtil &lt;cd46bf93ba4cebdae5ae6c888c36af40&gt; installed
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateDaemon.c ApplyAppUpdate() 656 | App 'bluetoothUtil&lt;cd46bf93ba4cebdae5ae6c888c36af40&gt;' installed properly.
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateDaemon.c StartProbation() 182 | System on probation (timer started).
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | supervisor[2976]/supervisor T=main | proc.c proc_Start() 1101 | Execing 'bt-init.sh'
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | lwm2m.c AssetActionHandler() 708 | /bluetoothUtil/0/0 created.
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2207 | Finished creating instance 0 for bluetoothUtil/0
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2105 | Creating asset instance for bluetoothUtil/1
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | bt-init.sh[2976] | PWD is: /legato/systems/current/appsWriteable/bluetoothUtil
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | lwm2m.c AssetActionHandler() 708 | /bluetoothUtil/1/0 created.
+Jan  7 07:19:44 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2207 | Finished creating instance 0 for bluetoothUtil/1
+Jan  7 07:19:44 swi-mdm9x15 user.warn Legato: -WRN- | avcDaemon[1172]/appCfg T=main | appCfg.c appCfg_GetProcFaultAction() 547 | Unrecognized fault action ''.  Defaulting to fault action 'ignore'.
+Jan  7 07:19:44 swi-mdm9x15 authpriv.info dropbear[2961]: Exit (root): Disconnect received
+Jan  7 07:19:45 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[2976] | modprobe: module bluetooth not found in modules.dep
+Jan  7 07:19:50 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[2976] | /legato/systems/current/apps/bluetoothUtil/read-only/bin/bt-init.sh: 
+Jan  7 07:19:50 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[2976] | line 27: 
+Jan  7 07:19:50 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[2976] | mux: not found
+Jan  7 07:19:50 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[2976] | 
+Jan  7 07:19:50 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[2976] | /legato/systems/current/apps/bluetoothUtil/read-only/bin/bt-init.sh: 
+Jan  7 07:19:50 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[2976] | line 28: 
+Jan  7 07:19:50 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[2976] | mux: not found
+Jan  7 07:19:50 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[2976] | 
+Jan  7 07:19:51 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[2976] | Can't open serial port: No such file or directory
+Jan  7 07:19:51 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[2976] | Can't initialize device: Invalid argument
+Jan  7 07:19:53 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[2976] | Can't get device info: No such device
+Jan  7 07:19:53 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | proc.c proc_SigChildHandler() 1833 | Process 'bt-init.sh' (PID: 2976) has exited with exit code 1.
+Jan  7 07:19:53 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | proc.c GetFaultAction() 1634 | No fault action specified for process 'bt-init.sh'. Assuming 'ignore'.
+Jan  7 07:19:53 swi-mdm9x15 user.warn Legato: -WRN- | supervisor[1152]/supervisor T=main | app.c app_SigChildHandler() 3018 | Process 'bt-init.sh' in app 'bluetoothUtil' faulted: Ignored.
+Jan  7 07:19:53 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | apps.c DeactivateAppContainer() 252 | Application 'bluetoothUtil' has stopped.
+Jan  7 07:19:59 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | lwm2m.c RegUpdateTimerHandler() 671 | RegUpdate timer expired; reporting REG_UPDATE
+^C</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-09-14T16:39:24Z' class='post-time'>
+                    September 14, 2016,  4:39pm
+                  </time>
+                  <meta itemprop='dateModified' content='2016-09-14T16:39:24Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Jason,</p>
+<p>It looks like you are missing the <code>mux</code> program.  This section of the mangOH sdef shows the relevant apps.<br>
+<a href="https://github.com/mangOH/mangOH/blob/master/mangoh.sdef#L32" class="onebox" target="_blank" rel="nofollow noopener">https://github.com/mangOH/mangOH/blob/master/mangoh.sdef#L32</a></p>
+<p>The <code>MuxControlServices</code> depends on the <code>GpioExpander</code> app, so make sure you have that as well.  The <a href="https://github.com/mangOH/MuxControl" rel="nofollow noopener">mux</a> and <a href="https://github.com/mangOH/GpioExpander" rel="nofollow noopener">gpio</a> apps that I mentioned are on the mangOH github account.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-09-15T00:07:45Z' class='post-time'>
+                    September 15, 2016, 12:07am
+                  </time>
+                  <meta itemprop='dateModified' content='2016-09-15T00:07:45Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Also, can you post your dmesg log as well? There seems to be an error</p>
+<p>" Jan  7 07:19:45 swi-mdm9x15 user.err Legato: =ERR= | <a href="http://bt-init.sh">bt-init.sh</a>[2976] | modprobe: module bluetooth not found in modules.dep"</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Jason.vanaardt'><span itemprop='name'>Jason.vanaardt</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-09-15T00:40:57Z' class='post-time'>
+                    September 15, 2016, 12:40am
+                  </time>
+                  <meta itemprop='dateModified' content='2016-09-15T00:40:57Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi David,<br>
+I notice that there is no Makefile in the github repository to make the muxCtrlService app/component?<br>
+Could you point me in the right direction please to get it compiled  and loaded on the target please most appreciated<br>
+<aside class="onebox whitelistedgeneric">
+  <header class="source">
+      <img src="https://github.githubassets.com/favicons/favicon.svg" class="site-icon" width="32" height="32">
+      <a href="https://github.com/mangOH/MuxControl/tree/master/muxCtrlService" target="_blank" rel="nofollow noopener">GitHub</a>
+  </header>
+  <article class="onebox-body">
+    <img src="https://avatars1.githubusercontent.com/u/14057398?s=400&amp;v=4" class="thumbnail onebox-avatar" width="100" height="100">
+
+<h3><a href="https://github.com/mangOH/MuxControl/tree/master/muxCtrlService" target="_blank" rel="nofollow noopener">mangOH/MuxControl</a></h3>
+
+<p>Contribute to mangOH/MuxControl development by creating an account on GitHub.</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Jason.vanaardt'><span itemprop='name'>Jason.vanaardt</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-09-15T00:44:33Z' class='post-time'>
+                    September 15, 2016, 12:44am
+                  </time>
+                  <meta itemprop='dateModified' content='2016-09-15T00:44:33Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Asyal.<br>
+Just one thing to note: I do not have a physical card IOT WiFi/BT yet, however it does appear that perhaps  the module is not available on the target mangoh’s filesystem? Which file and and in what directory can I search in for the bluetooth module driver, to make sure that I am indeed running the compiled yocto with bluetooth driver support?<br>
+your assistance is sincerely appreciated<br>
+Best Regards<br>
+Jason</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Jason.vanaardt'><span itemprop='name'>Jason.vanaardt</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-09-15T11:09:00Z' class='post-time'>
+                    September 15, 2016, 11:09am
+                  </time>
+                  <meta itemprop='dateModified' content='2016-09-15T11:09:00Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi David,<br>
+I have made and downloaded the GPIO and MuxCtrl to the Mangoh platform as per your recommendation.</p>
+<pre><code>root@swi-mdm9x15:~# app status
+[running] atClient
+[running] atServer
+[running] audioService
+[running] avcService
+[running] cellNetService
+[running] dataConnectionService
+[running] fwupdateService
+[running] gpioService
+[running] modemService
+[running] positioningService
+[running] powerMgr
+[running] secStore
+[stopped] smsInboxService
+[stopped] tools
+[stopped] voiceCallService
+[stopped] wifi
+[stopped] wifiApTest
+[stopped] wifiClientTest
+[running] wifiService
+[stopped] wifiWebAp
+[running] helloWorld
+[running] gpioExpanderService
+[stopped] gpioExpanderDemo
+[stopped] helloLegato
+[running] test1
+[running] muxCtrlService
+[stopped] bluetoothUtil
+root@swi-mdm9x15:~# 
+</code></pre>
+<p><strong>However, this is the readlog -f transcript when I try load bluetoothUtils.wp85.update</strong></p>
+<pre><code>root@swi-mdm9x15:~# logread -f
+Jan  8 01:52:45 swi-mdm9x15 authpriv.info dropbear[31358]: Child connection from 10.0.0.9:45756
+Jan  8 01:52:45 swi-mdm9x15 authpriv.notice dropbear[31358]: Auth succeeded with blank password for 'root' from 10.0.0.9:45756
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateDaemon.c le_update_Start() 1370 | Update request accepted.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 08813ad00a3eda306b5aa906c397419d is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum d7044b3bb5064af9c5f1dcaece0cd37a is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 07dc445cd0f703baac0017b597e418fa is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 48b5a090bd8df1186937b14dfb3ccae6 is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 28a36c0ada2f42a16543ae40c660bae5 is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum cd46bf93ba4cebdae5ae6c888c36af40 is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 9be3c15faf896c1e2e1f3f24e893a007 is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum e5038c3a55b418aa37dfa667e6b9d09c is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 43d25d813b1d90dc2bfa9e439ffbe67a is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 3a648f61e4459f029728d1111ef53fcd is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 2efd76d8ddda4140b7349fb77da65eb8 is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 68a95a5e93e341505ec93f3464f0d093 is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 8585c428116657cf931d1d9cedbcc03b is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum ae47bad71d944a4354c6ca22f742f2f4 is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum bf464103f7c2b381e4ff46db000c12d2 is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 7f98a8a0420a1e83257e15bcacc4c310 is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum f49369d9ba0ea6c3ddaf576f5c89c959 is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 109c4ee65681dccab3d2971cf0111984 is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 5575211fe1497c43c89c74fd7de1387c is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 168e19708740cad417030557616cf1af is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum bb0e170a80795ea47219c7fd6fe89534 is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 3f7e6ceb57b085146bd2fb4aecee7240 is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 81db874155b7352480ffabaae6079848 is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 8b171c3e33882eeadda2795b115cd20a is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 92b498fec966af743949b8af1c08a1ea is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum f31ae03a01d97483318755efc93c29cf is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_RemoveUnusedApps() 948 | App with MD5 sum 1c86e01145007929cb8cd95ffc410323 is still needed.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c JsonDone() 899 | App with MD5 sum cd46bf93ba4cebdae5ae6c888c36af40 already exists on target. Skipping.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 135045/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 147333/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 159621/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 163717/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 171909/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 184197/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 196485/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 208773/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 221061/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 233349/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 245637/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 257925/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 262021/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 270213/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 282501/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 294789/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 311173/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 319365/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 327557/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 343941/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 352133/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 360325/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 368517/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 384901/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 393093/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 417669/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 425861/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 442245/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 450437/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 466821/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 475013/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 491397/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 499589/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 507781/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 515973/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 532357/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 540549/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 565125/578810
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateUnpack.c DiscardPayloadBytes() 626 | Payload discarded: 578810/578810
+Jan  8 01:52:46 swi-mdm9x15 user.warn Legato: -WRN- | updateDaemon[1164]/updateDaemon T=main | system.c system_Snapshot() 707 | System has not yet passed probation, no snapshot taken.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | system.c system_SymlinkApp() 547 | Creating symlink /legato/systems/current/apps/bluetoothUtil -&gt; /legato/apps/cd46bf93ba4cebdae5ae6c888c36af40
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/appUser T=main | appUser.c appUser_Add() 43 | Creating user 'appbluetoothUtil' for application 'bluetoothUtil'.
+Jan  8 01:52:46 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/framework T=main | LE_FILENAME user_Create() 1119 | Created user 'appbluetoothUtil' with uid 1022 and gid 1022.
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/framework T=main | LE_FILENAME sysStatus_MarkTried() 261 | Current system has been marked "tried 1".
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | supCtrl.c supCtrl_StartApp() 59 | Starting app 'bluetoothUtil'.
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | app.c CreateFileLink() 1457 | Created file link '/legato/systems/current/apps/bluetoothUtil/read-only/bin/gatttool' to '/legato/systems/current/appsWriteable/bluetoothUtil/bin/gattto
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2105 | Creating asset instance for lwm2m/9
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | app.c CreateFileLink() 1457 | Created file link '/legato/systems/current/apps/bluetoothUtil/read-only/bin/bt-init.sh' to '/legato/systems/current/appsWriteable/bluetoothUtil/bin/bt-i
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | lwm2m.c AssetActionHandler() 708 | /lwm2m/9/8 created.
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | app.c CreateFileLink() 1457 | Created file link '/legato/systems/current/apps/bluetoothUtil/read-only/bin/TIInit_11.8.32.bts' to '/legato/systems/current/appsWriteable/bluetoothUtil/
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2207 | Finished creating instance 8 for lwm2m/9
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | app.c CreateFileLink() 1457 | Created file link '/legato/systems/current/apps/bluetoothUtil/read-only/bin/hciattach' to '/legato/systems/current/appsWriteable/bluetoothUtil/bin/hciat
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | app.c CreateFileLink() 1457 | Created file link '/legato/systems/current/apps/bluetoothUtil/read-only/bin/hciconfig' to '/legato/systems/current/appsWriteable/bluetoothUtil/bin/hcico
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | app.c CreateFileLink() 1457 | Created file link '/legato/systems/current/apps/bluetoothUtil/read-only/bin/hcitool' to '/legato/systems/current/appsWriteable/bluetoothUtil/bin/hcitool
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 102400.
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 102400.
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | proc.c proc_Start() 1133 | Starting process 'bt-init.sh' with pid 31373
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | app.c app_InstallIndividual() 662 | App bluetoothUtil &lt;cd46bf93ba4cebdae5ae6c888c36af40&gt; installed
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateDaemon.c ApplyAppUpdate() 656 | App 'bluetoothUtil&lt;cd46bf93ba4cebdae5ae6c888c36af40&gt;' installed properly.
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | updateDaemon[1164]/updateDaemon T=main | updateDaemon.c StartProbation() 182 | System on probation (timer started).
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | supervisor[31373]/supervisor T=main | proc.c proc_Start() 1101 | Execing 'bt-init.sh'
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | bt-init.sh[31373] | PWD is: /legato/systems/current/appsWriteable/bluetoothUtil
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2105 | Creating asset instance for bluetoothUtil/0
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | lwm2m.c AssetActionHandler() 708 | /bluetoothUtil/0/0 created.
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2207 | Finished creating instance 0 for bluetoothUtil/0
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2105 | Creating asset instance for bluetoothUtil/1
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | lwm2m.c AssetActionHandler() 708 | /bluetoothUtil/1/0 created.
+Jan  8 01:52:47 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | assetData.c assetData_CreateInstanceById() 2207 | Finished creating instance 0 for bluetoothUtil/1
+Jan  8 01:52:47 swi-mdm9x15 user.warn Legato: -WRN- | avcDaemon[1172]/appCfg T=main | appCfg.c appCfg_GetProcFaultAction() 547 | Unrecognized fault action ''.  Defaulting to fault action 'ignore'.
+Jan  8 01:52:47 swi-mdm9x15 authpriv.info dropbear[31358]: Exit (root): Disconnect received
+Jan  8 01:52:49 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[31373] | modprobe: module bluetooth not found in modules.dep
+Jan  8 01:52:54 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[31373] | /legato/systems/current/apps/bluetoothUtil/read-only/bin/bt-init.sh: 
+Jan  8 01:52:54 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[31373] | line 27: 
+Jan  8 01:52:54 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[31373] | mux: not found
+Jan  8 01:52:54 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[31373] | 
+Jan  8 01:52:54 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[31373] | /legato/systems/current/apps/bluetoothUtil/read-only/bin/bt-init.sh: 
+Jan  8 01:52:54 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[31373] | line 28: 
+Jan  8 01:52:54 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[31373] | mux: not found
+Jan  8 01:52:54 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[31373] | 
+Jan  8 01:52:55 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[31373] | Can't open serial port: No such file or directory
+Jan  8 01:52:55 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[31373] | Can't initialize device: Invalid argument
+Jan  8 01:52:57 swi-mdm9x15 user.err Legato: =ERR= | bt-init.sh[31373] | Can't get device info: No such device
+Jan  8 01:52:57 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | proc.c proc_SigChildHandler() 1833 | Process 'bt-init.sh' (PID: 31373) has exited with exit code 1.
+Jan  8 01:52:57 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | proc.c GetFaultAction() 1634 | No fault action specified for process 'bt-init.sh'. Assuming 'ignore'.
+Jan  8 01:52:57 swi-mdm9x15 user.warn Legato: -WRN- | supervisor[1152]/supervisor T=main | app.c app_SigChildHandler() 3018 | Process 'bt-init.sh' in app 'bluetoothUtil' faulted: Ignored.
+Jan  8 01:52:57 swi-mdm9x15 user.info Legato:  INFO | supervisor[1152]/supervisor T=main | apps.c DeactivateAppContainer() 252 | Application 'bluetoothUtil' has stopped.
+Jan  8 01:53:02 swi-mdm9x15 user.info Legato:  INFO | avcDaemon[1172]/avcDaemon T=main | lwm2m.c RegUpdateTimerHandler() 671 | RegUpdate timer expired; reporting REG_UPDATE</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Jason.vanaardt'><span itemprop='name'>Jason.vanaardt</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-09-15T11:50:57Z' class='post-time'>
+                    September 15, 2016, 11:50am
+                  </time>
+                  <meta itemprop='dateModified' content='2016-09-15T11:50:57Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Ashish<br>
+<strong>And here is the output of dmesg</strong><br>
+It appears that the kernel supports bluetooth?</p>
+<pre><code>root@swi-mdm9x15:~# dmesg
+[    0.000000] Kernel is starting...
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Initializing cgroup subsys cpuacct
+[    0.000000] Linux version 3.14.29ltsi-c14b887744_0c284d02b3 (jason@Ubuntu-iMac) (gcc version 4.9.1 (GCC) ) #4 PREEMPT Tue Sep 13 09:15:32 SAST 2016
+[    0.000000] CPU: ARMv7 Processor [410fc051] revision 1 (ARMv7), cr=10c5387d
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[    0.000000] Machine model: QCT MSM9615 CDP
+[    0.000000] memory pool 3 (start 4ff00000 size 100000) initialized
+[    0.000000] Memory policy: Data cache writeback
+[    0.000000] L310 cache controller enabled
+[    0.000000] l2x0: 8 ways, CACHE_ID 0x410000c8, AUX_CTRL 0x00540000, Cache size: 262144 B
+[    0.000000] socinfo_init: v7, id=106, ver=3.0, raw_id=1760, raw_ver=1760, hw_plat=0, hw_plat_ver=65536
+[    0.000000]  accessory_chip=0, hw_plat_subtype=0, pmic_model=19, pmic_die_revision=3
+[    0.000000] On node 0 totalpages: 41216
+[    0.000000] free_area_init_node: node 0, pgdat c0aec100, node_mem_map cf507000
+[    0.000000]   Normal zone: 496 pages used for memmap
+[    0.000000]   Normal zone: 0 pages reserved
+[    0.000000]   Normal zone: 41216 pages, LIFO batch:7
+[    0.000000] CPU: All CPU(s) started in SVC mode.
+[    0.000000] pcpu-alloc: s0 r0 d32768 u32768 alloc=1*32768
+[    0.000000] pcpu-alloc: [0] 0 
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 40720
+[    0.000000] Kernel command line:  console=ttyHSL0,115200 console=ttyHSL1,115200 fudge_ro_rootfs=true rootfs_ro=true mtdparts=msm_nand:0x00100000@0x051c0000(bootloader),0x01400000(kernel),0x03140000(rootfs),0x02780000(user0),0x08b80000(user1),0x00500000(user2),0x00200000(user3) androidboot.serialno=MDM9615 lkversion=1.3.0_a50272dbb2 androidboot.baseband=msm
+[    0.000000] PID hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.000000] Dentry cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    0.000000] Inode-cache hash table entries: 16384 (order: 4, 65536 bytes)
+[    0.000000] allocated 507904 bytes of page_cgroup
+[    0.000000] please try 'cgroup_disable=memory' option if you don't want memory cgroups
+[    0.000000] Memory: 150196K/164864K available (6998K kernel code, 650K rwdata, 2276K rodata, 1368K init, 1267K bss, 14668K reserved, 0K highmem)
+[    0.000000] Virtual kernel memory layout:
+[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
+[    0.000000]     fixmap  : 0xfff00000 - 0xfffe0000   ( 896 kB)
+[    0.000000]     vmalloc : 0xd0000000 - 0xff000000   ( 752 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xcf800000   ( 248 MB)
+[    0.000000]     pkmap   : 0xbfe00000 - 0xc0000000   (   2 MB)
+[    0.000000]     modules : 0xbf000000 - 0xbfe00000   (  14 MB)
+[    0.000000]       .text : 0xc0008000 - 0xc0916cec   (9276 kB)
+[    0.000000]       .init : 0xc0917000 - 0xc0a6d344   (1369 kB)
+[    0.000000]       .data : 0xc0a6e000 - 0xc0b1087c   ( 651 kB)
+[    0.000000]        .bss : 0xc0b1087c - 0xc0c4d530   (1268 kB)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] Preemptible hierarchical RCU implementation.
+[    0.000000] NR_IRQS:681
+[    0.000030] sched_clock: 32 bits at 32kHz, resolution 30520ns, wraps every 65542000541696ns
+[    0.000610] Console: colour dummy device 80x30
+[    0.000701] Calibrating delay loop... 366.18 BogoMIPS (lpj=1830912)
+[    0.060491] pid_max: default: 32768 minimum: 301
+[    0.060979] Security Framework initialized
+[    0.061040] Smack:  Initializing.
+[    0.061468] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.061498] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.063268] Initializing cgroup subsys debug
+[    0.063299] Initializing cgroup subsys memory
+[    0.063360] Initializing cgroup subsys devices
+[    0.063390] Initializing cgroup subsys freezer
+[    0.063421] Initializing cgroup subsys net_cls
+[    0.063421] Initializing cgroup subsys blkio
+[    0.063512] CPU: Testing write buffer coherency: ok
+[    0.063604] ftrace: allocating 23452 entries in 69 pages
+[    0.147688] Setting up static identity map for 0x40e55c00 - 0x40e55c58
+[    0.171432] devtmpfs: initialized
+[    0.180985] VFP support v0.3: implementor 41 architecture 2 part 30 variant 5 rev 1
+[    0.183641] regulator-dummy: no parameters
+[    0.184251] NET: Registered protocol family 16
+[    0.185411] DMA: preallocated 256 KiB pool for atomic coherent allocations
+[    0.185685] AXI: msm_bus_fabric_init_driver(): msm_bus_fabric_init_driver
+[    0.185777] gpiochip_add: registered GPIOs 0 to 87 on device: msmgpio
+[    0.186296] -&gt;gpioRI = 0
+[    0.186326] -&gt;gpio16 = 0
+[    0.187211] msm_serial_hsl_init: driver initialized
+[    0.187974] cpuidle: using governor ladder
+[    0.188005] cpuidle: using governor menu
+[    0.188737] msm_rpm_init: RPM firmware 3.0.16842958
+[    0.188982] gpio_cf3_low_power_reset_toggle: Setting up LowPower_RESET pin toggle timer
+[    0.189012] unmatched machine ID in register_i2c_devices
+[    0.189043] wl18xx board initialization done
+[    0.189562] 8018_s1: 500 &lt;--&gt; 1150 mV at 1150 mV normal idle 
+[    0.189989] 8018_s2: 1225 &lt;--&gt; 1300 mV at 1300 mV normal idle 
+[    0.190874] 8018_s3: 1800 mV normal idle 
+[    0.191423] 8018_s4: 2100 &lt;--&gt; 2200 mV at 2200 mV normal idle 
+[    0.192247] 8018_s5: 1350 mV normal idle 
+[    0.193132] 8018_l2: 1800 mV normal idle 
+[    0.194018] 8018_l3: 1800 mV normal idle 
+[    0.194445] 8018_l4: 3300 mV normal idle 
+[    0.194842] 8018_l5: 2850 mV normal idle 
+[    0.195238] 8018_l6: 1800 &lt;--&gt; 2850 mV at 2850 mV normal idle 
+[    0.195635] 8018_l7: 1850 &lt;--&gt; 1900 mV at 1900 mV normal idle 
+[    0.195727] 8018_l7: supplied by 8018_s4
+[    0.196123] 8018_l8: 1200 mV normal idle 
+[    0.196215] 8018_l8: supplied by 8018_s3
+[    0.196612] 8018_l9: 750 &lt;--&gt; 1150 mV at 1150 mV normal idle 
+[    0.196703] 8018_l9: supplied by 8018_s5
+[    0.197100] 8018_l10: 1050 mV normal idle 
+[    0.197222] 8018_l10: supplied by 8018_s5
+[    0.197619] 8018_l11: 1050 mV normal idle 
+[    0.197741] 8018_l11: supplied by 8018_s5
+[    0.198168] 8018_l12: 1050 mV normal idle 
+[    0.198260] 8018_l12: supplied by 8018_s5
+[    0.198657] 8018_l13: 1850 &lt;--&gt; 2950 mV at 2950 mV normal idle 
+[    0.199084] 8018_l14: 2850 mV normal idle 
+[    0.199450] 8018_lvs1: no parameters
+[    0.199511] 8018_lvs1: supplied by 8018_s3
+[    0.199908] vdd_dig_corner: 0 &lt;--&gt; 0 mV at 0 mV 
+[    0.207202] ext_2p95v: no parameters
+[    0.207355] gpio_vreg_probe: id=18, name=ext_2p95v, gpio=18, gpio_label=ext_2p95_en
+[    0.207965] pm8018_probe: PMIC revision 1: F3
+[    0.207965] pm8018_probe: PMIC revision 2: 08
+[    0.207996] pm8018_probe: PMIC version: PM8018 rev 2.1
+[    0.208026] pm8018_probe: PMIC Restart Reason: Triggered from KPD (power key press)
+[    0.209400] gpiochip_add: registered GPIOs 88 to 93 on device: pm-gpio
+[    0.209491] pm_gpio_probe: OK: base=88, ngpio=6
+[    0.210010] gpiochip_add: registered GPIOs 94 to 99 on device: pm8xxx-mpp
+[    0.210041] pm8xxx_mpp_probe: OK: base=94, ngpio=6
+[    0.212177] msm_serial_hsl_probe: ttyHSL0 is disabled.
+[    0.212208] msm_serial_hsl: probe of msm_serial_hsl.0 failed with error -1
+[    0.212665] msm_serial_hsl_probe: ttyHSL1 is reserved for CONSOLE service.
+[    0.212696] msm_serial_hsl_probe: detected port #1 (ttyHSL1)
+[    0.212971] msm_serial_hsl.1: ttyHSL1 at MMIO 0x16440000 (irq = 186, base_baud = 460800) is a MSM
+[    0.213093] msm_hsl_console_setup: console setup on port #1
+[    0.316801] gpio_cf3_low_power_reset_timer_callback: LowPower_RESET pin toggled high
+[    0.316801] gpio_cf3_low_power_reset_timer_callback: LowPower_RESET pin toggle timer deleted
+[    0.842484] console [ttyHSL1] enabled
+[    0.857866] cpufreq_table_init: CPU: 4 scaling frequencies supported.
+[    0.863848] hw-breakpoint: Debug register access (0xee003e17) caused undefined instruction on CPU 0
+[    0.872302] hw-breakpoint: CPU 0 failed to disable vector catch
+[    0.878864] socinfo_init_dev: device_register fail (-22)
+[    0.886097] sps:REVISION of BAM 0xd0060000 is 0x5.
+[    0.890096] sps:BAM 0x12244000 is registered.
+[    0.894430] sps:sps is ready.&lt;6&gt;[    0.934289] bio: create slab &lt;bio-0&gt; at 0
+[    0.939081] ION heap vmalloc created
+[    0.941736] ION heap iommu created
+[    0.945032] ION heap audio created at 4ff01000 with size af000
+[    0.951472] pm8xxx_pwm_probe: OK
+[    0.954219] swimcu_i2c_init: start
+[    0.957515] swimcu_i2c_probe: start 1
+[    0.961086] swimcu_device_init: start 0x0
+[    0.965084] register_sierra_gpio_wake_notifier
+[    1.011445] swimcu_gpio_retrieve 0
+[    1.014069] swimcu_pm_sysfs_init: success func 1
+[    1.018770] swimcu_pm_sysfs_init: success func 2
+[    1.023775] gpiochip_add: registered GPIOs 100 to 107 on device: swimcu
+[    1.028506] swimcu_device_init: start 0x3f
+[    1.037509] swimcu_device_init: success
+[    1.054295] swimcu_set_fault_mask: 0x100, cnt 1
+[    1.057805] swimcu reset_recovery: complete
+[    1.061986] swimcu_set_reset_source: 0x82
+[    1.065954] swimcu_device_init: success
+[    1.069952] GPIOs are not in Slimbus mode
+[    1.073828] msm_slim_ctrl: probe of msm_slim_ctrl.1 failed with error -5
+[    1.081153] usbcore: registered new interface driver usbfs
+[    1.086097] usbcore: registered new interface driver hub
+[    1.091469] usbcore: registered new device driver usb
+[    1.097146] Advanced Linux Sound Architecture Driver Initialized.</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Jason.vanaardt'><span itemprop='name'>Jason.vanaardt</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-09-15T11:52:18Z' class='post-time'>
+                    September 15, 2016, 11:52am
+                  </time>
+                  <meta itemprop='dateModified' content='2016-09-15T11:52:18Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>[    1.103464] Bluetooth: Core ver 2.18<br>
+[    1.106119] NET: Registered protocol family 31<br>
+[    1.110514] Bluetooth: HCI device and connection manager initialized<br>
+[    1.116801] Bluetooth: HCI socket layer initialized<br>
+[    1.121684] Bluetooth: L2CAP socket layer initialized<br>
+[    1.126781] Bluetooth: SCO socket layer initialized<br>
+[    1.131542] NetLabel: Initializing<br>
+[    1.134961] NetLabel:  domain hash size = 128<br>
+[    1.139264] NetLabel:  protocols = UNLABELED CIPSOv4<br>
+[    1.144330] NetLabel:  unlabeled traffic allowed by default<br>
+[    1.150892] Switched to clocksource gp_timer<br>
+[    1.217579] NET: Registered protocol family 2<br>
+[    1.222951] TCP established hash table entries: 2048 (order: 1, 8192 bytes)<br>
+[    1.228933] TCP bind hash table entries: 2048 (order: 1, 8192 bytes)<br>
+[    1.235342] TCP: Hash tables configured (established 2048 bind 2048)<br>
+[    1.241690] TCP: reno registered<br>
+[    1.244803] UDP hash table entries: 256 (order: 0, 4096 bytes)<br>
+[    1.250633] UDP-Lite hash table entries: 256 (order: 0, 4096 bytes)<br>
+[    1.417884] smem_find(9, 464): wrong size 912<br>
+[    1.421364] Notify: smsm init<br>
+[    1.424294] get_nand_partitions: no flash partition table in shared memory<br>
+[    1.443308] NET: Registered protocol family 27<br>
+[    1.447947] apr_tal:Q6 Is Up<br>
+[    1.450083] apr_tal:Modem Is Up<br>
+[    1.455791] modem_8960_init: modem fatal driver init’ed.<br>
+[    1.460521] lpass_fatal_init: lpass SSR driver init’ed.<br>
+[    1.465954] msm_rpm_log_probe: OK<br>
+[    1.470990] futex hash table entries: 256 (order: -1, 3072 bytes)<br>
+[    1.669525] VFS: Disk quotas dquot_6.5.2<br>
+[    1.673004] Dquot-cache hash table entries: 1024 (order 0, 4096 bytes)<br>
+[    1.683717] squashfs: version 4.0 (2009/01/31) Phillip Lougher<br>
+[    1.690614] aufs 3.14-20140915<br>
+[    1.692720] msgmni has been set to 293<br>
+[    1.700595] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 248)<br>
+[    1.707157] io scheduler noop registered<br>
+[    1.710880] io scheduler deadline registered<br>
+[    1.715641] io scheduler cfq registered (default)<br>
+[    1.720006] wake-n_gpio wake-n_gpio: wake_n probe<br>
+[    1.724889] gpio_check_and_wake: wake-n_gpio77 STATE=SLEEP<br>
+[    1.873767] msm_serial: driver initialized<br>
+[    1.877033] ttyHS0, function 0 is not valid on application processor.<br>
+[    1.883351] msm_serial_hs: probe of msm_serial_hs.0 failed with error -1<br>
+[    1.890096] msm_serial_hs module loaded<br>
+[    1.894185] msm_rng: probe of msm_rng.0 failed with error -2<br>
+[    1.911002] diag: In diag_smd_cntl_send_req, proc=0, Nothing to read from SMD<br>
+[    1.918174] diagchar initialized now<br>
+[    1.922630] diag: In diag_smd_cntl_send_req, proc=0, Nothing to read from SMD<br>
+[    1.928948] diag: In diag_smd_cntl_send_req, proc=0, Nothing to read from SMD<br>
+[    1.962154] diag: In diag_smd_cntl_send_req, proc=0, Nothing to read from SMD<br>
+[    1.968319] diag: In diag_smd_cntl_send_req, proc=0, Nothing to read from SMD<br>
+[    1.976102] brd: module loaded<br>
+[    1.978422] wm8944_i2c_init<br>
+[    1.978513] wm8944_i2c_probe<br>
+[    1.978635] wm8944_device_init START<br>
+[    1.981565] wm8944 0-001a: revision A not fully supported<br>
+[    1.985960] wm8944 0-001a: WM8944 revision A<br>
+[    2.002655] diag: Invalid Msg type 12 proc 2<br>
+[    2.012513] wm8944_device_init OK<br>
+[    2.012849] i2c-core: driver [tabla-i2c-core] using legacy suspend method<br>
+[    2.018617] i2c-core: driver [tabla-i2c-core] using legacy resume method<br>
+[    2.027224] msm_nand_init: Enabling failed write checking<br>
+[    2.031802] msm_nand_probe: phys addr 0x1b400000<br>
+[    2.036349] msm_nand_probe: dmac 0x3<br>
+[    2.039920] msm_nand_probe: allocated dma buffer at d0065000, dma_addr 4f0cc000<br>
+[    2.047184] flash_onfi_probe: No partition info available<br>
+[    2.053197] status: c03020<br>
+[    2.055211] nandid: 1590ac2c maker 2c device ac<br>
+[    2.059728] Setting mtd-&gt;writebufsize to 0x800<br>
+[    2.064214] Found a supported NAND device<br>
+[    2.068151] NAND Controller ID : 0x4030<br>
+[    2.071997] NAND Device ID  : 0x1590ac2c<br>
+[    2.075873] Buswidth : 8 Bits<br>
+[    2.078834] Density  : 512 MByte<br>
+[    2.082069] Pagesize : 2048 Bytes<br>
+[    2.085334] Erasesize: 131072 Bytes<br>
+[    2.088814] Oobsize  : 64 Bytes<br>
+[    2.091957] CFG0 Init  : 0xa8d408c0<br>
+[    2.095406] CFG1 Init  : 0x0004745c<br>
+[    2.098886] ECCBUFCFG  : 0x00000203<br>
+[    2.102365] CW size    : 528 bytes<br>
+[    2.105722] BCH ECC    : disabled<br>
+[    2.109079] 7 cmdlinepart partitions found on MTD device msm_nand<br>
+[    2.115153] Creating 7 MTD partitions on “msm_nand”:<br>
+[    2.120067] 0x0000051c0000-0x0000052c0000 : “bootloader”<br>
+[    2.128521] 0x0000052c0000-0x0000066c0000 : “kernel”<br>
+[    2.149671] 0x0000066c0000-0x000009800000 : “rootfs”<br>
+[    2.192980] 0x000009800000-0x00000bf80000 : “user0”<br>
+[    2.228750] 0x00000bf80000-0x000014b00000 : “user1”<br>
+[    2.341095] 0x000014b00000-0x000015000000 : “user2”<br>
+[    2.350923] 0x000015000000-0x000015200000 : “user3”<br>
+[    2.359652] spi_qsd spi_qsd.0: master is unqueued, this is deprecated<br>
+[    2.365878] rmnet_init: BAM devices[8]<br>
+[    2.378971] usbcore: registered new interface driver kaweth<br>
+[    2.383580] pegasus: v0.9.3 (2013/04/25), Pegasus/Pegasus II USB Ethernet driver<br>
+[    2.391057] usbcore: registered new interface driver pegasus<br>
+[    2.396642] usbcore: registered new interface driver rtl8150<br>
+[    2.402350] usbcore: registered new interface driver asix<br>
+[    2.407660] usbcore: registered new interface driver cdc_ether<br>
+[    2.413520] usbcore: registered new interface driver dm9601<br>
+[    2.419075] usbcore: registered new interface driver smsc75xx<br>
+[    2.424813] usbcore: registered new interface driver smsc95xx<br>
+[    2.430489] usbcore: registered new interface driver net1080<br>
+[    2.436166] usbcore: registered new interface driver cdc_subset<br>
+[    2.442057] usbcore: registered new interface driver zaurus<br>
+[    2.447581] usbcore: registered new interface driver MOSCHIP usb-ethernet driver<br>
+[    2.455058] usbcore: registered new interface driver int51x1<br>
+[    2.460643] usbcore: registered new interface driver cdc_ncm<br>
+[    2.466168] ehci_hcd: USB 2.0 ‘Enhanced’ Host Controller (EHCI) Driver<br>
+[    2.486586] msm_hsusb_host msm_hsusb_host: unable to find transceiver<br>
+[    2.505447] platform msm_hsusb_host: Driver msm_hsusb_host requests probe deferral<br>
+[    2.525286] msm_hsic_host msm_hsic_host: Qualcomm EHCI Host Controller using HSIC<br>
+[    2.531939] msm_hsic_host msm_hsic_host: new USB bus registered, assigned bus number 1<br>
+[    2.561025] msm_hsic_host msm_hsic_host: irq 264, io mem 0x12540000<br>
+[    2.580955] msm_hsic_host msm_hsic_host: USB 2.0 started, EHCI 1.00<br>
+[    2.588554] hub 1-0:1.0: USB hub found<br>
+[    2.591454] hub 1-0:1.0: 1 port detected<br>
+[    2.597039] usbcore: registered new interface driver cdc_acm<br>
+[    2.601770] cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters<br>
+[    2.609949] usbcore: registered new interface driver usbserial<br>
+[    2.615656] usbcore: registered new interface driver ftdi_sio<br>
+[    2.621333] usbserial: USB Serial support registered for FTDI USB Serial Device<br>
+[    2.628719] usbcore: registered new interface driver option<br>
+[    2.634182] usbserial: USB Serial support registered for GSM modem (1-port)<br>
+[    2.641294] usbcore: registered new interface driver qcserial<br>
+[    2.646787] usbserial: USB Serial support registered for Qualcomm USB modem<br>
+[    2.653807] usbcore: registered new interface driver sierra<br>
+[    2.659301] usbserial: USB Serial support registered for Sierra USB modem<br>
+[    2.666137] usbcore: registered new interface driver GobiSerial<br>
+[    2.671997] usbserial: USB Serial support registered for GobiSerial<br>
+[    2.678254] usbcore: registered new interface driver usb_ehset_test<br>
+[    2.684510] msm_otg msm_otg: msm_otg probe<br>
+[    2.688509] msm_otg msm_otg: failed to get phy_clk<br>
+[    2.693636] msm_otg msm_otg: OTG regs = d006e000<br>
+[    2.700595] misc usb_link: registered misc device minor 47<br>
+[    2.706332] msm_hsusb msm_hsusb: ci_hdrc_msm_probe<br>
+[    2.706851] ci_hdrc ci_hdrc.0: ChipIdea HDRC found, lpm: 0; cap: d0070100 op: d0070140<br>
+[    2.709232] mbim_init: initialize 1 instances<br>
+[    2.713016] mbim_init: Initialized 1 ports<br>
+[    2.722142] rndis_qc_init: initialize rndis QC instance<br>
+[    2.727819] android_usb gadget: android_usb ready<br>
+[    2.733007] input: pmic8xxx_pwrkey as /devices/platform/msm_ssbi.0/pm8018-core/pm8xxx-pwrkey/input/input0<br>
+[    2.744147] rtc-pm8xxx rtc-pm8xxx: rtc core: registered pm8xxx_rtc as rtc0<br>
+[    2.750312] i2c /dev entries driver<br>
+[    2.755074] pm8xxx-adc supply pa_therm not found, using dummy regulator<br>
+[    2.761208] swimcu_hwmon_probe: start<br>
+[    2.764596] swimcu_hwmon_probe: success num 2<br>
+[    2.793193] pm8xxx_tm_probe: OK<br>
+[    2.796154] usbcore: registered new interface driver usbhid<br>
+[    2.800885] usbhid: USB HID core driver<br>
+[    2.806195] usbcore: registered new interface driver snd-usb-audio<br>
+[    2.813520] voice_allocate_shared_memory: ION memory allocation failed<br>
+[    2.819410] msm_pcm_probe: dev name msm-voip-dsp<br>
+[    2.824233] msm_pcm_probe: dev name msm-host-pcm-voice<br>
+[    2.830032] msm_pcm_probe: dev name msm-pcm-dsp<br>
+[    2.833877] msm_pcm_probe: dev name msm-multi-ch-pcm-dsp<br>
+[    2.840439] mdm9615_audio_init(): Interface Type (wm8944) = 1<br>
+[    2.846879] mdm9615_audio_init - AR8, AR755xRD and CF3 configuration<br>
+[    2.852617] soc-audio soc-audio.0: ASoC: machine mdm9615-wm8944-snd-card should use snd_soc_register_card()<br>
+[    2.880878] soc-audio soc-audio.0: snd-soc-dummy-dai &lt;-&gt; MultiMedia1 mapping ok<br>
+[    2.887685] soc-audio soc-audio.0: snd-soc-dummy-dai &lt;-&gt; MultiMedia2 mapping ok<br>
+[    2.894887] soc-audio soc-audio.0: snd-soc-dummy-dai &lt;-&gt; CS-VOICE mapping ok<br>
+[    2.902151] soc-audio soc-audio.0: snd-soc-dummy-dai &lt;-&gt; VoIP mapping ok<br>
+[    2.908469] soc-audio soc-audio.0: msm-stub-rx &lt;-&gt; msm-dai-q6.241 mapping ok<br>
+[    2.915519] soc-audio soc-audio.0: msm-stub-tx &lt;-&gt; msm-dai-q6.240 mapping ok<br>
+[    2.922630] soc-audio soc-audio.0: snd-soc-dummy-dai &lt;-&gt; SLIMBUS0_HOSTLESS mapping ok<br>
+[    2.930413] soc-audio soc-audio.0: snd-soc-dummy-dai &lt;-&gt; AUXPCM_HOSTLESS mapping ok<br>
+[    2.938135] soc-audio soc-audio.0: snd-soc-dummy-dai &lt;-&gt; VoLTE mapping ok<br>
+[    2.944880] soc-audio soc-audio.0: snd-soc-dummy-dai &lt;-&gt; DTMF_RX_HOSTLESS mapping ok<br>
+[    2.952479] soc-audio soc-audio.0: msm-stub-tx &lt;-&gt; msm-dai-stub mapping ok<br>
+[    2.959285] msm_asoc_pcm_new:<br>
+[    2.959316] soc-audio soc-audio.0: msm-stub-tx &lt;-&gt; msm-dai-stub mapping ok<br>
+[    2.966091] usb 1-1: new high-speed USB device number 2 using msm_hsic_host<br>
+[    2.973172] msm_asoc_pcm_new:<br>
+[    2.973203] soc-audio soc-audio.0: msm-stub-rx &lt;-&gt; msm-dai-stub mapping ok<br>
+[    2.979948] msm_asoc_pcm_new:<br>
+[    2.979978] soc-audio soc-audio.0: msm-stub-tx &lt;-&gt; msm-dai-stub mapping ok<br>
+[    2.987120] msm_asoc_pcm_new:<br>
+[    2.987150] soc-audio soc-audio.0: msm-stub-rx &lt;-&gt; msm-dai-stub mapping ok<br>
+[    2.993682] soc-audio soc-audio.0: msm-stub-rx &lt;-&gt; msm-dai-q6.224 mapping ok<br>
+[    3.000640] soc-audio soc-audio.0: msm-stub-tx &lt;-&gt; msm-dai-q6.225 mapping ok<br>
+[    3.007691] soc-audio soc-audio.0: msm-stub-rx &lt;-&gt; msm-dai-q6.32773 mapping ok<br>
+[    3.015107] soc-audio soc-audio.0: msm-stub-tx &lt;-&gt; msm-dai-q6.32772 mapping ok<br>
+[    3.022401] soc-audio soc-audio.0: msm-stub-tx &lt;-&gt; msm-dai-q6.32771 mapping ok<br>
+[    3.030672] hub 1-1:1.0: USB hub found<br>
+[    3.033633] soc-audio soc-audio.0: msm-stub-rx &lt;-&gt; msm-dai-q6.2 mapping ok<br>
+[    3.040470] soc-audio soc-audio.0: msm-stub-tx &lt;-&gt; msm-dai-q6.3 mapping ok<br>
+[    3.047398] hub 1-1:1.0: 3 ports detected<br>
+[    3.052708] soc-audio soc-audio.0: wm8944-hifi &lt;-&gt; msm-dai-q6.0 mapping ok<br>
+[    3.058782] soc-audio soc-audio.0: wm8944-hifi &lt;-&gt; msm-dai-q6.1 mapping ok<br>
+[    3.082679] TCP: cubic registered<br>
+[    3.084968] NET: Registered protocol family 17<br>
+[    3.090096] Registering SWP/SWPB emulation handler<br>
+[    3.101236] clock_late_init() disabled 39 unused clocks<br>
+[    3.107981] sps:BAM 0x124c2000 is registered.<br>
+[    3.117045] no pmic restart interrupt specified<br>
+[    3.120860] MSM Watchdog Initialized<br>
+[    3.127941] ext_2p95v: disabling<br>
+[    3.130230] regulator-dummy: disabling<br>
+[    3.147840] msm_otg msm_otg: phy_reset: success<br>
+[    3.152662] rtc-pm8xxx rtc-pm8xxx: setting system clock to 1970-01-02 07:00:04 UTC (111604)<br>
+[    3.159987] ### dt-test ### No testcase data in device tree; not running tests<br>
+[    3.180192] ALSA device list:<br>
+[    3.184343]   <span class="hashtag">#0:</span> mdm9615-wm8944-snd-card<br>
+[    3.198199] Freeing unused kernel memory: 1368K (c0917000 - c0a6d000)<br>
+[    3.409705] msm_otg msm_otg: OTG state changed, charger_type NOT changed<br>
+[    3.421913] ubi0: attaching mtd2<br>
+[    3.601281] usb 1-1.1: new full-speed USB device number 3 using msm_hsic_host<br>
+[    3.654051] ftdi_sio 1-1.1:1.0: FTDI USB Serial Device converter detected<br>
+[    3.660125] usb 1-1.1: Detected FT-X<br>
+[    3.663482] usb 1-1.1: Number of endpoints 2<br>
+[    3.667755] usb 1-1.1: Endpoint 1 MaxPacketSize 64<br>
+[    3.672760] usb 1-1.1: Endpoint 2 MaxPacketSize 64<br>
+[    3.677216] usb 1-1.1: Setting MaxPacketSize 64<br>
+[    3.683595] usb 1-1.1: FTDI USB Serial Device converter now attached to ttyUSB0<br>
+[    3.768045] ubi0: scanning is finished<br>
+[    3.771280] usb 1-1.3: new high-speed USB device number 4 using msm_hsic_host<br>
+[    3.785685] ubi0 warning: print_rsvd_warning: cannot reserve enough PEBs for bad PEB handling, reserved 58, need 80<br>
+[    3.797192] ubi0: attached mtd2 (name “rootfs”, size 49 MiB)<br>
+[    3.802044] ubi0: PEB size: 131072 bytes (128 KiB), LEB size: 126976 bytes<br>
+[    3.808820] ubi0: min./max. I/O unit sizes: 2048/2048, sub-page size 2048<br>
+[    3.815656] ubi0: VID header offset: 2048 (aligned 2048), data offset: 4096<br>
+[    3.822554] ubi0: good PEBs: 394, bad PEBs: 0, corrupted PEBs: 0<br>
+[    3.829391] ubi0: user volume: 2, internal volumes: 1, max. volumes count: 128<br>
+[    3.836166] hub 1-1.3:1.0: USB hub found<br>
+[    3.839584] ubi0: max/mean erase counter: 1/0, WL threshold: 4096, image sequence number: 1409485257<br>
+[    3.848710] hub 1-1.3:1.0: 5 ports detected<br>
+[    3.852830] ubi0: available PEBs: 0, total reserved PEBs: 394, PEBs reserved for bad PEB handling: 58<br>
+[    3.862108] ubi0: background thread “ubi_bgt0d” started, PID 79<br>
+[    3.902487] block ubiblock0_0: created from ubi0:0(rootfs)<br>
+[    4.081214] ci_hdrc ci_hdrc.0: CI_HDRC_CONTROLLER_RESET_EVENT received<br>
+[    4.087044] ci_hdrc ci_hdrc.0: Connected to host<br>
+[    4.087074] msm_otg msm_otg: OTG state changed, charger_type changed<br>
+[    4.152693] usb 1-1.3.1: new high-speed USB device number 5 using msm_hsic_host<br>
+[    4.209064] smsc95xx v1.0.4<br>
+[    4.312589] smsc95xx 1-1.3.1:1.0 eth0: register ‘smsc95xx’ at usb-msm_hsic_host-1.3.1, smsc95xx USB 2.0 Ethernet, de:db:2a:78:b2:71<br>
+[    5.573477] NET: Registered protocol family 1<br>
+[    5.882343] ubi2: attaching mtd4<br>
+[    6.449259] random: nonblocking pool is initialized<br>
+[    6.629757] ubi2: scanning is finished<br>
+[    6.632656] ubi2 error: ubi_read_volume_table: the layout volume was not found<br>
+[    6.640531] ubi2 error: ubi_attach_mtd_dev: failed to attach mtd4, error -22<br>
+[    6.739386] ubi2: attaching mtd4<br>
+[    7.482618] ubi2: scanning is finished<br>
+[    7.485457] ubi2 error: ubi_read_volume_table: the layout volume was not found<br>
+[    7.493453] ubi2 error: ubi_attach_mtd_dev: failed to attach mtd4, error -22<br>
+[    7.570883] yaffs: dev is 32505860 name is “mtdblock4” rw<br>
+[    7.575675] yaffs: passed flags “tags-ecc-off”<br>
+[    7.679963] ubi1: attaching mtd3<br>
+[    7.968655] ubi1: scanning is finished<br>
+[    8.001190] ubi1: attached mtd3 (name “user0”, size 39 MiB)<br>
+[    8.005737] ubi1: PEB size: 131072 bytes (128 KiB), LEB size: 126976 bytes<br>
+[    8.029696] ubi1: min./max. I/O unit sizes: 2048/2048, sub-page size 2048<br>
+[    8.036044] ubi1: VID header offset: 2048 (aligned 2048), data offset: 4096<br>
+[    8.042514] ubi1: good PEBs: 316, bad PEBs: 0, corrupted PEBs: 0<br>
+[    8.048405] ubi1: user volume: 1, internal volumes: 1, max. volumes count: 128<br>
+[    8.055852] ubi1: max/mean erase counter: 1/0, WL threshold: 4096, image sequence number: 292670867<br>
+[    8.064703] ubi1: available PEBs: 0, total reserved PEBs: 316, PEBs reserved for bad PEB handling: 80<br>
+[    8.073950] ubi1: background thread “ubi_bgt1d” started, PID 180<br>
+[    8.122112] block ubiblock1_0: created from ubi1:0(legato)<br>
+[    8.252769] yaffs: dev is 32505861 name is “mtdblock5” rw<br>
+[    8.257164] yaffs: passed flags “tags-ecc-off”<br>
+[    8.724797] SCSI subsystem initialized<br>
+[    8.931634] usbcore: registered new interface driver usb-storage<br>
+[    9.016786] mmc0: mci-version: 18<br>
+[    9.021150] mmc0: bam physical base=0x12182000<br>
+[    9.024568] mmc0: bam virtual base=0xd01fc000<br>
+[    9.028933] sps:BAM 0x12182000 is registered.<br>
+[    9.051091] mmc0: BAM device registered. bam_handle=0xce725200&lt;6&gt;[    9.056279] sps:REVISION of BAM 0xd01fc000 is 0x5.<br>
+[    9.063970] mmc0: Qualcomm MSM SDCC-BAM at 0x0000000012182000 irq 130<br>
+[    9.069433] mmc0: Qualcomm MSM SDCC-DML at 0x0000000012180800<br>
+[    9.075293] mmc0: No card detect facilities available<br>
+[    9.084571] mmc0: Qualcomm MSM SDCC-core at 0x0000000012180000 irq 136,0 dma -1 dmacrcri -1<br>
+[    9.101205] mmc0: 8 bit data mode disabled<br>
+[    9.104318] mmc0: 4 bit data mode enabled<br>
+[    9.120097] mmc0: polling status mode disabled<br>
+[    9.139447] mmc0: MMC clock 400000 -&gt; 48000000 Hz, PCLK 0 Hz<br>
+[    9.155623] mmc0: Slot eject status = 0<br>
+[    9.163497] mmc0: Power save feature enable = 1<br>
+[    9.172104] mmc0: SPS-BAM data transfer mode available<br>
+[    9.634030] sps:BAM 0x12502000 is registered.<br>
+[    9.637540] enable_store: android_usb: already disabled<br>
+[    9.817091] Match for Function Name: diag, Int <span class="hashtag">#0</span><br>
+[    9.861681] Match for Function Name: nmea, Int <span class="hashtag">#2</span><br>
+[    9.865405] Match for Function Name: modem, Int <span class="hashtag">#3</span><br>
+[    9.870166] Match for Function Name: at, Int <span class="hashtag">#4</span><br>
+[    9.931115] Match for Function Name: raw_data, Int <span class="hashtag">#5</span><br>
+[    9.954982] Match for Function Name: rmnet0, Int <span class="hashtag">#8</span><br>
+[    9.958889] frmnet_bind: RmNet(0) dual Speed, IN:ep8in OUT:ep6out<br>
+[    9.981260] Match for Function Name: rmnet1, Int <span class="hashtag">#10</span><br>
+[    9.985258] frmnet_bind: RmNet(1) dual Speed, IN:ep10in OUT:ep7out<br>
+[   10.015779] apr_tal: SMD_EVENT_OPEN<br>
+[   10.018556] Match for Function Name: audio, Int <span class="hashtag">#16</span><br>
+[   10.023470] Match for Function Name: audio, Int <span class="hashtag">#17</span><br>
+[   10.027987] Match for Function Name: audio, Int <span class="hashtag">#18</span><br>
+[   10.032962] ecm_native_function_bind_config: ecm_native_function_bind_config MAC: 00:00:00:00:00:00<br>
+[   10.042087] android_usb gadget: using random self ethernet address<br>
+[   10.061925] usb0: MAC da:6e:31:f0:12:ca<br>
+[   10.064764] usb0: HOST MAC 6e:b4:81:db:c1:81<br>
+[   10.069037] Match for Function Name: cdc_ethernet, Int <span class="hashtag">#19</span><br>
+[   10.101205] Match for Function Name: cdc_ethernet, Int <span class="hashtag">#20</span><br>
+[   10.108835] msm_otg msm_otg: Avail curr from USB = 2<br>
+[   10.112803] ci_hdrc ci_hdrc.0: CI_HDRC_CONTROLLER_SUSPEND_EVENT received<br>
+[   10.169784] otg_pc = 3<br>
+[   10.601770] msm_otg msm_otg: USB in low power mode<br>
+[   10.638577] smsc95xx 1-1.3.1:1.0 eth0: hardware isn’t capable of remote wakeup<br>
+[   11.172134] nmea: smd opened<br>
+[   12.185930] smsc95xx 1-1.3.1:1.0 eth0: kevent 4 may have been dropped<br>
+[   12.193895] smsc95xx 1-1.3.1:1.0 eth0: kevent 4 may have been dropped<br>
+[   12.201892] smsc95xx 1-1.3.1:1.0 eth0: kevent 4 may have been dropped<br>
+[   12.242240] smsc95xx 1-1.3.1:1.0 eth0: link up, 100Mbps, full-duplex, lpa 0x45E1<br>
+[   12.512467] smsc95xx 1-1.3.1:1.0 eth0: link up, 100Mbps, full-duplex, lpa 0x45E1<br>
+[   15.181901] Bluetooth: HCI UART driver ver 2.2<br>
+[   15.226705] qup_i2c qup_i2c.0: QUP: I2C status flags :0x1363c8, irq:187<br>
+[   15.232900] qup_i2c qup_i2c.0: I2C slave addr:0x3a not connected<br>
+[   15.262169] Bluetooth: HCI H4 protocol initialized<br>
+[   15.305295] Bluetooth: HCI BCSP protocol initialized<br>
+[   15.309323] Bluetooth: HCILL protocol initialized<br>
+[   15.334930] qup_i2c qup_i2c.0: QUP: I2C status flags :0x1343c8, irq:187<br>
+[   15.340637] qup_i2c qup_i2c.0: I2C slave addr:0x3a not connected<br>
+[   15.487318] qup_i2c qup_i2c.0: QUP: I2C status flags :0x1363c8, irq:187<br>
+[   15.493483] qup_i2c qup_i2c.0: I2C slave addr:0x3a not connected<br>
+[   15.506119] Bluetooth: HCIATH3K protocol initialized<br>
+[   15.578849] Bluetooth: HCI Three-wire UART (H5) protocol initialized<br>
+[   15.584404] qup_i2c qup_i2c.0: QUP: I2C status flags :0x1300c8, irq:187<br>
+[   15.591790] qup_i2c qup_i2c.0: I2C slave addr:0x3a not connected<br>
+[   16.925682] -&gt;gpio16 = 0<br>
+[   16.925713] gpio_map_name_to_num: gpioRI is not supported<br>
+[   16.930108] export_store: status -1<br>
+[   17.938867] Bluetooth: RFCOMM TTY layer initialized<br>
+[   17.961208] Bluetooth: RFCOMM socket layer initialized<br>
+[   17.965389] Bluetooth: RFCOMM ver 1.11<br>
+[   19.394628] Bluetooth: HIDP (Human Interface Emulation) ver 1.2<br>
+[   19.399603] Bluetooth: HIDP socket layer initialized<br>
+[   19.521898] NET: Registered protocol family 10<br>
+[   20.224965] adb_open<br>
+[   20.261803] IPv6: ADDRCONF(NETDEV_UP): usb0: link is not ready<br>
+[   20.505997] Bluetooth: BNEP (Ethernet Emulation) ver 1.3<br>
+[   20.510300] Bluetooth: BNEP filters: protocol multicast<br>
+[   20.548786] Bluetooth: BNEP socket layer initialized<br>
+[   20.752937] mbim_open: Open mbim driver<br>
+[   20.755775] mbim_open: Lock mbim_dev-&gt;open_excl for open<br>
+[   20.771127] mbim_open: USB cable not connected<br>
+[   20.774576] mbim_open: Exit, mbim file opened<br>
+[   20.811139] mbim_read: Requests list is empty. Wait.<br>
+[   21.577567] -&gt;gpio16 = 0<br>
+[   25.601617] PM: Syncing filesystems … done.<br>
+[   25.622066] PM: Preparing system for mem sleep<br>
+[   25.633084] Freezing user space processes …<br>
+[   25.639523] mbim_read: Waiting failed<br>
+[   25.654692] (elapsed 0.018 seconds) done.<br>
+[   25.657683] Freezing remaining freezable tasks … (elapsed 0.001 seconds) done.<br>
+[   25.665740] PM: Entering mem sleep<br>
+[   25.665771] Suspending console(s) (use no_console_suspend to debug)<br>
+[   25.678040] smsc95xx 1-1.3.1:1.0 eth0: entering SUSPEND2 mode<br>
+[   25.683229] wm8944_suspend - START<br>
+[   25.683839] wm8944_suspend - OK<br>
+[   25.684907] msm_hsic_host msm_hsic_host: HSIC-USB in low power mode<br>
+[   25.685243] PM: suspend of devices complete after 11.567 msecs<br>
+[   25.687349] PM: late suspend of devices complete after 2.105 msecs<br>
+[   25.689211] PM: noirq suspend of devices complete after 1.861 msecs<br>
+[   25.689455] msm_pm_enter<br>
+[   25.689455] msm_pm_enter: power collapse<br>
+[   25.689455] msm_mpm_irqs_detectable: cannot monitor 000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000<br>
+[   25.689455] msm_pm_enter: return<br>
+[   25.690828] PM: noirq resume of devices complete after 1.281 msecs<br>
+[   25.693239] PM: early resume of devices complete after 1.617 msecs<br>
+[   25.694521] msm_hsic_host msm_hsic_host: HSIC-USB exited from low power mode<br>
+[   25.822005] usb 1-1.1: reset full-speed USB device number 3 using msm_hsic_host<br>
+[   25.865374] ftdi_sio ttyUSB0: FTDI USB Serial Device converter now disconnected from ttyUSB0<br>
+[   25.865588] ftdi_sio 1-1.1:1.0: device disconnected<br>
+[   25.865801] PM: resume of devices complete after 172.531 msecs<br>
+[   25.866107] ftdi_sio 1-1.1:1.0: FTDI USB Serial Device converter detected<br>
+[   25.866473] usb 1-1.1: Detected FT-X<br>
+[   25.866473] usb 1-1.1: Number of endpoints 2<br>
+[   25.866503] usb 1-1.1: Endpoint 1 MaxPacketSize 64<br>
+[   25.866503] usb 1-1.1: Endpoint 2 MaxPacketSize 64<br>
+[   25.866534] usb 1-1.1: Setting MaxPacketSize 64<br>
+[   25.867602] usb 1-1.1: FTDI USB Serial Device converter now attached to ttyUSB0<br>
+[   26.004333] PM: Finishing wakeup.<br>
+[   26.004364] Restarting tasks …<br>
+[   26.015534] mbim_read: Requests list is empty. Wait.<br>
+[   26.046574] done.<br>
+[   26.718174] PM: Syncing filesystems … done.<br>
+[   26.721959] PM: Preparing system for mem sleep<br>
+[   26.722966] Freezing user space processes …<br>
+[   26.729192] mbim_read: Waiting failed<br>
+[   26.733801] (elapsed 0.007 seconds) done.<br>
+[   26.736792] Freezing remaining freezable tasks … (elapsed 0.001 seconds) done.<br>
+[   26.744910] PM: Entering mem sleep<br>
+[   26.744941] Suspending console(s) (use no_console_suspend to debug)<br>
+[   26.757576] smsc95xx 1-1.3.1:1.0 eth0: entering SUSPEND2 mode<br>
+[   26.762093] wm8944_suspend - START<br>
+[   26.762704] wm8944_suspend - OK<br>
+[   26.764321] msm_hsic_host msm_hsic_host: HSIC-USB in low power mode<br>
+[   26.764626] PM: suspend of devices complete after 11.719 msecs<br>
+[   26.766763] PM: late suspend of devices complete after 2.105 msecs<br>
+[   26.768625] PM: noirq suspend of devices complete after 1.831 msecs<br>
+[   26.768869] msm_pm_enter<br>
+[   26.768869] msm_pm_enter: power collapse<br>
+[   26.768869] msm_mpm_irqs_detectable: cannot monitor 000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000<br>
+[   26.768869] msm_pm_enter: return<br>
+[   26.770486] PM: noirq resume of devices complete after 1.281 msecs<br>
+[   26.772592] PM: early resume of devices complete after 1.709 msecs<br>
+[   26.775766] msm_hsic_host msm_hsic_host: HSIC-USB exited from low power mode<br>
+[   26.891225] usb 1-1.1: reset full-speed USB device number 3 using msm_hsic_host<br>
+[   26.935479] ftdi_sio ttyUSB0: FTDI USB Serial Device converter now disconnected from ttyUSB0<br>
+[   26.935602] ftdi_sio 1-1.1:1.0: device disconnected<br>
+[   26.935785] PM: resume of devices complete after 163.161 msecs<br>
+[   26.936181] ftdi_sio 1-1.1:1.0: FTDI USB Serial Device converter detected<br>
+[   26.936517] usb 1-1.1: Detected FT-X<br>
+[   26.936548] usb 1-1.1: Number of endpoints 2<br>
+[   26.936548] usb 1-1.1: Endpoint 1 MaxPacketSize 64<br>
+[   26.936578] usb 1-1.1: Endpoint 2 MaxPacketSize 64<br>
+[   26.936578] usb 1-1.1: Setting MaxPacketSize 64<br>
+[   26.937555] usb 1-1.1: FTDI USB Serial Device converter now attached to ttyUSB0<br>
+[   27.074378] PM: Finishing wakeup.<br>
+[   27.074378] Restarting tasks …<br>
+[   27.085273] mbim_read: Requests list is empty. Wait.<br>
+[   27.096963] done.<br>
+[   27.201770] PM: Syncing filesystems … done.<br>
+[   27.211262] PM: Preparing system for mem sleep<br>
+[   27.212269] Freezing user space processes …<br>
+[   27.218647] mbim_read: Waiting failed<br>
+[   27.223287] (elapsed 0.007 seconds) done.<br>
+[   27.226247] Freezing remaining freezable tasks … (elapsed 0.001 seconds) done.<br>
+[   27.234335] PM: Entering mem sleep<br>
+[   27.234335] Suspending console(s) (use no_console_suspend to debug)<br>
+[   27.247184] smsc95xx 1-1.3.1:1.0 eth0: entering SUSPEND2 mode<br>
+[   27.251548] wm8944_suspend - START<br>
+[   27.252159] wm8944_suspend - OK<br>
+[   27.254295] msm_hsic_host msm_hsic_host: HSIC-USB in low power mode<br>
+[   27.254631] PM: suspend of devices complete after 12.360 msecs<br>
+[   27.256737] PM: late suspend of devices complete after 2.075 msecs<br>
+[   27.258629] PM: noirq suspend of devices complete after 1.861 msecs<br>
+[   27.258843] msm_pm_enter<br>
+[   27.258843] msm_pm_enter: power collapse<br>
+[   27.258843] msm_mpm_irqs_detectable: cannot monitor 000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000<br>
+[   27.258843] msm_pm_enter: return<br>
+[   27.260216] PM: noirq resume of devices complete after 1.281 msecs<br>
+[   27.262383] PM: early resume of devices complete after 1.648 msecs<br>
+[   27.264489] ------------[ cut here ]------------<br>
+[   27.264520] WARNING: CPU: 0 PID: 60 at /home/jason/work/yocto/build_bin/tmp/work/swi_mdm9x15-poky-linux-gnueabi/linux-yocto/3.14.29+gitAUTOINC+c14b887744_0c284d02b3-r0.1/linux/kernel/irq/manage.c:524 irq_set_irq_wake+0xa4/0x100()<br>
+[   27.264520] Unbalanced IRQ 132 wake disable<br>
+[   27.264581] Modules linked in: bnep ipv6 hidp rfcomm hci_uart msm_sdcc usb_storage sd_mod scsi_mod unix<br>
+[   27.264611] CPU: 0 PID: 60 Comm: kworker/0:2 Not tainted 3.14.29ltsi-c14b887744_0c284d02b3 <span class="hashtag">#4</span><br>
+[   27.264642] Workqueue: events msm_otg_sm_work<br>
+[   27.264703] [] (unwind_backtrace) from [] (show_stack+0x20/0x24)<br>
+[   27.264733] [] (show_stack) from [] (dump_stack+0x20/0x28)<br>
+[   27.264764] [] (dump_stack) from [] (warn_slowpath_common+0x7c/0x9c)<br>
+[   27.264794] [] (warn_slowpath_common) from [] (warn_slowpath_fmt+0x40/0x48)<br>
+[   27.264825] [] (warn_slowpath_fmt) from [] (irq_set_irq_wake+0xa4/0x100)<br>
+[   27.264855] [] (irq_set_irq_wake) from [] (msm_otg_resume+0x2b0/0x384)<br>
+[   27.264886] [] (msm_otg_resume) from [] (msm_otg_runtime_resume+0x68/0x74)<br>
+[   27.264916] [] (msm_otg_runtime_resume) from [] (pm_generic_runtime_resume+0x3c/0x48)<br>
+[   27.264947] [] (pm_generic_runtime_resume) from [] (__rpm_callback+0x6c/0x90)<br>
+[   27.264947] [] (__rpm_callback) from [] (rpm_callback+0x6c/0x84)<br>
+[   27.264977] [] (rpm_callback) from [] (rpm_resume+0x528/0x66c)<br>
+[   27.265008] [] (rpm_resume) from [] (__pm_runtime_resume+0x5c/0x9c)<br>
+[   27.265038] [] (__pm_runtime_resume) from [] (msm_otg_sm_work+0x38/0x19dc)<br>
+[   27.265069] [] (msm_otg_sm_work) from [] (process_one_work+0x294/0x44c)<br>
+[   27.265099] [] (process_one_work) from [] (worker_thread+0x440/0x560)<br>
+[   27.265130] [] (worker_thread) from [] (kthread+0xd0/0xe4)<br>
+[   27.265160] [] (kthread) from [] (ret_from_fork+0x14/0x20)<br>
+[   27.265160] —[ end trace 0330a393ea73d3ad ]—<br>
+[   27.265222] msm_otg msm_otg: USB exited from low power mode<br>
+[   27.265283] msm_otg msm_otg: USB exited from low power mode<br>
+[   27.265466] msm_hsic_host msm_hsic_host: HSIC-USB exited from low power mode<br>
+[   27.304257] PM: resume of devices complete after 41.843 msecs<br>
+[   27.418678] ci_hdrc ci_hdrc.0: CI_HDRC_CONTROLLER_RESUME_EVENT received<br>
+[   27.418708] android_disconnect: android_disconnect: Disconnected<br>
+[   27.418983] android_work: android_work: sent uevent USB_STATE=DISCONNECTED<br>
+[   27.521654] android_setup: android_setup: Connected<br>
+[   27.521776] android_work: android_work: sent uevent USB_STATE=CONNECTED<br>
+[   27.530169] android_disconnect: android_disconnect: Disconnected<br>
+[   27.530321] android_work: android_work: sent uevent USB_STATE=DISCONNECTED<br>
+[   27.633297] PM: Finishing wakeup.<br>
+[   27.633328] Restarting tasks …<br>
+[   27.642118] mbim_read: Requests list is empty. Wait.<br>
+[   27.653532] android_setup: android_setup: Connected<br>
+[   27.657836] android_work: android_work: sent uevent USB_STATE=CONNECTED<br>
+[   27.665160] android_usb gadget: high-speed config <span class="hashtag">#1:</span> android_usb<br>
+[   27.670563] f_audio_set_alt: Interface 16. Do nothing. Return 0<br>
+[   27.676148] f_audio_set_alt: playback_buf is empty. Stop.<br>
+[   27.681397] msm_otg msm_otg: Avail curr from USB = 500<br>
+[   27.686647] android_setup: android_setup: Configured<br>
+[   27.692568] sps:REVISION of BAM 0xd0360000 is 0x5.<br>
+[   27.696719] Error: Driver ‘DATA39_CNTL’ is already registered, aborting…<br>
+[   27.703586] done.<br>
+[   27.708591] diag: USB connected<br>
+[   27.714176] capture_prepare_hw_params: SNDRV_PCM_IOCTL_DROP failed: -77<br>
+[   27.725133] playback_prepare_hw_params: SNDRV_PCM_IOCTL_DROP failed: -77<br>
+[   27.807294] IPv6: ADDRCONF(NETDEV_CHANGE): usb0: link becomes ready<br>
+[   27.813795] android_work: android_work: sent uevent USB_STATE=CONFIGURED<br>
+[   27.819533] gaudio_open_capture_streams: Initialized capture params<br>
+[   27.827529] afe_callback: cmd = 0x100e2 returned error = 0x1<br>
+[   27.852952] gsmd_connect_work: unable to open smd port:DS err:-19<br>
+[   27.935663] ci_hdrc ci_hdrc.0: enabling a non-empty endpoint!<br>
+[   27.988127] ci_hdrc ci_hdrc.0: enabling a non-empty endpoint!<br>
+[   27.995696] ci_hdrc ci_hdrc.0: enabling a non-empty endpoint!<br>
+[   28.026064] ci_hdrc ci_hdrc.0: enabling a non-empty endpoint!<br>
+[   28.039066] ci_hdrc ci_hdrc.0: enabling a non-empty endpoint!<br>
+[   37.701113] Timeout while waiting for reset<br>
+[   42.837234] nmea: smd opened<br>
+[  188.908438] -&gt;gpio16 = 0<br>
+[  188.908469] gpio_map_name_to_num: gpioRI is not supported<br>
+[  188.921196] export_store: status -1<br>
+[ 1189.305630] msm_otg msm_otg: Avail curr from USB = 2<br>
+[ 1189.309629] ci_hdrc ci_hdrc.0: CI_HDRC_CONTROLLER_SUSPEND_EVENT received<br>
+[16996.049318] -&gt;gpio16 = 0</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-09-15T13:11:11Z' class='post-time'>
+                    September 15, 2016,  1:11pm
+                  </time>
+                  <meta itemprop='dateModified' content='2016-09-15T13:11:11Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Couple of points:</p>
+<ol>
+<li>You have built the driver properly . Good work</li>
+<li>Time to get the wifi/BT IoT module <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=5" title=":slight_smile:" class="emoji" alt=":slight_smile:">
+</li>
+</ol>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-09-15T15:04:23Z' class='post-time'>
+                    September 15, 2016,  3:04pm
+                  </time>
+                  <meta itemprop='dateModified' content='2016-09-15T15:04:23Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Jason,</p>
+<p>I suspect you missed adding this line to your sdef file:<br>
+<a href="https://github.com/mangOH/mangOH/blob/master/mangoh.sdef#L54" class="onebox" target="_blank" rel="nofollow noopener">https://github.com/mangOH/mangOH/blob/master/mangoh.sdef#L54</a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_17' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Jason.vanaardt'><span itemprop='name'>Jason.vanaardt</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-09-28T10:08:25Z' class='post-time'>
+                    September 28, 2016, 10:08am
+                  </time>
+                  <meta itemprop='dateModified' content='2016-09-28T10:08:25Z'>
+              <span itemprop='position'>17</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi David,<br>
+Thanks for the pointers, I now have a IOT WiFI/BT board and am attempting to get the bluetooth running to connect to a TI sensor tag.<br>
+Where in the filesystem  can this mangoh.sdef file be found and modified to include the mux line?<br>
+Any pointers most appreciated.<br>
+Best Regards<br>
+Jason</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_18' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Jason.vanaardt'><span itemprop='name'>Jason.vanaardt</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-09-28T10:12:08Z' class='post-time'>
+                    September 28, 2016, 10:12am
+                  </time>
+                  <meta itemprop='dateModified' content='2016-09-28T10:12:08Z'>
+              <span itemprop='position'>18</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Asyal,<br>
+I finally have an IOT WiFI/BT module in my hands.<br>
+Any pointers would be most appreciated to get the Mangoh connected to get the bluetooth up and running and a TI Sensor Tag demo connected would be appreciated.</p>
+<p>Out of interest, is there any reason that the Mangoh board would need the USB connected to a computer, before the dedicated Ethernet port accepts packets?<br>
+I try ssh <a href="mailto:root@10.0.0.30">root@10.0.0.30</a>, but it will only work if the 192.168.2.2 interface over USB is plugged into a computer?</p>
+<p>Kind Regards<br>
+Jason</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_19' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-09-28T15:39:32Z' class='post-time'>
+                    September 28, 2016,  3:39pm
+                  </time>
+                  <meta itemprop='dateModified' content='2016-09-28T15:39:32Z'>
+              <span itemprop='position'>19</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>hi Jason,<br>
+I dont have a log to exactly know the issue but it may be related to how wakelocks are enabled. By having a USB cable the unit doesnt goto in sleep mode.<br>
+You can disable the wakelock if you want by running the following command:<br>
+echo off &gt; /sys/power/autosleep<br>
+You will not need the USB cable anymore.<br>
+cheers,<br>
+ashish</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_20' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/wifi-bluetooth-demo-release/86">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2016-09-28T20:45:28Z' class='post-time'>
+                    September 28, 2016,  8:45pm
+                  </time>
+                  <meta itemprop='dateModified' content='2016-09-28T20:45:28Z'>
+              <span itemprop='position'>20</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Did you install the repo as specified at <a href="https://github.com/mangOH/manifest">https://github.com/mangOH/manifest</a> ?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/wifi-bluetooth-demo-release/86?page=2">next page →</a></b></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>What I should check if kernel outputs nothing to console - mangOH Yellow - mangOH forum</title>
+    <meta name="description" content="I found a Linux kernel I had rebuilt does not output anything. 
+What should I check? 
+What I did: 
+
+I rebuilt a Linux kernel with GCOV enabled.
+I checked if the flash area is sufficient to store the kernel, by executing c&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/what-i-should-check-if-kernel-outputs-nothing-to-console/10065" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;What I should check if kernel outputs nothing to console&#39;" href="https://forum.mangoh.io/t/what-i-should-check-if-kernel-outputs-nothing-to-console/10065.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/what-i-should-check-if-kernel-outputs-nothing-to-console/10065" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/what-i-should-check-if-kernel-outputs-nothing-to-console/10065" />
+<meta property="og:title" content="What I should check if kernel outputs nothing to console" />
+<meta name="twitter:title" content="What I should check if kernel outputs nothing to console" />
+<meta property="og:description" content="I found a Linux kernel I had rebuilt does not output anything.  What should I check?  What I did:   I rebuilt a Linux kernel with GCOV enabled. I checked if the flash area is sufficient to store the kernel, by executing cat /proc/mtd on a mangOH Yellow and swicwe on a laptop. I wrote the kernel module to WP7605 flash on the mangOH Yellow by swiflash, which rebooted the mangOH Yellow after I finished writing the module.  What I observed:   The output from CON(a serial console) when executing the ..." />
+<meta name="twitter:description" content="I found a Linux kernel I had rebuilt does not output anything.  What should I check?  What I did:   I rebuilt a Linux kernel with GCOV enabled. I checked if the flash area is sufficient to store the kernel, by executing cat /proc/mtd on a mangOH Yellow and swicwe on a laptop. I wrote the kernel module to WP7605 flash on the mangOH Yellow by swiflash, which rebooted the mangOH Yellow after I finished writing the module.  What I observed:   The output from CON(a serial console) when executing the ..." />
+<meta property="og:article:section" content="mangOH Yellow" />
+<meta property="og:article:section:color" content="F1C900" />
+<meta property="article:published_time" content="2022-07-27T23:41:28+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"What I should check if kernel outputs nothing to console","mainEntity":{"@type":"Question","name":"What I should check if kernel outputs nothing to console","text":"I found a Linux kernel I had rebuilt does not output anything.\n\nWhat should I check?\n\nWhat I did:\n\nI rebuilt a Linux kernel with GCOV enabled.\n\nI checked if the flash area is sufficient to store the kernel, by executing cat /proc/mtd on a mangOH Yellow and swicwe on a laptop.\n\nI wrote the kernel modu&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2022-07-27T23:41:28.746Z","author":{"@type":"Person","name":"Shuhei Uchida"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/what-i-should-check-if-kernel-outputs-nothing-to-console/10065">What I should check if kernel outputs nothing to console</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-yellow/15" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #F1C900'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Yellow</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='What I should check if kernel outputs nothing to console'>
+        <meta itemprop='articleSection' content='mangOH Yellow'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/uchida.s'><span itemprop='name'>uchida.s</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/what-i-should-check-if-kernel-outputs-nothing-to-console/10065">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-07-27T23:41:28Z' class='post-time'>
+                    July 27, 2022, 11:41pm
+                  </time>
+                  <meta itemprop='dateModified' content='2022-07-27T23:41:28Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>I found a Linux kernel I had rebuilt does not output anything.<br>
+What should I check?</p>
+<p>What I did:</p>
+<ol>
+<li>I rebuilt a Linux kernel with GCOV enabled.</li>
+<li>I checked if the flash area is sufficient to store the kernel, by executing <code>cat /proc/mtd</code> on a mangOH Yellow and <code>swicwe</code> on a laptop.</li>
+<li>I wrote the kernel module to WP7605 flash on the mangOH Yellow by <code>swiflash</code>, which rebooted the mangOH Yellow after I finished writing the module.</li>
+</ol>
+<p>What I observed:</p>
+<ul>
+<li>The output from CON(a serial console) when executing the rebuilt module was the same as that when extending the original one.</li>
+<li>The LED on the mangOH Yellow was not yellow but green, which means the kernel boot procedures did not finish properly.</li>
+<li>An Ethernet over USB connection between the mangOH Yellow and my Ubuntu computer was not established.</li>
+</ul>
+<p>Details:<br>
+<em>GCOV enabled</em> means the following configuration variables are set to <code>y</code>:</p>
+<ul>
+<li><code>CONFIG_GCOV_KERNEL</code></li>
+<li><code>CONFIG_GCOV_PROFILE_ALL</code></li>
+</ul>
+<p><strong>Flash area versus kernel size</strong><br>
+<code>cat /proc/mtd</code></p>
+<pre><code class="lang-auto">dev:    size   erasesize  name
+mtd0: 00280000 00040000 "sbl"
+mtd1: 00280000 00040000 "mibib"
+mtd2: 00680000 00040000 "backup"
+mtd3: 00100000 00040000 "security"
+mtd4: 00200000 00040000 "persist"
+mtd5: 01180000 00040000 "efs2"
+mtd6: 04f40000 00040000 "swifota"
+mtd7: 00180000 00040000 "tz"
+mtd8: 000c0000 00040000 "devcfg"
+mtd9: 000c0000 00040000 "rpm"
+mtd10: 02000000 00040000 "modem"
+mtd11: 00100000 00040000 "aboot"
+mtd12: 00f00000 00040000 "boot"
+mtd13: 01e00000 00040000 "system"
+mtd14: 008c0000 00040000 "lefwkro"
+mtd15: 01900000 00040000 "swirw"
+mtd16: 08300000 00040000 "userapp"
+mtd17: 03680000 00040000 "reserved"
+mtd18: 02180000 00040000 "slot_2"
+mtd19: 02180000 00040000 "slot_1"
+mtd20: 02180000 00040000 "slot_0"
+</code></pre>
+<p><code>swicwe -P yocto_wp76xx_with_coverage.4k.cwe</code></p>
+<pre><code class="lang-auto"> Type Size(Exclude Header) Product Compress Version
+*APPL    39843984                Y921            0               Mon Mar 14 07:04:56 UTC 2022
+ SYST    25427968                9X28            0               Mon Mar 14 07:04:56 UTC 2022
+ APPS    14415216                9X28            0               3.18.131 20220314070454
+</code></pre>
+<p><strong>Size comparison</strong></p>
+<ul>
+<li>The size of mtd13 (0x01e00000 = 31,457,280) is bigger than that of SYST (25,427,968).</li>
+<li>The size of mtd12 (0x00f00000 = 15,728,640) is bigger than that of APPS (14,415,216).</li>
+</ul>
+<p>Therefore the flash area is sufficient to store the kernel.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/how-to-output-the-diagnostic-messages-to-con/10075">How to output the diagnostic messages to CON?</a>
+                        <meta itemprop='position' content='1'>
+                      </div>
+                </div>
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

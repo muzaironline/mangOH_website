@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Kernel Cold-plug USB power issues, where to start looking</title>
+    <link>https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883</link>
+    <description>Hi there,
+
+I&#39;m new to debugging USB power issues in the Kernel, so I am looking for help in
+understanding the sequence of events / where to continue looking:
+
+My board is loosely based on the mangOH green, it is using Legato for wp76xx R12,
+Linux kernel 3.18.122.
+
+My issue is that on powering up the board, 2 devices directly connected to the HSIC host,
+are not enumerated. The 2 devices are Ethernet (on HSIC) and an SD card reader.
+
+I have 2 boards: one which exhibits the issue and one that does not.
+
+The only differences that I can see from dmesg/logread are:
+
+    swi-mdm9x28-wp user.info kernel: [    1.141708] msm_hsic_host 7c00000.hsic_host: HSIC-USB in low power mode
+    swi-mdm9x28-wp user.info kernel: [    1.141916] msm_hsic_host 7c00000.hsic_host: HSIC-USB exited from low power mode
+    .
+    .
+    swi-mdm9x28-wp user.err kernel: [    6.530202] usb 1-1: device descriptor read/64, error -110
+
+So with a bit of digging I see that  msm_hsic_runtime_suspend() from ehci-msm-hsic.c is being called,
+bu I know of no reason why msm_hsic_runtime_suspend(0 is getting called - 
+the USB controller or system should not be entering into suspend.
+
+
+I suppose disabling USB sleep might help, but I still don&#39;t understand why/how it&#39;s being told to go to sleep.
+
+
+Any pointers on where to look greatly received.</description>
+    
+    <lastBuildDate>Mon, 21 Oct 2019 15:49:24 +0000</lastBuildDate>
+    <category>Build your own</category>
+    <atom:link href="https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Kernel Cold-plug USB power issues, where to start looking</title>
+        <dc:creator><![CDATA[Ian]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi David,</p>
+<p>It looks like having EXTUIMSWITCHEN  enabled <em>was</em> the cause of the  <code>read/64, error -110</code>  error.</p>
+<p>Best Regards,<br>
+Ian</p>
+          <p><a href="https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883/5</link>
+        <pubDate>Mon, 21 Oct 2019 15:49:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2883-5</guid>
+        <source url="https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883.rss">Kernel Cold-plug USB power issues, where to start looking</source>
+      </item>
+      <item>
+        <title>Kernel Cold-plug USB power issues, where to start looking</title>
+        <dc:creator><![CDATA[Ian]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi There,</p>
+<p>Found out 1 thing. For GPIO6/Pin46  - EXTUIMSWITCHEN was enabled instead of Reset Out.</p>
+<p>With it set to Reset Out or as a  GPIO this error does not appear.</p>
+<p>Now it looks like my next task is to stop the rest of the Kernel using Pin46/GPIO6 when I have it configured as a GPIO.</p>
+          <p><a href="https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883/4</link>
+        <pubDate>Mon, 23 Sep 2019 19:47:28 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2883-4</guid>
+        <source url="https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883.rss">Kernel Cold-plug USB power issues, where to start looking</source>
+      </item>
+      <item>
+        <title>Kernel Cold-plug USB power issues, where to start looking</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks for your post.  Please provide an update if you learn anything else.  I’m not sure what the root cause of the descriptor read failures is.</p>
+          <p><a href="https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883/3</link>
+        <pubDate>Wed, 18 Sep 2019 18:49:53 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2883-3</guid>
+        <source url="https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883.rss">Kernel Cold-plug USB power issues, where to start looking</source>
+      </item>
+      <item>
+        <title>Kernel Cold-plug USB power issues, where to start looking</title>
+        <dc:creator><![CDATA[Ian]]></dc:creator>
+        <description><![CDATA[
+            <p>OK so after some more digging :<br>
+The system can put the USB into suspend/low power mode if it thinks that nothing is connected to it.  So this is possibly connected to the  <code>read/64, error -110</code> error message though as that message appears over six seconds later this still begs the question(s)<br>
+“What is the initial cause ?”  -<br>
+Where is the decision made to put the USB hub into low power made ?<br>
+Where in the code could the issue be seen first ?</p>
+<p>So far half the remedies, that I have seen,  for <code>read/64, error -110</code>  are to power down the board and disconnect the devices for a few minutes.  Not really practical where everything in connected to tracks on a board, and I don’t know why solution should work.</p>
+<p>The other half center on filters, shorter cables and using powered hubs which all tally with power/voltage drop issues.</p>
+<p>At the moment I am still trying to rule out software/config issues.</p>
+<p>Again, any hints on where in the code to look gratefully received(and may to stop my ramblings).</p>
+          <p><a href="https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883/2</link>
+        <pubDate>Wed, 28 Aug 2019 09:37:48 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2883-2</guid>
+        <source url="https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883.rss">Kernel Cold-plug USB power issues, where to start looking</source>
+      </item>
+      <item>
+        <title>Kernel Cold-plug USB power issues, where to start looking</title>
+        <dc:creator><![CDATA[Ian]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi there,</p>
+<p>I’m new to debugging USB power issues in the Kernel, so I am looking for help in<br>
+understanding the sequence of events / where to continue looking:</p>
+<p>My board is loosely based on the mangOH green, it is using Legato for wp76xx R12,<br>
+Linux kernel 3.18.122.</p>
+<p>My issue is that on powering up the board, 2 devices directly connected to the HSIC host,<br>
+are not enumerated. The 2 devices are Ethernet (on HSIC) and an SD card reader.</p>
+<p>I have 2 boards: one which exhibits the issue and one that does not.</p>
+<p>The only differences that I can see from dmesg/logread are:</p>
+<pre><code>swi-mdm9x28-wp user.info kernel: [    1.141708] msm_hsic_host 7c00000.hsic_host: HSIC-USB in low power mode
+swi-mdm9x28-wp user.info kernel: [    1.141916] msm_hsic_host 7c00000.hsic_host: HSIC-USB exited from low power mode
+.
+.
+swi-mdm9x28-wp user.err kernel: [    6.530202] usb 1-1: device descriptor read/64, error -110
+</code></pre>
+<p>So with a bit of digging I see that  msm_hsic_runtime_suspend() from ehci-msm-hsic.c is being called,<br>
+bu I know of no reason why msm_hsic_runtime_suspend(0 is getting called -<br>
+the USB controller or system should not be entering into suspend.</p>
+<p>I suppose disabling USB sleep might help, but I still don’t understand why/how it’s being told to go to sleep.</p>
+<p>Any pointers on where to look greatly received.</p>
+          <p><a href="https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883/1</link>
+        <pubDate>Tue, 27 Aug 2019 16:59:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2883-1</guid>
+        <source url="https://forum.mangoh.io/t/kernel-cold-plug-usb-power-issues-where-to-start-looking/2883.rss">Kernel Cold-plug USB power issues, where to start looking</source>
+      </item>
+  </channel>
+</rss>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>How to Get IMEI Info</title>
+    <link>https://forum.mangoh.io/t/how-to-get-imei-info/8897</link>
+    <description>Hi.
+I would like to get IMEI number.
+So, I write bellow code and try to compile.
+
+&gt; #include &quot;legato.h&quot;
+&gt; #include &quot;le_info_common.h&quot;
+&gt; 
+&gt; char buffer[100];
+&gt; size_t size=100;
+&gt; memset(buffer, 0x00, sizeof(buffer));
+&gt; le_info_GetImei(buffer, size);
+&gt; 
+&gt; LE_INFO(&quot;IMEI=%s(%d)&quot;, buffer, size);
+
+But, It finished by error.
+    
+&gt; (lsh:wp76stable) mangoh@mangoh-dev:~/myWorkspace/shell_test$ mkapp -t wp76xx shell_test.adef
+&gt; [1/7] Compiling C source
+&gt; FAILED: /home/mangoh/myWorkspace/shell_test/_build_shell_test/wp76xx/component/e2fcc2960afd14c7be809af2bac82ab0/obj/594d2fc19aba5ba97a8c49076d99404f.o
+&gt; /home/mangoh/myWorkspace/leaf-data/wp76stable/wp76-toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc --sysroot=/home/mangoh/myWorkspace/leaf-data/wp76stable/wp76-toolchain/sysroots/armv7a-neon-poky-linux-gnueabi -MMD -MF /home/mangoh/myWorkspace/shell_test/_build_shell_test/wp76xx/component/e2fcc2960afd14c7be809af2bac82ab0/obj/594d2fc19aba5ba97a8c49076d99404f.o.d -c /home/mangoh/myWorkspace/shell_test/shellTestComponent/shell_test.c -o /home/mangoh/myWorkspace/shell_test/_build_shell_test/wp76xx/component/e2fcc2960afd14c7be809af2bac82ab0/obj/594d2fc19aba5ba97a8c49076d99404f.o -DLE_FILENAME=`basename /home/mangoh/myWorkspace/shell_test/shellTestComponent/shell_test.c` -Wall -fPIC -Werror -fvisibility=hidden -DMK_TOOLS_BUILD  -DLEGATO_EMBEDDED -I /home/mangoh/myWorkspace/shell_test/_build_shell_test/wp76xx -I/home/mangoh/myWorkspace/leaf-data/wp76stable/wp76-legato/interfaces -I/home/mangoh/myWorkspace/leaf-data/wp76stable/wp76-legato/framework/include -I/home/mangoh/myWorkspace/leaf-data/wp76stable/wp76-legato/build/wp76xx/framework/include -I/home/mangoh/myWorkspace/shell_test -I/home/mangoh/myWorkspace/shell_test/_build_shell_test/wp76xx/component/e2fcc2960afd14c7be809af2bac82ab0/src -DLE_COMPONENT_NAME=shellTestComponent -DLE_LOG_SESSION=shellTestComponent_LogSession  -DLE_LOG_LEVEL_FILTER_PTR=shellTestComponent_LogLevelFilterPtr  &quot;-DCOMPONENT_INIT=LE_CI_LINKAGE LE_SHARED void _shellTestComponent_COMPONENT_INIT()&quot;
+&gt; /home/mangoh/myWorkspace/shell_test/shellTestComponent/shell_test.c:7:10: fatal error: le_info_common.h: No such file or directory
+&gt;  #include &quot;le_info_common.h&quot;
+&gt;           ^~~~~~~~~~~~~~~~~~
+&gt; compilation terminated.
+&gt; ninja: build stopped: subcommand failed.
+
+Please let me know how to resolve this error.
+Best Regards.</description>
+    
+    <lastBuildDate>Sat, 17 Apr 2021 11:13:36 +0000</lastBuildDate>
+    <category>mangOH Green</category>
+    <atom:link href="https://forum.mangoh.io/t/how-to-get-imei-info/8897.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>How to Get IMEI Info</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>You need to use api le_info_GetImei()</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-get-imei-info/8897/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-get-imei-info/8897/4</link>
+        <pubDate>Sat, 17 Apr 2021 11:13:36 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-8897-4</guid>
+        <source url="https://forum.mangoh.io/t/how-to-get-imei-info/8897.rss">How to Get IMEI Info</source>
+      </item>
+      <item>
+        <title>How to Get IMEI Info</title>
+        <dc:creator><![CDATA[yoheifujimitsu]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks for your quick reply.<br>
+I know  “cm info”  can get the imei, but I can’t execute cm commands from C programs.</p>
+<p>Pleads let me know how to execute cm commands in C programs.</p>
+<p>Thank you.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-get-imei-info/8897/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-get-imei-info/8897/3</link>
+        <pubDate>Sat, 17 Apr 2021 10:37:30 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-8897-3</guid>
+        <source url="https://forum.mangoh.io/t/how-to-get-imei-info/8897.rss">How to Get IMEI Info</source>
+      </item>
+      <item>
+        <title>How to Get IMEI Info</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>“cm info” can get the imei</p>
+<aside class="onebox githubblob">
+  <header class="source">
+      <a href="https://github.com/legatoproject/legato-af/blob/master/apps/tools/cm/cm_info.c" target="_blank" rel="noopener nofollow ugc">github.com</a>
+  </header>
+  <article class="onebox-body">
+    <h4><a href="https://github.com/legatoproject/legato-af/blob/master/apps/tools/cm/cm_info.c" target="_blank" rel="noopener nofollow ugc">legatoproject/legato-af/blob/master/apps/tools/cm/cm_info.c</a></h4>
+<pre><code class="lang-c">//-------------------------------------------------------------------------------------------------
+/**
+ * @file cm_info.h
+ *
+ * Handle info related functionality
+ *
+ * Copyright (C) Sierra Wireless Inc.
+ */
+//-------------------------------------------------------------------------------------------------
+
+#include "legato.h"
+#include "interfaces.h"
+#include "cm_info.h"
+#include "cm_common.h"
+
+//--------------------------------------------------------------------------------------------------
+/**
+ * Maximum length of information string
+ */
+//--------------------------------------------------------------------------------------------------
+</code></pre>
+
+  This file has been truncated. <a href="https://github.com/legatoproject/legato-af/blob/master/apps/tools/cm/cm_info.c" target="_blank" rel="noopener nofollow ugc">show original</a>
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/how-to-get-imei-info/8897/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-get-imei-info/8897/2</link>
+        <pubDate>Sat, 17 Apr 2021 10:26:08 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-8897-2</guid>
+        <source url="https://forum.mangoh.io/t/how-to-get-imei-info/8897.rss">How to Get IMEI Info</source>
+      </item>
+      <item>
+        <title>How to Get IMEI Info</title>
+        <dc:creator><![CDATA[yoheifujimitsu]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi.<br>
+I would like to get IMEI number.<br>
+So, I write bellow code and try to compile.</p>
+<blockquote>
+<p><span class="hashtag">#include</span> “legato.h”<br>
+<span class="hashtag">#include</span> “le_info_common.h”</p>
+<p>char buffer[100];<br>
+size_t size=100;<br>
+memset(buffer, 0x00, sizeof(buffer));<br>
+le_info_GetImei(buffer, size);</p>
+<p>LE_INFO(“IMEI=%s(%d)”, buffer, size);</p>
+</blockquote>
+<p>But, It finished by error.</p>
+<blockquote>
+<p>(lsh:wp76stable) mangoh@mangoh-dev:~/myWorkspace/shell_test$ mkapp -t wp76xx shell_test.adef<br>
+[1/7] Compiling C source<br>
+FAILED: /home/mangoh/myWorkspace/shell_test/_build_shell_test/wp76xx/component/e2fcc2960afd14c7be809af2bac82ab0/obj/594d2fc19aba5ba97a8c49076d99404f.o<br>
+/home/mangoh/myWorkspace/leaf-data/wp76stable/wp76-toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc --sysroot=/home/mangoh/myWorkspace/leaf-data/wp76stable/wp76-toolchain/sysroots/armv7a-neon-poky-linux-gnueabi -MMD -MF /home/mangoh/myWorkspace/shell_test/_build_shell_test/wp76xx/component/e2fcc2960afd14c7be809af2bac82ab0/obj/594d2fc19aba5ba97a8c49076d99404f.o.d -c /home/mangoh/myWorkspace/shell_test/shellTestComponent/shell_test.c -o /home/mangoh/myWorkspace/shell_test/_build_shell_test/wp76xx/component/e2fcc2960afd14c7be809af2bac82ab0/obj/594d2fc19aba5ba97a8c49076d99404f.o -DLE_FILENAME=<code>basename /home/mangoh/myWorkspace/shell_test/shellTestComponent/shell_test.c</code> -Wall -fPIC -Werror -fvisibility=hidden -DMK_TOOLS_BUILD  -DLEGATO_EMBEDDED -I /home/mangoh/myWorkspace/shell_test/_build_shell_test/wp76xx -I/home/mangoh/myWorkspace/leaf-data/wp76stable/wp76-legato/interfaces -I/home/mangoh/myWorkspace/leaf-data/wp76stable/wp76-legato/framework/include -I/home/mangoh/myWorkspace/leaf-data/wp76stable/wp76-legato/build/wp76xx/framework/include -I/home/mangoh/myWorkspace/shell_test -I/home/mangoh/myWorkspace/shell_test/_build_shell_test/wp76xx/component/e2fcc2960afd14c7be809af2bac82ab0/src -DLE_COMPONENT_NAME=shellTestComponent -DLE_LOG_SESSION=shellTestComponent_LogSession  -DLE_LOG_LEVEL_FILTER_PTR=shellTestComponent_LogLevelFilterPtr  “-DCOMPONENT_INIT=LE_CI_LINKAGE LE_SHARED void _shellTestComponent_COMPONENT_INIT()”<br>
+/home/mangoh/myWorkspace/shell_test/shellTestComponent/shell_test.c:7:10: fatal error: le_info_common.h: No such file or directory<br>
+<span class="hashtag">#include</span> “le_info_common.h”<br>
+^~~~~~~~~~~~~~~~~~<br>
+compilation terminated.<br>
+ninja: build stopped: subcommand failed.</p>
+</blockquote>
+<p>Please let me know how to resolve this error.<br>
+Best Regards.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-get-imei-info/8897/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-get-imei-info/8897/1</link>
+        <pubDate>Sat, 17 Apr 2021 10:04:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-8897-1</guid>
+        <source url="https://forum.mangoh.io/t/how-to-get-imei-info/8897.rss">How to Get IMEI Info</source>
+      </item>
+  </channel>
+</rss>

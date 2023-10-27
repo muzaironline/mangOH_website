@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Building Custom Yocto Image for Mangoh Red WP76 - mangOH Red - mangOH forum</title>
+    <meta name="description" content="Hello! 
+I would like to build a custom yocto image however I am having trouble. Here is what I have so far: 
+
+installed Ubuntu 16.04 on VM
+downloaded WP76 source image from following link: 
+https://source.sierrawireless.&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374?page=3" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Building Custom Yocto Image for Mangoh Red WP76&#39;" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374?page=3" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374?page=3" />
+<meta property="og:title" content="Building Custom Yocto Image for Mangoh Red WP76" />
+<meta name="twitter:title" content="Building Custom Yocto Image for Mangoh Red WP76" />
+<meta property="og:description" content="Hey, this is really, really useful, thanks.  I am trying to install Python3 on my WP7702xmangOH RED as well.  I download the ressources from there Distri and after modifying as described I added:  IMAGE_INSTALL_append = &quot; python3 python-pip&quot;  For finally typing make.  Is it possible to know why this building failed ?  Also, it looks like the folder ./image does not appear in ./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/python3/3.5.5-r1.0  Do you have any idea why ? How can I export good f..." />
+<meta name="twitter:description" content="Hey, this is really, really useful, thanks.  I am trying to install Python3 on my WP7702xmangOH RED as well.  I download the ressources from there Distri and after modifying as described I added:  IMAGE_INSTALL_append = &quot; python3 python-pip&quot;  For finally typing make.  Is it possible to know why this building failed ?  Also, it looks like the folder ./image does not appear in ./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/python3/3.5.5-r1.0  Do you have any idea why ? How can I export good f..." />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="17 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="1 ❤" />
+<meta property="article:published_time" content="2020-11-26T16:00:58+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="prev" href="/t/building-custom-yocto-image-for-mangoh-red-wp76/5374?page=2">
+
+    
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">Building Custom Yocto Image for Mangoh Red WP76</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Building Custom Yocto Image for Mangoh Red WP76'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_41' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/sebastienmaviel'><span itemprop='name'>sebastienmaviel</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-26T16:00:58Z' class='post-time'>
+                    November 26, 2020,  4:00pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-26T16:00:58Z'>
+              <span itemprop='position'>41</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey, this is really, really useful, thanks.</p>
+<p>I am trying to install Python3 on my WP7702xmangOH RED as well.</p>
+<p>I download the ressources from there <a href="https://source.sierrawireless.com/resources/airprime/software/wp77xx/wp77xx-firmware-latest-release-components/#sthash.V0INcb4y.uiFWOByx.dpbs" rel="noopener nofollow ugc">Distri</a> and after modifying as described I added:<br>
+IMAGE_INSTALL_append = " python3 python-pip"</p>
+<p>For finally typing make.</p>
+<p>Is it possible to know why this building failed ?<br>
+Also, it looks like the folder <strong>./image</strong> does not appear in <strong>./build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/python3/3.5.5-r1.0</strong></p>
+<p>Do you have any idea why ? How can I export good files anyway ?</p>
+<p>Thanks.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_42' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-26T16:17:56Z' class='post-time'>
+                    November 26, 2020,  4:17pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-26T16:17:56Z'>
+              <span itemprop='position'>42</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Can you post the error message?<br>
+Suggest you trying with only python3 first</p>
+<p>IMAGE_INSTALL_append = " python3"</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_43' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/sebastienmaviel'><span itemprop='name'>sebastienmaviel</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-26T16:57:35Z' class='post-time'>
+                    November 26, 2020,  4:57pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-26T16:58:01Z'>
+              <span itemprop='position'>43</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I rebuild the same folder and removed “… python-pip”.</p>
+<p>Here are the error messages:</p>
+<pre><code>ERROR: lk-1.3.0-r2 do_add_hash: Function failed: do_add_hash (log file is located at /home/maviel/Documents/wp77_device_package/Legato-Dist-Source-mdm9x06-SWI9X06Y_02.35.02.00/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/temp/log.do_add_hash.30167)
+ERROR: Logfile of failure stored in: /home/maviel/Documents/wp77_device_package/Legato-Dist-Source-mdm9x06-SWI9X06Y_02.35.02.00/yocto/build_bin/tmp/work/armv7a-neon-poky-linux-gnueabi/lk/1.3.0-r2/temp/log.do_add_hash.30167
+</code></pre>
+<p><code>ERROR: Task (/home/maviel/Documents/wp77_device_package/Legato-Dist-Source-mdm9x06-SWI9X06Y_02.35.02.00/yocto/meta-swi/meta-swi-mdm9xxx/recipes-bsp/lk/lk_1.3.0.bb:do_add_hash) failed with exit code '1'</code></p>
+<p>I am going to rebuild with a “fresh” source folder</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_44' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/sebastienmaviel'><span itemprop='name'>sebastienmaviel</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-26T17:56:08Z' class='post-time'>
+                    November 26, 2020,  5:56pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-26T17:57:47Z'>
+              <span itemprop='position'>44</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Still no folder <strong>images</strong>, the name might have changed, I linked python3 folder.<br>
+Maybe you could share with me the right binaries for python3 ?</p>
+<p>Thanks !</p>
+<p><a href="https://drive.google.com/file/d/1jgM2IaZdHhir73Ahmach8eeNEDRDy88C/view?usp=sharing" rel="noopener nofollow ugc">python folder</a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_45' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-26T20:11:36Z' class='post-time'>
+                    November 26, 2020,  8:11pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-26T20:11:36Z'>
+              <span itemprop='position'>45</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Maybe you build without any modification to see if the yocto source can be built or not.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_46' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/sebastienmaviel'><span itemprop='name'>sebastienmaviel</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-11-26T23:04:34Z' class='post-time'>
+                    November 26, 2020, 11:04pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-11-26T23:26:16Z'>
+              <span itemprop='position'>46</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>(Edit: I’m missing Java on my actual distri… The issue came from there)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_47' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/sebastienmaviel'><span itemprop='name'>sebastienmaviel</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-12-03T13:04:42Z' class='post-time'>
+                    December 3, 2020,  1:04pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-12-03T13:04:42Z'>
+              <span itemprop='position'>47</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Is there a way to put python3 in a consistent way on my mangOH ?<br>
+At every reboot I have to re-copy the files.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_48' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-12-03T13:25:57Z' class='post-time'>
+                    December 3, 2020,  1:25pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-12-03T13:25:57Z'>
+              <span itemprop='position'>48</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You can zip all the file in /home/root and extract it during boot up each time.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_49' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/kalaivani'><span itemprop='name'>kalaivani</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2023-03-14T05:32:02Z' class='post-time'>
+                    March 14, 2023,  5:32am
+                  </time>
+                  <meta itemprop='dateModified' content='2023-03-14T05:40:13Z'>
+              <span itemprop='position'>49</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi jyijyi,</p>
+<p>Which is the recommended version of ubuntu os which is the best fit for development of WP7608 (Rel 16.3)?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_50' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image-for-mangoh-red-wp76/5374">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2023-03-14T05:41:13Z' class='post-time'>
+                    March 14, 2023,  5:41am
+                  </time>
+                  <meta itemprop='dateModified' content='2023-03-14T05:49:41Z'>
+              <span itemprop='position'>50</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>normally i used Ubuntu 18 or Ubuntu16:</p>
+<aside class="onebox discoursetopic" data-onebox-src="https://forum.legato.io/t/error-in-installing-leaf/6352/7">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/5f30fea73ea53c61f2aab7ff42a8dcaf587ebcbd.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/error-in-installing-leaf/6352/7" target="_blank" rel="noopener nofollow ugc" title="09:37AM - 25 November 2022">Legato Forum – 25 Nov 22</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-dominant-color="D3CBC3"></div>
+
+<div class="title-wrapper">
+  <h3><a href="https://forum.legato.io/t/error-in-installing-leaf/6352/7" target="_blank" rel="noopener nofollow ugc">Error in Installing leaf</a></h3>
+</div>
+
+  <p>you can see if this helps:</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+<p>Other user also makes it work on Ubuntu 18:</p><aside class="onebox discoursetopic" data-onebox-src="https://forum.legato.io/t/legato-vscode-install-ubuntu-22-04-1/6301/4">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/5f30fea73ea53c61f2aab7ff42a8dcaf587ebcbd.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/legato-vscode-install-ubuntu-22-04-1/6301/4" target="_blank" rel="noopener nofollow ugc" title="08:55AM - 23 September 2022">Legato Forum – 23 Sep 22</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-dominant-color="D3CBC3"></div>
+
+<div class="title-wrapper">
+  <h3><a href="https://forum.legato.io/t/legato-vscode-install-ubuntu-22-04-1/6301/4" target="_blank" rel="noopener nofollow ugc">Legato vscode install Ubuntu 22.04.1</a></h3>
+  <div class="topic-category">
+      <span class="badge-wrapper bullet">
+        <span class="badge-category-bg" style="background-color: #0E76BD;"></span>
+        <span class="badge-category clear-badge">
+          <span class="category-name">VSCode</span>
+        </span>
+      </span>
+  </div>
+</div>
+
+  <p>i don’t know as I have never tried on Ubuntu 22.  You can install VMWare with old Ubuntu and see if it works.</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><a rel="prev" itemprop="url" href="/t/building-custom-yocto-image-for-mangoh-red-wp76/5374?page=2">← previous page</a></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

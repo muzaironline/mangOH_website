@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Mosquitto+AirVatage+MqttClient on mangOH Green with wp7607? - mangOH forum</title>
+    <meta name="description" content="Hi :grinning: 
+I’m working for the first time with mangOH green. 
+I am having a little difficulty in understanding how communication with Mosquitto MQTT broker works. In particular, I did not understand how to send messa&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304?page=2" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Mosquitto+AirVatage+MqttClient on mangOH Green with wp7607?&#39;" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304?page=2" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304?page=2" />
+<meta property="og:title" content="Mosquitto+AirVatage+MqttClient on mangOH Green with wp7607?" />
+<meta name="twitter:title" content="Mosquitto+AirVatage+MqttClient on mangOH Green with wp7607?" />
+<meta property="og:description" content="okay, I compiled and installed the file you say:     Now? On the guide i read it:     But I did not understand how to see something…  I have a problem: when I update the mqtt file I can’t find the CAN driver and when I update the generic update file I can’t see mqtt apps. So I think that it is not the correct way or not?" />
+<meta name="twitter:description" content="okay, I compiled and installed the file you say:     Now? On the guide i read it:     But I did not understand how to see something…  I have a problem: when I update the mqtt file I can’t find the CAN driver and when I update the generic update file I can’t see mqtt apps. So I think that it is not the correct way or not?" />
+<meta property="article:published_time" content="2021-04-12T13:33:56+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="prev" href="/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+    
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">Mosquitto+AirVatage+MqttClient on mangOH Green with wp7607?</a>
+    </h1>
+
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Mosquitto+AirVatage+MqttClient on mangOH Green with wp7607?'>
+        <meta itemprop='articleSection' content='Uncategorized'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_21' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/a/ab22b0fa733cd5fe091056866cc7b1f7779940c5.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-12T13:33:56Z' class='post-time'>
+                    April 12, 2021,  1:33pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-12T13:40:41Z'>
+              <span itemprop='position'>21</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>okay, I compiled and installed the file you say:<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/a/ab22b0fa733cd5fe091056866cc7b1f7779940c5.png" data-download-href="/uploads/short-url/opVYlddvXxHEY7kXUQ3FyLtI7Wd.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/a/ab22b0fa733cd5fe091056866cc7b1f7779940c5.png" alt="image" data-base62-sha1="opVYlddvXxHEY7kXUQ3FyLtI7Wd" width="690" height="212" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/a/ab22b0fa733cd5fe091056866cc7b1f7779940c5_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">729×224 34 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>Now? On the guide i read it:<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/6/62e76519772bfee28c4be7b4632613a7b4b29a5f.png" data-download-href="/uploads/short-url/e6WyjoEprkfHYZH76eQO8SWBDRR.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/6/62e76519772bfee28c4be7b4632613a7b4b29a5f_2_690x196.png" alt="image" data-base62-sha1="e6WyjoEprkfHYZH76eQO8SWBDRR" width="690" height="196" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/6/62e76519772bfee28c4be7b4632613a7b4b29a5f_2_690x196.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/6/62e76519772bfee28c4be7b4632613a7b4b29a5f_2_1035x294.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/6/62e76519772bfee28c4be7b4632613a7b4b29a5f.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/6/62e76519772bfee28c4be7b4632613a7b4b29a5f_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">1278×364 16.9 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div><br>
+But I did not understand how to see something…</p>
+<p>I have a problem: when I update the mqtt file I can’t find the CAN driver and when I update the generic update file I can’t see mqtt apps. So I think that it is not the correct way or not?<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/53323730b4b69a2e087100183a230738502ca9ca.png" data-download-href="/uploads/short-url/bRZdq1avuk0qPEpQbom0b0nsDZo.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/53323730b4b69a2e087100183a230738502ca9ca.png" alt="image" data-base62-sha1="bRZdq1avuk0qPEpQbom0b0nsDZo" width="690" height="254" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/5/53323730b4b69a2e087100183a230738502ca9ca_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">739×273 49.3 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_22' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/6/68441739e2903a45347f1b0f1bb900adbe669d47.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-12T13:59:08Z' class='post-time'>
+                    April 12, 2021,  1:59pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-12T13:59:08Z'>
+              <span itemprop='position'>22</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Now I have this problem:<br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/6/68441739e2903a45347f1b0f1bb900adbe669d47.png" alt="image" data-base62-sha1="eSnxwcOBo69exHRtU24WayUikrZ" width="524" height="261"></p>
+<p>error in the log:<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/3bf7d997f489e9a18710a355b1aaae66f7c788be.png" data-download-href="/uploads/short-url/8yvbAmqvFMVKmYZwXslGLwhgd54.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/3bf7d997f489e9a18710a355b1aaae66f7c788be.png" alt="image" data-base62-sha1="8yvbAmqvFMVKmYZwXslGLwhgd54" width="690" height="331" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/3bf7d997f489e9a18710a355b1aaae66f7c788be_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">747×359 70 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_23' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-12T14:03:43Z' class='post-time'>
+                    April 12, 2021,  2:03pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-12T14:03:43Z'>
+              <span itemprop='position'>23</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>didn’t you already make the CAN driver work before?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_24' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-12T14:05:29Z' class='post-time'>
+                    April 12, 2021,  2:05pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-12T14:05:29Z'>
+              <span itemprop='position'>24</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>yes I see them in if config (no problem <img src="https://emoji.discourse-cdn.com/twitter/grinning.png?v=9" title=":grinning:" class="emoji" alt=":grinning:">), but after these mqtt experiments, file can_iot.ko is not load…</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_25' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-12T14:07:10Z' class='post-time'>
+                    April 12, 2021,  2:07pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-12T14:07:10Z'>
+              <span itemprop='position'>25</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>mqtt is just an application, no idea why it will affect the CAN driver.</p>
+<p>how do you compile the mqtt sample?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_26' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-12T14:08:13Z' class='post-time'>
+                    April 12, 2021,  2:08pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-12T14:08:13Z'>
+              <span itemprop='position'>26</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>root@swi-mdm9x28-wp:~# logread -f<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[32272]/supervisor T=main | proc.c GetWatchdogAction() 359 | kmod@0 watchdogAction ‘’ in proc section<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c app_Start() 3420 | Starting app ‘tools’<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_uartMode.so’ to '/legato/systems/current/appsWriteable/tools/lib/libC<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_secstore.so’ to '/legato/systems/current/appsWriteable/tools/lib/libC<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_cm.so’ to '/legato/systems/current/appsWriteable/tools/lib/libCompone<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_moduleLoad.so’ to '/legato/systems/current/appsWriteable/tools/lib/li<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_fwupdate.so’ to '/legato/systems/current/appsWriteable/tools/lib/libC<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_pmtool.so’ to '/legato/systems/current/appsWriteable/tools/lib/libCom<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_le_pa_uartMode_default.so’ to '/legato/systems/current/appsWriteable/<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_swiQmi.so’ to '/legato/systems/current/appsWriteable/tools/lib/libCom<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_le_pa_uartMode.so’ to '/legato/systems/current/appsWriteable/tools/li<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_gnss.so’ to '/legato/systems/current/appsWriteable/tools/lib/libCompo<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/bin/cm’ to ‘/legato/systems/current/appsWriteable/tools/bin/cm’: Already exists<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/bin/gnss’ to ‘/legato/systems/current/appsWriteable/tools/bin/gnss’: Already exists<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/bin/kmod’ to ‘/legato/systems/current/appsWriteable/tools/bin/kmod’: Already exists<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/bin/fwupdate’ to ‘/legato/systems/current/appsWriteable/tools/bin/fwupdate’: Already e<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/bin/secstore’ to ‘/legato/systems/current/appsWriteable/tools/bin/secstore’: Already e<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/bin/uartMode’ to ‘/legato/systems/current/appsWriteable/tools/bin/uartMode’: Already e<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/bin/pmtool’ to ‘/legato/systems/current/appsWriteable/tools/bin/pmtool’: Already exist<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_swiQmi.so’ to '/legato/systems/current/appsWriteable/tools/lib/libCom<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_le_pa_uartMode.so’ to '/legato/systems/current/appsWriteable/tools/li<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/scripts/cm’ to ‘/legato/systems/current/appsWriteable/tools/scripts/cm’: Already exist<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 8192.<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 90112.<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | proc.c proc_Start() 1390 | Starting process ‘kmod@0’ with pid 719<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[719]/supervisor T=main | proc.c proc_Start() 1355 | Execing ‘bin/kmod’<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.warn Legato: -WRN- | <em>UNKNOWN</em>[719]/framework T=main | LE_FILENAME le_ref_CreateMap() 149 | Map name ‘refle_kernelModule_ClientHandlers’ truncated to ‘refle_kernelModule_ClientHandle’.<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | kernelModules.c le_kernelModule_Unload() 1515 | Requested to unload module ‘can_iot.ko’.<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | kernelModules.c le_kernelModule_Unload() 1557 | Unloading module, ‘can_iot.ko’, was successful.<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | proc.c proc_SigChildHandler() 2051 | Process ‘kmod@0’ (PID: 719) has exited with exit code 0.<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.debug kernel: [13720.803693] gpio_sync_ri: RI owner is Modem<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.debug kernel: [13720.803717] gpio_map_name_to_num: find GPIO 16<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.debug kernel: [13720.803728] export_store: Export GPIO: 16<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.debug kernel: [13720.803743] gpio-16 (sysfs): gpiod_request: status -16<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.debug kernel: [13720.803753] export_store: Status -16<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c app_StopComplete() 4686 | app ‘tools’ has stopped.<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | apps.c DeactivateAppContainer() 374 | Application ‘tools’ has stopped.<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[32272]/supervisor T=main | proc.c GetWatchdogAction() 359 | mux@0 watchdogAction ‘’ in proc section<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c app_Start() 3420 | Starting app ‘muxCtrlTools’<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/muxCtrlTools/read-only/lib/libComponent_mux.so’ to '/legato/systems/current/appsWriteable/muxCtrlTools<br>
+Apr 12 15:54:22 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/muxCtrlTools/read-only/bin/mux’ to ‘/legato/systems/current/appsWriteable/muxCtrlTools/bin/mux’: Alrea<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 8192.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 90112.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | proc.c proc_Start() 1390 | Starting process ‘mux@0’ with pid 723<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[723]/supervisor T=main | proc.c proc_Start() 1355 | Execing ‘bin/mux’<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.warn Legato: -WRN- | mux@0[723]/framework T=main | LE_FILENAME le_ref_CreateMap() 149 | Map name ‘refmangoh_muxCtrl_ClientHandlers’ truncated to ‘refmangoh_muxCtrl_ClientHandler’.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | proc.c proc_SigChildHandler() 2051 | Process ‘mux@0’ (PID: 723) has exited with exit code 0.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c app_StopComplete() 4686 | app ‘muxCtrlTools’ has stopped.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | apps.c DeactivateAppContainer() 374 | Application ‘muxCtrlTools’ has stopped.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[32272]/supervisor T=main | proc.c GetWatchdogAction() 359 | mux@0 watchdogAction ‘’ in proc section<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c app_Start() 3420 | Starting app ‘muxCtrlTools’<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/muxCtrlTools/read-only/lib/libComponent_mux.so’ to '/legato/systems/current/appsWriteable/muxCtrlTools<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/muxCtrlTools/read-only/bin/mux’ to ‘/legato/systems/current/appsWriteable/muxCtrlTools/bin/mux’: Alrea<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 8192.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 90112.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | proc.c proc_Start() 1390 | Starting process ‘mux@0’ with pid 727<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[727]/supervisor T=main | proc.c proc_Start() 1355 | Execing ‘bin/mux’<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.warn Legato: -WRN- | mux@0[727]/framework T=main | LE_FILENAME le_ref_CreateMap() 149 | Map name ‘refmangoh_muxCtrl_ClientHandlers’ truncated to ‘refmangoh_muxCtrl_ClientHandler’.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | proc.c proc_SigChildHandler() 2051 | Process ‘mux@0’ (PID: 727) has exited with exit code 0.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c app_StopComplete() 4686 | app ‘muxCtrlTools’ has stopped.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | apps.c DeactivateAppContainer() 374 | Application ‘muxCtrlTools’ has stopped.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[32272]/supervisor T=main | proc.c GetWatchdogAction() 359 | kmod@0 watchdogAction ‘’ in proc section<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c app_Start() 3420 | Starting app ‘tools’<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_uartMode.so’ to '/legato/systems/current/appsWriteable/tools/lib/libC<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_secstore.so’ to '/legato/systems/current/appsWriteable/tools/lib/libC<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_cm.so’ to '/legato/systems/current/appsWriteable/tools/lib/libCompone<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_moduleLoad.so’ to '/legato/systems/current/appsWriteable/tools/lib/li<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_fwupdate.so’ to '/legato/systems/current/appsWriteable/tools/lib/libC<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_pmtool.so’ to '/legato/systems/current/appsWriteable/tools/lib/libCom<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_le_pa_uartMode_default.so’ to '/legato/systems/current/appsWriteable/<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_swiQmi.so’ to '/legato/systems/current/appsWriteable/tools/lib/libCom<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_le_pa_uartMode.so’ to '/legato/systems/current/appsWriteable/tools/li<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_gnss.so’ to '/legato/systems/current/appsWriteable/tools/lib/libCompo<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/bin/cm’ to ‘/legato/systems/current/appsWriteable/tools/bin/cm’: Already exists<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/bin/gnss’ to ‘/legato/systems/current/appsWriteable/tools/bin/gnss’: Already exists<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/bin/kmod’ to ‘/legato/systems/current/appsWriteable/tools/bin/kmod’: Already exists<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/bin/fwupdate’ to ‘/legato/systems/current/appsWriteable/tools/bin/fwupdate’: Already e<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/bin/secstore’ to ‘/legato/systems/current/appsWriteable/tools/bin/secstore’: Already e<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/bin/uartMode’ to ‘/legato/systems/current/appsWriteable/tools/bin/uartMode’: Already e<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/bin/pmtool’ to ‘/legato/systems/current/appsWriteable/tools/bin/pmtool’: Already exist<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_swiQmi.so’ to '/legato/systems/current/appsWriteable/tools/lib/libCom<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/lib/libComponent_le_pa_uartMode.so’ to '/legato/systems/current/appsWriteable/tools/li<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link ‘/legato/systems/current/apps/tools/read-only/scripts/cm’ to ‘/legato/systems/current/appsWriteable/tools/scripts/cm’: Already exist<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 8192.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 90112.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | proc.c proc_Start() 1390 | Starting process ‘kmod@0’ with pid 731<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[731]/supervisor T=main | proc.c proc_Start() 1355 | Execing ‘bin/kmod’<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.warn Legato: -WRN- | <em>UNKNOWN</em>[731]/framework T=main | LE_FILENAME le_ref_CreateMap() 149 | Map name ‘refle_kernelModule_ClientHandlers’ truncated to ‘refle_kernelModule_ClientHandle’.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | kernelModules.c le_kernelModule_Load() 1451 | Requested to load module ‘can_iot.ko’.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | kernelModules.c ExecuteCommand() 211 | Execute ‘/sbin/insmod /legato/systems/current/modules/can_iot.ko’<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.crit Legato: <em>CRT</em> | supervisor[32272]/supervisor T=main | kernelModules.c ExecuteCommand() 248 | /sbin/insmod exited with error code 17.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.err Legato: =ERR= | supervisor[32272]/supervisor T=main | kernelModules.c le_kernelModule_Load() 1489 | Load module, ‘can_iot.ko’, failed.  (LE_FAULT)<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | proc.c proc_SigChildHandler() 2051 | Process ‘kmod@0’ (PID: 731) has exited with exit code 1.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.warn Legato: -WRN- | supervisor[32272]/supervisor T=main | app.c app_SigChildHandler() 4015 | Process ‘kmod@0’ in app ‘tools’ faulted: Ignored.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | app.c app_StopComplete() 4686 | app ‘tools’ has stopped.<br>
+Apr 12 15:54:23 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[32272]/supervisor T=main | apps.c DeactivateAppContainer() 374 | Application ‘tools’ has stopped.<br>
+app status<br>
+Apr 12 16:06:2</p>
+<p>This is the log but i can’t understand what proble were born…</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_27' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-12T14:09:57Z' class='post-time'>
+                    April 12, 2021,  2:09pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-12T14:09:57Z'>
+              <span itemprop='position'>27</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>how do you compile the mqtt sample?<br>
+using mkapp?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_28' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/7c0827d8797b2fa17f170426934b959dee0bf89d.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-12T14:11:12Z' class='post-time'>
+                    April 12, 2021,  2:11pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-12T14:11:12Z'>
+              <span itemprop='position'>28</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I did it (mksys):<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/7c0827d8797b2fa17f170426934b959dee0bf89d.png" data-download-href="/uploads/short-url/hHeG8SlxnBDPfKhHllBGYS61FKZ.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7c0827d8797b2fa17f170426934b959dee0bf89d_2_690x260.png" alt="image" data-base62-sha1="hHeG8SlxnBDPfKhHllBGYS61FKZ" width="690" height="260" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7c0827d8797b2fa17f170426934b959dee0bf89d_2_690x260.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7c0827d8797b2fa17f170426934b959dee0bf89d_2_1035x390.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7c0827d8797b2fa17f170426934b959dee0bf89d_2_1380x520.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/7/7c0827d8797b2fa17f170426934b959dee0bf89d_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">1382×521 22.9 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_29' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-12T14:19:25Z' class='post-time'>
+                    April 12, 2021,  2:19pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-12T14:19:25Z'>
+              <span itemprop='position'>29</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>okay I solved the problem of load module only with a powercycle <img src="https://emoji.discourse-cdn.com/twitter/ok_hand.png?v=9" title=":ok_hand:" class="emoji" alt=":ok_hand:"></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_30' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-12T15:38:37Z' class='post-time'>
+                    April 12, 2021,  3:38pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-12T15:38:37Z'>
+              <span itemprop='position'>30</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I was able to see on two terminals that Mosquitto works: publishing on one terminal, I see the publication on the other. In your opinion, how can I do to set up a PC experiment - MangOH, or publish a message from the PC I see it then in ssh?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_31' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-12T15:50:34Z' class='post-time'>
+                    April 12, 2021,  3:50pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-12T15:50:34Z'>
+              <span itemprop='position'>31</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>no idea, I have never used Mosquitto before.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_32' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-12T17:11:13Z' class='post-time'>
+                    April 12, 2021,  5:11pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-12T17:11:13Z'>
+              <span itemprop='position'>32</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I have set up a configuration with MQTT client on mangOH, mosquitto server on PC, mosquitto client on same PC. Can publish from mangOH client and receive on PC client.</p>
+<p>It’s a Linux PC though. You have to set up the iptables on LInux to allow the mangOH to send to it. Not familiar with how you do it on Windows.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_33' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-12T17:58:29Z' class='post-time'>
+                    April 12, 2021,  5:58pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-12T17:58:29Z'>
+              <span itemprop='position'>33</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I’m using Linux too <img src="https://emoji.discourse-cdn.com/twitter/grin.png?v=9" title=":grin:" class="emoji" alt=":grin:"></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_34' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-13T07:04:33Z' class='post-time'>
+                    April 13, 2021,  7:04am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-13T07:46:25Z'>
+              <span itemprop='position'>34</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/pinst">@pinst</a> can you say me how you configured MQTT Client on mangOH and made Mosquitto on Ubuntu PC and mangOH in a communication pub/sub?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_35' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-13T18:16:51Z' class='post-time'>
+                    April 13, 2021,  6:16pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-13T18:16:51Z'>
+              <span itemprop='position'>35</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I am not using Sierra Wireless’ MQTT Client, I am using the paho MQTT library within my application.</p>
+<p>Here is the mosquitto server receiving a message from the paho standalone client program. Unfortunately I’m not set up to run my application on the SW at this time.</p>
+<pre><code class="lang-auto">$ /snap/mosquitto/current/usr/sbin/mosquitto -v -c /snap/mosquitto/current/default_config.conf
+1618337359: mosquitto version 1.6.14 starting
+1618337359: Config loaded from /snap/mosquitto/current/default_config.conf.
+1618337359: Opening ipv4 listen socket on port 1883.
+1618337359: Opening ipv6 listen socket on port 1883.
+1618337359: mosquitto version 1.6.14 running
+1618337682: New connection from 127.0.0.1 on port 1883.
+1618337682: New client connected from 127.0.0.1 as paho-c-pub (p2, c1, k10).
+1618337682: No will message specified.
+1618337682: Sending CONNACK to paho-c-pub (0, 0)
+1618337682: Received PUBLISH from paho-c-pub (d0, q0, r0, m0, 'mytopic', ... (5 bytes))
+1618337682: Received DISCONNECT from paho-c-pub
+1618337682: Client paho-c-pub disconnected.
+</code></pre>
+<pre><code class="lang-auto">$ paho_c_pub -c localhost -t mytopic -m hello
+</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_36' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/c371595667ccd65068fed7178e81c7279e7c0b0e.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-14T08:32:32Z' class='post-time'>
+                    April 14, 2021,  8:32am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-14T08:32:32Z'>
+              <span itemprop='position'>36</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I have errors…<br>
+<div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/c371595667ccd65068fed7178e81c7279e7c0b0e.png" data-download-href="/uploads/short-url/rSXXg4UqPOjNkbqUPiHaaudut42.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/c371595667ccd65068fed7178e81c7279e7c0b0e.png" alt="image" data-base62-sha1="rSXXg4UqPOjNkbqUPiHaaudut42" width="690" height="268" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c371595667ccd65068fed7178e81c7279e7c0b0e_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">image</span><span class="informations">734×286 56 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_37' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/gavinoimparato1'><span itemprop='name'>gavinoimparato1</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-14T08:50:19Z' class='post-time'>
+                    April 14, 2021,  8:50am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-14T08:50:19Z'>
+              <span itemprop='position'>37</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/pinst">@pinst</a>  Sorry for the question, but how can I do to use paho? Did you simply downloaded it? I don’t understand how to do it…for me is a good thing to have mosquitto broker and paho client</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_38' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pinst'><span itemprop='name'>pinst</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-14T18:22:59Z' class='post-time'>
+                    April 14, 2021,  6:22pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-14T18:22:59Z'>
+              <span itemprop='position'>38</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Your error above is because there is already a server running. If you did an install of mosquitto the server will come up after boot. For my example I killed the existing server so I could start a new one and show the output.</p>
+<p>The C iibrary source can be found under “MQTT Clients” on this page:</p>
+<p><a href="https://www.eclipse.org/paho/index.php?page=downloads.php" rel="noopener nofollow ugc">https://www.eclipse.org/paho/index.php?page=downloads.php</a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><a rel="prev" itemprop="url" href="/t/mosquitto-airvatage-mqttclient-on-mangoh-green-with-wp7607/8304">← previous page</a></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

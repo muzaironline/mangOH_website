@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Poor Signal Quality and Air Vantage Data Costs</title>
+    <link>https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636</link>
+    <description>I have a modified version of `RedSensorToCloud` which retries a data connection every 5 minutes if  `LE_AVDATA_SESSION_STOPPED` occurs.  This seems to be generating a lot of connection device registrations on Air Vantage when the cellular connection is poor (IE 1 bar).  
+
+What is the best way to avoid this additional cost?  I&#39;m thinking it would be better to check the cell signal level and only attempt a session if the signal level is above a threshold after some number of attempts but I&#39;m not sure if this makes sense.
+
+Thoughts?
+
+Thanks,
+Darren</description>
+    
+    <lastBuildDate>Tue, 14 May 2019 21:38:27 +0000</lastBuildDate>
+    <category>Cloud &amp; Connectivity</category>
+    <atom:link href="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Poor Signal Quality and Air Vantage Data Costs</title>
+        <dc:creator><![CDATA[Prush]]></dc:creator>
+        <description><![CDATA[
+            <p>Here is my opinion:<br>
+<span class="hashtag">#1</span>) It is best if you can tear down session if you know for sure you don’t need it for a long time. To save power. But if you transfer every 5 minutes it may be better to keep data session up all the time to save bandwidth.<br>
+<span class="hashtag">#2</span>) Yes, le_avdata_ReleaseSession() should be called</p>
+          <p><a href="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/8</link>
+        <pubDate>Tue, 14 May 2019 21:38:27 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2636-8</guid>
+        <source url="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636.rss">Poor Signal Quality and Air Vantage Data Costs</source>
+      </item>
+      <item>
+        <title>Poor Signal Quality and Air Vantage Data Costs</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/prush">@Prush</a></p>
+<p>Thanks for the sample code reference but I’m not sure how similar this app is to our sensorToCloud app. The AssetData app purposely stops sending data after 10 minutes.</p>
+<p>Our app opens a data connection and then keeps trying that data connection (every 5 minutes) if the response handler isn’t called.  After 10 minutes it gives up and reboots.</p>
+<p>I’m trying illuminate the reboots and at the same time optimize LWM2M session data costs.  So I better understand.</p>
+<ol>
+<li>Is it best practice to setup and tear down a data session or should a data sessions be setup for as long as possible?</li>
+<li>Should <code>le_avdata_ReleaseSession</code> be called before attempting to call <code>le_avdata_RequestSession</code> if the first call to <code>le_avdata_RequestSession</code> returned a non-null reference?</li>
+</ol>
+<p>Answer to 2: Looking at avcData.c in avcDaemon <code>le_avdata_RequestSession</code> will return the existing reference if it’s a duplicate request.  So no need to release the session before trying again.</p>
+<p>Thanks,<br>
+Darren</p>
+          <p><a href="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/7</link>
+        <pubDate>Tue, 14 May 2019 21:15:00 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2636-7</guid>
+        <source url="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636.rss">Poor Signal Quality and Air Vantage Data Costs</source>
+      </item>
+      <item>
+        <title>Poor Signal Quality and Air Vantage Data Costs</title>
+        <dc:creator><![CDATA[Prush]]></dc:creator>
+        <description><![CDATA[
+            <p>Most cases you will get a non-null reference unless the service ran out of resources. Getting a non-null reference doesn’t imply you have a connection to the server. You still have to wait for events from avc service.</p>
+<p>Look at the sample in:</p>
+<aside class="onebox githubblob">
+  <header class="source">
+      <a href="https://github.com/legatoproject/legato-af/blob/master/apps/sample/assetData/assetDataComponent/main.c" target="_blank" rel="nofollow noopener">github.com</a>
+  </header>
+  <article class="onebox-body">
+    <h4><a href="https://github.com/legatoproject/legato-af/blob/master/apps/sample/assetData/assetDataComponent/main.c" target="_blank" rel="nofollow noopener">legatoproject/legato-af/blob/master/apps/sample/assetData/assetDataComponent/main.c</a></h4>
+<pre><code class="lang-c">#include "legato.h"
+#include "interfaces.h"
+
+// [DeclareVariables]
+#define APP_RUNNING_DURATION_SEC 600        //run this app for 10min
+// [AssetDataPath]
+//-------------------------------------------------------------------------------------------------
+/**
+ * Declare asset data path
+ */
+//-------------------------------------------------------------------------------------------------
+
+/* variables */
+// string - room name
+#define ROOM_NAME_VAR_RES   "/home1/room1/roomName"
+
+// bool - status of air conditioning in the room ON or OFF
+#define IS_AC_ON_VAR_RES   "/home1/room1/AC/IsACOn"
+
+// float - room temperature reading
+</code></pre>
+
+  This file has been truncated. <a href="https://github.com/legatoproject/legato-af/blob/master/apps/sample/assetData/assetDataComponent/main.c" target="_blank" rel="nofollow noopener">show original</a>
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+<p>avcStatusHandler() will notify your app when the connection goes up/down.</p>
+<p>When your app doesn’t need avdata connection you can call le_avdata_ReleaseSession(). When all clients release their sessions avms connection will be torn down.</p>
+<p>The dependency for avc app is “avc -&gt; data connection service -&gt; modem service”.<br>
+The cm tool is a debug tool which interacts directly with modem. You cannot compare events from modem service to events from avc.</p>
+<p>For example, when avc indicates a connection is up, you can check the and rmnet interface and ip by running ‘cm data’. But when avc indicates that the avms connection is down, you might still see rmnet interface and ip depedning on if other app is using that channel.</p>
+          <p><a href="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/6</link>
+        <pubDate>Tue, 14 May 2019 19:28:08 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2636-6</guid>
+        <source url="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636.rss">Poor Signal Quality and Air Vantage Data Costs</source>
+      </item>
+      <item>
+        <title>Poor Signal Quality and Air Vantage Data Costs</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/prush">@Prush</a></p>
+<p>Thanks for the help and the pointers about the <code>cm</code> tool.  I noticed while I was debugging today that <code>le_avdata_RequestSession</code> seems to return a non-null reference even when cm radio indicated no network connection.  Is this normal?</p>
+<p>Sounds like <code>le_avdata_ReleaseSession()</code> should be called if <code>le_avdata_RequestSession</code> returned a non-null reference, correct.</p>
+<p>Thanks,<br>
+Darren</p>
+          <p><a href="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/5</link>
+        <pubDate>Tue, 14 May 2019 18:11:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2636-5</guid>
+        <source url="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636.rss">Poor Signal Quality and Air Vantage Data Costs</source>
+      </item>
+      <item>
+        <title>Poor Signal Quality and Air Vantage Data Costs</title>
+        <dc:creator><![CDATA[Prush]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Darren, You don’t have to reboot the modem to reestablish the cellular connection. You should be able to reconnect if you release the session and request session again. A quick way to check cellular connection is also by using the ‘cm tool’. Use commands ‘cm radio’, ‘cm data’. Typically after a boot the device will connect to the cellular network but you have to request a data connect explicitly.</p>
+<p><strong>Right after boot</strong><br>
+root@swi-mdm9x28-wp:~# cm data<br>
+Index:                         1<br>
+APN:                           ltemobile.apn<br>
+PDP Type:                      IPV4<br>
+Connected:                     no<br>
+root@swi-mdm9x28-wp:~# cm radio<br>
+Power:                         ON<br>
+Current Network Operator:      Rogers Wireless<br>
+Current RAT:                   GSM network (LE_MRC_RAT_GSM)<br>
+Status:                        Registered, home network (LE_MRC_REG_HOME)<br>
+Signal:                        Very strong signal strength (5)<br>
+PS:                            Packet Switched Registered, home network (LE_MRC_REG_HOME)</p>
+<p><strong>Explicit data connection</strong><br>
+root@swi-mdm9x28-wp:~# cm data connect<br>
+Setting up profile 1<br>
+Connecting … ok<br>
+Checking if device ‘rmnet_data0’ is up … ok<br>
+Routing inet … ok<br>
+mv: can’t remove ‘/etc/resolv.conf’: Device or resource busy<br>
+Updating /etc/resolv.conf … ok<br>
+Updating /etc/resolv.conf … ok<br>
+Testing connection … ok<br>
+root@swi-mdm9x28-wp:~# cm data<br>
+Index:                         1<br>
+APN:                           ltemobile.apn<br>
+PDP Type:                      IPV4<br>
+Connected:                     yes<br>
+Interface:                     rmnet_data0<br>
+Family[IPv4]:                  inet<br>
+IP[IPv4]:                      25.167.7.155<br>
+Gateway[IPv4]:                 25.167.7.156<br>
+Dns1[IPv4]:                    64.71.255.254<br>
+Dns2[IPv4]:                    64.71.255.253<br>
+root@swi-mdm9x28-wp:~#</p>
+          <p><a href="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/4</link>
+        <pubDate>Tue, 14 May 2019 17:50:28 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2636-4</guid>
+        <source url="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636.rss">Poor Signal Quality and Air Vantage Data Costs</source>
+      </item>
+      <item>
+        <title>Poor Signal Quality and Air Vantage Data Costs</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/asyal">@asyal</a> Yes, that helps and I stumbled on this late last night in this post <a href="https://forum.legato.io/t/airvantage-data-push-stops-after-some-time/3450/2" rel="nofollow noopener">https://forum.legato.io/t/airvantage-data-push-stops-after-some-time/3450/2</a></p>
+<p>Would you recommend these checks are performed before a call to <code>le_avdata_RequestSession</code>?  We have had some problems with the data session not reconnecting unless we reboot the modem is this normal or should we be able to restart the app and acquire a data connection again?</p>
+<p>Also does the modem automatically try and connect to the cellular network once it boots?  Are they docs that talk about this behaviour?</p>
+<p>Thanks,<br>
+Darren</p>
+          <p><a href="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/3</link>
+        <pubDate>Tue, 14 May 2019 16:05:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2636-3</guid>
+        <source url="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636.rss">Poor Signal Quality and Air Vantage Data Costs</source>
+      </item>
+      <item>
+        <title>Poor Signal Quality and Air Vantage Data Costs</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-post="1" data-topic="2636">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/dbeckwith/40/772_2.png" class="avatar"> dbeckwith:</div>
+<blockquote>
+<p>What is the best way to avoid this additional cost? I’m thinking it would be better to check the cell signal level and only attempt a session if the signal level is above a threshold after some number of attempts but I’m not sure if this makes sense.</p>
+</blockquote>
+</aside>
+<p>Hi Darren,</p>
+<p>Can you look at the following Legato API:<br>
+<a href="https://docs.legato.io/19_01/le__mrc__interface_8h_source.html" class="onebox" target="_blank" rel="nofollow noopener">https://docs.legato.io/19_01/le__mrc__interface_8h_source.html</a></p>
+<p>specifically you can look at --&gt;</p>
+<ol>
+<li>le_mrc_MeasureSignalMetrics()</li>
+<li>For e.g. for GSM :   le_mrc_GetGsmSignalMetrics(metricsRef, &amp;rxLevel, &amp;er);</li>
+</ol>
+<p>This should help you get the signal strength and then make a decision based on that.<br>
+Does that help?</p>
+<p>cheers,<br>
+Ashish</p>
+          <p><a href="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/2</link>
+        <pubDate>Tue, 14 May 2019 15:54:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2636-2</guid>
+        <source url="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636.rss">Poor Signal Quality and Air Vantage Data Costs</source>
+      </item>
+      <item>
+        <title>Poor Signal Quality and Air Vantage Data Costs</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p>I have a modified version of <code>RedSensorToCloud</code> which retries a data connection every 5 minutes if  <code>LE_AVDATA_SESSION_STOPPED</code> occurs.  This seems to be generating a lot of connection device registrations on Air Vantage when the cellular connection is poor (IE 1 bar).</p>
+<p>What is the best way to avoid this additional cost?  I’m thinking it would be better to check the cell signal level and only attempt a session if the signal level is above a threshold after some number of attempts but I’m not sure if this makes sense.</p>
+<p>Thoughts?</p>
+<p>Thanks,<br>
+Darren</p>
+          <p><a href="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/1</link>
+        <pubDate>Tue, 14 May 2019 05:37:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2636-1</guid>
+        <source url="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636.rss">Poor Signal Quality and Air Vantage Data Costs</source>
+      </item>
+  </channel>
+</rss>

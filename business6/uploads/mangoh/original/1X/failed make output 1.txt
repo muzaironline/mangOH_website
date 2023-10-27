@@ -1,0 +1,771 @@
+Module: WiFi
+********************* VERSION ********************
+Legato WiFi version: 18.04.0-2-gc4cd465
+**************************************************
+Module: Dualsys
+make -f Makefile.hostTools
+make[1]: Entering directory '/home/connor/workspace/legato'
+mkdir -p bin
+Using ninja installed at: /usr/bin/ninja
+mkdir -p /home/connor/workspace/legato/build/tools
+export TOOLS_ARCH=x86_64 && \
+framework/tools/mkTools/ninja-generator
+Tools arch: x86_64
+ln -sf ../build/tools/mk bin/mk
+ln -sf mk bin/mkcomp
+ln -sf mk bin/mkexe
+ln -sf mk bin/mkapp
+ln -sf mk bin/mksys
+ln -sf ../framework/tools/scripts/splitdebug ../framework/tools/scripts/findtoolchain ../framework/tools/scripts/instsys ../framework/tools/scripts/settime ../framework/tools/scripts/mkinfo ../framework/tools/scripts/instlegato ../framework/tools/scripts/stoplegato ../framework/tools/scripts/cextgenerator.py ../framework/tools/scripts/settz ../framework/tools/scripts/createsdk ../framework/tools/scripts/systoimg ../framework/tools/scripts/legato-qemu ../framework/tools/scripts/checkpa ../framework/tools/scripts/legato-install ../framework/tools/scripts/update-pack ../framework/tools/scripts/security-pack ../framework/tools/scripts/instapp ../framework/tools/scripts/mklegatoimg ../framework/tools/scripts/app ../framework/tools/scripts/av-pack ../framework/tools/scripts/releaselegato ../framework/tools/scripts/sbhelper ../framework/tools/scripts/remoteDebug ../framework/tools/scripts/systocwe ../framework/tools/scripts/configlegatoenv ../framework/tools/scripts/update ../framework/tools/scripts/configtargetssh ../framework/tools/scripts/legs ../framework/tools/scripts/gettargettype ../framework/tools/scripts/update-util ../framework/tools/scripts/configToolchainDirEnvVars ../framework/tools/scripts/simu ../framework/tools/scripts/fwupdate ../framework/tools/scripts/setname ../framework/tools/scripts/mkdoc ../framework/tools/scripts/startlegato ../framework/tools/scripts/shlib ../framework/tools/scripts/mklegatotreero bin/
+ln -sf /home/connor/workspace/legato/framework/tools/ifgen/ifgen bin/
+ln -sf /home/connor/workspace/legato/3rdParty/ima-support-tools/ima-sign.sh bin/
+ln -sf /home/connor/workspace/legato/3rdParty/ima-support-tools/ima-gen-keys.sh bin/
+make -C framework/tools/mkPatch mkPatch
+make[2]: Entering directory '/home/connor/workspace/legato/framework/tools/mkPatch'
+/usr/bin/gcc -Wall -Werror -o /home/connor/workspace/legato/bin/mkPatch \
+    mkPatch.c /home/connor/workspace/legato/framework/liblegato/crc.c \
+    -I/home/connor/workspace/legato/framework/include \
+    -I/home/connor/workspace/legato/3rdParty/include
+make[2]: Leaving directory '/home/connor/workspace/legato/framework/tools/mkPatch'
+ninja  -f /home/connor/workspace/legato/build/tools/build.ninja
+[63/63] Linking mk tools
+make[1]: Leaving directory '/home/connor/workspace/legato'
+# Generate an MD5 hash of everything in the source directories.
+find framework components interfaces platformAdaptor modules apps/platformServices  apps/tools targetFiles Makefile.framework Makefile.hostTools Makefile.targetTools Makefile targetDefs CMakeLists.txt -type f | grep -v ".git" | sort | while read filePath ; \
+do \
+  echo "$filePath" && \
+  cat "$filePath" ; \
+done | md5sum | awk '{ print $1 }' > sources.md5
+version=18.04.0-60-g301e3a9
+md5=30e34b613ad94639319b78131ecff156
+make -f Makefile.framework CC=/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc
+make[1]: Entering directory '/home/connor/workspace/legato'
+mkdir -p /home/connor/workspace/legato/build/wp77xx/framework/lib
+framework/liblegato/ninja-generator
+ninja  -f /home/connor/workspace/legato/build/wp77xx/framework/build.ninja
+[52/52] Linking liblegato
+mkdir -p /home/connor/workspace/legato/build/wp77xx/framework/bin
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -o /home/connor/workspace/legato/build/wp77xx/framework/bin/startSystem /home/connor/workspace/legato/framework/daemons/linux/start/start.c \
+	-Wall -Werror \
+	-I/home/connor/workspace/legato/framework/include \
+                -I/home/connor/workspace/legato/framework/liblegato \
+                -I/home/connor/workspace/legato/framework/liblegato/linux \
+	-DVERSION=\"18.04.0-60-g301e3a9\" \
+	-DDISABLE_SMACK=0 \
+	 \
+	-Wl,--enable-new-dtags,-rpath="\$ORIGIN/../lib" \
+	-L/home/connor/workspace/legato/build/wp77xx/framework/lib -llegato
+mkexe  -o /home/connor/workspace/legato/build/wp77xx/framework/bin/supervisor -t wp77xx -w /home/connor/workspace/legato/build/wp77xx/framework/supervisor -l /home/connor/workspace/legato/build/wp77xx/framework/lib -d /home/connor/workspace/legato/build/wp77xx/debug \
+	/home/connor/workspace/legato/framework/daemons/linux/supervisor \
+	-i /home/connor/workspace/legato/interfaces/supervisor \
+	-i /home/connor/workspace/legato/framework/liblegato \
+	-i /home/connor/workspace/legato/framework/liblegato/linux \
+	-i /home/connor/workspace/legato/framework/daemons/linux/start \
+	-s /home/connor/workspace/legato/framework/daemons/linux/supervisor \
+	--cflags=-DDISABLE_SMACK=0 \
+	 \
+	--cflags=-DNO_LOG_CONTROL \
+	--cflags=-DLEGATO_FRAMEWORK_NICE_LEVEL=-19
+[41/41] Linking C executable
+mkexe  -o /home/connor/workspace/legato/build/wp77xx/framework/bin/serviceDirectory -t wp77xx -w /home/connor/workspace/legato/build/wp77xx/framework/serviceDirectory -l /home/connor/workspace/legato/build/wp77xx/framework/lib -d /home/connor/workspace/legato/build/wp77xx/debug \
+	/home/connor/workspace/legato/framework/daemons/linux/serviceDirectory \
+	--cflags=-I/home/connor/workspace/legato/framework/liblegato \
+	--cflags=-I/home/connor/workspace/legato/framework/liblegato/linux \
+	--cflags=-DNO_LOG_CONTROL \
+	--cflags=-DLE_RUNTIME_DIR="/tmp/legato//" \
+	--cflags=-DLE_SVCDIR_SERVER_SOCKET_NAME="/tmp/legato/serviceDirectoryServer" \
+	--cflags=-DLE_SVCDIR_CLIENT_SOCKET_NAME="/tmp/legato/serviceDirectoryClient"
+[5/5] Linking C executable
+mkexe  -o /home/connor/workspace/legato/build/wp77xx/framework/bin/logCtrlDaemon -t wp77xx -w /home/connor/workspace/legato/build/wp77xx/framework/logCtrlDaemon -l /home/connor/workspace/legato/build/wp77xx/framework/lib -d /home/connor/workspace/legato/build/wp77xx/debug \
+	/home/connor/workspace/legato/framework/daemons/linux/logDaemon \
+	--cflags=-DNO_LOG_CONTROL \
+	-i /home/connor/workspace/legato/framework/liblegato \
+	-i /home/connor/workspace/legato/framework/liblegato/linux \
+	-i /home/connor/workspace/legato/interfaces/supervisor
+[11/11] Linking C executable
+mkexe  -o /home/connor/workspace/legato/build/wp77xx/framework/bin/configTree -t wp77xx -w /home/connor/workspace/legato/build/wp77xx/framework/configTree -l /home/connor/workspace/legato/build/wp77xx/framework/lib -d /home/connor/workspace/legato/build/wp77xx/debug \
+	/home/connor/workspace/legato/framework/daemons/linux/configTree \
+	-i /home/connor/workspace/legato/framework/liblegato \
+	-i /home/connor/workspace/legato/framework/liblegato/linux \
+	--cflags=-std=c99
+[23/23] Linking C executable
+mkexe  -o /home/connor/workspace/legato/build/wp77xx/framework/bin/watchdog -t wp77xx -w /home/connor/workspace/legato/build/wp77xx/framework/watchdog -l /home/connor/workspace/legato/build/wp77xx/framework/lib -d /home/connor/workspace/legato/build/wp77xx/debug \
+	-i /home/connor/workspace/legato/framework/liblegato \
+	-i /home/connor/workspace/legato/framework/liblegato/linux \
+	/home/connor/workspace/legato/framework/daemons/linux/watchdog/watchdogDaemon #\
+	#--cflags=-DLEGATO_FRAMEWORK_WDOG_DISABLE
+[27/27] Linking C executable
+mkexe  -o /home/connor/workspace/legato/build/wp77xx/framework/bin/updateDaemon -t wp77xx -w /home/connor/workspace/legato/build/wp77xx/framework/updateDaemon -l /home/connor/workspace/legato/build/wp77xx/framework/lib -d /home/connor/workspace/legato/build/wp77xx/debug \
+	/home/connor/workspace/legato/framework/daemons/linux/updateDaemon \
+	-i /home/connor/workspace/legato/interfaces/updateDaemon \
+	-i /home/connor/workspace/legato/components/appCfg \
+	-i /home/connor/workspace/legato/framework/liblegato \
+	-i /home/connor/workspace/legato/framework/liblegato/linux \
+	-s /home/connor/workspace/legato/components \
+	-s /home/connor/workspace/legato/framework/daemons/linux/updateDaemon \
+	 \
+	--ldflags=-L/home/connor/workspace/legato/build/wp77xx/framework/lib
+[40/40] Linking C executable
+export TARGET_CC && \
+	mkdir -p /home/connor/workspace/legato/build/wp77xx/framework/libjansson
+cd /home/connor/workspace/legato/build/wp77xx/framework/libjansson && \
+	cmake /home/connor/workspace/legato/3rdParty/jansson \
+		-DCMAKE_TOOLCHAIN_FILE=/home/connor/workspace/legato/cmake/toolchain.yocto.cmake \
+		-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/home/connor/workspace/legato/build/wp77xx/framework/lib \
+		-DBUILD_SHARED_LIBS=ON \
+		-DUSE_CLANG=0
+Re-run cmake no build system arguments
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+C compiler: GNU
+-- Looking for include file endian.h
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for include file endian.h - found
+-- Looking for include file fcntl.h
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for include file fcntl.h - found
+-- Looking for include file sched.h
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for include file sched.h - found
+-- Looking for include file unistd.h
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for include file unistd.h - found
+-- Looking for include file sys/param.h
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for include file sys/param.h - found
+-- Looking for include file sys/stat.h
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for include file sys/stat.h - found
+-- Looking for include file sys/time.h
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for include file sys/time.h - found
+-- Looking for include file sys/time.h
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for include file sys/time.h - found
+-- Looking for close
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for close - found
+-- Looking for getpid
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for getpid - found
+-- Looking for gettimeofday
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for gettimeofday - found
+-- Looking for open
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for open - found
+-- Looking for read
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for read - found
+-- Looking for sched_yield
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for sched_yield - found
+-- Looking for include file stdint.h
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for include file stdint.h - found
+-- Looking for stddef.h
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for stddef.h - found
+-- Check size of __int64
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of __int64 - failed
+-- Check size of int64_t
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of int64_t - done
+-- Check size of long long
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of long long - done
+-- Check size of int32_t
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of int32_t - done
+-- Check size of __int32
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of __int32 - failed
+-- Check size of long
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of long - done
+-- Check size of int
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of int - done
+-- Check size of unsigned long
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of unsigned long - done
+-- Check size of unsigned int
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of unsigned int - done
+-- Check size of unsigned short
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of unsigned short - done
+-- Check size of uint32_t
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of uint32_t - done
+-- Check size of __uint32
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of __uint32 - failed
+-- Check size of uint16_t
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of uint16_t - done
+-- Check size of __uint16
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of __uint16 - failed
+-- Check size of uint8_t
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of uint8_t - done
+-- Check size of __uint8
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of __uint8 - failed
+-- Check size of ssize_t
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of ssize_t - done
+-- Check size of SSIZE_T
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Check size of SSIZE_T - failed
+-- Looking for strtoll
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for strtoll - found
+-- Looking for strtoq
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for strtoq - found
+-- Looking for _strtoi64
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for _strtoi64 - not found
+-- Looking for include file locale.h
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for include file locale.h - found
+-- Looking for localeconv
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for localeconv - found
+-- Looking for setlocale
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Looking for setlocale - found
+-- Performing Test HAVE_INLINE
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Performing Test HAVE_INLINE - Success
+-- Performing Test HAVE___INLINE
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Performing Test HAVE___INLINE - Success
+-- Performing Test HAVE___INLINE__
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Performing Test HAVE___INLINE__ - Success
+-- Performing Test HAVE_SYNC_BUILTINS
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Performing Test HAVE_SYNC_BUILTINS - Success
+-- Performing Test HAVE_ATOMIC_BUILTINS
+Target compilers: /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++
+Target sysroot overridden by TARGET_SYSROOT environment variable
+Target sysroot: /opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi
+-- Performing Test HAVE_ATOMIC_BUILTINS - Success
+-- Could NOT find Sphinx (missing:  Sphinx-build_EXECUTABLE Sphinx_VERSION_STRING) 
+CMake Warning at CMakeLists.txt:377 (message):
+  Sphinx not found.  Cannot generate documentation!
+
+        Set -DJANSSON_BUILD_DOCS=OFF to get rid of this message.
+
+
+-- Configuring done
+-- Generating done
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    USE_CLANG
+
+
+-- Build files have been written to: /home/connor/workspace/legato/build/wp77xx/framework/libjansson
+make -C /home/connor/workspace/legato/build/wp77xx/framework/libjansson
+make[2]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+/usr/bin/cmake -H/home/connor/workspace/legato/3rdParty/jansson -B/home/connor/workspace/legato/build/wp77xx/framework/libjansson --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/progress.marks
+make -f CMakeFiles/Makefile2 all
+make[3]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+make -f CMakeFiles/jansson.dir/build.make CMakeFiles/jansson.dir/depend
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+cd /home/connor/workspace/legato/build/wp77xx/framework/libjansson && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/jansson.dir/DependInfo.cmake --color=
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/jansson.dir/DependInfo.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/jansson.dir/depend.internal".
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/jansson.dir/depend.internal".
+Scanning dependencies of target jansson
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+make -f CMakeFiles/jansson.dir/build.make CMakeFiles/jansson.dir/build
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[  2%] Building C object CMakeFiles/jansson.dir/src/strconv.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -Djansson_EXPORTS -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  -fPIC   --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/jansson.dir/src/strconv.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/src/strconv.c
+[  4%] Building C object CMakeFiles/jansson.dir/src/error.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -Djansson_EXPORTS -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  -fPIC   --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/jansson.dir/src/error.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/src/error.c
+[  7%] Building C object CMakeFiles/jansson.dir/src/utf.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -Djansson_EXPORTS -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  -fPIC   --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/jansson.dir/src/utf.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/src/utf.c
+[  9%] Building C object CMakeFiles/jansson.dir/src/hashtable_seed.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -Djansson_EXPORTS -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  -fPIC   --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/jansson.dir/src/hashtable_seed.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/src/hashtable_seed.c
+[ 11%] Building C object CMakeFiles/jansson.dir/src/value.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -Djansson_EXPORTS -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  -fPIC   --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/jansson.dir/src/value.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/src/value.c
+[ 14%] Building C object CMakeFiles/jansson.dir/src/strbuffer.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -Djansson_EXPORTS -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  -fPIC   --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/jansson.dir/src/strbuffer.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/src/strbuffer.c
+[ 16%] Building C object CMakeFiles/jansson.dir/src/load.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -Djansson_EXPORTS -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  -fPIC   --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/jansson.dir/src/load.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/src/load.c
+[ 19%] Building C object CMakeFiles/jansson.dir/src/pack_unpack.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -Djansson_EXPORTS -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  -fPIC   --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/jansson.dir/src/pack_unpack.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/src/pack_unpack.c
+[ 21%] Building C object CMakeFiles/jansson.dir/src/dump.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -Djansson_EXPORTS -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  -fPIC   --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/jansson.dir/src/dump.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/src/dump.c
+[ 23%] Building C object CMakeFiles/jansson.dir/src/memory.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -Djansson_EXPORTS -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  -fPIC   --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/jansson.dir/src/memory.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/src/memory.c
+[ 26%] Building C object CMakeFiles/jansson.dir/src/hashtable.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -Djansson_EXPORTS -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  -fPIC   --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/jansson.dir/src/hashtable.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/src/hashtable.c
+[ 28%] Linking C shared library lib/libjansson.so
+/usr/bin/cmake -E cmake_link_script CMakeFiles/jansson.dir/link.txt --verbose=0
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 28%] Built target jansson
+make -f CMakeFiles/test_number.dir/build.make CMakeFiles/test_number.dir/depend
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+cd /home/connor/workspace/legato/build/wp77xx/framework/libjansson && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_number.dir/DependInfo.cmake --color=
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_number.dir/DependInfo.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_number.dir/depend.internal".
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_number.dir/depend.internal".
+Scanning dependencies of target test_number
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+make -f CMakeFiles/test_number.dir/build.make CMakeFiles/test_number.dir/build
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 30%] Building C object CMakeFiles/test_number.dir/test/suites/api/test_number.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/test_number.dir/test/suites/api/test_number.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/test/suites/api/test_number.c
+[ 33%] Linking C executable bin/test_number
+/usr/bin/cmake -E cmake_link_script CMakeFiles/test_number.dir/link.txt --verbose=0
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 33%] Built target test_number
+make -f CMakeFiles/test_equal.dir/build.make CMakeFiles/test_equal.dir/depend
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+cd /home/connor/workspace/legato/build/wp77xx/framework/libjansson && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_equal.dir/DependInfo.cmake --color=
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_equal.dir/DependInfo.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_equal.dir/depend.internal".
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_equal.dir/depend.internal".
+Scanning dependencies of target test_equal
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+make -f CMakeFiles/test_equal.dir/build.make CMakeFiles/test_equal.dir/build
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 35%] Building C object CMakeFiles/test_equal.dir/test/suites/api/test_equal.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/test_equal.dir/test/suites/api/test_equal.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/test/suites/api/test_equal.c
+[ 38%] Linking C executable bin/test_equal
+/usr/bin/cmake -E cmake_link_script CMakeFiles/test_equal.dir/link.txt --verbose=0
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 38%] Built target test_equal
+make -f CMakeFiles/test_dump_callback.dir/build.make CMakeFiles/test_dump_callback.dir/depend
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+cd /home/connor/workspace/legato/build/wp77xx/framework/libjansson && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_dump_callback.dir/DependInfo.cmake --color=
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_dump_callback.dir/DependInfo.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_dump_callback.dir/depend.internal".
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_dump_callback.dir/depend.internal".
+Scanning dependencies of target test_dump_callback
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+make -f CMakeFiles/test_dump_callback.dir/build.make CMakeFiles/test_dump_callback.dir/build
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 40%] Building C object CMakeFiles/test_dump_callback.dir/test/suites/api/test_dump_callback.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/test_dump_callback.dir/test/suites/api/test_dump_callback.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/test/suites/api/test_dump_callback.c
+[ 42%] Linking C executable bin/test_dump_callback
+/usr/bin/cmake -E cmake_link_script CMakeFiles/test_dump_callback.dir/link.txt --verbose=0
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 42%] Built target test_dump_callback
+make -f CMakeFiles/test_load.dir/build.make CMakeFiles/test_load.dir/depend
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+cd /home/connor/workspace/legato/build/wp77xx/framework/libjansson && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_load.dir/DependInfo.cmake --color=
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_load.dir/DependInfo.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_load.dir/depend.internal".
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_load.dir/depend.internal".
+Scanning dependencies of target test_load
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+make -f CMakeFiles/test_load.dir/build.make CMakeFiles/test_load.dir/build
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 45%] Building C object CMakeFiles/test_load.dir/test/suites/api/test_load.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/test_load.dir/test/suites/api/test_load.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/test/suites/api/test_load.c
+[ 47%] Linking C executable bin/test_load
+/usr/bin/cmake -E cmake_link_script CMakeFiles/test_load.dir/link.txt --verbose=0
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 47%] Built target test_load
+make -f CMakeFiles/test_dump.dir/build.make CMakeFiles/test_dump.dir/depend
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+cd /home/connor/workspace/legato/build/wp77xx/framework/libjansson && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_dump.dir/DependInfo.cmake --color=
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_dump.dir/DependInfo.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_dump.dir/depend.internal".
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_dump.dir/depend.internal".
+Scanning dependencies of target test_dump
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+make -f CMakeFiles/test_dump.dir/build.make CMakeFiles/test_dump.dir/build
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 50%] Building C object CMakeFiles/test_dump.dir/test/suites/api/test_dump.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/test_dump.dir/test/suites/api/test_dump.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/test/suites/api/test_dump.c
+[ 52%] Linking C executable bin/test_dump
+/usr/bin/cmake -E cmake_link_script CMakeFiles/test_dump.dir/link.txt --verbose=0
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 52%] Built target test_dump
+make -f CMakeFiles/simple_parse.dir/build.make CMakeFiles/simple_parse.dir/depend
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+cd /home/connor/workspace/legato/build/wp77xx/framework/libjansson && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/simple_parse.dir/DependInfo.cmake --color=
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/simple_parse.dir/DependInfo.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/simple_parse.dir/depend.internal".
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/simple_parse.dir/depend.internal".
+Scanning dependencies of target simple_parse
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+make -f CMakeFiles/simple_parse.dir/build.make CMakeFiles/simple_parse.dir/build
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 54%] Building C object CMakeFiles/simple_parse.dir/examples/simple_parse.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/simple_parse.dir/examples/simple_parse.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/examples/simple_parse.c
+/home/connor/workspace/legato/3rdParty/jansson/examples/simple_parse.c: In function ‘print_json_object’:
+/home/connor/workspace/legato/3rdParty/jansson/examples/simple_parse.c:95:30: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 2 has type ‘size_t {aka unsigned int}’ [-Wformat=]
+     printf("JSON Object of %ld pair%s:\n", size, json_plural(size));
+                              ^
+/home/connor/workspace/legato/3rdParty/jansson/examples/simple_parse.c: In function ‘print_json_array’:
+/home/connor/workspace/legato/3rdParty/jansson/examples/simple_parse.c:109:29: warning: format ‘%ld’ expects argument of type ‘long int’, but argument 2 has type ‘size_t {aka unsigned int}’ [-Wformat=]
+     printf("JSON Array of %ld element%s:\n", size, json_plural(size));
+                             ^
+[ 57%] Linking C executable bin/simple_parse
+/usr/bin/cmake -E cmake_link_script CMakeFiles/simple_parse.dir/link.txt --verbose=0
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 57%] Built target simple_parse
+make -f CMakeFiles/test_unpack.dir/build.make CMakeFiles/test_unpack.dir/depend
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+cd /home/connor/workspace/legato/build/wp77xx/framework/libjansson && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_unpack.dir/DependInfo.cmake --color=
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_unpack.dir/DependInfo.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_unpack.dir/depend.internal".
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_unpack.dir/depend.internal".
+Scanning dependencies of target test_unpack
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+make -f CMakeFiles/test_unpack.dir/build.make CMakeFiles/test_unpack.dir/build
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 59%] Building C object CMakeFiles/test_unpack.dir/test/suites/api/test_unpack.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/test_unpack.dir/test/suites/api/test_unpack.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/test/suites/api/test_unpack.c
+[ 61%] Linking C executable bin/test_unpack
+/usr/bin/cmake -E cmake_link_script CMakeFiles/test_unpack.dir/link.txt --verbose=0
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 61%] Built target test_unpack
+make -f CMakeFiles/json_process.dir/build.make CMakeFiles/json_process.dir/depend
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+cd /home/connor/workspace/legato/build/wp77xx/framework/libjansson && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/json_process.dir/DependInfo.cmake --color=
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/json_process.dir/DependInfo.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/json_process.dir/depend.internal".
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/json_process.dir/depend.internal".
+Scanning dependencies of target json_process
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+make -f CMakeFiles/json_process.dir/build.make CMakeFiles/json_process.dir/build
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 64%] Building C object CMakeFiles/json_process.dir/test/bin/json_process.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/json_process.dir/test/bin/json_process.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/test/bin/json_process.c
+[ 66%] Linking C executable bin/json_process
+/usr/bin/cmake -E cmake_link_script CMakeFiles/json_process.dir/link.txt --verbose=0
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 66%] Built target json_process
+make -f CMakeFiles/test_loadb.dir/build.make CMakeFiles/test_loadb.dir/depend
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+cd /home/connor/workspace/legato/build/wp77xx/framework/libjansson && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_loadb.dir/DependInfo.cmake --color=
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_loadb.dir/DependInfo.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_loadb.dir/depend.internal".
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_loadb.dir/depend.internal".
+Scanning dependencies of target test_loadb
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+make -f CMakeFiles/test_loadb.dir/build.make CMakeFiles/test_loadb.dir/build
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 69%] Building C object CMakeFiles/test_loadb.dir/test/suites/api/test_loadb.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/test_loadb.dir/test/suites/api/test_loadb.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/test/suites/api/test_loadb.c
+[ 71%] Linking C executable bin/test_loadb
+/usr/bin/cmake -E cmake_link_script CMakeFiles/test_loadb.dir/link.txt --verbose=0
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 71%] Built target test_loadb
+make -f CMakeFiles/test_copy.dir/build.make CMakeFiles/test_copy.dir/depend
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+cd /home/connor/workspace/legato/build/wp77xx/framework/libjansson && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_copy.dir/DependInfo.cmake --color=
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_copy.dir/DependInfo.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_copy.dir/depend.internal".
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_copy.dir/depend.internal".
+Scanning dependencies of target test_copy
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+make -f CMakeFiles/test_copy.dir/build.make CMakeFiles/test_copy.dir/build
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 73%] Building C object CMakeFiles/test_copy.dir/test/suites/api/test_copy.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/test_copy.dir/test/suites/api/test_copy.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/test/suites/api/test_copy.c
+[ 76%] Linking C executable bin/test_copy
+/usr/bin/cmake -E cmake_link_script CMakeFiles/test_copy.dir/link.txt --verbose=0
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 76%] Built target test_copy
+make -f CMakeFiles/test_object.dir/build.make CMakeFiles/test_object.dir/depend
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+cd /home/connor/workspace/legato/build/wp77xx/framework/libjansson && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_object.dir/DependInfo.cmake --color=
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_object.dir/DependInfo.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_object.dir/depend.internal".
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_object.dir/depend.internal".
+Scanning dependencies of target test_object
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+make -f CMakeFiles/test_object.dir/build.make CMakeFiles/test_object.dir/build
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 78%] Building C object CMakeFiles/test_object.dir/test/suites/api/test_object.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/test_object.dir/test/suites/api/test_object.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/test/suites/api/test_object.c
+[ 80%] Linking C executable bin/test_object
+/usr/bin/cmake -E cmake_link_script CMakeFiles/test_object.dir/link.txt --verbose=0
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 80%] Built target test_object
+make -f CMakeFiles/test_simple.dir/build.make CMakeFiles/test_simple.dir/depend
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+cd /home/connor/workspace/legato/build/wp77xx/framework/libjansson && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_simple.dir/DependInfo.cmake --color=
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_simple.dir/DependInfo.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_simple.dir/depend.internal".
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_simple.dir/depend.internal".
+Scanning dependencies of target test_simple
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+make -f CMakeFiles/test_simple.dir/build.make CMakeFiles/test_simple.dir/build
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 83%] Building C object CMakeFiles/test_simple.dir/test/suites/api/test_simple.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/test_simple.dir/test/suites/api/test_simple.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/test/suites/api/test_simple.c
+[ 85%] Linking C executable bin/test_simple
+/usr/bin/cmake -E cmake_link_script CMakeFiles/test_simple.dir/link.txt --verbose=0
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 85%] Built target test_simple
+make -f CMakeFiles/test_pack.dir/build.make CMakeFiles/test_pack.dir/depend
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+cd /home/connor/workspace/legato/build/wp77xx/framework/libjansson && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_pack.dir/DependInfo.cmake --color=
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_pack.dir/DependInfo.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_pack.dir/depend.internal".
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_pack.dir/depend.internal".
+Scanning dependencies of target test_pack
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+make -f CMakeFiles/test_pack.dir/build.make CMakeFiles/test_pack.dir/build
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 88%] Building C object CMakeFiles/test_pack.dir/test/suites/api/test_pack.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/test_pack.dir/test/suites/api/test_pack.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/test/suites/api/test_pack.c
+[ 90%] Linking C executable bin/test_pack
+/usr/bin/cmake -E cmake_link_script CMakeFiles/test_pack.dir/link.txt --verbose=0
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 90%] Built target test_pack
+make -f CMakeFiles/test_array.dir/build.make CMakeFiles/test_array.dir/depend
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+cd /home/connor/workspace/legato/build/wp77xx/framework/libjansson && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_array.dir/DependInfo.cmake --color=
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_array.dir/DependInfo.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_array.dir/depend.internal".
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_array.dir/depend.internal".
+Scanning dependencies of target test_array
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+make -f CMakeFiles/test_array.dir/build.make CMakeFiles/test_array.dir/build
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 92%] Building C object CMakeFiles/test_array.dir/test/suites/api/test_array.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/test_array.dir/test/suites/api/test_array.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/test/suites/api/test_array.c
+[ 95%] Linking C executable bin/test_array
+/usr/bin/cmake -E cmake_link_script CMakeFiles/test_array.dir/link.txt --verbose=0
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 95%] Built target test_array
+make -f CMakeFiles/test_memory_funcs.dir/build.make CMakeFiles/test_memory_funcs.dir/depend
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+cd /home/connor/workspace/legato/build/wp77xx/framework/libjansson && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/3rdParty/jansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_memory_funcs.dir/DependInfo.cmake --color=
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_memory_funcs.dir/DependInfo.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_memory_funcs.dir/depend.internal".
+Dependee "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/CMakeDirectoryInformation.cmake" is newer than depender "/home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles/test_memory_funcs.dir/depend.internal".
+Scanning dependencies of target test_memory_funcs
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+make -f CMakeFiles/test_memory_funcs.dir/build.make CMakeFiles/test_memory_funcs.dir/build
+make[4]: Entering directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[ 97%] Building C object CMakeFiles/test_memory_funcs.dir/test/suites/api/test_memory_funcs.c.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -DHAVE_CONFIG_H -DJANSSON_USING_CMAKE -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/include -I/home/connor/workspace/legato/build/wp77xx/framework/libjansson/private_include  --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -fPIC -Wall -Wextra -Wdeclaration-after-statement -o CMakeFiles/test_memory_funcs.dir/test/suites/api/test_memory_funcs.c.o   -c /home/connor/workspace/legato/3rdParty/jansson/test/suites/api/test_memory_funcs.c
+[100%] Linking C executable bin/test_memory_funcs
+/usr/bin/cmake -E cmake_link_script CMakeFiles/test_memory_funcs.dir/link.txt --verbose=0
+make[4]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+[100%] Built target test_memory_funcs
+make[3]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+/usr/bin/cmake -E cmake_progress_start /home/connor/workspace/legato/build/wp77xx/framework/libjansson/CMakeFiles 0
+make[2]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/framework/libjansson'
+cp /home/connor/workspace/legato/build/wp77xx/framework/libjansson/lib/libjansson.so /home/connor/workspace/legato/build/wp77xx/framework/lib/libjansson.so
+make -f Makefile.targetTools DISABLE_SMACK=0
+make[2]: Entering directory '/home/connor/workspace/legato'
+mkexe -o /home/connor/workspace/legato/build/wp77xx/framework/bin/config /home/connor/workspace/legato/framework/tools/target/linux/config \
+		-i /home/connor/workspace/legato/build/wp77xx/framework/libjansson/include/ \
+		-i /home/connor/workspace/legato/framework/liblegato \
+		--ldflags=-L/home/connor/workspace/legato/build/wp77xx/framework/lib \
+		--ldflags=-ljansson \
+		 -l /home/connor/workspace/legato/build/wp77xx/framework/lib -w /home/connor/workspace/legato/build/wp77xx/framework/tools/config -t wp77xx -d /home/connor/workspace/legato/build/wp77xx/debug --cflags=" -O2 -fno-omit-frame-pointer"
+[10/10] Linking C executable
+mkexe -o /home/connor/workspace/legato/build/wp77xx/framework/bin/log \
+		/home/connor/workspace/legato/framework/tools/target/linux/logTool/logTool.c \
+		-i /home/connor/workspace/legato/framework/liblegato \
+		-i /home/connor/workspace/legato/framework/daemons/linux/logDaemon \
+		 -l /home/connor/workspace/legato/build/wp77xx/framework/lib -w /home/connor/workspace/legato/build/wp77xx/framework/tools/log -t wp77xx -d /home/connor/workspace/legato/build/wp77xx/debug --cflags=" -O2 -fno-omit-frame-pointer"
+[3/3] Linking C executable
+mkexe -o /home/connor/workspace/legato/build/wp77xx/framework/bin/sdir \
+		/home/connor/workspace/legato/framework/tools/target/linux/sdirTool \
+		-i /home/connor/workspace/legato/framework/liblegato \
+		-i /home/connor/workspace/legato/framework/liblegato/linux \
+		-i /home/connor/workspace/legato/framework/daemons/linux/serviceDirectory \
+		 -l /home/connor/workspace/legato/build/wp77xx/framework/lib -w /home/connor/workspace/legato/build/wp77xx/framework/tools/sdir -t wp77xx -d /home/connor/workspace/legato/build/wp77xx/debug --cflags=" -O2 -fno-omit-frame-pointer"
+[7/7] Linking C executable
+ln -sf debugCfg /home/connor/workspace/legato/build/wp77xx/framework/bin/gdbCfg
+ln -sf debugCfg /home/connor/workspace/legato/build/wp77xx/framework/bin/straceCfg
+mkexe -o /home/connor/workspace/legato/build/wp77xx/framework/bin/inspect \
+		/home/connor/workspace/legato/framework/tools/target/linux/inspect/inspect.c \
+		--cflags=-DLE_SVCDIR_SERVER_SOCKET_NAME="/tmp/legato/serviceDirectoryServer" \
+		--cflags=-DLE_SVCDIR_CLIENT_SOCKET_NAME="/tmp/legato/serviceDirectoryClient" \
+		-i /home/connor/workspace/legato/framework/liblegato \
+		-i /home/connor/workspace/legato/framework/liblegato/linux \
+		-i /home/connor/workspace/legato/framework/daemons/linux \
+		 -l /home/connor/workspace/legato/build/wp77xx/framework/lib -w /home/connor/workspace/legato/build/wp77xx/framework/tools/inspect -t wp77xx -d /home/connor/workspace/legato/build/wp77xx/debug --cflags=" -O2 -fno-omit-frame-pointer"
+[3/3] Linking C executable
+mkexe -o /home/connor/workspace/legato/build/wp77xx/framework/bin/xattr \
+		/home/connor/workspace/legato/framework/tools/target/linux/xattr/xattr.c \
+		-i /home/connor/workspace/legato/framework/liblegato \
+		 -l /home/connor/workspace/legato/build/wp77xx/framework/lib -w /home/connor/workspace/legato/build/wp77xx/framework/tools/xattr -t wp77xx -d /home/connor/workspace/legato/build/wp77xx/debug --cflags=" -O2 -fno-omit-frame-pointer"
+[3/3] Linking C executable
+mkexe -o /home/connor/workspace/legato/build/wp77xx/framework/bin/_appStopClient \
+		/home/connor/workspace/legato/framework/tools/target/linux/appStopClient/appStopClient.c \
+		--cflags=-DLE_RUNTIME_DIR='"/tmp/legato/"' \
+		-i /home/connor/workspace/legato/framework/liblegato \
+		 -l /home/connor/workspace/legato/build/wp77xx/framework/lib -w /home/connor/workspace/legato/build/wp77xx/framework/tools/appStopClient -t wp77xx -d /home/connor/workspace/legato/build/wp77xx/debug --cflags=" -O2 -fno-omit-frame-pointer"
+[3/3] Linking C executable
+mkexe -o /home/connor/workspace/legato/build/wp77xx/framework/bin/app \
+		/home/connor/workspace/legato/framework/tools/target/linux/appCtrl \
+		-i /home/connor/workspace/legato/interfaces/supervisor \
+		-i /home/connor/workspace/legato/framework/liblegato \
+		-i /home/connor/workspace/legato/framework/liblegato/linux \
+		 -l /home/connor/workspace/legato/build/wp77xx/framework/lib -w /home/connor/workspace/legato/build/wp77xx/framework/tools/app -t wp77xx -d /home/connor/workspace/legato/build/wp77xx/debug --cflags=" -O2 -fno-omit-frame-pointer"
+[16/16] Linking C executable
+mkexe -o /home/connor/workspace/legato/build/wp77xx/framework/bin/update \
+		/home/connor/workspace/legato/framework/tools/target/linux/update \
+		 -l /home/connor/workspace/legato/build/wp77xx/framework/lib -w /home/connor/workspace/legato/build/wp77xx/framework/tools/update -t wp77xx -d /home/connor/workspace/legato/build/wp77xx/debug --cflags=" -O2 -fno-omit-frame-pointer"
+[12/12] Linking C executable
+mkexe -o /home/connor/workspace/legato/build/wp77xx/framework/bin/sbtrace \
+		/home/connor/workspace/legato/framework/tools/target/linux/sbtrace \
+		-i /home/connor/workspace/legato/framework/liblegato/linux \
+		 -l /home/connor/workspace/legato/build/wp77xx/framework/lib -w /home/connor/workspace/legato/build/wp77xx/framework/tools/sbtrace -t wp77xx -d /home/connor/workspace/legato/build/wp77xx/debug --cflags=" -O2 -fno-omit-frame-pointer"
+[8/8] Linking C executable
+cp -u -P --preserve=all framework/tools/target/linux/bin/configEcm framework/tools/target/linux/bin/install-hook framework/tools/target/linux/bin/legato framework/tools/target/linux/bin/setNet framework/tools/target/linux/bin/debugCfg framework/tools/target/linux/bin/start framework/tools/target/linux/bin/security-unpack framework/tools/target/linux/bin/saveLogs framework/tools/target/linux/bin/pss /home/connor/workspace/legato/build/wp77xx/framework/bin
+mkapp /home/connor/workspace/legato/apps/tools/devMode.adef \
+		-i /home/connor/workspace/legato/framework/liblegato \
+		 -o /home/connor/workspace/legato/build/wp77xx/tools -w /home/connor/workspace/legato/build/wp77xx/apps/tools/devMode -t wp77xx -d /home/connor/workspace/legato/build/wp77xx/debug --cflags=" -O2 -fno-omit-frame-pointer"
+[22/22] Packaging app
+make[2]: Leaving directory '/home/connor/workspace/legato'
+# Computing MD5 hash for contents of framework bin and lib directories.
+md5=` ( find /home/connor/workspace/legato/build/wp77xx/framework/bin && \
+		find /home/connor/workspace/legato/build/wp77xx/framework/bin -type f | xargs cat && \
+		find /home/connor/workspace/legato/build/wp77xx/framework/bin -type l | xargs -r -n 1 readlink && \
+		find /home/connor/workspace/legato/build/wp77xx/framework/lib && \
+		find /home/connor/workspace/legato/build/wp77xx/framework/lib -type f | xargs cat && \
+		find /home/connor/workspace/legato/build/wp77xx/framework/lib -type l | xargs -r -n 1 readlink \
+	  ) | md5sum` && \
+md5=${md5%% *} && \
+echo "$md5" > /home/connor/workspace/legato/build/wp77xx/framework/md5
+make[1]: Leaving directory '/home/connor/workspace/legato'
+mksys -t wp77xx -w build/wp77xx/system -o build/wp77xx /home/connor/workspace/legato/modules/WiFi/wifi.sdef \
+		-d build/wp77xx/debug --cflags="-O2 -fno-omit-frame-pointer"
+** Warning: Ignoring empty app specification
+** Warning: Ignoring empty app specification
+** Warning: Ignoring empty app specification
+[176/781] Running external build step
+FAILED: cd /home/connor/workspace/legato/build/wp77xx/system/component/016a20e15d5ad163be790b2c19206a41 && export CFLAGS="--sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -O2 -fno-omit-frame-pointer -DSIERRA_MDM9X28 -DSIERRA_WP76XX -DPCM_IF=SEC_AUX -DI2S_IF=SEC_MI2S -DUSB_IF=AFE_PCM -DCODEC_IF=PRI_MI2S -DMM_1_ALSA_MIXER_CTRL=MultiMedia1 -DMM_1_ALSA_PCM_DEVICE_ID=0 -DMM_2_ALSA_MIXER_CTRL=MultiMedia2 -DMM_2_ALSA_PCM_DEVICE_ID=13 -DADC_BEGIN_NUM=0 -DADC_COUNT=4 -DPDP_MAX_PROFILE=16 -DPDP_MAX_MULTIPDP=8 -DEUICC -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices" CXXFLAGS="--sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices" LDFLAGS="--sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi " PATH="${LEGATO_ROOT}/bin:/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi:/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin:/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/bin:/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/sbin:$PATH" && cp -rf ${LEGATO_ROOT}/3rdParty/Lwm2mCore/3rdParty/tinydtls/* . && autoreconf -i
+Can't locate strict.pm in @INC (you may need to install the strict module) (@INC contains: /opt/swi/y22-ext-SWI9X06Y_02.14.01.00/sysroots/x86_64-pokysdk-linux/usr/share/autoconf //usr/lib/perl/site_perl/5.22.1 //usr/lib/perl/vendor_perl/5.22.1 //usr/lib/perl/5.22.1 /opt/swi/y22-ext/sysroots/x86_64-pokysdk-linux/usr/lib/perl/site_perl/5.22.1/ /opt/swi/y22-ext/sysroots/x86_64-pokysdk-linux/usr/lib/perl/site_perl/5.22.1 /opt/swi/y22-ext/sysroots/x86_64-pokysdk-linux/usr/lib/perl/vendor_perl/5.22.1/ /opt/swi/y22-ext/sysroots/x86_64-pokysdk-linux/usr/lib/perl/vendor_perl/5.22.1 /opt/swi/y22-ext/sysroots/x86_64-pokysdk-linux/usr/lib/perl/5.22.1/ /opt/swi/y22-ext/sysroots/x86_64-pokysdk-linux/usr/lib/perl/5.22.1 /opt/swi/y22-ext/sysroots/x86_64-pokysdk-linux/usr/lib/perl/5.22.1 .) at /opt/swi/y22-ext-SWI9X06Y_02.14.01.00/sysroots/x86_64-pokysdk-linux/usr/share/autoconf/Autom4te/Channels.pm line 70.
+BEGIN failed--compilation aborted at /opt/swi/y22-ext-SWI9X06Y_02.14.01.00/sysroots/x86_64-pokysdk-linux/usr/share/autoconf/Autom4te/Channels.pm line 70.
+Compilation failed in require at /opt/swi/y22-ext-SWI9X06Y_02.14.01.00/sysroots/x86_64-pokysdk-linux/usr/share/autoconf/Autom4te/ChannelDefs.pm line 19.
+BEGIN failed--compilation aborted at /opt/swi/y22-ext-SWI9X06Y_02.14.01.00/sysroots/x86_64-pokysdk-linux/usr/share/autoconf/Autom4te/ChannelDefs.pm line 19.
+Compilation failed in require at /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/autoreconf line 39.
+BEGIN failed--compilation aborted at /opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/autoreconf line 39.
+[176/781] Running external build step
++ make -f /home/connor/workspace/legato/3rdParty/tinycbor/Makefile CC=/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc CFLAGS=--sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -O2 -fno-omit-frame-pointer -DSIERRA_MDM9X28 -DSIERRA_WP76XX -DPCM_IF=SEC_AUX -DI2S_IF=SEC_MI2S -DUSB_IF=AFE_PCM -DCODEC_IF=PRI_MI2S -DMM_1_ALSA_MIXER_CTRL=MultiMedia1 -DMM_1_ALSA_PCM_DEVICE_ID=0 -DMM_2_ALSA_MIXER_CTRL=MultiMedia2 -DMM_2_ALSA_PCM_DEVICE_ID=13 -DADC_BEGIN_NUM=0 -DADC_COUNT=4 -DPDP_MAX_PROFILE=16 -DPDP_MAX_MULTIPDP=8 -DEUICC -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices LDFLAGS=--sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi 
+make[1]: Entering directory '/home/connor/workspace/legato/build/wp77xx/system/component/57608d71d5711d7f3495575204ec2c78'
+/home/connor/workspace/legato/3rdParty/tinycbor/Makefile:82: warning: funopen and fopencookie unavailable, open_memstream can not be implemented and conversion to JSON will not work properly!
+make -f /home/connor/workspace/legato/3rdParty/tinycbor/Makefile.configure OUT='>&9' configure 9> .config
+make[2]: Entering directory '/home/connor/workspace/legato/build/wp77xx/system/component/57608d71d5711d7f3495575204ec2c78'
+make[2]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/system/component/57608d71d5711d7f3495575204ec2c78'
+/home/connor/workspace/legato/3rdParty/tinycbor/Makefile:82: warning: funopen and fopencookie unavailable, open_memstream can not be implemented and conversion to JSON will not work properly!
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -I/home/connor/workspace/legato/3rdParty/tinycbor/src -DTINYCBOR_VERSION_SUFFIX=\"\" -std=c99 --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -O2 -fno-omit-frame-pointer -DSIERRA_MDM9X28 -DSIERRA_WP76XX -DPCM_IF=SEC_AUX -DI2S_IF=SEC_MI2S -DUSB_IF=AFE_PCM -DCODEC_IF=PRI_MI2S -DMM_1_ALSA_MIXER_CTRL=MultiMedia1 -DMM_1_ALSA_PCM_DEVICE_ID=0 -DMM_2_ALSA_MIXER_CTRL=MultiMedia2 -DMM_2_ALSA_PCM_DEVICE_ID=13 -DADC_BEGIN_NUM=0 -DADC_COUNT=4 -DPDP_MAX_PROFILE=16 -DPDP_MAX_MULTIPDP=8 -DEUICC -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices  -c -o src/cborerrorstrings.o /home/connor/workspace/legato/3rdParty/tinycbor/src/cborerrorstrings.c
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -I/home/connor/workspace/legato/3rdParty/tinycbor/src -DTINYCBOR_VERSION_SUFFIX=\"\" -std=c99 --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -O2 -fno-omit-frame-pointer -DSIERRA_MDM9X28 -DSIERRA_WP76XX -DPCM_IF=SEC_AUX -DI2S_IF=SEC_MI2S -DUSB_IF=AFE_PCM -DCODEC_IF=PRI_MI2S -DMM_1_ALSA_MIXER_CTRL=MultiMedia1 -DMM_1_ALSA_PCM_DEVICE_ID=0 -DMM_2_ALSA_MIXER_CTRL=MultiMedia2 -DMM_2_ALSA_PCM_DEVICE_ID=13 -DADC_BEGIN_NUM=0 -DADC_COUNT=4 -DPDP_MAX_PROFILE=16 -DPDP_MAX_MULTIPDP=8 -DEUICC -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices  -c -o src/cborencoder.o /home/connor/workspace/legato/3rdParty/tinycbor/src/cborencoder.c
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -I/home/connor/workspace/legato/3rdParty/tinycbor/src -DTINYCBOR_VERSION_SUFFIX=\"\" -std=c99 --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -O2 -fno-omit-frame-pointer -DSIERRA_MDM9X28 -DSIERRA_WP76XX -DPCM_IF=SEC_AUX -DI2S_IF=SEC_MI2S -DUSB_IF=AFE_PCM -DCODEC_IF=PRI_MI2S -DMM_1_ALSA_MIXER_CTRL=MultiMedia1 -DMM_1_ALSA_PCM_DEVICE_ID=0 -DMM_2_ALSA_MIXER_CTRL=MultiMedia2 -DMM_2_ALSA_PCM_DEVICE_ID=13 -DADC_BEGIN_NUM=0 -DADC_COUNT=4 -DPDP_MAX_PROFILE=16 -DPDP_MAX_MULTIPDP=8 -DEUICC -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices  -c -o src/cborencoder_close_container_checked.o /home/connor/workspace/legato/3rdParty/tinycbor/src/cborencoder_close_container_checked.c
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -I/home/connor/workspace/legato/3rdParty/tinycbor/src -DTINYCBOR_VERSION_SUFFIX=\"\" -std=c99 --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -O2 -fno-omit-frame-pointer -DSIERRA_MDM9X28 -DSIERRA_WP76XX -DPCM_IF=SEC_AUX -DI2S_IF=SEC_MI2S -DUSB_IF=AFE_PCM -DCODEC_IF=PRI_MI2S -DMM_1_ALSA_MIXER_CTRL=MultiMedia1 -DMM_1_ALSA_PCM_DEVICE_ID=0 -DMM_2_ALSA_MIXER_CTRL=MultiMedia2 -DMM_2_ALSA_PCM_DEVICE_ID=13 -DADC_BEGIN_NUM=0 -DADC_COUNT=4 -DPDP_MAX_PROFILE=16 -DPDP_MAX_MULTIPDP=8 -DEUICC -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices  -c -o src/cborparser.o /home/connor/workspace/legato/3rdParty/tinycbor/src/cborparser.c
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -I/home/connor/workspace/legato/3rdParty/tinycbor/src -DTINYCBOR_VERSION_SUFFIX=\"\" -std=c99 --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -O2 -fno-omit-frame-pointer -DSIERRA_MDM9X28 -DSIERRA_WP76XX -DPCM_IF=SEC_AUX -DI2S_IF=SEC_MI2S -DUSB_IF=AFE_PCM -DCODEC_IF=PRI_MI2S -DMM_1_ALSA_MIXER_CTRL=MultiMedia1 -DMM_1_ALSA_PCM_DEVICE_ID=0 -DMM_2_ALSA_MIXER_CTRL=MultiMedia2 -DMM_2_ALSA_PCM_DEVICE_ID=13 -DADC_BEGIN_NUM=0 -DADC_COUNT=4 -DPDP_MAX_PROFILE=16 -DPDP_MAX_MULTIPDP=8 -DEUICC -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices  -c -o src/cborparser_dup_string.o /home/connor/workspace/legato/3rdParty/tinycbor/src/cborparser_dup_string.c
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -I/home/connor/workspace/legato/3rdParty/tinycbor/src -DTINYCBOR_VERSION_SUFFIX=\"\" -std=c99 --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -O2 -fno-omit-frame-pointer -DSIERRA_MDM9X28 -DSIERRA_WP76XX -DPCM_IF=SEC_AUX -DI2S_IF=SEC_MI2S -DUSB_IF=AFE_PCM -DCODEC_IF=PRI_MI2S -DMM_1_ALSA_MIXER_CTRL=MultiMedia1 -DMM_1_ALSA_PCM_DEVICE_ID=0 -DMM_2_ALSA_MIXER_CTRL=MultiMedia2 -DMM_2_ALSA_PCM_DEVICE_ID=13 -DADC_BEGIN_NUM=0 -DADC_COUNT=4 -DPDP_MAX_PROFILE=16 -DPDP_MAX_MULTIPDP=8 -DEUICC -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices  -c -o src/cborpretty.o /home/connor/workspace/legato/3rdParty/tinycbor/src/cborpretty.c
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -I/home/connor/workspace/legato/3rdParty/tinycbor/src -DTINYCBOR_VERSION_SUFFIX=\"\" -std=c99 --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -O2 -fno-omit-frame-pointer -DSIERRA_MDM9X28 -DSIERRA_WP76XX -DPCM_IF=SEC_AUX -DI2S_IF=SEC_MI2S -DUSB_IF=AFE_PCM -DCODEC_IF=PRI_MI2S -DMM_1_ALSA_MIXER_CTRL=MultiMedia1 -DMM_1_ALSA_PCM_DEVICE_ID=0 -DMM_2_ALSA_MIXER_CTRL=MultiMedia2 -DMM_2_ALSA_PCM_DEVICE_ID=13 -DADC_BEGIN_NUM=0 -DADC_COUNT=4 -DPDP_MAX_PROFILE=16 -DPDP_MAX_MULTIPDP=8 -DEUICC -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices  -c -o src/cbortojson.o /home/connor/workspace/legato/3rdParty/tinycbor/src/cbortojson.c
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-ar cqs lib/libtinycbor.a src/cborerrorstrings.o src/cborencoder.o src/cborencoder_close_container_checked.o src/cborparser.o src/cborparser_dup_string.o src/cborpretty.o src/cbortojson.o
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -I/home/connor/workspace/legato/3rdParty/tinycbor/src -DTINYCBOR_VERSION_SUFFIX=\"\" -std=c99 --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -O2 -fno-omit-frame-pointer -DSIERRA_MDM9X28 -DSIERRA_WP76XX -DPCM_IF=SEC_AUX -DI2S_IF=SEC_MI2S -DUSB_IF=AFE_PCM -DCODEC_IF=PRI_MI2S -DMM_1_ALSA_MIXER_CTRL=MultiMedia1 -DMM_1_ALSA_PCM_DEVICE_ID=0 -DMM_2_ALSA_MIXER_CTRL=MultiMedia2 -DMM_2_ALSA_PCM_DEVICE_ID=13 -DADC_BEGIN_NUM=0 -DADC_COUNT=4 -DPDP_MAX_PROFILE=16 -DPDP_MAX_MULTIPDP=8 -DEUICC -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices -fPIC  -c -o src/cborerrorstrings.pic.o /home/connor/workspace/legato/3rdParty/tinycbor/src/cborerrorstrings.c
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -I/home/connor/workspace/legato/3rdParty/tinycbor/src -DTINYCBOR_VERSION_SUFFIX=\"\" -std=c99 --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -O2 -fno-omit-frame-pointer -DSIERRA_MDM9X28 -DSIERRA_WP76XX -DPCM_IF=SEC_AUX -DI2S_IF=SEC_MI2S -DUSB_IF=AFE_PCM -DCODEC_IF=PRI_MI2S -DMM_1_ALSA_MIXER_CTRL=MultiMedia1 -DMM_1_ALSA_PCM_DEVICE_ID=0 -DMM_2_ALSA_MIXER_CTRL=MultiMedia2 -DMM_2_ALSA_PCM_DEVICE_ID=13 -DADC_BEGIN_NUM=0 -DADC_COUNT=4 -DPDP_MAX_PROFILE=16 -DPDP_MAX_MULTIPDP=8 -DEUICC -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices -fPIC  -c -o src/cborencoder.pic.o /home/connor/workspace/legato/3rdParty/tinycbor/src/cborencoder.c
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -I/home/connor/workspace/legato/3rdParty/tinycbor/src -DTINYCBOR_VERSION_SUFFIX=\"\" -std=c99 --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -O2 -fno-omit-frame-pointer -DSIERRA_MDM9X28 -DSIERRA_WP76XX -DPCM_IF=SEC_AUX -DI2S_IF=SEC_MI2S -DUSB_IF=AFE_PCM -DCODEC_IF=PRI_MI2S -DMM_1_ALSA_MIXER_CTRL=MultiMedia1 -DMM_1_ALSA_PCM_DEVICE_ID=0 -DMM_2_ALSA_MIXER_CTRL=MultiMedia2 -DMM_2_ALSA_PCM_DEVICE_ID=13 -DADC_BEGIN_NUM=0 -DADC_COUNT=4 -DPDP_MAX_PROFILE=16 -DPDP_MAX_MULTIPDP=8 -DEUICC -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices -fPIC  -c -o src/cborencoder_close_container_checked.pic.o /home/connor/workspace/legato/3rdParty/tinycbor/src/cborencoder_close_container_checked.c
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -I/home/connor/workspace/legato/3rdParty/tinycbor/src -DTINYCBOR_VERSION_SUFFIX=\"\" -std=c99 --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -O2 -fno-omit-frame-pointer -DSIERRA_MDM9X28 -DSIERRA_WP76XX -DPCM_IF=SEC_AUX -DI2S_IF=SEC_MI2S -DUSB_IF=AFE_PCM -DCODEC_IF=PRI_MI2S -DMM_1_ALSA_MIXER_CTRL=MultiMedia1 -DMM_1_ALSA_PCM_DEVICE_ID=0 -DMM_2_ALSA_MIXER_CTRL=MultiMedia2 -DMM_2_ALSA_PCM_DEVICE_ID=13 -DADC_BEGIN_NUM=0 -DADC_COUNT=4 -DPDP_MAX_PROFILE=16 -DPDP_MAX_MULTIPDP=8 -DEUICC -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices -fPIC  -c -o src/cborparser.pic.o /home/connor/workspace/legato/3rdParty/tinycbor/src/cborparser.c
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -I/home/connor/workspace/legato/3rdParty/tinycbor/src -DTINYCBOR_VERSION_SUFFIX=\"\" -std=c99 --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -O2 -fno-omit-frame-pointer -DSIERRA_MDM9X28 -DSIERRA_WP76XX -DPCM_IF=SEC_AUX -DI2S_IF=SEC_MI2S -DUSB_IF=AFE_PCM -DCODEC_IF=PRI_MI2S -DMM_1_ALSA_MIXER_CTRL=MultiMedia1 -DMM_1_ALSA_PCM_DEVICE_ID=0 -DMM_2_ALSA_MIXER_CTRL=MultiMedia2 -DMM_2_ALSA_PCM_DEVICE_ID=13 -DADC_BEGIN_NUM=0 -DADC_COUNT=4 -DPDP_MAX_PROFILE=16 -DPDP_MAX_MULTIPDP=8 -DEUICC -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices -fPIC  -c -o src/cborparser_dup_string.pic.o /home/connor/workspace/legato/3rdParty/tinycbor/src/cborparser_dup_string.c
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -I/home/connor/workspace/legato/3rdParty/tinycbor/src -DTINYCBOR_VERSION_SUFFIX=\"\" -std=c99 --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -O2 -fno-omit-frame-pointer -DSIERRA_MDM9X28 -DSIERRA_WP76XX -DPCM_IF=SEC_AUX -DI2S_IF=SEC_MI2S -DUSB_IF=AFE_PCM -DCODEC_IF=PRI_MI2S -DMM_1_ALSA_MIXER_CTRL=MultiMedia1 -DMM_1_ALSA_PCM_DEVICE_ID=0 -DMM_2_ALSA_MIXER_CTRL=MultiMedia2 -DMM_2_ALSA_PCM_DEVICE_ID=13 -DADC_BEGIN_NUM=0 -DADC_COUNT=4 -DPDP_MAX_PROFILE=16 -DPDP_MAX_MULTIPDP=8 -DEUICC -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices -fPIC  -c -o src/cborpretty.pic.o /home/connor/workspace/legato/3rdParty/tinycbor/src/cborpretty.c
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -I/home/connor/workspace/legato/3rdParty/tinycbor/src -DTINYCBOR_VERSION_SUFFIX=\"\" -std=c99 --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -O2 -fno-omit-frame-pointer -DSIERRA_MDM9X28 -DSIERRA_WP76XX -DPCM_IF=SEC_AUX -DI2S_IF=SEC_MI2S -DUSB_IF=AFE_PCM -DCODEC_IF=PRI_MI2S -DMM_1_ALSA_MIXER_CTRL=MultiMedia1 -DMM_1_ALSA_PCM_DEVICE_ID=0 -DMM_2_ALSA_MIXER_CTRL=MultiMedia2 -DMM_2_ALSA_PCM_DEVICE_ID=13 -DADC_BEGIN_NUM=0 -DADC_COUNT=4 -DPDP_MAX_PROFILE=16 -DPDP_MAX_MULTIPDP=8 -DEUICC -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices -fPIC  -c -o src/cbortojson.pic.o /home/connor/workspace/legato/3rdParty/tinycbor/src/cbortojson.c
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc -shared -Wl,-soname,libtinycbor.so.0 -o lib/libtinycbor.so.7.09.0 --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi  src/cborerrorstrings.pic.o src/cborencoder.pic.o src/cborencoder_close_container_checked.pic.o src/cborparser.pic.o src/cborparser_dup_string.pic.o src/cborpretty.pic.o src/cbortojson.pic.o
+cd lib ; ln -s libtinycbor.so.7.09.0 libtinycbor.so ; ln -s libtinycbor.so.7.09.0 libtinycbor.so.0
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc  -I/home/connor/workspace/legato/3rdParty/tinycbor/src -DTINYCBOR_VERSION_SUFFIX=\"\" -std=c99 --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi -O2 -fno-omit-frame-pointer -DSIERRA_MDM9X28 -DSIERRA_WP76XX -DPCM_IF=SEC_AUX -DI2S_IF=SEC_MI2S -DUSB_IF=AFE_PCM -DCODEC_IF=PRI_MI2S -DMM_1_ALSA_MIXER_CTRL=MultiMedia1 -DMM_1_ALSA_PCM_DEVICE_ID=0 -DMM_2_ALSA_MIXER_CTRL=MultiMedia2 -DMM_2_ALSA_PCM_DEVICE_ID=13 -DADC_BEGIN_NUM=0 -DADC_COUNT=4 -DPDP_MAX_PROFILE=16 -DPDP_MAX_MULTIPDP=8 -DEUICC -I build/wp77xx/system -I/home/connor/workspace/legato/interfaces -I/home/connor/workspace/legato/framework/include -I/home/connor/workspace/legato/modules/WiFi -I/home/connor/workspace/legato/interfaces/modemServices -I/home/connor/workspace/legato/interfaces/positioning -I/home/connor/workspace/legato/interfaces/atServices  -c -o tools/cbordump/cbordump.o /home/connor/workspace/legato/3rdParty/tinycbor/tools/cbordump/cbordump.c
+/opt/swi/y22-ext-wp77xx/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc -o bin/cbordump --sysroot=/opt/swi/y22-ext-wp77xx/sysroots/armv7a-neon-poky-linux-gnueabi  tools/cbordump/cbordump.o lib/libtinycbor.a  -lm
+sed > tinycbor.pc < /home/connor/workspace/legato/3rdParty/tinycbor/tinycbor.pc.in \
+	-e 's,@prefix@,/usr/local,' \
+	-e 's,@exec_prefix@,/usr/local,' \
+	-e 's,@libdir@,/usr/local/lib,' \
+	-e 's,@includedir@,/usr/local/include,' \
+	-e 's,@version@,7.09.0,'
+make[1]: Leaving directory '/home/connor/workspace/legato/build/wp77xx/system/component/57608d71d5711d7f3495575204ec2c78'
+ninja: build stopped: subcommand failed.
+Makefile:515: recipe for target 'system_wp77xx' failed
+make: *** [system_wp77xx] Error 1
+

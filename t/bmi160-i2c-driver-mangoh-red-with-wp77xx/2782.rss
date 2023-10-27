@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>BMI160-I2C driver : Mangoh red with wp77xx</title>
+    <link>https://forum.mangoh.io/t/bmi160-i2c-driver-mangoh-red-with-wp77xx/2782</link>
+    <description>I succeeded in building and loading the BMI160 kernel module on Mangoh Red but cannot find it under /sys/bus/i2c/devices/... 
+
+Steps followed:
+1. I copied the bmi160 kernel module from the Mangoh project: https://github.com/mangOH/mangOH/tree/master/linux_kernel_modules/bmi160 to my project 
+2. I created a .sdef file in my project to point to the kernel modules copied
+3. I exported the sdef file using the SDEF_TO_USE variable
+4. make wp77xx; created a system.wp77xx.update file under $LEGATO_ROOT/build/wp77xx/
+5. update system.wp77xx.update 192.168.2.2
+6. On the Mangoh terminal: lsmod shows the bmi160_I2C and bmi160 loaded
+
+no devices found under /sys/bus/i2c/devices/.. 
+Any ideas whats going on?</description>
+    
+    <lastBuildDate>Tue, 29 Jun 2021 19:44:38 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/bmi160-i2c-driver-mangoh-red-with-wp77xx/2782.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>BMI160-I2C driver : Mangoh red with wp77xx</title>
+        <dc:creator><![CDATA[gianmariaiaculo]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-username="dfrey" data-post="2" data-topic="2782">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/dfrey/40/303_2.png" class="avatar"> dfrey:</div>
+<blockquote>
+<p><code>mangoh_red_bmi160_devinfo</code></p>
+</blockquote>
+</aside>
+<p>Please can you explain how to add code for bmi160 drivers loading without using mangoh_yellow_board.c</p>
+<p>Thanks.</p>
+          <p><a href="https://forum.mangoh.io/t/bmi160-i2c-driver-mangoh-red-with-wp77xx/2782/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/bmi160-i2c-driver-mangoh-red-with-wp77xx/2782/3</link>
+        <pubDate>Tue, 29 Jun 2021 19:44:38 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2782-3</guid>
+        <source url="https://forum.mangoh.io/t/bmi160-i2c-driver-mangoh-red-with-wp77xx/2782.rss">BMI160-I2C driver : Mangoh red with wp77xx</source>
+      </item>
+      <item>
+        <title>BMI160-I2C driver : Mangoh red with wp77xx</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>The driver just provides the capability of supporting a device.  Linux still doesn’t know that you actually have a bmi160 on your board.  In Linux, this is typically achieved either through devicetree or platform code.  Our platform code is in the <code>mangoh_red_board.c</code> file.</p>
+<p>See:<br>
+</p><aside class="onebox githubblob">
+  <header class="source">
+      <a href="https://github.com/mangOH/mangOH/blob/592a30f9a960773997653c2e35364e57b19113bf/linux_kernel_modules/mangoh/mangoh_red_board.c#L163" target="_blank" rel="nofollow noopener">github.com</a>
+  </header>
+  <article class="onebox-body">
+    <h4><a href="https://github.com/mangOH/mangOH/blob/592a30f9a960773997653c2e35364e57b19113bf/linux_kernel_modules/mangoh/mangoh_red_board.c#L163" target="_blank" rel="nofollow noopener">mangOH/mangOH/blob/592a30f9a960773997653c2e35364e57b19113bf/linux_kernel_modules/mangoh/mangoh_red_board.c#L163</a></h4>
+<pre class="onebox"><code class="lang-c"><ol class="start lines" start="153" style="counter-reset: li-counter 152 ;">
+<li>	.irq_base	    = -1,</li>
+<li>	.reset_during_probe = true,</li>
+<li>
+</li>
+<li>};</li>
+<li>static const struct i2c_board_info mangoh_red_gpio_expander_devinfo = {</li>
+<li>	I2C_BOARD_INFO("sx1509q", 0x3e),</li>
+<li>	.platform_data = &amp;mangoh_red_gpio_expander_platform_data,</li>
+<li>	.irq = 0,</li>
+<li>};</li>
+<li>
+</li>
+<li class="selected">static struct i2c_board_info mangoh_red_bmi160_devinfo = {</li>
+<li>	I2C_BOARD_INFO("bmi160", 0x68),</li>
+<li>};</li>
+<li>
+</li>
+<li>static struct i2c_board_info mangoh_red_pressure_devinfo = {</li>
+<li>	I2C_BOARD_INFO("bmp280", 0x76),</li>
+<li>};</li>
+<li>
+</li>
+<li>static struct ltc294x_platform_data ltc2942_battery_gauge_platform_data = {</li>
+<li>	.r_sense = 18,</li>
+<li>	.prescaler_exp = 32,</li>
+</ol></code></pre>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+<br>
+<aside class="onebox githubblob">
+  <header class="source">
+      <a href="https://github.com/mangOH/mangOH/blob/592a30f9a960773997653c2e35364e57b19113bf/linux_kernel_modules/mangoh/mangoh_red_board.c#L421" target="_blank" rel="nofollow noopener">github.com</a>
+  </header>
+  <article class="onebox-body">
+    <h4><a href="https://github.com/mangOH/mangOH/blob/592a30f9a960773997653c2e35364e57b19113bf/linux_kernel_modules/mangoh/mangoh_red_board.c#L421" target="_blank" rel="nofollow noopener">mangOH/mangOH/blob/592a30f9a960773997653c2e35364e57b19113bf/linux_kernel_modules/mangoh/mangoh_red_board.c#L421</a></h4>
+<pre class="onebox"><code class="lang-c"><ol class="start lines" start="411" style="counter-reset: li-counter 410 ;">
+<li>
+</li>
+<li>	/* Map the LED */</li>
+<li>	mangoh_red_led_pdata.gpio = gpio_expander-&gt;base + 8;</li>
+<li>	ret = platform_device_register(&amp;mangoh_red_led);</li>
+<li>	if (ret != 0) {</li>
+<li>		dev_err(&amp;pdev-&gt;dev, "Failed to register LED device\n");</li>
+<li>		goto cleanup;</li>
+<li>	}</li>
+<li>	mangoh_red_driver_data.led_registered = true;</li>
+<li>
+</li>
+<li class="selected">	/* Map the accelerometer */</li>
+<li>	dev_dbg(&amp;pdev-&gt;dev, "mapping accelerometer\n");</li>
+<li>	/*</li>
+<li>	 * Pins 11 and 12 of the gpio expander are connected to bmi160's INT1</li>
+<li>	 * and INT2 pins respectively. It does not appear that the bmi160 driver</li>
+<li>	 * makes use of these interrupt pins.</li>
+<li>	 */</li>
+<li>	mangoh_red_driver_data.accelerometer =</li>
+<li>		i2c_new_device(i2c_adapter_primary, &amp;mangoh_red_bmi160_devinfo);</li>
+<li>	if (!mangoh_red_driver_data.accelerometer) {</li>
+<li>		dev_err(&amp;pdev-&gt;dev, "Accelerometer is missing\n");</li>
+</ol></code></pre>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+<p></p>
+          <p><a href="https://forum.mangoh.io/t/bmi160-i2c-driver-mangoh-red-with-wp77xx/2782/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/bmi160-i2c-driver-mangoh-red-with-wp77xx/2782/2</link>
+        <pubDate>Wed, 17 Jul 2019 22:13:26 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2782-2</guid>
+        <source url="https://forum.mangoh.io/t/bmi160-i2c-driver-mangoh-red-with-wp77xx/2782.rss">BMI160-I2C driver : Mangoh red with wp77xx</source>
+      </item>
+      <item>
+        <title>BMI160-I2C driver : Mangoh red with wp77xx</title>
+        <dc:creator><![CDATA[aashwini]]></dc:creator>
+        <description><![CDATA[
+            <p>I succeeded in building and loading the BMI160 kernel module on Mangoh Red but cannot find it under /sys/bus/i2c/devices/…</p>
+<p>Steps followed:</p>
+<ol>
+<li>I copied the bmi160 kernel module from the Mangoh project: <a href="https://github.com/mangOH/mangOH/tree/master/linux_kernel_modules/bmi160" rel="nofollow noopener">https://github.com/mangOH/mangOH/tree/master/linux_kernel_modules/bmi160</a> to my project</li>
+<li>I created a .sdef file in my project to point to the kernel modules copied</li>
+<li>I exported the sdef file using the SDEF_TO_USE variable</li>
+<li>make wp77xx; created a system.wp77xx.update file under $LEGATO_ROOT/build/wp77xx/</li>
+<li>update system.wp77xx.update 192.168.2.2</li>
+<li>On the Mangoh terminal: lsmod shows the bmi160_I2C and bmi160 loaded</li>
+</ol>
+<p>no devices found under /sys/bus/i2c/devices/…<br>
+Any ideas whats going on?</p>
+          <p><a href="https://forum.mangoh.io/t/bmi160-i2c-driver-mangoh-red-with-wp77xx/2782/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/bmi160-i2c-driver-mangoh-red-with-wp77xx/2782/1</link>
+        <pubDate>Wed, 17 Jul 2019 20:51:17 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2782-1</guid>
+        <source url="https://forum.mangoh.io/t/bmi160-i2c-driver-mangoh-red-with-wp77xx/2782.rss">BMI160-I2C driver : Mangoh red with wp77xx</source>
+      </item>
+  </channel>
+</rss>

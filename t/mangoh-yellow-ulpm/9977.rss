@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>mangoH yellow ULPM</title>
+    <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977</link>
+    <description>Hello,
+tring to put mangoH yellow in ULPM. 
+
+Steps: 
+1) sent AT!POWERWAKE=2,36,1
+2) AT!POWERMODE=3
+
+on console i read: 
+
+&gt; [  794.449680] swimcu_pm_wusrc_config: check statep-&gt;gpio_pin_mask 0x1 
+&gt; [  799.463291] MCU Protocol Command 0xC2 failed, retry=11
+&gt; [  799.467513] swimcu_pm_wusrc_config: failed to GPIO config 0x1 (-2)
+&gt; [  799.474261] swimcu_psm_enable_attr_store: Failed to enable mode 6: -5 
+&gt; [  799.484429] swimcu_gpio_irq_event_handle: Re-enabled irq 0 type A for MCU GPIO 0 
+
+Nothing to do.. no ULPM. 
+
+If i set sent AT!POWERWAKE=2,36,5 the device shutsdown: 
+
+&gt; Device lgt is still in use.
+&gt; ubidetach: error!: cannot detach mtd14
+&gt;            error 16 (Device or resource busy)
+&gt; K98mount_early: Executing mount_early_userrw_stop... 
+&gt; K98mount_early: Executing mount_early_unset_timezone... 
+&gt; rcK: Executing kill_all_proc... 
+&gt; rcK: Executing umount_fs_generic... 
+&gt; rcK: Executing print_shutdown_msg... 
+&gt; ** SYSTEM SHUTDOWN COMPLETE **
+&gt; The system is going down NOW!
+&gt; Sent SIGTERM to all processes
+&gt; [ 1232.881553] [RMNET:HI] rmnet_config_notify_cb(): Kernel is trying to unregister bridge0
+&gt; [ 1232.900381] [RMNET:HI] rmnet_config_notify_cb(): Kernel is trying to unregister bridge0
+&gt; Requesting system poweroffses
+&gt; [ 1234.839052] i2c-msm-v2 78b8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:14) mode:FIFO slv_addr:0x3a MSTR_STS:0x0c1300c8 OPER:0x00000090
+&gt; [ 1234.853956] i2c-msm-v2 78b8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:14) mode:FIFO slv_addr:0x3a MSTR_STS:0x0c1300c8 OPER:0x00000090
+&gt; [ 1234.886962] reboot: Power down
+&gt; [ 1234.889058] Failed to disable secure wdog debug: -4
+
+but when i shake to restart.. yellow light blink for a second and device wont boot.. no output on console.. if i continue to shake... same thing.. yellow light.. no boot. 
+
+Do i need additional steps? 
+
+Regards,
+Gianmaria</description>
+    
+    <lastBuildDate>Thu, 12 May 2022 16:33:06 +0000</lastBuildDate>
+    <category>Uncategorized</category>
+    <atom:link href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[gianmariaiaculo]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks anyway. I found my problem is in driver. On default .ko INT1 is not enabled.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/33">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/33</link>
+        <pubDate>Thu, 12 May 2022 16:33:06 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-33</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[jeremylaharotte]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi,</p>
+<p>We have abandoned the wake-up on GPIO. We now use wake up on ADC2 which serves us as wake up on GPIO: 0 or 1</p>
+<p>Best Regards,<br>
+Jeremy</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/32">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/32</link>
+        <pubDate>Thu, 12 May 2022 07:25:19 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-32</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>from the schematic, GPIO36 is connecting to the light sensor’s interrupt.<br>
+And gpio38 is connecting to the BM160’s interrupt.<br>
+Not quite sure whether you shake the board is really related to the BMI160 as previously you are using GPIO36 for wake up pin…</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/31">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/31</link>
+        <pubDate>Thu, 12 May 2022 01:53:05 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-31</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[gianmariaiaculo]]></dc:creator>
+        <description><![CDATA[
+            <p>Maybe i have to review the driver for BMI160 and see if INT1 is enabled…and linked to some events (es. significat motion).  And see if registers are set in the right way to keep config during ULPM.<br>
+I’m sure INT1 is physically linked to GPIO38… we review the schematics a lot of times.</p>
+<p>Gian</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/30">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/30</link>
+        <pubDate>Wed, 11 May 2022 17:58:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-30</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Probably you need to solder a wire to gpio36 or gpip38 to change the state and see if this can wake up the module in ulpm mode</p>
+<p>This can isolate the problem in bmi160</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/29">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/29</link>
+        <pubDate>Wed, 11 May 2022 17:00:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-29</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[gianmariaiaculo]]></dc:creator>
+        <description><![CDATA[
+            <p>Jeremy can you share the solution that worked for you?</p>
+<p>Regards<br>
+Gianmaria</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/28">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/28</link>
+        <pubDate>Wed, 11 May 2022 16:30:40 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-28</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[gianmariaiaculo]]></dc:creator>
+        <description><![CDATA[
+            <p>…also AT+CPSMS=0 fails… ERROR</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/27">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/27</link>
+        <pubDate>Wed, 11 May 2022 14:04:45 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-27</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[gianmariaiaculo]]></dc:creator>
+        <description><![CDATA[
+            <p>Using latest mangoH yellow firmware from here:</p><aside class="onebox allowlistedgeneric" data-onebox-src="https://mangoh.io/mangoh-yellow-resources">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/8/8840b8095e70876c1294d8a62ffe83d72b76625e.png" class="site-icon" width="16" height="16">
+
+      <a href="https://mangoh.io/mangoh-yellow-resources" target="_blank" rel="noopener nofollow ugc">mangOH</a>
+  </header>
+
+  <article class="onebox-body">
+    
+
+<h3><a href="https://mangoh.io/mangoh-yellow-resources" target="_blank" rel="noopener nofollow ugc">mangOH Yellow Resources - mangOH</a></h3>
+
+  <p>[et_pb_section fb_built=”1″ fullwidth=”on” admin_label=”section” _builder_version=”3.22″ background_color=”#6a8e9a” transparent_background=”off” fb_built=”1″ _i=”0″ _address=”0″][et_pb_fullwidth_header title=”mangOH Yellow Resources”...</p>
+
+  <p>
+    <span class="label1">Est. reading time: 3 minutes</span>
+  </p>
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+<p>Mangoh Yellow latest firmware is a little bit older than Rel. 14.1</p>
+<blockquote>
+<p>root@swi-mdm9x28-wp:~# cm info<br>
+Device:                        WP7702<br>
+IMEI:                          352653090386178<br>
+IMEISV:                        5<br>
+FSN:                           4L033685021210<br>
+Firmware Version:              SWI9X06Y_02.35.02.00 5208b3 jenkins 2020/06/10 00:30:12<br>
+Bootloader Version:            SWI9X06Y_02.35.02.00 5208b3 jenkins 2020/06/10 00:30:12<br>
+MCU Version:                   002.014<br>
+PRI Part Number (PN):          9909138<br>
+PRI Revision:                  001.010<br>
+Carrier PRI Name:              SIERRA<br>
+Carrier PRI Revision:          001.036_001<br>
+SKU:                           1104405<br>
+Last Reset Cause:              Reset, User Requested<br>
+Resets Count:                  Expected: 151	Unexpected: 0</p>
+</blockquote>
+<p>Anyway… no changes. No way to put in in ULPM and WakeUp. I’m asking if someone ever succeded… cause on forum seems noone found a way…</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/26">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/26</link>
+        <pubDate>Wed, 11 May 2022 13:23:55 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-26</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Have you tried “leaf search”?</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/25">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/25</link>
+        <pubDate>Wed, 11 May 2022 11:03:11 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-25</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[gianmariaiaculo]]></dc:creator>
+        <description><![CDATA[
+            <p>Where i can download latest yellow firmware?  So i can restore also original firmwware for mangoh?</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/24">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/24</link>
+        <pubDate>Wed, 11 May 2022 10:57:07 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-24</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Did you compile the bmi160 driver?</p>
+<p>You might also try original gpio36 test and see if it blinks</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/23">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/23</link>
+        <pubDate>Wed, 11 May 2022 10:43:51 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-23</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[gianmariaiaculo]]></dc:creator>
+        <description><![CDATA[
+            <p>If i use AT!POWERWAKE=2,38,5 devices shutsdown but never awake… it become blind to GPIO38… shaking have no effect at all. Also leds stop blinking. Only way to wakeup is poweron with button .<br>
+…</p>
+<p>almost desperate…<br>
+…<br>
+i cant see any resolution to issue QTI9X06-192 … nor workaround i can use…</p>
+<p>g.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/22">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/22</link>
+        <pubDate>Wed, 11 May 2022 10:26:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-22</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>didn’t you should use AT!POWERWAKE=2,38,5 from what you say above?</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/21">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/21</link>
+        <pubDate>Wed, 11 May 2022 10:19:50 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-21</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[gianmariaiaculo]]></dc:creator>
+        <description><![CDATA[
+            <p>Firmware updated to 14.1:</p>
+<blockquote>
+<p>root@swi-mdm9x28-wp:~# cm info<br>
+Device:                        WP7702<br>
+IMEI:                          352653090386178<br>
+IMEISV:                        6<br>
+FSN:                           4L033685021210<br>
+Firmware Version:              SWI9X06Y_02.36.06.00 63d944 jenkins 2020/12/10 19:12:28<br>
+Bootloader Version:            SWI9X06Y_02.36.06.00 63d944 jenkins 2020/12/10 19:12:28<br>
+MCU Version:                   002.015<br>
+PRI Part Number (PN):          9909138<br>
+PRI Revision:                  001.010<br>
+Carrier PRI Name:              GENERIC<br>
+Carrier PRI Revision:          001.071_001<br>
+SKU:                           1104405<br>
+Last Reset Cause:              Power Down<br>
+Resets Count:                  Expected: 143	Unexpected: 0</p>
+</blockquote>
+<p>Still no solution…</p>
+<p>when i send</p>
+<blockquote>
+<p>AT!POWERWAKE=2,38,1</p>
+</blockquote>
+<p>in log i read:</p>
+<blockquote>
+<p>Jan  6 01:04:48 swi-mdm9x28-wp user.info swiapp: qmi_at_unsol_ind_cb: ind id:33<br>
+Jan  6 01:04:48 swi-mdm9x28-wp user.info swiapp: Received AT command forward request from modem<br>
+Jan  6 01:04:48 swi-mdm9x28-wp user.info swiapp: fwdcmd.opcode=11<br>
+Jan  6 01:04:48 swi-mdm9x28-wp user.info swiapp: fwdcmd.name=!POWERWAKE<br>
+Jan  6 01:04:48 swi-mdm9x28-wp user.info swiapp: fwdcmd.ntokens=3<br>
+Jan  6 01:04:48 swi-mdm9x28-wp user.info swiapp: ctrCond signalling complete.<br>
+Jan  6 01:04:48 swi-mdm9x28-wp user.info swiapp: Recieved ctrCond: p: 0, S:0, nr: 1<br>
+Jan  6 01:04:48 swi-mdm9x28-wp user.info swiapp: POWERWAKE has been detected<br>
+Jan  6 01:04:48 swi-mdm9x28-wp user.info kernel: [  284.856197] gpio_check_and_wake: wake-n_gpio26 STATE=WAKEUP<br>
+Jan  6 01:04:48 swi-mdm9x28-wp user.info swiapp: AT response Buffer<br>
+Jan  6 01:04:48 swi-mdm9x28-wp user.info swiapp: AT Resp-buffer Len 0<br>
+Jan  6 01:04:48 swi-mdm9x28-wp user.info swiapp: sending QMI_AT_FWD_RESP_AT_CMD_REQ_V01 message<br>
+Jan  6 01:04:48 swi-mdm9x28-wp user.info swiapp: qmi_client_send_msg_sync returned: 0<br>
+Jan  6 01:04:48 swi-mdm9x28-wp user.info swiapp: Send response 1 complete.<br>
+Jan  6 01:04:48 swi-mdm9x28-wp user.info swiapp: New request processing complete.<br>
+Jan  6 01:04:48 swi-mdm9x28-wp user.info swiapp: Waiting for ctrCond<br>
+Jan  6 01:04:48 swi-mdm9x28-wp user.err kernel: [  284.868631] swimcu_gpio_irq_event_handle: failed to handle IRQ event for gpio2<br>
+Jan  6 01:04:48 swi-mdm9x28-wp user.info kernel: [  284.875233] gpio_check_and_wake: wake-n_gpio26 STATE=SLEEP</p>
+</blockquote>
+<p>and when i try to issue command:</p>
+<blockquote>
+<p>AT!POWERMODE=3</p>
+</blockquote>
+<p>in log i receive:</p>
+<blockquote>
+<p>Jan  6 01:05:58 swi-mdm9x28-wp user.info swiapp: qmi_at_unsol_ind_cb: ind id:33<br>
+Jan  6 01:05:58 swi-mdm9x28-wp user.info swiapp: Received AT command forward request from modem<br>
+Jan  6 01:05:58 swi-mdm9x28-wp user.info swiapp: fwdcmd.opcode=11<br>
+Jan  6 01:05:58 swi-mdm9x28-wp user.info swiapp: fwdcmd.name=!POWERMODE<br>
+Jan  6 01:05:58 swi-mdm9x28-wp user.info swiapp: fwdcmd.ntokens=1<br>
+Jan  6 01:05:58 swi-mdm9x28-wp user.info swiapp: ctrCond signalling complete.<br>
+Jan  6 01:05:58 swi-mdm9x28-wp user.info swiapp: Recieved ctrCond: p: 0, S:0, nr: 1<br>
+Jan  6 01:05:58 swi-mdm9x28-wp user.info swiapp: POWERMODE has been detected<br>
+Jan  6 01:05:58 swi-mdm9x28-wp user.info kernel: [  354.911864] pm_set_mcu_ulpm_enable: SWIMCU_PM_ULPS_ENTER - continue sync with MCU<br>
+Jan  6 01:05:58 swi-mdm9x28-wp user.info kernel: [  354.918414] gpio_check_and_wake: wake-n_gpio26 STATE=WAKEUP<br>
+Jan  6 01:05:58 swi-mdm9x28-wp user.info kernel: [  354.924192] swimcu_pm_wusrc_config: configured GPIO wakeup source 0x10000<br>
+Jan  6 01:05:58 swi-mdm9x28-wp user.err kernel: [  354.924218] swimcu_pm_wusrc_config: check statep-&gt;gpio_pin_mask 0x10000<br>
+Jan  6 01:05:58 swi-mdm9x28-wp user.err kernel: [  354.937861] swimcu_gpio_irq_event_handle: failed to handle IRQ event for gpio2<br>
+Jan  6 01:05:58 swi-mdm9x28-wp user.info kernel: [  354.944267] gpio_check_and_wake: wake-n_gpio26 STATE=SLEEP<br>
+Jan  6 01:05:58 swi-mdm9x28-wp user.err kernel: [  354.953194] MCU Protocol Command 0xC2 failed, retry=1<br>
+Jan  6 01:05:58 swi-mdm9x28-wp user.err kernel: [  354.965111] MCU Protocol Command 0xC2 failed, retry=2<br>
+Jan  6 01:05:58 swi-mdm9x28-wp user.err kernel: [  355.483915] MCU Protocol Command 0xC2 failed, retry=3<br>
+Jan  6 01:05:59 swi-mdm9x28-wp user.err kernel: [  356.003548] MCU Protocol Command 0xC2 failed, retry=4<br>
+Jan  6 01:05:59 swi-mdm9x28-wp user.err kernel: [  356.525177] MCU Protocol Command 0xC2 failed, retry=5<br>
+Jan  6 01:06:00 swi-mdm9x28-wp user.err kernel: [  357.045139] MCU Protocol Command 0xC2 failed, retry=6<br>
+Jan  6 01:06:00 swi-mdm9x28-wp user.err kernel: [  357.564903] MCU Protocol Command 0xC2 failed, retry=7<br>
+Jan  6 01:06:01 swi-mdm9x28-wp user.err kernel: [  358.084560] MCU Protocol Command 0xC2 failed, retry=8<br>
+Jan  6 01:06:01 swi-mdm9x28-wp user.err kernel: [  358.604579] MCU Protocol Command 0xC2 failed, retry=9<br>
+Jan  6 01:06:02 swi-mdm9x28-wp user.err kernel: [  359.124509] MCU Protocol Command 0xC2 failed, retry=10<br>
+Jan  6 01:06:02 swi-mdm9x28-wp user.err kernel: [  359.642973] MCU Protocol Command 0xC2 failed, retry=11<br>
+Jan  6 01:06:02 swi-mdm9x28-wp user.err kernel: [  359.647093] swimcu_pm_wusrc_config: failed to GPIO config 0x10000 (-2)<br>
+Jan  6 01:06:02 swi-mdm9x28-wp user.info kernel: [  359.654345] swimcu_pm_wusrc_config_reset<br>
+Jan  6 01:06:02 swi-mdm9x28-wp user.err kernel: [  359.654364] swimcu_psm_enable_attr_store: Failed to enable mode 4: -5<br>
+Jan  6 01:06:02 swi-mdm9x28-wp user.info swiapp: AT response Buffer<br>
+Jan  6 01:06:02 swi-mdm9x28-wp user.info swiapp: AT Resp-buffer Len 0<br>
+Jan  6 01:06:02 swi-mdm9x28-wp user.info swiapp: sending QMI_AT_FWD_RESP_AT_CMD_REQ_V01 message<br>
+Jan  6 01:06:02 swi-mdm9x28-wp user.info swiapp: qmi_client_send_msg_sync returned: 0<br>
+Jan  6 01:06:02 swi-mdm9x28-wp user.info swiapp: Send response 1 complete.<br>
+Jan  6 01:06:02 swi-mdm9x28-wp user.info swiapp: New request processing complete.<br>
+Jan  6 01:06:02 swi-mdm9x28-wp user.info swiapp: Waiting for ctrCond</p>
+</blockquote>
+<p>and no ULPM is activated…</p>
+<p>How did you solved (Jeremy)?</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/20">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/20</link>
+        <pubDate>Wed, 11 May 2022 10:14:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-20</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>you can try this:<br>
+<a href="https://source.sierrawireless.com/resources/airprime/software/wp77xx/wp77xx-firmware-release-14,-d-,1/#sthash.IphARdWH.dpbs" class="onebox" target="_blank" rel="noopener nofollow ugc">https://source.sierrawireless.com/resources/airprime/software/wp77xx/wp77xx-firmware-release-14,-d-,1/#sthash.IphARdWH.dpbs</a></p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/19">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/19</link>
+        <pubDate>Wed, 11 May 2022 09:24:03 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-19</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[gianmariaiaculo]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks Jeremy,<br>
+this problem is solved in newer rel of firmware? Where can i download latest (14?)</p>
+<p>thanks<br>
+Gianmaria</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/18">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/18</link>
+        <pubDate>Wed, 11 May 2022 09:20:26 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-18</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[jeremylaharotte]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi,<br>
+It looks like you are using WP7702 firmware version 12.<br>
+ULPM cannot be enabled with GPIO36/38. I had the same problem.</p>
+<p>In the release note ; <a href="https://source.sierrawireless.com/resources/airprime/software/release_notes/wp77xx-release-14,-d-,1-customer-release-notes/" rel="noopener nofollow ugc">https://source.sierrawireless.com/resources/airprime/software/release_notes/wp77xx-release-14,-d-,1-customer-release-notes/</a></p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/a/a7ada02e958a26fa38c045beaff586628b7ab346.png" data-download-href="/uploads/short-url/nVlJc1zIg4Q8sS2HrceULHXsMdM.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/a/a7ada02e958a26fa38c045beaff586628b7ab346.png" alt="image" data-base62-sha1="nVlJc1zIg4Q8sS2HrceULHXsMdM" width="690" height="161" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/a/a7ada02e958a26fa38c045beaff586628b7ab346_2_10x10.png"></a></div><p></p>
+<p>Jérémy</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/17">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/17</link>
+        <pubDate>Wed, 11 May 2022 09:14:45 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-17</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[gianmariaiaculo]]></dc:creator>
+        <description><![CDATA[
+            <p>Yes… it works. Using timer it wakeup.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/16">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/16</link>
+        <pubDate>Wed, 11 May 2022 09:05:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-16</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>you can try<br>
+at!powerwake=1,300<br>
+at!powermode=3</p>
+<p>and see after 300 seconds, will it wake up?</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/15">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/15</link>
+        <pubDate>Wed, 11 May 2022 08:31:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-15</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[gianmariaiaculo]]></dc:creator>
+        <description><![CDATA[
+            <blockquote>
+<p>root@swi-mdm9x28-wp:~# microcom /dev/ttyAT<br>
+AT!POWERWAKE=2,38,5<br>
+OK<br>
+AT!POWERWAKE?<br>
+!POWERWAKE:<br>
+ULPM TIMER: 14400<br>
+PSM TIMER: 14400,ACTIVE TIMER:20,SYNC: 2<br>
+GPIO: 38, edge: 5, pull: 0</p>
+<p>OK</p>
+</blockquote>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/14">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/14</link>
+        <pubDate>Wed, 11 May 2022 08:23:03 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-14</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[gianmariaiaculo]]></dc:creator>
+        <description><![CDATA[
+            <p>“how about trying the timeout value in AT!POWERWAKE?”</p>
+<p>can you send me an example? I will try immediatly…</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/13">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/13</link>
+        <pubDate>Wed, 11 May 2022 08:21:21 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-13</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>how about trying the timeout value in AT!POWERWAKE?</p>
+<p>Not sure if you need to trigger POWER_ON_N when module in ULPM mode, you can make some test on this pin</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/12</link>
+        <pubDate>Wed, 11 May 2022 08:15:40 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-12</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[gianmariaiaculo]]></dc:creator>
+        <description><![CDATA[
+            <p>Exact same behaviour with GPIO38. Led blinks… no boot.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/11</link>
+        <pubDate>Wed, 11 May 2022 08:14:31 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-11</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[gianmariaiaculo]]></dc:creator>
+        <description><![CDATA[
+            <p>Will try now with GPIO38… gimme some minutes…</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/10</link>
+        <pubDate>Wed, 11 May 2022 08:11:42 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-10</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+      <item>
+        <title>mangoH yellow ULPM</title>
+        <dc:creator><![CDATA[gianmariaiaculo]]></dc:creator>
+        <description><![CDATA[
+            <p>Yes… got same problem… but i need both interrupts active. I use gpio21 in software to handle movement alerts… and also i need INT1 to wake up when in ULPM.</p>
+<p>…big problem…</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977/9</link>
+        <pubDate>Wed, 11 May 2022 08:11:11 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9977-9</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-ulpm/9977.rss">mangoH yellow ULPM</source>
+      </item>
+  </channel>
+</rss>

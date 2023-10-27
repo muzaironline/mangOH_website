@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Where do I start from to get GPS data transfered via UART on WP7502 using mangOH red? - #9 by nick - mangOH Red - mangOH forum</title>
+    <meta name="description" content="Hi, Im fairly new to these systems so can you provide me with right direction to where to start from ? I have installed devloper studio and have ran some basic example programs to print some values etc but I find myself &amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Where do I start from to get GPS data transfered via UART on WP7502 using mangOH red?&#39;" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342/9" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342/9" />
+<meta property="og:title" content="Where do I start from to get GPS data transfered via UART on WP7502 using mangOH red?" />
+<meta name="twitter:title" content="Where do I start from to get GPS data transfered via UART on WP7502 using mangOH red?" />
+<meta property="og:description" content="Hey @hitheshkaranth,  The first step is to configure one or both UARTs on your chip to be available to user space apps. This is discussed here:  Need Information On UART.  I got tired of running these commands by hand all the time, so I built a small app to configure things for me: https://github.com/brnkl/cf3-config  This app uses the same API (le_tty) that you will need to communicate with your UART. In this app I use the device at /dev/ttyAT (the modem in the WP chip), but your UART device wi..." />
+<meta name="twitter:description" content="Hey @hitheshkaranth,  The first step is to configure one or both UARTs on your chip to be available to user space apps. This is discussed here:  Need Information On UART.  I got tired of running these commands by hand all the time, so I built a small app to configure things for me: https://github.com/brnkl/cf3-config  This app uses the same API (le_tty) that you will need to communicate with your UART. In this app I use the device at /dev/ttyAT (the modem in the WP chip), but your UART device wi..." />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta property="article:published_time" content="2018-04-26T18:16:07+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="next" href="/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342?page=2">
+
+    
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">Where do I start from to get GPS data transfered via UART on WP7502 using mangOH red?</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Where do I start from to get GPS data transfered via UART on WP7502 using mangOH red?'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-19T17:09:04Z' class='post-time'>
+                    April 19, 2018,  5:09pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-19T17:09:04Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey <a class="mention" href="/u/hitheshkaranth">@hitheshkaranth</a>,</p>
+<p>If you compare your call to the call signature for <a href="http://legato.io/legato-docs/latest/le__pos__interface_8h.html#ad2e96a853c9e3d4daa351494ff2070ba" rel="nofollow noopener">le_pos_Get3DLocation</a> in the API docs, you’ll see you need to pass a total of 5 arguments instead of just 4.</p>
+<p>If you want this updated in real time, you’ll need to poll it using a timer/loop/thread. I have some sample code that shows how this can be done between processes: <a href="https://github.com/brnkl/mangoh-gps-monitor" rel="nofollow noopener">https://github.com/brnkl/mangoh-gps-monitor</a>. You could also consider binding a handler function for movement using something like <a href="http://legato.io/legato-docs/latest/le__pos__interface_8h.html#a17e99072772110c1609c53247d663ed3" rel="nofollow noopener">le_pos_AddMovementHandler</a>.</p>
+<p>Going forward, please try and provide as many code samples as possible when asking questions. It really helps us give quality answers as it’s difficult to understand a situation with only one line of code.</p>
+<p>Cheers!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hitheshkaranth'><span itemprop='name'>hitheshkaranth</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-25T06:17:58Z' class='post-time'>
+                    April 25, 2018,  6:17am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-25T06:17:58Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/nick">@nick</a></p>
+<p>In accordance to your suggestion I went in for running the resources you provided and ran into the follwing error.</p>
+<p>It seems that util.h library remains undetected and throws an error “fatal error:util.h no such file or directory”<br>
+follwoed by “type le_posCtrl_ActivationRef_t could not be resolved”</p>
+<p>How can I resolve this issue ?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-25T19:24:34Z' class='post-time'>
+                    April 25, 2018,  7:24pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-25T19:24:34Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey <a class="mention" href="/u/hitheshkaranth">@hitheshkaranth</a>,</p>
+<p>There is a problem with your util dependency. I’ll sort this out with a git submodule by the end of the day. Sorry for the confusion.</p>
+<p>Cheers!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-25T20:38:29Z' class='post-time'>
+                    April 25, 2018,  8:38pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-25T20:38:29Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello again,</p>
+<p>I’ve update the repo and included some instructions/recipes for building. Let me know if you’re still having issues.</p>
+<p>Cheers!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hitheshkaranth'><span itemprop='name'>hitheshkaranth</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-26T05:27:50Z' class='post-time'>
+                    April 26, 2018,  5:27am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-26T11:38:15Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/nick">@nick</a>,</p>
+<p>Thanks for the update although I did get it running without util.h latter that day. However thanks for you gracious support.</p>
+<p>Now that the GPS acquasition is take care of thanks to you.Can you help me with the UART on pin 10,8(CN307)  for transfering the co ordinates ?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-26T18:16:07Z' class='post-time'>
+                    April 26, 2018,  6:16pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-26T18:16:07Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey <a class="mention" href="/u/hitheshkaranth">@hitheshkaranth</a>,</p>
+<p>The first step is to configure one or both UARTs on your chip to be available to user space apps. This is discussed here:  <a href="https://forum.mangoh.io/t/need-information-on-uart/50/3">Need Information On UART</a>.</p>
+<p>I got tired of running these commands by hand all the time, so I built a small app to configure things for me: <a href="https://github.com/brnkl/cf3-config" rel="nofollow noopener">https://github.com/brnkl/cf3-config</a></p>
+<p>This app uses the same API (le_tty) that you will need to communicate with your UART. In this app I use the device at <code>/dev/ttyAT</code> (the modem in the WP chip), but your UART device will show up as either <code>/dev/ttyHS0</code> or <code>/dev/ttyHSL</code> (UART1 and UART2, not certain which is which).</p>
+<p>Hopefully this is helpful,<br>
+Cheers!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hitheshkaranth'><span itemprop='name'>hitheshkaranth</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-27T05:06:55Z' class='post-time'>
+                    April 27, 2018,  5:06am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-27T05:38:12Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/nick">@nick</a>,</p>
+<p>Thanks for replying, Im bit cofused on how to use the PIN 10,8 on CN307 for UART I have read and performed the above steps yet the question remains the same! How to get PIN 10,8 working as UART?</p>
+<p>Plus it came with 2 errors (the code in the git repository you sent)</p>
+<blockquote>
+<p>Multiple markers at this line - ‘for’ loop initial declarations are only allowed in C99 or C11 mode - use option -std=c99, -std=gnu99, -<br>
+std=c11 or -std=gnu11 to compile your code</p>
+</blockquote>
+<blockquote>
+<p>‘for’ loop initial declarations are only allowed in C99 or C11 mode</p>
+</blockquote>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/b367525f0a03c17c98a863a83bcaf0e683cb1ddf.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-27T15:45:45Z' class='post-time'>
+                    April 27, 2018,  3:45pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-27T15:45:45Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey <a class="mention" href="/u/hitheshkaranth">@hitheshkaranth</a>,</p>
+<p>I believe that error is an issue with the way you’re compiling it. I included a <code>Makefile</code> that includes a recipe for the WP85.</p>
+<p>In terms of the physical UART connection, I’m not certain how to get at this one. I sifted through the circuit drawings, and it seems they refer to this UART as <code>UART0_TX_EXP</code> and <code>UART0_RX_EXP</code>. <a class="mention" href="/u/asyal">@asyal</a>, would you be able to comment on how this connector relates to <code>UART1</code> and <code>UART2</code> on the actual WP series chips?<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/b367525f0a03c17c98a863a83bcaf0e683cb1ddf.png" alt="58%20AM" width="677" height="338"></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-27T16:39:27Z' class='post-time'>
+                    April 27, 2018,  4:39pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-27T16:39:27Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/alex">@Alex</a> got this working here:</p><aside class="quote quote-modified" data-post="7" data-topic="1246">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/a/db5fbb/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/uart-on-iot-connector/1246/7">UART on IoT Connector</a> <a class="badge-wrapper  bullet" href="/c/iot-cards/8"><span class="badge-category-bg" style="background-color: #621B4B;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/iot-cards">IoT Cards</span></a>
+  </div>
+  <blockquote>
+    Yes, that is exactly what I am doing. I am sending AT commands with an external MCU. If your MCU uses 3.3V, it should work fine via RPi.  When David’s board is available for purchase, you can then use it for IOT connector if mcu voltage is &gt; 1.8V. There is not much to it for RPi. Connect the Rx and Tx lines, as well as a ground. If you are using an HL chip, tie the Rts and Cts together (I did this on the IOT connector ). Make sure th MCU uart settings are 115200 baud rate , no parity , and one s…
+  </blockquote>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Alex'><span itemprop='name'>Alex</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-27T20:56:31Z' class='post-time'>
+                    April 27, 2018,  8:56pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-27T20:56:31Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi!!  See my post on how I got this working with AT commands.  Looks like you can get the GPS information with AT commands using AT!GPS, etc.  I am using a WP8548 and HL chip, and not the WP 7502.  I am not running any special code on the WP chip for the purpose of cellular function. I am not sure what you need to do for GPS (if all that you are wanting is to get GPS positioning).  This document will help: <a href="https://source.sierrawireless.com/resources/airprime/software/airprime_wpx5xx_wp76xx_wp77xx_at_command_reference/" rel="nofollow noopener">https://source.sierrawireless.com/resources/airprime/software/airprime_wpx5xx_wp76xx_wp77xx_at_command_reference/</a></p>
+<p>Let me know if you have any questions getting the RPi connector to work.  Maybe start out just trying to send an “AT\r” and once you get that working, you can send the !GPS commands.  My company’s project, I will be using an HL for cellular data and an Airprime XM1110 for GPS positioning.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hitheshkaranth'><span itemprop='name'>hitheshkaranth</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-28T04:19:46Z' class='post-time'>
+                    April 28, 2018,  4:19am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-28T07:22:46Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/asyal">@asyal</a> <a class="mention" href="/u/alex">@Alex</a> <a class="mention" href="/u/nick">@nick</a></p>
+<p>My setup as of now &gt;&gt;&gt;&gt;</p>
+<blockquote>
+<p>USB to serial converter where I have connected Tx,Rx(of USB-Serial converter) to (10,8)of CN307 aka Rpi compatible header.</p>
+</blockquote>
+<p>Question &gt;&gt;</p>
+<blockquote>
+<p>Does uartMode set 1 app //set the UART0 which is at 10,8 ?<br>
+If yes why is there no output at the hyper terminal connected to USB-Serial converter on CN307 pin 8,10 ?<br>
+If no where can I enable it ?</p>
+</blockquote>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Alex'><span itemprop='name'>Alex</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-28T07:35:51Z' class='post-time'>
+                    April 28, 2018,  7:35am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-28T07:35:51Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>NOt sure how you have it setup, but make sure a ground is connected too. If you are able to hook up the module to hyperterminal and send AT commands directly to it via USB, make sure the AT mapping is correct. Use at!mapuart to check this.  If all that checks out , best to probably scope it and see what is going on.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hitheshkaranth'><span itemprop='name'>hitheshkaranth</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-28T07:44:40Z' class='post-time'>
+                    April 28, 2018,  7:44am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-28T07:44:40Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/alex">@Alex</a></p>
+<p>as of usb-uart is concerened I have set it as follows &gt;</p>
+<blockquote>
+<p>Pin 8 (CN307) to Rx pin of USB UART</p>
+</blockquote>
+<blockquote>
+<p>Pin 10(CN307) to Tx pin of USB UART</p>
+</blockquote>
+<blockquote>
+<p>Pin 25(CN307) to ground of USB UART</p>
+</blockquote>
+<blockquote>
+<p>Baudrate is set for 115200</p>
+</blockquote>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_17' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Alex'><span itemprop='name'>Alex</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-28T08:06:10Z' class='post-time'>
+                    April 28, 2018,  8:06am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-28T08:06:10Z'>
+              <span itemprop='position'>17</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>That should be it. If you are getting no responses , try tying CTS and RTS together on the WP chip. I did this via the IOT connector breakout board.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_18' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hitheshkaranth'><span itemprop='name'>hitheshkaranth</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-28T08:51:50Z' class='post-time'>
+                    April 28, 2018,  8:51am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-28T08:51:50Z'>
+              <span itemprop='position'>18</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/alex">@Alex</a></p>
+<p>Thanks for replying, I did try shorthing CTS and RTS (pin 14,15) on IOT0 but ended up with no result again!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_19' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Alex'><span itemprop='name'>Alex</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-28T20:26:32Z' class='post-time'>
+                    April 28, 2018,  8:26pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-28T20:26:32Z'>
+              <span itemprop='position'>19</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Do you have a scope ? If so I would see what is going on.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_20' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-30T04:43:55Z' class='post-time'>
+                    April 30, 2018,  4:43am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-30T04:43:55Z'>
+              <span itemprop='position'>20</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Another thing that you can do on a WP module is to convert the second UART(UART2)  into a AT port.<br>
+<a href="https://source.sierrawireless.com/resources/legato/howtos/customizeuart/" class="onebox" target="_blank">https://source.sierrawireless.com/resources/legato/howtos/customizeuart/</a></p>
+<p>So basically, this means rather than using Rpi connector (UART1) , you can get the AT out from the USB connector on the board but you lose the console capability which maybe ok for quite a few use cases.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_21' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hitheshkaranth'><span itemprop='name'>hitheshkaranth</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-30T07:36:51Z' class='post-time'>
+                    April 30, 2018,  7:36am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-30T07:46:26Z'>
+              <span itemprop='position'>21</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/alex">@Alex</a></p>
+<p>I do get the output at remote MCU when I use the microcom -s /dev/ttyHS0 and type anythong over there.</p>
+<p><a class="mention" href="/u/asyal">@asyal</a></p>
+<p>Thanks for replying. My operational requirement doesnt permits me to use USB or UART2 hence I can ounly use P8,10 on CN307.</p>
+<p>My current code &gt;&gt;</p>
+<pre><code>    #include "legato.h"
+    #include &lt;termios.h&gt;
+    #include &lt;unistd.h&gt;
+
+    int open_uart1 ( char *dev)
+    {
+     int     fd;
+     fd = open (dev, O_RDWR | O_NOCTTY | O_NDELAY);
+     struct termios options;
+
+     // The old way. Let's not change baud settings
+  fcntl (fd, F_SETFL, 0);
+
+  // get the parameters
+  tcgetattr (fd, &amp;options);
+
+  // Set the baud rates to 115200...
+   cfsetispeed(&amp;options, B9600);
+   cfsetospeed(&amp;options, B9600);
+
+  // Enable the receiver and set local mode...
+  options.c_cflag |= (CLOCAL | CREAD);
+
+  // No parity (8N1):
+  options.c_cflag &amp;= ~PARENB;
+  options.c_cflag &amp;= ~CSTOPB;
+  options.c_cflag &amp;= ~CSIZE;
+  options.c_cflag |= CS8;
+
+  // enable hardware flow control (CNEW_RTCCTS)
+  // options.c_cflag |= CRTSCTS;
+ // if(hw_handshake)
+  // Disable the hardware flow control for use with mangOH RED
+      options.c_cflag &amp;= ~CRTSCTS;
+
+  // set raw input
+  options.c_lflag &amp;= ~(ICANON | ECHO | ECHOE | ISIG);
+  options.c_iflag &amp;= ~(INLCR | ICRNL | IGNCR);
+
+  // set raw output
+  options.c_oflag &amp;= ~OPOST;
+  options.c_oflag &amp;= ~OLCUC;
+  options.c_oflag &amp;= ~ONLRET;
+  options.c_oflag &amp;= ~ONOCR;
+  options.c_oflag &amp;= ~OCRNL;
+
+  // Set the new options for the port...
+  tcsetattr (fd, TCSANOW, &amp;options);
+  return fd;
+  }
+
+
+  void write_uart1 (int fd,char *cmd)
+  {
+     //	fd_set  rfds;
+    //	struct timeval timeout;
+int     wrote = 0;
+wrote = write (fd, cmd, strlen (cmd));
+  LE_INFO("wrote  %d ",wrote);
+     }
+
+     void read_uart1(void)
+    {
+    //my application doesnt need this part
+     }
+
+     COMPONENT_INIT
+     {
+       LE_INFO("Hello, world.");
+        int serial_fd,i=0;
+    //t     wrote = 0;
+         serial_fd= open_uart1("/dev/ttyHS0");
+        while(i&lt;1000)
+        {
+          	write_uart1(serial_fd,"He");
+	        LE_INFO("Hello how are you today?");
+	        //wrote = write (serial_fd,"Hello how are you today?\r\n", strlen ("Hello how are you today?\r\n"));
+             LE_INFO("wrote  %d ",serial_fd);
+           	i++;
+	         sleep(1);
+           }
+           }</code></pre>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_22' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Alex'><span itemprop='name'>Alex</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-30T08:22:12Z' class='post-time'>
+                    April 30, 2018,  8:22am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-30T08:22:12Z'>
+              <span itemprop='position'>22</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Sounds like the RX physical connection is working. So the MCU can receive data. Have you put the lines on a scope yet? That would be the fastest way to debug. See the data you send out from McU , see if you get a response , verify what you send out is what it should be. Then you can narrow it down from there.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_23' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/hitheshkaranth'><span itemprop='name'>hitheshkaranth</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/f2f75fac9204f33017a9d88d6a5bfd2ef3263277.jpeg">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-30T08:42:37Z' class='post-time'>
+                    April 30, 2018,  8:42am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-30T08:43:18Z'>
+              <span itemprop='position'>23</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/alex">@Alex</a></p>
+<p>Thanks for replying ,</p>
+<p>Setup</p>
+<blockquote>
+<p>CRO probe across PIN 8 and PIN 6 of CN307</p>
+</blockquote>
+<blockquote>
+<p>micocom -s 9600 /dev/ttyHS0 inside the terminal typing “h”</p>
+</blockquote>
+<p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/f2f75fac9204f33017a9d88d6a5bfd2ef3263277.jpeg" data-download-href="/uploads/short-url/yFnxHEwITVcEcrjooMtTR4wIIJ1.jpeg?dl=1" title="8B0A626F-B6C8-4CBC-A872-4DF0671E7F42.jpeg" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/f2f75fac9204f33017a9d88d6a5bfd2ef3263277_2_666x500.jpeg" alt="8B0A626F-B6C8-4CBC-A872-4DF0671E7F42" data-base62-sha1="yFnxHEwITVcEcrjooMtTR4wIIJ1" width="666" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/f2f75fac9204f33017a9d88d6a5bfd2ef3263277_2_666x500.jpeg, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/f2f75fac9204f33017a9d88d6a5bfd2ef3263277_2_999x750.jpeg 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/f2f75fac9204f33017a9d88d6a5bfd2ef3263277_2_1332x1000.jpeg 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/f2f75fac9204f33017a9d88d6a5bfd2ef3263277_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">8B0A626F-B6C8-4CBC-A872-4DF0671E7F42.jpeg</span><span class="informations">4032×3024 1.89 MB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/where-do-i-start-from-to-get-gps-data-transfered-via-uart-on-wp7502-using-mangoh-red/1342?page=2">next page →</a></b></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

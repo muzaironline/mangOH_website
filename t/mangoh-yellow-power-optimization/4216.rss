@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>MangOH Yellow power optimization</title>
+    <link>https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216</link>
+    <description>Hello everyone,
+
+I am currently working on a MangOH Yellow connected to Octave using the Orange LTE network in France. I am trying to lower the power consumption as much as possible
+I measured the current consumption of the board for several use cases. The lowest configurations I found are the 2 presented below.
+
+# Configuration 1
+
+For this configuration, I did the following:
+
+* Disable all Edge Actions
+* Disable all sensors (Location, IMU, Battery state, Light)
+* Disable Developer Mode
+* Disable “Heartbeat on empty”
+* Disconnect the 2 USB ports of the MangOH
+* Use LTE with the following command on the mangOH:
+
+```
+$ cm radio rat LTE
+```
+
+The results look like this:
+
+![floor_lte_graph|690x428](upload://utW14845Rfb288wTQqYMB8FG3Ri.png) 
+
+Average current consumption is 147 mA with ~240 mA spikes.
+
+If I zoom on this graph, I can see the consumption profile more clearly:
+
+![floor_lte_graph_zoom|690x417](upload://ZGYEqFmdm274KP4diE85wgTKh.jpeg) 
+
+A 240 mA spike appears every 1.28 seconds (which corresponds to a normal paging cycle for LTE without PSM, according to this [website](https://www.link-labs.com/blog/lte-e-drx-psm-explained-for-lte-m1)).
+As you can see, the device alternates between an activity period (~200 mA) and the floor level (125 mA) with a periodicity of ~2 seconds.
+I suspect this is caused by the action manager of the mangOH, but I am not sure about that.
+
+# Configuration 2
+
+For this configuration, I did the following:
+
+* Disable all Edge Actions
+* Disable all sensors (Location, IMU, Battery state, Light)
+* Disable Developer Mode
+* Disable “Heartbeat on empty”
+* Disconnect the 2 USB ports of the MangOH
+* Disable LTE and GSM connection using this command on the board:
+
+```
+$ cm radio off
+```
+
+The results look like this:
+
+![floor_graph|690x208](upload://qUXgUEg5BJimyl9rjnlDGEL5aWN.jpeg) 
+
+Average current consumption is 130 mA with ~160 mA spikes.
+I don’t know what the 2 big spikes of 220 mA (appearing at 1 min and at the very end) corresponds to, as the board was not supposed to send anything to Octave. If anyone has a clue about this, I’m interested.
+
+Again, if I zoom on the profile I get this:
+
+![floor_graph_zoom|690x417](upload://8dLeFQI4Vvlc5HtZNylEXSrqhBc.jpeg) 
+
+The floor level went down to 118 mA, and as we could expect the periodic spikes are gone as radio communication is disabled.
+The device still alternates between an activity period (~140 mA) and the floor level (125 mA) with a periodicity of ~2 seconds.
+
+However, the power consumption is still very high, that is why I am asking the following questions:
+
+* **Q1 : Is there a way to get the power consumption any lower using Octave / other ?**
+* **Q2 : What is your target power on mangOH Yellow + Octave ?**
+
+I Hope someone can help me with this.
+
+Have a good day ! :slight_smile:</description>
+    
+    <lastBuildDate>Sun, 07 Jun 2020 14:44:16 +0000</lastBuildDate>
+    <category>mangOH Yellow</category>
+    <atom:link href="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>MangOH Yellow power optimization</title>
+        <dc:creator><![CDATA[vanrideout]]></dc:creator>
+        <description><![CDATA[
+            <p>Thanks for solving this solution, very impressive codes.</p>
+<p><a href="https://www.laweekly.com/list-of-best-cbd-creams-topicals-for-sale-in-2019/" data-bbcode="true" rel="nofollow noopener"></a></p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216/4</link>
+        <pubDate>Sun, 07 Jun 2020 14:44:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-4216-4</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216.rss">MangOH Yellow power optimization</source>
+      </item>
+      <item>
+        <title>MangOH Yellow power optimization</title>
+        <dc:creator><![CDATA[paulmeis]]></dc:creator>
+        <description><![CDATA[
+            <p>Thank you very much <a class="mention" href="https://forum.mangoh.io/u/asyal">@asyal</a> for this helpful answer ! <img src="https://emoji.discourse-cdn.com/twitter/smiley.png?v=9" title=":smiley:" class="emoji" alt=":smiley:"><br>
+I will try this as soon as I can and I’ll keep you updated with the results !</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216/3</link>
+        <pubDate>Thu, 09 Apr 2020 14:42:59 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-4216-3</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216.rss">MangOH Yellow power optimization</source>
+      </item>
+      <item>
+        <title>MangOH Yellow power optimization</title>
+        <dc:creator><![CDATA[asyal]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Paul,</p>
+<p>One big way to reduce power is to put the HSIC interface into suspend mode. This can drop power by 60 ma.<br>
+–&gt; echo 0 &gt; /sys/bus/usb/devices/usb1/authorized<br>
+Also make sure wakelock is set in case USB cable is removed:<br>
+–&gt; echo NO_SLEEP &gt; /sys/power/wake_lock<br>
+Also, if you are ready to take a soldering iron, you can get some more improvements:<br>
+a. Add R306 (0R), and check that  EXT_GPS_LNA_EN signal is set 0. Should be 4ma saving<br>
+b. Savings over LEDs:<br>
+–&gt; echo ‘AT!LEDTEST=0,1;!LEDTEST=0,0’ &gt; /dev/ttyAT (Red LED off, 1.5ma)<br>
+–&gt; Remove R428, save couple of ma<br>
+c. Remove USB cable (have a wakelock running though): 12-15ma<br>
+d.  If you want to, you can force the DC/DC buck converter into automatic PFM/PWM mode . Save around 10 ma. Remove R901,remove c901. Add 10K between r901.pin_mode to c901.gnd. <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/7/7400720cf0953abcc558cbedcd982768d259112c.png" alt="image" data-base62-sha1="gycl95buBL546N5IunaUKIv301m" width="518" height="385"><br>
+e. Run CPU in interactive mode:<br>
+—&gt; echo interactive &gt; /sys/bus/cpu/devices/cpu0/cpufreq/scaling_governor</p>
+<p>If you want to know how low the board can go, you can remove R908 and add R909.<br>
+Then pull-up pin 3 of SW401. This will allow you to power off everything on the board except the module and the ULPM circuitry. If you bring down pin 3 of SW401, you will get all circuitry powered back up. We see module consuming 1.0ma and sensor circuitry at 1.3ma.</p>
+<p>Further, you can put the board in ULPM mode:<br>
+AT!POWERWAKE=CLEAR</p>
+<p>AT!POWERWAKE=1,60</p>
+<p>AT!POWERMODE=1 (VGPIO gets low)</p>
+<p>I will publish this on the mangoh website over the next few days .  Let me know what numbers you hit.<br>
+Would be great if you can post your numbers here.</p>
+<p>regards,<br>
+Ashish</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216/2</link>
+        <pubDate>Wed, 08 Apr 2020 05:43:12 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-4216-2</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216.rss">MangOH Yellow power optimization</source>
+      </item>
+      <item>
+        <title>MangOH Yellow power optimization</title>
+        <dc:creator><![CDATA[paulmeis]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello everyone,</p>
+<p>I am currently working on a MangOH Yellow connected to Octave using the Orange LTE network in France. I am trying to lower the power consumption as much as possible<br>
+I measured the current consumption of the board for several use cases. The lowest configurations I found are the 2 presented below.</p>
+<h1>Configuration 1</h1>
+<p>For this configuration, I did the following:</p>
+<ul>
+<li>Disable all Edge Actions</li>
+<li>Disable all sensors (Location, IMU, Battery state, Light)</li>
+<li>Disable Developer Mode</li>
+<li>Disable “Heartbeat on empty”</li>
+<li>Disconnect the 2 USB ports of the MangOH</li>
+<li>Use LTE with the following command on the mangOH:</li>
+</ul>
+<pre><code class="lang-auto">$ cm radio rat LTE
+</code></pre>
+<p>The results look like this:</p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d5a3824101824688f14ab38890c61da8cef87174.png" data-download-href="/uploads/short-url/utW14845Rfb288wTQqYMB8FG3Ri.png?dl=1" title="floor_lte_graph" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d5a3824101824688f14ab38890c61da8cef87174.png" alt="floor_lte_graph" data-base62-sha1="utW14845Rfb288wTQqYMB8FG3Ri" width="690" height="428" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d5a3824101824688f14ab38890c61da8cef87174_2_10x10.png"></a></div><p></p>
+<p>Average current consumption is 147 mA with ~240 mA spikes.</p>
+<p>If I zoom on this graph, I can see the consumption profile more clearly:</p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/001ccb8b13d71508c2f4db0f4689c06663b197f1.jpeg" data-download-href="/uploads/short-url/ZGYEqFmdm274KP4diE85wgTKh.jpeg?dl=1" title="floor_lte_graph_zoom" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/001ccb8b13d71508c2f4db0f4689c06663b197f1_2_690x417.jpeg" alt="floor_lte_graph_zoom" data-base62-sha1="ZGYEqFmdm274KP4diE85wgTKh" width="690" height="417" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/001ccb8b13d71508c2f4db0f4689c06663b197f1_2_690x417.jpeg, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/001ccb8b13d71508c2f4db0f4689c06663b197f1_2_1035x625.jpeg 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/001ccb8b13d71508c2f4db0f4689c06663b197f1_2_1380x834.jpeg 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/001ccb8b13d71508c2f4db0f4689c06663b197f1_2_10x10.png"></a></div><p></p>
+<p>A 240 mA spike appears every 1.28 seconds (which corresponds to a normal paging cycle for LTE without PSM, according to this <a href="https://www.link-labs.com/blog/lte-e-drx-psm-explained-for-lte-m1" rel="nofollow noopener">website</a>).<br>
+As you can see, the device alternates between an activity period (~200 mA) and the floor level (125 mA) with a periodicity of ~2 seconds.<br>
+I suspect this is caused by the action manager of the mangOH, but I am not sure about that.</p>
+<h1>Configuration 2</h1>
+<p>For this configuration, I did the following:</p>
+<ul>
+<li>Disable all Edge Actions</li>
+<li>Disable all sensors (Location, IMU, Battery state, Light)</li>
+<li>Disable Developer Mode</li>
+<li>Disable “Heartbeat on empty”</li>
+<li>Disconnect the 2 USB ports of the MangOH</li>
+<li>Disable LTE and GSM connection using this command on the board:</li>
+</ul>
+<pre><code class="lang-auto">$ cm radio off
+</code></pre>
+<p>The results look like this:</p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/bca8bb98cb4c46104e831a41b8987a5f491fab2d.jpeg" data-download-href="/uploads/short-url/qUXgUEg5BJimyl9rjnlDGEL5aWN.jpeg?dl=1" title="floor_graph" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/bca8bb98cb4c46104e831a41b8987a5f491fab2d_2_690x208.jpeg" alt="floor_graph" data-base62-sha1="qUXgUEg5BJimyl9rjnlDGEL5aWN" width="690" height="208" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/bca8bb98cb4c46104e831a41b8987a5f491fab2d_2_690x208.jpeg, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/bca8bb98cb4c46104e831a41b8987a5f491fab2d_2_1035x312.jpeg 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/bca8bb98cb4c46104e831a41b8987a5f491fab2d_2_1380x416.jpeg 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/bca8bb98cb4c46104e831a41b8987a5f491fab2d_2_10x10.png"></a></div><p></p>
+<p>Average current consumption is 130 mA with ~160 mA spikes.<br>
+I don’t know what the 2 big spikes of 220 mA (appearing at 1 min and at the very end) corresponds to, as the board was not supposed to send anything to Octave. If anyone has a clue about this, I’m interested.</p>
+<p>Again, if I zoom on the profile I get this:</p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/399fa31806adca153025f0860c0d2814ccefb826.jpeg" data-download-href="/uploads/short-url/8dLeFQI4Vvlc5HtZNylEXSrqhBc.jpeg?dl=1" title="floor_graph_zoom" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/399fa31806adca153025f0860c0d2814ccefb826_2_690x417.jpeg" alt="floor_graph_zoom" data-base62-sha1="8dLeFQI4Vvlc5HtZNylEXSrqhBc" width="690" height="417" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/399fa31806adca153025f0860c0d2814ccefb826_2_690x417.jpeg, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/399fa31806adca153025f0860c0d2814ccefb826_2_1035x625.jpeg 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/399fa31806adca153025f0860c0d2814ccefb826_2_1380x834.jpeg 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/3/399fa31806adca153025f0860c0d2814ccefb826_2_10x10.png"></a></div><p></p>
+<p>The floor level went down to 118 mA, and as we could expect the periodic spikes are gone as radio communication is disabled.<br>
+The device still alternates between an activity period (~140 mA) and the floor level (125 mA) with a periodicity of ~2 seconds.</p>
+<p>However, the power consumption is still very high, that is why I am asking the following questions:</p>
+<ul>
+<li><strong>Q1 : Is there a way to get the power consumption any lower using Octave / other ?</strong></li>
+<li><strong>Q2 : What is your target power on mangOH Yellow + Octave ?</strong></li>
+</ul>
+<p>I Hope someone can help me with this.</p>
+<p>Have a good day ! <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=9" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216/1</link>
+        <pubDate>Mon, 06 Apr 2020 07:39:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-4216-1</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216.rss">MangOH Yellow power optimization</source>
+      </item>
+  </channel>
+</rss>

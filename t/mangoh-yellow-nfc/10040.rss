@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Mangoh Yellow NFC</title>
+    <link>https://forum.mangoh.io/t/mangoh-yellow-nfc/10040</link>
+    <description>How do you work with NFC with the mangoh yellow, because I can&#39;t read an external tag, nor can I read with a phone the tag on the mangoh yellow, is there a step that it&#39;s not in the documentation, or a step that I missed for this to work, as far as I know at least the command should be able to read the tag (ntag read).
+
+I haven&#39;t found any useful information in this forum or outside this forum.
+
+EDIT:
+Also, I am not able to write to the tag.
+
+LOGS 
+This logs where not appearing yesterday
+![image|690x192](upload://3YqFiXYa9HFnaqAyMUXVAc1Csqj.png)</description>
+    
+    <lastBuildDate>Mon, 11 Jul 2022 08:17:09 +0000</lastBuildDate>
+    <category>mangOH Yellow</category>
+    <atom:link href="https://forum.mangoh.io/t/mangoh-yellow-nfc/10040.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Mangoh Yellow NFC</title>
+        <dc:creator><![CDATA[nunogoncalves]]></dc:creator>
+        <description><![CDATA[
+            <p>It looks like all I had to do was set the CC, on the tag (read tag documentation), and then format the tag with the <code>NXP tag writer</code> application. Then in <code>ntag</code> command would work. The code above also sets the CC to <code>E1106D00</code> witch is the default and correct CC.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-nfc/10040/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-nfc/10040/3</link>
+        <pubDate>Mon, 11 Jul 2022 08:15:02 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10040-3</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-nfc/10040.rss">Mangoh Yellow NFC</source>
+      </item>
+      <item>
+        <title>Mangoh Yellow NFC</title>
+        <dc:creator><![CDATA[nunogoncalves]]></dc:creator>
+        <description><![CDATA[
+            <p>It looks like I overwrote the NFC I2C address from 0x55 to 0x00, and I don’t seem to be able to change it back or at least haven’t found a way to do so.</p>
+<p>Made a fix for this.</p><aside class="onebox githubgist" data-onebox-src="https://gist.github.com/Zyr00/95591c62896efd708ae4b4b9a2284244">
+  <header class="source">
+
+      <a href="https://gist.github.com/Zyr00/95591c62896efd708ae4b4b9a2284244" target="_blank" rel="noopener nofollow ugc">gist.github.com</a>
+  </header>
+
+  <article class="onebox-body">
+    <h4><a href="https://gist.github.com/Zyr00/95591c62896efd708ae4b4b9a2284244" target="_blank" rel="noopener nofollow ugc">https://gist.github.com/Zyr00/95591c62896efd708ae4b4b9a2284244</a></h4>
+
+  <h5>nfc_mangoh_slave_address.c</h5>
+  <pre><code class="C">#include &lt;linux/i2c.h&gt;
+#include &lt;linux/i2c-help.h&gt;
+#include &lt;sys/ioctl.h&gt;
+
+#include "legato.h"
+
+#define ADAPTER "/dev/i2c-8"
+#define BAD_ADDRESS 0x00
+#define GOOD_ADDRESS 0x55
+</code></pre>
+    This file has been truncated. <a href="https://gist.github.com/Zyr00/95591c62896efd708ae4b4b9a2284244" target="_blank" rel="noopener nofollow ugc">show original</a>
+
+<p>
+</p>
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-nfc/10040/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-nfc/10040/2</link>
+        <pubDate>Thu, 07 Jul 2022 16:39:46 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10040-2</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-nfc/10040.rss">Mangoh Yellow NFC</source>
+      </item>
+      <item>
+        <title>Mangoh Yellow NFC</title>
+        <dc:creator><![CDATA[nunogoncalves]]></dc:creator>
+        <description><![CDATA[
+            <p>How do you work with NFC with the mangoh yellow, because I can’t read an external tag, nor can I read with a phone the tag on the mangoh yellow, is there a step that it’s not in the documentation, or a step that I missed for this to work, as far as I know at least the command should be able to read the tag (ntag read).</p>
+<p>I haven’t found any useful information in this forum or outside this forum.</p>
+<p>EDIT:<br>
+Also, I am not able to write to the tag.</p>
+<p>LOGS<br>
+This logs where not appearing yesterday<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/1bdb4402ace7ad4468591a8869f6d6096df3d9af.png" data-download-href="/uploads/short-url/3YqFiXYa9HFnaqAyMUXVAc1Csqj.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/1bdb4402ace7ad4468591a8869f6d6096df3d9af.png" alt="image" data-base62-sha1="3YqFiXYa9HFnaqAyMUXVAc1Csqj" width="690" height="192" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/1bdb4402ace7ad4468591a8869f6d6096df3d9af_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-nfc/10040/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-nfc/10040/1</link>
+        <pubDate>Wed, 06 Jul 2022 15:32:35 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10040-1</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-nfc/10040.rss">Mangoh Yellow NFC</source>
+      </item>
+  </channel>
+</rss>

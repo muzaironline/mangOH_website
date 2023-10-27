@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>BLE notifications crash the BLUETOOTHCTL</title>
+    <link>https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443</link>
+    <description>I am using hte following command line commands to set BLE service on the mangoH yellow: 
+
+bluetoothctl
+
+power on 
+advertise on 
+menu gatt 
+register-service  e2d36f99-8909-4136-9a49-00805f9b34fb 
+yes
+register-characteristic 0x0011 read,write 
+0x0
+register-characteristic 0x0033 write,notify
+0x0
+register-application
+
+now I can connect to the mangoH yellow via phone BLE and see the charecteristics, read and write
+
+however, when I try to register to BLE notifications with my phone I get: 
+
+[CHG] Attribute /org/bluez/app/service0/chrc2 Notify sock acquired
+Attribute /org/bluez/app/service0/chrc2 Notify sock closed
+
+and this is the error from log: 
+
+Jul  6 17:51:45 swi-mdm9x28-wp daemon.debug bluetoothd[746]: ../bluez-5.52/src/gatt-database.c:client_disconnect_cb() Client disconnected 
+Jul  6 17:51:45 swi-mdm9x28-wp daemon.debug bluetoothd[746]: ../bluez-5.52/src/gatt-database.c:profile_remove() Removed &quot;:1.2/org/bluez/app/register-application&quot; 
+Jul  6 17:51:45 swi-mdm9x28-wp daemon.debug bluetoothd[746]: ../bluez-5.52/src/gatt-database.c:profile_release() Releasing &quot;:1.2&quot; 
+Jul  6 17:51:45 swi-mdm9x28-wp daemon.err bluetoothd[746]: Failed to acquire notify: org.freedesktop.DBus.Error.NoReply 
+
+
+I am working with the following : 
+
+root@swi-mdm9x28-wp:~# legato version
+19.11.3-1-g8c030edad_34a8f46a3d85b53df7cd63949d660283_modified
+
+root@swi-mdm9x28-wp:~# uname -a
+Linux swi-mdm9x28-wp 3.18.140 #1 PREEMPT Wed Dec 9 12:50:57 UTC 2020 armv7l GNU/Linux
+
+
+there seems to be a dbus support issue with the Yellow + bluez , please assist \ advice</description>
+    
+    <lastBuildDate>Sat, 05 Nov 2022 14:09:31 +0000</lastBuildDate>
+    <category>Uncategorized</category>
+    <atom:link href="https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>BLE notifications crash the BLUETOOTHCTL</title>
+        <dc:creator><![CDATA[alexsunny]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-username="deadpoolcode" data-post="4" data-topic="9443" data-full="true">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/d/8797f3/40.png" class="avatar"> deadpoolcode:</div>
+<blockquote>
+<p>issue resolved by adding a rule to my application</p>
+<p>this is quite problematic for users that do not compile the kernel and want to use the legato apps development for BLE</p>
+<p>I recommand changing that in future releases</p>
+</blockquote>
+</aside>
+<p>thanks for the awesome information.</p>
+          <p><a href="https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443/7</link>
+        <pubDate>Sun, 26 Dec 2021 15:27:05 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9443-7</guid>
+        <source url="https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443.rss">BLE notifications crash the BLUETOOTHCTL</source>
+      </item>
+      <item>
+        <title>BLE notifications crash the BLUETOOTHCTL</title>
+        <dc:creator><![CDATA[deadpoolcode]]></dc:creator>
+        <description><![CDATA[
+            <p>I resolved by following this instruction:</p>
+<p><a href="https://docs.legato.io/18_10/conceptsSecuritySmack.html" class="onebox" target="_blank" rel="noopener nofollow ugc">https://docs.legato.io/18_10/conceptsSecuritySmack.html</a></p>
+<p>notice for example the configuration:</p>
+<p>cat  /legato/smack/load2</p>
+<p>have the sample ble app enabled:</p>
+<p>_ app.bluetoothSensorTag rwx</p>
+          <p><a href="https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443/6</link>
+        <pubDate>Wed, 14 Jul 2021 08:03:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9443-6</guid>
+        <source url="https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443.rss">BLE notifications crash the BLUETOOTHCTL</source>
+      </item>
+      <item>
+        <title>BLE notifications crash the BLUETOOTHCTL</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>How do you add a rule to your app?<br>
+Can you elaborate more?</p>
+          <p><a href="https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443/5</link>
+        <pubDate>Mon, 12 Jul 2021 23:12:40 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9443-5</guid>
+        <source url="https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443.rss">BLE notifications crash the BLUETOOTHCTL</source>
+      </item>
+      <item>
+        <title>BLE notifications crash the BLUETOOTHCTL</title>
+        <dc:creator><![CDATA[deadpoolcode]]></dc:creator>
+        <description><![CDATA[
+            <p>issue resolved by adding a rule to my application</p>
+<p>this is quite problematic for users that do not compile the kernel and want to use the legato apps development for BLE</p>
+<p>I recommand changing that in future releases</p>
+          <p><a href="https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443/4</link>
+        <pubDate>Mon, 12 Jul 2021 17:26:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9443-4</guid>
+        <source url="https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443.rss">BLE notifications crash the BLUETOOTHCTL</source>
+      </item>
+      <item>
+        <title>BLE notifications crash the BLUETOOTHCTL</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>You might have a look on yocto source:<br>
+./kernel/security/smack/smack_lsm.c</p>
+<p>function smack_file_receive ()</p>
+<p>Not sure if forcing this function to return 0  can solve the problem.</p>
+          <p><a href="https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443/3</link>
+        <pubDate>Wed, 07 Jul 2021 01:59:19 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9443-3</guid>
+        <source url="https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443.rss">BLE notifications crash the BLUETOOTHCTL</source>
+      </item>
+      <item>
+        <title>BLE notifications crash the BLUETOOTHCTL</title>
+        <dc:creator><![CDATA[deadpoolcode]]></dc:creator>
+        <description><![CDATA[
+            <p>so I found the issue:<br>
+Jul  6 20:05:53 swi-mdm9x28-wp user.notice kernel: [  128.301702] audit: type=1400 audit(1625591153.612:3): lsm=SMACK fn=smack_file_receive action=denied subject="_" object=“admin” requested=rw pid=483 comm=“dbus-daemon” path=“socket:[10118]” dev=“sockfs” ino=10118</p>
+<p>my question is, can I disable SMACK from userspace?</p>
+<p>apperentlly the solution implemented by mangoH to enable using BLE for the example was to specifically allow BLE access for specific Legato application names<br>
+this is very problematic, since I need to be able to use the BLE freely from any application I write, even outside legato</p>
+          <p><a href="https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443/2</link>
+        <pubDate>Tue, 06 Jul 2021 17:47:37 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9443-2</guid>
+        <source url="https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443.rss">BLE notifications crash the BLUETOOTHCTL</source>
+      </item>
+      <item>
+        <title>BLE notifications crash the BLUETOOTHCTL</title>
+        <dc:creator><![CDATA[deadpoolcode]]></dc:creator>
+        <description><![CDATA[
+            <p>I am using hte following command line commands to set BLE service on the mangoH yellow:</p>
+<p>bluetoothctl</p>
+<p>power on<br>
+advertise on<br>
+menu gatt<br>
+register-service  e2d36f99-8909-4136-9a49-00805f9b34fb<br>
+yes<br>
+register-characteristic 0x0011 read,write<br>
+0x0<br>
+register-characteristic 0x0033 write,notify<br>
+0x0<br>
+register-application</p>
+<p>now I can connect to the mangoH yellow via phone BLE and see the charecteristics, read and write</p>
+<p>however, when I try to register to BLE notifications with my phone I get:</p>
+<p>[CHG] Attribute /org/bluez/app/service0/chrc2 Notify sock acquired<br>
+Attribute /org/bluez/app/service0/chrc2 Notify sock closed</p>
+<p>and this is the error from log:</p>
+<p>Jul  6 17:51:45 swi-mdm9x28-wp daemon.debug bluetoothd[746]: …/bluez-5.52/src/gatt-database.c:client_disconnect_cb() Client disconnected<br>
+Jul  6 17:51:45 swi-mdm9x28-wp daemon.debug bluetoothd[746]: …/bluez-5.52/src/gatt-database.c:profile_remove() Removed “:1.2/org/bluez/app/register-application”<br>
+Jul  6 17:51:45 swi-mdm9x28-wp daemon.debug bluetoothd[746]: …/bluez-5.52/src/gatt-database.c:profile_release() Releasing “:1.2”<br>
+Jul  6 17:51:45 swi-mdm9x28-wp daemon.err bluetoothd[746]: Failed to acquire notify: org.freedesktop.DBus.Error.NoReply</p>
+<p>I am working with the following :</p>
+<p>root@swi-mdm9x28-wp:~# legato version<br>
+19.11.3-1-g8c030edad_34a8f46a3d85b53df7cd63949d660283_modified</p>
+<p>root@swi-mdm9x28-wp:~# uname -a<br>
+Linux swi-mdm9x28-wp 3.18.140 <span class="hashtag">#1</span> PREEMPT Wed Dec 9 12:50:57 UTC 2020 armv7l GNU/Linux</p>
+<p>there seems to be a dbus support issue with the Yellow + bluez , please assist \ advice</p>
+          <p><a href="https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443/1</link>
+        <pubDate>Tue, 06 Jul 2021 16:47:22 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9443-1</guid>
+        <source url="https://forum.mangoh.io/t/ble-notifications-crash-the-bluetoothctl/9443.rss">BLE notifications crash the BLUETOOTHCTL</source>
+      </item>
+  </channel>
+</rss>

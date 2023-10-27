@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>R16-Yocto-Adding-Root-Password</title>
+    <link>https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294</link>
+    <description>Hi there , 
+Did anyone try adding root password for R16 Yocto i.e Yocto 2.5 (sumo) .
+I tried adding the same by two methods but none of them seems to be working .
+
+**1st Method :** Adding in local.conf 
+
+INHERIT += &quot;extrausers&quot;
+EXTRA_USERS_PARAMS = &quot;usermod -p legato123 root;&quot;
+
+**2nd Method :** Adding in /yocto/meta-swi/meta-swi-mdm9x28/recipes-core/images/mdm9x28-image.inc
+
+inherit extrausers
+EXTRA_USERS_PARAMS = &quot;usermod -p legato123 root;&quot;
+
+Thanks &amp; Regards
+- Ak</description>
+    
+    <lastBuildDate>Mon, 16 Aug 2021 14:51:31 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>R16-Yocto-Adding-Root-Password</title>
+        <dc:creator><![CDATA[jameswollaeger]]></dc:creator>
+        <description><![CDATA[
+            <p>So i looked through forum posts and it wasn’t 100% clear to me. But i did find the way and I’ll document here so anyone can use this as reference:</p>
+<ol>
+<li>swiflash -m wp76xx -i WP76xx_Release12_ATT.spk (&lt;–use whatever firmware you need for R12)</li>
+<li>swiflash -m wp76xx -r</li>
+<li>swiflash -m wp76xx -i mangOH-yellow-wp76xx_0.7.0.spk</li>
+</ol>
+          <p><a href="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/9</link>
+        <pubDate>Mon, 16 Aug 2021 14:51:31 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6294-9</guid>
+        <source url="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294.rss">R16-Yocto-Adding-Root-Password</source>
+      </item>
+      <item>
+        <title>R16-Yocto-Adding-Root-Password</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>If you are using wp76, you can downgrade to r12 and use swiflash to recover to default state</p><aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.sierrawireless.com/t/wp76-root-password/17645/15">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/1fc275dea17943ec40a824dc4b7ad3839eb8d72d.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.sierrawireless.com/t/wp76-root-password/17645/15" target="_blank" rel="noopener nofollow ugc" title="10:23PM - 04 October 2019">Sierra Wireless Forum – 4 Oct 19</a>
+  </header>
+
+  <article class="onebox-body">
+    <img src="https://aws1.discourse-cdn.com/business4/uploads/sierrawireless/original/2X/2/252837692301bb53b7d4b8041901ad6486ced526.png" class="thumbnail onebox-avatar" width="32" height="32">
+
+<h3><a href="https://forum.sierrawireless.com/t/wp76-root-password/17645/15" target="_blank" rel="noopener nofollow ugc">Wp76 root password</a></h3>
+
+  <p>It is working on other customer</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/8</link>
+        <pubDate>Fri, 13 Aug 2021 00:06:53 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6294-8</guid>
+        <source url="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294.rss">R16-Yocto-Adding-Root-Password</source>
+      </item>
+      <item>
+        <title>R16-Yocto-Adding-Root-Password</title>
+        <dc:creator><![CDATA[jameswollaeger]]></dc:creator>
+        <description><![CDATA[
+            <p>So i have followed this thread and tried to do it, but it doesn’t work. I don’t have any new WP modules to test with currently, so if we change the password for root user in the YOCTO build but the module being flashing already has another one set, does this mean the new one will not take effect? Does setting the default password only work on a brand-new module? Is there a way to make an old module back to factory setttings?</p>
+<p>I found this post in legato forums: <a href="https://forum.legato.io/t/bug-in-the-firmware-yocto-or-my-bb-file/2952/2?u=jwolla" class="inline-onebox" rel="noopener nofollow ugc">Bug in the firmware, Yocto or my bb file? - #2 by CoRfr - Legato Linux distribution (Yocto project) - Legato Forum</a></p>
+<p>Is this a valid way to remove the already setup user without causing module corruption?</p>
+          <p><a href="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/7</link>
+        <pubDate>Thu, 12 Aug 2021 21:45:38 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6294-7</guid>
+        <source url="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294.rss">R16-Yocto-Adding-Root-Password</source>
+      </item>
+      <item>
+        <title>R16-Yocto-Adding-Root-Password</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>here says you need to set the following in local.conf:<br>
+EXTRA_IMAGE_FEATURES=""</p>
+<aside class="onebox allowlistedgeneric">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/3/30ef5c54b8bbc3487ea2b4c45cd11ea2932e4340.ico" class="site-icon" width="32" height="32">
+      <a href="http://embeddedguruji.blogspot.com/2019/02/setting-password-for-root-user-in-yocto.html" target="_blank" rel="noopener nofollow ugc">embeddedguruji.blogspot.com</a>
+  </header>
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:690/362;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/9/9e77c875831713da6107934ce094a00cb148bd48_2_690x362.png" class="thumbnail" width="690" height="362" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/9/9e77c875831713da6107934ce094a00cb148bd48_2_690x362.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/9/9e77c875831713da6107934ce094a00cb148bd48_2_1035x543.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/9/9e77c875831713da6107934ce094a00cb148bd48.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/9/9e77c875831713da6107934ce094a00cb148bd48_2_10x10.png"></div>
+
+<h3><a href="http://embeddedguruji.blogspot.com/2019/02/setting-password-for-root-user-in-yocto.html" target="_blank" rel="noopener nofollow ugc">Setting password for root user in Yocto</a></h3>
+
+<p>By default, if you have not made any modifications to 'EXTRA_IMAGE_FEATURES' variables, "debug-tweaks" option is set.   $ bitbake -e rpi-ba...</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/6</link>
+        <pubDate>Tue, 09 Mar 2021 10:01:33 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6294-6</guid>
+        <source url="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294.rss">R16-Yocto-Adding-Root-Password</source>
+      </item>
+      <item>
+        <title>R16-Yocto-Adding-Root-Password</title>
+        <dc:creator><![CDATA[Akshaysk]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/jyijyi">@jyijyi</a>  ,<br>
+writing a script / App in order to set the root password is not a correct approach .</p>
+          <p><a href="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/5</link>
+        <pubDate>Tue, 09 Mar 2021 09:35:05 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6294-5</guid>
+        <source url="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294.rss">R16-Yocto-Adding-Root-Password</source>
+      </item>
+      <item>
+        <title>R16-Yocto-Adding-Root-Password</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>no idea…<br>
+suggest you using passwd directly</p>
+          <p><a href="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/4</link>
+        <pubDate>Tue, 09 Mar 2021 09:25:14 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6294-4</guid>
+        <source url="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294.rss">R16-Yocto-Adding-Root-Password</source>
+      </item>
+      <item>
+        <title>R16-Yocto-Adding-Root-Password</title>
+        <dc:creator><![CDATA[Akshaysk]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi <a class="mention" href="https://forum.mangoh.io/u/jyijyi">@jyijyi</a>  ,<br>
+Yes it works . But why we are unable to add it in yocto ?<br>
+Request you to try this at your end and let me know if I am missing something</p>
+          <p><a href="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/3</link>
+        <pubDate>Tue, 09 Mar 2021 08:28:59 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6294-3</guid>
+        <source url="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294.rss">R16-Yocto-Adding-Root-Password</source>
+      </item>
+      <item>
+        <title>R16-Yocto-Adding-Root-Password</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>have you tried the “passwd” command?</p>
+          <p><a href="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/2</link>
+        <pubDate>Tue, 09 Mar 2021 07:55:30 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6294-2</guid>
+        <source url="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294.rss">R16-Yocto-Adding-Root-Password</source>
+      </item>
+      <item>
+        <title>R16-Yocto-Adding-Root-Password</title>
+        <dc:creator><![CDATA[Akshaysk]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi there ,<br>
+Did anyone try adding root password for R16 Yocto i.e Yocto 2.5 (sumo) .<br>
+I tried adding the same by two methods but none of them seems to be working .</p>
+<p><strong>1st Method :</strong> Adding in local.conf</p>
+<p>INHERIT += “extrausers”<br>
+EXTRA_USERS_PARAMS = “usermod -p legato123 root;”</p>
+<p><strong>2nd Method :</strong> Adding in /yocto/meta-swi/meta-swi-mdm9x28/recipes-core/images/mdm9x28-image.inc</p>
+<p>inherit extrausers<br>
+EXTRA_USERS_PARAMS = “usermod -p legato123 root;”</p>
+<p>Thanks &amp; Regards</p>
+<ul>
+<li>Ak</li>
+</ul>
+          <p><a href="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294/1</link>
+        <pubDate>Tue, 09 Mar 2021 07:48:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6294-1</guid>
+        <source url="https://forum.mangoh.io/t/r16-yocto-adding-root-password/6294.rss">R16-Yocto-Adding-Root-Password</source>
+      </item>
+  </channel>
+</rss>

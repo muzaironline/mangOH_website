@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Multiple Apps Calling `le_avdata_RequestSession`</title>
+    <link>https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646</link>
+    <description>Our current product implementation has multiple apps making calls to `le_avdata_RequestSessoin`.  Is this recommended or is it considered best practice to have one app manage and push data to AIrVantage?
+
+Thanks</description>
+    
+    <lastBuildDate>Thu, 16 May 2019 23:34:44 +0000</lastBuildDate>
+    <category>Build your own</category>
+    <atom:link href="https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Multiple Apps Calling `le_avdata_RequestSession`</title>
+        <dc:creator><![CDATA[jchitty]]></dc:creator>
+        <description><![CDATA[
+            <p>Right!</p>
+<p>Glad I could help.</p>
+<p><a class="mention" href="https://forum.mangoh.io/u/prush">@Prush</a> also deserves credit too.</p>
+          <p><a href="https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646/6</link>
+        <pubDate>Thu, 16 May 2019 23:34:44 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2646-6</guid>
+        <source url="https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646.rss">Multiple Apps Calling `le_avdata_RequestSession`</source>
+      </item>
+      <item>
+        <title>Multiple Apps Calling `le_avdata_RequestSession`</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/jchitty">@jchitty</a> Yes it is very clear, thank you for the detailed explanation!</p>
+<p>I just noticed that two of the three apps don’t call <code>le_avdata_AddSessionStateHandler</code> which is incorrect from what you have described above, right?</p>
+          <p><a href="https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646/5</link>
+        <pubDate>Thu, 16 May 2019 22:37:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2646-5</guid>
+        <source url="https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646.rss">Multiple Apps Calling `le_avdata_RequestSession`</source>
+      </item>
+      <item>
+        <title>Multiple Apps Calling `le_avdata_RequestSession`</title>
+        <dc:creator><![CDATA[jchitty]]></dc:creator>
+        <description><![CDATA[
+            <p>I added that qualification just because, if there isn’t a good IP connection, then there can’t be a session open, no matter how many apps are requesting one. <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=9" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+<p>I previously expected that the AV Data service would take care of retrying when the session is lost while there are still outstanding requests for the session to be open, but it appears that it does not currently work like that.</p>
+<p>According to <a class="mention" href="https://forum.mangoh.io/u/prush">@Prush</a>, after you’ve established a session, if you get a SESSION_STOPPED notification, then all session requests are essentially dead, so all apps that have called le_avdata_RequestSession() should respond to the SESSION_STOPPED by calling le_avdata_ReleaseSession() to free the memory associated with the previous request, and then call le_avdata_RequestSession() to create a new request for another session.</p>
+<p>What I said previously about multiple apps still stands.  It is safe to have multiple apps independently requesting sessions, without any coordination between them.  But they each have to independently register for notification of session state changes and respond to the SESSION_STOPPED by releasing and re-requesting a new session if they still need a session.</p>
+<p>I hope this is clear.</p>
+<p>–Jen</p>
+          <p><a href="https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646/4</link>
+        <pubDate>Thu, 16 May 2019 22:29:55 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2646-4</guid>
+        <source url="https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646.rss">Multiple Apps Calling `le_avdata_RequestSession`</source>
+      </item>
+      <item>
+        <title>Multiple Apps Calling `le_avdata_RequestSession`</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/jchitty">@jchitty</a> . Thanks for the tip.  You qualified your answer with a good IP connection to the AV servers but what if the connection isn’t good?</p>
+<p>Earlier this week I was troubleshooting our apps when we have <a href="https://forum.mangoh.io/t/poor-signal-quality-and-air-vantage-data-costs/2636/8">poor connection issues</a></p>
+<p>I have changed our sensorToCloud app to now release the session before creating a new one but since we have other sessions open this may not work, right?</p>
+<p>Also, what’s the recommended way to coordinate a session across apps?</p>
+<p>Thanks,<br>
+Darren</p>
+          <p><a href="https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646/3</link>
+        <pubDate>Thu, 16 May 2019 21:10:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2646-3</guid>
+        <source url="https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646.rss">Multiple Apps Calling `le_avdata_RequestSession`</source>
+      </item>
+      <item>
+        <title>Multiple Apps Calling `le_avdata_RequestSession`</title>
+        <dc:creator><![CDATA[jchitty]]></dc:creator>
+        <description><![CDATA[
+            <p>It should be fine to have multiple apps calling le_avdata_RequestSession().  The idea is that the session will remain open as long as any one app has an active request to have a session open (and there’s a good IP connection to the AV servers).</p>
+<p>Cheers,</p>
+<p>–Jen</p>
+          <p><a href="https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646/2</link>
+        <pubDate>Thu, 16 May 2019 21:05:53 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2646-2</guid>
+        <source url="https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646.rss">Multiple Apps Calling `le_avdata_RequestSession`</source>
+      </item>
+      <item>
+        <title>Multiple Apps Calling `le_avdata_RequestSession`</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p>Our current product implementation has multiple apps making calls to <code>le_avdata_RequestSessoin</code>.  Is this recommended or is it considered best practice to have one app manage and push data to AIrVantage?</p>
+<p>Thanks</p>
+          <p><a href="https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646/1</link>
+        <pubDate>Thu, 16 May 2019 18:19:03 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2646-1</guid>
+        <source url="https://forum.mangoh.io/t/multiple-apps-calling-le-avdata-requestsession/2646.rss">Multiple Apps Calling `le_avdata_RequestSession`</source>
+      </item>
+  </channel>
+</rss>

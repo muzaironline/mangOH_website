@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Corrupt SD - how to use fsck correctly?</title>
+    <link>https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285</link>
+    <description>Hi everyone, I&#39;m suffering from corrupted SD cards and am in need of a file system check (fsck).
+
+I note that it is available through the command line (built into Busybox).  From the command line (via SSH) I&#39;ve tried:
+```
+ fsck -ANV /dev/mmcblk0p1
+```
+I get:
+
+&gt; fsck (busybox 1.27.2)
+&gt; Checking all filesystems
+&gt; root@swi-mdm9x28-wp:/mnt/userrw/sd#
+
+As a response, but that&#39;s it. Is there supposed to be more feedback? 
+
+Even just 
+```
+fsck -V
+``` 
+Gives the same response. 
+
+I know for a fact that the SD card inserted has a bad file system and is marked read-only.
+
+I figure I&#39;m using it (fsck) incorrectly? Help please?
+Cheers,
+Terry</description>
+    
+    <lastBuildDate>Fri, 11 Jun 2021 06:02:29 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Corrupt SD - how to use fsck correctly?</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>this is also ok to me:</p>
+<p>/tmp/fsck.vfat/fsck.vfat &amp;&gt; /tmp/test.txt</p>
+          <p><a href="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/12</link>
+        <pubDate>Fri, 11 Jun 2021 06:02:29 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9285-12</guid>
+        <source url="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285.rss">Corrupt SD - how to use fsck correctly?</source>
+      </item>
+      <item>
+        <title>Corrupt SD - how to use fsck correctly?</title>
+        <dc:creator><![CDATA[terryc]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/jyijyi">@jyijyi</a> Thanks for your help so far - I’m nearly there!<br>
+I have everything working, however I’m wondering if it is possible to write the output from fsck (-v verbose) to a text file in /tmp?</p>
+<p>EDIT: I got it - append <code>| tee /tmp/fsck.txt</code></p>
+<p>Thanks again<br>
+TC</p>
+          <p><a href="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/11</link>
+        <pubDate>Fri, 11 Jun 2021 05:34:37 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9285-11</guid>
+        <source url="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285.rss">Corrupt SD - how to use fsck correctly?</source>
+      </item>
+      <item>
+        <title>Corrupt SD - how to use fsck correctly?</title>
+        <dc:creator><![CDATA[terryc]]></dc:creator>
+        <description><![CDATA[
+            <p>Thank you, I will try that</p>
+          <p><a href="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/10</link>
+        <pubDate>Thu, 10 Jun 2021 07:18:51 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9285-10</guid>
+        <source url="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285.rss">Corrupt SD - how to use fsck correctly?</source>
+      </item>
+      <item>
+        <title>Corrupt SD - how to use fsck correctly?</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>you can save the binary tool in /home/root.<br>
+also you can modify startlegato.sh to run init script to check.</p>
+<aside class="onebox allowlistedgeneric">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/252837692301bb53b7d4b8041901ad6486ced526.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/adding-scripts-to-run-at-startup/2412/7" target="_blank" rel="noopener nofollow ugc" title="01:48AM - 01 August 2018">Legato Forum – 1 Aug 18</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/adding-scripts-to-run-at-startup/2412/7" target="_blank" rel="noopener nofollow ugc">Adding scripts to run at startup</a></h3>
+
+  <p>I just tried on WP76 R9, I found that modifying mount_early is not working.  Instead I modify /etc/init.d/startlegato.sh, and I can add my command there.   case “$1” in  start)  echo “Legato start sequence 123”  echo 123 &gt; /tmp/123.txt   You can...</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/9</link>
+        <pubDate>Thu, 10 Jun 2021 05:50:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9285-9</guid>
+        <source url="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285.rss">Corrupt SD - how to use fsck correctly?</source>
+      </item>
+      <item>
+        <title>Corrupt SD - how to use fsck correctly?</title>
+        <dc:creator><![CDATA[terryc]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi everyone, the SCP method worked and I was able to fix the issues. However, I would like to perform this check automatically and have it built in (rebuild Yocto), but as mentioned before, the links are dead from Sierra Wireless.</p>
+<p><a class="mention" href="https://forum.mangoh.io/u/epastor">@epastor</a> are you able to share your compilation please? I would appreciate it greatly</p>
+<p>Kind regards,<br>
+Terry</p>
+          <p><a href="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/8</link>
+        <pubDate>Thu, 10 Jun 2021 05:05:33 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9285-8</guid>
+        <source url="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285.rss">Corrupt SD - how to use fsck correctly?</source>
+      </item>
+      <item>
+        <title>Corrupt SD - how to use fsck correctly?</title>
+        <dc:creator><![CDATA[terryc]]></dc:creator>
+        <description><![CDATA[
+            <p>Thank you! I will try this shortly and let you know how I go</p>
+          <p><a href="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/7</link>
+        <pubDate>Mon, 07 Jun 2021 00:20:11 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9285-7</guid>
+        <source url="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285.rss">Corrupt SD - how to use fsck correctly?</source>
+      </item>
+      <item>
+        <title>Corrupt SD - how to use fsck correctly?</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>just some binary files:</p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/01526815b8b80687081a9abea50f125527ee23c8.png" data-download-href="/uploads/short-url/bH21UTp46rvcEfvgphGVmQxqaY.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/01526815b8b80687081a9abea50f125527ee23c8_2_690x240.png" alt="image" data-base62-sha1="bH21UTp46rvcEfvgphGVmQxqaY" width="690" height="240" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/01526815b8b80687081a9abea50f125527ee23c8_2_690x240.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/01526815b8b80687081a9abea50f125527ee23c8_2_1035x360.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/01526815b8b80687081a9abea50f125527ee23c8.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/01526815b8b80687081a9abea50f125527ee23c8_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/6</link>
+        <pubDate>Fri, 04 Jun 2021 09:13:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9285-6</guid>
+        <source url="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285.rss">Corrupt SD - how to use fsck correctly?</source>
+      </item>
+      <item>
+        <title>Corrupt SD - how to use fsck correctly?</title>
+        <dc:creator><![CDATA[epastor]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi,<br>
+We can also provide the yocto compilation we made sometime ago.<br>
+I will post it tomorrow, I don’t have the machine here with me.<br>
+<a class="mention" href="https://forum.mangoh.io/u/jyijyi">@jyijyi</a> the rar you are providing is dos or yocto?<br>
+regards</p>
+          <p><a href="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/5</link>
+        <pubDate>Fri, 04 Jun 2021 09:11:53 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9285-5</guid>
+        <source url="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285.rss">Corrupt SD - how to use fsck correctly?</source>
+      </item>
+      <item>
+        <title>Corrupt SD - how to use fsck correctly?</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>you can try these binary first.<br>
+<a class="attachment" href="https://forum.mangoh.io/uploads/short-url/i4ygdgqCJuyPTkv8icOh4B14PD8.rar">dosfstools.rar</a> (551.9 KB)</p>
+<p>mkdir /tmp/fsck.vfat<br>
+//now transfer those files in dosfstools.rar to /tmp/fsck.vfat folder via WINSCP<br>
+chmod -R 777 /tmp/fsck.vfat/*</p>
+<pre><code class="lang-auto">root@swi-mdm9x28-wp:~# /tmp/fsck.vfat/fsck.vfat
+CP437: Invalid argument
+usage: /tmp/fsck.vfat/fsck.vfat [-aAbflrtvVwy] [-d path -d ...] [-u path -u ...]
+               device
+  -a       automatically repair the filesystem
+  -A       toggle Atari filesystem format
+  -b       make read-only boot sector check
+  -c N     use DOS codepage N to decode short file names (default: 437)
+  -d path  drop that file
+  -f       salvage unused chains to files
+  -l       list path names
+  -n       no-op, check non-interactively without changing
+  -p       same as -a, for compat with other *fsck
+  -r       interactively repair the filesystem (default)
+  -t       test for bad clusters
+  -u path  try to undelete that (non-directory) file
+  -v       verbose mode
+  -V       perform a verification pass
+  -w       write changes to disk immediately
+  -y       same as -a, for compat with other *fsck
+root@swi-mdm9x28-wp:~#
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/4</link>
+        <pubDate>Fri, 04 Jun 2021 07:34:40 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9285-4</guid>
+        <source url="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285.rss">Corrupt SD - how to use fsck correctly?</source>
+      </item>
+      <item>
+        <title>Corrupt SD - how to use fsck correctly?</title>
+        <dc:creator><![CDATA[terryc]]></dc:creator>
+        <description><![CDATA[
+            <p>I will try in a Linux PC, thanks.<br>
+We are using FAT32. Do you recommend VFAT?</p>
+<p>I saw that link you posted and unfortunately the link for the Yocto source for [<a href="http://downloads.sierrawireless.com/AirPrime/WP77xx/Release13/Legato-Dist-Source-mdm9x06-SWI9X06Y_02.35.02.00.tar.bz2" rel="noopener nofollow ugc">http://downloads.sierrawireless.com/AirPrime/WP77xx/Release13/Legato-Dist-Source-mdm9x06-SWI9X06Y_02.35.02.00.tar.bz2</a> ] is dead. It has been reported to Sierra Wireless, but it has not been fixed.</p>
+<p>Do you have an alternate way of updating busybox? I’m not sure how to do it via Leaf</p>
+<p>Thanks!<br>
+Terry</p>
+          <p><a href="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/3</link>
+        <pubDate>Fri, 04 Jun 2021 07:18:57 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9285-3</guid>
+        <source url="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285.rss">Corrupt SD - how to use fsck correctly?</source>
+      </item>
+      <item>
+        <title>Corrupt SD - how to use fsck correctly?</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Suggest you trying fsck in Linux PC first.</p>
+<p>Also are you using VFAT sytsem?</p>
+<aside class="quote" data-post="1" data-topic="5139">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/e/91b2a8/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/fscheck-for-vfat/5139">Fscheck for vfat</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-red/12"><span class="badge-category-bg" style="background-color: #DF1E2E;"></span><span style="" data-drop-close="true" class="badge-category clear-badge" title="https://mangoh.io/mangoh-red">mangOH Red</span></a>
+  </div>
+  <blockquote>
+    Hello, 
+Our SD card in a mangoh red gets corrupted from time to time. 
+We would like to run fsck, but the system reports that fsck.vfat is missing. 
+Since fsck is within busybox, I guess that we need to update busybox by updating yocto?? 
+Any idea? 
+Thanks
+  </blockquote>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/2</link>
+        <pubDate>Fri, 04 Jun 2021 06:58:34 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9285-2</guid>
+        <source url="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285.rss">Corrupt SD - how to use fsck correctly?</source>
+      </item>
+      <item>
+        <title>Corrupt SD - how to use fsck correctly?</title>
+        <dc:creator><![CDATA[terryc]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi everyone, I’m suffering from corrupted SD cards and am in need of a file system check (fsck).</p>
+<p>I note that it is available through the command line (built into Busybox).  From the command line (via SSH) I’ve tried:</p>
+<pre><code class="lang-auto"> fsck -ANV /dev/mmcblk0p1
+</code></pre>
+<p>I get:</p>
+<blockquote>
+<p>fsck (busybox 1.27.2)<br>
+Checking all filesystems<br>
+root@swi-mdm9x28-wp:/mnt/userrw/sd#</p>
+</blockquote>
+<p>As a response, but that’s it. Is there supposed to be more feedback?</p>
+<p>Even just</p>
+<pre><code class="lang-auto">fsck -V
+</code></pre>
+<p>Gives the same response.</p>
+<p>I know for a fact that the SD card inserted has a bad file system and is marked read-only.</p>
+<p>I figure I’m using it (fsck) incorrectly? Help please?<br>
+Cheers,<br>
+Terry</p>
+          <p><a href="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285/1</link>
+        <pubDate>Fri, 04 Jun 2021 06:41:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9285-1</guid>
+        <source url="https://forum.mangoh.io/t/corrupt-sd-how-to-use-fsck-correctly/9285.rss">Corrupt SD - how to use fsck correctly?</source>
+      </item>
+  </channel>
+</rss>

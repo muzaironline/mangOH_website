@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>MangOH Yellow - WiFi on Startup - #3 by nrcrast - mangOH Yellow - mangOH forum</title>
+    <meta name="description" content="Hi guys, 
+I’m having some issues getting MangOH yellow to start/connect to WiFi on startup. I essentially have this script I run to start WiFi: 
+/legato/systems/current/modules/files/brcmutil/etc/init.d/cywifi.sh init
+/l&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;MangOH Yellow - WiFi on Startup&#39;" href="https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198/3" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198/3" />
+<meta property="og:title" content="MangOH Yellow - WiFi on Startup" />
+<meta name="twitter:title" content="MangOH Yellow - WiFi on Startup" />
+<meta property="og:description" content="Zahid,  All I’m really trying to do is get the MangOH Yellow to connect to my WiFi network on startup. I have been following this page: https://github.com/mangOH/mangOH/tree/master/linux_kernel_modules/cypwifi  It is unclear to me what the best way to accomplish this is. I how does the legato wifi service know  the SSID and password to use?" />
+<meta name="twitter:description" content="Zahid,  All I’m really trying to do is get the MangOH Yellow to connect to my WiFi network on startup. I have been following this page: https://github.com/mangOH/mangOH/tree/master/linux_kernel_modules/cypwifi  It is unclear to me what the best way to accomplish this is. I how does the legato wifi service know  the SSID and password to use?" />
+<meta property="og:article:section" content="mangOH Yellow" />
+<meta property="og:article:section:color" content="F1C900" />
+<meta property="article:published_time" content="2019-12-18T20:07:33+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"MangOH Yellow - WiFi on Startup","mainEntity":{"@type":"Question","name":"MangOH Yellow - WiFi on Startup","text":"Hi guys,\n\nI’m having some issues getting MangOH yellow to start/connect to WiFi on startup. I essentially have this script I run to start WiFi:\n\n/legato/systems/current/modules/files/brcmutil/etc/init.d/cywifi.sh init\n\n/legato/systems/current/modules/files/brcmutil/etc/init.d/cywifi.sh start\n\nwpa_supp&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2019-12-16T15:15:40.719Z","author":{"@type":"Person","name":"Nick Crast"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/mangoh-yellow-wifi-on-startup/3198">MangOH Yellow - WiFi on Startup</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-yellow/15" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #F1C900'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Yellow</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='MangOH Yellow - WiFi on Startup'>
+        <meta itemprop='articleSection' content='mangOH Yellow'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nrcrast'><span itemprop='name'>nrcrast</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-12-16T15:15:40Z' class='post-time'>
+                    December 16, 2019,  3:15pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-12-16T15:15:40Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hi guys,</p>
+<p>I’m having some issues getting MangOH yellow to start/connect to WiFi on startup. I essentially have this script I run to start WiFi:</p>
+<pre><code>/legato/systems/current/modules/files/brcmutil/etc/init.d/cywifi.sh init
+/legato/systems/current/modules/files/brcmutil/etc/init.d/cywifi.sh start
+wpa_supplicant -B -Dnl80211 -iwlan0 -c /etc/wpa_supplicant.conf
+/sbin/udhcpc -R -b -i wlan0
+</code></pre>
+<p>This works great after I log in. I have my network info in wpa_supplicant.conf.</p>
+<p>If I put those same commands in /etc/init.d/startlegato.sh between these two lines:</p>
+<pre><code>mount -o bind $LEGATO_MNT /legato
+test -x $LEGATO_START &amp;&amp; $LEGATO_START
+</code></pre>
+<p>The WiFi doesn’t seem to work, and I get these log statements:</p>
+<pre><code>Linux swi-mdm9x28-wp 3.18.140 #1 PREEMPT Tue Oct 8 00:58:07 UTC 2019 armv7l GNU/Linux
+Cypress chip MMC recognition may have been overwritten
+wlan0 interface was not created by Cypress drivers
+Successfully initialized wpa_supplicant
+Could not read interface wlan0 flags: No such device
+nl80211: Driver does not support authentication/association or connect commands
+nl80211: deinit ifname=wlan0 disabled_11b_rates=0
+Could not read interface wlan0 flags: No such device
+wlan0: Failed to initialize driver interface
+</code></pre>
+<p>Any ideas what could be going wrong?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Zahid'><span itemprop='name'>Zahid</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-12-18T19:33:59Z' class='post-time'>
+                    December 18, 2019,  7:33pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-12-18T19:33:59Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Nick,<br>
+Please look at the script:<br>
+<aside class="onebox githubblob">
+  <header class="source">
+      <a href="https://github.com/mangOH/mangOH/blob/master/linux_kernel_modules/cypwifi/scripts/cywifi.sh" target="_blank" rel="nofollow noopener">github.com</a>
+  </header>
+  <article class="onebox-body">
+    <h4><a href="https://github.com/mangOH/mangOH/blob/master/linux_kernel_modules/cypwifi/scripts/cywifi.sh" target="_blank" rel="nofollow noopener">mangOH/mangOH/blob/master/linux_kernel_modules/cypwifi/scripts/cywifi.sh</a></h4>
+<pre><code class="lang-sh">#!/bin/sh
+# Broadcom/Cypress chip startup for mangOH Yellow
+
+export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
+
+# The Broadcom/Cypress uses the WL_REG_ON gpio to bring out of reset, but
+# needs 2 sleep cycles after VBAT &amp; VDDIO is applied before it is
+# turned on. Both the WP76 &amp; 85 are setup to connect GPIO 33 to WL_REG_ON,
+# though its configurable on the command-line. It seems with the current
+# way that the GPIO expander is being initialized this is not needed, nor
+# does the routing need to be setup for SDIO going to the Cypress chip
+# rather than the SD card. The SD card was supposed to be the default.
+#if  [ -z "$2" ] ; then
+	#WL_REG_ON_GPIO=8
+#else
+	#WL_REG_ON_GPIO=$2
+#fi
+
+# The WP76 series has an SDHCI-MSM driver that has been setup to run in polled
+# mode. Whereas, the WP85 has an MSM-SDCC driver that has been setup to run in
+</code></pre>
+
+  This file has been truncated. <a href="https://github.com/mangOH/mangOH/blob/master/linux_kernel_modules/cypwifi/scripts/cywifi.sh" target="_blank" rel="nofollow noopener">show original</a>
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+</p>
+<p>as if you are on a DV4 board as I am you should fail in trying to set wl_reg_on to the Cypress wifi<br>
+chip as the sysfs entries are created by the expander driver in the mangOH modules:<br>
+<aside class="onebox githubblob">
+  <header class="source">
+      <a href="https://github.com/mangOH/mangOH/blob/master/linux_kernel_modules/expander/expander.c" target="_blank" rel="nofollow noopener">github.com</a>
+  </header>
+  <article class="onebox-body">
+    <h4><a href="https://github.com/mangOH/mangOH/blob/master/linux_kernel_modules/expander/expander.c" target="_blank" rel="nofollow noopener">mangOH/mangOH/blob/master/linux_kernel_modules/expander/expander.c</a></h4>
+<pre><code class="lang-c">#include &lt;linux/slab.h&gt;
+#include &lt;linux/device.h&gt;
+#include &lt;linux/platform_device.h&gt;
+#include &lt;linux/gpio.h&gt;
+#include &lt;linux/version.h&gt;
+#include "expander.h"
+
+/*
+ *-----------------------------------------------------------------------------
+ * Constants
+ *-----------------------------------------------------------------------------
+ */
+#define GENERIC_LED		(4)
+#define PCM_SEL			(5)
+#define WL_REG_ON		(1)
+#define TRI_LED_BLU		(7)
+#define TRI_LED_GRN		(15)
+#define TRI_LED_RED		(10)
+
+
+</code></pre>
+
+  This file has been truncated. <a href="https://github.com/mangOH/mangOH/blob/master/linux_kernel_modules/expander/expander.c" target="_blank" rel="nofollow noopener">show original</a>
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+</p>
+<p>which has definitely not been insmod/modprob’ed by Legato as you are trying to load the<br>
+Cypress modules even before Legato has started fully (it is startlegato.sh that you are modifying).</p>
+<p>I guess you could create a S99/S98 initscript that could make sure that the expander driver has created the proper gpio entry and then start the wifi as you want outside of Legato.</p>
+<p>I am curious what you are trying to do and why you decided to not let Legato start wifi.<br>
+We currently have the wifiService in a stop state by default, you could change the config settings to set it to start by default and it will probably be<br>
+start by default as the data channel service (DCS) will start it automatically:<br>
+<a href="https://docs.legato.io/latest/legatoServicesDCS.html" class="onebox" target="_blank" rel="nofollow noopener">https://docs.legato.io/latest/legatoServicesDCS.html</a><br>
+To use DCS to auto-start things, please remove the “{ start: manual }” from:<br>
+<aside class="onebox githubblob">
+  <header class="source">
+      <a href="https://github.com/mangOH/mangOH/blob/master/wifi.sdef" target="_blank" rel="nofollow noopener">github.com</a>
+  </header>
+  <article class="onebox-body">
+    <h4><a href="https://github.com/mangOH/mangOH/blob/master/wifi.sdef" target="_blank" rel="nofollow noopener">mangOH/mangOH/blob/master/wifi.sdef</a></h4>
+<pre><code class="lang-sdef">//--------------------------------------------------------------------------------------------------
+// Sample system definition that includes essential services and WiFi-related services and sample
+// applications.
+//
+// Copyright (C) Sierra Wireless Inc.
+//--------------------------------------------------------------------------------------------------
+
+#include "${LEGATO_ROOT}/default.sdef"
+
+buildVars:
+{
+    LEGATO_WIFI_ROOT=${LEGATO_ROOT}/modules/WiFi
+    // File is selected by users, replace "ti" with "qca" to support qca chipset
+    // For mangOH we select the PA script in the board file - i.e. red/yellow ...
+    //LEGATO_WIFI_PA=${LEGATO_WIFI_ROOT}/service/platformAdaptor/ti/pa_wifi.sh
+}
+
+apps:
+{
+    // WiFi services
+</code></pre>
+
+  This file has been truncated. <a href="https://github.com/mangOH/mangOH/blob/master/wifi.sdef" target="_blank" rel="nofollow noopener">show original</a>
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+</p>
+<p>Let me know if you have any further questions/problems.</p>
+<p>Zahid</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nrcrast'><span itemprop='name'>nrcrast</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-12-18T20:07:33Z' class='post-time'>
+                    December 18, 2019,  8:07pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-12-18T20:07:33Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Zahid,</p>
+<p>All I’m really trying to do is get the MangOH Yellow to connect to my WiFi network on startup. I have been following this page: <a href="https://github.com/mangOH/mangOH/tree/master/linux_kernel_modules/cypwifi" rel="nofollow noopener">https://github.com/mangOH/mangOH/tree/master/linux_kernel_modules/cypwifi</a></p>
+<p>It is unclear to me what the best way to accomplish this is. I how does the legato wifi service know  the SSID and password to use?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/repository-for-mangoh-yellow-and-wp7611/5322/8">Repository for MangOH Yellow and WP7611</a>
+                        <meta itemprop='position' content='2'>
+                      </div>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/mangoh-yellow-wi-fi-security/10287/2">mangOH yellow Wi-Fi security</a>
+                        <meta itemprop='position' content='3'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Zahid'><span itemprop='name'>Zahid</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/mangoh-yellow-wifi-on-startup/3198">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-12-18T21:50:33Z' class='post-time'>
+                    December 18, 2019,  9:50pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-12-18T21:50:33Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Nick,<br>
+Actually, the cypwifi README.md actually needs updating as it was based on Legato versions earlier<br>
+than 19.04 which had the Tiwifi IoT card as the default way to start wifi on wlan0 and thus Cypress<br>
+had to use wlan1. Since, 19.04 Legato allows other Wifi chips besides TI Wifi (Note, they all must be<br>
+based on wlan0 - you cannot have multiple wifi interfaces - you would need to apply the Legato<br>
+patches if you wanted that). Cypwifi is changing soon as the Linux kernel backports for cypwifi<br>
+will be integrated with Bluez 5.52 backport kernel changes, so I think we will wait for that<br>
+complete before updating the README.</p>
+<p>I regards. to configuring wifi please see the following pages (first is the command-line tool and<br>
+the second is the coding interface):<br>
+<a href="https://docs.legato.io/19_01/wifi_toolsTarget_wifi.html#toolsTarget_wifi_clientExample" class="onebox" target="_blank" rel="nofollow noopener">https://docs.legato.io/19_01/wifi_toolsTarget_wifi.html#toolsTarget_wifi_clientExample</a><br>
+<a href="https://docs.legato.io/latest/c_le_wifi_client.html" class="onebox" target="_blank" rel="nofollow noopener">https://docs.legato.io/latest/c_le_wifi_client.html</a></p>
+<p>The wifi passphrases/creds are stored in secure storage in Legato releases after Legato 19.04.<br>
+Thus, if you set the SSID/protocol/passphrase… on your target it should persist.</p>
+<p>Zahid</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

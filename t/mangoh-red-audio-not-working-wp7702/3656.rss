@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>MangOH Red audio not working WP7702</title>
+    <link>https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656</link>
+    <description>I&#39;m trying to run the audioPlaybackRec test on the mangOH Red. I&#39;m running R12 firmware and legato 19.07. Output of CM INFO:
+
+Device:                        WP7702
+IMEI:                          352653090113606
+IMEISV:                        4
+FSN:                           VU810385660610
+Firmware Version:              SWI9X06Y_02.32.02.00 c2e98c jenkins 2019/08/30 07:28:21
+Bootloader Version:            SWI9X06Y_02.32.02.00 c2e98c jenkins 2019/08/30 07:28:21
+MCU Version:                   002.013
+PRI Part Number (PN):          9907365
+PRI Revision:                  001.004 
+Carrier PRI Name:              GENERIC
+Carrier PRI Revision:          001.055_000
+SKU:                           1103530
+Last Reset Cause:              Reset, User Requested
+Resets Count:                  Expected: 77	Unexpected: 1
+
+output of legato version:
+
+19.07.0_6ebfa306dc802a91d515da9361145709_modified
+
+When running: app runProc audioPlaybackRec --exe=audioPlaybackRecTest -- PB MIC /usr/share/sounds/0-to-9.wav  I get:
+
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c app_Start() 3469 | Starting app &#39;audioPlaybackRec&#39;
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/dev/log&#39; to &#39;/legato/systems/current/appsWriteable/audioPlaybackRec/dev/log&#39;: Already exists
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/dev/null&#39; to &#39;/legato/systems/current/appsWriteable/audioPlaybackRec/dev/null&#39;: Already exists
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/dev/zero&#39; to &#39;/legato/systems/current/appsWriteable/audioPlaybackRec/dev/zero&#39;: Already exists
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/dev/urandom&#39; to &#39;/legato/systems/current/appsWriteable/audioPlaybackRec/dev/urandom&#39;: Already exists
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/legato/systems/current/lib/liblegato.so&#39; to &#39;/legato/systems/current/appsWriteable/audioPlaybackRec/lib/liblegato.so&#39;: Already exis
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/lib/ld-linux.so.3&#39; to &#39;/legato/systems/current/appsWriteable/audioPlaybackRec/lib/ld-linux.so.3&#39;: Already exists
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/lib/libc.so.6&#39; to &#39;/legato/systems/current/appsWriteable/audioPlaybackRec/lib/libc.so.6&#39;: Already exists
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/lib/libpthread.so.0&#39; to &#39;/legato/systems/current/appsWriteable/audioPlaybackRec/lib/libpthread.so.0&#39;: Already exists
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/lib/librt.so.1&#39; to &#39;/legato/systems/current/appsWriteable/audioPlaybackRec/lib/librt.so.1&#39;: Already exists
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/lib/libdl.so.2&#39; to &#39;/legato/systems/current/appsWriteable/audioPlaybackRec/lib/libdl.so.2&#39;: Already exists
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/lib/libgcc_s.so.1&#39; to &#39;/legato/systems/current/appsWriteable/audioPlaybackRec/lib/libgcc_s.so.1&#39;: Already exists
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/lib/libm.so.6&#39; to &#39;/legato/systems/current/appsWriteable/audioPlaybackRec/lib/libm.so.6&#39;: Already exists
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/usr/lib/libstdc++.so.6&#39; to &#39;/legato/systems/current/appsWriteable/audioPlaybackRec/lib/libstdc++.so.6&#39;: Already exists
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/legato/systems/current/apps/audioPlaybackRec/read-only/lib/libComponent_audioPlaybackRecComp.so&#39; to &#39;/legato/systems/current/appsWr
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/legato/systems/current/apps/audioPlaybackRec/read-only/bin/audioPlaybackRecTest&#39; to &#39;/legato/systems/current/appsWriteable/audioPla
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/legato/systems/current/apps/audioPlaybackRec/read-only/usr/share/sounds/0-to-9.amr&#39; to &#39;/legato/systems/current/appsWriteable/audio
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/legato/systems/current/apps/audioPlaybackRec/read-only/usr/share/sounds/0-to-9.awb&#39; to &#39;/legato/systems/current/appsWriteable/audio
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/legato/systems/current/apps/audioPlaybackRec/read-only/usr/share/sounds/0-to-9.wav&#39; to &#39;/legato/systems/current/appsWriteable/audio
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link &#39;/legato/systems/current/apps/audioPlaybackRec/read-only/usr/share/sounds/male.wav&#39; to &#39;/legato/systems/current/appsWriteable/audioPl
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateTmpFs() 1787 | Mounted tmpfs at /legato/systems/current/appsWriteable/audioPlaybackRec/tmp.
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2153 | Created file link &#39;/tmp/legato/serviceDirectoryServer&#39; to &#39;/legato/systems/current/appsWriteable/audioPlaybackRec/tmp/legato/serviceDirectoryServer&#39;.
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2153 | Created file link &#39;/tmp/legato/serviceDirectoryClient&#39; to &#39;/legato/systems/current/appsWriteable/audioPlaybackRec/tmp/legato/serviceDirectoryClient&#39;.
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | proc.c proc_Start() 1403 | Starting process &#39;audioPlaybackRecTest@0&#39; with pid 22740
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | supervisor.c SigChildHandler() 899 | Reaping unconfigured child process 22736.
+Feb  5 13:41:41 | supervisor[22740]/supervisor T=main | proc.c proc_Start() 1363 | Execing &#39;audioPlaybackRecTest&#39;
+Feb  5 13:41:41 | supervisor[22740]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxCoreDumpFileBytes to value 8192.
+Feb  5 13:41:41 | supervisor[22740]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxFileBytes to value 90112.
+Feb  5 13:41:41 | supervisor[22740]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxLockedMemoryBytes to value 8192.
+Feb  5 13:41:41 | supervisor[22740]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxFileDescriptors to value 256.
+Feb  5 13:41:41 | supervisor[22740]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxMQueueBytes to value 512.
+Feb  5 13:41:41 | supervisor[22740]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxThreads to value 20.
+Feb  5 13:41:41 | supervisor[22740]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxQueuedSignals to value 100.
+Feb  5 13:41:41 | _UNKNOWN_[22740]/framework T=main | fdMonitor.c le_fdMonitor_Create() 422 | FD Monitor object name &#39;audioPlaybackRecTest.audioPlaybackRecComp.le_cfg&#39; truncated to &#39;audioPlaybackRecTest.audioPlayb&#39;.
+Feb  5 13:41:41 | _UNKNOWN_[22740]/framework T=main | fdMonitor.c le_fdMonitor_Create() 422 | FD Monitor object name &#39;audioPlaybackRecTest.audioPlaybackRecComp.le_audio&#39; truncated to &#39;audioPlaybackRecTest.audioPlayb&#39;.
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c _audioPlaybackRecComp_COMPONENT_INIT() 1255 | Init
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c _audioPlaybackRecComp_COMPONENT_INIT() 1262 | ======== Start Audio implementation Test (audioPlaybackRecTest) ========
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c _audioPlaybackRecComp_COMPONENT_INIT() 1270 |    Test case.PB
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c _audioPlaybackRecComp_COMPONENT_INIT() 1276 |    Main audio path.MIC
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c _audioPlaybackRecComp_COMPONENT_INIT() 1277 |    Audio file [/usr/share/sounds/0-to-9.wav]
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c ConnectAudio() 1026 | Connect MIC and SPEAKER 
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c ConnectAudio() 1053 | Connect Local Play
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c ConnectAudioToFileLocalPlay() 755 | Open file /usr/share/sounds/0-to-9.wav with AudioFileFd.10
+Feb  5 13:41:41 | audioDaemon[1414]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 795 | Sending QMI_SWI_M2M_AUDIO_SET_MEDIA_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=8.[0x08]
+Feb  5 13:41:41 | audioDaemon[1414]/le_pa_audio T=main | media_routing.c media_routing_SetDspAudioPath() 208 | Cannot set the audio media interface to 1
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c ConnectAudioToFileLocalPlay() 774 | Failed to connect FilePlayback on output connector!
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c _audioPlaybackRecComp_COMPONENT_INIT() 1374 | ======== Audio implementation Test (audioPlaybackRec) started successfully ========
+
+trying PB_SAMPLES gives the same result. Trying PCM or I2S gives the same result, but different interface number. With older fimware (R9.1, Legato 18.06) the result was also the same. Could anyone help with this issue?
+
+Best regards, Frans.</description>
+    
+    <lastBuildDate>Tue, 18 May 2021 05:55:48 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>MangOH Red audio not working WP7702</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>You can check if these files are raw data.<br>
+I remember .wav  file can be played in mangoh board</p>
+<aside class="onebox githubfolder">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/bad3e5f9ad67c1ddf145107ce7032ac1d7b22563.svg" class="site-icon" width="32" height="32">
+
+      <a href="https://github.com/legatoproject/legato-af/tree/master/apps/test/audio/audioPlaybackRec/audio" target="_blank" rel="noopener nofollow ugc">github.com</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:690/345;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c7bafef2fdd6d1deb264c3328fa87fd5fab54f94_2_690x345.png" class="thumbnail" width="690" height="345" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c7bafef2fdd6d1deb264c3328fa87fd5fab54f94_2_690x345.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c7bafef2fdd6d1deb264c3328fa87fd5fab54f94_2_1035x517.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/c7bafef2fdd6d1deb264c3328fa87fd5fab54f94.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c7bafef2fdd6d1deb264c3328fa87fd5fab54f94_2_10x10.png"></div>
+
+<h3><a href="https://github.com/legatoproject/legato-af/tree/master/apps/test/audio/audioPlaybackRec/audio" target="_blank" rel="noopener nofollow ugc">legatoproject/legato-af</a></h3>
+
+  <p><a href="https://github.com/legatoproject/legato-af/tree/master/apps/test/audio/audioPlaybackRec/audio" target="_blank" rel="noopener nofollow ugc">master/apps/test/audio/audioPlaybackRec/audio</a></p>
+
+  <p><span class="label1">Legato Application Framework. Contribute to legatoproject/legato-af development by creating an account on GitHub.</span></p>
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/14">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/14</link>
+        <pubDate>Tue, 18 May 2021 05:55:48 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3656-14</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656.rss">MangOH Red audio not working WP7702</source>
+      </item>
+      <item>
+        <title>MangOH Red audio not working WP7702</title>
+        <dc:creator><![CDATA[raghavasanikam]]></dc:creator>
+        <description><![CDATA[
+            <p>Yes I understand, I will use WP76xx + MangoOH Green.  In this configuration, Can the application running on the application processor access the raw PCM samples directly from/to mic/speaker via audio codec. We will not use voice call feature.  The VoIP application itself runs on the application processor and it needs PCM samples for processing.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/13">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/13</link>
+        <pubDate>Tue, 18 May 2021 04:53:38 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3656-13</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656.rss">MangOH Red audio not working WP7702</source>
+      </item>
+      <item>
+        <title>MangOH Red audio not working WP7702</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Audio API cannot be used in wp77 module</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/12</link>
+        <pubDate>Tue, 18 May 2021 00:28:26 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3656-12</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656.rss">MangOH Red audio not working WP7702</source>
+      </item>
+      <item>
+        <title>MangOH Red audio not working WP7702</title>
+        <dc:creator><![CDATA[raghavasanikam]]></dc:creator>
+        <description><![CDATA[
+            <p>Can you please confirm if the audio API’s can be used without the active voice call to read and write PCM samples. The application does not make use of VoLTE and there is no voice call.  The application itself runs VoIP and need to get the PCM samples from/to mic/speaker for processing.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/11</link>
+        <pubDate>Mon, 17 May 2021 14:05:57 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3656-11</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656.rss">MangOH Red audio not working WP7702</source>
+      </item>
+      <item>
+        <title>MangOH Red audio not working WP7702</title>
+        <dc:creator><![CDATA[zirunhong]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Matt,</p>
+<p>Thanks for your reply!</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/10</link>
+        <pubDate>Mon, 20 Jul 2020 15:54:06 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3656-10</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656.rss">MangOH Red audio not working WP7702</source>
+      </item>
+      <item>
+        <title>MangOH Red audio not working WP7702</title>
+        <dc:creator><![CDATA[mlw]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/zirunhong">@zirunhong</a>, <a class="mention" href="https://forum.mangoh.io/u/jyijyi">@jyijyi</a></p>
+<p>As far as the feedback and understanding I have is concerned the silicon might be capable but the  builds that come out of QC are only data enabled, hence the limitation. If you want a hard answer which the development team check you will need to raise a ticket through your commercial channel (difficult I know if you have bought a mangoh from Digikey) but that’s the best answer we can give on the forum.</p>
+<p>Regards</p>
+<p>Matt</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/9</link>
+        <pubDate>Mon, 20 Jul 2020 11:49:37 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3656-9</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656.rss">MangOH Red audio not working WP7702</source>
+      </item>
+      <item>
+        <title>MangOH Red audio not working WP7702</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I think this is Qualcomm chipset limitation that there is no audio on mdm9x06.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/8</link>
+        <pubDate>Sat, 18 Jul 2020 00:42:05 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3656-8</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656.rss">MangOH Red audio not working WP7702</source>
+      </item>
+      <item>
+        <title>MangOH Red audio not working WP7702</title>
+        <dc:creator><![CDATA[zirunhong]]></dc:creator>
+        <description><![CDATA[
+            <p>Has this been confirmed? We are trying to simply record audio from the on board digital mic into a file on the MangOH Yellow (WP7702). We don’t want voice calling, just audio recording. If this is disabled in the firmware, how can we use the on board peripherals?</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/7</link>
+        <pubDate>Fri, 17 Jul 2020 18:11:29 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3656-7</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656.rss">MangOH Red audio not working WP7702</source>
+      </item>
+      <item>
+        <title>MangOH Red audio not working WP7702</title>
+        <dc:creator><![CDATA[FransKanters]]></dc:creator>
+        <description><![CDATA[
+            <p>Dear Matt,</p>
+<p>Thank you for your response! I was afraid of that answer…<img src="https://emoji.discourse-cdn.com/twitter/wink.png?v=9" title=":wink:" class="emoji" alt=":wink:"></p>
+<p>Best regards,<br>
+Frans.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/6</link>
+        <pubDate>Tue, 24 Mar 2020 12:43:40 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3656-6</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656.rss">MangOH Red audio not working WP7702</source>
+      </item>
+      <item>
+        <title>MangOH Red audio not working WP7702</title>
+        <dc:creator><![CDATA[mlw]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/franskanters">@FransKanters</a>,</p>
+<p>So the WP77 builds are specifically data only builds from a Qualcomm perspective. I do not know explicitly if it affects the non voice call related functions of the device but I expect it would do hence the failure of the API calls.</p>
+<p>Regards</p>
+<p>Matt</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/5</link>
+        <pubDate>Thu, 19 Mar 2020 15:09:35 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3656-5</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656.rss">MangOH Red audio not working WP7702</source>
+      </item>
+      <item>
+        <title>MangOH Red audio not working WP7702</title>
+        <dc:creator><![CDATA[FransKanters]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Jay,</p>
+<p>According to the AirPrime WP77XX Product Specification r2 on page 68 audio should be there:</p>
+<p>“4.16 Digital Audio<br>
+The AirPrime WP77XX provides a 4-wire digital audio interface that can be configured<br>
+as either PCM (Pulse Code Modulation) or I 2 S (Inter-IC Sound).”</p>
+<p>However, there is a note that audio availability is firmware-dependent. Is there anybody from Sierra Wireless than can confirm if current firmware supports audio?</p>
+<p>Best regards,<br>
+Frans.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/4</link>
+        <pubDate>Thu, 06 Feb 2020 14:02:38 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3656-4</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656.rss">MangOH Red audio not working WP7702</source>
+      </item>
+      <item>
+        <title>MangOH Red audio not working WP7702</title>
+        <dc:creator><![CDATA[Jay]]></dc:creator>
+        <description><![CDATA[
+            <p>WP77xx series don’t support audio.<br>
+If you need PCM/I2S audio then use WP76xx series instead.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/3</link>
+        <pubDate>Thu, 06 Feb 2020 12:32:32 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3656-3</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656.rss">MangOH Red audio not working WP7702</source>
+      </item>
+      <item>
+        <title>MangOH Red audio not working WP7702</title>
+        <dc:creator><![CDATA[FransKanters]]></dc:creator>
+        <description><![CDATA[
+            <p>I just tried the this on the mangOH yellow and got the same error.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/2</link>
+        <pubDate>Wed, 05 Feb 2020 14:24:34 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3656-2</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656.rss">MangOH Red audio not working WP7702</source>
+      </item>
+      <item>
+        <title>MangOH Red audio not working WP7702</title>
+        <dc:creator><![CDATA[FransKanters]]></dc:creator>
+        <description><![CDATA[
+            <p>I’m trying to run the audioPlaybackRec test on the mangOH Red. I’m running R12 firmware and legato 19.07. Output of CM INFO:</p>
+<p>Device:                        WP7702<br>
+IMEI:                          352653090113606<br>
+IMEISV:                        4<br>
+FSN:                           VU810385660610<br>
+Firmware Version:              SWI9X06Y_02.32.02.00 c2e98c jenkins 2019/08/30 07:28:21<br>
+Bootloader Version:            SWI9X06Y_02.32.02.00 c2e98c jenkins 2019/08/30 07:28:21<br>
+MCU Version:                   002.013<br>
+PRI Part Number (PN):          9907365<br>
+PRI Revision:                  001.004<br>
+Carrier PRI Name:              GENERIC<br>
+Carrier PRI Revision:          001.055_000<br>
+SKU:                           1103530<br>
+Last Reset Cause:              Reset, User Requested<br>
+Resets Count:                  Expected: 77	Unexpected: 1</p>
+<p>output of legato version:</p>
+<p>19.07.0_6ebfa306dc802a91d515da9361145709_modified</p>
+<p>When running: app runProc audioPlaybackRec --exe=audioPlaybackRecTest – PB MIC /usr/share/sounds/0-to-9.wav  I get:</p>
+<p>Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c app_Start() 3469 | Starting app ‘audioPlaybackRec’<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/dev/log’ to ‘/legato/systems/current/appsWriteable/audioPlaybackRec/dev/log’: Already exists<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/dev/null’ to ‘/legato/systems/current/appsWriteable/audioPlaybackRec/dev/null’: Already exists<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/dev/zero’ to ‘/legato/systems/current/appsWriteable/audioPlaybackRec/dev/zero’: Already exists<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/dev/urandom’ to ‘/legato/systems/current/appsWriteable/audioPlaybackRec/dev/urandom’: Already exists<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/legato/systems/current/lib/liblegato.so’ to ‘/legato/systems/current/appsWriteable/audioPlaybackRec/lib/liblegato.so’: Already exis<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/lib/ld-linux.so.3’ to ‘/legato/systems/current/appsWriteable/audioPlaybackRec/lib/ld-linux.so.3’: Already exists<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/lib/libc.so.6’ to ‘/legato/systems/current/appsWriteable/audioPlaybackRec/lib/libc.so.6’: Already exists<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/lib/libpthread.so.0’ to ‘/legato/systems/current/appsWriteable/audioPlaybackRec/lib/libpthread.so.0’: Already exists<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/lib/librt.so.1’ to ‘/legato/systems/current/appsWriteable/audioPlaybackRec/lib/librt.so.1’: Already exists<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/lib/libdl.so.2’ to ‘/legato/systems/current/appsWriteable/audioPlaybackRec/lib/libdl.so.2’: Already exists<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/lib/libgcc_s.so.1’ to ‘/legato/systems/current/appsWriteable/audioPlaybackRec/lib/libgcc_s.so.1’: Already exists<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/lib/libm.so.6’ to ‘/legato/systems/current/appsWriteable/audioPlaybackRec/lib/libm.so.6’: Already exists<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/usr/lib/libstdc++.so.6’ to ‘/legato/systems/current/appsWriteable/audioPlaybackRec/lib/libstdc++.so.6’: Already exists<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/legato/systems/current/apps/audioPlaybackRec/read-only/lib/libComponent_audioPlaybackRecComp.so’ to '/legato/systems/current/appsWr<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/legato/systems/current/apps/audioPlaybackRec/read-only/bin/audioPlaybackRecTest’ to '/legato/systems/current/appsWriteable/audioPla<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/legato/systems/current/apps/audioPlaybackRec/read-only/usr/share/sounds/0-to-9.amr’ to '/legato/systems/current/appsWriteable/audio<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/legato/systems/current/apps/audioPlaybackRec/read-only/usr/share/sounds/0-to-9.awb’ to '/legato/systems/current/appsWriteable/audio<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/legato/systems/current/apps/audioPlaybackRec/read-only/usr/share/sounds/0-to-9.wav’ to '/legato/systems/current/appsWriteable/audio<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2083 | Skipping file link ‘/legato/systems/current/apps/audioPlaybackRec/read-only/usr/share/sounds/male.wav’ to '/legato/systems/current/appsWriteable/audioPl<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateTmpFs() 1787 | Mounted tmpfs at /legato/systems/current/appsWriteable/audioPlaybackRec/tmp.<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2153 | Created file link ‘/tmp/legato/serviceDirectoryServer’ to ‘/legato/systems/current/appsWriteable/audioPlaybackRec/tmp/legato/serviceDirectoryServer’.<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | app.c CreateFileLink() 2153 | Created file link ‘/tmp/legato/serviceDirectoryClient’ to ‘/legato/systems/current/appsWriteable/audioPlaybackRec/tmp/legato/serviceDirectoryClient’.<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | proc.c proc_Start() 1403 | Starting process ‘audioPlaybackRecTest@0’ with pid 22740<br>
+Feb  5 13:41:41 | supervisor[1315]/supervisor T=main | supervisor.c SigChildHandler() 899 | Reaping unconfigured child process 22736.<br>
+Feb  5 13:41:41 | supervisor[22740]/supervisor T=main | proc.c proc_Start() 1363 | Execing ‘audioPlaybackRecTest’<br>
+Feb  5 13:41:41 | supervisor[22740]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxCoreDumpFileBytes to value 8192.<br>
+Feb  5 13:41:41 | supervisor[22740]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxFileBytes to value 90112.<br>
+Feb  5 13:41:41 | supervisor[22740]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxLockedMemoryBytes to value 8192.<br>
+Feb  5 13:41:41 | supervisor[22740]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxFileDescriptors to value 256.<br>
+Feb  5 13:41:41 | supervisor[22740]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxMQueueBytes to value 512.<br>
+Feb  5 13:41:41 | supervisor[22740]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxThreads to value 20.<br>
+Feb  5 13:41:41 | supervisor[22740]/supervisor T=main | resourceLimits.c SetRLimitValue() 301 | Setting resource limit maxQueuedSignals to value 100.<br>
+Feb  5 13:41:41 | <em>UNKNOWN</em>[22740]/framework T=main | fdMonitor.c le_fdMonitor_Create() 422 | FD Monitor object name ‘audioPlaybackRecTest.audioPlaybackRecComp.le_cfg’ truncated to ‘audioPlaybackRecTest.audioPlayb’.<br>
+Feb  5 13:41:41 | <em>UNKNOWN</em>[22740]/framework T=main | fdMonitor.c le_fdMonitor_Create() 422 | FD Monitor object name ‘audioPlaybackRecTest.audioPlaybackRecComp.le_audio’ truncated to ‘audioPlaybackRecTest.audioPlayb’.<br>
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c _audioPlaybackRecComp_COMPONENT_INIT() 1255 | Init<br>
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c _audioPlaybackRecComp_COMPONENT_INIT() 1262 | ======== Start Audio implementation Test (audioPlaybackRecTest) ========<br>
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c _audioPlaybackRecComp_COMPONENT_INIT() 1270 |    Test case.PB<br>
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c _audioPlaybackRecComp_COMPONENT_INIT() 1276 |    Main audio path.MIC<br>
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c _audioPlaybackRecComp_COMPONENT_INIT() 1277 |    Audio file [/usr/share/sounds/0-to-9.wav]<br>
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c ConnectAudio() 1026 | Connect MIC and SPEAKER<br>
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c ConnectAudio() 1053 | Connect Local Play<br>
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c ConnectAudioToFileLocalPlay() 755 | Open file /usr/share/sounds/0-to-9.wav with AudioFileFd.10<br>
+Feb  5 13:41:41 | audioDaemon[1414]/swiQmi T=main | swiQmi.c swiQmi_CheckResponse() 795 | Sending QMI_SWI_M2M_AUDIO_SET_MEDIA_REQ_V01 failed: rc=0 (), resp.result=1.[0x01], resp.error=8.[0x08]<br>
+Feb  5 13:41:41 | audioDaemon[1414]/le_pa_audio T=main | media_routing.c media_routing_SetDspAudioPath() 208 | Cannot set the audio media interface to 1<br>
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c ConnectAudioToFileLocalPlay() 774 | Failed to connect FilePlayback on output connector!<br>
+Feb  5 13:41:41 | audioPlaybackRecTest@0[22740]/audioPlaybackRecComp T=main | audioPlaybackRec.c _audioPlaybackRecComp_COMPONENT_INIT() 1374 | ======== Audio implementation Test (audioPlaybackRec) started successfully ========</p>
+<p>trying PB_SAMPLES gives the same result. Trying PCM or I2S gives the same result, but different interface number. With older fimware (R9.1, Legato 18.06) the result was also the same. Could anyone help with this issue?</p>
+<p>Best regards, Frans.</p>
+          <p><a href="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656/1</link>
+        <pubDate>Wed, 05 Feb 2020 13:45:50 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-3656-1</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-red-audio-not-working-wp7702/3656.rss">MangOH Red audio not working WP7702</source>
+      </item>
+  </channel>
+</rss>

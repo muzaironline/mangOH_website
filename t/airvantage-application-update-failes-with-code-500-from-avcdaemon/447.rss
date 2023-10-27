@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Airvantage Application update failes with code 500 from avcDaemon</title>
+    <link>https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447</link>
+    <description>Dear community,
+
+I have spent  too much time for this issue but  i have no idea how to do anything differently. I always get the following error message: &quot;avcDaemon[505]/le_pa_avc T=unknown | pa_avc_qmi.c ProcessAvmsState() 406 | Download failed. Avms update_complete_status 500.&quot; It is some kind of timeout but i  don&#39;t know why.
+
+ Here is the complete log:
+&gt; Mar 20 16:00:46 | lwm2mCtrlDaemon[4638]/lwm2mControl T=main | lwm2mControl.c StatusHandler() 128 | Air Vantage agent reported update status: SESSION_STARTED
+&gt; Mar 20 16:00:46 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData
+&gt; Mar 20 16:00:47 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData
+&gt; Mar 20 16:00:47 | lwm2mCtrlDaemon[4638]/lwm2mControl T=main | lwm2mControl.c StatusHandler() 128 | Air Vantage agent reported update status: UNINSTALL_PENDING
+&gt; Mar 20 16:00:47 | lwm2mCtrlDaemon[4638]/lwm2mControl T=main | lwm2mControl.c StatusHandler() 152 | Accepting APPLICATION uninstall.
+&gt; Mar 20 16:00:47 | avcDaemon[504]/avcDaemon T=main | assetData.c assetData_DeleteInstance() 3160 | Deleting instance sample10_airvantageControl/0/0
+&gt; Mar 20 16:00:47 | avcDaemon[504]/avcDaemon T=main | assetData.c assetData_DeleteInstance() 3160 | Deleting instance sample10_airvantageControl/1/0
+&gt; Mar 20 16:00:47 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData
+&gt; Mar 20 16:00:47 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData
+&gt; Mar 20 16:00:47 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData
+&gt; Mar 20 16:00:47 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData
+&gt; Mar 20 16:00:47 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData
+&gt; Mar 20 16:01:07 | lwm2mCtrlDaemon[4638]/lwm2mControl T=main | lwm2mControl.c StatusHandler() 128 | Air Vantage agent reported update status: NO_UPDATE
+&gt; Mar 20 16:01:43 | avcDaemon[504]/le_pa_avc T=unknown | pa_avc_qmi.c ProcessAvmsState() 358 | Received User App update
+&gt; Mar 20 16:01:43 | avcDaemon[504]/le_pa_avc T=unknown | pa_avc_qmi.c ProcessAvmsState() 406 | Download failed. Avms update_complete_status 500.
+&gt; Mar 20 16:01:43 | lwm2mCtrlDaemon[4638]/lwm2mControl T=main | lwm2mControl.c StatusHandler() 128 | Air Vantage agent reported update status: DOWNLOAD_FAILED
+&gt; Mar 20 16:01:44 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData
+&gt; Mar 20 16:01:44 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData
+
+It is simply the modified airvantageControl sample application. I have also tried with an older version of legato with the same result. I have a feeling that i am missing a simple step. Could someone give me a hint what i am doing wrong? 
+
+thanks,
+tom</description>
+    
+    <lastBuildDate>Thu, 06 Apr 2017 08:48:15 +0000</lastBuildDate>
+    <category>Services</category>
+    <atom:link href="https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Airvantage Application update failes with code 500 from avcDaemon</title>
+        <dc:creator><![CDATA[tomalex]]></dc:creator>
+        <description><![CDATA[
+            <p>Dear Community,</p>
+<p>I have found out in the firmware note 13.1 that my issue is a known issue and it is because that my mobile  network does not support NITZ messages and the modem’s time is not correct see:</p>
+<blockquote>
+<p>QTI9X1555-<br>
+1009<br>
+FOTA/SOTA fails if the<br>
+attached network doesn’t<br>
+authorize the update of the<br>
+local time<br>
+When the NITZ information is not provided by<br>
+the attached network, the installation FW<br>
+/Bundle fails as the TLS certificate requires a<br>
+valid date.<br>
+As a workaround, the current date may be<br>
+manually set via AT!TIME, e.g.<br>
+at!time=2017,01,31,00,00,00<br>
+OR via the kernel console:<br>
+echo -e<br>
+"at!time=2017,01,31,00,00,00\r" |<br>
+microcom -t500 /dev/ttyAT</p>
+</blockquote>
+<p>I am not quite sure why this time is used when it is in the 80s and there is a linux time which could be correct.<br>
+Another thing what i have noticed that if any app that binds to the avc service it can block the updates even if it does not subscribe to any handles. The default should be that it allows the updates and can request with APIs to block specific/all updates.</p>
+<p>tom</p>
+          <p><a href="https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447/6</link>
+        <pubDate>Thu, 06 Apr 2017 08:48:15 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-447-6</guid>
+        <source url="https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447.rss">Airvantage Application update failes with code 500 from avcDaemon</source>
+      </item>
+      <item>
+        <title>Airvantage Application update failes with code 500 from avcDaemon</title>
+        <dc:creator><![CDATA[tomalex]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi David,<br>
+cm info:<br>
+Device:     WP8548<br>
+IMEI:       359377060013298<br>
+FSN:        LL540300051303<br>
+Firmware:   SWI9X15Y_07.11.22.00 r33729 CARMD-EV-FRMWR1 2017/01/11 18:04:06<br>
+Bootloader: SWI9X15Y_07.11.22.00 r33729 CARMD-EV-FRMWR1 2017/01/11 18:04:06<br>
+priIdPn:    9905383<br>
+priIdRev:   01.07<br>
+skuId:      1102816</p>
+<p>legato:<br>
+16.10.1_a6a25fbda05738774857dccb9fd76a99_modified</p>
+<p>BR<br>
+tom</p>
+          <p><a href="https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447/5</link>
+        <pubDate>Thu, 23 Mar 2017 16:01:27 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-447-5</guid>
+        <source url="https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447.rss">Airvantage Application update failes with code 500 from avcDaemon</source>
+      </item>
+      <item>
+        <title>Airvantage Application update failes with code 500 from avcDaemon</title>
+        <dc:creator><![CDATA[dfrey]]></dc:creator>
+        <description><![CDATA[
+            <p>Can you provide the output of <code>cm info</code> and <code>legato version</code>?  I want to verify that all of the software components are compatible.</p>
+          <p><a href="https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447/4</link>
+        <pubDate>Thu, 23 Mar 2017 15:40:24 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-447-4</guid>
+        <source url="https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447.rss">Airvantage Application update failes with code 500 from avcDaemon</source>
+      </item>
+      <item>
+        <title>Airvantage Application update failes with code 500 from avcDaemon</title>
+        <dc:creator><![CDATA[tomalex]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello Happytuna,</p>
+<p>Thanks for your answer.</p>
+<p>I succesfully released the applications with zip files, i tested with several applications/Sim cards/mangoh green devices. I can test it later with FX30. I also used the av-pack manually, no luck. Uninstall application works. I have also seen problems with the avcDaemon configurations (AT commands) and a few days ago during the night the avcDaemon simply forget to connect to the airvantage again with (lv_avc_SetPollingTimer()) maybe invoking only le_avc_StartSession() works i didn’t try it. My opinion is that avcDaemon has some issues or it simply doesn’t like me! <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=5" title=":slight_smile:" class="emoji" alt=":slight_smile:"><br>
+We ended up implementing remote update with FTP which works fine.<br>
+I must say apart from this issue ( and the I2c bus instability on Mangoh Green) we are really satisfied with Legato&amp;Mangoh.<br>
+Hope somebody has an idea, i am pretty sure it is a setting, configuration issues somewhere as others have no problems with updates with Airvantage.</p>
+<p>Cheers,<br>
+tom</p>
+          <p><a href="https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447/3</link>
+        <pubDate>Thu, 23 Mar 2017 10:39:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-447-3</guid>
+        <source url="https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447.rss">Airvantage Application update failes with code 500 from avcDaemon</source>
+      </item>
+      <item>
+        <title>Airvantage Application update failes with code 500 from avcDaemon</title>
+        <dc:creator><![CDATA[happytuna]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi, I think the “NO_UPDATE” message would be the first clue. What exactly have you tried to do from Air Vantage, uninstall an app, release a new app to a device or upgrade an existing app ? For an upgrade, the upgraded zip package has to be available in air vantage.</p>
+<p>The status handler messages only reflect what Air Vantage is telling it, so any problems are likely to originate there.</p>
+          <p><a href="https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447/2</link>
+        <pubDate>Thu, 23 Mar 2017 09:33:13 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-447-2</guid>
+        <source url="https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447.rss">Airvantage Application update failes with code 500 from avcDaemon</source>
+      </item>
+      <item>
+        <title>Airvantage Application update failes with code 500 from avcDaemon</title>
+        <dc:creator><![CDATA[tomalex]]></dc:creator>
+        <description><![CDATA[
+            <p>Dear community,</p>
+<p>I have spent  too much time for this issue but  i have no idea how to do anything differently. I always get the following error message: “avcDaemon[505]/le_pa_avc T=unknown | pa_avc_qmi.c ProcessAvmsState() 406 | Download failed. Avms update_complete_status 500.” It is some kind of timeout but i  don’t know why.</p>
+<p>Here is the complete log:</p>
+<blockquote>
+<p>Mar 20 16:00:46 | lwm2mCtrlDaemon[4638]/lwm2mControl T=main | lwm2mControl.c StatusHandler() 128 | Air Vantage agent reported update status: SESSION_STARTED<br>
+Mar 20 16:00:46 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData<br>
+Mar 20 16:00:47 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData<br>
+Mar 20 16:00:47 | lwm2mCtrlDaemon[4638]/lwm2mControl T=main | lwm2mControl.c StatusHandler() 128 | Air Vantage agent reported update status: UNINSTALL_PENDING<br>
+Mar 20 16:00:47 | lwm2mCtrlDaemon[4638]/lwm2mControl T=main | lwm2mControl.c StatusHandler() 152 | Accepting APPLICATION uninstall.<br>
+Mar 20 16:00:47 | avcDaemon[504]/avcDaemon T=main | assetData.c assetData_DeleteInstance() 3160 | Deleting instance sample10_airvantageControl/0/0<br>
+Mar 20 16:00:47 | avcDaemon[504]/avcDaemon T=main | assetData.c assetData_DeleteInstance() 3160 | Deleting instance sample10_airvantageControl/1/0<br>
+Mar 20 16:00:47 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData<br>
+Mar 20 16:00:47 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData<br>
+Mar 20 16:00:47 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData<br>
+Mar 20 16:00:47 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData<br>
+Mar 20 16:00:47 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData<br>
+Mar 20 16:01:07 | lwm2mCtrlDaemon[4638]/lwm2mControl T=main | lwm2mControl.c StatusHandler() 128 | Air Vantage agent reported update status: NO_UPDATE<br>
+Mar 20 16:01:43 | avcDaemon[504]/le_pa_avc T=unknown | pa_avc_qmi.c ProcessAvmsState() 358 | Received User App update<br>
+Mar 20 16:01:43 | avcDaemon[504]/le_pa_avc T=unknown | pa_avc_qmi.c ProcessAvmsState() 406 | Download failed. Avms update_complete_status 500.<br>
+Mar 20 16:01:43 | lwm2mCtrlDaemon[4638]/lwm2mControl T=main | lwm2mControl.c StatusHandler() 128 | Air Vantage agent reported update status: DOWNLOAD_FAILED<br>
+Mar 20 16:01:44 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData<br>
+Mar 20 16:01:44 | avcDaemon[504]/avcDaemon T=main | lwm2m.c OperationHandler() 143 | Defaulting to lwm2m namespace for assetData</p>
+</blockquote>
+<p>It is simply the modified airvantageControl sample application. I have also tried with an older version of legato with the same result. I have a feeling that i am missing a simple step. Could someone give me a hint what i am doing wrong?</p>
+<p>thanks,<br>
+tom</p>
+          <p><a href="https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447/1</link>
+        <pubDate>Mon, 20 Mar 2017 16:06:11 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-447-1</guid>
+        <source url="https://forum.mangoh.io/t/airvantage-application-update-failes-with-code-500-from-avcdaemon/447.rss">Airvantage Application update failes with code 500 from avcDaemon</source>
+      </item>
+  </channel>
+</rss>

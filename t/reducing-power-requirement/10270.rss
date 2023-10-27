@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Reducing power requirement</title>
+    <link>https://forum.mangoh.io/t/reducing-power-requirement/10270</link>
+    <description>I am trying to design a product using the MangOH Yellow to work on minimal power.
+I have managed to get it to run at 7 to 30mA (@5v) with the radio active and connected. It has bursts of higher current when it is transferring data. This was achieved by pulling GPIO41 low.
+With the radio off (cm radio off) and mainly in sleep mode, it still draws 7mA.
+Is there any way to reduce the current further (without taking a soldering iron to the board)?
+ULPM seems to require a reset and hence is not useful in our application.</description>
+    
+    <lastBuildDate>Fri, 07 Apr 2023 02:34:42 +0000</lastBuildDate>
+    <category>mangOH Yellow</category>
+    <atom:link href="https://forum.mangoh.io/t/reducing-power-requirement/10270.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Reducing power requirement</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>does this help?</p><aside class="quote quote-modified" data-post="2" data-topic="4216">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/asyal/40/78_2.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/mangoh-yellow-power-optimization/4216/2">MangOH Yellow power optimization</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-yellow/15"><span class="badge-category-bg" style="background-color: #F1C900;"></span><span style="" data-drop-close="true" class="badge-category clear-badge">mangOH Yellow</span></a>
+  </div>
+  <blockquote>
+    Hi Paul, 
+One big way to reduce power is to put the HSIC interface into suspend mode. This can drop power by 60 ma. 
+–&gt; echo 0 &gt; /sys/bus/usb/devices/usb1/authorized 
+Also make sure wakelock is set in case USB cable is removed: 
+–&gt; echo NO_SLEEP &gt; /sys/power/wake_lock 
+Also, if you are ready to take a soldering iron, you can get some more improvements: 
+a. Add R306 (0R), and check that  EXT_GPS_LNA_EN signal is set 0. Should be 4ma saving 
+b. Savings over LEDs: 
+–&gt; echo ‘AT!LEDTEST=0,1;!LEDTEST=…
+  </blockquote>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/reducing-power-requirement/10270/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/reducing-power-requirement/10270/2</link>
+        <pubDate>Fri, 07 Apr 2023 02:34:42 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10270-2</guid>
+        <source url="https://forum.mangoh.io/t/reducing-power-requirement/10270.rss">Reducing power requirement</source>
+      </item>
+      <item>
+        <title>Reducing power requirement</title>
+        <dc:creator><![CDATA[davidchadwick]]></dc:creator>
+        <description><![CDATA[
+            <p>I am trying to design a product using the MangOH Yellow to work on minimal power.<br>
+I have managed to get it to run at 7 to 30mA (<span class="mention">@5v</span>) with the radio active and connected. It has bursts of higher current when it is transferring data. This was achieved by pulling GPIO41 low.<br>
+With the radio off (cm radio off) and mainly in sleep mode, it still draws 7mA.<br>
+Is there any way to reduce the current further (without taking a soldering iron to the board)?<br>
+ULPM seems to require a reset and hence is not useful in our application.</p>
+          <p><a href="https://forum.mangoh.io/t/reducing-power-requirement/10270/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/reducing-power-requirement/10270/1</link>
+        <pubDate>Thu, 06 Apr 2023 18:46:48 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10270-1</guid>
+        <source url="https://forum.mangoh.io/t/reducing-power-requirement/10270.rss">Reducing power requirement</source>
+      </item>
+  </channel>
+</rss>

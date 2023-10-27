@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Having trouble with Makefiles - mangOH Green - mangOH forum</title>
+    <meta name="description" content="Hi, I am very new to mangOH and legato based development, I have started off just a week ago. 
+Existing system: 
+
+I have installed legato17-08.1 on my host (linux - ubuntu16.04 LTS) computer, used a zip, did not clone.
+I&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/having-trouble-with-makefiles/816" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Having trouble with Makefiles&#39;" href="https://forum.mangoh.io/t/having-trouble-with-makefiles/816.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/having-trouble-with-makefiles/816" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/having-trouble-with-makefiles/816" />
+<meta property="og:title" content="Having trouble with Makefiles" />
+<meta name="twitter:title" content="Having trouble with Makefiles" />
+<meta property="og:description" content="Hi, I am very new to mangOH and legato based development, I have started off just a week ago.  Existing system:   I have installed legato17-08.1 on my host (linux - ubuntu16.04 LTS) computer, used a zip, did not clone. I have installed latest toolchain (Release 14) from here  I have installed legato application developer studio version 5.2. I have a mangOH Green board with me, it has a WP8548 chip on it and I have tested it with helloWorld program that I built and deployed on the device using le..." />
+<meta name="twitter:description" content="Hi, I am very new to mangOH and legato based development, I have started off just a week ago.  Existing system:   I have installed legato17-08.1 on my host (linux - ubuntu16.04 LTS) computer, used a zip, did not clone. I have installed latest toolchain (Release 14) from here  I have installed legato application developer studio version 5.2. I have a mangOH Green board with me, it has a WP8548 chip on it and I have tested it with helloWorld program that I built and deployed on the device using le..." />
+<meta property="og:article:section" content="mangOH Green" />
+<meta property="og:article:section:color" content="9EB83B" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="1 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="2 ❤" />
+<meta property="article:published_time" content="2017-10-16T07:39:34+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Having trouble with Makefiles","mainEntity":{"@type":"Question","name":"Having trouble with Makefiles","text":"Hi, I am very new to mangOH and legato based development, I have started off just a week ago.\n\nExisting system:\n\nI have installed legato17-08.1 on my host (linux - ubuntu16.04 LTS) computer, used a zip, did not clone.\n\nI have installed latest toolchain (Release 14) from <a href=\"https://source.sierrawireless.com/resources/legato/downloads/\" rel=\"nofollow noopener\">here<\/a>\n\nI have installed legato&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2017-10-16T07:39:34.502Z","author":{"@type":"Person","name":"Prasad"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/having-trouble-with-makefiles/816">Having trouble with Makefiles</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-green/6" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #9EB83B'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Green</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Having trouble with Makefiles'>
+        <meta itemprop='articleSection' content='mangOH Green'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/WedaPashi'><span itemprop='name'>WedaPashi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/having-trouble-with-makefiles/816">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-10-16T07:39:34Z' class='post-time'>
+                    October 16, 2017,  7:39am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-10-16T07:39:34Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hi, I am very new to mangOH and legato based development, I have started off just a week ago.</p>
+<p>Existing system:</p>
+<ol>
+<li>I have installed legato17-08.1 on my host (linux - ubuntu16.04 LTS) computer, used a zip, did not clone.</li>
+<li>I have installed latest toolchain (Release 14) from <a href="https://source.sierrawireless.com/resources/legato/downloads/" rel="nofollow noopener">here</a>
+</li>
+<li>I have installed legato application developer studio version 5.2.</li>
+<li>I have a mangOH Green board with me, it has a WP8548 chip on it and I have tested it with helloWorld program that I built and deployed on the device using legato application developer studio version 5.2.</li>
+<li>I am aware of the process of running ‘bin/legs’ everytime I open a terminal for supporting commands related to legato.</li>
+<li>I have set the environment variable LEGATO_ROOT to the directory where I have installed legato-17.08.1</li>
+</ol>
+<p>Problem statement:<br>
+I have tried many examples (Latest being: <a href="https://github.com/startwithsierra/utils-legato-mqtt" rel="nofollow noopener">https://github.com/startwithsierra/utils-legato-mqtt</a>). But I can not build them.</p>
+<p>The error that I see in bash is:</p>
+<pre><code>Makefile:7: recipe for target 'wp85' failed
+make: *** [wp85] Error 1
+</code></pre>
+<p>Can anyone help me understand what the issue is?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/config-toolchain-wp85/355/3">Config toolchain wp85</a>
+                        <meta itemprop='position' content='3'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/having-trouble-with-makefiles/816">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-10-16T20:17:41Z' class='post-time'>
+                    October 16, 2017,  8:17pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-10-16T20:17:41Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Can you follow the Getting Started instructions for mangOH Red:<br>
+<a href="http://mangoh.io/mangoh-red-resources-getting-started" class="onebox" target="_blank">http://mangoh.io/mangoh-red-resources-getting-started</a><br>
+the only difference is, you need to run:<br>
+make green_wp85 instead of make red_wp85</p>
+<p>Let us know if you see the same problem.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/WedaPashi'><span itemprop='name'>WedaPashi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/having-trouble-with-makefiles/816">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-10-17T06:33:34Z' class='post-time'>
+                    October 17, 2017,  6:33am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-10-17T06:33:34Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi, thanks for responding. The solution that you suggested does make sense, but I have already built the legato using ‘make clean’ and ‘make wp85’ commands when I installed legato.<br>
+After I posted this question, I tried putting the example apps (received as .zip from git and then unzipped) in $LEGATO_ROOT/bin/apps/sample/ and then make command (make wp85) worked as it should.</p>
+<p>Is that a constraint (Possibly due to some error I made while installation of legato) I am dealing with that I have to put the projects into the LEGATO_ROOT/apps/sample/ or it has always been the way to do it?</p>
+<p>Thank you.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/having-trouble-with-makefiles/816">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-10-18T02:54:11Z' class='post-time'>
+                    October 18, 2017,  2:54am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-10-18T02:54:11Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>It’s a bit confusing, but you have to run <code>make wp85</code> from the legato folder first.  Then you do <code>source bin/configlegatoenv</code> to put the legato build tools into your <code>$PATH</code>.  Once you have done that, you either run <code>make red_wp85</code> or <code>make green_wp85</code> from the mangOH folder.  This builds a legato system that includes the mangOH apps and drivers.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/WedaPashi'><span itemprop='name'>WedaPashi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/having-trouble-with-makefiles/816">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-10-31T06:14:50Z' class='post-time'>
+                    October 31, 2017,  6:14am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-10-31T06:14:50Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thank you <a class="mention" href="/u/asyal">@asyal</a> and <a class="mention" href="/u/dfrey">@dfrey</a>.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Pedro.Jurado'><span itemprop='name'>Pedro.Jurado</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/having-trouble-with-makefiles/816">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-08-24T14:30:55Z' class='post-time'>
+                    August 24, 2018,  2:30pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-08-24T14:30:55Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello, I have been a couple of days setting this up, I decided to get a clean install of Ubuntu and followed the tutorials since the precompiled image did not work for me.<br>
+I have followed all instructions to the letter except last part of step 7 (l) in setting up legato since the module I’m using is a wp76. Now the problem is when running the make red_wp76  after it builds it gives me this message:<br>
+ninja: build stopped: subcommand failed.<br>
+Makefile.framework:147 recipe for target ‘liblegato’ failed<br>
+make[2]: *** [liblegato] Error 1<br>
+make[2]: Leaving directory ‘/home/pedro/legato_framework/legato’<br>
+Makefile:376: recipe for target ‘framework_wp76xx’ failed<br>
+make[1]: *** [framework_wp76xx] Error 2<br>
+make[1]: Leaving directory ‘/home/pedro/legato_framework/legato’<br>
+Makefile:34: recipe for target ‘legato_wp76xx’ failed<br>
+make: *** [legato_wp76xx] Error 2</p>
+<p>Any help on this would be appreciated, I don’t think I have missed anything in the tutorials so I don’t really know whats going wrong the board I have is the MangOH_Red WP7607G.<br>
+Thanks in advance.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/having-trouble-with-makefiles/816">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-08-24T22:28:41Z' class='post-time'>
+                    August 24, 2018, 10:28pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-08-24T22:28:41Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I think you probably have an error message earlier in the output.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Pedro.Jurado'><span itemprop='name'>Pedro.Jurado</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/having-trouble-with-makefiles/816">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-08-31T11:23:23Z' class='post-time'>
+                    August 31, 2018, 11:23am
+                  </time>
+                  <meta itemprop='dateModified' content='2019-07-30T03:51:59Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello, I’m still having problems when using the “make red_wp76xx” this is the 5th time I run through the tutorial in a brand new Linux system the error seems to be different this time.</p>
+<p>** ERROR:<br>
+/home/pedro/legato_framework/legato/drivers/spisvc/spisvc.mdef: error: ‘/opt/swi/y22-ext/sysroots/armv7a-neon-poky-linux-gnueabi/usr/src/kernel’ is not a valid kernel source directory.<br>
+Makefile:82: recipe for target ‘red_wp76xx’ failed<br>
+make: *** [red_wp76xx] Error 1</p>
+<p>please i need some help with this I have been trying to make the board work for over a week now with no success I’m attaching the entire output here: <a class="attachment" href="/uploads/short-url/gj82BVs0KboNWCEVYrSdx5k7wZd">Error_when_make_red_wp76xx</a> (18.3 KB)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/having-trouble-with-makefiles/816">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-09-06T16:42:53Z' class='post-time'>
+                    September 6, 2018,  4:42pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-09-06T16:42:53Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/pedro.jurado">@Pedro.Jurado</a>: Please show me the output of <code>ls -l /opt/swi/</code></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/having-trouble-with-makefiles/816">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/16b6c7e0d2d1842dcbfc09d1736ebfe53e81f258.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-07-28T14:12:21Z' class='post-time'>
+                    July 28, 2020,  2:12pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-07-28T14:12:21Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I’m also having problems with “makefile” when using a WP76 chip and the mangOH Green.<br>
+I tried both “make wp76” and “make green_wp76” but both don’t seem to work:</p>
+<p>"Bad configuration environment file path: /home/mangoh/workspace/leaf-data/wp76stable/wp76-legato/build/wp76/config.sh’ "</p>
+<p>Then I checked the path and saw that there were only the following folders: “tools” and “wp76xx” so I decided to run “make wp76xx” but this also doesn’t work.</p>
+<p>Can anyone give me a tip what I can do next?</p>
+<p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/16b6c7e0d2d1842dcbfc09d1736ebfe53e81f258.png" data-download-href="/uploads/short-url/3eW6Qc8Oqs44QPuqiHnK2WIJyxW.png?dl=1" title="makefilerror" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/16b6c7e0d2d1842dcbfc09d1736ebfe53e81f258_2_690x437.png" alt="makefilerror" data-base62-sha1="3eW6Qc8Oqs44QPuqiHnK2WIJyxW" width="690" height="437" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/16b6c7e0d2d1842dcbfc09d1736ebfe53e81f258_2_690x437.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/16b6c7e0d2d1842dcbfc09d1736ebfe53e81f258_2_1035x655.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/16b6c7e0d2d1842dcbfc09d1736ebfe53e81f258_2_1380x874.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/16b6c7e0d2d1842dcbfc09d1736ebfe53e81f258_2_10x10.png"><div class="meta"><svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">makefilerror</span><span class="informations">2785×1767 529 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg></div></a></div> <div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/26046794ecfe5dbf3931270f4f3d1ec31517072d.png" data-download-href="/uploads/short-url/5qjA0iIwbwrVmCqWd8LVlS3A3Fz.png?dl=1" title="makefilerror2" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/26046794ecfe5dbf3931270f4f3d1ec31517072d_2_681x500.png" alt="makefilerror2" data-base62-sha1="5qjA0iIwbwrVmCqWd8LVlS3A3Fz" width="681" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/26046794ecfe5dbf3931270f4f3d1ec31517072d_2_681x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/26046794ecfe5dbf3931270f4f3d1ec31517072d_2_1021x750.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/26046794ecfe5dbf3931270f4f3d1ec31517072d_2_1362x1000.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/26046794ecfe5dbf3931270f4f3d1ec31517072d_2_10x10.png"><div class="meta"><svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">makefilerror2</span><span class="informations">2409×1767 327 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg></div></a></div> <div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/b3eff8002ef1e9d1eb00d63944fe93693f9aed37.png" data-download-href="/uploads/short-url/pFNB4iqDA5JV91FiHWz2Uyyfw9x.png?dl=1" title="makefilerror3" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b3eff8002ef1e9d1eb00d63944fe93693f9aed37_2_690x440.png" alt="makefilerror3" data-base62-sha1="pFNB4iqDA5JV91FiHWz2Uyyfw9x" width="690" height="440" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b3eff8002ef1e9d1eb00d63944fe93693f9aed37_2_690x440.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b3eff8002ef1e9d1eb00d63944fe93693f9aed37_2_1035x660.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b3eff8002ef1e9d1eb00d63944fe93693f9aed37_2_1380x880.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b3eff8002ef1e9d1eb00d63944fe93693f9aed37_2_10x10.png"><div class="meta"><svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">makefilerror3</span><span class="informations">2772×1768 674 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg></div></a></div></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/tadera'><span itemprop='name'>tadera</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/having-trouble-with-makefiles/816">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-08-03T07:09:30Z' class='post-time'>
+                    August 3, 2020,  7:09am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-08-03T07:09:30Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Does anyone know what the problem is?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

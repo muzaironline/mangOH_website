@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Wakeup Mangoh Yellow after Power loss</title>
+    <link>https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963</link>
+    <description>Hello, I have the wp76xx variant of the mangoh yellow. I have been reading forums etc trying to find out how I can trigger the module to wakeup after a power outage automatically. I have tried using AT commands to modify the voltage limits. 
+
+at!pcvoltlimits=4400,4300,3500,3200,2800
+
+By default my module LO_NORM is 3700. If i run the AT command 
+at!pcvolt?
+Volt state: Normal
+Power supply voltage: 3671 mV (ADC: 37148)
+
+I see that the power supplied by my USB port is usually slightly under 3700 by a few tens of mV. I&#39;m running the test in 2 methods: 
+
+1. I&#39;m simply unplugging the usb1 connector (no battery connected), waiting a while, and then plugging it back in. I leave the switch in the ON state the entire time and after i plug the USB in, the module never boots up. I have to physically press reset. 
+2. I have a 16port USB hub that has switches that I can physically disable the power port by port. Disabling the power and then re-enabling the power also doesn&#39;t trigger the module to turn on.
+
+Is there something special that I need to do to trigger the module to turn on after a power outage?</description>
+    
+    <lastBuildDate>Tue, 10 May 2022 18:47:34 +0000</lastBuildDate>
+    <category>mangOH Yellow</category>
+    <atom:link href="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Wakeup Mangoh Yellow after Power loss</title>
+        <dc:creator><![CDATA[jameswollaeger]]></dc:creator>
+        <description><![CDATA[
+            <p>Shorting the capacitor to discharge it is fine, but I was looking for a way to get around this issue without physically touching the modem or re-design the power-up circuitry of the mangoh yellow. But it looks like only solution is to redesign this circuitry from the mangoh default.</p>
+          <p><a href="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/14">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/14</link>
+        <pubDate>Tue, 10 May 2022 18:47:34 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9963-14</guid>
+        <source url="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963.rss">Wakeup Mangoh Yellow after Power loss</source>
+      </item>
+      <item>
+        <title>Wakeup Mangoh Yellow after Power loss</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>then how about shorting the capacitor C410</p>
+          <p><a href="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/13">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/13</link>
+        <pubDate>Tue, 10 May 2022 01:05:32 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9963-13</guid>
+        <source url="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963.rss">Wakeup Mangoh Yellow after Power loss</source>
+      </item>
+      <item>
+        <title>Wakeup Mangoh Yellow after Power loss</title>
+        <dc:creator><![CDATA[jameswollaeger]]></dc:creator>
+        <description><![CDATA[
+            <p>On the mangoh yellow board, there is a capacitor C410 that unless this is discharged, will not trigger the POWER_ON_N signal long enough (through U407) to actually trigger the boot from my observations. I don’t have an oscilloscope unfortunately to tell you how long the POWER_ON pin is getting triggered, but the green power LED flashes just momentarily and then nothing.</p>
+          <p><a href="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/12</link>
+        <pubDate>Mon, 09 May 2022 20:14:17 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9963-12</guid>
+        <source url="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963.rss">Wakeup Mangoh Yellow after Power loss</source>
+      </item>
+      <item>
+        <title>Wakeup Mangoh Yellow after Power loss</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Then maybe it is not in ulpm mode, but in power off mode.</p>
+<p>Have you checked the status of POWER_ON_N?</p>
+          <p><a href="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/11</link>
+        <pubDate>Mon, 09 May 2022 16:13:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9963-11</guid>
+        <source url="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963.rss">Wakeup Mangoh Yellow after Power loss</source>
+      </item>
+      <item>
+        <title>Wakeup Mangoh Yellow after Power loss</title>
+        <dc:creator><![CDATA[jameswollaeger]]></dc:creator>
+        <description><![CDATA[
+            <p>Were you testing on a WP variant that has the MCU? </p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/beb62e4d7c37494e4b047e8c3a903368063fe5f0.png" data-download-href="/uploads/short-url/rd72u8Fe9zfScBKTvA4D6Ztosp2.png?dl=1" title="WP76xx_variants" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/beb62e4d7c37494e4b047e8c3a903368063fe5f0_2_690x375.png" alt="WP76xx_variants" data-base62-sha1="rd72u8Fe9zfScBKTvA4D6Ztosp2" width="690" height="375" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/beb62e4d7c37494e4b047e8c3a903368063fe5f0_2_690x375.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/beb62e4d7c37494e4b047e8c3a903368063fe5f0_2_1035x562.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/beb62e4d7c37494e4b047e8c3a903368063fe5f0.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/beb62e4d7c37494e4b047e8c3a903368063fe5f0_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/10</link>
+        <pubDate>Mon, 09 May 2022 13:58:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9963-10</guid>
+        <source url="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963.rss">Wakeup Mangoh Yellow after Power loss</source>
+      </item>
+      <item>
+        <title>Wakeup Mangoh Yellow after Power loss</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>From my test,  if i cut the power,  and give power again,  the module can power cycle without pressing reset button</p>
+<p>Btw, maybe there is backup battery which let modules go to ULPM mode.<br>
+See if this helps:</p>
+<aside class="quote quote-modified" data-post="1" data-topic="3321">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/dougbrown/40/2006_2.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/battery-shut-off/3321">Battery shut-off?</a> <a class="badge-wrapper  bullet" href="https://forum.mangoh.io/c/mangoh-yellow/15"><span class="badge-category-bg" style="background-color: #F1C900;"></span><span style="" data-drop-close="true" class="badge-category clear-badge">mangOH Yellow</span></a>
+  </div>
+  <blockquote>
+    Hi, 
+I want to use the mangOH Yellow (with WP7702) in an application where it’s powered by a vehicle (using some kind of regulator to bring the voltage down to 5V). When the vehicle turns off (and thus the input 5V goes away), I was envisioning that the LiPo battery could provide enough backup power to keep it alive for a couple of minutes, then shut the WP7702 down cleanly. Then, the WP7702 could power itself back on as soon as the voltage input is supplied again (e.g. the vehicle starts back u…
+  </blockquote>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/9</link>
+        <pubDate>Sat, 07 May 2022 00:58:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9963-9</guid>
+        <source url="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963.rss">Wakeup Mangoh Yellow after Power loss</source>
+      </item>
+      <item>
+        <title>Wakeup Mangoh Yellow after Power loss</title>
+        <dc:creator><![CDATA[jameswollaeger]]></dc:creator>
+        <description><![CDATA[
+            <p>Well, I lowered the limits to values lower than were there by default to values that were lower than I was reading with at!pcvolt? but the module won’t turn on.</p>
+          <p><a href="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/8</link>
+        <pubDate>Fri, 06 May 2022 17:52:13 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9963-8</guid>
+        <source url="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963.rss">Wakeup Mangoh Yellow after Power loss</source>
+      </item>
+      <item>
+        <title>Wakeup Mangoh Yellow after Power loss</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>If you don’t set pcvoltlimits,  will the moduleb power on after power outage?</p>
+          <p><a href="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/7</link>
+        <pubDate>Fri, 06 May 2022 17:26:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9963-7</guid>
+        <source url="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963.rss">Wakeup Mangoh Yellow after Power loss</source>
+      </item>
+      <item>
+        <title>Wakeup Mangoh Yellow after Power loss</title>
+        <dc:creator><![CDATA[jameswollaeger]]></dc:creator>
+        <description><![CDATA[
+            <p>I just saw in WP76xx datasheet the following:</p>
+<p>Group B variants:<br>
+· do not have an MCU<br>
+· do not support ULPM</p>
+<p>7611 is a group B. So any idea how to make the module wakeup after power loss?</p>
+          <p><a href="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/6</link>
+        <pubDate>Fri, 06 May 2022 16:53:30 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9963-6</guid>
+        <source url="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963.rss">Wakeup Mangoh Yellow after Power loss</source>
+      </item>
+      <item>
+        <title>Wakeup Mangoh Yellow after Power loss</title>
+        <dc:creator><![CDATA[jameswollaeger]]></dc:creator>
+        <description><![CDATA[
+            <p>I cannot seem to set the powerwake source, I just keep getting error:</p>
+<p>at!powermode?<br>
+!POWERMODE: No request, status=9-PSM disabled<br>
+OK<br>
+at!powerwake=2,36,1<br>
+ERROR<br>
+at!powerwake=2,38,1<br>
+ERROR<br>
+at!powerwake=2,36,5<br>
+ERROR<br>
+at!powerwake=2,36,4<br>
+ERROR<br>
+at+cpsms?<br>
++CPSMS:0,“01100000”,“00000000”<br>
+OK</p>
+<p>I’m running a WP7611 CAT 4 module and R16 ATT firmware and legato 19.11.3.</p>
+          <p><a href="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/5</link>
+        <pubDate>Fri, 06 May 2022 16:49:42 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9963-5</guid>
+        <source url="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963.rss">Wakeup Mangoh Yellow after Power loss</source>
+      </item>
+      <item>
+        <title>Wakeup Mangoh Yellow after Power loss</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>you can try AT!POWERMODE=3  after setting your AT!POWERWAKE source.<br>
+And see if module can come out of ULPM mode first.</p>
+<p>After this test, you can see if module can come out of ULPM mode after power loss after your test case above.</p>
+          <p><a href="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/4</link>
+        <pubDate>Fri, 06 May 2022 15:46:32 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9963-4</guid>
+        <source url="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963.rss">Wakeup Mangoh Yellow after Power loss</source>
+      </item>
+      <item>
+        <title>Wakeup Mangoh Yellow after Power loss</title>
+        <dc:creator><![CDATA[jameswollaeger]]></dc:creator>
+        <description><![CDATA[
+            <aside class="quote no-group" data-username="jyijyi" data-post="2" data-topic="9963">
+<div class="title">
+<div class="quote-controls"></div>
+<img loading="lazy" alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/jyijyi/40/997_2.png" class="avatar"> jyijyi:</div>
+<blockquote>
+<p>at!powermode</p>
+</blockquote>
+</aside>
+<p>Hi <a class="mention" href="https://forum.mangoh.io/u/jyijyi">@jyijyi</a>. Thanks for responding. I’m unsure what you mean by using the above.</p>
+<p>I can run the commands. PSM is disabled<br>
+!POWERMODE: No request, status=9-PSM disabled</p>
+<p>OK<br>
+!POWERWAKE:<br>
+PSM TIME: 14400, ACTIVE TIME: 20</p>
+<p>To enable autowakeup, do I need to enable a power saving mode? We don’t have any power limitations for our setup and plan to keep it connected to grid power 24/7.</p>
+          <p><a href="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/3</link>
+        <pubDate>Fri, 06 May 2022 15:01:06 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9963-3</guid>
+        <source url="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963.rss">Wakeup Mangoh Yellow after Power loss</source>
+      </item>
+      <item>
+        <title>Wakeup Mangoh Yellow after Power loss</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Not sure if the at!powerwake with adc trigger can let module wake up.<br>
+You can give a try first after trying at!powermode and at!powerwake to make sure the commands work</p>
+          <p><a href="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/2</link>
+        <pubDate>Thu, 05 May 2022 00:15:14 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9963-2</guid>
+        <source url="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963.rss">Wakeup Mangoh Yellow after Power loss</source>
+      </item>
+      <item>
+        <title>Wakeup Mangoh Yellow after Power loss</title>
+        <dc:creator><![CDATA[jameswollaeger]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello, I have the wp76xx variant of the mangoh yellow. I have been reading forums etc trying to find out how I can trigger the module to wakeup after a power outage automatically. I have tried using AT commands to modify the voltage limits.</p>
+<p>at!pcvoltlimits=4400,4300,3500,3200,2800</p>
+<p>By default my module LO_NORM is 3700. If i run the AT command<br>
+at!pcvolt?<br>
+Volt state: Normal<br>
+Power supply voltage: 3671 mV (ADC: 37148)</p>
+<p>I see that the power supplied by my USB port is usually slightly under 3700 by a few tens of mV. I’m running the test in 2 methods:</p>
+<ol>
+<li>I’m simply unplugging the usb1 connector (no battery connected), waiting a while, and then plugging it back in. I leave the switch in the ON state the entire time and after i plug the USB in, the module never boots up. I have to physically press reset.</li>
+<li>I have a 16port USB hub that has switches that I can physically disable the power port by port. Disabling the power and then re-enabling the power also doesn’t trigger the module to turn on.</li>
+</ol>
+<p>Is there something special that I need to do to trigger the module to turn on after a power outage?</p>
+          <p><a href="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963/1</link>
+        <pubDate>Wed, 04 May 2022 22:20:13 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-9963-1</guid>
+        <source url="https://forum.mangoh.io/t/wakeup-mangoh-yellow-after-power-loss/9963.rss">Wakeup Mangoh Yellow after Power loss</source>
+      </item>
+  </channel>
+</rss>

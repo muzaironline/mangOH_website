@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>How to Get IMEI Info - mangOH Green - mangOH forum</title>
+    <meta name="description" content="Hi. 
+I would like to get IMEI number. 
+So, I write bellow code and try to compile. 
+
+#include “legato.h” 
+#include “le_info_common.h” 
+char buffer[100]; 
+size_t size=100; 
+memset(buffer, 0x00, sizeof(buffer)); 
+le_info_G&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/how-to-get-imei-info/8897" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;How to Get IMEI Info&#39;" href="https://forum.mangoh.io/t/how-to-get-imei-info/8897.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/how-to-get-imei-info/8897" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/how-to-get-imei-info/8897" />
+<meta property="og:title" content="How to Get IMEI Info" />
+<meta name="twitter:title" content="How to Get IMEI Info" />
+<meta property="og:description" content="Hi.  I would like to get IMEI number.  So, I write bellow code and try to compile.   #include “legato.h”  #include “le_info_common.h”  char buffer[100];  size_t size=100;  memset(buffer, 0x00, sizeof(buffer));  le_info_GetImei(buffer, size);  LE_INFO(“IMEI=%s(%d)”, buffer, size);   But, It finished by error.   (lsh:wp76stable) mangoh@mangoh-dev:~/myWorkspace/shell_test$ mkapp -t wp76xx shell_test.adef  [1/7] Compiling C source  FAILED: /home/mangoh/myWorkspace/shell_test/_build_shell_test/wp76xx..." />
+<meta name="twitter:description" content="Hi.  I would like to get IMEI number.  So, I write bellow code and try to compile.   #include “legato.h”  #include “le_info_common.h”  char buffer[100];  size_t size=100;  memset(buffer, 0x00, sizeof(buffer));  le_info_GetImei(buffer, size);  LE_INFO(“IMEI=%s(%d)”, buffer, size);   But, It finished by error.   (lsh:wp76stable) mangoh@mangoh-dev:~/myWorkspace/shell_test$ mkapp -t wp76xx shell_test.adef  [1/7] Compiling C source  FAILED: /home/mangoh/myWorkspace/shell_test/_build_shell_test/wp76xx..." />
+<meta property="og:article:section" content="mangOH Green" />
+<meta property="og:article:section:color" content="9EB83B" />
+<meta property="article:published_time" content="2021-04-17T10:04:52+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"How to Get IMEI Info","mainEntity":{"@type":"Question","name":"How to Get IMEI Info","text":"Hi.\n\nI would like to get IMEI number.\n\nSo, I write bellow code and try to compile.\n\n#include “legato.h”\n\n#include “le_info_common.h”\n\nchar buffer[100];\n\nsize_t size=100;\n\nmemset(buffer, 0x00, sizeof(buffer));\n\nle_info_GetImei(buffer, size);\n\nLE_INFO(“IMEI=%s(%d)”, buffer, size);\n\nBut, It finished &hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2021-04-17T10:04:52.877Z","author":{"@type":"Person","name":"Yohei Fujimitsu"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/how-to-get-imei-info/8897">How to Get IMEI Info</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-green/6" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #9EB83B'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Green</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='How to Get IMEI Info'>
+        <meta itemprop='articleSection' content='mangOH Green'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/yoheifujimitsu'><span itemprop='name'>yoheifujimitsu</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-get-imei-info/8897">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-17T10:04:52Z' class='post-time'>
+                    April 17, 2021, 10:04am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-17T10:04:52Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Hi.<br>
+I would like to get IMEI number.<br>
+So, I write bellow code and try to compile.</p>
+<blockquote>
+<p><span class="hashtag">#include</span> “legato.h”<br>
+<span class="hashtag">#include</span> “le_info_common.h”</p>
+<p>char buffer[100];<br>
+size_t size=100;<br>
+memset(buffer, 0x00, sizeof(buffer));<br>
+le_info_GetImei(buffer, size);</p>
+<p>LE_INFO(“IMEI=%s(%d)”, buffer, size);</p>
+</blockquote>
+<p>But, It finished by error.</p>
+<blockquote>
+<p>(lsh:wp76stable) mangoh@mangoh-dev:~/myWorkspace/shell_test$ mkapp -t wp76xx shell_test.adef<br>
+[1/7] Compiling C source<br>
+FAILED: /home/mangoh/myWorkspace/shell_test/_build_shell_test/wp76xx/component/e2fcc2960afd14c7be809af2bac82ab0/obj/594d2fc19aba5ba97a8c49076d99404f.o<br>
+/home/mangoh/myWorkspace/leaf-data/wp76stable/wp76-toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc --sysroot=/home/mangoh/myWorkspace/leaf-data/wp76stable/wp76-toolchain/sysroots/armv7a-neon-poky-linux-gnueabi -MMD -MF /home/mangoh/myWorkspace/shell_test/_build_shell_test/wp76xx/component/e2fcc2960afd14c7be809af2bac82ab0/obj/594d2fc19aba5ba97a8c49076d99404f.o.d -c /home/mangoh/myWorkspace/shell_test/shellTestComponent/shell_test.c -o /home/mangoh/myWorkspace/shell_test/_build_shell_test/wp76xx/component/e2fcc2960afd14c7be809af2bac82ab0/obj/594d2fc19aba5ba97a8c49076d99404f.o -DLE_FILENAME=<code>basename /home/mangoh/myWorkspace/shell_test/shellTestComponent/shell_test.c</code> -Wall -fPIC -Werror -fvisibility=hidden -DMK_TOOLS_BUILD  -DLEGATO_EMBEDDED -I /home/mangoh/myWorkspace/shell_test/_build_shell_test/wp76xx -I/home/mangoh/myWorkspace/leaf-data/wp76stable/wp76-legato/interfaces -I/home/mangoh/myWorkspace/leaf-data/wp76stable/wp76-legato/framework/include -I/home/mangoh/myWorkspace/leaf-data/wp76stable/wp76-legato/build/wp76xx/framework/include -I/home/mangoh/myWorkspace/shell_test -I/home/mangoh/myWorkspace/shell_test/_build_shell_test/wp76xx/component/e2fcc2960afd14c7be809af2bac82ab0/src -DLE_COMPONENT_NAME=shellTestComponent -DLE_LOG_SESSION=shellTestComponent_LogSession  -DLE_LOG_LEVEL_FILTER_PTR=shellTestComponent_LogLevelFilterPtr  “-DCOMPONENT_INIT=LE_CI_LINKAGE LE_SHARED void _shellTestComponent_COMPONENT_INIT()”<br>
+/home/mangoh/myWorkspace/shell_test/shellTestComponent/shell_test.c:7:10: fatal error: le_info_common.h: No such file or directory<br>
+<span class="hashtag">#include</span> “le_info_common.h”<br>
+^~~~~~~~~~~~~~~~~~<br>
+compilation terminated.<br>
+ninja: build stopped: subcommand failed.</p>
+</blockquote>
+<p>Please let me know how to resolve this error.<br>
+Best Regards.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-get-imei-info/8897">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-17T10:26:08Z' class='post-time'>
+                    April 17, 2021, 10:26am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-17T10:26:08Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>“cm info” can get the imei</p>
+<aside class="onebox githubblob">
+  <header class="source">
+      <a href="https://github.com/legatoproject/legato-af/blob/master/apps/tools/cm/cm_info.c" target="_blank" rel="noopener nofollow ugc">github.com</a>
+  </header>
+  <article class="onebox-body">
+    <h4><a href="https://github.com/legatoproject/legato-af/blob/master/apps/tools/cm/cm_info.c" target="_blank" rel="noopener nofollow ugc">legatoproject/legato-af/blob/master/apps/tools/cm/cm_info.c</a></h4>
+<pre><code class="lang-c">//-------------------------------------------------------------------------------------------------
+/**
+ * @file cm_info.h
+ *
+ * Handle info related functionality
+ *
+ * Copyright (C) Sierra Wireless Inc.
+ */
+//-------------------------------------------------------------------------------------------------
+
+#include "legato.h"
+#include "interfaces.h"
+#include "cm_info.h"
+#include "cm_common.h"
+
+//--------------------------------------------------------------------------------------------------
+/**
+ * Maximum length of information string
+ */
+//--------------------------------------------------------------------------------------------------
+</code></pre>
+
+  This file has been truncated. <a href="https://github.com/legatoproject/legato-af/blob/master/apps/tools/cm/cm_info.c" target="_blank" rel="noopener nofollow ugc">show original</a>
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/yoheifujimitsu'><span itemprop='name'>yoheifujimitsu</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-get-imei-info/8897">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-17T10:37:30Z' class='post-time'>
+                    April 17, 2021, 10:37am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-17T10:37:30Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks for your quick reply.<br>
+I know  “cm info”  can get the imei, but I can’t execute cm commands from C programs.</p>
+<p>Pleads let me know how to execute cm commands in C programs.</p>
+<p>Thank you.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-get-imei-info/8897">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-04-17T11:13:36Z' class='post-time'>
+                    April 17, 2021, 11:13am
+                  </time>
+                  <meta itemprop='dateModified' content='2021-04-17T11:13:36Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You need to use api le_info_GetImei()</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

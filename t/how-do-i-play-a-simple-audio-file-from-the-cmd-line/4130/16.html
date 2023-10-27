@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>How do I play a simple audio file from the cmd line? - #16 by jyijyi - mangOH Red - mangOH forum</title>
+    <meta name="description" content="A simple enough task you would think. How do I play a wav file from the command line? 
+aplay myfile.wav returns the following 
+aplay: Playing ‘myfile.wav’:Signed 16 bit Little Endian 
+buffer_bytes = (1024,1024) omin=0 om&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;How do I play a simple audio file from the cmd line?&#39;" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130/16" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130/16" />
+<meta property="og:title" content="How do I play a simple audio file from the cmd line?" />
+<meta name="twitter:title" content="How do I play a simple audio file from the cmd line?" />
+<meta property="og:description" content="how about using AT command?  at!avcfg=5,1,2  AT!AVSETPROFILE=5  AT!AVAUDIO=1,1,/home/root/0-to-9_8k.wav" />
+<meta name="twitter:description" content="how about using AT command?  at!avcfg=5,1,2  AT!AVSETPROFILE=5  AT!AVAUDIO=1,1,/home/root/0-to-9_8k.wav" />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta property="article:published_time" content="2021-06-16T12:35:31+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"How do I play a simple audio file from the cmd line?","mainEntity":{"@type":"Question","name":"How do I play a simple audio file from the cmd line?","text":"A simple enough task you would think. How do I play a wav file from the command line?\n\naplay myfile.wav returns the following\n\naplay: Playing ‘myfile.wav’:Signed 16 bit Little Endian\n\nbuffer_bytes = (1024,1024) omin=0 omax=0 int=1 empty=0\n\nperiod_bytes = (128,128) omin=0 omax=0 int=1 empty=0\n\ncannot&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2020-03-24T15:48:35.966Z","author":{"@type":"Person","name":"Nick Ray"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">How do I play a simple audio file from the cmd line?</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='How do I play a simple audio file from the cmd line?'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/sciscitatio'><span itemprop='name'>sciscitatio</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-24T15:48:36Z' class='post-time'>
+                    March 24, 2020,  3:48pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-24T15:48:36Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>A simple enough task you would think. How do I play a wav file from the command line?</p>
+<p>aplay myfile.wav returns the following</p>
+<p>aplay: Playing ‘myfile.wav’:Signed 16 bit Little Endian<br>
+buffer_bytes = (1024,1024) omin=0 omax=0 int=1 empty=0<br>
+period_bytes = (128,128) omin=0 omax=0 int=1 empty=0<br>
+cannot prepare channel: errno =-22<br>
+Aplay:Failed in pcm_prepare</p>
+<p>Note I only want to do this from CLI. I am <strong>NOT</strong> a software developer,  I’m just trying to check out some magoh red boards before sending them off to my software developer.</p>
+<p>Our final objective is to play audio from out custom linux application (won’t be using legato platform)</p>
+<blockquote>
+<p>cm info all<br>
+Device:                        WP7607<br>
+IMEI:                          359779080143064<br>
+IMEISV:                        5<br>
+FSN:                           VN851171271310<br>
+Firmware Version:              SWI9X07Y_02.18.05.00 000000 jenkins 2018/07/19 17:40:21<br>
+Bootloader Version:            SWI9X07Y_02.18.05.00 000000 jenkins 2018/07/19 17:40:21<br>
+MCU Version:                   002.009<br>
+PRI Part Number (PN):          9908767<br>
+PRI Revision:                  001.001<br>
+Carrier PRI Name:              GENERIC<br>
+Carrier PRI Revision:          002.041_000<br>
+SKU:                           1104218<br>
+Last Reset Cause:              Power Down<br>
+Resets Count:                  Expected: 15     Unexpected: 0</p>
+</blockquote>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-25T01:54:10Z' class='post-time'>
+                    March 25, 2020,  1:54am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-25T01:54:10Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>you can use the sample app audioPlaybackRec :</p>
+<p>app runProc audioPlaybackRec audioPlaybackRecTest --exe=audioPlaybackRecTest – PB_SAMPLES MIC /usr/share/sounds/0-to-9.wav 1 8000 16</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/sciscitatio'><span itemprop='name'>sciscitatio</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-25T11:30:03Z' class='post-time'>
+                    March 25, 2020, 11:30am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-25T11:30:03Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Nope that doesn’t work, and the error doesn’t really help much.</p>
+<blockquote>
+<p>app runProc audioPlaybackRec audioPlaybackRecTest --exe=audioPlaybackRecTest - PB_SAMPLES MIC /home/root/test.wav 1 8000 16</p>
+</blockquote>
+<blockquote>
+<p>Invalid arguments.  Try --help.</p>
+</blockquote>
+<p>I know I’ve used aplay on another board some while ago, so why isn’t this one working?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-25T12:03:26Z' class='post-time'>
+                    March 25, 2020, 12:03pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-25T12:03:26Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>how about using AT command?</p>
+<p>at!avcfg=5,1,2<br>
+AT!AVSETPROFILE=5</p>
+<p>AT!AVAUDIO=1,1,/home/root/0-to-9_8k.wav</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-25T12:06:38Z' class='post-time'>
+                    March 25, 2020, 12:06pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-25T12:06:38Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>i remember i try on WP76 R9, it is working fine for aplay:</p>
+<p>For WP76 R9:<br>
+amix ‘PRI_RX Audio Mixer MultiMedia1’ 1<br>
+amix ‘Sys Clock Enable Switch’ 1<br>
+amix ‘Capture PGA Mute Switch’ 1<br>
+amix ‘Digital Playback Mute Switch’ 1<br>
+amix ‘Digital Playback Volume’ 192<br>
+amix ‘Speaker Playback Volume’ 57<br>
+amix ‘Speaker Playback Mute Switch’ 1<br>
+amix ‘SPKOUTP VDD Enable Switch’ 1<br>
+amix ‘SPKOUTN VDD Enable Switch’ 1<br>
+amix ‘SPKOUTP Mute Switch’ 1<br>
+amix ‘SPKOUTN Mute Switch’ 1<br>
+amix ‘SPKOUTP Enable Switch’ 1<br>
+amix ‘SPKOUTN Enable Switch’ 1<br>
+amix ‘ADC Mute All Switch’ 1<br>
+amix ‘Speaker Function’ 1<br>
+amix ‘SPKOUTP Mixer Speak PGA to Speaker P Switch’ 1<br>
+amix ‘SPKOUTN Mixer Speak PGA to Speaker N Switch’ 1<br>
+amix ‘Speaker Mixer DAC to Speak PGA Switch’ 1<br>
+amix ‘MultiMedia1 Mixer PRI_TX’ 1<br>
+amix ‘Input PGA Enable Switch’ 1<br>
+amix ‘Left ADC Enable Switch’ 1<br>
+amix ‘Input PGA AUX to Invert InPGA Switch’ 1<br>
+amix ‘Input PGA IN1 to InPGA Switch’ 1<br>
+amix ‘PRI_MI2S_RX Audio Mixer MultiMedia1’ 1<br>
+aplay 0-to-9_8k.wav</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/sciscitatio'><span itemprop='name'>sciscitatio</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-26T12:31:47Z' class='post-time'>
+                    March 26, 2020, 12:31pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-26T12:31:47Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Strangely enough, I tried the AT!AVAUDIO method and it played the file. I then tried again using aplay and it worked. This is consistent: aplay will only work if I microcom to /dev/ttyAT and use the AT!AVAUDIO command.</p>
+<p>The amix commands don’t work, they just report “control not found”</p>
+<p>This helps me to test the hardware - but it is obviously going to make things messy to play audio files from a custom Linux program. So what exactly is the missing part here, what did the AT command do exactly to make it work?</p>
+<p>Or, to put it another way, what is the correct procedure to play audio from a custom Linux application?</p>
+<p>Thanks</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-26T16:11:48Z' class='post-time'>
+                    March 26, 2020,  4:11pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-26T16:11:48Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>You can send AT command within the app</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/sciscitatio'><span itemprop='name'>sciscitatio</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-30T08:04:53Z' class='post-time'>
+                    March 30, 2020,  8:04am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-30T08:04:53Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Yes I know that, but I would like to know what is the AT command doing that makes it work?</p>
+<p>We may not be only playing files (e.g. using a text-to-speech library) so may want to output to the sound device directly. Also, we will need to control the mixer settings to allow separate left/right balance.</p>
+<p>Also, I plan to use a different codec IC. How would that affect the operation of the built-in AT command for playing / volume adjustment?</p>
+<p>Thanks</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-30T10:45:13Z' class='post-time'>
+                    March 30, 2020, 10:45am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-30T10:45:13Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Didn’t you say “aplay will only work if I microcom to /dev/ttyAT and use the AT!AVAUDIO command”?<br>
+You can play a dummy file after power on.<br>
+After that you can use aplay.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/sciscitatio'><span itemprop='name'>sciscitatio</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-30T13:37:30Z' class='post-time'>
+                    March 30, 2020,  1:37pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-30T13:37:30Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I know, but that really is a bodge. I would like to know <strong>WHY</strong>, so I can make sure that it will always work, in all circumstances and preferably for future revisions of hardware &amp; firmware. It’s asking for trouble relying on some obscure undocumented artifact of a some function.</p>
+<p>I also need the mixer to set left &amp; right volume but that doesn’t seem to work either.</p>
+<p>This will be used for a commercial product, so I need a consistent &amp; reliable operation.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-30T14:43:56Z' class='post-time'>
+                    March 30, 2020,  2:43pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-30T14:47:49Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Can you try R9?<br>
+I remember it was working fine for aplay</p>
+<p>Also be careful of the single quote character</p>
+<p>You can also compre the amix before and after those AT command.<br>
+<aside class="onebox whitelistedgeneric">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/252837692301bb53b7d4b8041901ad6486ced526.png" class="site-icon" width="32" height="32">
+      <a href="https://forum.legato.io/t/solved-cannot-find-pa-audio-default-with-meaningful-content/3420/5" target="_blank" title="12:00PM - 09 July 2018" rel="nofollow noopener">Legato Forum – 9 Jul 18</a>
+  </header>
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/solved-cannot-find-pa-audio-default-with-meaningful-content/3420/5" target="_blank" rel="nofollow noopener">[solved] Cannot find pa_audio_default with meaningful content</a></h3>
+
+<p>I have tried sending a message to the guy stating that he have gotten it to work as I am very reluctant in waking up dead threads to ask for an out of topic question. But I would like to get his attention non-the-less</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/sciscitatio'><span itemprop='name'>sciscitatio</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-31T12:39:52Z' class='post-time'>
+                    March 31, 2020, 12:39pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-31T12:39:52Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Er, I <strong>am</strong> using R9!</p>
+<p>There is something seriously half-assed about this software platform. amix before &amp; after yeilds exactly the same (which incidentally exposes something else broken - the redirect &gt; doesn’t work so I had to use PuTTY logging to capture the output), I won’t post the output here as it’s 1600 lines ling.</p>
+<p>This is what I enter from the cmd line</p>
+<pre><code>root@swi-mdm9x28-wp:~# aplay ready.wav
+aplay: Playing 'ready.wav':Signed 16 bit Little Endian
+buffer_bytes = (1024,1024) omin=0 omax=0 int=1 empty=0
+period_bytes = (128,128) omin=0 omax=0 int=1 empty=0
+cannot prepare channel: errno =-22
+Aplay:Failed in pcm_prepare
+
+microcom /dev/ttyAT
+AT!AVAUDIO=1,1,/home/root/ready.wav
+OK
+&lt;CTRL-AX to quit&gt;
+
+root@swi-mdm9x28-wp:~# aplay ready.wav
+aplay: Playing 'ready.wav':Signed 16 bit Little Endian
+buffer_bytes = (1024,1024) omin=0 omax=0 int=1 empty=0
+period_bytes = (128,128) omin=0 omax=0 int=1 empty=0
+Aplay: Done playing
+</code></pre>
+<p>So in the absence of anything helpful, let’s start with the error message. What does errno -22 mean?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/sciscitatio'><span itemprop='name'>sciscitatio</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-03-31T15:29:56Z' class='post-time'>
+                    March 31, 2020,  3:29pm
+                  </time>
+                  <meta itemprop='dateModified' content='2020-03-31T15:29:56Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Maybe this will help: this is the output from dmesg after each stage:</p>
+<p>aplay attempt - fail<br>
+[  105.398240]  MDM Media1: ASoC: no backend DAIs enabled for MDM Media1<br>
+[  105.402660] q6asm_callback: cmd = 0x10bcd returned error = 0x1<br>
+[  105.402741] __q6asm_cmd: DSP returned error[ADSP_EFAILED] opcode 68557<br>
+[  105.398240]  MDM Media1: ASoC: no backend DAIs enabled for MDM Media1<br>
+[  105.402660] q6asm_callback: cmd = 0x10bcd returned error = 0x1<br>
+[  105.402741] __q6asm_cmd: DSP returned error[ADSP_EFAILED] opcode 68557<br>
+[  121.121063] sierra_startup_monitor<br>
+[  150.685702]  MDM Media1: ASoC: no backend DAIs enabled for MDM Media1<br>
+[  150.689626] q6asm_callback: cmd = 0x10bcd returned error = 0x1<br>
+[  150.689710] __q6asm_cmd: DSP returned error[ADSP_EFAILED] opcode 68557</p>
+<p>AT command play - works<br>
+[  194.027962] afe_send_custom_topology_block: AFE SVC cal has invalid size: 0!<br>
+[  194.027990] afe_send_custom_topology: No cal sent for cal_index 7! ret -22<br>
+[  194.028006] afe_get_cal_topology_id: [AFE_TOPOLOGY_CAL] not initialized for this port 4096<br>
+[  194.046531] q6asm_callback: cmd = 0x10da1 returned error = 0x3<br>
+[  194.046615] q6asm_send_cal: DSP returned error[3] audio audstrm cal send<br>
+[  194.054185] adm_callback: cmd = 0x10328 returned error = 0x3<br>
+[  194.054257] send_adm_cal_block: DSP returned error[ADSP_EUNSUPPORTED]<br>
+[  194.614128] aplay (1773) used greatest stack depth: 4520 bytes left</p>
+<p>aplay command - works<br>
+[  234.309229] afe_get_cal_topology_id: [AFE_TOPOLOGY_CAL] not initialized for this port 4096<br>
+[  234.321106] q6asm_callback: cmd = 0x10da1 returned error = 0x3<br>
+[  234.321169] q6asm_send_cal: DSP returned error[3] audio audstrm cal send<br>
+[  234.325585] adm_callback: cmd = 0x10328 returned error = 0x3<br>
+[  234.325637] send_adm_cal_block: DSP returned error[ADSP_EUNSUPPORTED]</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2020-05-05T05:11:40Z' class='post-time'>
+                    May 5, 2020,  5:11am
+                  </time>
+                  <meta itemprop='dateModified' content='2020-05-05T05:11:40Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I don’t see problem on my WP7607 module even no AT command:</p>
+<p>root@swi-mdm9x28-wp:~# amix ‘PRI_RX Audio Mixer MultiMedia1’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘Sys Clock Enable Switch’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘Capture PGA Mute Switch’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘Digital Playback Mute Switch’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘Digital Playback Volume’ 192<br>
+capability: volume<br>
+dBscale- min=-72.00dB step=0.37dB max=2.55dB mute=1<br>
+min = ffffe3e0 max = ffval = c0Value = 1.92dB<br>
+root@swi-mdm9x28-wp:~# amix ‘Speaker Playback Volume’ 57<br>
+capability: volume<br>
+dBscale- min=-57.00dB step=1.00dB max=0.63dB mute=0<br>
+min = ffffe9bc max = 3fval = 39Value = 0.57dB<br>
+root@swi-mdm9x28-wp:~# amix ‘Speaker Playback Mute Switch’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘SPKOUTP VDD Enable Switch’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘SPKOUTN VDD Enable Switch’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘SPKOUTP Mute Switch’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘SPKOUTN Mute Switch’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘SPKOUTP Enable Switch’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘SPKOUTN Enable Switch’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘ADC Mute All Switch’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘Speaker Function’ 1<br>
+Value: 1 idx:0<br>
+[   66.043157] wm8944-codec wm8944-codec: ASoC: DAPM unknown pin Ext Spk Bottom Pos<br>
+[   66.050604] wm8944-codec wm8944-codec: ASoC: DAPM unknown pin Ext Spk Bottom Neg<br>
+[   66.057830] wm8944-codec wm8944-codec: ASoC: DAPM unknown pin Ext Spk Top Pos<br>
+[   66.065434] wm8944-codec wm8944-codec: ASoC: DAPM unknown pin Ext Spk Top Neg<br>
+root@swi-mdm9x28-wp:~# amix ‘SPKOUTP Mixer Speak PGA to Speaker P Switch’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘SPKOUTN Mixer Speak PGA to Speaker N Switch’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘Speaker Mixer DAC to Speak PGA Switch’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘MultiMedia1 Mixer PRI_TX’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘Input PGA Enable Switch’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘Left ADC Enable Switch’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘Input PGA AUX to Invert InPGA Switch’ 1<br>
+root@swi-mdm9x28-wp:~# amix ‘Input PGA IN1 to InPGA Switch’ 1<br>
+Value: 1 idx:0<br>
+root@swi-mdm9x28-wp:~# amix ‘PRI_MI2S_RX Audio Mixer MultiMedia1’ 1<br>
+root@swi-mdm9x28-wp:~# aplay ./0-to-9.wav<br>
+aplay: Playing ‘./0-to-9.wav’:Signed 16 bit Little Endian<br>
+buffer_bytes = (1024,1024) omin=0 omax=0 int=1 empty=0<br>
+period_bytes = (128,128) omin=0 omax=0 int=1 empty=0<br>
+[   94.597620] afe_send_custom_topology_block: AFE SVC cal has invalid size: 0!<br>
+[   94.603809] afe_send_custom_topology: No cal sent for cal_index 7! ret -22<br>
+[   94.611093] afe_get_cal_topology_id: [AFE_TOPOLOGY_CAL] not initialized for this port 4096<br>
+[   94.640234] q6asm_callback: cmd = 0x10da1 returned error = 0x3<br>
+[   94.645162] q6asm_send_cal: DSP returned error[3] audio audstrm cal send<br>
+[   94.662618] adm_callback: cmd = 0x10328 returned error = 0x3<br>
+[   94.667332] send_adm_cal_block: DSP returned error[ADSP_EUNSUPPORTED]<br>
+Aplay: Done playing<br>
+[  100.715822] BUG: sleeping function called from invalid context at /usr/src/kernel/kernel/locking/mutex.c:97<br>
+[  100.724533] in_atomic(): 0, irqs_disabled(): 128, pid: 1759, name: aplay<br>
+root@swi-mdm9x28-wp:~# pwd<br>
+/home/root<br>
+root@swi-mdm9x28-wp:~# cm info<br>
+Device:                        WP7607<br>
+IMEI:                          359779081234565<br>
+IMEISV:                        6<br>
+FSN:                           VN730485080103<br>
+Firmware Version:              SWI9X07Y_02.28.03.05 000000 jenkins 2019/07/08 11:04:16<br>
+Bootloader Version:            SWI9X07Y_[  134.606893] i2c-msm-v2 78b8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x3a MSTR_STS:0x0c1300c8 OPER:0x00000090<br>
+02.28.03.05 000000 jenkins 2019/07/08 11:04:16<br>
+[  134.628097] i2c-msm-v2 78b8000.i2c: NACK: slave not responding, ensure its powered: msgs(n:1 cur:0 tx) bc(rx:0 tx:2) mode:FIFO slv_addr:0x3a MSTR_STS:0x0c1300c8 OPER:0x00000090<br>
+MCU Version:                   002.011<br>
+PRI Part Number (PN):          9908958<br>
+PRI Revision:                  001.000<br>
+Carrier PRI Name:              GENERIC<br>
+Carrier PRI Revision:          002.073_000<br>
+SKU:                           1104301<br>
+Last Reset Cause:              Reset, User Requested<br>
+Resets Count:                  Expected: 101    Unexpected: 3<br>
+root@swi-mdm9x28-wp:~#</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/audio-playback-with-mangoh-green-wp76xx/1362/7">Audio Playback with mangOH Green WP76xx</a>
+                        <meta itemprop='position' content='1'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/raghavasanikam'><span itemprop='name'>raghavasanikam</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-16T12:32:56Z' class='post-time'>
+                    June 16, 2021, 12:32pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-16T12:32:56Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Do you guys have any solution for this ? I have exactly the same problem on mangOH red with wp7608.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-16T12:35:31Z' class='post-time'>
+                    June 16, 2021, 12:35pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-16T12:35:31Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>how about using AT command?</p>
+<p>at!avcfg=5,1,2<br>
+AT!AVSETPROFILE=5</p>
+<p>AT!AVAUDIO=1,1,/home/root/0-to-9_8k.wav</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/help-with-audio-on-mangoh-green/9509/2">Help with Audio on MangOH Green</a>
+                        <meta itemprop='position' content='1'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_17' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/raghavasanikam'><span itemprop='name'>raghavasanikam</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-16T13:31:44Z' class='post-time'>
+                    June 16, 2021,  1:31pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-16T13:31:44Z'>
+              <span itemprop='position'>17</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>AT Command playback works.  I do not want to use AT commands for my application use case.  I need to read and write samples from/to mic locally for a VoIP application.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_18' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-do-i-play-a-simple-audio-file-from-the-cmd-line/4130">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2021-06-16T14:44:36Z' class='post-time'>
+                    June 16, 2021,  2:44pm
+                  </time>
+                  <meta itemprop='dateModified' content='2021-06-16T14:44:36Z'>
+              <span itemprop='position'>18</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>How about the sample app audioPlaybackRec :</p>
+<p>app runProc audioPlaybackRec audioPlaybackRecTest --exe=audioPlaybackRecTest – PB_SAMPLES MIC /usr/share/sounds/0-to-9.wav 1 8000 16</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>How to Tell a Baseline Image vs an Overlay Image</title>
+    <link>https://forum.mangoh.io/t/how-to-tell-a-baseline-image-vs-an-overlay-image/2740</link>
+    <description>Is there a way to tell from the command line if the Legato system is running from a Baseline image vs an Overlay image after the Overlay image has been marked good?
+
+Ultimately I&#39;m trying to determine if the image running on a module is running out of R/O or the R/W space, see below.
+
+![image|520x500](upload://4dyewGJxVKOxNLDpEwLWm0Quwac.png)</description>
+    
+    <lastBuildDate>Tue, 23 Jul 2019 17:25:28 +0000</lastBuildDate>
+    <category>Build your own</category>
+    <atom:link href="https://forum.mangoh.io/t/how-to-tell-a-baseline-image-vs-an-overlay-image/2740.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>How to Tell a Baseline Image vs an Overlay Image</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/nick">@nick</a></p>
+<aside class="quote no-group" data-username="nick" data-post="2" data-topic="2740">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://sea2.discourse-cdn.com/business6/user_avatar/forum.mangoh.io/nick/40/1380_2.png" class="avatar"> nick:</div>
+<blockquote>
+<p>I’ve seen a lot of system images installed as overlays get rolled back due to some hardware failure (usually kernel driver failure). Is this by chance the behaviour you’re trying to prevent?</p>
+</blockquote>
+</aside>
+<p>Yes we have seen evidence of this and I was looking for an easy way to tell.  Speaking of this if you see links to <code>/mnt/legato</code> when you do a <code>ls -al /legato/systems/current</code> then a baseline image is running.</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-tell-a-baseline-image-vs-an-overlay-image/2740/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-tell-a-baseline-image-vs-an-overlay-image/2740/3</link>
+        <pubDate>Tue, 23 Jul 2019 17:25:28 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2740-3</guid>
+        <source url="https://forum.mangoh.io/t/how-to-tell-a-baseline-image-vs-an-overlay-image/2740.rss">How to Tell a Baseline Image vs an Overlay Image</source>
+      </item>
+      <item>
+        <title>How to Tell a Baseline Image vs an Overlay Image</title>
+        <dc:creator><![CDATA[nick]]></dc:creator>
+        <description><![CDATA[
+            <p>Hey Darren,</p>
+<p>How did you flash the image? If I’m not mistaken, the only way to get your system image into read only memory is using <code>fwupdate</code>, <code>swiflash</code>, or an over the air firmware update (with your system update concatenated into a <code>.spk</code> image). If you install apps or <code>.update</code> bundles over local micro USB it’s likely an overlay.</p>
+<p>In terms of inspecting this, have a look here: <a href="https://docs.legato.io/latest/conceptsUpdates.html" rel="nofollow noopener">https://docs.legato.io/latest/conceptsUpdates.html</a>. You should be able to figure out what’s overlay and what’s read only by inspecting (<code>ls -la</code>) <code>/mnt/flash/legato</code> (read only) and <code>/legato</code> (overlay).</p>
+<p>I’ve seen a lot of system images installed as overlays get rolled back due to some hardware failure  (usually kernel driver failure). Is this by chance the behaviour you’re trying to prevent?</p>
+<p>Happy hacking,<br>
+Nick</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-tell-a-baseline-image-vs-an-overlay-image/2740/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-tell-a-baseline-image-vs-an-overlay-image/2740/2</link>
+        <pubDate>Wed, 26 Jun 2019 18:37:15 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2740-2</guid>
+        <source url="https://forum.mangoh.io/t/how-to-tell-a-baseline-image-vs-an-overlay-image/2740.rss">How to Tell a Baseline Image vs an Overlay Image</source>
+      </item>
+      <item>
+        <title>How to Tell a Baseline Image vs an Overlay Image</title>
+        <dc:creator><![CDATA[dbeckwith]]></dc:creator>
+        <description><![CDATA[
+            <p>Is there a way to tell from the command line if the Legato system is running from a Baseline image vs an Overlay image after the Overlay image has been marked good?</p>
+<p>Ultimately I’m trying to determine if the image running on a module is running out of R/O or the R/W space, see below.</p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/1d90df550d740812fb0d5eb813c01d2fc2c89ec8.png" data-download-href="/uploads/short-url/4dyewGJxVKOxNLDpEwLWm0Quwac.png?dl=1" title="image.png" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/1d90df550d740812fb0d5eb813c01d2fc2c89ec8.png" alt="image" data-base62-sha1="4dyewGJxVKOxNLDpEwLWm0Quwac" width="520" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/1d90df550d740812fb0d5eb813c01d2fc2c89ec8_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/how-to-tell-a-baseline-image-vs-an-overlay-image/2740/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-tell-a-baseline-image-vs-an-overlay-image/2740/1</link>
+        <pubDate>Wed, 26 Jun 2019 16:44:31 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2740-1</guid>
+        <source url="https://forum.mangoh.io/t/how-to-tell-a-baseline-image-vs-an-overlay-image/2740.rss">How to Tell a Baseline Image vs an Overlay Image</source>
+      </item>
+  </channel>
+</rss>

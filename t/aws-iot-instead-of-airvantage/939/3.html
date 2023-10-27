@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>AWS IoT instead of AirVantage - #3 by mohamid - mangOH Red - mangOH forum</title>
+    <meta name="description" content="Has anyone played with the Red to connect to AWS IoT instead of the AirVantage platform? Google was of no great help! Would love to see a tutorial for doing this. Any pointers welcome. 
+Thanks in advance">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/aws-iot-instead-of-airvantage/939" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;AWS IoT instead of AirVantage&#39;" href="https://forum.mangoh.io/t/aws-iot-instead-of-airvantage/939.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/aws-iot-instead-of-airvantage/939/3" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/aws-iot-instead-of-airvantage/939/3" />
+<meta property="og:title" content="AWS IoT instead of AirVantage" />
+<meta name="twitter:title" content="AWS IoT instead of AirVantage" />
+<meta property="og:description" content="Hi Thanks for the pointers. I had a look at the WolfSSL and there is a WolfMQTT. Wonder why you created your own variant and not use the WolfMQTT? There is also an example of AWS IOT. Did that work for you? Curious to learn more about your experiences" />
+<meta name="twitter:description" content="Hi Thanks for the pointers. I had a look at the WolfSSL and there is a WolfMQTT. Wonder why you created your own variant and not use the WolfMQTT? There is also an example of AWS IOT. Did that work for you? Curious to learn more about your experiences" />
+<meta property="og:article:section" content="mangOH Red" />
+<meta property="og:article:section:color" content="DF1E2E" />
+<meta property="article:published_time" content="2017-11-29T23:13:12+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"AWS IoT instead of AirVantage","mainEntity":{"@type":"Question","name":"AWS IoT instead of AirVantage","text":"Has anyone played with the Red to connect to AWS IoT instead of the AirVantage platform? Google was of no great help! Would love to see a tutorial for doing this. Any pointers welcome.\n\nThanks in advance","upvoteCount":0,"answerCount":0,"dateCreated":"2017-11-27T21:04:58.915Z","author":{"@type":"Person","name":"Mo Hamid"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/aws-iot-instead-of-airvantage/939">AWS IoT instead of AirVantage</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red/12" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #DF1E2E'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='AWS IoT instead of AirVantage'>
+        <meta itemprop='articleSection' content='mangOH Red'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/mohamid'><span itemprop='name'>mohamid</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/aws-iot-instead-of-airvantage/939">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-11-27T21:04:58Z' class='post-time'>
+                    November 27, 2017,  9:04pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-11-27T21:04:58Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Has anyone played with the Red to connect to AWS IoT instead of the AirVantage platform? Google was of no great help! Would love to see a tutorial for doing this. Any pointers welcome.</p>
+<p>Thanks in advance</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/chucklink'><span itemprop='name'>chucklink</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/aws-iot-instead-of-airvantage/939">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-11-28T17:41:26Z' class='post-time'>
+                    November 28, 2017,  5:41pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-11-28T17:41:26Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>We use the Mangoh Red and have an option to connect to AWS IoT using certificates as they specify.  We started with WolfSSL and created our own variant of MQTT based off the Paho async clients.  Our solution is the result of many months of work and was not a simple exercise, but we have what I believe is one of the most stable and best performing solutions out there.  We also have created a second security solution that uses the SIM card to generate TLS security credentials.  That is our real product.    Our solution is really a reference solution that we’ve created for the automotive market and it includes a complete set of options including very low power operation, secure software update and our patent pending “quick connect” solution.  We can connect to an idle device in under 3 seconds without an active data session and without SMS messages.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/mohamid'><span itemprop='name'>mohamid</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/aws-iot-instead-of-airvantage/939">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-11-29T23:13:12Z' class='post-time'>
+                    November 29, 2017, 11:13pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-11-29T23:13:12Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi Thanks for the pointers. I had a look at the WolfSSL and there is a WolfMQTT. Wonder why you created your own variant and not use the WolfMQTT? There is also an example of AWS IOT. Did that work for you? Curious to learn more about your experiences</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/how-to-connect-to-cloud-using-mangoh-red/10137/2">How to connect to cloud using mangoh red</a>
+                        <meta itemprop='position' content='1'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/mlw'><span itemprop='name'>mlw</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/aws-iot-instead-of-airvantage/939">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-12-04T10:50:44Z' class='post-time'>
+                    December 4, 2017, 10:50am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-12-04T10:50:44Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi,</p>
+<p>You might also want to check this out as it uses AWS.</p>
+<p><a href="https://developer.qualcomm.com/project/mangoh-red-smart-home" rel="nofollow noopener">https://developer.qualcomm.com/project/mangoh-red-smart-home</a></p>
+<p>Regards</p>
+<p>Matt</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/mohamid'><span itemprop='name'>mohamid</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/aws-iot-instead-of-airvantage/939">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-12-11T11:18:03Z' class='post-time'>
+                    December 11, 2017, 11:18am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-12-11T11:18:03Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I am trying to use the AWS IoT SDK as an external build and linking into my app. I know if I build the SDK natively and run the sample test files it is working. But when I bring it into the Legato component I am getting build errors. If anyone can help me unlock would appreciate it</p>
+<p>mkapp -v -t wp85 <br>
+linuxApp.adef<br>
+C compiler = /opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc<br>
+C++ compiler =/opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++<br>
+Compiler sysroot = /opt/swi/y17-ext/sysroots/armv7a-vfp-neon-poky-linux-gnueabi<br>
+Linker = /opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-ld<br>
+Static lib archiver = /opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-ar<br>
+Assembler = /opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-as<br>
+Debug symbol stripper = /opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-strip<br>
+Object file copier/translator = /opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-objcopy<br>
+ELF file info extractor = /opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-readelf<br>
+Command-line arguments from previous run not found.<br>
+Parsing file: ‘/home/mangoh/mangOH/apps/linuxApp/linuxApp.adef’.<br>
+Modelling application: 'linuxApp’<br>
+defined in ‘/home/mangoh/mangOH/apps/linuxApp/linuxApp.adef’<br>
+Parsing file: ‘/home/mangoh/mangOH/apps/linuxApp/aws/Component.cdef’.<br>
+Modelling component: ‘aws’<br>
+found at: ‘/home/mangoh/mangOH/apps/linuxApp/aws’<br>
+== ‘aws’ component summary ==<br>
+Includes files from the build host:<br>
+’/home/mangoh/mangOH/apps/AWSIoTSDK/awsIot/samples/linux/subscribe_publish_sample/subscribe_publish_sample’:<br>
+appearing inside app as: '/usr/bin’<br>
+permissions: execute<br>
+Application ‘linuxApp’ contains component ‘aws’ (/home/mangoh/mangOH/apps/linuxApp/aws).<br>
+Application ‘linuxApp’ contains executable ‘linuxApp’.<br>
+Parsing file: ‘/home/mangoh/mangOH/apps/linuxApp/linuxAppComp/Component.cdef’.<br>
+Modelling component: 'linuxAppComp’<br>
+found at: ‘/home/mangoh/mangOH/apps/linuxApp/linuxAppComp’<br>
+Parsing file: ‘/home/mangoh/mangOH/apps/AWSIoTSDK/awsIot/samples/linux/subscribe_publish_sample/Component.cdef’.<br>
+Modelling component: ‘subscribe_publish_sample’<br>
+found at: ‘/home/mangoh/mangOH/apps/AWSIoTSDK/awsIot/samples/linux/subscribe_publish_sample’<br>
+== ‘subscribe_publish_sample’ component summary ==<br>
+Includes files from the build host:<br>
+’/home/mangoh/mangOH/apps/AWSIoTSDK/awsIot/samples/linux/subscribe_publish_sample/subscribe_publish_sample’:<br>
+appearing inside app as: ‘/usr/bin’<br>
+permissions: execute<br>
+== ‘linuxAppComp’ component summary ==<br>
+C sources:<br>
+’/home/mangoh/mangOH/apps/linuxApp/linuxAppComp/linuxAppComp.c’<br>
+Depends on components:<br>
+'subscribe_publish_sample’<br>
+Executable ‘linuxApp’ in application ‘linuxApp’ contains component ‘linuxAppComp’ (/home/mangoh/mangOH/apps/linuxApp/linuxAppComp).</p>
+<p>== ‘linuxApp’ application summary ==</p>
+<p>Uses components:<br>
+‘aws’<br>
+‘linuxAppComp’<br>
+'subscribe_publish_sample’<br>
+Builds executables:<br>
+'linuxApp’<br>
+Instantiates components:<br>
+‘subscribe_publish_sample’<br>
+'linuxAppComp’<br>
+Runs inside a sandbox.<br>
+Has the following limits:<br>
+maxSecureStorageBytes: 8192<br>
+maxThreads: 20<br>
+maxMQueueBytes: 512<br>
+maxQueuedSignals: 100<br>
+maxMemoryBytes: 40960000<br>
+cpuShare: 1024<br>
+maxFileSystemBytes: 131072<br>
+Has access to the following configuration trees:<br>
+Its own tree: read + write<br>
+Will only start when requested to start.<br>
+When started, will run process: 'linuxApp’<br>
+Executing file: 'linuxApp’<br>
+Without any command line arguments.<br>
+With the following environment variables:<br>
+PATH=/usr/local/bin:/usr/bin:/bin<br>
+Fault recovery action: ignore (default)<br>
+Watchdog timeout: disabled<br>
+With the following limits:<br>
+Max. core dump file size: 102400 bytes<br>
+Max. file size: 102400 bytes<br>
+Max. locked memory size: 8192 bytes<br>
+Max. number of file descriptors: 256<br>
+Executable ‘linuxApp’:</p>
+<p>Generating interfaces.h for component ‘linuxAppComp’ in ‘_build_linuxApp/wp85/component/89207388a079506e6139546b7bd788c8/src/interfaces.h’.<br>
+Generating component-specific IPC code for component ‘linuxAppComp’ in ‘_build_linuxApp/wp85/component/89207388a079506e6139546b7bd788c8/src/_componentMain.c’.<br>
+Generating system configuration data for app ‘linuxApp’ in file ‘_build_linuxApp/wp85/app/linuxApp/staging/root.cfg’.<br>
+Generating startup code for executable ‘linuxApp’ (app/linuxApp/staging/read-only/bin/linuxApp) in ‘_build_linuxApp/wp85/app/linuxApp/src/linuxApp/_main.c’.<br>
+Generating ninja build script: ‘_build_linuxApp/wp85/build.ninja’.<br>
+Executing ninja build system…<br>
+$ ninja -v -d explain -f _build_linuxApp/wp85/build.ninja<br>
+ninja: warning: multiple rules generate /home/mangoh/mangOH/apps/AWSIoTSDK/awsIot/samples/linux/subscribe_publish_sample/subscribe_publish_sample. builds involving this target will not be correct; continuing anyway<br>
+ninja explain: output awsExternalBuild_line0 doesn’t exist<br>
+ninja explain: awsExternalBuild_line0 is dirty<br>
+ninja explain: depfile ‘_build_linuxApp/wp85/component/89207388a079506e6139546b7bd788c8/obj/ae347cb872d52c8c76f8c392dba5558c.o.d’ is missing<br>
+ninja explain: output subscribe_publish_sampleExternalBuild_line0 doesn’t exist<br>
+ninja explain: subscribe_publish_sampleExternalBuild_line0 is dirty<br>
+ninja explain: subscribe_publish_sampleExternalBuild is dirty<br>
+ninja explain: _build_linuxApp/wp85/component/89207388a079506e6139546b7bd788c8/obj/ae347cb872d52c8c76f8c392dba5558c.o is dirty<br>
+ninja explain: depfile ‘_build_linuxApp/wp85/component/89207388a079506e6139546b7bd788c8/obj/_componentMain.c.o.d’ is missing<br>
+ninja explain: _build_linuxApp/wp85/component/89207388a079506e6139546b7bd788c8/obj/_componentMain.c.o is dirty<br>
+ninja explain: subscribe_publish_sampleExternalBuild is dirty<br>
+ninja explain: subscribe_publish_sampleExternalBuild is dirty<br>
+ninja explain: _build_linuxApp/wp85/staging/read-only/lib/libComponent_linuxAppComp.so is dirty<br>
+ninja explain: _build_linuxApp/wp85/app/linuxApp/staging/read-only/lib/libComponent_linuxAppComp.so is dirty<br>
+ninja explain: /home/mangoh/mangOH/apps/AWSIoTSDK/awsIot/samples/linux/subscribe_publish_sample/subscribe_publish_sample is dirty<br>
+ninja explain: _build_linuxApp/wp85/app/linuxApp/staging/read-only/usr/bin is dirty<br>
+ninja explain: depfile ‘_build_linuxApp/wp85/app/linuxApp/obj/linuxApp/_main.c.o.d’ is missing<br>
+ninja explain: _build_linuxApp/wp85/app/linuxApp/obj/linuxApp/_main.c.o is dirty<br>
+ninja explain: _build_linuxApp/wp85/staging/read-only/lib/libComponent_linuxAppComp.so is dirty<br>
+ninja explain: _build_linuxApp/wp85/app/linuxApp/staging/read-only/bin/linuxApp is dirty<br>
+ninja explain: _build_linuxApp/wp85/app/linuxApp/staging/info.properties is dirty<br>
+[1/11] cd ./_build_linuxApp/wp85/component/82a06889c6b3cf01d0a01301c07f2c57; env CFLAGS="–sysroot=/opt/swi/y17-ext/sysroots/armv7a-vfp-neon-poky-linux-gnueabi -I ./_build_linuxApp/wp85 -I/home/mangoh/legato_framework/legato/interfaces -I/home/mangoh/legato_framework/legato/framework/c/inc -I/home/mangoh/mangOH/apps/linuxApp" CXXFLAGS="–sysroot=/opt/swi/y17-ext/sysroots/armv7a-vfp-neon-poky-linux-gnueabi -I ./_build_linuxApp/wp85 -I/home/mangoh/legato_framework/legato/interfaces -I/home/mangoh/legato_framework/legato/framework/c/inc -I/home/mangoh/mangOH/apps/linuxApp" LDFLAGS="–sysroot=/opt/swi/y17-ext/sysroots/armv7a-vfp-neon-poky-linux-gnueabi " PATH="/opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi:$PATH" sh -c ‘make’<br>
+[2/11] /opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc --sysroot=/opt/swi/y17-ext/sysroots/armv7a-vfp-neon-poky-linux-gnueabi -MMD -MF _build_linuxApp/wp85/component/89207388a079506e6139546b7bd788c8/obj/_componentMain.c.o.d -c _build_linuxApp/wp85/component/89207388a079506e6139546b7bd788c8/src/_componentMain.c -o _build_linuxApp/wp85/component/89207388a079506e6139546b7bd788c8/obj/_componentMain.c.o -DLE_FILENAME=<code>basename _build_linuxApp/wp85/component/89207388a079506e6139546b7bd788c8/src/_componentMain.c</code> -Wall -fPIC -Werror -fvisibility=hidden -DMK_TOOLS_BUILD  -DLEGATO_EMBEDDED -I ./_build_linuxApp/wp85 -I/home/mangoh/legato_framework/legato/interfaces -I/home/mangoh/legato_framework/legato/framework/c/inc -I/home/mangoh/mangOH/apps/linuxApp -I./_build_linuxApp/wp85/component/89207388a079506e6139546b7bd788c8/src -I/home/mangoh/mangOH/apps/AWSIoTSDK/awsIot/samples/linux/subscribe_publish_sample -I./_build_linuxApp/wp85/component/7b588f83d063b84d1da636a389259450 -DLE_COMPONENT_NAME=linuxAppComp -DLE_LOG_SESSION=linuxAppComp_LogSession  -DLE_LOG_LEVEL_FILTER_PTR=linuxAppComp_LogLevelFilterPtr  “-DCOMPONENT_INIT=LE_CI_LINKAGE LE_SHARED void _linuxAppComp_COMPONENT_INIT()”<br>
+[3/11] cd ./_build_linuxApp/wp85/component/7b588f83d063b84d1da636a389259450; env CFLAGS="–sysroot=/opt/swi/y17-ext/sysroots/armv7a-vfp-neon-poky-linux-gnueabi -I ./_build_linuxApp/wp85 -I/home/mangoh/legato_framework/legato/interfaces -I/home/mangoh/legato_framework/legato/framework/c/inc -I/home/mangoh/mangOH/apps/linuxApp" CXXFLAGS="–sysroot=/opt/swi/y17-ext/sysroots/armv7a-vfp-neon-poky-linux-gnueabi -I ./_build_linuxApp/wp85 -I/home/mangoh/legato_framework/legato/interfaces -I/home/mangoh/legato_framework/legato/framework/c/inc -I/home/mangoh/mangOH/apps/linuxApp" LDFLAGS="–sysroot=/opt/swi/y17-ext/sysroots/armv7a-vfp-neon-poky-linux-gnueabi " PATH="/opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi:$PATH" sh -c 'make’<br>
+FAILED: cd ./_build_linuxApp/wp85/component/7b588f83d063b84d1da636a389259450; env CFLAGS="–sysroot=/opt/swi/y17-ext/sysroots/armv7a-vfp-neon-poky-linux-gnueabi -I ./_build_linuxApp/wp85 -I/home/mangoh/legato_framework/legato/interfaces -I/home/mangoh/legato_framework/legato/framework/c/inc -I/home/mangoh/mangOH/apps/linuxApp" CXXFLAGS="–sysroot=/opt/swi/y17-ext/sysroots/armv7a-vfp-neon-poky-linux-gnueabi -I ./_build_linuxApp/wp85 -I/home/mangoh/legato_framework/legato/interfaces -I/home/mangoh/legato_framework/legato/framework/c/inc -I/home/mangoh/mangOH/apps/linuxApp" LDFLAGS="–sysroot=/opt/swi/y17-ext/sysroots/armv7a-vfp-neon-poky-linux-gnueabi " PATH="/opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi:$PATH" sh -c 'make’<br>
+make[1]: Entering directory '/home/mangoh/mangOH/apps/linuxApp/_build_linuxApp/wp85/component/7b588f83d063b84d1da636a389259450’<br>
+make[1]: *** No targets specified and no makefile found.  Stop.<br>
+make[1]: Leaving directory '/home/mangoh/mangOH/apps/linuxApp/_build_linuxApp/wp85/component/7b588f83d063b84d1da636a389259450’<br>
+FAILED: cd ./_build_linuxApp/wp85/component/82a06889c6b3cf01d0a01301c07f2c57; env CFLAGS="–sysroot=/opt/swi/y17-ext/sysroots/armv7a-vfp-neon-poky-linux-gnueabi -I ./_build_linuxApp/wp85 -I/home/mangoh/legato_framework/legato/interfaces -I/home/mangoh/legato_framework/legato/framework/c/inc -I/home/mangoh/mangOH/apps/linuxApp" CXXFLAGS="–sysroot=/opt/swi/y17-ext/sysroots/armv7a-vfp-neon-poky-linux-gnueabi -I ./_build_linuxApp/wp85 -I/home/mangoh/legato_framework/legato/interfaces -I/home/mangoh/legato_framework/legato/framework/c/inc -I/home/mangoh/mangOH/apps/linuxApp" LDFLAGS="–sysroot=/opt/swi/y17-ext/sysroots/armv7a-vfp-neon-poky-linux-gnueabi " PATH="/opt/swi/y17-ext/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi:$PATH" sh -c 'make’<br>
+make[1]: Entering directory '/home/mangoh/mangOH/apps/linuxApp/_build_linuxApp/wp85/component/82a06889c6b3cf01d0a01301c07f2c57’<br>
+make[1]: *** No targets specified and no makefile found.  Stop.<br>
+make[1]: Leaving directory '/home/mangoh/mangOH/apps/linuxApp/_build_linuxApp/wp85/component/82a06889c6b3cf01d0a01301c07f2c57’<br>
+ninja: build stopped: subcommand failed.<br>
+Makefile:7: recipe for target ‘wp85’ failed<br>
+make: *** [wp85] Error 1</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/aws-iot-instead-of-airvantage/939">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-12-12T17:28:03Z' class='post-time'>
+                    December 12, 2017,  5:28pm
+                  </time>
+                  <meta itemprop='dateModified' content='2017-12-12T17:28:03Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I’m not sure what the problem is.  Can you provide the source code for the project you are trying to build?  If you can do that, then I will try to build it myself and try to work through any errors.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/mohamid'><span itemprop='name'>mohamid</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/aws-iot-instead-of-airvantage/939">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-12-14T17:39:48Z' class='post-time'>
+                    December 14, 2017,  5:39pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-07-30T03:51:53Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello David</p>
+<p>Its not the same error any more, but I am still getting errors. Also I’m not sure if I am using the DataServices call le_data correctly. Happy to receive your input. The file is attached<br>
+ThanksMo</p>
+<p><a class="attachment" href="/uploads/short-url/qTMQSxoTHXUub6oqc8KSPhaTuQY.zip">RedToAWS.zip</a> (857 KB)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/mohamid'><span itemprop='name'>mohamid</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/aws-iot-instead-of-airvantage/939">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-12-18T16:49:57Z' class='post-time'>
+                    December 18, 2017,  4:49pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-07-30T03:51:53Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I have made some progress and now able to load the software on the board but coming across with some stability issues.</p>
+<p>So seeing a number of issues here.</p>
+<p>First I packaged the application within the system build. When I installed the Red system package, my app didn’t show up with “app status”. Also when I make clean the files don’t get removed. I’m guessing may be a sdef configuration issue.</p>
+<p>Second, When I didn’t see any activity on the log from the app, I then attempted to update the app, but the software informs me that this is already installed and won’t do anything more.</p>
+<p>Third, I am attempting to load by the App certain certificate files. On my development environment this is easily detected, but when I try to replicate the same structure, it doesn’t work. So I then try to specify a location on the target and it appears that application doesn’t find these files.</p>
+<p>Fourth I can see that the application doesn’t like my attempt to establish a data connection. I’m at a loss as to why and I can’t get to the AWS servers.</p>
+<p>Lastly I haven’t been able to trace why the application is closed down.</p>
+<p>Any suggestions on how to move forward would be most appreciated as I have exhausted all thoughts</p>
+<p>If this is a tools/versions mismatch issue please help with links to matching software versions as I have spent the best part of 2 days trying combinations to get past various uid mismatch errors</p>
+<p>I have highlighted the concerning areas on the attached log file.<br>
+<a class="attachment" href="/uploads/short-url/kUwRaOeShVDDwkkKupg15UI41eT.pdf">Log dump 1812.pdf</a> (267.4 KB)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/mohamid'><span itemprop='name'>mohamid</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/aws-iot-instead-of-airvantage/939">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-12-19T04:41:00Z' class='post-time'>
+                    December 19, 2017,  4:41am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-12-19T04:41:00Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>OK I have progressed  now and able to subscribe and publish but at some expense. I wanted to sandbox the application so that it has access to whatever data connection that already exist. For whatever reason the application doesn’t like being sandboxed and doesn’t show up on the app list. My other problem is that the app wont auto start. The app also doesn’t like being a standalone App. That is it won’t start a data connection which is still puzzling me. Perhaps its because its a legacy App and not a Legato App, but I do get connectivity if I have another Legato App not sandboxed started before the legacy App. It means I have to manually start both apps now. Any suggestions to automate the process and also work inside the sandbox is welcome.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/asyal'><span itemprop='name'>asyal</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/aws-iot-instead-of-airvantage/939">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2017-12-19T06:50:18Z' class='post-time'>
+                    December 19, 2017,  6:50am
+                  </time>
+                  <meta itemprop='dateModified' content='2017-12-19T06:50:18Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/mohamid">@mohamid</a>, can you publish a tutorial/wiki page so others can follow what you did?  Other members who are interested might be able to provide more insights as well.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Gcohen'><span itemprop='name'>Gcohen</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/aws-iot-instead-of-airvantage/939">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-05-31T15:11:29Z' class='post-time'>
+                    May 31, 2018,  3:11pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-05-31T15:11:29Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hello chucklink,</p>
+<p>I would like to know if you can share with me the  code of the connectivity for the MangOH RED with the AWS IOT.</p>
+<p>Thank you</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/sobou'><span itemprop='name'>sobou</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/aws-iot-instead-of-airvantage/939">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-11-12T17:04:56Z' class='post-time'>
+                    November 12, 2019,  5:04pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-11-12T17:04:56Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi mohamid,<br>
+Can you share some tutorials/additional comments how to install this SDK on MangOH red?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

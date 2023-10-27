@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Mangoh yellow wifi from source</title>
+    <link>https://forum.mangoh.io/t/mangoh-yellow-wifi-from-source/10291</link>
+    <description>I was having trouble finding a guide to getting wifi working from a custom build.
+It would work from the pre compiled firmware but would fail when generating my own .spk.
+I ended up finding everything I needed through various forum posts and have compiled a step by step guide.
+
+````
+//configure leaf
+&gt;&gt; $ cd ~
+&gt;&gt; $ mkdir leaf_yellow
+&gt;&gt; $ cd leaf_yellow
+&gt;&gt; $ leaf init
+&gt;&gt; $ leaf profile create yellow
+&gt;&gt; $ leaf profile config yellow -p swi-wp77_4.0.1
+&gt;&gt; $ leaf profile sync
+
+//install current toolchain
+&gt;&gt; $ wget https://downloads.sierrawireless.com/AirPrime/WP77xx/Release13/poky-swi-ext-glibc-x86_64-meta-toolchain-swi-armv7a-neon-toolchain-swi-SWI9X06Y_02.35.02.00.sh
+&gt;&gt; $ ./poky-swi-ext-glibc-x86_64-meta-toolchain-swi-armv7a-neon-toolchain-swi-SWI9X06Y_02.35.02.00.sh
+
+//get linux source and compile
+&gt;&gt; $ leaf getsrc swi-linux
+&gt;&gt; $ cd swi-linux-src
+&gt;&gt; $ make image_bin
+&gt;&gt; $ cd ..
+
+//get meta-mangoh and recompile
+&gt;&gt; $ cd swi-linux-src
+&gt;&gt; $ git clone https://github.com/mangOH/meta-mangoh
+&gt;&gt; $ cd meta-mangoh
+&gt;&gt; $ git cherry-pick f68c437
+&gt;&gt; $ git cherry-pick d1fe480
+&gt;&gt; $ cd ..
+&gt;&gt; $ make image_bin
+&gt;&gt; $ cd ..
+
+//get legato source and compile
+&gt;&gt; $ leaf getsrc legato
+&gt;&gt; $ cd legato-src/legato
+&gt;&gt; $ make wp77xx
+&gt;&gt; $ ./bin/legs
+&gt;&gt; $ cd ../..
+
+//get mangoh yellow source and compile
+&gt;&gt; $ git clone --recursive https://github.com/mangOH/mangOH.git
+&gt;&gt; $ cd mangOH/components/boschBsec
+&gt;&gt; $ wget https://community.bosch-sensortec.com/varuj77995/attachments/varuj77995/bst_community-mems-forum/44/1/BSEC_1.4.7.2_GCC_CortexA7_20190225.zip
+&gt;&gt; $ unzip BSEC_1.4.7.2_GCC_CortexA7_20190225.zip
+&gt;&gt; $ cd ../..
+&gt;&gt; $ OCTAVE=0 LEGATO=0 LEGATO_TARGET=wp77xx make yellow_spk
+&gt;&gt; $ cd ..
+
+//generate firmware.spk
+&gt;&gt; $ swicwe -o firmware.spk -c \
+&gt;&gt; $ leaf-data/current/wp77-modem-image/9999999_9908397_SWI9X06Y_02.35.02.00_00_TELSTRA_001.044_000.spk \
+&gt;&gt; $ swi-linux-src/build_bin/tmp/deploy/images/swi-mdm9x28-wp/yocto_wp77xx.4k.cwe \
+&gt;&gt; $ mangOH/build/yellow_wp77xx/legato.cwe
+````</description>
+    
+    <lastBuildDate>Mon, 15 May 2023 23:31:00 +0000</lastBuildDate>
+    <category>Uncategorized</category>
+    <atom:link href="https://forum.mangoh.io/t/mangoh-yellow-wifi-from-source/10291.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Mangoh yellow wifi from source</title>
+        <dc:creator><![CDATA[shib]]></dc:creator>
+        <description><![CDATA[
+            <p>I was having trouble finding a guide to getting wifi working from a custom build.<br>
+It would work from the pre compiled firmware but would fail when generating my own .spk.<br>
+I ended up finding everything I needed through various forum posts and have compiled a step by step guide.</p>
+<pre><code class="lang-auto">//configure leaf
+&gt;&gt; $ cd ~
+&gt;&gt; $ mkdir leaf_yellow
+&gt;&gt; $ cd leaf_yellow
+&gt;&gt; $ leaf init
+&gt;&gt; $ leaf profile create yellow
+&gt;&gt; $ leaf profile config yellow -p swi-wp77_4.0.1
+&gt;&gt; $ leaf profile sync
+
+//install current toolchain
+&gt;&gt; $ wget https://downloads.sierrawireless.com/AirPrime/WP77xx/Release13/poky-swi-ext-glibc-x86_64-meta-toolchain-swi-armv7a-neon-toolchain-swi-SWI9X06Y_02.35.02.00.sh
+&gt;&gt; $ ./poky-swi-ext-glibc-x86_64-meta-toolchain-swi-armv7a-neon-toolchain-swi-SWI9X06Y_02.35.02.00.sh
+
+//get linux source and compile
+&gt;&gt; $ leaf getsrc swi-linux
+&gt;&gt; $ cd swi-linux-src
+&gt;&gt; $ make image_bin
+&gt;&gt; $ cd ..
+
+//get meta-mangoh and recompile
+&gt;&gt; $ cd swi-linux-src
+&gt;&gt; $ git clone https://github.com/mangOH/meta-mangoh
+&gt;&gt; $ cd meta-mangoh
+&gt;&gt; $ git cherry-pick f68c437
+&gt;&gt; $ git cherry-pick d1fe480
+&gt;&gt; $ cd ..
+&gt;&gt; $ make image_bin
+&gt;&gt; $ cd ..
+
+//get legato source and compile
+&gt;&gt; $ leaf getsrc legato
+&gt;&gt; $ cd legato-src/legato
+&gt;&gt; $ make wp77xx
+&gt;&gt; $ ./bin/legs
+&gt;&gt; $ cd ../..
+
+//get mangoh yellow source and compile
+&gt;&gt; $ git clone --recursive https://github.com/mangOH/mangOH.git
+&gt;&gt; $ cd mangOH/components/boschBsec
+&gt;&gt; $ wget https://community.bosch-sensortec.com/varuj77995/attachments/varuj77995/bst_community-mems-forum/44/1/BSEC_1.4.7.2_GCC_CortexA7_20190225.zip
+&gt;&gt; $ unzip BSEC_1.4.7.2_GCC_CortexA7_20190225.zip
+&gt;&gt; $ cd ../..
+&gt;&gt; $ OCTAVE=0 LEGATO=0 LEGATO_TARGET=wp77xx make yellow_spk
+&gt;&gt; $ cd ..
+
+//generate firmware.spk
+&gt;&gt; $ swicwe -o firmware.spk -c \
+&gt;&gt; $ leaf-data/current/wp77-modem-image/9999999_9908397_SWI9X06Y_02.35.02.00_00_TELSTRA_001.044_000.spk \
+&gt;&gt; $ swi-linux-src/build_bin/tmp/deploy/images/swi-mdm9x28-wp/yocto_wp77xx.4k.cwe \
+&gt;&gt; $ mangOH/build/yellow_wp77xx/legato.cwe
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/mangoh-yellow-wifi-from-source/10291/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/mangoh-yellow-wifi-from-source/10291/1</link>
+        <pubDate>Mon, 15 May 2023 23:31:00 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-10291-1</guid>
+        <source url="https://forum.mangoh.io/t/mangoh-yellow-wifi-from-source/10291.rss">Mangoh yellow wifi from source</source>
+      </item>
+  </channel>
+</rss>

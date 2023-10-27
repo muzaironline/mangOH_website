@@ -1,0 +1,44 @@
+
+//
+// Application definition created for the application printClient.
+// This is an auto generated definition for a binary-only application.
+//
+// Do not edit, doing so may cause the application to fail.
+//
+
+start: auto
+sandboxed: true
+
+requires:
+{
+}
+
+bundles:
+{
+    file:
+    {
+        [rx]   read-only/bin/client   /bin/
+        [rx]   read-only/lib/libComponent_printClient.so   /lib/
+    }
+}
+
+processes:
+{
+    envVars:
+    {
+        PATH = "/usr/local/bin:/usr/bin:/bin"
+    }
+
+    run:
+    {
+        ( client )
+    }
+}
+
+extern:
+{
+}
+bindings:
+{
+    client.printClient.printer -> printServer.printer
+}

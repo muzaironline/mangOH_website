@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>I2c app problems</title>
+    <link>https://forum.mangoh.io/t/i2c-app-problems/2398</link>
+    <description>Hi, 
+I am trying to run an app very similar to BatteryChargerReading which is in:
+[https://github.com/mangOH/mangOH/tree/master/samples/tutorials/mangOH_Red/i2c/BatteryChargerReading](https://github.com/mangOH/mangOH/tree/master/samples/tutorials/mangOH_Red/i2c/BatteryChargerReading)
+
+The thing is: every time I try to run it on the Mangoh, I get these pieces of information on the log:
+
+**Jan  6 00:56:16 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[796]/supervisor T=main | app.c app_Start() 3377 | Starting app &#39;i2cReading&#39;**
+**Jan  6 00:56:16 swi-mdm9x28-wp user.err Legato: =ERR= | supervisor[796]/supervisor T=main | app.c GetDevID() 670 | Could not get file info for &#39;/dev/i2c-0&#39;.  No such file or directory.**
+**Jan  6 00:56:16 swi-mdm9x28-wp user.err Legato: =ERR= | supervisor[796]/supervisor T=main | app.c SetCfgDevicePermissions() 780 | Failed to set permissions (rw) for app &#39;i2cReading&#39; on device &#39;/dev/i2c-0&#39;**
+
+
+I don&#39;t know why the script is trying to access &#39;dev/i2c-0&#39;. I am using **i2c-utils.h**. Could someone help me?</description>
+    
+    <lastBuildDate>Wed, 30 Jun 2021 10:51:01 +0000</lastBuildDate>
+    <category>mangOH Red</category>
+    <atom:link href="https://forum.mangoh.io/t/i2c-app-problems/2398.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>i don’t have bus5 on my board<br>
+If bus0 works for you, why don’t you try the following?</p>
+<pre><code class="lang-auto">requires:
+{
+    device:
+    {
+        [rw] /dev/i2c-5 /dev/i2c-0
+    }
+}
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/33">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/33</link>
+        <pubDate>Wed, 30 Jun 2021 10:44:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-33</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[lukasmertens]]></dc:creator>
+        <description><![CDATA[
+            <p>Does it also work when you take bus 5? Because Bus 0 also works for me.</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/32">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/32</link>
+        <pubDate>Wed, 30 Jun 2021 10:37:56 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-32</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>it is working on my side</p>
+<pre><code class="lang-auto">Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c app_Stop() 3545 | Stopping app 'batteryReading'
+Jan  6 00:03:52 swi-mdm9x28-wp user.crit Legato: *CRT* | batteryReading[1896]/framework T=main | LE_FILENAME TermSignalHandler() 643 | Terminated
+Jan  6 08:03:52 swi-mdm9x28-wp user.warn Legato: -WRN- | _appStopClient[1940]/framework T=main | LE_FILENAME CreateSocket() 550 | Socket opened as standard i/o file descriptor 2!
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c app_StopComplete() 4686 | app 'batteryReading' has stopped.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | apps.c DeactivateAppContainer() 374 | Application 'batteryReading' has stopped.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c app_Start() 3420 | Starting app 'batteryReading'
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/dev/log' to '/legato/systems/current/appsWriteable/batteryReading/dev/log': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/dev/null' to '/legato/systems/current/appsWriteable/batteryReading/dev/null': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/dev/zero' to '/legato/systems/current/appsWriteable/batteryReading/dev/zero': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/legato/systems/current/lib/liblegato.so' to '/legato/systems/current/appsWriteable/batteryReading/lib/liblegato.so': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/ld-linux.so.3' to '/legato/systems/current/appsWriteable/batteryReading/lib/ld-linux.so.3': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/libc.so.6' to '/legato/systems/current/appsWriteable/batteryReading/lib/libc.so.6': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/libpthread.so.0' to '/legato/systems/current/appsWriteable/batteryReading/lib/libpthread.so.0': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/librt.so.1' to '/legato/systems/current/appsWriteable/batteryReading/lib/librt.so.1': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/libdl.so.2' to '/legato/systems/current/appsWriteable/batteryReading/lib/libdl.so.2': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/libgcc_s.so.1' to '/legato/systems/current/appsWriteable/batteryReading/lib/libgcc_s.so.1': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/lib/libm.so.6' to '/legato/systems/current/appsWriteable/batteryReading/lib/libm.so.6': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/usr/lib/libstdc++.so.6' to '/legato/systems/current/appsWriteable/batteryReading/lib/libstdc++.so.6': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/legato/systems/current/apps/batteryReading/read-only/lib/libComponent_batteryReadingComponent.so' to '/legato/systems/current/appsWr
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/legato/systems/current/apps/batteryReading/read-only/bin/batteryReading' to '/legato/systems/current/appsWriteable/batteryReading/bi
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2034 | Skipping file link '/dev/i2c-4' to '/legato/systems/current/appsWriteable/batteryReading/dev/i2c-0': Already exists
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateTmpFs() 1738 | Mounted tmpfs at /legato/systems/current/appsWriteable/batteryReading/tmp.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/tmp/legato/serviceDirectoryServer' to '/legato/systems/current/appsWriteable/batteryReading/tmp/legato/serviceDirectoryServer'.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | app.c CreateFileLink() 2104 | Created file link '/tmp/legato/serviceDirectoryClient' to '/legato/systems/current/appsWriteable/batteryReading/tmp/legato/serviceDirectoryClient'.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxCoreDumpFileBytes to value 102400.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileBytes to value 102400.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxLockedMemoryBytes to value 8192.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxFileDescriptors to value 256.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxMQueueBytes to value 512.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxThreads to value 20.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | resourceLimits.c SetRLimitValue() 282 | Setting resource limit maxQueuedSignals to value 100.
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[844]/supervisor T=main | proc.c proc_Start() 1390 | Starting process 'batteryReading' with pid 1941
+Jan  6 08:03:52 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[1941]/supervisor T=main | proc.c proc_Start() 1355 | Execing 'batteryReading'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=unknown | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refPathIteratorMap' is truncated to 'framework.hashMap_refPathIterat'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refEventHandlers' is truncated to 'framework.hashMap_refEventHandl'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refDefault Timer SafeRe' is truncated to 'framework.hashMap_refDefault Ti'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.MessagingClientInterfaces' is truncated to 'framework.MessagingClientInterf'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refHandlersRef' is truncated to 'framework.hashMap_refHandlersRe'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_MessagingServices' is truncated to 'framework.hashMap_MessagingServ'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_MessagingClients' is truncated to 'framework.hashMap_MessagingClie'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.PipelineSIGCHLD-reports' is truncated to 'framework.PipelineSIGCHLD-repor'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME fs_Init() 840 | FS prefix path "/data/le_fs/"
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.hashMap_refFsFileRefMap' is truncated to 'framework.hashMap_refFsFileRefM'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME rand_Init() 71 | getrandom function: 0xb6d4a150
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.DestructorObjs' overflowed. Expanded to 1 blocks.
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | _UNKNOWN_[1941]/&lt;invalid&gt; T=main | _componentMain.c _batteryReadingComponent_Init() 26 | Initializing batteryReadingComponent component library.
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/framework T=main | LE_FILENAME InitPool() 295 | Memory pool name 'framework.msgs-LogControlProtocol' is truncated to 'framework.msgs-LogControlProtoc'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.SigMonitor' overflowed. Expanded to 1 blocks.
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/framework T=main | LE_FILENAME le_mem_ForceAlloc() 833 | Memory pool 'framework.SigHandler' overflowed. Expanded to 1 blocks.
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReading_exe T=main | _main.c main() 60 | == Starting Event Processing Loop ==
+Jan  6 00:03:52 swi-mdm9x28-wp user.info Legato:  INFO | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c _batteryReadingComponent_COMPONENT_INIT() 275 | =============== I2C Reading &amp; Writing application has started
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c EnableI2cBus() 178 | Enabling TCA9546A I2C switch...
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x0, data=0x37
+Jan  6 00:03:52 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 201 | Input Source Control value is 55
+Jan  6 00:03:53 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:53 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:53 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x1, data=0x1b
+Jan  6 00:03:53 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 206 | Power-On Configuration Register value is 27
+Jan  6 00:03:54 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:54 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:54 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x2, data=0x60
+Jan  6 00:03:54 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 211 | Charge Current Control Register value is 96
+Jan  6 00:03:55 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:55 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:55 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x3, data=0x11
+Jan  6 00:03:55 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 216 | Pre-Charge/Termination Current Control Register value is 17
+Jan  6 00:03:56 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:56 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:56 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x4, data=0xba
+Jan  6 00:03:56 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 221 | Charge Voltage Control Register value is 186
+Jan  6 00:03:57 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:57 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:57 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x5, data=0x9c
+Jan  6 00:03:57 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 226 | Charge Termination/Timer Control Register value is 156
+Jan  6 00:03:58 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:58 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:58 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x6, data=0x73
+Jan  6 00:03:58 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 231 | Thermal Regulation Control Register value is 115
+Jan  6 00:03:59 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:03:59 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:03:59 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x7, data=0x4b
+Jan  6 00:03:59 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 236 | Misc Operation Control Register value is 75
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x8, data=0x85
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 241 | System Status Register value is 133
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x9, data=0x82
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 244 | Fault Register value is 130
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0xa, data=0x20
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c ReadBatteryChargerRegister() 247 | Vendor / Part / Revision Status Register value is 32
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusWriteReg() 157 | SMBUS Write addr 0x6b, reg=0x4, data=0xba
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 39 | Opening I2C bus: '/dev/i2c/0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 44 | Opening I2C bus: '/dev/i2c-0'
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c SmbusReadReg() 113 | SMBUS READ addr=0x6b, reg=0x4, data=0xba
+Jan  6 00:04:00 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[1941]/batteryReadingComponent T=main | batteryReading.c OutputBatteryChargerVoltage() 264 | Output voltage is set to 186
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/31">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/31</link>
+        <pubDate>Wed, 30 Jun 2021 10:14:18 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-31</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[lukasmertens]]></dc:creator>
+        <description><![CDATA[
+            <p>No, also doesn’t work. The same error</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/30">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/30</link>
+        <pubDate>Wed, 30 Jun 2021 10:11:50 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-30</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>how about</p>
+<pre><code class="lang-auto">requires:
+{
+    device:
+    {
+        [rw] /dev/i2c-4 /dev/i2c-0
+    }
+}
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/29">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/29</link>
+        <pubDate>Wed, 30 Jun 2021 10:10:27 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-29</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[lukasmertens]]></dc:creator>
+        <description><![CDATA[
+            <p>Like this:</p>
+<pre><code class="lang-auto">requires:
+{
+    device:
+    {
+        [rw] /dev/i2c-5 /dev/i2c-5
+    }
+}
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/28">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/28</link>
+        <pubDate>Wed, 30 Jun 2021 09:49:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-28</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>how do you modify this part??</p>
+<pre><code class="lang-auto">requires:
+{
+    device:
+    {
+        [rw] /dev/i2c-0 /dev/i2c-0
+    }
+</code></pre>
+<p>}</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/27">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/27</link>
+        <pubDate>Wed, 30 Jun 2021 09:45:30 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-27</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[lukasmertens]]></dc:creator>
+        <description><![CDATA[
+            <p>What do you mean? When i execute the command “i2cdetect -y -r  5” i get the adress i need.</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/26">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/26</link>
+        <pubDate>Wed, 30 Jun 2021 09:41:46 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-26</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>there is no such device node.</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/25">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/25</link>
+        <pubDate>Wed, 30 Jun 2021 09:40:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-25</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[lukasmertens]]></dc:creator>
+        <description><![CDATA[
+            <p>Now i get this error, why can’t he open this bus?</p>
+<pre><code class="lang-auto">Jun 30 09:25:57 swi-mdm9x28-wp user.info Legato:  INFO | batteryReading[2376]/batteryReadingComponent T=main | batteryReading.c _batteryReadingComponent_COMPONENT_INIT() 274 | =============== I2C Reading &amp; Writing application has started
+Jun 30 09:25:57 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[2376]/batteryReadingComponent T=main | batteryReading.c EnableI2cBus() 177 | Enabling TCA9546A I2C switch...
+Jun 30 09:25:57 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[2376]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 38 | Opening I2C bus: '/dev/i2c/5'
+Jun 30 09:25:57 swi-mdm9x28-wp user.debug Legato:  DBUG | batteryReading[2376]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 43 | Opening I2C bus: '/dev/i2c-5'
+Jun 30 09:25:57 swi-mdm9x28-wp user.err Legato: =ERR= | batteryReading[2376]/batteryReadingComponent T=main | batteryReading.c I2cAccessBusAddr() 55 | Could not open file /dev/i2c-5 or /dev/i2c/5: No such file or directory
+Jun 30 09:25:57 swi-mdm9x28-wp user.emerg Legato: *EMR* | batteryReading[2376]/batteryReadingComponent T=main | batteryReading.c EnableI2cBus() 180 | failed to open i2cbus 5
+Jun 30 11:25:57 swi-mdm9x28-wp user.info Legato:  INFO | supervisor[909]/supervisor T=main | proc.c proc_SigChildHandler() 2079 | Process 'batteryReading' (PID: 2376) has exited with exit code 1.
+Jun 30 11:25:57 swi-mdm9x28-wp user.emerg Legato: *EMR* | supervisor[909]/supervisor T=main | proc.c proc_SigChildHandler() 2121 | Process 'batteryReading' reached fault limit while system in probation. Device will be rebooted.
+Jun 30 11:25:58 swi-mdm9x28-wp user.emerg Legato: *EMR* | supervisor[909]/supervisor T=main | app.c app_SigChildHandler() 4103 | Process 'batteryReading' in app 'batteryReading' faulted: Rebooting system.
+</code></pre>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/24">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/24</link>
+        <pubDate>Wed, 30 Jun 2021 09:32:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-24</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Then same for me here  …</p>
+<p>You are the only one to know what has been changed, so you need to fix that</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/23">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/23</link>
+        <pubDate>Tue, 29 Jun 2021 12:46:32 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-23</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[lukasmertens]]></dc:creator>
+        <description><![CDATA[
+            <p>If i know that i already fixed it.</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/22">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/22</link>
+        <pubDate>Tue, 29 Jun 2021 12:45:32 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-22</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Then why you can compile previously?</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/21">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/21</link>
+        <pubDate>Tue, 29 Jun 2021 12:44:36 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-21</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[lukasmertens]]></dc:creator>
+        <description><![CDATA[
+            <p>I’ve everything deleted and i started back from the beginning and i got the same error.</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/20">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/20</link>
+        <pubDate>Tue, 29 Jun 2021 12:30:58 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-20</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>no idea what you have changed.<br>
+But you need to debug yourself for your own modification</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/19">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/19</link>
+        <pubDate>Tue, 29 Jun 2021 09:02:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-19</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[lukasmertens]]></dc:creator>
+        <description><![CDATA[
+            <p><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d0ebeaf7102cff52bec9c3fae2be839919289d2e.png" alt="afbeelding" data-base62-sha1="tOcLsuSDNm4Dru2NNp8o0EOBzUq" width="582" height="62"><br>
+I can’t use it. And i need to change it. I will read an external sensor.</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/18">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/18</link>
+        <pubDate>Tue, 29 Jun 2021 09:01:15 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-18</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>try “make clean” or go back to what you have modified</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/17">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/17</link>
+        <pubDate>Tue, 29 Jun 2021 09:00:25 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-17</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[lukasmertens]]></dc:creator>
+        <description><![CDATA[
+            <p>I just replace some adresses and i get this error now.<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/a/ae8fb70a4e354a32f5fed7350be1acf01bd6b3c1.png" data-download-href="/uploads/short-url/oUeZfd0iRdFd3rjKBP61SClIgdH.png?dl=1" title="afbeelding" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/a/ae8fb70a4e354a32f5fed7350be1acf01bd6b3c1_2_690x454.png" alt="afbeelding" data-base62-sha1="oUeZfd0iRdFd3rjKBP61SClIgdH" width="690" height="454" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/a/ae8fb70a4e354a32f5fed7350be1acf01bd6b3c1_2_690x454.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/a/ae8fb70a4e354a32f5fed7350be1acf01bd6b3c1_2_1035x681.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/a/ae8fb70a4e354a32f5fed7350be1acf01bd6b3c1.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/a/ae8fb70a4e354a32f5fed7350be1acf01bd6b3c1_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/16">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/16</link>
+        <pubDate>Tue, 29 Jun 2021 08:50:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-16</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>you can delete that line.</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/15">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/15</link>
+        <pubDate>Tue, 29 Jun 2021 08:20:39 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-15</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[lukasmertens]]></dc:creator>
+        <description><![CDATA[
+            <p>I haven’t that file in my toolchain. Can i install this?</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/14">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/14</link>
+        <pubDate>Tue, 29 Jun 2021 08:18:59 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-14</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>of course you need to point to the file in your toolchain</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/13">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/13</link>
+        <pubDate>Tue, 29 Jun 2021 08:16:20 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-13</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[lukasmertens]]></dc:creator>
+        <description><![CDATA[
+            <p>In the rar you send me i get the following include error. He doesn’t find the file i think.<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/e7a62b85f3f0782c506498384b9d295d59d1f4f0.png" data-download-href="/uploads/short-url/x3gjqgm0rQsTGzCxKbq4329y57G.png?dl=1" title="afbeelding" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/e/e7a62b85f3f0782c506498384b9d295d59d1f4f0_2_690x143.png" alt="afbeelding" data-base62-sha1="x3gjqgm0rQsTGzCxKbq4329y57G" width="690" height="143" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/e/e7a62b85f3f0782c506498384b9d295d59d1f4f0_2_690x143.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/e/e7a62b85f3f0782c506498384b9d295d59d1f4f0_2_1035x214.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/e7a62b85f3f0782c506498384b9d295d59d1f4f0.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/e/e7a62b85f3f0782c506498384b9d295d59d1f4f0_2_10x10.png"></a></div><p></p>
+<p>i’m using the wp77xx</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/12">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/12</link>
+        <pubDate>Tue, 29 Jun 2021 08:14:45 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-12</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>I don’t see problem with attached app running on WP76 FW13:<br>
+<a class="attachment" href="https://forum.mangoh.io/uploads/short-url/eR1pXgYK61CF7aFZ2WgeNeQ8opO.rar">batteryReading.rar</a> (106.8 KB)</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/11">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/11</link>
+        <pubDate>Tue, 29 Jun 2021 08:09:18 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-11</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[lukasmertens]]></dc:creator>
+        <description><![CDATA[
+            <p>I already use the unsandboxed mode:<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d11bcf9225459eafbab766d6c90e39fe1dc910a5.png" data-download-href="/uploads/short-url/tPRnil6UXWZzid17nHrWN3FcKMZ.png?dl=1" title="afbeelding" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d11bcf9225459eafbab766d6c90e39fe1dc910a5.png" alt="afbeelding" data-base62-sha1="tPRnil6UXWZzid17nHrWN3FcKMZ" width="427" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d11bcf9225459eafbab766d6c90e39fe1dc910a5_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/10</link>
+        <pubDate>Tue, 29 Jun 2021 07:24:03 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-10</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+      <item>
+        <title>I2c app problems</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>It seems your modification did not take effect, probably you need to “make clean” first.</p>
+<p>Or you need to use unsandboxed feature.</p>
+          <p><a href="https://forum.mangoh.io/t/i2c-app-problems/2398/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/i2c-app-problems/2398/9</link>
+        <pubDate>Tue, 29 Jun 2021 07:23:07 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-2398-9</guid>
+        <source url="https://forum.mangoh.io/t/i2c-app-problems/2398.rss">I2c app problems</source>
+      </item>
+  </channel>
+</rss>

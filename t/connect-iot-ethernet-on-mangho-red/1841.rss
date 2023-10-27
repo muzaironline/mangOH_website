@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Connect IOT Ethernet on mangho red</title>
+    <link>https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841</link>
+    <description>Hello,
+
+I want use a IOT Ethernet card on Mangho red.
+when I start the Mangho the leds are off on the IOT.
+I found in another topic the following instructions to activate the IOT:
+
+**echo 2 &gt; /sys/class/gpio/export_**
+**echo out &gt; /sys/class/gpio/gpio2/direction_**
+**echo 1 &gt; /sys/class/gpio/gpio2/value_**
+**/etc/init.d/networking restart_**
+
+After these commands I have eth0 enabled and I have an IP address. 
+But, when I reboot the mangho, I lose the eth0 configuration.
+
+Is there a solution for the configuration to be definitive?
+
+
+
+Best regards</description>
+    
+    <lastBuildDate>Fri, 31 Aug 2018 08:33:55 +0000</lastBuildDate>
+    <category>IoT Cards</category>
+    <atom:link href="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Connect IOT Ethernet on mangho red</title>
+        <dc:creator><![CDATA[Laurent]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi All,</p>
+<p>I found a solution without use yocto. I need to use the basic installation process of the Mangho (cf Getting Started).<br>
+So I stubbornly insisted on the use of init.d folder. We are still on linux  <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=6" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+<p>I can start the IoT Ethernet Board automatically, by not using startlegato.sh script but by using data-init script.<br>
+startlegato.sh is executed too early in the boot process.Something to run later must disable eth0</p>
+<p>So with instruction in data-init file, it is OK.</p>
+<p>I find it strange that I can edit and modify an existing file and it works.<br>
+While if I add my own file in init.d, it has no action.</p>
+<p>Laurent</p>
+          <p><a href="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/10">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/10</link>
+        <pubDate>Fri, 31 Aug 2018 08:33:55 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1841-10</guid>
+        <source url="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841.rss">Connect IOT Ethernet on mangho red</source>
+      </item>
+      <item>
+        <title>Connect IOT Ethernet on mangho red</title>
+        <dc:creator><![CDATA[alex1]]></dc:creator>
+        <description><![CDATA[
+            <p>Yes we can’t use update-rc.d directly on the mangOH because as it is read-only filesystem it won’t deal with new feature. So I downloaded the tarball from Sierra Source (3GB) and created image for yocto. The tutorial posted before let you install files in the image. When you got your layer, you can add something like this in your .bb  file.</p>
+<p>SUMMARY = “Start RJ45”<br>
+SECTION = “examples”<br>
+LICENSE = “MIT”<br>
+LIC_FILES_CHKSUM = “file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302”</p>
+<p>SRC_URI = “file://rj45.sh”</p>
+<p>S = “${WORKDIR}”</p>
+<p>inherit update-rc.d</p>
+<p>INITSCRIPT_NAME = “rj45.sh”<br>
+INITSCRIPT_PARAMS= “start 99 S .”</p>
+<p>do_install() {<br>
+<span class="hashtag">#install</span> -d <span class="math">{D}</span>{bindir}<br>
+install -m 0755  <span class="math">{WORKDIR}/rj45.sh -D </span>{D}${sysconfdir}/init.d/rj45.sh<br>
+}</p>
+<p>rj45.sh file should be put in the folder ‘example’ which you rename ‘files’. Then add your layer in meta-swi-extra/build.sh (around line 280) and add INSTALL_IMAGE+=“rj45” in mdm9x28-image-minimal.inc.</p>
+<p>You have your file directly started at boot now. <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=6" title=":slight_smile:" class="emoji" alt=":slight_smile:"></p>
+<p>With what you’ve done, I will compare with mine to determine what really happens.</p>
+          <p><a href="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/9">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/9</link>
+        <pubDate>Wed, 29 Aug 2018 12:13:08 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1841-9</guid>
+        <source url="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841.rss">Connect IOT Ethernet on mangho red</source>
+      </item>
+      <item>
+        <title>Connect IOT Ethernet on mangho red</title>
+        <dc:creator><![CDATA[Laurent]]></dc:creator>
+        <description><![CDATA[
+            <p>HI Alex.</p>
+<p>I already tested with a script in init.d folder. (rj45.sh)</p>
+<p>I created a symbolic link in rc2.d (or rcS.d) folder with a high priority to be executed last. ( S99rj45.sh -&gt; …/init.d/rj45.sh)</p>
+<p>but whether in rc2.d or rcS.d, it does not work.</p>
+<p>I think rj45.sh is not executed.</p>
+<p>If I look at the startup log, there is no reference to eth0 (dmesg)</p>
+<p>if I run the file rj45.sh by hand, after booting, I can see in the log dmesg:</p>
+<p>*[  180.338980] gpio_sync_ri: RI owner is Modem</p>
+<p>[  180.339004] gpio_map_name_to_num: find GPIO 38</p>
+<p>[  180.339015] export_store: Export GPIO: 38</p>
+<p>[  180.339039] gpio_sync_ri: RI owner is Modem</p>
+<p>[  180.339052] gpiod_export: sierra–find GPIO,chipdev = -826439152,chipngpio = 80,chipbase = 0</p>
+<p>[  180.730153] usb 1-1.2: new high-speed USB device number 4 using msm_hsic_host</p>
+<p>[  180.841890] usb 1-1.2: New USB device found, idVendor=0424, idProduct=9e00</p>
+<p>[  180.841912] usb 1-1.2: New USB device strings: Mfr=0, Product=0, SerialNumber=0</p>
+<p>[  180.845269] smsc95xx v1.0.4</p>
+<p>[  180.932197] smsc95xx 1-1.2:1.0 eth0: register ‘smsc95xx’ at usb-7c00000.hsic_host-1.2, smsc95xx USB 2.0 Ethernet, cce26e48</p>
+<p>[  181.060946] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready</p>
+<p>[  181.065925] USB QCMAP NL IOCTL Snd GETNEIGH Succ</p>
+<p>[  182.857226] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready</p>
+<p>[  182.859925] smsc95xx 1-1.2:1.0 eth0: link up, 100Mbps, full-duplex, lpa 0xC5E1</p>
+<p>[  182.885432] QTI:LINK_UP Processed</p>
+<p>[  182.887442] QTI:ETH mode</p>
+<p>[  182.896809] QTI:LINK_UP message posted</p>
+<p>[  207.140572] nf_conntrack: automatic helper assignment is deprecated and it will be removed soon. Use the iptables CT target to attach helpers instead.*</p>
+<p>So, If I use the startlegato.sh file I can see in dmesg log:</p>
+<ul>
+<li>From [16.8…] to [23.7…] the configuration of eth0  ==&gt;<br>
+At that moment, I see the RJ45 led ON</li>
+<li>From [26.63]  you can see “Kernel is trying to unregister eth0”  ???  ==&gt; I think at that moment, the LED are OFF</li>
+</ul>
+<p>At the end of the boot, eth0 don’t exist (ifconfig).</p>
+<p>If I use the cmd  “echo 2 &gt; /sys/class/gpio/export” I have the error : sh: write error: Device or resource busy</p>
+<p>If I use the cmd “ifup eth0” I have the error : ifup: interface eth0 already configured</p>
+<p>best regards</p>
+<p>Laurent</p>
+<p><a class="attachment" href="https://forum.mangoh.io/uploads/short-url/mhoU5esARR0VMAG2O62VvAMNLaL.sh">rj45.sh</a> (838 Bytes)</p>
+<p><a class="attachment" href="https://forum.mangoh.io/uploads/short-url/8obQwJ5u3L00AfkSQYrMJKwgGeg.txt">cfg_in_startlegato.txt</a> (69.9 KB)</p>
+          <p><a href="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/8">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/8</link>
+        <pubDate>Wed, 29 Aug 2018 11:00:32 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1841-8</guid>
+        <source url="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841.rss">Connect IOT Ethernet on mangho red</source>
+      </item>
+      <item>
+        <title>Connect IOT Ethernet on mangho red</title>
+        <dc:creator><![CDATA[alex1]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Laurent, you could also use yocto directly to install your script in init.d folder and make it starts with update-rc.d (as you did in ). I followed this tutorial which was taken from another topic here, this works.  You can inspire from other recipe for startup script in Yocto. You would change the image directory regarding to your module (mdm9x28 or mdm9x15).</p>
+<p><a class="attachment" href="https://forum.mangoh.io/uploads/short-url/ypzHguUdUInDsHCDNlSEuVRgFJ.pdf">Create new layer.pdf</a> (22.0 KB)</p>
+          <p><a href="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/7">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/7</link>
+        <pubDate>Wed, 29 Aug 2018 06:36:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1841-7</guid>
+        <source url="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841.rss">Connect IOT Ethernet on mangho red</source>
+      </item>
+      <item>
+        <title>Connect IOT Ethernet on mangho red</title>
+        <dc:creator><![CDATA[dpm]]></dc:creator>
+        <description><![CDATA[
+            <p>The forum has interpreted “#” character before “Copyright…”, “Provides a hook…”, “Do something …” and “echo Finished…” as a formatting character (bold).<br>
+Make sure there is # at the beginning of those lines in startlegato.sh to comment the line.</p>
+<p>dpm</p>
+          <p><a href="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/6</link>
+        <pubDate>Mon, 27 Aug 2018 07:45:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1841-6</guid>
+        <source url="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841.rss">Connect IOT Ethernet on mangho red</source>
+      </item>
+      <item>
+        <title>Connect IOT Ethernet on mangho red</title>
+        <dc:creator><![CDATA[dpm]]></dc:creator>
+        <description><![CDATA[
+            <p>Hi Laurent,<br>
+To start the IoT board automatically, you have to edit startlegato.sh script in /etc/init.d/ to add the following commands (the ones you’ve sent manually)</p>
+<p>echo 2 &gt; /sys/class/gpio/export<br>
+echo out &gt; /sys/class/gpio/gpio2/direction<br>
+echo 1 &gt; /sys/class/gpio/gpio2/value<br>
+sleep 5<br>
+ifup eth0</p>
+<h2>like that:</h2>
+<p>#!/bin/sh</p>
+<h1>Copyright © Sierra Wireless, Inc.</h1>
+<h1></h1>
+<h1>Provides a hook for legato into the init scripts</h1>
+<p>LEGATO_START=/mnt/legato/start<br>
+case “$1” in<br>
+start)<br>
+echo “Legato start sequence”<br>
+$LEGATO_START<br>
+echo 2 &gt; /sys/class/gpio/export<br>
+echo out &gt; /sys/class/gpio/gpio2/direction<br>
+echo 1 &gt; /sys/class/gpio/gpio2/value<br>
+sleep 5<br>
+ifup eth0<br>
+;;<br>
+stop)</p>
+<h1>Do something to stop Legato</h1>
+<p>echo “Legato shutdown sequence”<br>
+$LEGATO_START stop<br>
+;;</p>
+<p>*)</p>
+<p>exit 1<br>
+;;</p>
+<p>esac</p>
+<h2>echo “Finished Legato $1 Sequence”</h2>
+          <p><a href="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/5</link>
+        <pubDate>Mon, 27 Aug 2018 07:41:41 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1841-5</guid>
+        <source url="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841.rss">Connect IOT Ethernet on mangho red</source>
+      </item>
+      <item>
+        <title>Connect IOT Ethernet on mangho red</title>
+        <dc:creator><![CDATA[Laurent]]></dc:creator>
+        <description><![CDATA[
+            <p>I continue my tests.</p>
+<p>I created a shell script in the directory init.d.</p>
+<p><em>#!/bin/sh</em><br>
+<em>case “$1” in</em><br>
+_    start)_<br>
+_        echo 2 &gt; /sys/class/gpio/export_<br>
+_        echo out &gt; /sys/class/gpio/gpio2/direction_<br>
+_        echo 1 &gt; /sys/class/gpio/gpio2/value_<br>
+_        sleep 5_<br>
+_        ifup eth0_<br>
+_    ;;_</p>
+<p>_    stop)_</p>
+<p>_    ;;_</p>
+<p>_    *)_<br>
+_        echo ‘Usage: /etc/init.d/rj45 {start|stop}’_<br>
+_        exit 1_<br>
+_    ;;_<br>
+<em>esac</em><br>
+<em>exit 0</em></p>
+<p>if I run it manually, it works.<br>
+but I can not get it started automatically.<br>
+I tested with a symbolic link in rcS.d, Without effect.</p>
+<p>Can you help me?</p>
+          <p><a href="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/4</link>
+        <pubDate>Tue, 21 Aug 2018 10:37:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1841-4</guid>
+        <source url="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841.rss">Connect IOT Ethernet on mangho red</source>
+      </item>
+      <item>
+        <title>Connect IOT Ethernet on mangho red</title>
+        <dc:creator><![CDATA[Laurent]]></dc:creator>
+        <description><![CDATA[
+            <p>Yes,<br>
+I am referring to this topic.</p>
+<p>but i am looking for a solution that activates eth0 correctly every time i start the mangho, without entering the commands manually.</p>
+          <p><a href="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/3</link>
+        <pubDate>Mon, 20 Aug 2018 14:31:55 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1841-3</guid>
+        <source url="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841.rss">Connect IOT Ethernet on mangho red</source>
+      </item>
+      <item>
+        <title>Connect IOT Ethernet on mangho red</title>
+        <dc:creator><![CDATA[awneil]]></dc:creator>
+        <description><![CDATA[
+            <p>You mean this: <a href="https://forum.mangoh.io/t/unable-to-use-usb-to-ethernet-iot-card/1793/3">Unable to use USB to Ethernet IOT card</a> ?</p>
+          <p><a href="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/2</link>
+        <pubDate>Mon, 20 Aug 2018 14:28:01 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1841-2</guid>
+        <source url="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841.rss">Connect IOT Ethernet on mangho red</source>
+      </item>
+      <item>
+        <title>Connect IOT Ethernet on mangho red</title>
+        <dc:creator><![CDATA[Laurent]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello,</p>
+<p>I want use a IOT Ethernet card on Mangho red.<br>
+when I start the Mangho the leds are off on the IOT.<br>
+I found in another topic the following instructions to activate the IOT:</p>
+<p><strong>echo 2 &gt; /sys/class/gpio/export_</strong><br>
+<strong>echo out &gt; /sys/class/gpio/gpio2/direction_</strong><br>
+<strong>echo 1 &gt; /sys/class/gpio/gpio2/value_</strong><br>
+<strong>/etc/init.d/networking restart_</strong></p>
+<p>After these commands I have eth0 enabled and I have an IP address.<br>
+But, when I reboot the mangho, I lose the eth0 configuration.</p>
+<p>Is there a solution for the configuration to be definitive?</p>
+<p>Best regards</p>
+          <p><a href="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841/1</link>
+        <pubDate>Mon, 20 Aug 2018 14:08:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-1841-1</guid>
+        <source url="https://forum.mangoh.io/t/connect-iot-ethernet-on-mangho-red/1841.rss">Connect IOT Ethernet on mangho red</source>
+      </item>
+  </channel>
+</rss>

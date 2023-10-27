@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Cannot find device Can0</title>
+    <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280</link>
+    <description>
+Hi everyone, I have a mango green with **wp7607** and I use the **Talon CAN Bus IoT** extender for Sierra mangOH IoT. Through **leaf** I imported into the profile the SDK (**swi-wp76_4.0.0**) for WP76 which provides **Relase13** and **Legato 19.20.0.**
+
+I downloaded the mangOH folder from the following link https://drive.google.com/file/d/1zjR14597dKWhDEb2JDqf1fXQU5CHBwDY/view
+
+I modified the *green.sdef*  file before doing the make by uncommenting the last line that allows me to synchronize the CAN drivers.
+
+I made the *green.wp76xx.update* file to upload to the board.
+
+I downloaded **yocto** from the following link
+https://source.sierrawireless.com/resources/airprime/software/wp76xx/wp76xx-firmware-release-13-components/#sthash.4Ly3Qb5k.dpbs
+
+On the card by executing these commands as reported by the guide :
+
+https://github.com/mangOH/mangOH/wiki/How-to-build-MCP2515-CAN-driver-for-mangOH-Green-slot-1,-9x15-based-systems.
+
+    echo 7&gt; / sys / class / gpio / export
+    echo out&gt; / sys / class / gpio / gpio7 / direction
+    echo 1&gt; / sys / class / gpio / gpio7 / value
+
+    mux 5
+    mux 16
+    modprobe can
+    modprobe can-dev
+    modprobe can-raw
+    modprobe mcp251x
+    ip link set can0 type can bitrate 125000 triple-sampling on
+    ifconfig can0 up
+
+i see 
+
+![image|512x265, 100%](upload://q06bfKT0V1wiPpOxZTUzmHCHIPq.png) 
+
+It always says it **Cannot find device &quot;can0&quot;**
+
+How can I solve this problem?</description>
+    
+    <lastBuildDate>Tue, 23 Mar 2021 14:08:59 +0000</lastBuildDate>
+    <category>mangOH Green</category>
+    <atom:link href="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>have I to change something in can_iot.c? I dont’ know how to make it works…</p>
+<p>Anyone can help me? plese?</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/102">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/102</link>
+        <pubDate>Mon, 22 Mar 2021 15:48:16 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-102</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>After all the tests of this week, the situation is that ifup gives me can0, but I don’t see it in ifconfig, so the result is always can0 not found: which could be the problem if can0 is configured?<br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/a/a5731f2ab3f1e06669ae9a7afb7f682276439dab.png" alt="image" data-base62-sha1="nBDqEfyXbMt5ZDXjrQeTiGOCinx" width="435" height="87"></p>
+<p>I also see:<br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/10deda02e2106d4ae730e073adec579203ea2b82.png" alt="image" data-base62-sha1="2pf60s5ZCkAw8YGfz3nttQ1hZnQ" width="434" height="47"><br>
+Could it be a library issue?</p>
+<p>Anyway I think that it’s not a problem of SPI, since on the oscilloscope I can see the signal SPI Slave <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/ba21580fb20032f115167992af880f0216601e4d.png" alt="image" data-base62-sha1="qyAfpToa2tjgE3YB4UU2kGOO6ol" width="100" height="57">  also if SPI clock is always 0V. What does could be it mean? please <img src="https://emoji.discourse-cdn.com/twitter/disappointed_relieved.png?v=9" title=":disappointed_relieved:" class="emoji" alt=":disappointed_relieved:"></p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/101">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/101</link>
+        <pubDate>Fri, 19 Mar 2021 12:04:32 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-101</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>I know, it was to try to understand if my device works or not, I would not want to buy hardware just to do trivial tests</p>
+<p>[image]</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/100">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/100</link>
+        <pubDate>Thu, 18 Mar 2021 11:46:17 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-100</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>This is ubuntu question,  not related mangoh board</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/99">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/99</link>
+        <pubDate>Thu, 18 Mar 2021 11:43:44 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-99</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>On ubuntu I have these results:<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/b6b085555d2cc1dfada4516d9aa33f7d5883394b.png" data-download-href="/uploads/short-url/q495OqzntWgKH6bZZ0Yzmtk8VNF.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b6b085555d2cc1dfada4516d9aa33f7d5883394b_2_690x227.png" alt="image" data-base62-sha1="q495OqzntWgKH6bZZ0Yzmtk8VNF" width="690" height="227" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b6b085555d2cc1dfada4516d9aa33f7d5883394b_2_690x227.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/b6b085555d2cc1dfada4516d9aa33f7d5883394b.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/b6b085555d2cc1dfada4516d9aa33f7d5883394b.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b6b085555d2cc1dfada4516d9aa33f7d5883394b_2_10x10.png"></a></div><p></p>
+<p>So can through USB is right yep?</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/98">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/98</link>
+        <pubDate>Thu, 18 Mar 2021 10:40:49 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-98</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>this cannot explain why we are using same software but yours cannot activate SPI bus.</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/97">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/97</link>
+        <pubDate>Thu, 18 Mar 2021 09:47:45 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-97</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>in general, do you know how activate SPI bus?</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/96">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/96</link>
+        <pubDate>Thu, 18 Mar 2021 09:45:27 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-96</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>I still get the impression that the SPI is not active. I tried to activate it in the yocto menuconfig, but nothing,</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/95">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/95</link>
+        <pubDate>Thu, 18 Mar 2021 09:29:14 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-95</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>could be problem of CAN board or mangoh green board.</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/94">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/94</link>
+        <pubDate>Thu, 18 Mar 2021 09:24:52 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-94</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/6/680e9b34c25def3d8f2cf0bc512ee83152422551.png" alt="image" data-base62-sha1="eQwWWA8UrywBxsnc9mPesMI7G8N" width="604" height="115"></p>
+<p>If the situation is this, in your opinion, could be an hardware problem of transceiver CAN Talon? Or could be a problem of the script can_iot.sh?</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/93">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/93</link>
+        <pubDate>Thu, 18 Mar 2021 09:22:50 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-93</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>No idea,  i never tried anything on vcan,  seems that is virtual CAN</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/92">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/92</link>
+        <pubDate>Wed, 17 Mar 2021 14:58:15 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-92</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>ok, I understand that installing socketcan in ubuntu I see vcan0. So…can I repeat the same thing in yocto? Should I call the socketcan libfile in any makefile or am I wrong?</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/91">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/91</link>
+        <pubDate>Wed, 17 Mar 2021 13:26:13 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-91</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>That means not related …</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/90">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/90</link>
+        <pubDate>Wed, 17 Mar 2021 12:44:00 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-90</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>yes, it still remains <img src="https://emoji.discourse-cdn.com/twitter/sweat.png?v=9" title=":sweat:" class="emoji" alt=":sweat:"> what could be it mean?</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/89">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/89</link>
+        <pubDate>Wed, 17 Mar 2021 12:03:38 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-89</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>You can remove the CAN board and see if there is still vcan0 interface</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/88">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/88</link>
+        <pubDate>Wed, 17 Mar 2021 11:58:08 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-88</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>UPDATE<br>
+I’im trying to study/analyze socketcan libraries and I’m seeing that I can see vcan0 (not can0!):</p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/253178e41aad88f8b760cceefbf2ba934bc5025e.png" data-download-href="/uploads/short-url/5j1EVHqHl6GoGhIXvRDvx2BD9M2.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/253178e41aad88f8b760cceefbf2ba934bc5025e.png" alt="image" data-base62-sha1="5j1EVHqHl6GoGhIXvRDvx2BD9M2" width="690" height="172" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/2/253178e41aad88f8b760cceefbf2ba934bc5025e_2_10x10.png"></a></div><p></p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/01d8f3cb2c72a20036fa69198738c923ba8e315a.png" data-download-href="/uploads/short-url/glikyrW6ZoMBa4xx3rCOq2Rt4S.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/01d8f3cb2c72a20036fa69198738c923ba8e315a.png" alt="image" data-base62-sha1="glikyrW6ZoMBa4xx3rCOq2Rt4S" width="690" height="136" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/01d8f3cb2c72a20036fa69198738c923ba8e315a_2_10x10.png"></a></div><p></p>
+<p>what could it mean? Am I seeing the wrong things?</p>
+<p>[image]</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/87">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/87</link>
+        <pubDate>Wed, 17 Mar 2021 11:30:15 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-87</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>I’m sorry, I know I’m bothering you a lot, but I’m in a frustrating condition. I try to give you a further summary of what I did this morning, so that you can actually tell me what I might be wrong, after which I really won’t know what to do.</p>
+<ul>
+<li>
+<p>I installed fw13.1 version through windows:<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d8380421bc04e237329da6e5479450f72f9a6733.png" data-download-href="/uploads/short-url/uQL99xra2glfGxoYRFAElfN4uPh.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d8380421bc04e237329da6e5479450f72f9a6733_2_690x178.png" alt="image" data-base62-sha1="uQL99xra2glfGxoYRFAElfN4uPh" width="690" height="178" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d8380421bc04e237329da6e5479450f72f9a6733_2_690x178.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d8380421bc04e237329da6e5479450f72f9a6733_2_1035x267.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d8380421bc04e237329da6e5479450f72f9a6733.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d8380421bc04e237329da6e5479450f72f9a6733_2_10x10.png"></a></div><p></p>
+</li>
+<li>
+<p>At this point I should have on the board the .spk firmare file and the two .cwe files (do you agree or am I wrong?).</p>
+</li>
+</ul>
+<p>I updated your mangOH layer and here there are the results:<br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/5/52345e0b491ce8febd4905c343a8e3bf669919c9.png" alt="image" data-base62-sha1="bJdlE2RTYr6TalZ5yZIlYFB64Ot" width="470" height="207"></p>
+<p>So, at this point, I think I should modify yocto menuconfig in order to availabling SPI and CAN bus and re-flashing it on the board (am I wrong thinking to do this?)<br>
+I did it, but it seems that I cancel the fw that I flashed in the first step and the card goes in a loop.<br>
+I want to clarify that I launch the yocto-quic because it is suitable for wp76 module, so that the target and the machine are right (mdm 9x28).</p>
+<p>What do you think I should still do? Should I still do something or give up this green mangOH?<br>
+I would honestly like to avoid buying another wp76 module and have the same problem because maybe the problem is that I did not understand something …<br>
+anyway, thank you very much for the patience you are having.</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/86">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/86</link>
+        <pubDate>Wed, 17 Mar 2021 10:58:21 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-86</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>Do you think that is it an hardware compromised or not suitable for our goals? after this last test I really don’t know what to do anymore…</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/85">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/85</link>
+        <pubDate>Wed, 17 Mar 2021 10:34:33 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-85</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>as said before, I think this is hardware problem as we all used the same software now.</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/84">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/84</link>
+        <pubDate>Wed, 17 Mar 2021 10:32:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-84</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>I flashed through windows the firmware release 13.1:<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/1ebbea9427f29eab62c34b500921a2b1951d0b17.png" data-download-href="/uploads/short-url/4nSVQn2jAwaSYuhzEUAPs0JpXrp.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/1ebbea9427f29eab62c34b500921a2b1951d0b17_2_690x178.png" alt="image" data-base62-sha1="4nSVQn2jAwaSYuhzEUAPs0JpXrp" width="690" height="178" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/1ebbea9427f29eab62c34b500921a2b1951d0b17_2_690x178.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/1ebbea9427f29eab62c34b500921a2b1951d0b17_2_1035x267.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/1ebbea9427f29eab62c34b500921a2b1951d0b17_2_1380x356.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/1ebbea9427f29eab62c34b500921a2b1951d0b17_2_10x10.png"></a></div><p></p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d98e803ffb82d9df5e701b6ac301c44ed1281856.png" data-download-href="/uploads/short-url/v2AUUS8argM61M8IqW92qn4SS5o.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/d/d98e803ffb82d9df5e701b6ac301c44ed1281856.png" alt="image" data-base62-sha1="v2AUUS8argM61M8IqW92qn4SS5o" width="556" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/d/d98e803ffb82d9df5e701b6ac301c44ed1281856_2_10x10.png"></a></div><p></p>
+<p>On VM I checked that all was fine:<br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/9/965c5ce72e0636d6bb05d114c2023328bcf860e9.png" alt="image" data-base62-sha1="ls9vrzC91COj3BYgfE3brmrpYaB" width="402" height="46"></p>
+<p>The first result:<br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/b2e18e7e7e0770f883e4cc867aab2bb0a142a681.png" alt="image" data-base62-sha1="pwsf2pTHRHSh3PGbnHBAPKw3wJP" width="491" height="244"></p>
+<p>So, then I tried to modify the yocto menuconfig availabling SPI connection, CAN config. Then I flashed on the board the new yocto.cwe and I updated the file .updategreen:<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/009d35b37eb7f5c746251bc7a9fbfb88dbdc4ede.png" data-download-href="/uploads/short-url/5qORxjb4CK51t3OvFvr4RQw2js.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/009d35b37eb7f5c746251bc7a9fbfb88dbdc4ede_2_690x256.png" alt="image" data-base62-sha1="5qORxjb4CK51t3OvFvr4RQw2js" width="690" height="256" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/009d35b37eb7f5c746251bc7a9fbfb88dbdc4ede_2_690x256.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/009d35b37eb7f5c746251bc7a9fbfb88dbdc4ede.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/009d35b37eb7f5c746251bc7a9fbfb88dbdc4ede.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/009d35b37eb7f5c746251bc7a9fbfb88dbdc4ede_2_10x10.png"></a></div><p></p>
+<p>the result <img src="https://emoji.discourse-cdn.com/twitter/disappointed_relieved.png?v=9" title=":disappointed_relieved:" class="emoji" alt=":disappointed_relieved:"><br>
+<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/cb8e4798cb8dc8b53dfe0ddb96346579a47cd176.png" alt="image" data-base62-sha1="t2JL4KjEiO7xSnPTYEgU0E9ANtY" width="584" height="169"></p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/83">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/83</link>
+        <pubDate>Wed, 17 Mar 2021 10:27:28 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-83</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>You can see here on another method</p>
+<aside class="onebox allowlistedgeneric">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/1fc275dea17943ec40a824dc4b7ad3839eb8d72d.png" class="site-icon" width="32" height="32">
+      <a href="https://forum.sierrawireless.com/t/at-commands-problem-fx30s/22764/14" target="_blank" rel="noopener nofollow ugc" title="12:41AM - 18 February 2021">Sierra Wireless Forum – 18 Feb 21</a>
+  </header>
+  <article class="onebox-body">
+    <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png" class="thumbnail onebox-avatar" width="500" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_500x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/0/010dffc6564417105339dacf0153506c9de12493.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/0/010dffc6564417105339dacf0153506c9de12493_2_10x10.png">
+
+<h3><a href="https://forum.sierrawireless.com/t/at-commands-problem-fx30s/22764/14" target="_blank" rel="noopener nofollow ugc">AT Commands problem FX30S</a></h3>
+
+<p>I don’t know the password of your device…  Another unofficial way to update module FW is as follows:   download a WP77 FW EXE use 7zip to extract it there should be a fdt2.exe inside put the new xxx.cwe inside the same folder use command prompt to...</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/82">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/82</link>
+        <pubDate>Wed, 17 Mar 2021 00:54:09 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-82</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>No, no, unfortunately WP7607 was chosen because we wanted a solution without Octave, cat-4, 4g lte, only this was bought and I don’t have any other hardware available</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/81">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/81</link>
+        <pubDate>Tue, 16 Mar 2021 16:28:04 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-81</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>probably module problem, can you switch to another module and test?</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/80">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/80</link>
+        <pubDate>Tue, 16 Mar 2021 16:02:13 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-80</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>I’m trying also this way…<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/b8665a9dd629a73aceadec6c41e87d080acb8298.png" data-download-href="/uploads/short-url/qjh96OsIlEyc4SL6Fgb5WYAf8xO.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b8665a9dd629a73aceadec6c41e87d080acb8298_2_690x60.png" alt="image" data-base62-sha1="qjh96OsIlEyc4SL6Fgb5WYAf8xO" width="690" height="60" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b8665a9dd629a73aceadec6c41e87d080acb8298_2_690x60.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b8665a9dd629a73aceadec6c41e87d080acb8298_2_1035x90.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/b8665a9dd629a73aceadec6c41e87d080acb8298.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/b/b8665a9dd629a73aceadec6c41e87d080acb8298_2_10x10.png"></a></div><p></p>
+<p>UPDATE:<br>
+It’s still working after one hour. Could be a problem of the spk file or is it normal?<br>
+</p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/13427b83d1cfc2682df3acca5233bf05aab47eb5.png" data-download-href="/uploads/short-url/2KnvCqaFxbKc6QmtMQRnq7jl8gd.png?dl=1" title="image" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/13427b83d1cfc2682df3acca5233bf05aab47eb5_2_690x64.png" alt="image" data-base62-sha1="2KnvCqaFxbKc6QmtMQRnq7jl8gd" width="690" height="64" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/13427b83d1cfc2682df3acca5233bf05aab47eb5_2_690x64.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/13427b83d1cfc2682df3acca5233bf05aab47eb5.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/1/13427b83d1cfc2682df3acca5233bf05aab47eb5.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/1/13427b83d1cfc2682df3acca5233bf05aab47eb5_2_10x10.png"></a></div><p></p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/79">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/79</link>
+        <pubDate>Tue, 16 Mar 2021 12:40:17 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-79</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+      <item>
+        <title>Cannot find device Can0</title>
+        <dc:creator><![CDATA[gavinoimparato1]]></dc:creator>
+        <description><![CDATA[
+            <p>i stopped this procedure…the board is in loop, i can’t enter with ssh. I noticed that yocto.cwe makes the device go in loop, every time. the only yocto that worked was for wp76, so it was wrong. i think i have problem with yocto, it is the only source of problems…</p>
+          <p><a href="https://forum.mangoh.io/t/cannot-find-device-can0/6280/78">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/cannot-find-device-can0/6280/78</link>
+        <pubDate>Tue, 16 Mar 2021 12:25:03 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-6280-78</guid>
+        <source url="https://forum.mangoh.io/t/cannot-find-device-can0/6280.rss">Cannot find device Can0</source>
+      </item>
+  </channel>
+</rss>

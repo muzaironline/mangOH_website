@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>How to generate 32KHz sleep clock</title>
+    <link>https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755</link>
+    <description>I&#39;m looking for instructions how to generate 32.768Khz sleep clock from WP7607/WP7611 modules. We need it as part of our Bluetooth companion module power up process. By default it does not exist and I cannot find any API for it in AT commands or Legato. Also once generated , will it be available while in USB_SS mode or only in active mode?</description>
+    
+    <lastBuildDate>Tue, 08 Mar 2022 13:45:51 +0000</lastBuildDate>
+    <category>Build your own</category>
+    <atom:link href="https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755.rss" rel="self" type="application/rss+xml" />
+      <item>
+        <title>How to generate 32KHz sleep clock</title>
+        <dc:creator><![CDATA[mlw]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/deadpoolcode">@deadpoolcode</a></p>
+<p>So the unit by default will generate this signal on GPIO 23 on power up when set to default as per the below. Is that what you want? As long as you leave it alone it will do what you want, I think.</p>
+<p></p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/e/e934b32cf67347b0742dc0c0418e04815e50f4c9.jpeg" data-download-href="/uploads/short-url/xh29TEG74hLsPuqcn9Qxgg91GcN.jpeg?dl=1" title="WP76 32KHz signal GPIO 23" rel="noopener nofollow ugc"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/e/e934b32cf67347b0742dc0c0418e04815e50f4c9_2_690x289.jpeg" alt="WP76 32KHz signal GPIO 23" data-base62-sha1="xh29TEG74hLsPuqcn9Qxgg91GcN" width="690" height="289" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/e/e934b32cf67347b0742dc0c0418e04815e50f4c9_2_690x289.jpeg, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/e/e934b32cf67347b0742dc0c0418e04815e50f4c9_2_1035x433.jpeg 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/e/e934b32cf67347b0742dc0c0418e04815e50f4c9_2_1380x578.jpeg 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/e/e934b32cf67347b0742dc0c0418e04815e50f4c9_2_10x10.png"></a></div><p></p>
+<p>Regards</p>
+<p>Matt</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755/6">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755/6</link>
+        <pubDate>Tue, 08 Mar 2022 13:45:51 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5755-6</guid>
+        <source url="https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755.rss">How to generate 32KHz sleep clock</source>
+      </item>
+      <item>
+        <title>How to generate 32KHz sleep clock</title>
+        <dc:creator><![CDATA[deadpoolcode]]></dc:creator>
+        <description><![CDATA[
+            <p>Hello Matt</p>
+<p>if I would like to generate the 32KHz clock , while the system is in normal work mode, how can  I accomplish that ?</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755/5">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755/5</link>
+        <pubDate>Tue, 08 Mar 2022 06:21:44 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5755-5</guid>
+        <source url="https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755.rss">How to generate 32KHz sleep clock</source>
+      </item>
+      <item>
+        <title>How to generate 32KHz sleep clock</title>
+        <dc:creator><![CDATA[markfisher]]></dc:creator>
+        <description><![CDATA[
+            <p>Yes, thanks. I successfully reproduced it on MangoH Green. Now I have a different related question - if I prefer that module will boot with this clock is off , is it doable to disable it on a Kernel level? Can you give an instructions? Then I wish to add some API command to enable it prior enabling our WIFI companion - is it true that since it is not part of general AT commands interface , then it cannot be supported?</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755/4">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755/4</link>
+        <pubDate>Sun, 06 Dec 2020 13:46:38 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5755-4</guid>
+        <source url="https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755.rss">How to generate 32KHz sleep clock</source>
+      </item>
+      <item>
+        <title>How to generate 32KHz sleep clock</title>
+        <dc:creator><![CDATA[mlw]]></dc:creator>
+        <description><![CDATA[
+            <p><a class="mention" href="https://forum.mangoh.io/u/markfisher">@markfisher</a></p>
+<p>So pin 23 generates a 32KHz square wave while the unit is powered, it is available as long as the unit is in ULPM (so effectively off). So if you are using the unit in sleep mode (at+ksleep) it will still be there, the USB_SS is not really a ‘mode’ of the unit as this just applies to the USB bus, not the unit as a whole. If you don’t have USB connected (like I have tested it with) then USB is not part of the discussion.</p>
+<p>Does that answer the question?</p>
+<p>Regards</p>
+<p>Matt</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755/3">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755/3</link>
+        <pubDate>Fri, 04 Dec 2020 08:55:48 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5755-3</guid>
+        <source url="https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755.rss">How to generate 32KHz sleep clock</source>
+      </item>
+      <item>
+        <title>How to generate 32KHz sleep clock</title>
+        <dc:creator><![CDATA[jyijyi]]></dc:creator>
+        <description><![CDATA[
+            <p>Not sure if this helps you by generating PWM signal by GPIO pin, you can give a try:</p>
+<aside class="onebox allowlistedgeneric">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/252837692301bb53b7d4b8041901ad6486ced526.png" class="site-icon" width="32" height="32">
+      <a href="https://forum.legato.io/t/wp7605-sw-how-to-indicate-the-periodic-signal-in-order-to-use-external-window-wdt/5087" target="_blank" rel="noopener nofollow ugc" title="11:52PM - 18 March 2020">Legato Forum – 18 Mar 20</a>
+  </header>
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/wp7605-sw-how-to-indicate-the-periodic-signal-in-order-to-use-external-window-wdt/5087" target="_blank" rel="noopener nofollow ugc">[WP7605][SW] How to indicate the periodic signal, in order to use external...</a></h3>
+
+<p>Back Ground:  WP7605 does not support HW WDT, so I consider to use external Window WDT IC in the case of runaway the legato or WP7605.  In this case, Window WDT needs the periodic pulse from WP76xx, in order to notify keep-alive.  Question:  Could...</p>
+
+
+  </article>
+  <div class="onebox-metadata">
+    
+    
+  </div>
+  <div style="clear: both"></div>
+</aside>
+
+          <p><a href="https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755/2">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755/2</link>
+        <pubDate>Tue, 01 Dec 2020 11:22:54 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5755-2</guid>
+        <source url="https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755.rss">How to generate 32KHz sleep clock</source>
+      </item>
+      <item>
+        <title>How to generate 32KHz sleep clock</title>
+        <dc:creator><![CDATA[markfisher]]></dc:creator>
+        <description><![CDATA[
+            <p>I’m looking for instructions how to generate 32.768Khz sleep clock from WP7607/WP7611 modules. We need it as part of our Bluetooth companion module power up process. By default it does not exist and I cannot find any API for it in AT commands or Legato. Also once generated , will it be available while in USB_SS mode or only in active mode?</p>
+          <p><a href="https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755/1">Read full topic</a></p>
+        ]]></description>
+        <link>https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755/1</link>
+        <pubDate>Tue, 01 Dec 2020 10:44:02 +0000</pubDate>
+        <guid isPermaLink="false">forum.mangoh.io-post-5755-1</guid>
+        <source url="https://forum.mangoh.io/t/how-to-generate-32khz-sleep-clock/5755.rss">How to generate 32KHz sleep clock</source>
+      </item>
+  </channel>
+</rss>

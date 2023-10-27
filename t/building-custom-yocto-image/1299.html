@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Building Custom Yocto Image - Wiki - mangOH forum</title>
+    <meta name="description" content="The instructions below show how to build custom yocto images for the WP76 and WP85.  Note that if someone chooses to build their own yocto image then they should set the LEGATO_KERNELROOT environment variable before buil&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;Building Custom Yocto Image&#39;" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/building-custom-yocto-image/1299" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/building-custom-yocto-image/1299" />
+<meta property="og:title" content="Building Custom Yocto Image" />
+<meta name="twitter:title" content="Building Custom Yocto Image" />
+<meta property="og:description" content="The instructions below show how to build custom yocto images for the WP76 and WP85.  Note that if someone chooses to build their own yocto image then they should set the LEGATO_KERNELROOT environment variable before building MangOH, for example:  WP85:  export LEGATO_KERNELROOT=&quot;~/yocto-2.2/build_src/tmp/work/swi_mdm9x15-poky-linux-gnueabi/linux-yocto/3.14.29-r0.1/linux-swi_mdm9x15-standard-build&quot;  WP76:  export LEGATO_KERNELROOT=&quot;~/yocto-2.2/build_src/tmp/work/swi_mdm9x28-poky-linux-gnueabi/lin..." />
+<meta name="twitter:description" content="The instructions below show how to build custom yocto images for the WP76 and WP85.  Note that if someone chooses to build their own yocto image then they should set the LEGATO_KERNELROOT environment variable before building MangOH, for example:  WP85:  export LEGATO_KERNELROOT=&quot;~/yocto-2.2/build_src/tmp/work/swi_mdm9x15-poky-linux-gnueabi/linux-yocto/3.14.29-r0.1/linux-swi_mdm9x15-standard-build&quot;  WP76:  export LEGATO_KERNELROOT=&quot;~/yocto-2.2/build_src/tmp/work/swi_mdm9x28-poky-linux-gnueabi/lin..." />
+<meta property="og:article:section" content="Wiki" />
+<meta property="og:article:section:color" content="AB9364" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="6 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="4 ❤" />
+<meta property="article:published_time" content="2018-04-04T21:39:30+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+        <link rel="next" href="/t/building-custom-yocto-image/1299?page=2">
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"Building Custom Yocto Image","mainEntity":{"@type":"Question","name":"Building Custom Yocto Image","text":"The instructions below show how to build custom yocto images for the WP76 and WP85.  Note that if someone chooses to build their own yocto image then they should set the LEGATO_KERNELROOT environment variable before building MangOH, for example:\n\nWP85:\n\nexport LEGATO_KERNELROOT=&quot;~/yocto-2.2/build_sr&hellip;","upvoteCount":2,"answerCount":0,"dateCreated":"2018-04-04T21:39:30.376Z","author":{"@type":"Person","name":"David Clark"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/building-custom-yocto-image/1299">Building Custom Yocto Image</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/wiki/10" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #AB9364'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>Wiki</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='Building Custom Yocto Image'>
+        <meta itemprop='articleSection' content='Wiki'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dclark75'><span itemprop='name'>dclark75</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-04T21:39:30Z' class='post-time'>
+                    April 4, 2018,  9:39pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-04T22:41:32Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>The instructions below show how to build custom yocto images for the WP76 and WP85.  Note that if someone chooses to build their own yocto image then they should set the LEGATO_KERNELROOT environment variable before building MangOH, for example:</p>
+<p><strong>WP85</strong>:<br>
+export LEGATO_KERNELROOT="~/yocto-2.2/build_src/tmp/work/swi_mdm9x15-poky-linux-gnueabi/linux-yocto/3.14.29-r0.1/linux-swi_mdm9x15-standard-build"</p>
+<p><strong>WP76</strong>:<br>
+export LEGATO_KERNELROOT="~/yocto-2.2/build_src/tmp/work/swi_mdm9x28-poky-linux-gnueabi/linux-quic/3.18.44-r1/build"</p>
+<p><strong>1. Initialize repo</strong></p>
+<p>Create yocto folder:<br>
+mkdir ~/yocto-2.2<br>
+cd ~/yocto-2.2</p>
+<p><strong>WP85</strong>:<br>
+repo init -u git://gerrit-legato/manifest -m lxswi/branches/master/systems/wp85xx.xml -g “default,amss”</p>
+<p><strong>WP76</strong>:<br>
+repo init -u git://gerrit-legato/manifest -m lxswi/branches/master/systems/wp76xx.xml</p>
+<p><strong>2. Synchronize repo and build yocto</strong></p>
+<p>repo sync<br>
+make image_src</p>
+<p>To set/unset kernel configuration options use the following commands:<br>
+cd $LEGATO_KERNELROOT<br>
+VERBOSE=1 make ARCH=arm menuconfig</p>
+<p>Note if you just want to rebuild the kernel then the following can be used in a script (e.g. here we create a script called build_kernel.sh and place in the build_src folder).</p>
+<p><strong>WP85</strong>:<br>
+bitbake -c compile -f linux-yocto<br>
+bitbake -c build -f linux-yocto<br>
+bitbake -c build -f mdm9x15-image-minimal</p>
+<p><strong>WP76</strong>:<br>
+bitbake -c compile -f linux-quic<br>
+bitbake -c build -f linux-quic<br>
+bitbake -c build -f mdm9x28-image-minimal</p>
+<p><strong>3. Build and install the toolchain (optional)</strong></p>
+<p>Note this step is only required for users that desire to build their own toolchain instead of downloading it from the sierrawireless web sites:</p>
+<p><strong>WP85</strong>:<br>
+<a href="https://source.sierrawireless.com/resources/airprime/software/wpx5xx/wpx5xx-firmware-latest-release-components/" class="onebox" target="_blank">https://source.sierrawireless.com/resources/airprime/software/wpx5xx/wpx5xx-firmware-latest-release-components/</a></p>
+<p><strong>WP76</strong>:<br>
+<a href="https://source.sierrawireless.com/resources/airprime/software/wp76xx/wp76xx-firmware-latest-release-components/" class="onebox" target="_blank">https://source.sierrawireless.com/resources/airprime/software/wp76xx/wp76xx-firmware-latest-release-components/</a></p>
+<p>make toolchain_src</p>
+<p><strong>WP85</strong>:<br>
+cd ~/yocto-2.2/<br>
+sudo ./build_src/tmp/deploy/sdk/poky-swi-ext-glibc-x86_64-meta-toolchain-swi-ext-armv7a-neon-toolchain-swi-ext-2.2.3.sh</p>
+<p><strong>WP76</strong>:<br>
+cd ~/yocto-2.2/<br>
+sudo ./build_src/tmp/deploy/sdk/poky-swi-ext-glibc-x86_64-meta-toolchain-swi-ext-armv7a-neon-toolchain-swi-ext-2.2.3.sh</p>
+<p><strong>4. Download new yocto build to the target device</strong></p>
+<p>Note before downloading switch pin 7 up for the MangOH Red and then once the downloading has started switch pin 7 back down.</p>
+<p><strong>WP85</strong>:<br>
+cd ~/yocto-2.2/<br>
+swiflash -m “WP85XX” -i  ./build_src/tmp/deploy/images/swi-mdm9x15/yocto-legato_wp85.cwe<br>
+OR<br>
+copy yocto-legato_wp85.cwe to a folder on Windows PC with fdt2 installed<br>
+fdt2 yocto-legato_wp85.cwe</p>
+<p><strong>WP76</strong>:<br>
+cd ~/yocto-2.2/<br>
+swiflash -m “WP76XX” -i  …/yocto-wp76/build_src/tmp/deploy/images/swi-mdm9x28/yocto_wp76xx.4k.cwe<br>
+OR<br>
+copy yocto-legato_wp85.cwe to a folder on Windows PC with fdt2 installed<br>
+fdt2 yocto_wp76xx.4k.cwe</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="2" />
+              <span class='post-likes'>2 Likes</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+                <div class='crawler-linkback-list' itemscope itemtype='http://schema.org/ItemList'>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/bluetooth-success-story/2656/6">Bluetooth success story</a>
+                        <meta itemprop='position' content='3'>
+                      </div>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/building-a-yocto-image-for-wp76-9x28-fails-documentation-request/2236">Building a Yocto image for wp76/9x28 fails no recipe - Documentation Request</a>
+                        <meta itemprop='position' content='4'>
+                      </div>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/board-not-bootable-after-reflashing/2649/12">Board not bootable after reflashing</a>
+                        <meta itemprop='position' content='5'>
+                      </div>
+                      <div itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem'>
+                        <a itemprop='url' href="https://forum.mangoh.io/t/board-not-bootable-after-reflashing/2649/10">Board not bootable after reflashing</a>
+                        <meta itemprop='position' content='6'>
+                      </div>
+                </div>
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/deadpoolcode'><span itemprop='name'>deadpoolcode</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-07T00:10:01Z' class='post-time'>
+                    April 7, 2018, 12:10am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-07T00:10:01Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>currently not working, I can not get the xml:</p>
+<p>repo init -u git://gerrit-legato/manifest -m lxswi/branches/master/systems/wp76xx.xml</p>
+<p>fatal: unable to connect to gerrit-legato:<br>
+gerrit-legato: Name or service not known</p>
+<p>please advice</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-07T00:12:43Z' class='post-time'>
+                    April 7, 2018, 12:12am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-07T00:12:43Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I suspect those are internal git servers.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/deadpoolcode'><span itemprop='name'>deadpoolcode</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-07T00:14:51Z' class='post-time'>
+                    April 7, 2018, 12:14am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-07T00:14:51Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <aside class="quote no-group" data-username="dclark75" data-post="1" data-topic="1299">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/d/a8b319/40.png" class="avatar"> dclark75:</div>
+<blockquote>
+<p>wp76xx.xml</p>
+</blockquote>
+</aside>
+<p>thank you, if so how can I get the sources in order to build a Yocto  image?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-07T00:37:47Z' class='post-time'>
+                    April 7, 2018, 12:37am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-07T00:37:47Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey <a class="mention" href="/u/deadpoolcode">@deadpoolcode</a>,</p>
+<p>I just got some build hardware so I’m just starting to unravel this as well. I think everything you need can be found in here: <a href="http://downloads.sierrawireless.com/AirPrime/WPx5xx/Release15/Legato-Dist-Source-mdm9x15-SWI9X15Y_07.12.14.00.tar.bz2" rel="nofollow noopener">http://downloads.sierrawireless.com/AirPrime/WPx5xx/Release15/Legato-Dist-Source-mdm9x15-SWI9X15Y_07.12.14.00.tar.bz2</a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-07T16:47:52Z' class='post-time'>
+                    April 7, 2018,  4:47pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-07T16:47:52Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>The repo steps are wrong. <a class="mention" href="/u/nick">@nick</a> is correct that gerrit-legato is a server only accessible inside Sierra Wireless. For now, download the tarball for your module. <a class="mention" href="/u/nick">@nick</a> linked to the one for wp75/85.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-10T20:43:05Z' class='post-time'>
+                    April 10, 2018,  8:43pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-10T20:43:05Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey <a class="mention" href="/u/dclark75">@dclark75</a>,</p>
+<p>I’ve recently had some success building yocto from scratch for the WP85 using the tar ball I linked above. I modified  <code>meta-swi-extras/meta-swi-bin/files/fw-version</code> in attempt to release my own build (mostly for the purpose of confirming that it flashed successfully). I was also sure to commit the changes since I’ve heard the build process will re-clone repos sometimes. After flashing this custom build, I did not see the updated firmware version. I believe these this could be two things:</p>
+<ol>
+<li>The firmware version is defined in 2 places somewhere else</li>
+<li>The custom build is not flashing successfully (despite a success message from <code>swiflash</code>)</li>
+</ol>
+<p>Do you guys have any debugging advice? Unfortunately we do not have access to a serial console on these units.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-10T21:12:27Z' class='post-time'>
+                    April 10, 2018,  9:12pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-10T21:12:27Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Update: I flashed release 14 (pre-built <code>.spk</code> file) and the version changed to match(<code>SWI9X15Y_07.12.09.00 r34123 CARMD-EV-FRMWR1 2017/04/26 23:34:19</code>). After that, I tried re-flashing our custom build (based on<code>SWI9X15Y_07.12.14.00</code>) and did not see the version change. This more or less confirms that our custom builds are not flashing.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/Souhail'><span itemprop='name'>Souhail</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-11T15:07:31Z' class='post-time'>
+                    April 11, 2018,  3:07pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-11T15:07:31Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>The SWI9X15Y_07.12.09.00  and SWI9X15Y_07.12.14.00 concerns the legato version not the linux image, in order to have an .spk image with the correct legato version you should build yocto image then run the swicwe  command and you should point on both the linux image and the legato image that you want to install. It is better to use AT command to check the version using microcom interface. I hope that helps you.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/7fd06b10718755e613e222096e52f6edc417ed8d.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-20T18:43:35Z' class='post-time'>
+                    April 20, 2018,  6:43pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-20T18:43:35Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey <a class="mention" href="/u/souhail">@Souhail</a> sorry for the delayed reply.</p>
+<p>I’ve been working with custom images and I think I have a better understanding of how this all comes together. To my knowledge, <code>SWI9X15Y_07.12.14.00</code> refers to the modem firmware and not the Legato version (though certain Legato releases come bundled with certain modem firmware versions), which is not part of the Yocto image. I found this diagram very helpful in that regard: <div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/7fd06b10718755e613e222096e52f6edc417ed8d.png" data-download-href="/uploads/short-url/ieHaHWMP7XRUExIPslEJUv4tUzX.png?dl=1" title="WP Flash Mapping.png" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/7fd06b10718755e613e222096e52f6edc417ed8d_2_452x500.png" alt="WP%20Flash%20Mapping" data-base62-sha1="ieHaHWMP7XRUExIPslEJUv4tUzX" width="452" height="500" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/7fd06b10718755e613e222096e52f6edc417ed8d_2_452x500.png, https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/7fd06b10718755e613e222096e52f6edc417ed8d.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/7fd06b10718755e613e222096e52f6edc417ed8d.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/7fd06b10718755e613e222096e52f6edc417ed8d_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">WP Flash Mapping.png</span><span class="informations">522×577 242 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>I’ve been successfully flashing custom <code>.spk</code> files produced using <code>swicwe</code> (thanks again for the suggestion <a class="mention" href="/u/souhail">@Souhail</a>).</p>
+<p>On an unrelated note, <a class="mention" href="/u/dclark75">@dclark75</a>, would you be able to clarify a little bit on customizing the kernel? I’m a little confused as to why we run <code>VERBOSE=1 make ARCH=arm menuconfig</code> in <code>$LEGATO_KERNELROOT</code> instead of in the main kernel directory (e.g <code>/build-folder/yocto/kernel</code>) before running <code>make image_bin</code>. Additionally, I had some trouble finding the BitBake executable. I’m sure it’s in here somewhere, but I don’t have the executable in my path, so simply invoking <code>bitbake</code> doesn’t work.</p>
+<p>Cheers!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/fjanicki'><span itemprop='name'>fjanicki</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-23T19:39:25Z' class='post-time'>
+                    April 23, 2018,  7:39pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-23T19:39:25Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Possible to get a git repository of the <code>meta-</code> modules? If we want to roll our own yocto repo using the latest yocto version? Because the tarball contains a very old version of yocto, according to here <a href="https://wiki.yoctoproject.org/wiki/Releases" rel="nofollow noopener">https://wiki.yoctoproject.org/wiki/Releases</a> (1.7.3) was released in 2014…</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/fjanicki'><span itemprop='name'>fjanicki</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-23T19:49:59Z' class='post-time'>
+                    April 23, 2018,  7:49pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-23T19:49:59Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I think that to be able to access bitbake, you need to run <code>source oe-init-build-env</code> in the <code>/poky</code> directory.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-23T20:51:46Z' class='post-time'>
+                    April 23, 2018,  8:51pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-23T20:51:46Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks <a class="mention" href="/u/fjanicki">@fjanicki</a>, I’ll give this a try.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-23T20:52:49Z' class='post-time'>
+                    April 23, 2018,  8:52pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-23T20:52:49Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Where are you grabbing the Yocto version from? I recall seeing a newer revision somewhere in the code/build but I can’t seem to find it again.</p>
+<p>Cheers!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/fjanicki'><span itemprop='name'>fjanicki</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-23T21:20:31Z' class='post-time'>
+                    April 23, 2018,  9:20pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-23T21:20:31Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Not sure, I just use the version bundled in the tarball provided from sierra wireless’s download section. I would much prefer to use a git repo but none is available. Problem is that the bundled version is very old and it would be nice to be able to use a newer version.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-23T21:38:18Z' class='post-time'>
+                    April 23, 2018,  9:38pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-23T21:38:18Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Yeah the tarball approach is definitely a little painful. I double checked the versions and it’s definitely Yocto <code>1.7.3</code> as you stated (not sure why I had a newer version in my head). I suspect Sierra Wireless will supply a nicer approach to managing custom images as it becomes more popular.</p>
+<p>Cheers!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_17' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/fjanicki'><span itemprop='name'>fjanicki</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-24T18:13:51Z' class='post-time'>
+                    April 24, 2018,  6:13pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-24T18:13:51Z'>
+              <span itemprop='position'>17</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I found this repo but it seems outdated. Maybe we can create an unofficial git repo?</p>
+<p><a href="https://github.com/meta-swi/meta-swi" class="onebox" target="_blank" rel="nofollow noopener">https://github.com/meta-swi/meta-swi</a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_18' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/drewwestrick'><span itemprop='name'>drewwestrick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-05-29T18:27:05Z' class='post-time'>
+                    May 29, 2018,  6:27pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-05-29T19:34:13Z'>
+              <span itemprop='position'>18</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I’m currently trying to build yocto from source using the WP76XX <a href="http://downloads.sierrawireless.com/AirPrime/WP76xx/Release9/Legato-Dist-Source-mdm9x28-SWI9X07Y_02.16.02.00.tar.bz2" rel="nofollow noopener">SWI9X07Y_02.16.02.00</a> code and the steps posted above.</p>
+<p>I’ve installed all the host build dependencies called out in <a href="https://www.yoctoproject.org/docs/1.8/yocto-project-qs/yocto-project-qs.html" rel="nofollow noopener">Yocto Project Quick Start</a>.</p>
+<p>My process is the following:</p>
+<ol>
+<li>untar the source</li>
+<li><code>repo sync</code></li>
+<li><code>make image_bin</code></li>
+</ol>
+<p>The build is failing and I am getting the following errors which relates to qemu-native 2.7.0-r1:</p>
+<blockquote>
+<p>ERROR: qemu-native-2.7.0-r1 do_compile: oe_runmake failed<br>
+ERROR: qemu-native-2.7.0-r1 do_compile: Function failed: do_compile (log file is located at /home/drewwestrick/SW/workspace/legato_framework/yocto/build_bin/tmp/work/x86_64-linux/qemu-native/2.7.0-r1/temp/log.do_compile.27008)<br>
+ERROR: Logfile of failure stored in: /home/drewwestrick/SW/workspace/legato_framework/yocto/build_bin/tmp/work/x86_64-linux/qemu-native/2.7.0-r1/temp/log.do_compile.27008<br>
+Log data follows:<br>
+| DEBUG: Executing shell function do_compile<br>
+| NOTE: make -j 4 LD=ld  AR=ar OBJCOPY=objcopy LDFLAGS=-L/home/drewwestrick/SW/workspace/legato_framework/yocto/build_bin/tmp/sysroots/x86_64-linux/usr/lib -L/home/drewwestrick/SW/workspace/legato_framework/yocto/build_bin/tmp/sysroots/x86_64-linux/lib -Wl,-rpath-link,/home/drewwestrick/SW/workspace/legato_framework/yocto/build_bin/tmp/sysroots/x86_64-linux/usr/lib -Wl,-rpath-link,/home/drewwestrick/SW/workspace/legato_framework/yocto/build_bin/tmp/sysroots/x86_64-linux/lib -Wl,-rpath,/home/drewwestrick/SW/workspace/legato_framework/yocto/build_bin/tmp/sysroots/x86_64-linux/usr/lib -Wl,-rpath,/home/drewwestrick/SW/workspace/legato_framework/yocto/build_bin/tmp/sysroots/x86_64-linux/lib -Wl,-O1 -fuse-ld=bfd<br>
+| ERROR: oe_runmake failed<br>
+|   GEN   arm-softmmu/config-devices.mak.tmp<br>
+|   GEN   aarch64-softmmu/config-devices.mak.tmp<br>
+|   GEN   aarch64-linux-user/config-devices.mak.tmp<br>
+|   GEN   arm-linux-user/config-devices.mak.tmp<br>
+|   GEN   arm-linux-user/config-devices.mak<br>
+|   GEN   aarch64-linux-user/config-devices.mak<br>
+|   GEN   i386-linux-user/config-devices.mak.tmp<br>
+|   GEN   i386-softmmu/config-devices.mak.tmp<br>
+|   GEN   arm-softmmu/config-devices.mak<br>
+|   GEN   mips-linux-user/config-devices.mak.tmp<br>
+|   GEN   aarch64-softmmu/config-devices.mak<br>
+|   GEN   mips-softmmu/config-devices.mak.tmp<br>
+|   GEN   i386-linux-user/config-devices.mak<br>
+|   GEN   mips-linux-user/config-devices.mak<br>
+|   GEN   mipsel-softmmu/config-devices.mak.tmp<br>
+|   GEN   i386-softmmu/config-devices.mak<br>
+|   GEN   mipsel-linux-user/config-devices.mak.tmp<br>
+|   GEN   mips64-linux-user/config-devices.mak.tmp<br>
+|   GEN   mipsel-linux-user/config-devices.mak<br>
+|   GEN   mips64-linux-user/config-devices.mak<br>
+|   GEN   mips64-softmmu/config-devices.mak.tmp<br>
+|   GEN   ppc-linux-user/config-devices.mak.tmp<br>
+|   GEN   mipsel-softmmu/config-devices.mak<br>
+|   GEN   mips-softmmu/config-devices.mak<br>
+|   GEN   ppc-softmmu/config-devices.mak.tmp<br>
+|   GEN   x86_64-linux-user/config-devices.mak.tmp<br>
+|   GEN   ppc-linux-user/config-devices.mak<br>
+|   GEN   x86_64-softmmu/config-devices.mak.tmp<br>
+|   GEN   x86_64-linux-user/config-devices.mak<br>
+|   GEN   mips64-softmmu/config-devices.mak<br>
+|   GEN   ppc-softmmu/config-devices.mak<br>
+|   GEN   x86_64-softmmu/config-devices.mak<br>
+|   GEN   qemu-options.def<br>
+|   GEN   config-host.h<br>
+|   GEN   qmp-commands.h<br>
+|   GEN   qapi-types.h<br>
+|   GEN   qapi-visit.h<br>
+|   GEN   qapi-event.h<br>
+|   GEN   qmp-introspect.h<br>
+|   GEN   tests/test-qapi-types.h<br>
+|   GEN   tests/test-qapi-visit.h<br>
+|   GEN   tests/test-qmp-commands.h<br>
+|   GEN   tests/test-qapi-event.h<br>
+|   GEN   tests/test-qmp-introspect.h<br>
+|   GEN   config-all-devices.mak<br>
+|   GEN   trace/generated-events.h<br>
+|   GEN   trace/generated-tracers.h<br>
+|   GEN   trace/generated-tcg-tracers.h<br>
+|   GEN   trace/generated-helpers-wrappers.h<br>
+|   GEN   trace/generated-helpers.h<br>
+|   CC    tests/qemu-iotests/socket_scm_helper.o<br>
+|   GEN   qemu-monitor.texi<br>
+|   GEN   qemu-img-cmds.texi<br>
+|   GEN   qemu-options.texi<br>
+|   GEN   qemu-monitor-info.texi<br>
+|   GEN   qemu-tech.html<br>
+|   GEN   qemu-img.1<br>
+|   GEN   qemu-nbd.8<br>
+|   GEN   qemu-ga.8<br>
+|   GEN   qmp-commands.txt<br>
+|   GEN   qga/qapi-generated/qga-qapi-types.h<br>
+|   GEN   qga/qapi-generated/qga-qapi-visit.h<br>
+|   GEN   qga/qapi-generated/qga-qmp-commands.h<br>
+|   GEN   qga/qapi-generated/qga-qapi-types.c<br>
+|   GEN   qga/qapi-generated/qga-qapi-visit.c<br>
+|   GEN   qga/qapi-generated/qga-qmp-marshal.c<br>
+|   GEN   qmp-introspect.c<br>
+|   GEN   qapi-types.c<br>
+|   GEN   qapi-visit.c<br>
+|   GEN   qapi-event.c<br>
+|   CC    qapi/qapi-visit-core.o<br>
+|   CC    qapi/qapi-dealloc-visitor.o<br>
+|   CC    qapi/qmp-input-visitor.o<br>
+|   CC    qapi/qmp-output-visitor.o<br>
+|   CC    qapi/qmp-dispatch.o<br>
+|   CC    qapi/qmp-registry.o<br>
+|   CC    qapi/string-input-visitor.o<br>
+|   CC    qapi/string-output-visitor.o<br>
+|   CC    qapi/opts-visitor.o<br>
+|   CC    qapi/qapi-clone-visitor.o<br>
+|   CC    qapi/qmp-event.o<br>
+|   CC    qapi/qapi-util.o<br>
+|   CC    qobject/qnull.o<br>
+|   CC    qobject/qint.o<br>
+|   CC    qobject/qstring.o<br>
+|   CC    qobject/qdict.o<br>
+|   CC    qobject/qlist.o<br>
+|   CC    qobject/qfloat.o<br>
+|   CC    qobject/qbool.o<br>
+|   CC    qobject/qjson.o<br>
+|   CC    qobject/qobject.o<br>
+|   CC    qobject/json-lexer.o<br>
+|   CC    qobject/json-streamer.o<br>
+|   CC    qobject/json-parser.o<br>
+|   GEN   trace/generated-events.c<br>
+|   CC    trace/control.o<br>
+|   CC    trace/qmp.o<br>
+|   CC    util/osdep.o<br>
+|   CC    util/cutils.o<br>
+|   CC    util/unicode.o<br>
+|   CC    util/qemu-timer-common.o<br>
+|   CC    util/compatfd.o<br>
+|   CC    util/event_notifier-posix.o<br>
+|   CC    util/mmap-alloc.o<br>
+|   CC    util/oslib-posix.o<br>
+|   CC    util/qemu-openpty.o<br>
+|   CC    util/qemu-thread-posix.o<br>
+|   CC    util/memfd.o<br>
+| /home/drewwestrick/SW/workspace/legato_framework/yocto/build_bin/tmp/work/x86_64-linux/qemu-native/2.7.0-r1/qemu-2.7.0/util/memfd.c:40:12: error: static declaration of ‘memfd_create’ follows non-static declaration<br>
+|  static int memfd_create(const char *name, unsigned int flags)<br>
+|             ^~~~~~~~~~~~<br>
+| In file included from /usr/include/x86_64-linux-gnu/bits/mman-linux.h:115:0,<br>
+|                  from /usr/include/x86_64-linux-gnu/bits/mman.h:45,<br>
+|                  from /usr/include/x86_64-linux-gnu/sys/mman.h:41,<br>
+|                  from /home/drewwestrick/SW/workspace/legato_framework/yocto/build_bin/tmp/work/x86_64-linux/qemu-native/2.7.0-r1/qemu-2.7.0/include/sysemu/os-posix.h:29,<br>
+|                  from /home/drewwestrick/SW/workspace/legato_framework/yocto/build_bin/tmp/work/x86_64-linux/qemu-native/2.7.0-r1/qemu-2.7.0/include/qemu/osdep.h:104,<br>
+|                  from /home/drewwestrick/SW/workspace/legato_framework/yocto/build_bin/tmp/work/x86_64-linux/qemu-native/2.7.0-r1/qemu-2.7.0/util/memfd.c:28:<br>
+| /usr/include/x86_64-linux-gnu/bits/mman-shared.h:46:5: note: previous declaration of ‘memfd_create’ was here<br>
+|  int memfd_create (const char *__name, unsigned int __flags) __THROW;<br>
+|      ^~~~~~~~~~~~<br>
+| /home/drewwestrick/SW/workspace/legato_framework/yocto/build_bin/tmp/work/x86_64-linux/qemu-native/2.7.0-r1/qemu-2.7.0/rules.mak:59: recipe for target ‘util/memfd.o’ failed<br>
+| make: *** [util/memfd.o] Error 1<br>
+| make: *** Waiting for unfinished jobs…<br>
+| WARNING: /home/drewwestrick/SW/workspace/legato_framework/yocto/build_bin/tmp/work/x86_64-linux/qemu-native/2.7.0-r1/temp/run.do_compile.27008:1 exit 1 from ‘exit 1’<br>
+| ERROR: Function failed: do_compile (log file is located at /home/drewwestrick/SW/workspace/legato_framework/yocto/build_bin/tmp/work/x86_64-linux/qemu-native/2.7.0-r1/temp/log.do_compile.27008)<br>
+ERROR: Task (virtual:native:/home/drewwestrick/SW/workspace/legato_framework/yocto/poky/meta/recipes-devtools/qemu/qemu_2.7.0.bb:do_compile) failed with exit code ‘1’<br>
+NOTE: Tasks Summary: Attempted 857 tasks of which 0 didn’t need to be rerun and 1 failed.<br>
+Summary: 1 task failed:<br>
+virtual:native:/home/drewwestrick/SW/workspace/legato_framework/yocto/poky/meta/recipes-devtools/qemu/qemu_2.7.0.bb:do_compile<br>
+Summary: There were 9 WARNING messages shown.<br>
+Summary: There were 2 ERROR messages shown, returning a non-zero exit code.<br>
+Makefile:217: recipe for target ‘image_bin’ failed</p>
+</blockquote>
+<p>Build Configuration:</p>
+<blockquote>
+<p>Build Configuration:<br>
+BB_VERSION        = “1.32.0”<br>
+BUILD_SYS         = “x86_64-linux”<br>
+NATIVELSBSTRING   = “Ubuntu-18.04”<br>
+TARGET_SYS        = “arm-poky-linux-gnueabi”<br>
+MACHINE           = “swi-mdm9x28”<br>
+DISTRO            = “poky-swi-ext”<br>
+DISTRO_VERSION    = “2.2.3”<br>
+TUNE_FEATURES     = “arm armv7a vfp  neon”<br>
+TARGET_FPU        = “softfp”<br>
+meta<br>
+meta-poky<br>
+meta-yocto-bsp    = “HEAD:e6aadcc2a04ae4e85b1cb00c5c9ce1c0f76ee871”<br>
+meta-python<br>
+meta-networking<br>
+meta-oe           = “HEAD:b40116cf457b88a2db14b86fda9627fb34d56ae6”<br>
+common<br>
+meta-swi-mdm9xxx<br>
+meta-swi-mdm9x28  = “HEAD:f646dfd3f5c04ca9a38321020cc4f3f9bdc015f5”<br>
+meta-swi-mdm9xxx-bin<br>
+meta-swi-mdm9x28-bin<br>
+meta-swi-mdm9x28<br>
+meta-swi-mdm9xxx-bin<br>
+meta-swi-mdm9x28-bin<br>
+common            = “HEAD:9aca15ff07789cda916d0cd7efc4dacb87714883”</p>
+</blockquote>
+<p>Should I try and use a more up-to-date version of qemu-native?</p>
+<p><a class="mention" href="/u/dfrey">@dfrey</a> <a class="mention" href="/u/dclark75">@dclark75</a> <a class="mention" href="/u/asyal">@asyal</a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_19' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-05-29T19:14:52Z' class='post-time'>
+                    May 29, 2018,  7:14pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-05-29T19:14:52Z'>
+              <span itemprop='position'>19</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Have you tried <code>make image_bin</code>.  I believe <code>make image_src</code> is only possible within Sierra Wireless because it depends on proprietary source.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_20' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/drewwestrick'><span itemprop='name'>drewwestrick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/building-custom-yocto-image/1299">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-05-29T19:30:05Z' class='post-time'>
+                    May 29, 2018,  7:30pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-05-29T19:30:05Z'>
+              <span itemprop='position'>20</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Yes sorry that was a typo. <code>make image_src</code> is not even an option in the Makefile. I’m running <code>make image_bin</code>.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+    <div role='navigation' itemscope itemtype='http://schema.org/SiteNavigationElement' class="topic-body crawler-post">
+        <span itemprop='name'><b><a rel="next" itemprop="url" href="/t/building-custom-yocto-image/1299?page=2">next page →</a></b></span>
+    </div>
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

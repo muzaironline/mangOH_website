@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>USB-LAN (linux host) problem ping working only 17 requests - mangOH Red Orange Starter Kit - mangOH forum</title>
+    <meta name="description" content="Strange behavior with ping and ssh : works only from time to time. 
+for ping, we are able to reproduce (100%) as follow 
+starting with sierra wireless not connect from the VM USB perihperals 
+
+from the VM :  ping 192.168&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;USB-LAN (linux host) problem ping working only 17 requests&#39;" href="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212" />
+<meta property="og:title" content="USB-LAN (linux host) problem ping working only 17 requests" />
+<meta name="twitter:title" content="USB-LAN (linux host) problem ping working only 17 requests" />
+<meta property="og:description" content="Strange behavior with ping and ssh : works only from time to time.  for ping, we are able to reproduce (100%) as follow  starting with sierra wireless not connect from the VM USB perihperals   from the VM :  ping 192.168.2.2 : no response connect the sirra wireless  -disconnect it  : the ping is now responding but stop after 17 requests . have to connect and disconnect the sierra from ths usb peripherals  kill the ping, issue the command again  ssh of course works only during the time qhere the ..." />
+<meta name="twitter:description" content="Strange behavior with ping and ssh : works only from time to time.  for ping, we are able to reproduce (100%) as follow  starting with sierra wireless not connect from the VM USB perihperals   from the VM :  ping 192.168.2.2 : no response connect the sirra wireless  -disconnect it  : the ping is now responding but stop after 17 requests . have to connect and disconnect the sierra from ths usb peripherals  kill the ping, issue the command again  ssh of course works only during the time qhere the ..." />
+<meta property="og:article:section" content="mangOH Red Orange Starter Kit" />
+<meta property="og:article:section:color" content="F7941D" />
+<meta property="article:published_time" content="2018-12-04T14:27:58+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"USB-LAN (linux host) problem ping working only 17 requests","mainEntity":{"@type":"Question","name":"USB-LAN (linux host) problem ping working only 17 requests","text":"Strange behavior with ping and ssh : works only from time to time.\n\nfor ping, we are able to reproduce (100%) as follow\n\nstarting with sierra wireless not connect from the VM USB perihperals\n\nfrom the VM :  ping 192.168.2.2 : no response\n\nconnect the sirra wireless\n\n-disconnect it  : the ping is now&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2018-12-04T14:27:58.754Z","author":{"@type":"Person","name":"serenne"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212">USB-LAN (linux host) problem ping working only 17 requests</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-red-orange/16" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #F7941D'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Red Orange Starter Kit</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='USB-LAN (linux host) problem ping working only 17 requests'>
+        <meta itemprop='articleSection' content='mangOH Red Orange Starter Kit'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pserenne'><span itemprop='name'>pserenne</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-12-04T14:27:58Z' class='post-time'>
+                    December 4, 2018,  2:27pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-12-04T14:27:58Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>Strange behavior with ping and ssh : works only from time to time.</p>
+<p>for ping, we are able to reproduce (100%) as follow<br>
+starting with sierra wireless not connect from the VM USB perihperals</p>
+<ul>
+<li>from the VM :  ping 192.168.2.2 : no response</li>
+<li>connect the sirra wireless<br>
+-disconnect it  : the ping is now responding but stop after 17 requests . have to connect and disconnect the sierra from ths usb peripherals</li>
+</ul>
+<p>kill the ping, issue the command again</p>
+<p>ssh of course works only during the time qhere the ping is responding …</p>
+<p>Host : kubuntu 18.04<br>
+lsusb : Bus 003 Device 067: ID 1199:68c0 Sierra Wireless, Inc.</p>
+<p>Any idea to solve ?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pserenne'><span itemprop='name'>pserenne</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-12-04T14:33:56Z' class='post-time'>
+                    December 4, 2018,  2:33pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-12-04T14:33:56Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Syslog (host )when ping is running then stop <img src="https://emoji.discourse-cdn.com/twitter/slight_smile.png?v=6" title=":slight_smile:" class="emoji" alt=":slight_smile:">Dec  4 15:32:18 multimed nm-dispatcher: req:1 ‘up’ [enp0s20u12i19]: start running ordered scripts…<br>
+Dec  4 15:32:20 multimed ModemManager[778]:   (ttyUSB0): port attributes not fully set<br>
+Dec  4 15:32:20 multimed ModemManager[778]:   (ttyUSB1): port attributes not fully set<br>
+Dec  4 15:32:20 multimed ModemManager[778]:   (ttyUSB2): port attributes not fully set<br>
+Dec  4 15:32:20 multimed ModemManager[778]: [/dev/cdc-wdm0] Opening device with flags ‘version-info, proxy’…<br>
+Dec  4 15:32:20 multimed ModemManager[778]: [/dev/cdc-wdm0] loaded driver of cdc-wdm port: qmi_wwan<br>
+Dec  4 15:32:20 multimed ModemManager[778]: cannot connect to proxy: Could not connect: Connection refused<br>
+Dec  4 15:32:20 multimed ModemManager[778]: spawning new qmi-proxy (try 1)…<br>
+Dec  4 15:32:20 multimed ModemManager[778]: [/dev/cdc-wdm0] Checking version info (10 retries)…<br>
+Dec  4 15:32:20 multimed avahi-daemon[775]: Joining mDNS multicast group on interface enp0s20u12i19.IPv6 with address fe80::6657:6d26:2c9d:8fb5.<br>
+Dec  4 15:32:20 multimed avahi-daemon[775]: New relevant interface enp0s20u12i19.IPv6 for mDNS.<br>
+Dec  4 15:32:20 multimed avahi-daemon[775]: Registering new address record for fe80::6657:6d26:2c9d:8fb5 on enp0s20u12i19.*.<br>
+Dec  4 15:32:29 multimed ModemManager[778]:   (tty/ttyUSB0) failed to parse QCDM version info command result: -7<br>
+Dec  4 15:32:35 multimed ModemManager[778]:   Creating modem with plugin ‘Sierra’ and ‘6’ ports<br>
+Dec  4 15:32:35 multimed ModemManager[778]:   Could not grab port (tty/ttyUSB1): ‘Cannot add port ‘tty/ttyUSB1’, unhandled serial type’<br>
+Dec  4 15:32:35 multimed ModemManager[778]:   Could not grab port (usbmisc/cdc-wdm0): ‘Cannot add port ‘usbmisc/cdc-wdm0’, unsupported’<br>
+Dec  4 15:32:35 multimed ModemManager[778]:   (ttyUSB2): port attributes not fully set<br>
+Dec  4 15:32:35 multimed ModemManager[778]:   Modem for device at ‘/sys/devices/pci0000:00/0000:00:14.0/usb3/3-12’ successfully created<br>
+Dec  4 15:32:36 multimed ModemManager[778]:   Modem: state changed (unknown -&gt; disabled)<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.0865] device (enp0s20u12i19): state change: activated -&gt; deactivating (reason ‘connection-removed’, sys-iface-state: ‘managed’)<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.0990] modem[“ttyUSB2”]: modem state changed, ‘disabled’ --&gt; ‘enabling’ (reason: user preference)<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.0994] manager: (ttyUSB2): new Broadband device (/org/freedesktop/NetworkManager/Devices/43)<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.0995] device (ttyUSB2): state change: unmanaged -&gt; unavailable (reason ‘managed’, sys-iface-state: ‘external’)<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.0996] device (ttyUSB2): modem state ‘enabling’<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.1001] device (enp0s20u12i19): state change: deactivating -&gt; disconnected (reason ‘connection-removed’, sys-iface-state: ‘managed’)<br>
+Dec  4 15:32:36 multimed avahi-daemon[775]: Withdrawing address record for fe80::6657:6d26:2c9d:8fb5 on enp0s20u12i19.<br>
+Dec  4 15:32:36 multimed avahi-daemon[775]: Leaving mDNS multicast group on interface enp0s20u12i19.IPv6 with address fe80::6657:6d26:2c9d:8fb5.<br>
+Dec  4 15:32:36 multimed avahi-daemon[775]: Interface enp0s20u12i19.IPv6 no longer relevant for mDNS.<br>
+Dec  4 15:32:36 multimed ModemManager[778]:   Modem /org/freedesktop/ModemManager1/Modem/18: state changed (disabled -&gt; enabling)<br>
+Dec  4 15:32:36 multimed ModemManager[778]:   (ttyUSB2): port attributes not fully set<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.1192] dhcp4 (enp0s20u12i19): canceled DHCP transaction, DHCP client pid 6567<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.1192] dhcp4 (enp0s20u12i19): state changed bound -&gt; done<br>
+Dec  4 15:32:36 multimed avahi-daemon[775]: Withdrawing address record for 192.168.2.3 on enp0s20u12i19.<br>
+Dec  4 15:32:36 multimed avahi-daemon[775]: Leaving mDNS multicast group on interface enp0s20u12i19.IPv4 with address 192.168.2.3.<br>
+Dec  4 15:32:36 multimed NetworkManager[819]: ((src/nm-dispatcher.c:545)): assertion ‘’ failed<br>
+Dec  4 15:32:36 multimed avahi-daemon[775]: Interface enp0s20u12i19.IPv4 no longer relevant for mDNS.<br>
+Dec  4 15:32:36 multimed NetworkManager[819]: g_object_notify_by_pspec: assertion ‘G_IS_OBJECT (object)’ failed<br>
+Dec  4 15:32:36 multimed NetworkManager[819]: message repeated 4 times: [ g_object_notify_by_pspec: assertion ‘G_IS_OBJECT (object)’ failed]<br>
+Dec  4 15:32:36 multimed NetworkManager[819]: ((src/devices/nm-device.c:1073)): assertion ‘’ failed<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.1198] device [null]: remove_pending_action (1): ‘queued-state-change-disconnected’ not pending<br>
+Dec  4 15:32:36 multimed NetworkManager[819]: file src/devices/nm-device.c: line 12495 (): should not be reached<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.1199] device (ttyUSB2): state change: unavailable -&gt; disconnected (reason ‘none’, sys-iface-state: ‘managed’)<br>
+Dec  4 15:32:36 multimed ModemManager[778]:   Modem /org/freedesktop/ModemManager1/Modem/18: 3GPP Registration state changed (unknown -&gt; searching)<br>
+Dec  4 15:32:36 multimed ModemManager[778]:   Modem /org/freedesktop/ModemManager1/Modem/18: state changed (enabling -&gt; searching)<br>
+Dec  4 15:32:36 multimed NetworkManager[819]:   [1543933956.5898] modem[“ttyUSB2”]: modem state changed, ‘enabling’ --&gt; ‘searching’ (reason: user-requested)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pserenne'><span itemprop='name'>pserenne</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-12-05T09:57:36Z' class='post-time'>
+                    December 5, 2018,  9:57am
+                  </time>
+                  <meta itemprop='dateModified' content='2019-07-30T03:52:01Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>is not an issue with the VM, but with the unix host … have the same behavior when using ping or ssh from the Unix host. Any firmware update to apply on the board, or specific requirements on the linux hosts (kubuntu 18.04) ?</p>
+<p>(<span class="mention">@see</span> syslog extract atatched with modemmanager in debug mode trace)</p>
+<p><a class="attachment" href="/uploads/short-url/51kNS2SjJSS9I0owgmMqpMfmyrR">syslog</a> (89.8 KB)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/awneil'><span itemprop='name'>awneil</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-12-05T20:10:49Z' class='post-time'>
+                    December 5, 2018,  8:10pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-12-05T20:10:49Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Is this the old modem manager problem?</p>
+<p><a href="https://forum.mangoh.io/search?q=modem%20manager">https://forum.mangoh.io/search?q=modem%20manager</a></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/pserenne'><span itemprop='name'>pserenne</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/usb-lan-linux-host-problem-ping-working-only-17-requests/2212">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-12-05T23:51:31Z' class='post-time'>
+                    December 5, 2018, 11:51pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-12-05T23:51:31Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks !!! found the answer in one of the mango green topic with your link</p>
+<p>Thanks Andy</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

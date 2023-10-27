@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>How to flash new kernel to mangOH - mangOH Green - mangOH forum</title>
+    <meta name="description" content="I bought a new mangOH green device, and I want to customize its kernel. 
+I couldn’t find any procedure for loading or building a kernel. 
+From searching the internet it looks like legato-af is the project you use to buil&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;How to flash new kernel to mangOH&#39;" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/3a6474224b6583b6512ef6a5cd02d7d66cc320b7.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293" />
+<meta property="og:title" content="How to flash new kernel to mangOH" />
+<meta name="twitter:title" content="How to flash new kernel to mangOH" />
+<meta property="og:description" content="I bought a new mangOH green device, and I want to customize its kernel.  I couldn’t find any procedure for loading or building a kernel.  From searching the internet it looks like legato-af is the project you use to build the new kernel, and indeed after building it I can see the file ./build_bin/tmp/deploy/images/swi-mdm9x15/boot-yocto_wp85.cwe.  It looks like swiflash -m wp85 -i boot-yocto_wp85.cwe should work, but I’m not entirely sure.  I also saw the fwupdateService running on the mangOH, a..." />
+<meta name="twitter:description" content="I bought a new mangOH green device, and I want to customize its kernel.  I couldn’t find any procedure for loading or building a kernel.  From searching the internet it looks like legato-af is the project you use to build the new kernel, and indeed after building it I can see the file ./build_bin/tmp/deploy/images/swi-mdm9x15/boot-yocto_wp85.cwe.  It looks like swiflash -m wp85 -i boot-yocto_wp85.cwe should work, but I’m not entirely sure.  I also saw the fwupdateService running on the mangOH, a..." />
+<meta property="og:article:section" content="mangOH Green" />
+<meta property="og:article:section:color" content="9EB83B" />
+<meta name="twitter:label1" value="Reading time" />
+<meta name="twitter:data1" value="2 mins 🕑" />
+<meta name="twitter:label2" value="Likes" />
+<meta name="twitter:data2" value="5 ❤" />
+<meta property="article:published_time" content="2018-04-03T08:22:19+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"How to flash new kernel to mangOH","mainEntity":{"@type":"Question","name":"How to flash new kernel to mangOH","text":"I bought a new mangOH green device, and I want to customize its kernel.\n\nI couldn’t find any procedure for loading or building a kernel.\n\nFrom searching the internet it looks like <a href=\"https://github.com/legatoproject/legato-af\" rel=\"nofollow noopener\">legato-af<\/a> is the project you use to build the new kernel, and indeed after building it I can see the file ./build_bin/tm&hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2018-04-03T08:22:19.010Z","author":{"@type":"Person","name":"Ohad Levin"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/how-to-flash-new-kernel-to-mangoh/1293">How to flash new kernel to mangOH</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/mangoh-green/6" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #9EB83B'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>mangOH Green</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='How to flash new kernel to mangOH'>
+        <meta itemprop='articleSection' content='mangOH Green'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/ohad'><span itemprop='name'>ohad</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-03T08:22:19Z' class='post-time'>
+                    April 3, 2018,  8:22am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-03T08:22:19Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>I bought a new mangOH green device, and I want to customize its kernel.</p>
+<p>I couldn’t find any procedure for loading or building a kernel.</p>
+<p>From searching the internet it looks like <a href="https://github.com/legatoproject/legato-af" rel="nofollow noopener">legato-af</a> is the project you use to build the new kernel, and indeed after building it I can see the file <code>./build_bin/tmp/deploy/images/swi-mdm9x15/boot-yocto_wp85.cwe</code>.</p>
+<p>It looks like <code>swiflash -m wp85 -i boot-yocto_wp85.cwe</code> should work, but I’m not entirely sure.</p>
+<p>I also saw the fwupdateService running on the mangOH, and I’m not sure. Does swiflush communicate with this service?</p>
+<p>If this is the case, how would I be able to reflash the device if I accidentally flash a corrupted kernel.</p>
+<p>Is there a document describing the flashing components architecture?</p>
+<p>Thanks</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/ad9f438157973d8386e42f16e03aaabd9a97d04d.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-03T17:07:14Z' class='post-time'>
+                    April 3, 2018,  5:07pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-03T17:07:14Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey <a class="mention" href="/u/ohad">@ohad</a>,</p>
+<p>The source you need to customize the base OS can be found here: <a href="https://source.sierrawireless.com/resources/legato/downloads/" rel="nofollow noopener">https://source.sierrawireless.com/resources/legato/downloads/</a>.</p>
+<p>Instructions on building this code can be found here: <a href="https://source.sierrawireless.com/resources/legato/linuxoverview/" rel="nofollow noopener">https://source.sierrawireless.com/resources/legato/linuxoverview/</a>. The download page is a little confusing, so I circled the ones you want.</p>
+<p><div class="lightbox-wrapper"><a class="lightbox" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/ad9f438157973d8386e42f16e03aaabd9a97d04d.png" data-download-href="/uploads/short-url/oLVP2FrYSBD1Tfck24yMIwfBF3D.png?dl=1" title="Screen Shot 2018-04-03 at 10.01.26 AM.png" rel="nofollow noopener"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/ad9f438157973d8386e42f16e03aaabd9a97d04d_2_690x336.png" alt="26%20AM" data-base62-sha1="oLVP2FrYSBD1Tfck24yMIwfBF3D" width="690" height="336" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/ad9f438157973d8386e42f16e03aaabd9a97d04d_2_690x336.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/ad9f438157973d8386e42f16e03aaabd9a97d04d_2_1035x504.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/ad9f438157973d8386e42f16e03aaabd9a97d04d_2_1380x672.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/ad9f438157973d8386e42f16e03aaabd9a97d04d_2_10x10.png"><div class="meta">
+<svg class="fa d-icon d-icon-far-image svg-icon" aria-hidden="true"><use xlink:href="#far-image"></use></svg><span class="filename">Screen Shot 2018-04-03 at 10.01.26 AM.png</span><span class="informations">1472×718 101 KB</span><svg class="fa d-icon d-icon-discourse-expand svg-icon" aria-hidden="true"><use xlink:href="#discourse-expand"></use></svg>
+</div></a></div></p>
+<p>In theory, you should be able to produce a custom <code>.cwe</code> file and flash it as described. The <code>fwupdateService</code> is used with the <code>fwupdate</code> command line tool to flash <code>.spk</code> files (I’m not certain what the difference is here, Sierra Wireless seems to provide pre-built firmware as <code>.spk</code> files).</p>
+<p>I’m currently waiting on better build hardware to try this out. I ran it on an Ubuntu virtual machine on my late 2016 MacBook Pro and it was far too slow to make this effective. I’ll keep you updated as I go.</p>
+<p>Cheers!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/ohad'><span itemprop='name'>ohad</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-04T13:49:23Z' class='post-time'>
+                    April 4, 2018,  1:49pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-04T14:22:03Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/nick">@nick</a> ,</p>
+<p>Thank you for your help.</p>
+<p>I was able to flash the device using fwupdate tool. However, I’d like to be able to recover the device even if it cannot to up and is in bootloader mode. I looked at fastboot and swiflash tools for that. The swiflash tool failed on download of the firmware. Regarding the bootloader, I’m not sure what should be the image to recover the device(Mangoh Green WP8548) with.</p>
+<p>Thanks,</p>
+<p>Ohad</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/ohad'><span itemprop='name'>ohad</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-04T13:57:52Z' class='post-time'>
+                    April 4, 2018,  1:57pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-04T13:57:52Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>And here’s the output:</p>
+<p>$swiflash -m “WP85XX” -i WPx5xx_Release14_GENERIC_SPK.spk<br>
+Detecting USB of the target<br>
+DONE<br>
+Communicating with the target<br>
+DONE<br>
+Switching to firmware download mode<br>
+…DONE<br>
+Downloading the firmware<br>
+…ERROR: Firmware Download failed. Callback status 59399DONE<br>
+ERROR: Firmware Download Failed</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="2" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-04T15:41:04Z' class='post-time'>
+                    April 4, 2018,  3:41pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-04T15:41:04Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Is there a reason why you’re loading release 14 instead of release 15?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-04T17:00:35Z' class='post-time'>
+                    April 4, 2018,  5:00pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-04T17:00:35Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey <a class="mention" href="/u/ohad">@ohad</a>,</p>
+<p>I believe <code>swiflash</code> is designed to be used with <code>.cwe</code> files. I’ve been installing <code>.spk</code> files by invoking <code>fwupdate download &lt;firmwareFile&gt; &lt;targetIP&gt;</code>.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/ohad'><span itemprop='name'>ohad</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-04T21:59:27Z' class='post-time'>
+                    April 4, 2018,  9:59pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-04T21:59:27Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey <a class="mention" href="/u/nick">@nick</a>,</p>
+<p>I followed the recovery procedure at <a href="https://source.sierrawireless.com/resources/legato/wpxxxxrecoveryprocedure/" rel="nofollow noopener">https://source.sierrawireless.com/resources/legato/wpxxxxrecoveryprocedure/</a><br>
+<a class="mention" href="/u/dfrey">@dfrey</a>, there’s no reason to use release 14, I tried both 14 and 15 with the same results.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/daav'><span itemprop='name'>daav</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-05T05:33:07Z' class='post-time'>
+                    April 5, 2018,  5:33am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-05T05:33:07Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey here,<br>
+Some information concerning images flashing:</p>
+<ul>
+<li>both <code>fwupdate</code> and <code>swiflash</code> work with both <code>.cwe</code> and <code>.spk</code> files</li>
+<li>actually, a <code>.spk</code> is by convention a composite concatenation of several <code>.cwe</code> images (e.g. modem Firmware image + linux image + legato image)</li>
+<li>the difference between <code>fwupdate</code> and <code>swiflash</code> is:
+<ul>
+<li>
+<code>fwupdate</code> (host script) works over an SSH connection, to provision the file and call the <code>fwupdate</code> (embedded tool) to apply the update from the Linux land.</li>
+<li>
+<code>swiflash</code> works at a lower level, requiring a physical USB connection to the device, and is able to perform download even if linux or legato is not running correctly on the device<br>
+(designed for recovery use cases)</li>
+</ul>
+</li>
+</ul>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/dfrey'><span itemprop='name'>dfrey</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-05T15:05:28Z' class='post-time'>
+                    April 5, 2018,  3:05pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-05T15:05:28Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>What <a class="mention" href="/u/daav">@daav</a> said is useful and correct.  One other tool that exists in the same area is FDT2.  FDT2 (like swiflash) can be used to recover units that don’t have a functional ssh service running.  FDT2 runs on Windows whereas swiflash runs on Linux.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_10' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-12T01:19:46Z' class='post-time'>
+                    April 12, 2018,  1:19am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-12T01:19:46Z'>
+              <span itemprop='position'>10</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey all,</p>
+<p>I was successfully flashing official firmware packages with <code>swiflash</code> but I’ve been seeing <code>Callback status 59399DONE</code> as reported by <a class="mention" href="/u/ohad">@ohad</a> since earlier today (on 7 separate units and 2 separate computers). I have a feeling this has something to do with the host setup but I’m not sure.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_11' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/ohad'><span itemprop='name'>ohad</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-12T09:23:09Z' class='post-time'>
+                    April 12, 2018,  9:23am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-12T09:23:09Z'>
+              <span itemprop='position'>11</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi guys,</p>
+<p>We succeeded to execute swiflash from another PC. The problem seems to be related to USB drivers on the laptop we tried to flash from(Dell Latitude 5580, Ubuntu 16.04). After we succeeded to flash from another laptop, we could do it also from the original laptop after rebooting it and when the USB1 device comes up properly(which does not always happen…).</p>
+<p>Thanks for the help,<br>
+Ohad</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_12' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-12T10:37:49Z' class='post-time'>
+                    April 12, 2018, 10:37am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-12T10:37:49Z'>
+              <span itemprop='position'>12</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks <a class="mention" href="/u/ohad">@ohad</a>. I definitely suspected the issue was the host computer since my entire fleet stopped working a the same time. I’ll give this a go in a few hours.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_13' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/f50ece3b7915a6d01f45784488f21268a86637cb.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-12T20:49:16Z' class='post-time'>
+                    April 12, 2018,  8:49pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-12T20:49:16Z'>
+              <span itemprop='position'>13</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I spent an hour or so re-installing Ubuntu 16.04 and it works now.<img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/f50ece3b7915a6d01f45784488f21268a86637cb.png" alt="07f8a91fb093452bea90e52a208c62c6" width="424" height="479"></p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="2" />
+              <span class='post-likes'>2 Likes</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_14' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-26T21:58:25Z' class='post-time'>
+                    April 26, 2018,  9:58pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-26T21:58:25Z'>
+              <span itemprop='position'>14</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey all,</p>
+<p>My issues with swiflash appear to be back… that means I got 14 days out of this Ubuntu installation with working swiflash. I have no idea what causes this, but it’s not feasible to simply re-install the OS every time this goes sideways.</p>
+<p>Does swiflash have some cache or configuration files I should be clearing?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_15' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/daav'><span itemprop='name'>daav</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-27T07:15:05Z' class='post-time'>
+                    April 27, 2018,  7:15am
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-27T07:15:05Z'>
+              <span itemprop='position'>15</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hi <a class="mention" href="/u/nick">@nick</a></p>
+<p>a swiflash update was posted yesterday (4.6)<br>
+Please can you update with apt and try again?</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_16' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2018-04-27T15:31:00Z' class='post-time'>
+                    April 27, 2018,  3:31pm
+                  </time>
+                  <meta itemprop='dateModified' content='2018-04-27T15:31:00Z'>
+              <span itemprop='position'>16</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey <a class="mention" href="/u/daav">@daav</a>,</p>
+<p>I’ve tested with <code>swiflash</code> 4.6 and 4.5. This issue seems to be following my host computer. I’m also having trouble applying updates over <code>fwupdate</code> for some reason. I’ll keep you guys posted as I investigate this.</p>
+<p>Cheers!</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_17' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/mvonflotow'><span itemprop='name'>mvonflotow</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-09-25T23:16:41Z' class='post-time'>
+                    September 25, 2019, 11:16pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-09-25T23:16:41Z'>
+              <span itemprop='position'>17</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a class="mention" href="/u/nick">@nick</a>, were you every able to sort this out?</p>
+<p>Were you operating on a VM or a dedicated host? I have not been able to successfully run swiflash from my Ubuntu VM, but fwupdate has worked well so far.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="1" />
+              <span class='post-likes'>1 Like</span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_18' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/nick'><span itemprop='name'>nick</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-flash-new-kernel-to-mangoh/1293">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2019-09-26T16:34:32Z' class='post-time'>
+                    September 26, 2019,  4:34pm
+                  </time>
+                  <meta itemprop='dateModified' content='2019-09-26T16:34:32Z'>
+              <span itemprop='position'>18</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Hey <a class="mention" href="/u/mvonflotow">@mvonflotow</a>,</p>
+<p>I never really figured this out. To my knowledge, <code>swiflash</code> is another proprietary wrapper around proprietary Qualcomm software. I’m not sure if the bug is actually in <code>swiflash</code> itself or something related to the host computer. I tried from a few different towers running Ubuntu 16 and never got anywhere (I even double checked the mangOH getting started docs). For this reason I don’t adopt closed source projects such as the mangOH anymore  (some of it’s open, but not the bits that matter).</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>

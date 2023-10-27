@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform - Cloud &amp; Connectivity - mangOH forum</title>
+    <meta name="description" content="I am trying to integrate MQTT stack of AWS IoT Device SDK into my mangOH red board. 
+I downloaded latest SDK here: 
+
+and manage to make it work on local PC (Ubuntu 18.04 ) i.e. it can do mutual TLS authentication and sim&amp;hellip;">
+    <meta name="generator" content="Discourse 3.2.0.beta2-dev - https://github.com/discourse/discourse version 11176407155714e2ebc3885a5f3301a2b4d37c5b">
+<link rel="icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c8f691ef20d8b5ee5eb3e88daa9a37267fd8b5c6_2_32x32.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/c9436805837dffdd4ff80102c98ca366d74fee66_2_180x180.png">
+<meta name="theme-color" media="all" content="#ffffff">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<link rel="canonical" href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926" />
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://forum.mangoh.io/opensearch.xml" title="mangOH forum Search">
+
+    <link href="https://sea2.discourse-cdn.com/business6/stylesheets/color_definitions_mangoh-color-scheme_1_1_22c40ac3b958048f5d2773ba7c6e0a583de42cca.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" class="light-scheme"/>
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop"  />
+
+
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/checklist_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="checklist"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-adplugin_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-adplugin"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-akismet_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-akismet"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-cakeday_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-cakeday"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-data-explorer_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-data-explorer"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-details_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-details"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-footnote_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-footnote"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-lazy-videos_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-lazy-videos"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-local-dates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-local-dates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-narrative-bot_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-narrative-bot"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-policy_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-policy"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-presence_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-presence"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-solved_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-solved"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-spoiler-alert_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-spoiler-alert"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-templates_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-templates"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/hosted-site_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="hosted-site"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-post-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-post-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/discourse-topic-voting_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="discourse-topic-voting_desktop"  />
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/poll_desktop_fbfeae940828649b0abf03cf5cf6eebbf6949dd1.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="poll_desktop"  />
+
+  <link href="https://sea2.discourse-cdn.com/business6/stylesheets/desktop_theme_1_ab9b3e277688d87911f25cd6e1b20eb3d4321381.css?__ws=forum.mangoh.io" media="all" rel="stylesheet" data-target="desktop_theme" data-theme-id="1" data-theme-name="mangoh"/>
+
+    
+    <meta id="data-ga-universal-analytics" data-tracking-code="UA-718568-6" data-json="{&quot;cookieDomain&quot;:&quot;mangoh.io&quot;}" data-auto-link-domains="">
+
+  <link rel="preload" href="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js" as="script">
+<script defer src="https://global.discourse-cdn.com/business6/assets/google-universal-analytics-v3-08add7ec997ab472fcd9f821d32ff7caf4b8b9a5de2ec18ca723a040be07a098.br.js"></script>
+
+
+        <link rel="alternate nofollow" type="application/rss+xml" title="RSS feed of &#39;How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform&#39;" href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926.rss" />
+    <meta property="og:site_name" content="mangOH forum" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2_2_1024x512.png" />
+<meta property="og:image" content="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2_2_1024x512.png" />
+<meta property="og:url" content="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926" />
+<meta name="twitter:url" content="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926" />
+<meta property="og:title" content="How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform" />
+<meta name="twitter:title" content="How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform" />
+<meta property="og:description" content="I am trying to integrate MQTT stack of AWS IoT Device SDK into my mangOH red board.  I downloaded latest SDK here:   and manage to make it work on local PC (Ubuntu 18.04 ) i.e. it can do mutual TLS authentication and simple MQTT publish to AWS IoT core cloud.  However when I tried to port over to mangOH platform, I made some progress but was stuck at compilation error which seemed from openssl library integration, it could not find function which was defined in this inclusion:  #include &lt;openssl..." />
+<meta name="twitter:description" content="I am trying to integrate MQTT stack of AWS IoT Device SDK into my mangOH red board.  I downloaded latest SDK here:   and manage to make it work on local PC (Ubuntu 18.04 ) i.e. it can do mutual TLS authentication and simple MQTT publish to AWS IoT core cloud.  However when I tried to port over to mangOH platform, I made some progress but was stuck at compilation error which seemed from openssl library integration, it could not find function which was defined in this inclusion:  #include &lt;openssl..." />
+<meta property="og:article:section" content="Cloud &amp; Connectivity" />
+<meta property="og:article:section:color" content="ED207B" />
+<meta property="article:published_time" content="2022-04-18T02:01:55+00:00" />
+<meta property="og:ignore_canonical" content="true" />
+
+
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"QAPage","name":"How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform","mainEntity":{"@type":"Question","name":"How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform","text":"I am trying to integrate MQTT stack of AWS IoT Device SDK into my mangOH red board.\n\nI downloaded latest SDK here:\n\n[image]\n\n<a href=\"https://github.com/aws/aws-iot-device-sdk-embedded-C/releases/tag/202108.00\" target=\"_blank\" rel=\"noopener nofollow ugc\">Release 202108.00 · aws/aws-iot-device-sdk-embedded-C<\/a>\n\nRelease version 202108.00 of the AWS IoT Device SDK for Embedded C.\n\nand manage to &hellip;","upvoteCount":0,"answerCount":0,"dateCreated":"2022-04-18T02:01:55.567Z","author":{"@type":"Person","name":"Babang Parhusip"}}}</script>
+  </head>
+  <body class="crawler ">
+    <!--
+<div id="navmenucontainer" class="container">
+<div id="navmenuv">
+    <ul class="nav">
+      <li><a href="http://mangoh.io/">Project mangOH</a></li>
+      <li><a href="http://mangoh.io/mango-green.html">mangOH Green</a></li>
+      <li><a href="http://mangoh.io/buy-mangoh.html">Buy</a></li>
+      <li><a href="http://mangoh.io/build-your-own.html">Build your own</a></li>
+    </ul>
+</div>
+</div>
+-->
+    <header>
+  <a href="/">
+    mangOH forum
+  </a>
+</header>
+
+    <div id="main-outlet" class="wrap" role="main">
+        <div id="topic-title">
+    <h1>
+      <a href="/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926">How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform</a>
+    </h1>
+
+      <div class="topic-category" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a href="https://forum.mangoh.io/c/connectivity/14" class="badge-wrapper bullet" itemprop="item">
+              <span class='badge-category-bg' style='background-color: #ED207B'></span>
+              <span class='badge-category clear-badge'>
+                <span class='category-name' itemprop='name'>Cloud &amp; Connectivity</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </span>
+      </div>
+
+  </div>
+
+  
+
+    <div itemscope itemtype='http://schema.org/DiscussionForumPosting'>
+      <meta itemprop='headline' content='How to port MQTT of AWS IoT Device SDK for Embedded C to mangOH platform'>
+        <meta itemprop='articleSection' content='Cloud &amp; Connectivity'>
+      <meta itemprop='keywords' content=''>
+      <div itemprop='publisher' itemscope itemtype="http://schema.org/Organization">
+        <meta itemprop='name' content='mangOH forum'>
+          <div itemprop='logo' itemscope itemtype="http://schema.org/ImageObject">
+            <meta itemprop='url' content='https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/284b9ca2de433d1cdfe5448455df1b398c8cc9c8.png'>
+          </div>
+      </div>
+
+          <div id='post_1'  class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/babangparhusip'><span itemprop='name'>babangparhusip</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2.png">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-04-18T02:01:55Z' class='post-time'>
+                    April 18, 2022,  2:01am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-04-18T02:01:55Z'>
+              <span itemprop='position'>1</span>
+              </span>
+            </div>
+            <div class='post' itemprop='articleBody'>
+              <p>I am trying to integrate MQTT stack of AWS IoT Device SDK into my mangOH red board.</p>
+<p>I downloaded latest SDK here:</p><aside class="onebox allowlistedgeneric" data-onebox-src="https://github.com/aws/aws-iot-device-sdk-embedded-C/releases/tag/202108.00">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/b/bad3e5f9ad67c1ddf145107ce7032ac1d7b22563.svg" class="site-icon" width="32" height="32">
+
+      <a href="https://github.com/aws/aws-iot-device-sdk-embedded-C/releases/tag/202108.00" target="_blank" rel="noopener nofollow ugc">GitHub</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:690/345;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2_2_690x345.png" class="thumbnail" width="690" height="345" srcset="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2_2_690x345.png, https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2_2_1035x517.png 1.5x, https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2.png 2x" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/2X/c/c86c1a481a385dd9e00420883ec61574cb3a3df2_2_10x10.png"></div>
+
+<h3><a href="https://github.com/aws/aws-iot-device-sdk-embedded-C/releases/tag/202108.00" target="_blank" rel="noopener nofollow ugc">Release 202108.00 · aws/aws-iot-device-sdk-embedded-C</a></h3>
+
+  <p>Release version 202108.00 of the AWS IoT Device SDK for Embedded C.</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+<p>and manage to make it work on local PC (Ubuntu 18.04 ) i.e. it can do mutual TLS authentication and simple MQTT publish to AWS IoT core cloud.</p>
+<p>However when I tried to port over to mangOH platform, I made some progress but was stuck at compilation error which seemed from openssl library integration, it could not find function which was defined in this inclusion:</p>
+<p><span class="hashtag">#include</span> &lt;openssl/ssl.h&gt;</p>
+<p>This mean, this library was recognized locally by my local PC OS but not by legato (release 16 ver 19.11.2). This is the snippet of compilation error:</p>
+<p>&lt;project_base&gt;/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:247:17: error: implicit declaration of function ‘SSL_set1_host’; did you mean ‘SSL_set_trust’? [-Werror=implicit-function-declaration]<br>
+sslStatus = SSL_set1_host( pOpensslParams-&gt;pSsl, pServerInfo-&gt;pHostName );<br>
+^~~~~~~~~~~~~<br>
+SSL_set_trust<br>
+&lt;project_base&gt;/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c: In function ‘setOptionalConfigurations’:<br>
+/home/iotlab0035x1804/repo/gatewayx/src/gateway/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:533:13: error: implicit declaration of function ‘SSL_set_default_read_buffer_len’; did you mean ‘SSL_CTX_set_default_read_ahead’? [-Werror=implicit-function-declaration]<br>
+SSL_set_default_read_buffer_len( pSsl, ( size_t ) readBufferLength );<br>
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
+SSL_CTX_set_default_read_ahead<br>
+&lt;project_base&gt;/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c: In function ‘Openssl_Connect’:<br>
+&lt;project_base&gt;/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:625:36: error: implicit declaration of function ‘TLS_client_method’; did you mean ‘DTLS_client_method’? [-Werror=implicit-function-declaration]<br>
+pSslContext = SSL_CTX_new( TLS_client_method() );<br>
+^~~~~~~~~~~~~~~~~<br>
+DTLS_client_method<br>
+&lt;project_base&gt;/src/gateway/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:625:36: error: passing argument 1 of ‘SSL_CTX_new’ makes pointer from integer without a cast [-Werror=int-conversion]<br>
+In file included from &lt;project_base&gt;/src/gateway/cloud/aws/sdk/platform/posix/transport/include/openssl_posix.h:59:0,<br>
+from &lt;project_base&gt;/gatewayx/src/gateway/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c:35:<br>
+&lt;project_base&gt;/gatewayx/leaf-data/r16/wp76-toolchain/sysroots/armv7a-neon-poky-linux-gnueabi/usr/include/openssl/ssl.h:2131:10: note: expected ‘const SSL_METHOD * {aka const struct ssl_method_st *}’ but argument is of type ‘int’<br>
+SSL_CTX *SSL_CTX_new(const SSL_METHOD *meth);<br>
+^~~~~~~~~~~</p>
+<p>This is snippet of my .cdef<br>
+cxxflags: {<br>
+-std=c++1z<br>
+-DMQTT_DO_NOT_USE_CUSTOM_CONFIG<br>
+-DDISABLE_LOGGING<br>
+-DLIBRARY_LOG_LEVEL=LOG_NONE<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/include<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/interface<br>
+-I$CURDIR/cloud/aws/sdk/platform/posix/transport/include<br>
+-I$CURDIR/cloud/aws/logging-stack<br>
+-I$CURDIR/cloud/aws/sdk/platform/include<br>
+-I$CURDIR/cloud/aws/sdk/platform/posix/transport/include<br>
+}</p>
+<p>cflags: {<br>
+-std=c99<br>
+-DMQTT_DO_NOT_USE_CUSTOM_CONFIG<br>
+-DDISABLE_LOGGING<br>
+-DLIBRARY_LOG_LEVEL=LOG_NONE<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/include<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/<br>
+-I$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/interface<br>
+-I$CURDIR/cloud/aws/sdk/platform/posix/transport/include<br>
+-I$CURDIR/cloud/aws/logging-stack<br>
+-I$CURDIR/cloud/aws/sdk/platform/include<br>
+-I$CURDIR/cloud/aws/sdk/platform/posix/transport/include<br>
+}</p>
+<p>provides: {<br>
+api: {<br>
+ipcGateway = $CURDIR/…/leipc/ipcGateway.api<br>
+}<br>
+}</p>
+<p>sources: {<br>
+…</p>
+<pre><code>// AWS MQTT library
+$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/core_mqtt.c
+$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/core_mqtt_state.c
+$CURDIR/cloud/aws/sdk/libraries/standard/coreMQTT/source/core_mqtt_serializer.c
+
+$CURDIR/cloud/aws/sdk/platform/posix/transport/src/openssl_posix.c
+</code></pre>
+<p>}</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_2' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-04-18T02:31:51Z' class='post-time'>
+                    April 18, 2022,  2:31am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-04-18T02:31:51Z'>
+              <span itemprop='position'>2</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Is it same issue as this one?</p>
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.legato.io/t/running-azure-iot-sdk-c/5635/12">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2f530449ddf3c5969c6d457cc62c7f403f2ae1d3.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/running-azure-iot-sdk-c/5635/12" target="_blank" rel="noopener nofollow ugc" title="09:53AM - 16 May 2021">Legato Forum – 16 May 21</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/running-azure-iot-sdk-c/5635/12" target="_blank" rel="noopener nofollow ugc">Running Azure IoT sdk-c</a></h3>
+
+  <p>You can see here</p>
+
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_3' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/babangparhusip'><span itemprop='name'>babangparhusip</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-04-18T03:32:06Z' class='post-time'>
+                    April 18, 2022,  3:32am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-04-18T03:32:06Z'>
+              <span itemprop='position'>3</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Thanks but It’s not.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_4' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-04-18T03:46:48Z' class='post-time'>
+                    April 18, 2022,  3:46am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-04-18T13:22:08Z'>
+              <span itemprop='position'>4</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p><a href="https://www.openssl.org/docs/manmaster/man3/SSL_set_default_read_buffer_len.html" class="onebox" target="_blank" rel="noopener nofollow ugc">https://www.openssl.org/docs/manmaster/man3/SSL_set_default_read_buffer_len.html</a></p>
+<p>what is your “openssl version” on module?</p>
+<p>You might also see here:</p><aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.legato.io/t/integrating-aws-iot-alexa-with-wp76-upgrading-openssl/5902">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2f530449ddf3c5969c6d457cc62c7f403f2ae1d3.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/integrating-aws-iot-alexa-with-wp76-upgrading-openssl/5902" target="_blank" rel="noopener nofollow ugc" title="04:22PM - 22 July 2021">Legato Forum – 22 Jul 21</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/integrating-aws-iot-alexa-with-wp76-upgrading-openssl/5902" target="_blank" rel="noopener nofollow ugc">Integrating AWS IoT (Alexa) with WP76 | Upgrading OpenSSL</a></h3>
+
+  <p>Hello,  We are working with WP76xx and Legato 19.11.2 (the stable version from release 16). We would like to integrate it with AWS (Registration | AVS for AWS IoT) which requires  Curve25519.  Currently, the Linux Kernel prebuilt has OpenSSL version...</p>
+
+  <p>
+    <span class="label1">Reading time: 1 mins 🕑</span>
+      <span class="label2">Likes: 1 ❤</span>
+  </p>
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_5' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/babangparhusip'><span itemprop='name'>babangparhusip</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-04-21T01:59:37Z' class='post-time'>
+                    April 21, 2022,  1:59am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-04-21T01:59:37Z'>
+              <span itemprop='position'>5</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Why would ssl version matter? This is compile error.</p>
+<p>Thanks for the link, but not that relevant.</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_6' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-04-21T02:39:16Z' class='post-time'>
+                    April 21, 2022,  2:39am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-04-21T02:39:16Z'>
+              <span itemprop='position'>6</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Maybe only new version of ssl lib have that function</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_7' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/babangparhusip'><span itemprop='name'>babangparhusip</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-04-21T03:21:03Z' class='post-time'>
+                    April 21, 2022,  3:21am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-04-21T03:21:03Z'>
+              <span itemprop='position'>7</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>I see, the version is ssl 1.0.2 , the one associated with release 16:</p>
+<p>root@swi-mdm9x28-wp:~# openssl version<br>
+OpenSSL 1.0.2p  14 Aug 2018</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+          <div id='post_8' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/babangparhusip'><span itemprop='name'>babangparhusip</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926">
+
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-04-21T03:29:13Z' class='post-time'>
+                    April 21, 2022,  3:29am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-04-21T03:29:13Z'>
+              <span itemprop='position'>8</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Ok, I read again AWS SDK, it needs openssl 1.1.0 or later.<br>
+This explains why the AWS SDK MQTT can’t be integrated to Legato release 16.</p>
+<p>How should I go about this? Any legato release includes updated openssl?</p>
+<p>If I were to add manually, how should I do it? How can I write the component def (i.e. cdef)</p>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="1" />
+              </div>
+
+          </div>
+          <div id='post_9' itemprop='comment' itemscope itemtype='http://schema.org/Comment' class='topic-body crawler-post'>
+            <div class='crawler-post-meta'>
+              <span class="creator" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <a itemprop="url" href='https://forum.mangoh.io/u/jyijyi'><span itemprop='name'>jyijyi</span></a>
+                
+              </span>
+
+              <link itemprop="mainEntityOfPage" href="https://forum.mangoh.io/t/how-to-port-mqtt-of-aws-iot-device-sdk-for-embedded-c-to-mangoh-platform/9926">
+
+                <link itemprop="image" href="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg">
+
+              <span class="crawler-post-infos">
+                  <time itemprop='datePublished' datetime='2022-04-21T04:41:20Z' class='post-time'>
+                    April 21, 2022,  4:41am
+                  </time>
+                  <meta itemprop='dateModified' content='2022-04-21T04:41:20Z'>
+              <span itemprop='position'>9</span>
+              </span>
+            </div>
+            <div class='post' itemprop='text'>
+              <p>Probably you need to wait for next release r17</p>
+<p>Or you can see here</p>
+<aside class="onebox allowlistedgeneric" data-onebox-src="https://forum.legato.io/t/integrating-aws-iot-alexa-with-wp76-upgrading-openssl/5902">
+  <header class="source">
+      <img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/2X/2/2f530449ddf3c5969c6d457cc62c7f403f2ae1d3.png" class="site-icon" width="32" height="32">
+
+      <a href="https://forum.legato.io/t/integrating-aws-iot-alexa-with-wp76-upgrading-openssl/5902" target="_blank" rel="noopener nofollow ugc" title="04:22PM - 22 July 2021">Legato Forum – 22 Jul 21</a>
+  </header>
+
+  <article class="onebox-body">
+    <div class="aspect-image" style="--aspect-ratio:666/500;"><img src="https://global.discourse-cdn.com/business6/uploads/mangoh/original/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277.jpeg" class="thumbnail" width="666" height="500" data-small-upload="https://global.discourse-cdn.com/business6/uploads/mangoh/optimized/1X/0769edef158f9b8e088d3b63e9fc4ef0d66bf277_2_10x10.png"></div>
+
+<h3><a href="https://forum.legato.io/t/integrating-aws-iot-alexa-with-wp76-upgrading-openssl/5902" target="_blank" rel="noopener nofollow ugc">Integrating AWS IoT (Alexa) with WP76 | Upgrading OpenSSL</a></h3>
+
+  <p>Hello,  We are working with WP76xx and Legato 19.11.2 (the stable version from release 16). We would like to integrate it with AWS (Registration | AVS for AWS IoT) which requires  Curve25519.  Currently, the Linux Kernel prebuilt has OpenSSL version...</p>
+
+  <p>
+    <span class="label1">Reading time: 1 mins 🕑</span>
+      <span class="label2">Likes: 1 ❤</span>
+  </p>
+
+  </article>
+
+  <div class="onebox-metadata">
+    
+    
+  </div>
+
+  <div style="clear: both"></div>
+</aside>
+
+<p>To include in .cdef file:</p>
+<aside class="quote" data-post="1" data-topic="9107">
+  <div class="title">
+    <div class="quote-controls"></div>
+    <img loading="lazy" alt="" width="20" height="20" src="https://avatars.discourse-cdn.com/v4/letter/j/4da419/40.png" class="avatar">
+    <a href="https://forum.mangoh.io/t/using-openssl-to-implement-cryptography/9107">Using Openssl to implement cryptography</a> 
+  </div>
+  <blockquote>
+    Hi, 
+I’m writing a program to transmit SMS message on WP7702, I would like  to encrypt the message before it is transmitted over the network. I wonder how can I use openssl lib on Legato? 
+sample code would be very helpful!! 
+Thanks
+  </blockquote>
+</aside>
+
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+              <meta itemprop="interactionType" content="http://schema.org/LikeAction"/>
+              <meta itemprop="userInteractionCount" content="0" />
+              <span class='post-likes'></span>
+            </div>
+
+            <div itemprop="interactionStatistic" itemscope itemtype="http://schema.org/InteractionCounter">
+                <meta itemprop="interactionType" content="http://schema.org/CommentAction"/>
+                <meta itemprop="userInteractionCount" content="0" />
+              </div>
+
+          </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <footer class="container wrap">
+  <nav class='crawler-nav'>
+    <ul>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/' itemprop="url">Home </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/categories' itemprop="url">Categories </a>
+        </span>
+      </li>
+      <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+        <span itemprop='name'>
+          <a href='/guidelines' itemprop="url">FAQ/Guidelines </a>
+        </span>
+      </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/tos' itemprop="url">Terms of Service </a>
+          </span>
+        </li>
+        <li itemscope itemtype='http://schema.org/SiteNavigationElement'>
+          <span itemprop='name'>
+            <a href='/privacy' itemprop="url">Privacy Policy </a>
+          </span>
+        </li>
+    </ul>
+  </nav>
+  <p class='powered-by-link'>Powered by <a href="https://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled</p>
+</footer>
+
+    
+    
+  </body>
+  
+</html>
